@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือการลงทุนแบบ Peter Lynch</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-dark: #8B6914;
+    --ink: #1A1208;
+    --ink-mid: #3D2E10;
+    --paper: #FBF7EE;
+    --paper-warm: #F5EDD8;
+    --paper-dark: #EDE0C4;
+    --accent-red: #8B1A1A;
+    --accent-green: #1A5C2A;
+    --accent-blue: #1A2E5C;
+    --text-body: #2C200A;
+    --text-muted: #6B5A3A;
+    --border: rgba(180, 140, 60, 0.3);
+    --shadow: rgba(100, 70, 10, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    background: var(--ink);
+    color: var(--text-body);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  /* ===== COVER ===== */
+  .cover {
+    background: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  }
+
+  .cover-ornament {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    opacity: 0.8;
+  }
+
+  .cover-rule {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.0;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+
+  .cover-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    color: var(--gold-light);
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 48px;
+    opacity: 0.85;
+  }
+
+  .cover-desc {
+    max-width: 560px;
+    font-size: 15px;
+    color: rgba(240, 210, 128, 0.6);
+    line-height: 1.9;
+    margin-bottom: 56px;
+  }
+
+  .cover-badges {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 60px;
+  }
+
+  .badge {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    font-weight: 500;
+  }
+
+  .cover-footer {
+    font-size: 12px;
+    color: rgba(201,168,76,0.35);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ===== PAGE ===== */
+  .page {
+    background: var(--paper);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 80px;
+  }
+
+  @media (max-width: 700px) {
+    .page { padding: 40px 24px; }
+  }
+
+  /* ===== CHAPTER DIVIDER ===== */
+  .chapter-divider {
+    background: var(--ink);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 80px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .chapter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.4;
+    min-width: 80px;
+  }
+
+  .chapter-info { flex: 1; }
+
+  .chapter-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    opacity: 0.6;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--gold-light);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink-mid);
+    margin: 48px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gold);
+  }
+
+  h3 {
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    margin: 32px 0 12px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: var(--text-body);
+  }
+
+  /* ===== PULLQUOTE ===== */
+  .pullquote {
+    border-left: 4px solid var(--gold);
+    padding: 20px 32px;
+    margin: 40px 0;
+    background: var(--paper-warm);
+  }
+
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .pullquote cite {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    font-style: normal;
+    text-transform: uppercase;
+  }
+
+  /* ===== EXECUTIVE SUMMARY BOX ===== */
+  .exec-summary {
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 40px 48px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .exec-summary::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    color: var(--gold);
+    opacity: 0.15;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+
+  .exec-summary-title {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    opacity: 0.7;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .exec-summary p {
+    color: rgba(240,210,128,0.8);
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 14px;
+  }
+
+  .exec-summary p:last-child { margin-bottom: 0; }
+
+  /* ===== STOCK TYPE CARDS ===== */
+  .stock-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+  }
+
+  .stock-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .stock-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .stock-card.slow-grower::before { background: var(--text-muted); }
+  .stock-card.stalwart::before { background: var(--accent-blue); }
+  .stock-card.fast-grower::before { background: var(--accent-green); }
+  .stock-card.cyclical::before { background: #8B4A00; }
+  .stock-card.turnaround::before { background: var(--accent-red); }
+  .stock-card.asset-play::before { background: var(--gold-dark); }
+
+  .stock-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    opacity: 0.07;
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .stock-card-tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .slow-grower .stock-card-tag { color: var(--text-muted); }
+  .stalwart .stock-card-tag { color: var(--accent-blue); }
+  .fast-grower .stock-card-tag { color: var(--accent-green); }
+  .cyclical .stock-card-tag { color: #8B4A00; }
+  .turnaround .stock-card-tag { color: var(--accent-red); }
+  .asset-play .stock-card-tag { color: var(--gold-dark); }
+
+  .stock-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .stock-card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .stock-card-return {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .return-label { font-size: 11px; color: var(--text-muted); }
+
+  .return-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 3px 10px;
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    color: var(--ink-mid);
+  }
+
+  /* ===== CHECKLIST ===== */
+  .checklist-section {
+    margin: 48px 0;
+  }
+
+  .checklist-header {
+    background: var(--ink-mid);
+    color: var(--gold-light);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 0;
+  }
+
+  .checklist-header-icon {
+    font-size: 28px;
+  }
+
+  .checklist-header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold-light);
+    margin: 0 0 4px;
+  }
+
+  .checklist-header-text p {
+    font-size: 12px;
+    color: rgba(240,210,128,0.5);
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .checklist-body {
+    border: 1px solid var(--border);
+    border-top: none;
+  }
+
+  .checklist-group {
+    border-bottom: 1px solid var(--paper-dark);
+  }
+
+  .checklist-group:last-child { border-bottom: none; }
+
+  .checklist-group-title {
+    background: var(--paper-warm);
+    padding: 12px 24px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+
+  .checklist-items {
+    list-style: none;
+    padding: 8px 0;
+  }
+
+  .checklist-items li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 10px 24px;
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(180,140,60,0.08);
+  }
+
+  .checklist-items li:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border: 1.5px solid var(--border);
+    margin-top: 3px;
+    background: white;
+  }
+
+  .check-text { flex: 1; }
+
+  .check-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ===== WARNING SIGNS ===== */
+  .warning-box {
+    background: #FFF5F5;
+    border: 1px solid rgba(139,26,26,0.2);
+    border-left: 4px solid var(--accent-red);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+
+  .warning-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent-red);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .warning-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .warning-list li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: #5C1A1A;
+    padding: 5px 0;
+    line-height: 1.6;
+  }
+
+  .warning-list li::before {
+    content: '✕';
+    color: var(--accent-red);
+    font-weight: 700;
+    min-width: 16px;
+    margin-top: 1px;
+  }
+
+  /* ===== BUY SIGNAL ===== */
+  .buy-box {
+    background: #F0FFF4;
+    border: 1px solid rgba(26,92,42,0.2);
+    border-left: 4px solid var(--accent-green);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+
+  .buy-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent-green);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .buy-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .buy-list li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: #1A3C22;
+    padding: 5px 0;
+    line-height: 1.6;
+  }
+
+  .buy-list li::before {
+    content: '✓';
+    color: var(--accent-green);
+    font-weight: 700;
+    min-width: 16px;
+    margin-top: 1px;
+  }
+
+  /* ===== FORMULA BOX ===== */
+  .formula-box {
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    margin: 28px 0;
+    text-align: center;
+  }
+
+  .formula-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .formula {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .formula-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* ===== COMPARISON TABLE ===== */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 13px;
+  }
+
+  .comparison-table th {
+    background: var(--ink-mid);
+    color: var(--gold-light);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 11px;
+  }
+
+  .comparison-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--paper-dark);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-table tr:nth-child(even) td { background: var(--paper-warm); }
+
+  .comparison-table .col-type { font-weight: 600; color: var(--ink-mid); }
+
+  /* ===== PETER TIPS ===== */
+  .peter-tip {
+    display: flex;
+    gap: 20px;
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+
+  .peter-tip-avatar {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .peter-tip-name {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .peter-tip-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ===== METRICS GRID ===== */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .metric-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ===== SECTION BREAK ===== */
+  .section-break {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 32px;
+  }
+
+  .section-break-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-break-diamond {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ===== PRACTICAL SECTION ===== */
+  .practical-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+
+  @media (max-width: 600px) {
+    .practical-grid { grid-template-columns: 1fr; }
+  }
+
+  .practical-card {
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+
+  .practical-card-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .practical-card.do .practical-card-title { color: var(--accent-green); }
+  .practical-card.dont .practical-card-title { color: var(--accent-red); }
+
+  .practical-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .practical-list li {
+    font-size: 13px;
+    color: var(--text-body);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(180,140,60,0.1);
+    line-height: 1.6;
+  }
+
+  .practical-list li:last-child { border-bottom: none; }
+
+  /* ===== ONE-LINER ===== */
+  .one-liner {
+    background: var(--ink);
+    padding: 32px 40px;
+    margin: 40px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .one-liner p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    color: var(--gold-light);
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .one-liner-th {
+    font-size: 13px;
+    color: rgba(240,210,128,0.5);
+    margin-top: 12px !important;
+    font-style: normal;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+  }
+
+  /* ===== REFLECTION ===== */
+  .reflection-box {
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin: 28px 0;
+  }
+
+  .reflection-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .reflection-questions {
+    list-style: none;
+    counter-reset: q;
+  }
+
+  .reflection-questions li {
+    counter-increment: q;
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--text-body);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(180,140,60,0.12);
+    line-height: 1.6;
+  }
+
+  .reflection-questions li:last-child { border-bottom: none; }
+
+  .reflection-questions li::before {
+    content: counter(q);
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+    opacity: 0.5;
+    min-width: 24px;
+    font-weight: 700;
+  }
+
+  /* ===== BOOK REFERENCE ===== */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .book-card {
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .book-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .book-author {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .book-desc {
+    font-size: 12px;
+    color: var(--text-body);
+    line-height: 1.6;
+  }
+
+  /* ===== TOC ===== */
+  .toc {
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+    padding: 36px 40px;
+    margin: 40px 0;
+  }
+
+  .toc-title {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 14px;
+  }
+
+  .toc-list li:last-child { border-bottom: none; }
+
+  .toc-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-dark);
+    min-width: 24px;
+  }
+
+  .toc-name {
+    flex: 1;
+    color: var(--ink-mid);
+    font-weight: 500;
+  }
+
+  .toc-dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--border);
+    margin: 0 4px;
+  }
+
+  /* ===== HIGHLIGHT STAT ===== */
+  .highlight-stat {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin: 32px 0;
+    border: 1px solid var(--border);
+  }
+
+  .stat-item {
+    background: var(--paper);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--gold-dark);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    line-height: 1.5;
+  }
+
+  /* ===== FOOTER ===== */
+  .doc-footer {
+    background: var(--ink);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 80px;
+    text-align: center;
+  }
+
+  .doc-footer p {
+    font-size: 12px;
+    color: rgba(201,168,76,0.3);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .doc-footer-rule {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 24px auto;
+    opacity: 0.3;
+  }
+
+  /* ===== DIVIDER TEXT ===== */
+  hr.ornament {
+    border: none;
+    text-align: center;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  hr.ornament::before {
+    content: '✦  ✦  ✦';
+    color: var(--gold);
+    opacity: 0.4;
+    font-size: 12px;
+    letter-spacing: 8px;
+  }
+
+  /* Colored type label */
+  .type-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    margin-bottom: 16px;
+  }
+
+  .type-1 { background: rgba(107,90,58,0.12); color: var(--text-muted); }
+  .type-2 { background: rgba(26,46,92,0.1); color: var(--accent-blue); }
+  .type-3 { background: rgba(26,92,42,0.1); color: var(--accent-green); }
+  .type-4 { background: rgba(139,74,0,0.1); color: #8B4A00; }
+  .type-5 { background: rgba(139,26,26,0.1); color: var(--accent-red); }
+  .type-6 { background: rgba(139,105,20,0.1); color: var(--gold-dark); }
+
+  .italic-note {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .print-tip {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <div class="cover-ornament">Investment Philosophy Series</div>
+  <div class="cover-rule"></div>
+  <div class="cover-title">Peter Lynch</div>
+  <div class="cover-subtitle">The Complete Investor's Playbook</div>
+  <p class="cover-desc">
+    ตกผลึกภูมิปัญญาการลงทุนจากหนังสือทุกเล่มของ Peter Lynch — One Up on Wall Street, Beating the Street และ Learn to Earn — สู่คู่มือที่ครอบคลุมที่สุดสำหรับนักลงทุนไทย
+  </p>
+  <div class="cover-badges">
+    <div class="badge">หุ้น 6 ประเภท</div>
+    <div class="badge">Checklist ละเอียด</div>
+    <div class="badge">ปรัชญาการลงทุน</div>
+    <div class="badge">ประยุกต์ใช้ได้จริง</div>
+  </div>
+  <div class="cover-footer">ฉบับสมบูรณ์ · ภาษาไทย</div>
+</div>
+
+<!-- ===== TOC PAGE ===== -->
+<div class="page">
+  <div class="section-eyebrow">สารบัญ</div>
+  <h1>ภาพรวมเอกสาร</h1>
+
+  <div class="highlight-stat">
+    <div class="stat-item">
+      <div class="stat-value">29×</div>
+      <div class="stat-label">ผลตอบแทนเฉลี่ยต่อปี<br>ของ Magellan Fund</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">6</div>
+      <div class="stat-label">ประเภทหุ้นที่ Lynch<br>แยกแยะออกได้</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">13 ปี</div>
+      <div class="stat-label">บริหาร Fidelity Magellan<br>สร้างผลตอบแทน 2,700%</div>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">เนื้อหาในเอกสารนี้</div>
+    <ul class="toc-list">
+      <li><span class="toc-num">01</span><span class="toc-name">ปรัชญาหลัก: "Invest in What You Know"</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">02</span><span class="toc-name">หุ้น 6 ประเภท — ภาพรวมและเปรียบเทียบ</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">03</span><span class="toc-name">Slow Growers — หุ้นเติบโตช้า</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">04</span><span class="toc-name">Stalwarts — หุ้นผู้ยิ่งใหญ่ที่มั่นคง</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">05</span><span class="toc-name">Fast Growers — หุ้นเติบโตเร็ว</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">06</span><span class="toc-name">Cyclicals — หุ้นวัฏจักร</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">07</span><span class="toc-name">Turnarounds — หุ้นฟื้นตัว</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">08</span><span class="toc-name">Asset Plays — หุ้นทรัพย์สินซ่อนเร้น</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">09</span><span class="toc-name">สัญญาณซื้อและขายที่ดีที่สุด</span><span class="toc-dots"></span></li>
+      <li><span class="toc-num">10</span><span class="toc-name">การประยุกต์ใช้และการไตร่ตรอง</span><span class="toc-dots"></span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== CH 1: PHILOSOPHY ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">01</div>
+  <div class="chapter-info">
+    <div class="chapter-label">บทที่หนึ่ง</div>
+    <div class="chapter-title">ปรัชญาหลักของ Peter Lynch<br>"Invest in What You Know"</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="exec-summary">
+    <div class="exec-summary-title">Executive Summary</div>
+    <p>Peter Lynch คือผู้จัดการกองทุนที่ยิ่งใหญ่ที่สุดในประวัติศาสตร์ Wall Street เขาบริหาร Fidelity Magellan Fund ตั้งแต่ปี 1977-1990 สร้างผลตอบแทนเฉลี่ย 29.2% ต่อปี จาก 18 ล้านดอลลาร์ เป็น 14,000 ล้านดอลลาร์</p>
+    <p>แก่นปรัชญาของเขาเรียบง่ายแต่ทรงพลัง: นักลงทุนรายย่อยมีข้อได้เปรียบที่นักลงทุนสถาบันไม่มี — ความสามารถสังเกตธุรกิจจากชีวิตประจำวัน ก่อนที่ Wall Street จะตามทัน</p>
+    <p>Lynch แบ่งหุ้นออกเป็น 6 ประเภทที่มีธรรมชาติ กลยุทธ์ และความเสี่ยงที่แตกต่างกันโดยสิ้นเชิง การเข้าใจว่าหุ้นที่ถืออยู่อยู่ในประเภทไหน คือจุดเริ่มต้นของการลงทุนที่ถูกต้อง</p>
+  </div>
+
+  <h2>หลักคิดที่ตกผลึกจากหนังสือทุกเล่ม</h2>
+
+  <div class="peter-tip">
+    <div class="peter-tip-avatar">PL</div>
+    <div>
+      <div class="peter-tip-name">Peter Lynch — One Up on Wall Street</div>
+      <p class="peter-tip-text">"The person that turns over the most rocks wins the game."<br><span style="font-size:14px; color: var(--text-muted); font-style: normal; font-family: 'IBM Plex Sans Thai', sans-serif;">คนที่พลิกก้อนหินมากที่สุดคือผู้ชนะ — ลงทุนในสิ่งที่คุณรู้จักดีกว่าใครอื่น</span></p>
+    </div>
+  </div>
+
+  <h3>หลักการ 5 ข้อที่ Lynch ยึดมั่น</h3>
+
+  <div class="checklist-section">
+    <div class="checklist-body" style="border-top: 1px solid var(--border);">
+      <div class="checklist-group">
+        <div class="checklist-group-title">หลักการที่ 1 — Know What You Own</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">อธิบายได้ใน 2 นาทีว่าทำไมถึงซื้อหุ้นนี้<div class="check-note">Lynch เรียกนี้ว่า "Two-minute drill" — ถ้าอธิบายไม่ได้ แสดงว่ายังไม่เข้าใจธุรกิจพอ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">รู้ว่าบริษัทอยู่ในประเภทหุ้นไหนใน 6 ประเภท<div class="check-note">กลยุทธ์ซื้อและขายแตกต่างกันตามประเภท การสับสนประเภทคือความผิดพลาดที่ร้ายแรง</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">เข้าใจว่าบริษัทจะทำเงินให้เราอย่างไร<div class="check-note">รายได้มาจากไหน? ต้นทุนหลักคืออะไร? ใครคือคู่แข่ง?</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">หลักการที่ 2 — The Edge of Everyday Life</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">มองหาหุ้นจากชีวิตประจำวันก่อน Wall Street<div class="check-note">Lynch พบ Dunkin' Donuts, Hanes, La Quinta จากประสบการณ์ตรงก่อนที่นักวิเคราะห์จะสนใจ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ถามว่า "คนรอบข้างฉันซื้อผลิตภัณฑ์นี้เพิ่มขึ้นหรือเปล่า?"<div class="check-note">การสังเกตพฤติกรรมผู้บริโภคคือ early indicator ที่ดีที่สุด</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">หลักการที่ 3 — Ignore the Market Noise</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ไม่ใช้ macro prediction เป็นเหตุผลซื้อขาย<div class="check-note">"Nobody can predict interest rates, the future direction of the economy, or the stock market." — Lynch</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ตลาดหุ้นที่ตกหนักคือโอกาส ไม่ใช่ภัยคุกคาม<div class="check-note">Lynch มองว่า correction คือ "sale" ของ Wall Street</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">หลักการที่ 4 — Numbers Matter, But Story First</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">เข้าใจ "เรื่องราว" ของหุ้นก่อน ตัวเลขเพื่อยืนยัน<div class="check-note">ตัวเลขที่ดีโดยไม่มี story ที่ดีไม่เพียงพอ เรื่องราวที่ดีโดยไม่มีตัวเลขสนับสนุนก็ไม่เพียงพอ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">P/E ต้องสมเหตุสมผลกับอัตราการเติบโต (PEG Ratio)<div class="check-note">PEG = P/E ÷ Growth Rate ในอุดมคติควร ≤ 1.0</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">หลักการที่ 5 — Hold, Don't Panic Sell</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ขายก็ต่อเมื่อ story เปลี่ยน ไม่ใช่เพราะราคาลง<div class="check-note">ราคาที่ลงโดยที่ story ยังดีอยู่ = โอกาสเพิ่มสถานะ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ทบทวน thesis ของหุ้นทุกไตรมาส<div class="check-note">ถามว่า "ถ้าฉันยังไม่มีหุ้นนี้ ฉันจะซื้อมันวันนี้ไหม?"</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="one-liner">
+    <p>"Know what you own, and know why you own it."</p>
+    <p class="one-liner-th">รู้ว่าตัวเองถืออะไร และรู้ว่าทำไมถึงถือมัน — นี่คือรากฐานของการลงทุนทั้งหมด</p>
+  </div>
+
+</div>
+
+<!-- ===== CH 2: 6 TYPES OVERVIEW ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">02</div>
+  <div class="chapter-info">
+    <div class="chapter-label">บทที่สอง</div>
+    <div class="chapter-title">หุ้น 6 ประเภท<br>ภาพรวมและการเปรียบเทียบ</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <p>Lynch มองว่าการแบ่งหุ้นตามขนาด (Large/Mid/Small Cap) หรือตามอุตสาหกรรมนั้น "ผิดวิธี" การแบ่งที่ถูกต้องต้องดูที่ <strong>พฤติกรรมการเติบโตและโครงสร้างธุรกิจ</strong> ซึ่งบ่งบอกถึงโอกาสและความเสี่ยงที่แท้จริง</p>
+
+  <div class="stock-grid">
+    <div class="stock-card slow-grower">
+      <div class="stock-card-num">01</div>
+      <div class="stock-card-tag">Slow Growers</div>
+      <div class="stock-card-name">หุ้นเติบโตช้า</div>
+      <div class="stock-card-desc">บริษัทขนาดใหญ่ เติบโตพอกับ GDP โดยรวม มักจ่ายเงินปันผลสูง เป็นรากฐานของพอร์ต</div>
+      <div class="stock-card-return">
+        <span class="return-label">เป้าผลตอบแทน:</span>
+        <span class="return-badge">3–6% / ปี</span>
+      </div>
+    </div>
+    <div class="stock-card stalwart">
+      <div class="stock-card-num">02</div>
+      <div class="stock-card-tag">Stalwarts</div>
+      <div class="stock-card-name">หุ้นยักษ์มั่นคง</div>
+      <div class="stock-card-desc">บริษัทขนาดใหญ่เติบโต 10–12% ต่อปี ไม่โดดเด่นแต่เชื่อถือได้ เหมาะในภาวะตลาดผันผวน</div>
+      <div class="stock-card-return">
+        <span class="return-label">เป้าผลตอบแทน:</span>
+        <span class="return-badge">10–12% / ปี</span>
+      </div>
+    </div>
+    <div class="stock-card fast-grower">
+      <div class="stock-card-num">03</div>
+      <div class="stock-card-tag">Fast Growers</div>
+      <div class="stock-card-name">หุ้นเติบโตเร็ว</div>
+      <div class="stock-card-desc">บริษัทเล็กถึงกลาง เติบโต 20–25% ต่อปี คือแหล่งที่มาของ "ten-bagger" แต่ต้องวิเคราะห์ระมัดระวัง</div>
+      <div class="stock-card-return">
+        <span class="return-label">เป้าผลตอบแทน:</span>
+        <span class="return-badge">10–200× possible</span>
+      </div>
+    </div>
+    <div class="stock-card cyclical">
+      <div class="stock-card-num">04</div>
+      <div class="stock-card-tag">Cyclicals</div>
+      <div class="stock-card-name">หุ้นวัฏจักร</div>
+      <div class="stock-card-desc">รายได้ขึ้นลงตามวัฏจักรเศรษฐกิจ การจับจังหวะคือทุกอย่าง ซื้อผิดเวลา = ขาดทุนหนัก</div>
+      <div class="stock-card-return">
+        <span class="return-label">เป้าผลตอบแทน:</span>
+        <span class="return-badge">ขึ้นกับจังหวะ</span>
+      </div>
+    </div>
+    <div class="stock-card turnaround">
+      <div class="stock-card-num">05</div>
+      <div class="stock-card-tag">Turnarounds</div>
+      <div class="stock-card-name">หุ้นฟื้นตัว</div>
+      <div class="stock-card-desc">บริษัทที่กำลังฟื้นจากวิกฤต ถ้าฟื้นจริง = กำไรมหาศาล ถ้าฟื้นไม่ได้ = สูญเงินทั้งหมด</div>
+      <div class="stock-card-return">
+        <span class="return-label">เป้าผลตอบแทน:</span>
+        <span class="return-badge">2–10× หรือ 0</span>
+      </div>
+    </div>
+    <div class="stock-card asset-play">
+      <div class="stock-card-num">06</div>
+      <div class="stock-card-tag">Asset Plays</div>
+      <div class="stock-card-name">หุ้นทรัพย์สินซ่อนเร้น</div>
+      <div class="stock-card-desc">บริษัทที่มีทรัพย์สินมีค่าซ่อนอยู่ในงบดุล ตลาดยังไม่รับรู้ราคาที่แท้จริง</div>
+      <div class="stock-card-return">
+        <span class="return-label">เป้าผลตอบแทน:</span>
+        <span class="return-badge">ขึ้นกับ catalyst</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>ตารางเปรียบเทียบ 6 ประเภทหุ้น</h2>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>ประเภท</th>
+        <th>อัตราเติบโต</th>
+        <th>ระยะถือ</th>
+        <th>สิ่งที่ Lynch ชอบ</th>
+        <th>สัญญาณขาย</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-type">🔵 Slow Growers</td>
+        <td>2–4%</td>
+        <td>ระยะยาวมาก</td>
+        <td>เงินปันผลสม่ำเสมอ, ต้นทุนต่ำ</td>
+        <td>ปันผลลด, ส่วนแบ่งตลาดหาย</td>
+      </tr>
+      <tr>
+        <td class="col-type">🟦 Stalwarts</td>
+        <td>10–12%</td>
+        <td>1–5 ปี</td>
+        <td>แบรนด์แข็งแกร่ง, P/E ยุติธรรม</td>
+        <td>P/E สูงเกิน, growth ชะลอ</td>
+      </tr>
+      <tr>
+        <td class="col-type">🟢 Fast Growers</td>
+        <td>20–25%+</td>
+        <td>3–10 ปี</td>
+        <td>Expansion ยังน้อย, PEG ต่ำ</td>
+        <td>Story เปลี่ยน, ขยายสาขาเร็วเกิน</td>
+      </tr>
+      <tr>
+        <td class="col-type">🟠 Cyclicals</td>
+        <td>ขึ้นๆลงๆ</td>
+        <td>1–3 ปี</td>
+        <td>จับจังหวะถูก, inventory ลด</td>
+        <td>วัฏจักรพลิก, P/E ต่ำผิดปกติ</td>
+      </tr>
+      <tr>
+        <td class="col-type">🔴 Turnarounds</td>
+        <td>ติดลบ→บวก</td>
+        <td>1–4 ปี</td>
+        <td>แผนฟื้นฟูชัดเจน, เงินสดพอ</td>
+        <td>แผนล้มเหลว, หนี้เพิ่มต่อเนื่อง</td>
+      </tr>
+      <tr>
+        <td class="col-type">🟡 Asset Plays</td>
+        <td>ไม่สำคัญ</td>
+        <td>1–5 ปี</td>
+        <td>ทรัพย์สินมีค่า, Catalyst ชัด</td>
+        <td>ทรัพย์สินถูกขายออก, catalyst ไม่เกิด</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="peter-tip">
+    <div class="peter-tip-avatar">PL</div>
+    <div>
+      <div class="peter-tip-name">Peter Lynch — Beating the Street</div>
+      <p class="peter-tip-text">"Classifying stocks into these categories is the first step in developing a sound investment strategy. The key question is not 'is it a good company?' but 'what type of company is it?'"</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== TYPE 1: SLOW GROWERS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">03</div>
+  <div class="chapter-info">
+    <div class="chapter-label">ประเภทที่หนึ่ง</div>
+    <div class="chapter-title">Slow Growers<br>หุ้นเติบโตช้า — ราชาแห่งเงินปันผล</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="type-label type-1">Slow Growers · Type 01</div>
+
+  <h2>Slow Growers คืออะไร?</h2>
+  <p>คือบริษัทขนาดใหญ่ที่เคยเติบโตเร็วในอดีต แต่ปัจจุบัน growth ชะลอตัวมาอยู่ระดับ 2–4% ต่อปี ใกล้เคียงกับ GDP โดยรวม มักเป็นอุตสาหกรรมที่ "โตเต็มที่แล้ว" เช่น สาธารณูปโภค บริษัทน้ำมัน หรือบริษัทอาหารขนาดใหญ่</p>
+
+  <p>Lynch <strong>ไม่ชอบ</strong> Slow Growers เป็นพิเศษ เพราะผลตอบแทนจำกัด เว้นแต่ราคาจะถูกมากหรือเงินปันผลสูงมาก หากต้องถือ ถือเพื่อปันผลและความมั่นคง ไม่ใช่เพื่อ capital gain</p>
+
+  <div class="pullquote">
+    <p>"The only reason to own a slow grower is the dividend — and you'd better make sure the dividend is safe."</p>
+    <cite>Peter Lynch — One Up on Wall Street</cite>
+  </div>
+
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <div class="checklist-header-text">
+        <h3>Checklist: Slow Growers</h3>
+        <p>สิ่งที่ต้องตรวจสอบก่อนลงทุน</p>
+      </div>
+    </div>
+    <div class="checklist-body">
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ เงินปันผล (Dividend Health)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">เงินปันผลเติบโตอย่างน้อย 5 ปีติดต่อกัน<div class="check-note">ตรวจ dividend history ย้อนหลัง 10 ปี ดูว่าเคยลดปันผลในช่วง recession ไหม</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Payout Ratio ไม่เกิน 50-60% ของกำไร<div class="check-note">ถ้าสูงกว่านี้ บริษัทอาจจำเป็นต้องลดปันผลในอนาคต</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Free Cash Flow ครอบคลุมเงินปันผลได้<div class="check-note">บางบริษัทจ่ายปันผลจากหนี้ ซึ่งอันตรายมาก</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ความแข็งแกร่งของธุรกิจ</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ส่วนแบ่งตลาดไม่ลดลงในช่วง 3 ปีที่ผ่านมา<div class="check-note">Slow Grower ที่กำลังเสียส่วนแบ่งตลาดคืออันตราย ไม่ใช่แค่ช้า</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Profit Margin ทรงตัวหรือปรับตัวดีขึ้น<div class="check-note">Margin ที่ลดลงอย่างช้าๆ บ่งบอกถึงปัญหาเชิงโครงสร้าง</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">หนี้สินระยะยาวอยู่ในระดับที่จัดการได้<div class="check-note">Debt/Equity ควรต่ำกว่า 50% สำหรับ Slow Grower ทั่วไป</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ สัญญาณขายออก (เมื่อ Story เปลี่ยน)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ประกาศลดเงินปันผล → ขายทันที<div class="check-note">เหตุผลหลักที่ถือ Slow Grower หายไปแล้ว</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">บริษัทเริ่ม diversify เข้าธุรกิจที่ไม่รู้จัก (diworsification)<div class="check-note">Lynch เกลียดการ M&A ที่ไม่สมเหตุสมผลมาก</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ส่วนแบ่งตลาดลดลง 2 ไตรมาสติดต่อกัน → พิจารณาลดสถานะ</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="practical-grid">
+    <div class="practical-card do">
+      <div class="practical-card-title">✓ เหมาะสำหรับ</div>
+      <ul class="practical-list">
+        <li>นักลงทุนที่ต้องการรายได้สม่ำเสมอจากเงินปันผล</li>
+        <li>พอร์ตที่ต้องการความมั่นคงในภาวะตลาดผันผวน</li>
+        <li>นักลงทุนที่ใกล้เกษียณต้องการ passive income</li>
+        <li>ใช้เป็น "ฐาน" ของพอร์ตก่อนลงทุนในประเภทอื่น</li>
+      </ul>
+    </div>
+    <div class="practical-card dont">
+      <div class="practical-card-title">✕ ไม่เหมาะสำหรับ</div>
+      <ul class="practical-list">
+        <li>คนที่ต้องการ capital gain สูงในระยะสั้น</li>
+        <li>การหวัง ten-bagger จาก Slow Growers คือความฝันที่ผิด</li>
+        <li>พอร์ตที่มีระยะเวลาลงทุนสั้น (ต่ำกว่า 5 ปี)</li>
+        <li>ซื้อเพราะ "ชื่อบริษัทดูดี" โดยไม่ดูปันผล</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== TYPE 2: STALWARTS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">04</div>
+  <div class="chapter-info">
+    <div class="chapter-label">ประเภทที่สอง</div>
+    <div class="chapter-title">Stalwarts<br>หุ้นยักษ์ที่เชื่อถือได้ — เกราะป้องกันพอร์ต</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="type-label type-2">Stalwarts · Type 02</div>
+
+  <h2>Stalwarts คืออะไร?</h2>
+  <p>Stalwart คือบริษัทขนาดใหญ่ที่เติบโตประมาณ 10–12% ต่อปี มีแบรนด์ที่แข็งแกร่ง มีความสามารถในการแข่งขันสูง และอยู่รอดมาได้ผ่านทุก recession ตัวอย่างคลาสสิกที่ Lynch ชอบ เช่น Coca-Cola, Colgate, Johnson & Johnson</p>
+
+  <p>Lynch ถือ Stalwarts ไว้เพื่อ "defensive play" — ในภาวะตลาดหมี Stalwarts มักลงน้อยกว่าตลาด และในภาวะตลาดกระทิง ก็ยังขึ้นได้ดี เป้าหมายของ Lynch คือ ขาย Stalwarts เมื่อราคาขึ้น 30–50% แล้วหาตัวใหม่แทน</p>
+
+  <div class="formula-box">
+    <div class="formula-label">สูตรที่ Lynch ใช้กับ Stalwarts</div>
+    <div class="formula">P/E ÷ Growth Rate = PEG Ratio</div>
+    <p class="formula-sub">Stalwart ที่ดี: PEG ไม่เกิน 1.0 | PEG &lt; 0.5 = ถูกมาก | PEG &gt; 1.5 = แพงเกินไป</p>
+  </div>
+
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <div class="checklist-header-text">
+        <h3>Checklist: Stalwarts</h3>
+        <p>สิ่งที่ต้องตรวจสอบก่อนลงทุน</p>
+      </div>
+    </div>
+    <div class="checklist-body">
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ความแข็งแกร่งของธุรกิจ (Business Moat)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">แบรนด์ที่ผู้บริโภครู้จักและไว้วางใจ<div class="check-note">ถามตัวเองว่า "บริษัทนี้จะยังมีอยู่ใน 10 ปีข้างหน้าแน่ๆ ไหม?"</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Gross Margin เสถียรหรือขยายตัวต่อเนื่อง (≥ 20%)<div class="check-note">Margin ที่สูงและเสถียรบ่งบอกถึง pricing power ที่แท้จริง</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ยอดขายเติบโตสม่ำเสมอแม้ในช่วง recession<div class="check-note">Stalwart ที่แท้จริงต้องผ่านวิกฤตมาได้โดยไม่สูญเสีย market share</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">มี Competitive Advantage ที่ชัดเจน (ต้นทุน, แบรนด์, เครือข่าย)<div class="check-note">Lynch ชอบบริษัทที่แม้แต่คู่แข่งก็ยังใช้ผลิตภัณฑ์นั้น</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ตัวเลขการเงิน (Financial Metrics)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">P/E ต่ำกว่าค่าเฉลี่ยของอุตสาหกรรม หรือต่ำกว่าอัตราการเติบโต<div class="check-note">ซื้อ Stalwart ที่ P/E สูงมากคือการจ่ายแพงเกินจริงสำหรับ growth ที่คาดการณ์ได้</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Return on Equity (ROE) สูงกว่า 15% อย่างสม่ำเสมอ<div class="check-note">ROE ที่สูงแสดงว่าบริษัทใช้เงินของผู้ถือหุ้นได้อย่างมีประสิทธิภาพ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Net Cash หรือ Debt อยู่ในระดับที่ควบคุมได้<div class="check-note">Debt/Equity &lt; 1.0 สำหรับ Stalwart ทั่วไป</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">EPS เติบโตอย่างน้อย 10% ต่อปีในช่วง 5 ปีที่ผ่านมา</div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ กลยุทธ์การเข้าและออก</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">เข้าซื้อเมื่อตลาดหุ้นโดยรวมตก (Stalwart ลงตาม แต่ business ยังดี)<div class="check-note">Lynch มักรอ Stalwart ลง 20–30% แล้วค่อยซื้อ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">วางเป้าหมายขายที่ +30–50% จากราคาซื้อ<div class="check-note">Lynch ไม่ถือ Stalwart ตลอดชีวิต แต่ rotate ไปเรื่อยๆ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ขายเมื่อ P/E สูงกว่าอัตราการเติบโตเกิน 50%<div class="check-note">เช่น Growth 12% แต่ P/E = 20 → PEG = 1.67 → พิจารณาขาย</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-title">⚠ สัญญาณเตือน — Stalwart ที่ต้องระวัง</div>
+    <ul class="warning-list">
+      <li>ผู้บริหารพูดถึง "diversification เชิงกลยุทธ์" ในธุรกิจที่ไม่เกี่ยวข้อง</li>
+      <li>บริษัทซื้อหุ้นคืนในราคาที่แพงเกินไป (buyback เพื่อ EPS ปลอม)</li>
+      <li>นักวิเคราะห์ทุกคนให้ "Buy" — หมายความว่าราคาอาจ priced in แล้ว</li>
+      <li>ยอดขายในตลาดหลักหดตัวต่อเนื่อง แต่บริษัทชดเชยด้วยการขึ้นราคา</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ===== TYPE 3: FAST GROWERS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">05</div>
+  <div class="chapter-info">
+    <div class="chapter-label">ประเภทที่สาม</div>
+    <div class="chapter-title">Fast Growers<br>หุ้นเติบโตเร็ว — ที่มาของ Ten-Baggers</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="type-label type-3">Fast Growers · Type 03</div>
+
+  <h2>Fast Growers คืออะไร?</h2>
+  <p>Fast Grower คือหุ้นที่ Lynch รักที่สุด — บริษัทเล็กถึงกลางที่มีโมเดลธุรกิจที่ replicable เติบโต 20–25% ต่อปี และยังมีพื้นที่ขยายตัวได้อีกมาก Lynch ค้นพบ ten-baggers ส่วนใหญ่ (หุ้นที่ราคาขึ้น 10 เท่า) จากประเภทนี้</p>
+
+  <p>คำถามสำคัญที่สุดสำหรับ Fast Grower: <strong>"ยังมีที่ว่างให้เติบโตอีกมากแค่ไหน?"</strong> Lynch เปรียบเหมือนร้าน Dunkin' Donuts — ถ้าเปิดแค่ New England ยังมีทั้ง US ที่รอขยาย ถ้าเต็ม US แล้วยังมี International แต่ถ้า Saturate ทุกตลาดแล้ว growth จะหยุด</p>
+
+  <div class="peter-tip">
+    <div class="peter-tip-avatar">PL</div>
+    <div>
+      <div class="peter-tip-name">Peter Lynch — One Up on Wall Street</div>
+      <p class="peter-tip-text">"The best stock to own is a company with 20% growth and a P/E of 20 — that's what a 'fairly priced growth stock' looks like. If you pay a PEG above 2, you're probably overpaying for the growth."</p>
+    </div>
+  </div>
+
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <div class="checklist-header-text">
+        <h3>Checklist: Fast Growers</h3>
+        <p>สิ่งที่ต้องตรวจสอบอย่างละเอียด</p>
+      </div>
+    </div>
+    <div class="checklist-body">
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ Story ของการเติบโต (The Growth Story)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">บริษัทมีโมเดลธุรกิจที่ replicable ในตลาดใหม่ได้<div class="check-note">ร้านอาหาร โรงแรม ร้านค้าปลีก คือตัวอย่างคลาสสิก — expansion story ต้องชัดเจน</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ส่วนแบ่งตลาดปัจจุบันยังน้อยกว่า 20–30% ของ Total Addressable Market<div class="check-note">ถ้าส่วนแบ่งตลาดสูงเกินแล้ว อาจไม่มีที่ว่างให้เติบโต</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">สาขา/ยอดขายต่อหน่วยในตลาดเก่ายังเติบโต (same-store sales growth)<div class="check-note">Lynch เช็ค same-store sales เสมอ ถ้าลดลงแม้ขยายสาขา — เป็นสัญญาณอันตราย</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">สินค้า/บริการมี "niche" ที่ชัดเจน และยากต่อการ compete<div class="check-note">Lynch ชอบบริษัทที่อยู่ใน "boring industry with exciting company"</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ตัวเลขที่ต้องตรวจสอบ</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">EPS เติบโตอย่างน้อย 20% ต่อปี ในช่วง 3 ปีที่ผ่านมา<div class="check-note">การเติบโตต้องสม่ำเสมอ ไม่ใช่ขึ้นปีเดียวแล้วแผ่ว</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">PEG Ratio ต่ำกว่า 1.0 หรืออย่างมาก 1.5<div class="check-note">PEG = P/E ÷ Growth Rate (%) | ตัวอย่าง: P/E=30, Growth=25% → PEG=1.2 (ยอมรับได้)</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Gross Margin สูงและกำลังขยายตัว<div class="check-note">Margin ที่ขยายตัวแสดงว่า scale economy กำลังทำงาน</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">บริษัทไม่มีหนี้มากเกินไปเมื่อเทียบกับกระแสเงินสด<div class="check-note">Fast Grower ที่ load debt หนักเพื่อขยายตัว = risk สูงมากถ้า growth หยุด</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Inventory เติบโตช้ากว่ายอดขาย (inventory turnover ดีขึ้น)<div class="check-note">Inventory ที่สะสมเร็วกว่าขาย = สัญญาณอันตรายอย่างแรก</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ คุณภาพของผู้บริหาร</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ผู้บริหารถือหุ้นบริษัทตัวเองในปริมาณสำคัญ<div class="check-note">"Insiders buying is the best sign" — Lynch มองการซื้อหุ้นของ insider เป็นสัญญาณบวกที่แรงที่สุด</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ผู้บริหารพูดถึงธุรกิจอย่างตรงไปตรงมา ยอมรับความผิดพลาด<div class="check-note">Lynch ชอบ management ที่ "boring" — ไม่ฉลาดเกินไป ไม่ขายฝัน</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">บริษัทไม่มีการ diversify แบบไม่สมเหตุสมผล<div class="check-note">Lynch เรียก acquisition ที่ไม่เกี่ยวกับ core business ว่า "diworsification"</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ สัญญาณขายออก (Story เปลี่ยน)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">Same-store sales หรือ unit economics เริ่มลดลง 2 ไตรมาสติดต่อกัน → พิจารณาขาย</div></li>
+          <li><div class="check-box"></div><div class="check-text">บริษัทขยายสาขาเร็วเกินไปจนคุณภาพตก<div class="check-note">Lynch เรียกสิ่งนี้ว่า "the curse of the hot concept" — ขยายเพื่อตอบ Wall Street ไม่ใช่ market demand</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Growth Rate ชะลอจาก 25% เหลือ 10% โดยไม่มีเหตุผล → ประเมิน re-categorize เป็น Stalwart</div></li>
+          <li><div class="check-box"></div><div class="check-text">P/E สูงกว่า Growth Rate มากกว่า 2 เท่า (PEG &gt; 2.0) โดยไม่มีเหตุผลพิเศษ</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="buy-box">
+    <div class="buy-title">✓ สัญญาณซื้อที่ดีที่สุด</div>
+    <ul class="buy-list">
+      <li>Insider ซื้อหุ้นจำนวนมากในช่วงที่ราคาตก</li>
+      <li>บริษัทอยู่ใน boring industry แต่มี exciting growth story</li>
+      <li>Institutional ownership ต่ำ (นักวิเคราะห์ยังไม่รู้จัก = upside สูง)</li>
+      <li>บริษัทเพิ่งเริ่มขยาย geographic ใหม่ที่มีศักยภาพสูง</li>
+      <li>PEG ต่ำกว่า 0.7 พร้อม growth story ที่ยังคงสมบูรณ์</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ===== TYPE 4: CYCLICALS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">06</div>
+  <div class="chapter-info">
+    <div class="chapter-label">ประเภทที่สี่</div>
+    <div class="chapter-title">Cyclicals<br>หุ้นวัฏจักร — ต้องจับเวลาให้แม่น</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="type-label type-4">Cyclicals · Type 04</div>
+
+  <h2>Cyclicals คืออะไร?</h2>
+  <p>Cyclical คือบริษัทที่รายได้และกำไรขึ้นลงตามวัฏจักรเศรษฐกิจอย่างชัดเจน เช่น อุตสาหกรรมเหล็ก ยานยนต์ เคมีภัณฑ์ สายการบิน หรือโรงแรม ในช่วง boom กำไรพุ่งสูง ในช่วง bust กำไรอาจหายไปหมด</p>
+
+  <p>Lynch เตือนว่า Cyclicals เป็น "หุ้นที่อันตรายที่สุดสำหรับนักลงทุนที่ไม่รู้จักมัน" เพราะ <strong>สิ่งที่ดูเหมือนสัญญาณซื้อ (P/E ต่ำ) อาจเป็นสัญญาณขาย และสิ่งที่ดูเหมือนสัญญาณขาย (P/E สูง) อาจเป็นสัญญาณซื้อ</strong></p>
+
+  <div class="pullquote">
+    <p>"If you buy cyclicals without understanding the cycle, you might think you're getting a bargain when P/E is low — but often that's exactly when you should sell."</p>
+    <cite>Peter Lynch — One Up on Wall Street</cite>
+  </div>
+
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <div class="checklist-header-text">
+        <h3>Checklist: Cyclicals</h3>
+        <p>สิ่งที่ต้องตรวจสอบตามวัฏจักร</p>
+      </div>
+    </div>
+    <div class="checklist-body">
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ การอ่านวัฏจักร (Reading the Cycle)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ระบุว่าอุตสาหกรรมอยู่ในจุดไหนของวัฏจักร<div class="check-note">ถามว่า "กำลังดี" หรือ "กำลังแย่" — ซื้อเมื่อ "กำลังแย่" ขายเมื่อ "กำลังดี"</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ตรวจ Inventory Level ของอุตสาหกรรม (ไม่ใช่แค่บริษัท)<div class="check-note">ถ้า inventory อุตสาหกรรมสูง = supply เกิน = ราคาจะตก ถ้า inventory ต่ำ = demand มา = ราคาจะขึ้น</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ดู Capacity Utilization ของอุตสาหกรรม<div class="check-note">ถ้า utilization ต่ำกว่า 70% = ยังไม่ถึงเวลา | ถ้าสูงกว่า 90% = กำลังใกล้จุดพลิก</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">สังเกตการขึ้นราคาสินค้าในอุตสาหกรรม<div class="check-note">ราคาสินค้าที่เริ่มขึ้นหลังจากตกมานาน = สัญญาณบวกที่แรงมาก</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ตัวเลขที่สำคัญสำหรับ Cyclicals</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">Cash per share เพียงพอให้บริษัทอยู่รอดผ่าน downturn<div class="check-note">ถ้าเงินสดไม่พอ บริษัทอาจเพิ่มทุนหรือล้มในช่วง bust</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Debt อยู่ในระดับที่จัดการได้แม้ในปีที่แย่ที่สุด<div class="check-note">ดู worst-case scenario ย้อนหลัง บริษัทผ่านได้ไหม?</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ต้นทุนการผลิตต่อหน่วยต่ำกว่าคู่แข่ง<div class="check-note">ผู้ผลิตต้นทุนต่ำที่สุดจะรอดในช่วง downturn และกำไรมากที่สุดใน upturn</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">อย่าใช้ P/E ในการตัดสิน Cyclicals ในช่วง peak<div class="check-note">ในช่วง peak: P/E ต่ำ แต่ราคาหุ้นสูง (ใกล้จุดขาย) | ในช่วง bust: P/E สูง แต่ราคาหุ้นต่ำ (ใกล้จุดซื้อ)</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ สัญญาณซื้อและขาย</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ซื้อ: กำไรกำลังแย่, ราคาหุ้นต่ำมาก, มีสัญญาณ supply ลด<div class="check-note">Cyclicals ที่ดีที่สุดคือซื้อตอนที่ทุกคนบอกว่า "อุตสาหกรรมนี้ตายแล้ว"</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ขาย: กำไรสูงสุดในรอบ, ทุกคนพูดว่า "ดีมาก", สร้าง capacity ใหม่ทั่วอุตสาหกรรม</div></li>
+          <li><div class="check-box"></div><div class="check-text">ขาย: บริษัทเริ่มลด dividend เพราะ cycle กำลังพลิก</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-title">⚠ ความผิดพลาดที่พบบ่อยที่สุดกับ Cyclicals</div>
+    <ul class="warning-list">
+      <li>ซื้อหลังจาก "ผ่านจุดต่ำสุดมาแล้ว" — มักสายเกินไป ราคาขึ้นมาก่อนแล้ว</li>
+      <li>ถือต่อในช่วง peak เพราะ "กำไรยังดีอยู่" — วัฏจักรพลิกเร็วกว่าที่คิด</li>
+      <li>เชื่อ P/E ต่ำในช่วง peak ว่าหุ้นยังถูก — กำไรจะหายไปในปีหน้า</li>
+      <li>ไม่รู้ระยะเวลาโดยเฉลี่ยของวัฏจักรในอุตสาหกรรมนั้น</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ===== TYPE 5: TURNAROUNDS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">07</div>
+  <div class="chapter-info">
+    <div class="chapter-label">ประเภทที่ห้า</div>
+    <div class="chapter-title">Turnarounds<br>หุ้นฟื้นตัว — กำไรสูงหรือสูญทั้งหมด</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="type-label type-5">Turnarounds · Type 05</div>
+
+  <h2>Turnarounds คืออะไร?</h2>
+  <p>Turnaround คือบริษัทที่กำลังอยู่ในวิกฤต — อาจใกล้ล้มละลาย กำลังปรับโครงสร้าง หรือเพิ่งเปลี่ยนทีมผู้บริหารใหม่ ถ้าฟื้นตัวได้จริง นักลงทุนที่ซื้อตอนล่างสุดจะได้กำไร 2–10 เท่า แต่ถ้าฟื้นไม่ได้ เงินลงทุนอาจสูญทั้งก้อน</p>
+
+  <p>Lynch ตั้งชื่อ sub-categories ของ Turnaround ไว้ เช่น <strong>"The Catastrophe" </strong>(อุบัติเหตุครั้งใหญ่ที่แก้ไขได้), <strong>"The Turnaround Baby"</strong> (บริษัทแม่ขาย subsidiary ที่ไม่ทำกำไร) และ <strong>"The Hidden Asset Play"</strong> (Turnaround ที่มีทรัพย์สินซ่อนเร้นด้วย)</p>
+
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <div class="checklist-header-text">
+        <h3>Checklist: Turnarounds</h3>
+        <p>สิ่งที่ต้องตรวจสอบก่อนเสี่ยง</p>
+      </div>
+    </div>
+    <div class="checklist-body">
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ วิเคราะห์ต้นเหตุของวิกฤต</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ปัญหาเป็น "temporary" หรือ "structural"?<div class="check-note">ปัญหาชั่วคราว (ราคาน้ำมันสูง, วิกฤต COVID) = แก้ได้ | ปัญหาโครงสร้าง (product obsolete, model พัง) = แก้ยาก</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">สาเหตุของปัญหาเฉพาะบริษัทหรือทั้งอุตสาหกรรม?<div class="check-note">ถ้าทั้งอุตสาหกรรมมีปัญหา การฟื้นตัวขึ้นกับปัจจัยภายนอกที่ควบคุมไม่ได้</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Core Business ยังมีคุณค่าและ demand อยู่ไหม?<div class="check-note">ถ้า core business ไม่มีคนต้องการแล้ว ไม่มี management ไหนช่วยได้</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ความอยู่รอดทางการเงิน (Survival Check)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">บริษัทมีเงินสดเพียงพอสำหรับอย่างน้อย 12–18 เดือน<div class="check-note">Lynch เช็ค cash runway ก่อนเสมอ ถ้าเงินหมดก่อนฟื้น = สูญ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">หนี้สินที่ครบกำหนดใน 1-2 ปีข้างหน้ามีแผนชัดเจน<div class="check-note">ดู maturity schedule ของ debt — ถ้ามี debt ก้อนใหญ่ครบเร็ว = risk สูง</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">แหล่งเงินสำรอง: วงเงิน credit line ที่ยังไม่ได้ใช้?<div class="check-note">Turnaround ที่ดีมักมีสินทรัพย์ที่ขายได้เพื่อ buy time</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ แผนฟื้นฟู (Turnaround Plan)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">มีผู้บริหารใหม่หรือ activist investor เข้ามาผลักดัน<div class="check-note">Turnaround ที่ดีที่สุดมักเกิดเมื่อ management เก่าออก และ management ใหม่มีประวัติที่ดี</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">แผนลดต้นทุนมีความชัดเจนและเป็นรูปธรรม<div class="check-note">ตรวจว่า cost cutting ไม่กระทบ core competency ของบริษัท</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">บริษัทกำลัง divest ส่วนที่ไม่ทำกำไรออก<div class="check-note">การขาย non-core assets = สัญญาณบวก เพราะได้เงินสด + focus ดีขึ้น</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Insider (ผู้บริหาร/กรรมการ) ซื้อหุ้นเพิ่มในช่วงวิกฤต<div class="check-note">คนในรู้ดีที่สุดว่าบริษัทจะรอดหรือไม่ — การซื้อหุ้นตัวเองคือสัญญาณที่แรงมาก</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ สัญญาณที่บอกว่าฟื้นตัวกำลังเกิดขึ้น</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">Gross Margin เริ่มดีขึ้น 2 ไตรมาสติดต่อกัน → สัญญาณบวกแรก</div></li>
+          <li><div class="check-box"></div><div class="check-text">ยอดขายเริ่มโต YoY เป็นครั้งแรกหลังจากติดลบมานาน</div></li>
+          <li><div class="check-box"></div><div class="check-text">บริษัทเริ่มชำระหนี้ก่อนกำหนด → cash flow กำลังดีขึ้น</div></li>
+          <li><div class="check-box"></div><div class="check-text">หนี้ลดลง 2 ไตรมาสติดต่อกัน → สัญญาณที่ชัดที่สุด</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-title">⚠ เมื่อไหรที่ต้องยอมแพ้กับ Turnaround</div>
+    <ul class="warning-list">
+      <li>บริษัทต้องเพิ่มทุนซ้ำๆ เพราะขาดทุนต่อเนื่อง — dilution ทำลาย upside</li>
+      <li>ผู้บริหารไม่มีแผนที่ชัดเจน หรือเปลี่ยนแผนบ่อยครั้ง</li>
+      <li>Core business กำลังสูญเสีย relevance ในตลาด (disruption)</li>
+      <li>เงินสดจะหมดใน 6 เดือนโดยไม่มีแหล่งเงินสำรอง — ขายออกได้เลย</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ===== TYPE 6: ASSET PLAYS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">08</div>
+  <div class="chapter-info">
+    <div class="chapter-label">ประเภทที่หก</div>
+    <div class="chapter-title">Asset Plays<br>หุ้นทรัพย์สินซ่อนเร้น — ขุมทองที่ตลาดมองไม่เห็น</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="type-label type-6">Asset Plays · Type 06</div>
+
+  <h2>Asset Plays คืออะไร?</h2>
+  <p>Asset Play คือบริษัทที่มีทรัพย์สินมีค่าซ่อนอยู่ในงบดุลซึ่งตลาดยังไม่ได้ประเมินราคาอย่างถูกต้อง ทรัพย์สินเหล่านี้อาจเป็น: ที่ดินที่ถือครองมานานในราคาทุนต่ำ, แบรนด์ที่ไม่แสดงในงบดุล, สิทธิบัตร, แหล่งทรัพยากรธรรมชาติ หรือ subsidiary ที่มีมูลค่าสูงกว่า market cap ทั้งหมด</p>
+
+  <p>Lynch ชอบ Asset Plays เป็นพิเศษเพราะ <strong>downside จำกัด</strong> (ถือทรัพย์สินจริง) แต่ต้องมี "catalyst" ที่ชัดเจนว่า market จะ recognize มูลค่าจริงในเมื่อไหร่</p>
+
+  <div class="checklist-section">
+    <div class="checklist-header">
+      <div class="checklist-header-text">
+        <h3>Checklist: Asset Plays</h3>
+        <p>สิ่งที่ต้องตรวจสอบก่อนลงทุน</p>
+      </div>
+    </div>
+    <div class="checklist-body">
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ ค้นหาทรัพย์สินซ่อนเร้น</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ตรวจ Balance Sheet อย่างละเอียด — ทรัพย์สินบันทึกในราคาทุนหรือราคาตลาด?<div class="check-note">ที่ดินที่ซื้อมาเมื่อ 30 ปีที่แล้ว อาจมีมูลค่าตลาดสูงกว่าราคาทุน 10–50 เท่า</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ตรวจ Off-Balance Sheet Assets: Brand Value, Customer Relationships, IP<div class="check-note">แบรนด์ที่แข็งแกร่งมักไม่แสดงในงบดุล แต่มีมูลค่ามหาศาล</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ดู Subsidiaries ที่อาจมีมูลค่าซ่อนอยู่<div class="check-note">Lynch พบว่าบางบริษัทมี subsidiary เพียงตัวเดียวที่มีมูลค่าเกิน market cap ทั้งบริษัท</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ค้นหา Natural Resources ที่ยังไม่ได้ exploit<div class="check-note">เหมืองแร่, แหล่งน้ำมัน, ป่าไม้ มักมีมูลค่าซ่อนอยู่ในบริษัทเก่าๆ</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ คำนวณ Net Asset Value (NAV)</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">คำนวณ Sum-of-the-Parts Valuation<div class="check-note">ประเมินมูลค่าแต่ละ business unit แยกกัน แล้วรวมกัน เปรียบกับ market cap ปัจจุบัน</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ส่วนลด (discount) ที่ตลาดให้ต่อ NAV ควรมีนัยสำคัญ (อย่างน้อย 30%+)<div class="check-note">Lynch ต้องการ margin of safety ที่ชัดเจนก่อนลงทุนใน Asset Play</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">หักหนี้สินทั้งหมดออกจาก NAV อย่างถูกต้อง<div class="check-note">บริษัทที่มีทรัพย์สินมากแต่หนี้มากกว่า = ไม่ใช่ Asset Play ที่ดี</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ Catalyst — เงื่อนไขที่ทำให้ตลาดรับรู้มูลค่า</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">มี catalyst ที่ชัดเจนว่า value จะถูก unlocked เมื่อไหร่<div class="check-note">ตัวอย่าง: การขายที่ดิน, IPO ของ subsidiary, spin-off, M&A, activist investor เข้ามา</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ผู้บริหารมี alignment กับผู้ถือหุ้น (ถือหุ้นบริษัทเยอะ)<div class="check-note">ถ้า management ไม่ถือหุ้น พวกเขาอาจไม่มีแรงจูงใจในการ unlock value</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">Activist investor หรือ strategic buyer กำลังสนใจบริษัท<div class="check-note">การเข้าของ activist มักเป็น catalyst ที่แรงที่สุดสำหรับ Asset Play</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">✦ สัญญาณขายออก</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">ทรัพย์สินหลักถูกขายออกไปแล้ว — thesis สำเร็จแล้ว ขายได้เลย</div></li>
+          <li><div class="check-box"></div><div class="check-text">ราคาหุ้นสะท้อน NAV เต็มแล้ว — upside หมดแล้ว</div></li>
+          <li><div class="check-box"></div><div class="check-text">Management เริ่มใช้ cash จาก asset sale ไปซื้อ M&A แบบไม่สมเหตุสมผล</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== CH 9: BUY/SELL SIGNALS ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">09</div>
+  <div class="chapter-info">
+    <div class="chapter-label">บทที่เก้า</div>
+    <div class="chapter-title">สัญญาณซื้อและขายที่ดีที่สุด<br>ตามปรัชญา Peter Lynch</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <h2>สัญญาณซื้อที่แรงที่สุด (Universal)</h2>
+
+  <div class="buy-box">
+    <div class="buy-title">✓ สัญญาณซื้อ — Lynch Favorites</div>
+    <ul class="buy-list">
+      <li>Insiders ซื้อหุ้นตัวเองในปริมาณสำคัญ (ไม่ใช่แค่ stock options)</li>
+      <li>บริษัทซื้อหุ้นคืน (Buyback) ในราคาที่ต่ำกว่า intrinsic value</li>
+      <li>PEG Ratio ต่ำกว่า 0.5 — ราคาต่ำมากเมื่อเทียบกับ growth</li>
+      <li>Institutional ownership ต่ำ — Wall Street ยังไม่รู้จัก = upside สูง</li>
+      <li>นักวิเคราะห์ไม่มีใค cover บริษัท = ไม่มีความเชื่อที่ consensus แล้ว</li>
+      <li>บริษัทอยู่ใน boring/unsexy industry ที่ไม่มีคนอยากพูดถึง</li>
+      <li>Net cash per share สูง — downside protection</li>
+    </ul>
+  </div>
+
+  <h2>สัญญาณขายที่แรงที่สุด (Universal)</h2>
+
+  <div class="warning-box">
+    <div class="warning-title">✕ สัญญาณขาย — Lynch Red Flags</div>
+    <ul class="warning-list">
+      <li>Story ของหุ้นเปลี่ยนแปลงในทางลบ (ไม่ใช่แค่ราคาลง)</li>
+      <li>P/E สูงกว่า Growth Rate มากกว่า 2 เท่า (PEG > 2.0)</li>
+      <li>ทุกคนรอบตัวพูดถึงหุ้นนี้ในทางบวกอย่างล้นหลาม</li>
+      <li>บริษัทเริ่มทำ M&A ใหญ่นอก core business (diworsification)</li>
+      <li>Insiders ขายหุ้นจำนวนมาก (โดยเฉพาะหลายคนพร้อมกัน)</li>
+      <li>Inventory เพิ่มขึ้นเร็วกว่ายอดขาย 2 ไตรมาสติดต่อกัน</li>
+      <li>Accounts Receivable เพิ่มขึ้นเร็วกว่ายอดขาย</li>
+      <li>Profit Margin ลดลงต่อเนื่อง แม้ยอดขายยังขึ้น</li>
+    </ul>
+  </div>
+
+  <h2>Lynch's Perfect Stock — ลักษณะหุ้นในฝัน</h2>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">ชื่อบริษัท</div>
+      <div class="metric-value" style="font-size:18px; color: var(--text-muted);">น่าเบื่อหรือตลก</div>
+      <div class="metric-desc">Lynch ชอบชื่อที่ฟังดูไม่น่าสนใจ</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">อุตสาหกรรม</div>
+      <div class="metric-value" style="font-size:18px; color: var(--text-muted);">ไม่น่าตื่นเต้น</div>
+      <div class="metric-desc">Wall Street ไม่สนใจ = ราคาไม่แพง</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">PEG</div>
+      <div class="metric-value">&lt;1.0</div>
+      <div class="metric-desc">ราคาต่ำเมื่อเทียบกับ growth</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Insider</div>
+      <div class="metric-value" style="font-size:18px; color: var(--accent-green);">ซื้อ</div>
+      <div class="metric-desc">ผู้บริหารถือหุ้นจำนวนมาก</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Net Cash</div>
+      <div class="metric-value" style="font-size:18px;">Positive</div>
+      <div class="metric-desc">มีเงินสดมากกว่าหนี้</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Coverage</div>
+      <div class="metric-value" style="font-size:18px; color: var(--text-muted);">ต่ำ</div>
+      <div class="metric-desc">นักวิเคราะห์ไม่ค่อย cover</div>
+    </div>
+  </div>
+
+  <div class="one-liner">
+    <p>"The simpler the business, the more I like it. If a six-year-old can explain it, even better."</p>
+    <p class="one-liner-th">ธุรกิจยิ่งเรียบง่ายยิ่งดี ถ้าเด็ก 6 ขวบอธิบายได้ว่าบริษัทนี้ทำเงินอย่างไร — นั่นคือหุ้นที่ Lynch ต้องการ</p>
+  </div>
+
+</div>
+
+<!-- ===== CH 10: PRACTICAL APPLICATION ===== -->
+<div class="chapter-divider">
+  <div class="chapter-num">10</div>
+  <div class="chapter-info">
+    <div class="chapter-label">บทที่สิบ</div>
+    <div class="chapter-title">การประยุกต์ใช้และทรัพยากร<br>เริ่มต้นลงทุนแบบ Lynch วันนี้</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <h2>✅ ระดับเริ่มต้น — Easy Wins</h2>
+  <p>สิ่งที่ทำได้ทันทีโดยไม่ต้องรอ:</p>
+  <div class="checklist-section">
+    <div class="checklist-body" style="border-top: 1px solid var(--border);">
+      <div class="checklist-group">
+        <div class="checklist-group-title">สัปดาห์นี้</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">เปิดพอร์ตและระบุว่าหุ้นแต่ละตัวที่ถืออยู่อยู่ใน 6 ประเภทไหน<div class="check-note">ถ้าไม่แน่ใจ หรือตอบไม่ได้ → นั่นคือสัญญาณว่ายังไม่เข้าใจหุ้นตัวนั้นพอ</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ทำ "Two-minute Drill" กับหุ้นทุกตัวในพอร์ต: อธิบายทำไมถึงถือในเวลา 2 นาที<div class="check-note">ถ้าอธิบายไม่ได้ = ควร reconsider สถานะนั้น</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">เริ่มสังเกตธุรกิจจากชีวิตประจำวัน — ร้านไหนแน่น, สินค้าไหนขายดี<div class="check-note">Lynch พบ idea ดีๆ จาก mall, ซูปเปอร์มาร์เก็ต, และการสังเกตของลูก</div></div></li>
+        </ul>
+      </div>
+      <div class="checklist-group">
+        <div class="checklist-group-title">เดือนนี้</div>
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text">คำนวณ PEG Ratio ของหุ้นทุกตัวในพอร์ต<div class="check-note">PEG = P/E ÷ EPS Growth Rate (%) | หาข้อมูลได้จาก SET, Macrotrends, Morningstar</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">ตรวจสอบ Insider Transaction ย้อนหลัง 6 เดือน<div class="check-note">ใน SET: ดูจากระบบ SEC ที่แจ้ง Form 59-2 | ต่างประเทศ: SEC EDGAR</div></div></li>
+          <li><div class="check-box"></div><div class="check-text">อ่าน Annual Report ของหุ้นอย่างน้อย 1 ตัว โดยเน้นส่วน MD&A ของผู้บริหาร</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>📚 แหล่งศึกษาเพิ่มเติม</h2>
+
+  <div class="book-grid">
+    <div class="book-card">
+      <div class="book-title">One Up on Wall Street</div>
+      <div class="book-author">Peter Lynch (1989)</div>
+      <div class="book-desc">หนังสือเล่มแรก — ปรัชญาหลัก, 6 ประเภทหุ้น, วิธีหา idea จากชีวิตจริง <strong>เริ่มที่นี่ก่อน</strong></div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">Beating the Street</div>
+      <div class="book-author">Peter Lynch (1993)</div>
+      <div class="book-desc">แนวทางปฏิบัติจริง กรณีศึกษา portfolio จริงของ Magellan Fund การวิเคราะห์เชิงลึก</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">Learn to Earn</div>
+      <div class="book-author">Peter Lynch (1995)</div>
+      <div class="book-desc">สำหรับนักลงทุนมือใหม่ ประวัติ capitalism และพื้นฐานการลงทุนที่เข้าใจง่าย</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">The Intelligent Investor</div>
+      <div class="book-author">Benjamin Graham (1949)</div>
+      <div class="book-desc">รากฐานที่ Lynch แนะนำให้อ่านควบคู่ — margin of safety และ Mr. Market</div>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>🤔 คำถามสำหรับไตร่ตรอง</h2>
+
+  <div class="reflection-box">
+    <div class="reflection-title">Reflection Questions — ก่อนตัดสินใจทุกครั้ง</div>
+    <ol class="reflection-questions">
+      <li>หุ้นตัวนี้อยู่ใน 6 ประเภทไหน และฉันเข้าใจธรรมชาติของมันดีพอไหม?</li>
+      <li>ฉันอธิบายได้ใน 2 นาทีว่าทำไมถึงซื้อ และ story ยังคงสมบูรณ์อยู่ไหม?</li>
+      <li>ถ้าราคาหุ้นลง 30% พรุ่งนี้ ฉันจะซื้อเพิ่มหรือจะขาย? (ตอบอย่างซื่อสัตย์)</li>
+      <li>PEG Ratio เท่าไหร่? สมเหตุสมผลกับ growth story ไหม?</li>
+      <li>Insider ทำอะไรอยู่กับหุ้นตัวนี้ในช่วง 6 เดือนที่ผ่านมา?</li>
+      <li>ถ้าฉันยังไม่มีหุ้นนี้อยู่ ฉันจะซื้อมันวันนี้ที่ราคานี้ไหม?</li>
+      <li>อะไรจะทำให้ story ของหุ้นนี้เปลี่ยนในทางลบ? ฉันจะรู้ได้อย่างไร?</li>
+    </ol>
+  </div>
+
+  <div class="one-liner">
+    <p>"In the long run, a portfolio of well-chosen stocks and/or equity mutual funds will always outperform a portfolio of bonds or a money-market account."</p>
+    <p class="one-liner-th">ในระยะยาว พอร์ตหุ้นที่เลือกดีจะเอาชนะพันธบัตรหรือเงินฝากได้เสมอ — อดทนและเลือกให้ดี</p>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>สรุป: แก่นแท้ของ Peter Lynch ใน 6 ข้อ</h2>
+
+  <div class="checklist-section">
+    <div class="checklist-body" style="border-top: 1px solid var(--border);">
+      <div class="checklist-group">
+        <ul class="checklist-items">
+          <li><div class="check-box"></div><div class="check-text"><strong>รู้จักสิ่งที่ถือ</strong> — ทุกหุ้นต้องอธิบายได้ใน 2 นาที มิฉะนั้นอย่าถือ</div></li>
+          <li><div class="check-box"></div><div class="check-text"><strong>แยกประเภทให้ถูก</strong> — 6 ประเภทมีกลยุทธ์ต่างกัน ใช้ผิดประเภท = ผิดพลาด</div></li>
+          <li><div class="check-box"></div><div class="check-text"><strong>ลงทุนในสิ่งที่รู้</strong> — ข้อได้เปรียบของนักลงทุนรายย่อยคือการสังเกตธุรกิจจากชีวิตจริง</div></li>
+          <li><div class="check-box"></div><div class="check-text"><strong>PEG ไม่เกิน 1.0</strong> — ราคาที่จ่ายต้องสมเหตุสมผลกับการเติบโต ไม่มีข้อยกเว้น</div></li>
+          <li><div class="check-box"></div><div class="check-text"><strong>ขายเมื่อ Story เปลี่ยน</strong> — ไม่ขายเพราะกลัว ไม่ขายเพราะราคาลง ขายเมื่อเหตุผลในการถือหายไป</div></li>
+          <li><div class="check-box"></div><div class="check-text"><strong>ตลาดระยะยาวขึ้นเสมอ</strong> — ความอดทนและความรู้คือสินทรัพย์ที่ดีที่สุดของนักลงทุน</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="doc-footer">
+  <div class="doc-footer-rule"></div>
+  <p>ตกผลึกจาก One Up on Wall Street · Beating the Street · Learn to Earn</p>
+  <p style="margin-top: 8px;">โดย Peter Lynch · เรียบเรียงเป็นภาษาไทยสำหรับนักลงทุน</p>
+  <div class="doc-footer-rule"></div>
+  <p style="font-size: 10px; opacity: 0.5;">เอกสารนี้จัดทำขึ้นเพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน</p>
+</div>
+
+</body>
+</html>
