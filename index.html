@@ -2,18 +2,220 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>bothBook</title>
-</head>
-<body>
-  <h1>bothBook</h1>
-  <p>คลังเอกสารและหนังสือออนไลน์</p>
 
-  <ul>
-    <li>
-      <a href="./peter_lynch_investment_guide.html">
-        Peter Lynch Investment Guide
-      </a>
-    </li>
-  </ul>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --card2: #1f2937;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #f59e0b;
+      --line: rgba(255,255,255,.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(245,158,11,.22), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(59,130,246,.18), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 56px 22px 32px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 14px;
+      margin-bottom: 18px;
+      background: rgba(255,255,255,.04);
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 76px);
+      margin: 0;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(1080px, 92%);
+      margin: 0 auto;
+      padding-bottom: 60px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    input {
+      flex: 1;
+      min-width: 240px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: 0 20px 60px rgba(0,0,0,.22);
+      transition: .2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(245,158,11,.55);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(245,158,11,.14);
+      color: var(--accent);
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      word-break: break-all;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="badge">Online Knowledge Library</div>
+    <h1>bothBook</h1>
+    <p class="subtitle">
+      คลังเอกสาร HTML / หนังสือออนไลน์ / playbook สำหรับอ่านและแชร์ให้ทุกคนเข้าถึงได้ง่าย
+    </p>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <input id="search" placeholder="ค้นหาเอกสาร เช่น Peter Lynch, Playbook..." />
+    </div>
+
+    <section id="books" class="grid"></section>
+  </main>
+
+  <footer>
+    Powered by GitHub Pages · bothBook
+  </footer>
+
+  <script>
+    const owner = "b9b4ymiN";
+    const repo = "bothBook";
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/`;
+
+    const booksEl = document.getElementById("books");
+    const searchEl = document.getElementById("search");
+
+    let pages = [];
+
+    function cleanTitle(filename) {
+      return filename
+        .replace(".html", "")
+        .replace(/[_-]/g, " ")
+        .replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function render(items) {
+      booksEl.innerHTML = items.map(file => `
+        <a class="card" href="./${file.name}">
+          <div class="icon">📘</div>
+          <div class="title">${cleanTitle(file.name)}</div>
+          <div class="meta">${file.name}</div>
+        </a>
+      `).join("");
+    }
+
+    async function loadPages() {
+      booksEl.innerHTML = `<div class="meta">Loading documents...</div>`;
+
+      const res = await fetch(apiUrl);
+      const files = await res.json();
+
+      pages = files
+        .filter(file =>
+          file.type === "file" &&
+          file.name.endsWith(".html") &&
+          file.name.toLowerCase() !== "index.html" &&
+          !file.name.includes("temp")
+        )
+        .sort((a, b) => a.name.localeCompare(b.name));
+
+      render(pages);
+    }
+
+    searchEl.addEventListener("input", e => {
+      const keyword = e.target.value.toLowerCase();
+      const filtered = pages.filter(file =>
+        cleanTitle(file.name).toLowerCase().includes(keyword) ||
+        file.name.toLowerCase().includes(keyword)
+      );
+      render(filtered);
+    });
+
+    loadPages();
+  </script>
 </body>
 </html>
