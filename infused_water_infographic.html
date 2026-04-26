@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infused Water — สูตรอ้างอิงงานวิจัย</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Sarabun:wght@300;400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #1B4332;
+    --green-mid: #2D6A4F;
+    --green-light: #52B788;
+    --green-pale: #D8F3DC;
+    --amber: #F4A261;
+    --rose: #E76F51;
+    --cream: #FEFAE0;
+    --sand: #F5EDD6;
+    --text-dark: #1A1A2E;
+    --text-mid: #3D3D56;
+    --text-light: #6B7280;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Sarabun', sans-serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--green-deep);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 40px;
+  }
+
+  .hero-bg-circles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hero-bg-circles span {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(82,183,136,0.15);
+    animation: pulse 8s ease-in-out infinite;
+  }
+  .hero-bg-circles span:nth-child(1){ width:600px;height:600px;top:-100px;left:-150px;animation-delay:0s; }
+  .hero-bg-circles span:nth-child(2){ width:400px;height:400px;bottom:-80px;right:-100px;animation-delay:2s; }
+  .hero-bg-circles span:nth-child(3){ width:250px;height:250px;top:50%;right:10%;animation-delay:4s; }
+
+  @keyframes pulse {
+    0%,100%{ transform:scale(1); opacity:0.4; }
+    50%{ transform:scale(1.08); opacity:0.8; }
+  }
+
+  .hero-label {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    color: var(--green-light);
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.05;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title em {
+    color: var(--green-light);
+    font-style: normal;
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 20px;
+    color: rgba(255,255,255,0.65);
+    font-size: 1.05rem;
+    font-weight: 300;
+    text-align: center;
+    max-width: 560px;
+    line-height: 1.8;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 12px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .badge {
+    background: rgba(82,183,136,0.15);
+    border: 1px solid rgba(82,183,136,0.4);
+    color: var(--green-light);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  }
+
+  @keyframes bounce{ 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SCIENCE STRIP ── */
+  .science-strip {
+    background: var(--green-light);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+    text-align: center;
+  }
+  .stat-div {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .section-label {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--green-light);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--green-deep);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .section-desc {
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .how-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px 24px;
+    border: 1px solid rgba(82,183,136,0.15);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .how-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(27,67,50,0.1);
+  }
+  .how-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(82,183,136,0.08);
+    line-height: 1;
+  }
+  .how-icon { font-size: 2rem; margin-bottom: 16px; }
+  .how-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--green-deep);
+    margin-bottom: 8px;
+  }
+  .how-text {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+  .how-ref {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: var(--green-light);
+    font-style: italic;
+  }
+
+  /* ── RECIPE CARDS ── */
+  .recipes-bg {
+    background: var(--green-deep);
+    position: relative;
+    overflow: hidden;
+  }
+  .recipes-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(82,183,136,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(244,162,97,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .recipes-title { color: var(--white); }
+  .recipes-desc { color: rgba(255,255,255,0.55); }
+  .recipes-label { color: var(--green-light); }
+
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+  }
+
+  .recipe-card {
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .recipe-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  }
+
+  .recipe-header {
+    padding: 32px 28px 20px;
+    position: relative;
+  }
+  .recipe-emoji { font-size: 2.8rem; display: block; margin-bottom: 14px; }
+  .recipe-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .recipe-eng {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.05em;
+  }
+  .recipe-tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .recipe-body {
+    padding: 0 28px 28px;
+  }
+
+  .ingredients-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .ingredient-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .ingredient-row:last-child { border-bottom: none; }
+
+  .ing-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .ing-name {
+    flex: 1;
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+  }
+  .ing-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .divider-line {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 20px 0;
+  }
+
+  .steps-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .step-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.6;
+  }
+
+  .benefit-strip {
+    margin-top: 20px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .benefit-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--white);
+    opacity: 0.9;
+  }
+  .benefit-chip::before { content: '✓ '; }
+
+  .recipe-ref {
+    padding: 14px 28px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.6;
+  }
+
+  /* Color themes per recipe */
+  .theme-detox .recipe-header { background: linear-gradient(135deg, rgba(45,106,79,0.6) 0%, rgba(27,67,50,0.3) 100%); }
+  .theme-detox .recipe-tag { background: rgba(82,183,136,0.2); color: var(--green-light); }
+  .theme-detox .ing-dot { background: var(--green-light); }
+  .theme-detox .step-num { background: rgba(82,183,136,0.2); color: var(--green-light); }
+  .theme-detox .benefit-strip { background: rgba(82,183,136,0.08); }
+
+  .theme-skin .recipe-header { background: linear-gradient(135deg, rgba(231,111,81,0.3) 0%, rgba(187,50,50,0.15) 100%); }
+  .theme-skin .recipe-tag { background: rgba(231,111,81,0.2); color: #F4A261; }
+  .theme-skin .ing-dot { background: #F4A261; }
+  .theme-skin .step-num { background: rgba(231,111,81,0.2); color: #F4A261; }
+  .theme-skin .benefit-strip { background: rgba(231,111,81,0.08); }
+
+  .theme-ginger .recipe-header { background: linear-gradient(135deg, rgba(244,162,97,0.3) 0%, rgba(200,100,30,0.15) 100%); }
+  .theme-ginger .recipe-tag { background: rgba(244,162,97,0.2); color: #FFD166; }
+  .theme-ginger .ing-dot { background: #FFD166; }
+  .theme-ginger .step-num { background: rgba(244,162,97,0.2); color: #FFD166; }
+  .theme-ginger .benefit-strip { background: rgba(244,162,97,0.08); }
+
+  .theme-mint .recipe-header { background: linear-gradient(135deg, rgba(52,183,136,0.3) 0%, rgba(20,130,100,0.15) 100%); }
+  .theme-mint .recipe-tag { background: rgba(100,220,180,0.2); color: #74EBD5; }
+  .theme-mint .ing-dot { background: #74EBD5; }
+  .theme-mint .step-num { background: rgba(100,220,180,0.2); color: #74EBD5; }
+  .theme-mint .benefit-strip { background: rgba(100,220,180,0.08); }
+
+  /* ── SAFETY SECTION ── */
+  .safety-section { background: var(--sand); }
+
+  .safety-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .safety-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    border-left: 4px solid;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .safety-card.green { border-color: var(--green-light); }
+  .safety-card.amber { border-color: var(--amber); }
+  .safety-card.red { border-color: #EF4444; }
+
+  .safety-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .safety-title { font-weight: 700; font-size: 0.95rem; color: var(--green-deep); margin-bottom: 8px; }
+  .safety-text { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
+
+  /* ── RESEARCH PILLS ── */
+  .research-section { background: var(--white); }
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .research-pill {
+    background: var(--green-pale);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: transform 0.2s;
+  }
+  .research-pill:hover { transform: translateX(4px); }
+  .pill-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .pill-body {}
+  .pill-title { font-weight: 700; font-size: 0.92rem; color: var(--green-deep); margin-bottom: 4px; }
+  .pill-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+  .pill-ref { margin-top: 6px; font-size: 0.72rem; color: var(--green-light); font-style: italic; }
+
+  /* ── WATER AMOUNT ── */
+  .water-section { background: var(--green-deep); }
+  .water-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+  }
+  .water-jar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .jar-graphic {
+    width: 100px;
+    height: 130px;
+    border: 3px solid rgba(82,183,136,0.5);
+    border-radius: 8px 8px 16px 16px;
+    border-top: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .jar-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(82,183,136,0.5), rgba(82,183,136,0.2));
+    transition: height 0.3s;
+  }
+  .jar-label {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    z-index: 1;
+    white-space: nowrap;
+  }
+  .jar-cap {
+    width: 114px;
+    height: 14px;
+    background: rgba(82,183,136,0.4);
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -3px;
+  }
+  .jar-name { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 600; }
+  .jar-sub { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-align: center; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--text-dark);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .footer-text {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.4);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+  .footer-refs {
+    margin-top: 24px;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.25);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+    text-align: left;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 600px){
+    .section { padding: 60px 20px; }
+    .hero { padding: 80px 20px 60px; }
+    .science-strip { gap: 20px; padding: 20px; }
+    .stat-div { display: none; }
+    .water-visual { gap: 20px; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-circles">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="hero-label">Evidence-Based Nutrition</div>
+  <h1 class="hero-title">
+    Infused Water<br>
+    <em>น้ำผลไม้แช่สมุนไพร</em>
+  </h1>
+  <p class="hero-sub">สูตรที่ผ่านการรองรับจากงานวิจัยทางการแพทย์ พร้อมสัดส่วนที่แม่นยำเพื่อสุขภาพที่ดีที่สุด</p>
+  <div class="hero-badges">
+    <span class="badge">🧬 มีงานวิจัยรองรับ</span>
+    <span class="badge">⚗️ สัดส่วนแม่นยำ</span>
+    <span class="badge">🍃 ปลอดภัย</span>
+    <span class="badge">💧 Zero Sugar Added</span>
+  </div>
+  <div class="scroll-hint">เลื่อนดูสูตร</div>
+</section>
+
+<!-- SCIENCE STRIP -->
+<div class="science-strip">
+  <div class="stat-item">
+    <div class="stat-num">&lt; 5</div>
+    <div class="stat-label">KCAL / 240ML</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num">&lt; 1g</div>
+    <div class="stat-label">น้ำตาล / 240ML</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num">4–12</div>
+    <div class="stat-label">ชั่วโมงแช่ที่ดีที่สุด</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num">4°C</div>
+    <div class="stat-label">อุณหภูมิแช่ปลอดภัย</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <div class="stat-num">24h</div>
+    <div class="stat-label">เก็บได้สูงสุดในตู้เย็น</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="section-label">วิทยาศาสตร์เบื้องหลัง</div>
+  <h2 class="section-title">ทำไม Infused Water จึงได้ผล?</h2>
+  <p class="section-desc">กระบวนการสกัดสารอาหารใช้หลักการ Passive Diffusion ตาม Fick's Law — สารละลายน้ำได้เคลื่อนจากความเข้มข้นสูง (ผลไม้) สู่ต่ำ (น้ำ) จนเกิดสมดุล</p>
+  <div class="how-grid">
+    <div class="how-card fade-in" data-num="1">
+      <div class="how-icon">🧪</div>
+      <div class="how-title">Passive Diffusion</div>
+      <div class="how-text">สารที่ละลายน้ำได้เช่น Vitamin C, Flavonoids ซึมออกจากเซลล์พืชตาม Concentration gradient โดยไม่ต้องใช้พลังงาน</div>
+      <div class="how-ref">Atkins & de Paula, Physical Chemistry, 2010</div>
+    </div>
+    <div class="how-card fade-in" data-num="2">
+      <div class="how-icon">🌡️</div>
+      <div class="how-title">อุณหภูมิกับการสกัด</div>
+      <div class="how-text">ตู้เย็น (4°C) สกัดช้ากว่าแต่ปลอดภัยกว่า ช่วยรักษา Vitamin C ที่ไวต่อความร้อน และป้องกันการเจริญของแบคทีเรีย</div>
+      <div class="how-ref">Burdurlu et al., J. Food Engineering, 2006</div>
+    </div>
+    <div class="how-card fade-in" data-num="3">
+      <div class="how-icon">⏱️</div>
+      <div class="how-title">เวลาที่เหมาะสม</div>
+      <div class="how-text">4 ชั่วโมง = รสเบา | 8-12 ชั่วโมง = รสสมดุล | 12-24 ชั่วโมง = รสเข้ม เมื่อเกิน 24 ชั่วโมงผลไม้เริ่มย่อยสลายในน้ำ</div>
+      <div class="how-ref">FDA Food Safety Guidelines, 2023</div>
+    </div>
+    <div class="how-card fade-in" data-num="4">
+      <div class="how-icon">✂️</div>
+      <div class="how-title">การหั่นเพิ่มประสิทธิภาพ</div>
+      <div class="how-text">หั่นบางเพิ่มพื้นที่ผิวสัมผัส ทำให้สารสกัดออกเร็วและมากขึ้น ผลไม้ที่บีบหรือขูดเปลือกจะให้ Essential oil มากกว่า</div>
+      <div class="how-ref">Chandrasekara & Shahidi, J. Tradit. Complement. Med., 2018</div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section class="recipes-bg">
+  <div class="section">
+    <div class="section-label recipes-label">สูตรอ้างอิงงานวิจัย</div>
+    <h2 class="section-title recipes-title">4 สูตร Infused Water เพื่อสุขภาพ</h2>
+    <p class="section-desc recipes-desc">สัดส่วนต่อน้ำ 1 ลิตร (1,000 ml) อ้างอิงจากอัตราส่วนที่ใช้ในการศึกษาทางโภชนาการ</p>
+
+    <div class="recipe-grid">
+
+      <!-- RECIPE 1: DETOX -->
+      <div class="recipe-card theme-detox fade-in">
+        <div class="recipe-header">
+          <span class="recipe-emoji">🥒</span>
+          <div class="recipe-name">สูตร Detox<br>แตงกวา-มะนาว-สะระแหน่</div>
+          <div class="recipe-eng">Cucumber · Lemon · Mint</div>
+          <span class="recipe-tag">⭐ สูตรยอดนิยมในงานวิจัย</span>
+        </div>
+        <div class="recipe-body">
+          <div class="ingredients-title">ส่วนผสม (ต่อน้ำ 1 ลิตร)</div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">แตงกวาหั่นแว่น (0.5 ซม.)</div>
+            <div class="ing-amount">100g</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">มะนาวหั่นวงกลม (0.5 ซม.)</div>
+            <div class="ing-amount">1 ลูก (~50g)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">ใบสะระแหน่สด</div>
+            <div class="ing-amount">10–15 ใบ (~5g)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">น้ำสะอาด (ต้มเย็นหรือกรอง)</div>
+            <div class="ing-amount">1,000 ml</div>
+          </div>
+          <div class="divider-line"></div>
+          <div class="steps-title">วิธีทำ</div>
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">ล้างแตงกวา มะนาว และสะระแหน่ให้สะอาดใต้น้ำไหล</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">หั่นแตงกวาและมะนาวเป็นแว่น ฉีกใบสะระแหน่เบาๆ เพื่อปล่อยน้ำมันหอม</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">ใส่ทุกอย่างลงขวดแก้ว เติมน้ำสะอาด ปิดฝา</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">แช่ตู้เย็น <strong style="color:#74EBD5">8–12 ชั่วโมง</strong> หรือข้ามคืน ดื่มภายใน 24 ชั่วโมง</div>
+          </div>
+          <div class="benefit-strip">
+            <span class="benefit-chip">ต้านการอักเสบ</span>
+            <span class="benefit-chip">Vitamin C 8–12mg</span>
+            <span class="benefit-chip">Menthol ช่วยย่อย</span>
+            <span class="benefit-chip">Citrate ต้านนิ่วไต</span>
+          </div>
+        </div>
+        <div class="recipe-ref">Mukherjee et al., Fitoterapia, 2013 · McKay & Blumberg, Phytotherapy Research, 2006 · Griffith et al., Eur. Urology, 1994</div>
+      </div>
+
+      <!-- RECIPE 2: SKIN -->
+      <div class="recipe-card theme-skin fade-in">
+        <div class="recipe-header">
+          <span class="recipe-emoji">🍓</span>
+          <div class="recipe-name">สูตรบำรุงผิว<br>สตรอว์เบอร์รี-ส้ม</div>
+          <div class="recipe-eng">Strawberry · Orange</div>
+          <span class="recipe-tag">🌸 Antioxidants สูงสุด</span>
+        </div>
+        <div class="recipe-body">
+          <div class="ingredients-title">ส่วนผสม (ต่อน้ำ 1 ลิตร)</div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">สตรอว์เบอร์รีหั่นครึ่ง</div>
+            <div class="ing-amount">100g (~8 ลูก)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">ส้มหั่นแว่ง (ลบเมล็ด)</div>
+            <div class="ing-amount">1 ลูก (~120g)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">ใบสะระแหน่ (ไม่บังคับ)</div>
+            <div class="ing-amount">5–8 ใบ</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">น้ำสะอาด</div>
+            <div class="ing-amount">1,000 ml</div>
+          </div>
+          <div class="divider-line"></div>
+          <div class="steps-title">วิธีทำ</div>
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">แช่สตรอว์เบอร์รีในน้ำสะอาด 5 นาที แล้วล้างซ้ำ</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">หั่นสตรอว์เบอร์รีเป็นครึ่งหรือสี่ส่วน หั่นส้มเป็นแว่ง</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">ใส่ลงขวด เติมน้ำ ปิดฝา แช่ตู้เย็น</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">แช่ <strong style="color:#F4A261">6–8 ชั่วโมง</strong> — Anthocyanins ออกมาจะเห็นน้ำเปลี่ยนเป็นสีชมพูอมแดง</div>
+          </div>
+          <div class="benefit-strip">
+            <span class="benefit-chip">Anthocyanins ต้านอนุมูลอิสระ</span>
+            <span class="benefit-chip">Vitamin C สร้าง Collagen</span>
+            <span class="benefit-chip">Hesperidin บำรุงหลอดเลือด</span>
+          </div>
+        </div>
+        <div class="recipe-ref">Aaby et al., J. Agric. Food Chem., 2007 · Pullar et al., Nutrients, 2017 · Wilmsen et al., J. Agric. Food Chem., 2005</div>
+      </div>
+
+      <!-- RECIPE 3: GINGER -->
+      <div class="recipe-card theme-ginger fade-in">
+        <div class="recipe-header">
+          <span class="recipe-emoji">🫚</span>
+          <div class="recipe-name">สูตรลดการอักเสบ<br>ขิง-มะนาว-น้ำผึ้งน้อย</div>
+          <div class="recipe-eng">Ginger · Lemon · Minimal Honey</div>
+          <span class="recipe-tag">🔥 หลักฐานแน่นที่สุด</span>
+        </div>
+        <div class="recipe-body">
+          <div class="ingredients-title">ส่วนผสม (ต่อน้ำ 1 ลิตร)</div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">ขิงสดหั่นแว่นบาง</div>
+            <div class="ing-amount">20–30g (~3 ซม.)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">มะนาวหั่นวง</div>
+            <div class="ing-amount">½ ลูก (~25g)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">น้ำผึ้ง ⚠️ (ไม่บังคับ/น้อยมาก)</div>
+            <div class="ing-amount">≤ 1 ช้อนชา</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">น้ำสะอาด</div>
+            <div class="ing-amount">1,000 ml</div>
+          </div>
+          <div class="divider-line"></div>
+          <div class="steps-title">วิธีทำ</div>
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">ปอกขิงแล้วหั่นบางๆ เพื่อให้ Gingerols ออกได้ดี</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">บีบมะนาวลงเล็กน้อยก่อนหั่น เพื่อปล่อย Citric acid เพิ่ม</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">แช่ตู้เย็น <strong style="color:#FFD166">4–8 ชั่วโมง</strong> ขิงออกรสเร็ว ถ้าแช่นานเกินไปจะขมมาก</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">⚠️ น้ำผึ้ง 1 ช้อนชา = น้ำตาล ~4g แคลอรี ~15 kcal — ควบคุมเบาหวานหลีกเลี่ยง</div>
+          </div>
+          <div class="benefit-strip">
+            <span class="benefit-chip">ลดคลื่นไส้</span>
+            <span class="benefit-chip">ต้านการอักเสบ</span>
+            <span class="benefit-chip">Gingerols & Shogaols</span>
+            <span class="benefit-chip">ช่วยย่อยอาหาร</span>
+          </div>
+        </div>
+        <div class="recipe-ref">Lete & Allué, Integr. Med. Insights, 2016 · Crowell, J. Nutrition, 1999</div>
+      </div>
+
+      <!-- RECIPE 4: MINT-LEMON -->
+      <div class="recipe-card theme-mint fade-in">
+        <div class="recipe-header">
+          <span class="recipe-emoji">🍃</span>
+          <div class="recipe-name">สูตรเพิ่ม Hydration<br>สะระแหน่-มะนาว-แตงโม</div>
+          <div class="recipe-eng">Mint · Lemon · Watermelon</div>
+          <span class="recipe-tag">💧 Hydration สูงสุด</span>
+        </div>
+        <div class="recipe-body">
+          <div class="ingredients-title">ส่วนผสม (ต่อน้ำ 1 ลิตร)</div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">แตงโมหั่นลูกเต๋า (ไม่ใส่เมล็ด)</div>
+            <div class="ing-amount">150g (~1 ถ้วย)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">มะนาวหั่นวง</div>
+            <div class="ing-amount">½ ลูก (~25g)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">ใบสะระแหน่สด</div>
+            <div class="ing-amount">10–12 ใบ (~5g)</div>
+          </div>
+          <div class="ingredient-row">
+            <div class="ing-dot"></div>
+            <div class="ing-name">น้ำสะอาด</div>
+            <div class="ing-amount">1,000 ml</div>
+          </div>
+          <div class="divider-line"></div>
+          <div class="steps-title">วิธีทำ</div>
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-text">ล้างแตงโมและสะระแหน่ให้สะอาด หั่นแตงโมเป็นลูกเต๋า 3 ซม.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-text">กดสะระแหน่เบาๆ กับก้นแก้วหรือขวดก่อนใส่ (Muddle เบาๆ)</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-text">แช่ตู้เย็น <strong style="color:#74EBD5">4–6 ชั่วโมง</strong> แตงโมออกรสเร็วกว่าผลไม้แข็ง</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-text">⚠️ แตงโมมีน้ำตาลธรรมชาติ ~6g / 100g ดื่มได้แต่ไม่ควรเกิน 1.5 ลิตรต่อวัน</div>
+          </div>
+          <div class="benefit-strip">
+            <span class="benefit-chip">Hydration สูง</span>
+            <span class="benefit-chip">Lycopene Antioxidant</span>
+            <span class="benefit-chip">L-Citrulline บำรุงหลอดเลือด</span>
+          </div>
+        </div>
+        <div class="recipe-ref">Stookey et al., Obesity, 2008 · McKay & Blumberg, Phytotherapy Research, 2006</div>
+      </div>
+
+    </div><!-- /recipe-grid -->
+  </div>
+</section>
+
+<!-- WATER INTAKE GUIDE -->
+<section class="water-section">
+  <div class="section">
+    <div class="section-label" style="color:var(--green-light)">ปริมาณที่แนะนำต่อวัน</div>
+    <h2 class="section-title" style="color:white">ดื่มเท่าไหร่ถึงพอ?</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,0.55)">ตาม European Food Safety Authority (EFSA, 2010) และ WHO Guidelines</p>
+
+    <div class="water-visual">
+      <div class="water-jar">
+        <div class="jar-cap"></div>
+        <div class="jar-graphic">
+          <div class="jar-fill" style="height:60%"></div>
+          <div class="jar-label">2.0L</div>
+        </div>
+        <div class="jar-name">👩 ผู้หญิง</div>
+        <div class="jar-sub">Adequate Intake<br>EFSA 2010</div>
+      </div>
+
+      <div class="water-jar">
+        <div class="jar-cap"></div>
+        <div class="jar-graphic">
+          <div class="jar-fill" style="height:80%"></div>
+          <div class="jar-label">2.5L</div>
+        </div>
+        <div class="jar-name">👨 ผู้ชาย</div>
+        <div class="jar-sub">Adequate Intake<br>EFSA 2010</div>
+      </div>
+
+      <div style="max-width:340px; padding: 28px; background: rgba(255,255,255,0.06); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1);">
+        <div style="font-size:0.8rem;color:var(--green-light);font-weight:700;letter-spacing:0.15em;margin-bottom:16px;">📊 แนวทางการดื่ม</div>
+        <div style="margin-bottom:14px;">
+          <div style="color:white;font-weight:600;font-size:0.9rem;margin-bottom:4px;">🧃 Infused Water</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.82rem;line-height:1.6;">500ml–1L ต่อวัน (เป็นส่วนหนึ่งของปริมาณน้ำทั้งหมด)</div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <div style="color:white;font-weight:600;font-size:0.9rem;margin-bottom:4px;">💧 น้ำเปล่า</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.82rem;line-height:1.6;">ส่วนที่เหลือ 1.0–1.5L ควรเป็นน้ำเปล่า</div>
+        </div>
+        <div>
+          <div style="color:white;font-weight:600;font-size:0.9rem;margin-bottom:4px;">⏰ เวลาที่ดีที่สุด</div>
+          <div style="color:rgba(255,255,255,0.55);font-size:0.82rem;line-height:1.6;">ดื่ม 500ml ก่อนมื้ออาหาร 30 นาที ช่วยลดพลังงานที่บริโภคในมื้อนั้น 13% (Mourao et al., 2007)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="safety-section">
+  <div class="section">
+    <div class="section-label">ความปลอดภัยจากงานวิจัย</div>
+    <h2 class="section-title">สิ่งที่ต้องรู้ก่อนดื่ม</h2>
+    <p class="section-desc">ข้อมูลด้านความปลอดภัยอ้างอิง FDA, WHO และงานวิจัยที่ผ่าน Peer-review</p>
+    <div class="safety-grid">
+      <div class="safety-card green fade-in">
+        <div class="safety-icon">✅</div>
+        <div class="safety-title">เก็บรักษาที่ถูกต้อง</div>
+        <div class="safety-text">เก็บในตู้เย็น (4°C) ตลอดเวลา ดื่มภายใน <strong>24 ชั่วโมง</strong> เมื่อมีผลไม้อยู่ด้วย หากกรองผลไม้ออกแล้วเก็บน้ำ สามารถเก็บได้ 2–3 วัน (FDA Food Safety, 2023)</div>
+      </div>
+      <div class="safety-card green fade-in">
+        <div class="safety-icon">🦷</div>
+        <div class="safety-title">ปกป้องเคลือบฟัน</div>
+        <div class="safety-text">น้ำมะนาว/ส้มมีค่า pH 3–4 อาจกัดกร่อนเคลือบฟัน ควรดื่มผ่าน <strong>หลอดดูด</strong> และบ้วนปากด้วยน้ำสะอาดหลังดื่ม (Lussi & Jaeggi, Caries Research, 2008)</div>
+      </div>
+      <div class="safety-card amber fade-in">
+        <div class="safety-icon">⚠️</div>
+        <div class="safety-title">ผู้ใช้ยากันเลือดแข็ง (Warfarin)</div>
+        <div class="safety-text">Grapefruit ยับยั้ง Enzyme CYP3A4 ทำให้ระดับยาในเลือดสูงขึ้น ควรหลีกเลี่ยง Grapefruit-Infused Water และปรึกษาแพทย์ (Bailey et al., CMAJ, 2013)</div>
+      </div>
+      <div class="safety-card amber fade-in">
+        <div class="safety-icon">⚠️</div>
+        <div class="safety-title">ผู้ป่วยโรคไต</div>
+        <div class="safety-text">สตรอว์เบอร์รี ผักโขม มีสาร Oxalate สูง ซึ่งสะสมเป็นนิ่วในไตได้ในผู้ที่มีความเสี่ยง ควรเลือกผลไม้ที่ Oxalate ต่ำ เช่น แตงกวา แตงโม (Taylor & Curhan, JASN, 2004)</div>
+      </div>
+      <div class="safety-card red fade-in">
+        <div class="safety-icon">🚫</div>
+        <div class="safety-title">อย่าทิ้งไว้อุณหภูมิห้องนาน</div>
+        <div class="safety-text">ไม่ควรทิ้ง Infused Water ที่มีผลไม้ไว้ที่อุณหภูมิห้อง (>20°C) นานเกิน <strong>2 ชั่วโมง</strong> เนื่องจาก Temperature Danger Zone (4–60°C) เหมาะต่อการเจริญของแบคทีเรีย (CDC Food Safety)</div>
+      </div>
+      <div class="safety-card green fade-in">
+        <div class="safety-icon">🤰</div>
+        <div class="safety-title">หญิงตั้งครรภ์</div>
+        <div class="safety-text">ปลอดภัยหากล้างผลไม้สะอาด แต่ควรระวัง Listeria และ Toxoplasma จากผลไม้ไม่สะอาด ล้างด้วยน้ำไหลทุกครั้ง และควรใช้ผลไม้สด ไม่ใช้ผลไม้ที่เริ่มเน่า</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH EVIDENCE -->
+<section class="research-section">
+  <div class="section">
+    <div class="section-label">หลักฐานทางวิทยาศาสตร์</div>
+    <h2 class="section-title">ประโยชน์ที่งานวิจัยรองรับ</h2>
+    <p class="section-desc">เฉพาะประโยชน์ที่มีหลักฐาน Peer-reviewed journal รองรับ ไม่ใช่การอ้างสรรพคุณเกินจริง</p>
+    <div class="research-grid">
+      <div class="research-pill fade-in">
+        <div class="pill-icon">💧</div>
+        <div class="pill-body">
+          <div class="pill-title">เพิ่มปริมาณน้ำดื่มได้จริง</div>
+          <div class="pill-text">กลุ่มที่ดื่มน้ำ 500ml ก่อนมื้ออาหาร ลดน้ำหนักมากกว่ากลุ่มควบคุม 44% ใน 12 สัปดาห์</div>
+          <div class="pill-ref">Dennis et al., Obesity, 2010 (Randomized Controlled Trial)</div>
+        </div>
+      </div>
+      <div class="research-pill fade-in">
+        <div class="pill-icon">🔥</div>
+        <div class="pill-body">
+          <div class="pill-title">เพิ่มการเผาผลาญชั่วคราว</div>
+          <div class="pill-text">ดื่มน้ำเย็น 500ml เพิ่ม Resting energy expenditure 24–30% นาน 60 นาที เนื่องจาก Thermogenic effect</div>
+          <div class="pill-ref">Boschmann et al., J. Clin. Endocrinol. Metab., 2003</div>
+        </div>
+      </div>
+      <div class="research-pill fade-in">
+        <div class="pill-icon">🩺</div>
+        <div class="pill-body">
+          <div class="pill-title">ลดความเสี่ยงนิ่วในไต</div>
+          <div class="pill-text">Citrate จากมะนาวยับยั้งการตกผลึกของ Calcium oxalate ช่วยป้องกันนิ่วในไต</div>
+          <div class="pill-ref">Griffith et al., European Urology, 1994</div>
+        </div>
+      </div>
+      <div class="research-pill fade-in">
+        <div class="pill-icon">🍬</div>
+        <div class="pill-body">
+          <div class="pill-title">ลดความเสี่ยงเบาหวาน</div>
+          <div class="pill-text">ลด Sugar-sweetened beverages 1 หน่วย/วัน สัมพันธ์กับลดความเสี่ยงเบาหวาน T2 ถึง 26%</div>
+          <div class="pill-ref">Malik et al., Diabetes Care, 2010 (Meta-analysis)</div>
+        </div>
+      </div>
+      <div class="research-pill fade-in">
+        <div class="pill-icon">✨</div>
+        <div class="pill-body">
+          <div class="pill-title">บำรุงผิวด้วยน้ำเพียงพอ</div>
+          <div class="pill-text">การดื่มน้ำเพียงพอส่งผลบวกต่อ Skin hydration, pH ผิว และ Biomechanical properties</div>
+          <div class="pill-ref">Palma et al., Int. J. Cosmetic Science, 2015</div>
+        </div>
+      </div>
+      <div class="research-pill fade-in">
+        <div class="pill-icon">🤢</div>
+        <div class="pill-body">
+          <div class="pill-title">ขิงลดคลื่นไส้ได้จริง</div>
+          <div class="pill-text">Systematic review ยืนยันขิงมีประสิทธิภาพลดคลื่นไส้ในหญิงตั้งครรภ์และผู้ป่วยเคมีบำบัด</div>
+          <div class="pill-ref">Lete & Allué, Integrative Medicine Insights, 2016</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-title">⚠️ ข้อสำคัญ: Infused Water ไม่ใช่ยา</div>
+  <p class="footer-text">Klein & Kiat (2015, J. Human Nutrition and Dietetics) สรุปว่าไม่มีหลักฐานยืนยันว่า Infused Water สามารถ "Detox" ร่างกายได้ ตับและไตทำหน้าที่ขับสารพิษอยู่แล้วอย่างมีประสิทธิภาพ Infused Water มีประโยชน์จริง แต่ในฐานะ ส่วนเสริม ของอาหารที่สมดุล ไม่ใช่การรักษาโรคหรือทดแทนยา</p>
+  <div class="footer-refs">
+    <strong style="color:rgba(255,255,255,0.4)">อ้างอิงหลัก:</strong><br>
+    Bailey et al. CMAJ 2013 · Boschmann et al. JCEM 2003 · Dennis et al. Obesity 2010 · EFSA 2010 · FDA Food Safety 2023 · Griffith et al. Eur. Urol. 1994 · Klein & Kiat JHND 2015 · Lete & Allué IMI 2016 · Lussi & Jaeggi Caries Res. 2008 · Malik et al. Diabetes Care 2010 · Manach et al. AJCN 2004 · McKay & Blumberg Phytother. Res. 2006 · Mourao et al. Int. J. Obes. 2007 · Mukherjee et al. Fitoterapia 2013 · Palma et al. IJCS 2015 · Popkin et al. Nutr. Rev. 2010 · Pullar et al. Nutrients 2017 · Taylor & Curhan JASN 2004 · WHO 2015
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80 * (entry.target.dataset.delay || 0));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach((el, i) => {
+    el.dataset.delay = i % 4;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

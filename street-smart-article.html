@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Street Smart — ปัญญาชีวิต ที่โรงเรียนไม่ได้สอน</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;600;700;900&family=Noto+Sans+Thai:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1209;
+    --paper: #f5f0e8;
+    --paper-dark: #ebe4d4;
+    --amber: #c17f24;
+    --amber-light: #e8a83c;
+    --amber-pale: #f5dfa8;
+    --rust: #9e3d1a;
+    --teal: #1a6b6b;
+    --teal-light: #2a9090;
+    --cream: #faf7f0;
+    --muted: #7a6a52;
+    --border: #c4b48a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-size: 16px;
+    line-height: 1.9;
+    font-weight: 400;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 16px 24px 14px;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 3px solid var(--amber);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    background: var(--ink);
+    color: var(--paper);
+    overflow: hidden;
+    padding: 80px 24px 72px;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 40%, rgba(193,127,36,0.18) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(193,127,36,0.07) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(193,127,36,0.04) 40px);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--amber-light);
+    border: 1px solid var(--amber);
+    padding: 5px 14px;
+    margin-bottom: 28px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', 'Noto Serif Thai', serif;
+    font-size: clamp(2.6rem, 8vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amber-light);
+  }
+
+  .hero-subtitle {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    color: rgba(245,240,232,0.7);
+    margin-top: 18px;
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta span {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+  }
+
+  .hero-meta span strong {
+    display: block;
+    font-size: 13px;
+    color: var(--amber-light);
+    font-weight: 600;
+    letter-spacing: 0;
+    margin-bottom: 2px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 24px;
+  }
+  .rule::before, .rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .rule-icon { color: var(--amber); font-size: 18px; }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ─── TOC ─── */
+  .toc-section {
+    background: var(--paper-dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 24px;
+    margin-top: 0;
+  }
+
+  .toc-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 40px;
+  }
+
+  .toc-title {
+    grid-column: 1 / -1;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: color 0.2s;
+    padding: 4px 0;
+    border-bottom: 1px dotted rgba(196,180,138,0.5);
+  }
+
+  .toc-item:hover { color: var(--amber); }
+
+  .toc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    color: var(--amber);
+    font-style: italic;
+    min-width: 20px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .eyebrow-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--amber);
+    letter-spacing: 0.1em;
+  }
+
+  .eyebrow-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', 'Noto Serif Thai', serif;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .section h3 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin: 36px 0 14px;
+    letter-spacing: 0;
+  }
+
+  .section p {
+    font-size: 15.5px;
+    line-height: 1.95;
+    margin-bottom: 18px;
+    color: #2a2015;
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .pullquote {
+    margin: 40px 0;
+    padding: 28px 36px 28px 32px;
+    border-left: 4px solid var(--amber);
+    background: var(--paper-dark);
+    position: relative;
+  }
+
+  .pullquote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--amber-pale);
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    line-height: 1;
+  }
+
+  .pullquote p {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1.15rem !important;
+    font-style: italic;
+    line-height: 1.7 !important;
+    color: var(--rust) !important;
+    padding-left: 20px;
+    margin-bottom: 10px !important;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pullquote cite {
+    display: block;
+    padding-left: 20px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ─── CALLOUT BOX ─── */
+  .callout {
+    margin: 32px 0;
+    padding: 24px 28px;
+    border-radius: 2px;
+  }
+
+  .callout.amber {
+    background: var(--amber-pale);
+    border: 1px solid var(--amber);
+  }
+
+  .callout.teal {
+    background: #e0f0f0;
+    border: 1px solid var(--teal-light);
+  }
+
+  .callout.dark {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+  }
+
+  .callout-title {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .callout.amber .callout-title { color: var(--rust); }
+  .callout.teal .callout-title { color: var(--teal); }
+  .callout.dark .callout-title { color: var(--amber-light); }
+
+  .callout p {
+    font-size: 14.5px !important;
+    margin-bottom: 0 !important;
+    line-height: 1.75 !important;
+  }
+
+  .callout.dark p { color: rgba(245,240,232,0.85) !important; }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comparison {
+    margin: 36px 0;
+    border: 1px solid var(--border);
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .comparison thead tr {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .comparison thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .comparison thead th:first-child { color: #ff9f6e; }
+  .comparison thead th:last-child { color: var(--amber-light); }
+
+  .comparison tbody tr:nth-child(odd) { background: var(--cream); }
+  .comparison tbody tr:nth-child(even) { background: var(--paper-dark); }
+
+  .comparison td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+    color: #2a2015;
+  }
+
+  .comparison td:first-child { color: #8b3020; }
+  .comparison td:last-child { color: #1a5c3a; font-weight: 500; }
+
+  /* ─── INSIGHT CARDS ─── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+  }
+
+  .insight-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 24px;
+    position: relative;
+  }
+
+  .insight-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .insight-card.amber::before { background: var(--amber); }
+  .insight-card.teal::before { background: var(--teal); }
+  .insight-card.rust::before { background: var(--rust); }
+  .insight-card.green::before { background: #3a8c4a; }
+
+  .insight-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .insight-card h4 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .insight-card p {
+    font-size: 13.5px !important;
+    line-height: 1.7 !important;
+    color: var(--muted) !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* ─── NUMBERED LIST ─── */
+  .styled-list {
+    list-style: none;
+    margin: 24px 0;
+  }
+
+  .styled-list li {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(196,180,138,0.4);
+    align-items: flex-start;
+  }
+
+  .styled-list li:last-child { border-bottom: none; }
+
+  .list-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    color: var(--amber);
+    line-height: 1.1;
+    min-width: 32px;
+    padding-top: 2px;
+  }
+
+  .list-content strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .list-content p {
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    color: var(--muted) !important;
+    margin: 0 !important;
+  }
+
+  /* ─── CHECKLIST ─── */
+  .checklist {
+    list-style: none;
+    margin: 20px 0;
+  }
+
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    font-size: 14.5px;
+    border-bottom: 1px dotted rgba(196,180,138,0.4);
+    color: #2a2015;
+    line-height: 1.6;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-icon { color: var(--teal); font-size: 16px; margin-top: 2px; }
+
+  /* ─── FOOTNOTES ─── */
+  .reference-box {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    padding: 28px 32px;
+    margin-top: 32px;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .reference-box h4 {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .reference-box ol {
+    padding-left: 18px;
+    color: var(--muted);
+  }
+
+  .reference-box li { margin-bottom: 6px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.45);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    margin-top: 0;
+  }
+
+  footer strong { color: var(--amber); }
+
+  /* ─── HIGHLIGHT ─── */
+  mark {
+    background: var(--amber-pale);
+    padding: 1px 4px;
+    color: var(--rust);
+    font-weight: 600;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .toc-inner { grid-template-columns: 1fr; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .comparison thead th, .comparison td { padding: 10px 14px; font-size: 13px; }
+    .pullquote { padding: 20px 20px 20px 20px; }
+    .pullquote::before { font-size: 56px; }
+    .pullquote p { padding-left: 0; }
+    .pullquote cite { padding-left: 0; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * { animation: fadeUp 0.7s ease both; }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero h1  { animation-delay: 0.25s; }
+  .hero-subtitle { animation-delay: 0.4s; }
+  .hero-meta { animation-delay: 0.55s; }
+
+  /* ─── BIG INITIAL ─── */
+  .drop-cap::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.2rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.8;
+    margin: 8px 10px -4px 0;
+    color: var(--amber);
+  }
+
+  .label-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .label-badge.rust { background: var(--rust); }
+  .label-badge.amber { background: var(--amber); color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  บทความพิเศษ · ทักษะชีวิตและปัญญาประยุกต์ · ฉบับสมบูรณ์
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Deep Dive Article</div>
+  <h1>Street <em>Smart</em></h1>
+  <p class="hero-subtitle">ปัญญาชีวิตที่โรงเรียนไม่ได้สอน — ว่าด้วยทักษะที่แท้จริงในการอยู่รอดและเติบโตในโลกความเป็นจริง</p>
+  <div class="hero-meta">
+    <span><strong>ประเภท</strong>บทความวิเคราะห์</span>
+    <span><strong>ที่มา</strong>งานวิจัยทางจิตวิทยา</span>
+    <span><strong>ระดับ</strong>ทุกคนอ่านได้</span>
+    <span><strong>เวลาอ่าน</strong>ประมาณ 15 นาที</span>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc-section">
+  <div class="toc-inner">
+    <div class="toc-title">สารบัญ — เนื้อหาในบทความนี้</div>
+    <a href="#executive" class="toc-item"><span class="toc-num">I</span>Executive Summary</a>
+    <a href="#definition" class="toc-item"><span class="toc-num">II</span>Street Smart คืออะไร?</a>
+    <a href="#science" class="toc-item"><span class="toc-num">III</span>รากฐานทางวิทยาศาสตร์</a>
+    <a href="#vs" class="toc-item"><span class="toc-num">IV</span>Street Smart vs. Book Smart</a>
+    <a href="#pillars" class="toc-item"><span class="toc-num">V</span>องค์ประกอบ 6 เสาหลัก</a>
+    <a href="#application" class="toc-item"><span class="toc-num">VI</span>การนำไปใช้จริง</a>
+    <a href="#develop" class="toc-item"><span class="toc-num">VII</span>วิธีพัฒนา Street Smart</a>
+    <a href="#resources" class="toc-item"><span class="toc-num">VIII</span>เครื่องมือและแหล่งอ้างอิง</a>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="container">
+  <section class="section" id="executive">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section I</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>Executive Summary</h2>
+    <p class="drop-cap">Street Smart หรือ "ปัญญาชีวิต" คือชุดทักษะและความรู้ประยุกต์ที่ไม่ได้มาจากห้องเรียน แต่หล่อหลอมขึ้นจากประสบการณ์จริง การสังเกต และการเผชิญกับสถานการณ์ที่คาดไม่ถึงในโลกความเป็นจริง นักจิตวิทยาระดับโลกอย่าง <strong>Dr. Robert Sternberg จาก Yale University</strong> ระบุว่า Street Smart คือส่วนหนึ่งของ <em>"Practical Intelligence"</em> — หนึ่งใน 3 องค์ประกอบหลักของสติปัญญามนุษย์ ที่สำคัญไม่น้อยกว่า IQ แต่กลับถูกมองข้ามในระบบการศึกษากระแสหลัก</p>
+    <p>งานวิจัยพบว่า Street Smart <mark>ทำนายความสำเร็จในการบริหารจัดการได้ดีกว่าผลการเรียน</mark> และเป็นทักษะที่เรียนรู้ ฝึกฝน และพัฒนาได้ — ไม่ใช่สิ่งที่ติดตัวมาแต่กำเนิด คนที่มี Street Smart สูงจะอ่านคนออก ปรับตัวได้เร็ว รู้จักตั้งขอบเขต รู้เมื่อไหร่ควรพูดและควรนิ่ง และสามารถนำทางชีวิตผ่านสถานการณ์ซับซ้อนได้อย่างมีประสิทธิภาพ</p>
+
+    <div class="callout dark">
+      <div class="callout-title">✦ ใจความหลักในบทความนี้</div>
+      <p>Street Smart ไม่ใช่แค่ "รู้จักถนน" แต่คือทักษะการอ่านสถานการณ์ อ่านคน และตัดสินใจภายใต้ความไม่แน่นอน — ซึ่งเป็นสิ่งที่โลกแห่งความเป็นจริงต้องการทุกวัน ทั้งในชีวิตส่วนตัว การทำงาน และการสร้างความสัมพันธ์</p>
+    </div>
+
+    <p>บทความนี้รวบรวมนิยาม งานวิจัย แนวคิด และวิธีพัฒนาทักษะ Street Smart อย่างครบถ้วน เพื่อให้เราทุกคนสามารถนำไปใช้ได้จริงในชีวิตประจำวัน</p>
+  </section>
+
+  <!-- DEFINITION -->
+  <section class="section" id="definition">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section II</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>Street Smart คืออะไร?</h2>
+    <p><span class="label-badge">นิยาม</span>Street Smart หมายถึง <strong>ความรู้และทักษะเชิงปฏิบัติที่พัฒนาขึ้นจากประสบการณ์ชีวิตจริง</strong> ไม่ใช่จากหนังสือหรือการศึกษาในระบบ เป็นความสามารถในการนำทางผ่านสถานการณ์ในชีวิต อ่านสัญญาณทางสังคม และตัดสินใจอย่างชาญฉลาดภายใต้เงื่อนไขที่ไม่แน่นอน</p>
+    <p>คำนี้มีรากฐานมาจากชุมชนเมืองที่คนต้องพัฒนาทักษะเพื่อเอาตัวรอดในสภาพแวดล้อมที่ยากลำบาก แต่ปัจจุบัน Dr. Sternberg ได้ขยายความหมายให้กว้างขึ้น:</p>
+
+    <div class="pullquote">
+      <p>Street Smart ไม่ได้เกี่ยวกับเมืองใหญ่หรือเมืองเล็ก ไม่ใช่คำที่มีนัยลบอีกต่อไป ในทุกการแสวงหาในชีวิต มีทั้งฐานความรู้ที่เป็นทางการและไม่เป็นทางการ ฐานความรู้ไม่เป็นทางการนั้นแหละ ที่มักสร้างความแตกต่างมากที่สุด มันคือกฎที่ไม่ได้เขียนไว้ของชีวิต</p>
+      <cite>— Dr. Robert Sternberg, Yale University</cite>
+    </div>
+
+    <h3>Street Smart ในบริบทต่างๆ</h3>
+    <p>ทักษะนี้ปรากฏในหลายบริบท ทั้งในชีวิตส่วนตัว การทำงาน และสังคม:</p>
+
+    <div class="insight-grid">
+      <div class="insight-card amber">
+        <span class="insight-icon">🧭</span>
+        <h4>ในชีวิตประจำวัน</h4>
+        <p>รู้ว่าควรไว้วางใจใคร สังเกตเห็นอันตรายก่อนใครจะเห็น และหาทางออกเมื่อแผนพังทลาย</p>
+      </div>
+      <div class="insight-card teal">
+        <span class="insight-icon">💼</span>
+        <h4>ในที่ทำงาน</h4>
+        <p>อ่านโครงสร้างอำนาจที่ไม่ได้เขียนในแผนผัง รู้ว่าจะต่อรองอย่างไร และสร้างพันธมิตรได้อย่างถูกจังหวะ</p>
+      </div>
+      <div class="insight-card rust">
+        <span class="insight-icon">🤝</span>
+        <h4>ในความสัมพันธ์</h4>
+        <p>จับสัญญาณที่คนอื่นส่งมา รู้เมื่อใดควรพูดและเมื่อใดควรฟัง และรู้จักตั้งขอบเขตที่เหมาะสม</p>
+      </div>
+      <div class="insight-card green">
+        <span class="insight-icon">🌆</span>
+        <h4>ในสังคมและวัฒนธรรม</h4>
+        <p>ปรับตัวเข้ากับสภาพแวดล้อมและกลุ่มคนที่แตกต่าง อ่านวัฒนธรรมและกฎเกณฑ์ที่ไม่ได้พูดออกมา</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCIENCE -->
+  <section class="section" id="science">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section III</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>รากฐานทางวิทยาศาสตร์</h2>
+
+    <h3>ทฤษฎี Triarchic Intelligence — Dr. Robert Sternberg (1985)</h3>
+    <p>Sternberg เสนอว่า สติปัญญามนุษย์ไม่ใช่แค่ตัวเลข IQ แต่ประกอบด้วย 3 มิติสำคัญ:</p>
+
+    <ul class="styled-list">
+      <li>
+        <span class="list-num">1</span>
+        <div class="list-content">
+          <strong>Analytical Intelligence — ปัญญาวิเคราะห์</strong>
+          <p>ความสามารถในการคิดเชิงตรรกะ วิเคราะห์ปัญหา และแก้โจทย์ที่มีโครงสร้างชัดเจน นี่คือสิ่งที่ IQ test วัดได้</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">2</span>
+        <div class="list-content">
+          <strong>Creative Intelligence — ปัญญาสร้างสรรค์</strong>
+          <p>ความสามารถในการสร้างสรรค์แนวคิดใหม่ คิดนอกกรอบ และปรับตัวกับสถานการณ์ที่ไม่เคยพบมาก่อน</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">3</span>
+        <div class="list-content">
+          <strong>Practical Intelligence — ปัญญาประยุกต์ (= Street Smart)</strong>
+          <p>ความสามารถในการนำความรู้ไปใช้กับสถานการณ์จริง ปรับตัวเข้ากับสภาพแวดล้อม และแก้ปัญหาชีวิตจริงที่ไม่มีคำตอบสำเร็จรูป</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="callout amber">
+      <div class="callout-title">📊 ข้อค้นพบจากงานวิจัย</div>
+      <p>Sternberg et al. (2000) พบว่า <strong>Practical Intelligence ทำนายผลการทำงานได้แม้หลังควบคุมตัวแปร IQ</strong> — นั่นหมายความว่ามันเป็นทักษะที่แยกต่างหากและสำคัญในตัวเอง ไม่ใช่แค่ความฉลาดทั่วไปในรูปแบบอื่น</p>
+    </div>
+
+    <h3>Tacit Knowledge — ความรู้ที่ไม่มีใครบอก</h3>
+    <p>แก่นสำคัญของ Street Smart คือสิ่งที่ Sternberg เรียกว่า <strong>"Tacit Knowledge"</strong> หรือ "ความรู้ที่ไม่พูดออกมา" ลักษณะของความรู้ประเภทนี้คือ:</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">◆</span><strong>ได้มาจากการลงมือทำ</strong> ไม่ใช่จากการอ่านหรือฟัง — ต้องผ่านประสบการณ์ตรงเท่านั้น</li>
+      <li><span class="check-icon">◆</span><strong>เป็นความรู้เชิงปฏิบัติ</strong> (Procedural) — รู้ว่า "ต้องทำอะไร" ในสถานการณ์นั้น ไม่ใช่แค่ "รู้ว่ามันคืออะไร"</li>
+      <li><span class="check-icon">◆</span><strong>มักพูดอธิบายได้ยาก</strong> — คนที่มีมักรู้สึกว่ามัน "สัญชาตญาณ" แต่จริงๆ เป็นรูปแบบที่สะสมจากประสบการณ์</li>
+      <li><span class="check-icon">◆</span><strong>มีคุณค่าเชิงปฏิบัติสูง</strong> — นำไปใช้ได้จริงในการบรรลุเป้าหมายชีวิต</li>
+    </ul>
+
+    <div class="pullquote">
+      <p>ในทุกงาน ทุกสาขา มีความรู้ทางการที่เขาบอกคุณ และมีความรู้ไม่เป็นทางการที่เขาไม่บอก ส่วนที่ไม่บอกนั้นแหละ ที่มักสร้างความแตกต่างมากที่สุด</p>
+      <cite>— Robert Sternberg, Practical Intelligence in Everyday Life</cite>
+    </div>
+
+    <h3>ความสัมพันธ์กับ Intelligence Frameworks อื่นๆ</h3>
+    <p>Street Smart ยังเชื่อมโยงกับทฤษฎีสติปัญญาอื่นๆ ที่สำคัญ ได้แก่:</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">◆</span><strong>Howard Gardner's Multiple Intelligences (1983)</strong> — โดยเฉพาะ Interpersonal Intelligence (เข้าใจผู้อื่น) และ Intrapersonal Intelligence (เข้าใจตัวเอง)</li>
+      <li><span class="check-icon">◆</span><strong>Emotional Intelligence / EQ (Goleman, 1995)</strong> — การจัดการอารมณ์ตัวเองและเข้าใจอารมณ์คนอื่น ซึ่งเป็นองค์ประกอบสำคัญของ Street Smart</li>
+      <li><span class="check-icon">◆</span><strong>Social Intelligence</strong> — ความสามารถในการนำทางผ่านความสัมพันธ์และระบบสังคมที่ซับซ้อน</li>
+    </ul>
+  </section>
+
+  <!-- VS SECTION -->
+  <section class="section" id="vs">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section IV</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>Street Smart vs. Book Smart<br>ไม่ใช่ศัตรู แต่เป็นคู่หู</h2>
+    <p>ความเข้าใจผิดที่พบบ่อยที่สุดคือมองว่าทั้งสองขั้วขัดแย้งกัน ในความเป็นจริง คนที่ประสบความสำเร็จสูงสุดมักเป็นผู้ที่ <mark>ผสมผสานทั้งสองอย่างเข้าด้วยกัน</mark></p>
+
+    <table class="comparison">
+      <thead>
+        <tr>
+          <th>📚 Book Smart</th>
+          <th>🧭 Street Smart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ความรู้เชิงทฤษฎีและวิชาการ</td>
+          <td>ความรู้เชิงปฏิบัติและประสบการณ์</td>
+        </tr>
+        <tr>
+          <td>แก้ปัญหาที่มีโครงสร้างชัดเจน</td>
+          <td>แก้ปัญหาที่ไม่มีคำตอบสำเร็จรูป</td>
+        </tr>
+        <tr>
+          <td>เรียนรู้จากหนังสือและอาจารย์</td>
+          <td>เรียนรู้จากชีวิตและประสบการณ์ตรง</td>
+        </tr>
+        <tr>
+          <td>วัดได้ด้วยคะแนนสอบ / IQ test</td>
+          <td>วัดได้จากผลลัพธ์ในสถานการณ์จริง</td>
+        </tr>
+        <tr>
+          <td>เน้นความแม่นยำและความถูกต้อง</td>
+          <td>เน้นความรวดเร็วและการปรับตัว</td>
+        </tr>
+        <tr>
+          <td>มองปัญหาจากมุมนามธรรม</td>
+          <td>มองปัญหาจากมุมผลกระทบจริง</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout teal">
+      <div class="callout-title">💡 The Sweet Spot</div>
+      <p>งานวิจัยของ Sternberg ชี้ว่า <strong>IQ สูงเกินไปอาจเป็นอุปสรรคต่อความสำเร็จในการบริหาร</strong> หากไม่มี Practical Intelligence ควบคู่กัน เพราะคนฉลาดทางวิชาการมักมองข้ามความซับซ้อนของมนุษย์และบริบทที่ไม่มีสูตรสำเร็จ</p>
+    </div>
+  </section>
+
+  <!-- 6 PILLARS -->
+  <section class="section" id="pillars">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section V</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>6 เสาหลักของ Street Smart</h2>
+    <p>จากการสังเคราะห์งานวิจัยหลายชิ้น Street Smart ประกอบด้วยองค์ประกอบ 6 เสาหลัก ซึ่งทำงานร่วมกันเหมือนระบบ:</p>
+
+    <!-- Pillar 1 -->
+    <h3>🎯 เสาที่ 1 — Situational Awareness (การอ่านสถานการณ์)</h3>
+    <p>ความสามารถในการ <strong>รับรู้สิ่งที่เกิดขึ้นรอบตัวอย่างแม่นยำ</strong> ทั้งในมิติกายภาพและสังคม รู้ว่าใครมีอำนาจในห้อง รู้ว่าบรรยากาศกำลังเปลี่ยน และเห็นสัญญาณเตือนก่อนที่คนอื่นจะสังเกตเห็น</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">◆</span>ตั้งคำถามกับตัวเองว่า "กำลังเกิดอะไรขึ้นจริงๆ ในที่นี้?"</li>
+      <li><span class="check-icon">◆</span>สังเกต Body language, น้ำเสียง และสิ่งที่ "ไม่ได้พูด"</li>
+      <li><span class="check-icon">◆</span>รู้จักโครงสร้างอำนาจที่ไม่เป็นทางการในกลุ่ม</li>
+    </ul>
+
+    <!-- Pillar 2 -->
+    <h3>🧠 เสาที่ 2 — People Reading (การอ่านคน)</h3>
+    <p>ความสามารถในการ <strong>ประเมินเจตนาและบุคลิกภาพของผู้อื่นได้อย่างรวดเร็วและแม่นยำ</strong> รู้ว่าใครน่าเชื่อถือ ใครกำลังโกหก ใครเป็นพันธมิตร และใครเป็นภัย</p>
+
+    <div class="callout amber">
+      <div class="callout-title">🔍 Mental Model: "What's in it for them?"</div>
+      <p>เมื่อมีคนทำอะไรบางอย่าง แทนที่จะรับที่หน้าตาเลย ให้ถามตัวเองว่า "เขาได้อะไรจากสิ่งนี้?" การถามคำถามนี้อยู่เสมอจะช่วยให้เราอ่านแรงจูงใจของคนได้ดีขึ้นมาก</p>
+    </div>
+
+    <!-- Pillar 3 -->
+    <h3>⚡ เสาที่ 3 — Adaptability (การปรับตัว)</h3>
+    <p>Street Smart ไม่ใช่แค่การ "รู้" แต่คือการ <strong>เปลี่ยนแปลงการกระทำให้เหมาะกับบริบทได้ทันที</strong> พูดคนละแบบกับคนละกลุ่ม ปรับสไตล์การสื่อสาร และยืดหยุ่นกับแผนที่เปลี่ยนไป</p>
+    <p>นักวิจัยเรียกทักษะนี้ว่า <em>Code-Switching</em> — การสลับโหมดการแสดงตัวตนให้เหมาะกับสภาพแวดล้อม ไม่ใช่การแกล้งทำ แต่เป็นการเลือกด้านที่เหมาะสมของตัวเองออกมา</p>
+
+    <!-- Pillar 4 -->
+    <h3>🛡️ เสาที่ 4 — Risk Assessment (การประเมินความเสี่ยง)</h3>
+    <p>ความสามารถในการ <strong>วิเคราะห์ความเสี่ยงได้เร็วและแม่นยำ</strong> รู้ว่าสถานการณ์ไหนปลอดภัย สถานการณ์ไหนเสี่ยง และไม่หลงเชื่ออะไรง่ายๆ โดยไม่ตรวจสอบ</p>
+
+    <ul class="checklist">
+      <li><span class="check-icon">◆</span>ไม่เอาของมีค่าออกมาโชว์โดยไม่จำเป็น (ทั้งทรัพย์สินและข้อมูลส่วนตัว)</li>
+      <li><span class="check-icon">◆</span>ตั้งคำถามกับข้อเสนอที่ "ดีเกินจริง"</li>
+      <li><span class="check-icon">◆</span>รู้ว่าเมื่อไหร่ควรยืนหยัด เมื่อไหร่ควรถอย</li>
+    </ul>
+
+    <!-- Pillar 5 -->
+    <h3>💬 เสาที่ 5 — Resourceful Communication (การสื่อสารเชิงทรัพยากร)</h3>
+    <p>รู้ว่า <strong>จะพูดอะไร กับใคร อย่างไร และเมื่อไหร่</strong> — รวมถึงรู้ว่าบางครั้งการนิ่งเฉยคือการสื่อสารที่ทรงพลังที่สุด มีทักษะการต่อรอง การสร้างพันธมิตร และการขอสิ่งที่ต้องการโดยไม่ทำให้ใครรู้สึกถูกบังคับ</p>
+
+    <!-- Pillar 6 -->
+    <h3>🌱 เสาที่ 6 — Experiential Learning (การเรียนรู้จากประสบการณ์)</h3>
+    <p>Street Smart เติบโตขึ้นจาก <strong>การสกัดบทเรียนจากทุกประสบการณ์</strong> ทั้งความสำเร็จและความล้มเหลว คนที่มีทักษะนี้สูงจะไม่แค่ "ผ่าน" ประสบการณ์ แต่จะ "ย่อย" มันเพื่อสร้างเป็น Tacit Knowledge ที่ใช้ได้จริงในอนาคต</p>
+
+    <div class="pullquote">
+      <p>การใช้ชีวิตและการเรียนรู้จากมัน นั่นคือความฉลาด</p>
+      <cite>— Jeremy, ผู้เข้าร่วมงานวิจัยเชิงคุณภาพ (Hatt, 2007)</cite>
+    </div>
+  </section>
+
+  <!-- APPLICATION -->
+  <section class="section" id="application">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section VI</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>Street Smart ในชีวิตจริง — ตัวอย่างเปรียบเทียบ</h2>
+    <p>เพื่อให้เห็นภาพชัดขึ้น ลองดูเปรียบเทียบการตอบสนองในสถานการณ์เดียวกัน ระหว่างคนที่มี Street Smart สูงและต่ำ:</p>
+
+    <table class="comparison">
+      <thead>
+        <tr>
+          <th>❌ Street Smart ต่ำ</th>
+          <th>✅ Street Smart สูง</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>เดินเข้าห้องประชุมแล้วพูดโชว์ความรู้ทันที</td>
+          <td>สังเกตก่อนว่าใครมีอิทธิพล ใครฟัง ใครตัดสินใจ</td>
+        </tr>
+        <tr>
+          <td>เชื่อสิ่งที่คนบอกตามหน้าตาเลย</td>
+          <td>ตั้งคำถามว่า "เขาได้ประโยชน์อะไรจากการบอกเรื่องนี้?"</td>
+        </tr>
+        <tr>
+          <td>ต่อรองด้วยตรรกะอย่างเดียว</td>
+          <td>เข้าใจว่าการต่อรองคือเรื่องอารมณ์และความสัมพันธ์ด้วย</td>
+        </tr>
+        <tr>
+          <td>โกรธเมื่อแผนพัง ยึดติดกับสิ่งที่ควรเป็น</td>
+          <td>ปรับแผนทันที โฟกัสที่สิ่งที่ทำได้ตอนนี้</td>
+        </tr>
+        <tr>
+          <td>ขอความช่วยเหลือจากคนที่มีอำนาจโดยตรงเสมอ</td>
+          <td>รู้ว่าคนที่ช่วยได้จริงอาจไม่ใช่คนที่มีตำแหน่งสูงสุด</td>
+        </tr>
+        <tr>
+          <td>ล้มเหลวครั้งแล้วครั้งเล่าในลักษณะเดิม</td>
+          <td>สกัดบทเรียนจากทุกความผิดพลาด ไม่ทำซ้ำ</td>
+        </tr>
+        <tr>
+          <td>พูดเหมือนกันกับทุกคน ไม่ว่าจะเป็นใคร</td>
+          <td>ปรับน้ำเสียง ภาษา และมุมมองให้เหมาะกับผู้ฟัง</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- HOW TO DEVELOP -->
+  <section class="section" id="develop">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section VII</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>วิธีพัฒนา Street Smart</h2>
+    <p>ข่าวดีที่สุดที่ Sternberg และทีมงานยืนยันจากงานวิจัยคือ: <mark>Street Smart เป็นสิ่งที่สอนได้ เรียนรู้ได้ และวัดผลได้</mark> ไม่ใช่ความสามารถแต่กำเนิดที่เปลี่ยนไม่ได้</p>
+
+    <div class="callout amber">
+      <div class="callout-title">✅ ระดับเริ่มต้น — Easy Wins (ทำได้ทันที)</div>
+      <p>• <strong>สังเกตก่อนพูด</strong> — ในทุกสถานการณ์ใหม่ ใช้เวลา 5 นาทีแรกแค่ฟังและสังเกต ก่อนจะมีส่วนร่วม<br>
+      • <strong>ตั้งคำถาม "ทำไม" หลังทุกเหตุการณ์</strong> — เมื่อเกิดอะไรขึ้น ถามตัวเองว่า "ทำไมมันถึงออกมาแบบนี้?"<br>
+      • <strong>ลดการพูดเรื่องตัวเองลง 50%</strong> — แทนที่ด้วยการถามคำถามเพื่อทำความเข้าใจคนอื่น<br>
+      • <strong>สังเกต Body language</strong> — เริ่มจากสังเกตว่าเวลาคนโกหกหรือไม่สบายใจ มักมีสัญญาณอะไรบ้าง</p>
+    </div>
+
+    <div class="callout teal">
+      <div class="callout-title">⬆️ ระดับกลาง — Building Habits (ฝึกฝนสม่ำเสมอ)</div>
+      <p>• <strong>เข้าสังคมข้ามกลุ่ม</strong> — พูดคุยกับคนที่มีพื้นเลี้ยง อาชีพ หรือมุมมองต่างจากเรา เพื่อขยายฐาน Tacit Knowledge<br>
+      • <strong>ฝึก Post-mortem ส่วนตัว</strong> — หลังทุกสถานการณ์สำคัญ ทบทวนว่าอ่านสถานการณ์ถูกไหม? ควรทำอะไรต่างไปบ้าง?<br>
+      • <strong>หาพี่เลี้ยง (Mentor) ที่มี Street Smart สูง</strong> — เรียนรู้จากการสังเกตว่าเขาอ่านสถานการณ์และตัดสินใจอย่างไร<br>
+      • <strong>เล่นเกม Role-play สถานการณ์</strong> — ฝึกต่อรอง ฝึกปฏิเสธ และฝึกขอสิ่งที่ต้องการในบริบทสมมติก่อน</p>
+    </div>
+
+    <div class="callout dark">
+      <div class="callout-title">🔥 ระดับสูง — Deep Work (การพัฒนาขั้นลึก)</div>
+      <p>• <strong>ออกจาก Comfort Zone จริงๆ</strong> — ทำงานในสภาพแวดล้อมใหม่ เดินทางคนเดียว หรือรับโปรเจกต์ที่ไม่เคยทำมาก่อน<br>
+      • <strong>ศึกษา Human Psychology อย่างจริงจัง</strong> — ทำความเข้าใจ Cognitive Biases, Negotiation Psychology และ Persuasion Principles<br>
+      • <strong>ฝึก Reflective Journaling</strong> — เขียนบันทึกสิ่งที่สังเกตเห็นในแต่ละวัน โดยเฉพาะพฤติกรรมและแรงจูงใจของคนรอบข้าง<br>
+      • <strong>เรียนรู้จากความล้มเหลวของคนอื่น</strong> — อ่านชีวประวัติ ฟัง Podcast และศึกษา Case Studies ของคนที่เผชิญกับสถานการณ์ยากๆ</p>
+    </div>
+
+    <!-- REFLECTION QUESTIONS -->
+    <h3>คำถามเพื่อการไตร่ตรอง (Reflection Questions)</h3>
+    <ul class="styled-list">
+      <li>
+        <span class="list-num">?</span>
+        <div class="list-content">
+          <strong>ครั้งล่าสุดที่เราอ่านสถานการณ์ผิด มันเกิดขึ้นเพราะอะไร?</strong>
+          <p>ขาดข้อมูล? รีบเกินไป? หรือมีอคติที่ทำให้มองแบบอื่นไม่ออก?</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">?</span>
+        <div class="list-content">
+          <strong>ในสภาพแวดล้อมที่เราอยู่ "กฎที่ไม่ได้เขียนไว้" คืออะไร?</strong>
+          <p>ทั้งในที่ทำงาน ครอบครัว กลุ่มเพื่อน — กฎเหล่านั้นทำงานอย่างไร?</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">?</span>
+        <div class="list-content">
+          <strong>เราปรับตัวกับคนประเภทต่างๆ ได้ดีแค่ไหน?</strong>
+          <p>มีกลุ่มคนประเภทไหนที่เรารู้สึกติดขัดหรือสื่อสารได้ยาก? เพราะอะไร?</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">?</span>
+        <div class="list-content">
+          <strong>ครั้งล่าสุดที่เราถูกเอาเปรียบหรือถูกหลอก มีสัญญาณอะไรที่เราเห็นแต่เลือกไม่สนใจ?</strong>
+          <p>ส่วนใหญ่แล้วสัญญาณมักจะมีอยู่ก่อนแล้ว แต่เราอาจเลือกมองข้ามด้วยเหตุผลอื่น</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="section" id="resources">
+    <div class="section-eyebrow">
+      <span class="eyebrow-num">Section VIII</span>
+      <div class="eyebrow-rule"></div>
+    </div>
+    <h2>เครื่องมือ หนังสือ และแหล่งอ้างอิง</h2>
+
+    <h3>📚 หนังสือที่แนะนำ</h3>
+    <ul class="styled-list">
+      <li>
+        <span class="list-num">01</span>
+        <div class="list-content">
+          <strong>Practical Intelligence in Everyday Life — Robert J. Sternberg et al.</strong>
+          <p>งานวิจัยสำคัญที่สุดที่อธิบายว่า Street Smart คืออะไร วัดได้อย่างไร และพัฒนาได้อย่างไร</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">02</span>
+        <div class="list-content">
+          <strong>Emotional Intelligence — Daniel Goleman</strong>
+          <p>เข้าใจฐานรากของการอ่านคน จัดการอารมณ์ และสร้างความสัมพันธ์ที่มีประสิทธิภาพ</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">03</span>
+        <div class="list-content">
+          <strong>Never Split the Difference — Chris Voss</strong>
+          <p>อดีต FBI negotiator สอนวิธีอ่านคน ต่อรอง และสื่อสารในสถานการณ์กดดัน — Street Smart ในภาคปฏิบัติ</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">04</span>
+        <div class="list-content">
+          <strong>The 48 Laws of Power — Robert Greene</strong>
+          <p>การวิเคราะห์อย่างลึกเกี่ยวกับพลวัตของอำนาจในสังคมมนุษย์ อ่านด้วยตาวิพากษ์</p>
+        </div>
+      </li>
+      <li>
+        <span class="list-num">05</span>
+        <div class="list-content">
+          <strong>Thinking, Fast and Slow — Daniel Kahneman</strong>
+          <p>เข้าใจกลไกการตัดสินใจของสมองมนุษย์ — รู้จักอคติของตัวเองเป็นก้าวแรกของ Street Smart</p>
+        </div>
+      </li>
+    </ul>
+
+    <!-- REFERENCE -->
+    <div class="reference-box">
+      <h4>📖 เอกสารอ้างอิงทางวิชาการ</h4>
+      <ol>
+        <li>Sternberg, R. J. et al. (2000). <em>Practical Intelligence in Everyday Life.</em> Cambridge University Press.</li>
+        <li>Sternberg, R. J. (1985). <em>Beyond IQ: A Triarchic Theory of Human Intelligence.</em> Cambridge University Press.</li>
+        <li>Wagner, R. K., & Sternberg, R. J. (1985). Practical intelligence in real-world pursuits: The role of tacit knowledge. <em>Journal of Personality and Social Psychology, 49,</em> 436–458.</li>
+        <li>Hatt, B. (2007). Street smarts vs. book smarts: The figured world of smartness in the lives of marginalized, urban youth. <em>The Urban Review, 39(2),</em> 145–166.</li>
+        <li>Goleman, D. (1995). <em>Emotional Intelligence.</em> Bantam Books.</li>
+        <li>Gardner, H. (1983). <em>Frames of Mind: The Theory of Multiple Intelligences.</em> Basic Books.</li>
+        <li>Davies, M. (2019). Street smarts and critical thinking. <em>AERA Conference Paper.</em></li>
+        <li>Cianciolo, A. T. et al. (2006). Practical intelligence and tacit knowledge. <em>Learning and Individual Differences, 16,</em> 235–253.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="section">
+    <div class="rule"><span class="rule-icon">✦</span></div>
+    <br>
+    <div class="callout dark">
+      <div class="callout-title">One-Liner สรุปทั้งบทความ</div>
+      <p style="font-size: 1.15rem !important; font-style: italic; color: var(--amber-light) !important; font-family: 'Noto Serif Thai', serif; line-height: 1.6 !important;">
+        "IQ บอกว่าเราแก้ปัญหาได้ดีแค่ไหนในโลกที่มีกฎ — Street Smart บอกว่าเราเอาตัวรอดและเติบโตได้แค่ไหนในโลกที่ไม่มีสูตรสำเร็จ"
+      </p>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  บทความนี้สังเคราะห์จากงานวิจัยทางจิตวิทยาและแหล่งวิชาการ · รวบรวมโดย <strong>Claude</strong> · Anthropic AI<br>
+  อ้างอิงหลัก: Sternberg et al. (2000), Hatt (2007), Goleman (1995), Gardner (1983)
+</footer>
+
+</body>
+</html>

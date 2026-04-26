@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>สรุปหนังสือ Dopamine Nation — ใดๆ ในโลกล้วนโดพามีน</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f3ede0;
+  --bg-soft: #ede5d3;
+  --ink: #1a1814;
+  --ink-soft: #3a352d;
+  --muted: #6b6258;
+  --line: #c9bfab;
+  --coral: #c73e1d;
+  --coral-soft: #e8826a;
+  --sage: #2d5a4f;
+  --sage-soft: #7a9e90;
+  --gold: #b8873d;
+  --cream: #faf6ec;
+  --shadow: 0 1px 0 rgba(26,24,20,0.06), 0 20px 40px -20px rgba(26,24,20,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans Thai', 'Noto Serif Thai', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.75;
+  font-size: 17px;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(199,62,29,0.02) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(45,90,79,0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.hero-label {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--coral);
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-label::before, .hero-label::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--coral);
+}
+.hero-title {
+  font-family: 'Playfair Display', 'Noto Serif Thai', serif;
+  font-size: clamp(42px, 7vw, 76px);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  color: var(--ink);
+}
+.hero-title .thai {
+  font-family: 'Bai Jamjuree', sans-serif;
+  display: block;
+  font-size: 0.62em;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.hero-subtitle {
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--muted);
+  max-width: 620px;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+}
+.hero-meta div span {
+  display: block;
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.hero-meta div strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+section {
+  padding: 70px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.section-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 72px;
+  color: var(--coral);
+  line-height: 1;
+  opacity: 0.18;
+  position: absolute;
+  top: 60px;
+  right: 28px;
+  pointer-events: none;
+  font-weight: 400;
+}
+.section-label {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sage);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+h2 {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: clamp(28px, 4.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+h3 {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 36px 0 14px;
+  color: var(--ink);
+  line-height: 1.3;
+}
+h4 {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--coral);
+  letter-spacing: 0.02em;
+}
+p { margin-bottom: 18px; color: var(--ink-soft); }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--coral); font-style: italic; }
+
+.lead {
+  font-size: 20px;
+  line-height: 1.7;
+  font-family: 'Noto Serif Thai', serif;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.lead::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5em;
+  float: left;
+  line-height: 0.85;
+  margin: 8px 12px 0 0;
+  color: var(--coral);
+  font-weight: 700;
+}
+
+.exec-summary {
+  background: var(--cream);
+  border-left: 4px solid var(--coral);
+  padding: 32px 36px;
+  margin: 32px 0;
+  box-shadow: var(--shadow);
+}
+.exec-summary h4 {
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.exec-summary p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  line-height: 1.85;
+}
+.exec-summary p:last-child { margin-bottom: 0; }
+
+.concept-card {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  padding: 36px 40px;
+  margin: 32px 0;
+  position: relative;
+  box-shadow: var(--shadow);
+}
+.concept-card::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 24px; height: 24px;
+  border-top: 2px solid var(--coral);
+  border-left: 2px solid var(--coral);
+}
+.concept-card::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 24px; height: 24px;
+  border-bottom: 2px solid var(--coral);
+  border-right: 2px solid var(--coral);
+}
+.concept-card h3 { margin-top: 0; color: var(--ink); }
+
+.balance-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--line);
+  margin: 28px 0;
+  border: 1px solid var(--line);
+}
+.balance-visual > div { padding: 28px 24px; background: var(--cream); }
+.balance-visual .pleasure { background: linear-gradient(135deg, #fef4f0 0%, #faeae2 100%); }
+.balance-visual .pain { background: linear-gradient(135deg, #f0f4f2 0%, #e2eae6 100%); }
+.balance-visual h4 { margin-bottom: 8px; }
+.balance-visual .pleasure h4 { color: var(--coral); }
+.balance-visual .pain h4 { color: var(--sage); }
+.balance-visual p { font-size: 15px; margin-bottom: 0; line-height: 1.65; }
+
+.pullquote {
+  margin: 48px -20px;
+  padding: 40px 28px;
+  text-align: center;
+  position: relative;
+  border-top: 1px solid var(--coral);
+  border-bottom: 1px solid var(--coral);
+}
+.pullquote::before {
+  content: '"';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg);
+  padding: 0 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  color: var(--coral);
+  line-height: 1;
+}
+.pullquote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(22px, 3.5vw, 30px);
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.pullquote .thai-quote {
+  font-family: 'Noto Serif Thai', serif;
+  font-style: normal;
+  font-size: 16px;
+  color: var(--muted);
+  display: block;
+  margin-top: 14px;
+}
+.pullquote cite {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--coral);
+  font-style: normal;
+}
+
+.framework-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  margin: 36px 0;
+  border: 1px solid var(--line);
+}
+.framework-step {
+  background: var(--cream);
+  padding: 28px 24px;
+  position: relative;
+}
+.framework-step .letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--coral);
+  line-height: 0.9;
+  margin-bottom: 6px;
+}
+.framework-step h4 { font-size: 15px; margin-bottom: 8px; color: var(--ink); }
+.framework-step p { font-size: 14px; line-height: 1.55; margin-bottom: 0; color: var(--ink-soft); }
+.framework-step.highlight { background: linear-gradient(135deg, #fef4f0 0%, #faeae2 100%); }
+
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin: 28px 0;
+}
+.compare > div { padding: 24px 26px; background: var(--cream); }
+.compare .before { background: #f5ebe8; }
+.compare .after { background: #e8f0ec; }
+.compare h5 {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.compare .before h5 { color: var(--coral); }
+.compare .after h5 { color: var(--sage); }
+.compare ul { list-style: none; }
+.compare li {
+  padding: 8px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  border-bottom: 1px dashed var(--line);
+  color: var(--ink-soft);
+}
+.compare li:last-child { border-bottom: none; }
+
+.steps { list-style: none; counter-reset: step; margin: 24px 0; }
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding: 18px 0 18px 60px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 20px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--coral);
+  font-weight: 700;
+}
+.steps li strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-weight: 600;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px;
+  margin: 36px 0;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.stat .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--coral);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat .label {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.action-box {
+  background: #fef4f0;
+  border: 1px solid var(--coral-soft);
+  padding: 28px 32px;
+  margin: 28px 0;
+  position: relative;
+}
+.action-box::before {
+  content: 'EXERCISE';
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  background: var(--coral);
+  color: var(--cream);
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  padding: 4px 12px;
+}
+.action-box h4 { color: var(--ink); font-size: 18px; margin-bottom: 12px; margin-top: 6px; }
+.action-box ol, .action-box ul { padding-left: 20px; margin-top: 12px; }
+.action-box li { margin-bottom: 8px; color: var(--ink-soft); line-height: 1.6; }
+
+.reflection {
+  background: #e8f0ec;
+  border: 1px solid var(--sage-soft);
+  padding: 28px 32px;
+  margin: 28px 0;
+  position: relative;
+}
+.reflection::before {
+  content: 'REFLECT';
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  background: var(--sage);
+  color: var(--cream);
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  padding: 4px 12px;
+}
+.reflection h4 { color: var(--ink); font-size: 18px; margin-top: 6px; margin-bottom: 14px; }
+.reflection ol { padding-left: 20px; }
+.reflection li {
+  margin-bottom: 12px;
+  color: var(--ink-soft);
+  font-family: 'Noto Serif Thai', serif;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+.science-note {
+  background: var(--bg-soft);
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-left: 3px solid var(--gold);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.science-note strong {
+  font-family: 'Bai Jamjuree', sans-serif;
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.toc {
+  background: var(--cream);
+  padding: 32px 36px;
+  margin: 40px 0;
+  border: 1px solid var(--line);
+}
+.toc h4 {
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.toc ol {
+  list-style: none;
+  counter-reset: toc;
+  column-count: 2;
+  column-gap: 30px;
+}
+.toc li {
+  counter-increment: toc;
+  padding: 8px 0;
+  font-size: 15px;
+  break-inside: avoid;
+}
+.toc li::before {
+  content: counter(toc, decimal-leading-zero) '  /  ';
+  font-family: 'Playfair Display', serif;
+  color: var(--coral);
+  font-style: italic;
+}
+.toc a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+.toc a:hover { color: var(--coral); }
+
+footer {
+  padding: 60px 0 80px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+footer .divider {
+  width: 60px;
+  height: 1px;
+  background: var(--coral);
+  margin: 0 auto 24px;
+}
+footer p { font-family: 'Playfair Display', serif; font-style: italic; }
+
+.ornament {
+  text-align: center;
+  margin: 40px 0;
+  color: var(--coral);
+  font-size: 20px;
+  letter-spacing: 8px;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 20px; }
+  .hero { padding: 50px 0 40px; }
+  section { padding: 50px 0; }
+  .section-num { font-size: 48px; top: 40px; right: 20px; }
+  .concept-card { padding: 28px 24px; }
+  .exec-summary { padding: 24px 22px; }
+  .balance-visual, .compare { grid-template-columns: 1fr; }
+  .toc ol { column-count: 1; }
+  .lead::first-letter { font-size: 3.5em; }
+  .framework-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="hero">
+    <div class="hero-label">สรุปหนังสือ · Book Digest · 2026</div>
+    <h1 class="hero-title">
+      Dopamine<br/>Nation
+      <span class="thai">ใดๆ ในโลกล้วนโดพามีน</span>
+    </h1>
+    <p class="hero-subtitle">
+      Finding Balance in the Age of Indulgence — ค้นหาความสุขแบบสมดุล<br/>ในยุคแห่งการมอมเมาตัวเอง
+    </p>
+    <div class="hero-meta">
+      <div><span>ผู้เขียน</span><strong>Dr. Anna Lembke, M.D.</strong></div>
+      <div><span>สำนักพิมพ์</span><strong>Dutton (2021)</strong></div>
+      <div><span>หมวดหมู่</span><strong>ประสาทวิทยา · จิตวิทยา</strong></div>
+      <div><span>เวลาในการอ่าน</span><strong>~20 นาที</strong></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-num">01</div>
+    <div class="section-label">เกี่ยวกับผู้เขียน</div>
+    <h2>ใครคือ Dr. Anna Lembke</h2>
+    <p class="lead">
+      แอนนา เลมก์ไม่ได้เป็นเพียงนักเขียนหนังสือขายดี แต่เป็น <strong>ศาสตราจารย์ด้านจิตเวชศาสตร์แห่ง Stanford University</strong> และหัวหน้าคลินิก Stanford Addiction Medicine Dual Diagnosis เธอใช้เวลากว่า 25 ปีในการรักษาผู้ป่วยที่เสพติดทุกประเภท ตั้งแต่เฮโรอีน ไปจนถึงเซ็กส์ โซเชียลมีเดีย และการซื้อของออนไลน์
+    </p>
+    <div class="science-note">
+      <strong>Credentials</strong>
+      เธอเคยเป็นหนึ่งในเสียงแรกๆ ที่เตือนถึงวิกฤตยาเสพติดกลุ่มโอปิออยด์ในสหรัฐฯ ผ่านหนังสือเล่มก่อนหน้า <em>Drug Dealer, MD</em> (2016) ซึ่งเปิดโปงอุตสาหกรรมยาที่สร้างการเสพติดให้ผู้ป่วยอย่างเป็นระบบ เวลาเธอพูดเรื่องการเสพติด เรากำลังฟังคนที่เห็นมันด้วยตาของแพทย์ที่อยู่หน้างานจริง
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">02</div>
+    <div class="section-label">Executive Summary</div>
+    <h2>แก่นของหนังสือ ใน 10 ประโยค</h2>
+    <div class="exec-summary">
+      <h4>บทสรุปผู้บริหาร</h4>
+      <p>
+        เราอยู่ในยุคที่ <strong>ความสุขหาง่ายที่สุดในประวัติศาสตร์มนุษยชาติ</strong> — สมาร์ทโฟน อาหารหวาน สื่อลามก วิดีโอสั้น การช็อปปิ้ง ทุกอย่างอยู่ห่างแค่ปลายนิ้ว แต่ขณะเดียวกัน อัตราการเป็นโรคซึมเศร้า วิตกกังวล และการเสพติดกลับสูงที่สุดเป็นประวัติการณ์ คำถามคือ <em>ทำไม?</em>
+      </p>
+      <p>
+        Dr. Lembke อธิบายว่าสมองของเรามี <strong>กลไกสมดุลความสุข-ความเจ็บปวด (Pleasure-Pain Balance)</strong> ที่ทำงานเหมือนชิงช้าไม้ — เมื่อเราเสพความสุขมากเกินไป สมองจะตอบโต้ด้วยการปรับเทียบไปทางฝั่งเจ็บปวดเพื่อรักษาสมดุล (homeostasis) ทำให้เราต้องการ "โดสที่มากขึ้น" เพื่อให้รู้สึกแค่ "ปกติ"
+      </p>
+      <p>
+        ทางออกไม่ใช่การสละความสุขทั้งหมด แต่คือการ <strong>เรียนรู้วิธีกดฝั่งเจ็บปวดโดยตั้งใจ</strong> (cold shower, ออกกำลังกาย, อดอาหาร) การ <strong>งดเว้นแบบ 30 วัน (Dopamine Fast)</strong> เพื่อรีเซ็ตตัวรับ และการ <strong>สร้างกรอบจำกัดตนเอง (Self-Binding)</strong> เพื่อลดการเผชิญหน้ากับสิ่งล่อใจ
+      </p>
+      <p>
+        ที่สำคัญที่สุด — <strong>การเชื่อมต่อกับคนอื่นด้วยความจริงใจ</strong> (Radical Honesty) คือยาแก้การเสพติดที่ทรงพลังที่สุด เพราะสิ่งตรงข้ามของการเสพติดไม่ใช่ "ความมีสติสัมปชัญญะ" แต่คือ <strong>ความสัมพันธ์</strong>
+      </p>
+      <p>
+        อ่านจบแล้วจะเข้าใจว่าทำไมเราถึงเลื่อนฟีดโดยไม่รู้ตัว ทำไมยิ่งกินของหวานยิ่งเศร้า และจะมีเครื่องมือจริงๆ 7 ชุดสำหรับกลับมาเป็นเจ้าของความสุขของตัวเองอีกครั้ง
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="num">47%</div><div class="label">ของชาวอเมริกันมีอาการเสพติดสารหรือพฤติกรรมบางอย่าง</div></div>
+      <div class="stat"><div class="num">30</div><div class="label">จำนวนวันที่ใช้สำหรับ Dopamine Fast เพื่อรีเซ็ตตัวรับ</div></div>
+      <div class="stat"><div class="num">1957</div><div class="label">ปีที่ Arvid Carlsson ค้นพบว่า Dopamine เป็นสารสื่อประสาท</div></div>
+      <div class="stat"><div class="num">×10</div><div class="label">ระดับโดพามีนที่โคเคนกระตุ้น เมื่อเทียบกับธรรมชาติ</div></div>
+    </div>
+  </section>
+
+  <div class="toc">
+    <h4>สารบัญแนวคิดหลัก</h4>
+    <ol>
+      <li><a href="#concept1">กลไกชิงช้าความสุข-เจ็บปวด</a></li>
+      <li><a href="#concept2">สมองในยุคอุดมสมบูรณ์</a></li>
+      <li><a href="#concept3">DOPAMINE Framework 8 ขั้น</a></li>
+      <li><a href="#concept4">Self-Binding การผูกมัดตนเอง</a></li>
+      <li><a href="#concept5">กดฝั่งเจ็บปวด (Hormesis)</a></li>
+      <li><a href="#concept6">Radical Honesty ความซื่อสัตย์แบบสุดขั้ว</a></li>
+      <li><a href="#concept7">Prosocial Shame ความอายที่สร้างสรรค์</a></li>
+      <li><a href="#apply">การประยุกต์ใช้ในชีวิตจริง</a></li>
+    </ol>
+  </div>
+
+  <div class="ornament">· · ·</div>
+
+  <section id="concept1">
+    <div class="section-num">03</div>
+    <div class="section-label">แนวคิดที่ 1 · Neuroscience</div>
+    <h2>ชิงช้าความสุข–เจ็บปวด<br/>กลไกสมดุลในสมองของเรา</h2>
+
+    <div class="concept-card">
+      <h3>แนวคิดหลัก</h3>
+      <p>
+        สมองประมวลผล <strong>ความสุข (pleasure)</strong> และ <strong>ความเจ็บปวด (pain)</strong> ใน <em>บริเวณเดียวกัน</em> คือ nucleus accumbens และพวกมันทำงานเหมือน <strong>ชิงช้าไม้ (seesaw)</strong> — ด้านหนึ่งขึ้น อีกด้านต้องลง เพื่อรักษาสมดุล
+      </p>
+      <p>
+        หน้าที่หลักของสมองไม่ใช่การทำให้เรามีความสุข แต่คือการรักษา <strong>ภาวะสมดุล (homeostasis)</strong> นั่นแปลว่า <em>ทุกครั้งที่เราเสพความสุข สมองจะพยายามดึงกลับมา</em> ด้วยการปล่อยสัญญาณเจ็บปวดตรงข้าม
+      </p>
+
+      <div class="balance-visual">
+        <div class="pleasure">
+          <h4>▲ ฝั่งความสุข (Pleasure)</h4>
+          <p>โดพามีนพุ่ง — รู้สึกดี ตื่นเต้น อยากได้อีก เกิดเมื่อเสพคอนเทนต์ อาหารหวาน แอลกอฮอล์ เซ็กส์ โซเชียลมีเดีย</p>
+        </div>
+        <div class="pain">
+          <h4>▼ ฝั่งความเจ็บปวด (Pain)</h4>
+          <p>สมองตอบโต้กลับ — หลังความสุขจบ เรารู้สึกว่างเปล่า เศร้า กระสับกระส่าย "คัมดาวน์" ต้องการอีก</p>
+        </div>
+      </div>
+
+      <h3>3 กฎของชิงช้าโดพามีน</h3>
+      <ol class="steps">
+        <li>
+          <strong>Every pleasure has its price — ความสุขทุกอย่างมีราคา</strong>
+          หลังจากกินช็อกโกแลต ดูหนังจบ หรือได้ไลก์ในไอจี สมองจะปรับตัวไปทางเจ็บปวดเสมอ นี่คือ "หนี้ความสุข" ที่ต้องจ่าย
+        </li>
+        <li>
+          <strong>Repeated exposure → Tolerance — กระตุ้นซ้ำๆ จะทนทาน</strong>
+          ตัวรับโดพามีน (D2 receptors) จะลดจำนวนลง ทำให้ต้องการโดสมากขึ้นเรื่อยๆ เพื่อให้ได้ความสุขเท่าเดิม
+        </li>
+        <li>
+          <strong>New baseline becomes pain — เส้นฐานใหม่คือความทุกข์</strong>
+          เมื่อเสพติดถึงจุดหนึ่ง เราไม่เสพเพื่อ "สุข" อีกต่อไป เราเสพเพื่อ "ไม่ทุกข์" เส้นฐานของความรู้สึกปกติจะเอียงไปฝั่งเจ็บปวด
+        </li>
+      </ol>
+
+      <div class="science-note">
+        <strong>Scientific Basis</strong>
+        การศึกษาด้วย fMRI โดย Nora Volkow (NIH) แสดงว่าสมองของผู้เสพติดมีตัวรับโดพามีน D2 ลดลงอย่างเห็นได้ชัด ทำให้พวกเขาไม่สามารถรู้สึกสุขกับกิจกรรมปกติได้อีก — นี่คือเหตุผลว่าทำไมผู้เสพติดมักมีภาวะ <em>anhedonia</em> หรือการสูญเสียความสามารถในการรู้สึกยินดี
+      </div>
+    </div>
+  </section>
+
+  <div class="pullquote">
+    <blockquote>
+      "The relentless pursuit of pleasure leads to pain."
+      <span class="thai-quote">"การไขว่คว้าหาความสุขอย่างไม่หยุดยั้ง นำไปสู่ความทุกข์"</span>
+    </blockquote>
+    <cite>— Anna Lembke, Dopamine Nation</cite>
+  </div>
+
+  <section id="concept2">
+    <div class="section-num">04</div>
+    <div class="section-label">แนวคิดที่ 2 · Cultural Diagnosis</div>
+    <h2>สมองหินในโลกแห่งอุดมสมบูรณ์</h2>
+
+    <p class="lead">
+      ปัญหาคือ สมองของเราถูกออกแบบมาเพื่อ <strong>โลกที่ขาดแคลน</strong> ซึ่งต้องค้นหาอาหาร น้ำ คู่ครอง แต่ปัจจุบันเราอยู่ใน <strong>โลกที่ท่วมท้นไปด้วยสิ่งเร้า</strong> — Netflix, TikTok, Uber Eats, Amazon, Tinder ทุกอย่างพร้อมส่งถึงบ้านใน 30 นาที
+    </p>
+
+    <div class="compare">
+      <div class="before">
+        <h5>โลกบรรพบุรุษของเรา</h5>
+        <ul>
+          <li>🍖 อาหารหายาก ต้องล่า</li>
+          <li>💧 น้ำสะอาดต้องเดินไปตัก</li>
+          <li>💬 สังคมเล็ก ~150 คน</li>
+          <li>⚡ สิ่งเร้าใหม่ๆ น้อยมาก</li>
+          <li>🌙 กลางคืนมืด ต้องพัก</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h5>โลกปัจจุบันของเรา</h5>
+        <ul>
+          <li>🍔 อาหาร delivery 24 ชม.</li>
+          <li>🥤 น้ำหวานขวดละ 5 บาท</li>
+          <li>📱 โซเชียลมีเดียล้านคน</li>
+          <li>🎯 โฆษณากระตุ้น 5,000/วัน</li>
+          <li>💡 หน้าจอสว่างตลอด 24 ชม.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>ทุกคนคือผู้ติดยาในยุคนี้</h3>
+    <p>
+      Dr. Lembke ชี้ว่า <strong>การเสพติด (addiction) ไม่ได้จำกัดอยู่แค่สารเคมี</strong> อีกต่อไป มันคือ <em>การใช้พฤติกรรมใดก็ตามอย่างต่อเนื่อง ทั้งที่รู้ว่าเสียผลประโยชน์ระยะยาว</em> — สิ่งเหล่านี้ล้วนเป็น "ยาเสพติดยุคใหม่":
+    </p>
+
+    <ul class="steps">
+      <li>
+        <strong>Smartphone / Social Media — ยาเสพติดรุ่นใหม่</strong>
+        ทุกครั้งที่เราปัดฟีด สมองปล่อยโดพามีนเล็กน้อย คล้ายสล็อตแมชชีน (variable reward) ทำให้เลิกยาก
+      </li>
+      <li>
+        <strong>Ultra-processed food — น้ำตาล + ไขมัน + เกลือ</strong>
+        อาหารสมัยใหม่ถูกออกแบบให้ "เกิน natural reward" ทำให้ติดง่ายกว่าอาหารธรรมชาติมาก
+      </li>
+      <li>
+        <strong>Binge-watching — ดูซีรีส์แบบรวดเดียวจบ</strong>
+        Netflix ออกแบบ auto-play ให้เราไม่มีเวลาตัดสินใจว่า "พอแล้ว" — แต่ละตอนคือโดสโดพามีน
+      </li>
+      <li>
+        <strong>Online Shopping — ความสุขจากการรอกล่องมาถึง</strong>
+        การช็อปปิ้งไม่ได้กระตุ้นโดพามีนตอน <em>เปิดกล่อง</em> แต่กระตุ้นตอน <em>รอ</em> — Amazon รู้สิ่งนี้ดี
+      </li>
+      <li>
+        <strong>Pornography — ความแตกต่างแบบไม่จำกัด</strong>
+        อินเทอร์เน็ตทำให้เราเข้าถึงความแปลกใหม่ได้ไม่จำกัด ซึ่งสมองตีความว่า "ยีนใหม่" ทำให้โดพามีนพุ่งเกินระบบรองรับ
+      </li>
+    </ul>
+  </section>
+
+  <section id="concept3">
+    <div class="section-num">05</div>
+    <div class="section-label">แนวคิดที่ 3 · Practical Framework</div>
+    <h2>DOPAMINE Framework<br/>8 ขั้นตอนสู่การรีเซ็ตสมอง</h2>
+
+    <p>
+      นี่คือเครื่องมือคลินิกที่ Dr. Lembke ใช้กับคนไข้จริงใน Stanford มันเป็น <strong>acronym จำง่าย 8 ตัวอักษร</strong> ที่ครอบคลุมตั้งแต่การวินิจฉัย → การบำบัด → การกลับไปใช้ชีวิต
+    </p>
+
+    <div class="framework-grid">
+      <div class="framework-step">
+        <div class="letter">D</div>
+        <h4>Data</h4>
+        <p>รวบรวมข้อเท็จจริงเรื่องการใช้ — ใช้อะไร? ความถี่? ปริมาณ? ใช้มากี่ปีแล้ว? ยิ่งละเอียดยิ่งดี</p>
+      </div>
+      <div class="framework-step">
+        <div class="letter">O</div>
+        <h4>Objectives</h4>
+        <p>ทำไมถึงใช้? เหตุผลที่แท้จริง — หลบความเครียด? เข้าสังคม? เพิ่ม productivity? ต้องซื่อสัตย์กับตัวเอง</p>
+      </div>
+      <div class="framework-step">
+        <div class="letter">P</div>
+        <h4>Problems</h4>
+        <p>ปัญหาที่เกิดขึ้นจากการใช้ — สุขภาพ? งาน? ความสัมพันธ์? การเงิน? ระบุให้เป็นรูปธรรม</p>
+      </div>
+      <div class="framework-step highlight">
+        <div class="letter">A</div>
+        <h4>Abstinence</h4>
+        <p><strong>หัวใจของกรอบนี้:</strong> งดเว้น 30 วัน (dopamine fast) เพื่อให้ตัวรับ D2 ฟื้นตัว</p>
+      </div>
+      <div class="framework-step">
+        <div class="letter">M</div>
+        <h4>Mindfulness</h4>
+        <p>สติในการสังเกตความรู้สึกที่เกิดช่วงงด — ความอยาก, ความกระสับกระส่าย, ความเศร้า โดยไม่ตัดสิน</p>
+      </div>
+      <div class="framework-step">
+        <div class="letter">I</div>
+        <h4>Insight</h4>
+        <p>ความเข้าใจที่ตกผลึกหลังงด — มักค้นพบว่า "ฉันไม่ได้มีความสุขจริงๆ จากสิ่งนี้ แค่ใช้หลบจากความรู้สึกอื่น"</p>
+      </div>
+      <div class="framework-step">
+        <div class="letter">N</div>
+        <h4>Next Steps</h4>
+        <p>ขั้นต่อไป — จะงดต่อ? หรือกลับไปใช้แบบมี Self-binding? ตัดสินใจโดยอ้างอิง insight</p>
+      </div>
+      <div class="framework-step highlight">
+        <div class="letter">E</div>
+        <h4>Experiment</h4>
+        <p>ทดลองในชีวิตจริง — กลับไปใช้อย่างมีกติกา แล้วดูผล ถ้าผิดแผน ก็รีเซ็ตใหม่</p>
+      </div>
+    </div>
+
+    <div class="science-note">
+      <strong>Why 30 Days?</strong>
+      งานวิจัยทางประสาทวิทยาพบว่าตัวรับโดพามีน D2 ที่ถูกปรับลดลง (downregulation) ใช้เวลาประมาณ <em>2-4 สัปดาห์</em> ในการฟื้นตัว — 30 วันจึงเป็น "กรอบขั้นต่ำ" ที่ทำให้สมองกลับสู่สมดุลและเรารู้สึกความแตกต่างได้จริง
+    </div>
+
+    <div class="action-box">
+      <h4>ลองทำ Dopamine Fast 30 วันของคุณ</h4>
+      <p>เลือก <strong>1 พฤติกรรม</strong> ที่สงสัยว่าเสพติด และงดเว้น 30 วัน ตัวอย่างที่เริ่มต้นได้ง่าย:</p>
+      <ul>
+        <li>ลบ Instagram / TikTok ออกจากมือถือ (ใช้ได้แค่ใน desktop)</li>
+        <li>งดกาแฟ หรือน้ำตาลเติม</li>
+        <li>ไม่ดู Netflix / YouTube ในวันธรรมดา</li>
+        <li>งดช็อปปิ้งออนไลน์ที่ไม่จำเป็น (ทำ wishlist รอ 30 วัน)</li>
+      </ul>
+      <p style="margin-top:14px; margin-bottom:0;"><strong>เคล็ดลับ:</strong> บันทึกความรู้สึกทุกวันใน 7 วันแรก คุณจะเห็นรูปแบบที่ซ่อนอยู่</p>
+    </div>
+  </section>
+
+  <section id="concept4">
+    <div class="section-num">06</div>
+    <div class="section-label">แนวคิดที่ 4 · Strategy</div>
+    <h2>Self-Binding<br/>ผูกมัดตัวเองเพื่อปลดปล่อย</h2>
+
+    <p class="lead">
+      แนวคิดนี้มาจากตำนาน Odysseus ที่ขอให้ลูกเรือผูกเขากับเสากระโดงเรือ ก่อนล่องผ่านเกาะไซเรน เพราะรู้ว่าเสียงเพลงของไซเรนจะยั่วยวนจนเขาอดรนทนไม่ได้ <strong>Self-binding คือการสร้างกำแพงระหว่างตัวเราตอนนี้กับสิ่งล่อใจ เมื่อตอนเราแข็งแกร่ง</strong> เพื่อตอนที่เราอ่อนแอ กำแพงนั้นจะช่วยเรา
+    </p>
+
+    <h3>3 ประเภทของ Self-Binding</h3>
+
+    <div class="concept-card">
+      <h4 style="color:var(--coral)">① Physical Self-Binding — ผูกมัดทางกายภาพ</h4>
+      <p><strong>หลัก:</strong> สร้างระยะห่างทางกายภาพระหว่างเรากับสิ่งล่อใจ ยิ่งไกล ยิ่งต้องออกแรง ยิ่งดี</p>
+      <ul style="padding-left:20px; margin:12px 0 0;">
+        <li>ลบแอปออกจากมือถือ (ต้อง download ใหม่ทุกครั้งที่อยากใช้)</li>
+        <li>ไม่เก็บของกินไม่มีประโยชน์ในบ้าน</li>
+        <li>ใส่มือถือไว้อีกห้องตอนทำงาน</li>
+        <li>ใช้กล่องล็อคเวลา (kSafe) สำหรับของที่อยากควบคุม</li>
+      </ul>
+    </div>
+
+    <div class="concept-card">
+      <h4 style="color:var(--coral)">② Chronological Self-Binding — ผูกมัดด้วยเวลา</h4>
+      <p><strong>หลัก:</strong> กำหนดช่วงเวลาที่อนุญาตและไม่อนุญาต แทนที่จะห้ามเด็ดขาด (ซึ่งยากเกินไป)</p>
+      <ul style="padding-left:20px; margin:12px 0 0;">
+        <li>ดื่มแอลกอฮอล์เฉพาะวันศุกร์-เสาร์</li>
+        <li>ไม่เช็คมือถือก่อน 9 โมงเช้า และหลัง 3 ทุ่ม</li>
+        <li>ดู YouTube ได้แค่ 30 นาทีตอนหลังอาหารเย็น</li>
+        <li>ตั้ง screen time limit ใน iOS / Android</li>
+      </ul>
+    </div>
+
+    <div class="concept-card">
+      <h4 style="color:var(--coral)">③ Categorical Self-Binding — ผูกมัดด้วยหมวดหมู่</h4>
+      <p><strong>หลัก:</strong> แบ่งสิ่งต่างๆ เป็นกลุ่ม "กินได้" กับ "ห้ามแตะ" แล้วยึดไว้ตายตัว</p>
+      <ul style="padding-left:20px; margin:12px 0 0;">
+        <li>ไม่ดู short-form video เลย (แต่ดู long-form ได้)</li>
+        <li>กินน้ำตาลจากผลไม้ แต่ไม่เติมน้ำตาล</li>
+        <li>ใช้โซเชียลเพื่อคุยกับคนที่รู้จักจริง ไม่เสพคอนเทนต์</li>
+        <li>ซื้อหนังสือได้ไม่อั้น แต่ไม่ซื้อของอื่นออนไลน์</li>
+      </ul>
+    </div>
+
+    <div class="pullquote">
+      <blockquote>
+        "Self-binding is not a failure of willpower — it's the wise use of it."
+        <span class="thai-quote">"การผูกมัดตัวเองไม่ใช่การยอมรับว่าเราอ่อนแอ — แต่คือการใช้กำลังใจอย่างชาญฉลาด"</span>
+      </blockquote>
+      <cite>— Anna Lembke</cite>
+    </div>
+  </section>
+
+  <section id="concept5">
+    <div class="section-num">07</div>
+    <div class="section-label">แนวคิดที่ 5 · Counterintuitive Wisdom</div>
+    <h2>กดฝั่งเจ็บปวด<br/>เพื่อให้ความสุขไหลกลับมาเอง</h2>
+
+    <p class="lead">
+      นี่คือแนวคิดที่ <em>พลิกสามัญสำนึก</em> ทั้งหมด: <strong>ถ้าสมองรักษาสมดุลระหว่างสุขกับเจ็บปวดเสมอ เราสามารถเลือก "กด" ฝั่งเจ็บปวดก่อน เพื่อให้สมองตอบโต้ด้วยการปล่อยความสุขกลับมา</strong> นี่ไม่ใช่ปรัชญา มันคือปรากฏการณ์ neurobiology ที่เรียกว่า <em>Hormesis</em>
+    </p>
+
+    <h3>Hormesis คืออะไร?</h3>
+    <p>
+      Hormesis คือปรากฏการณ์ที่ <strong>สิ่งเลวร้ายในปริมาณน้อย ทำให้แข็งแกร่งขึ้น</strong> เหมือนการออกกำลังกายทำให้กล้ามฉีก แล้วสร้างใหม่ให้แข็งแรงกว่าเดิม สมองก็ตอบสนองต่อความเจ็บปวดเล็กๆ ด้วยการปล่อยโดพามีน <em>ที่ยาวนานและสะอาด</em> กว่าความสุขที่หาง่าย
+    </p>
+
+    <div class="compare">
+      <div class="before">
+        <h5>Cheap Pleasure (ความสุขราคาถูก)</h5>
+        <ul>
+          <li>🍬 น้ำตาล, อาหารแปรรูป</li>
+          <li>📱 โซเชียลมีเดีย, วิดีโอสั้น</li>
+          <li>🛒 ช็อปปิ้งออนไลน์</li>
+          <li>🎰 การพนัน</li>
+          <li>▶ <strong>ผล:</strong> โดพามีนพุ่งสั้น → คัมดาวน์ยาว</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h5>Painful Pleasure (ความสุขราคาแพง)</h5>
+        <ul>
+          <li>🥶 Cold exposure (ว่ายน้ำเย็น, อาบน้ำเย็น)</li>
+          <li>💪 ออกกำลังกายหนัก</li>
+          <li>🍽️ อดอาหารแบบ intermittent</li>
+          <li>🏃 วิ่งระยะไกล</li>
+          <li>▶ <strong>ผล:</strong> เจ็บปวดก่อน → โดพามีนไหลยาว + สุขภาพดี</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="science-note">
+      <strong>งานวิจัย Cold Water Immersion</strong>
+      การศึกษาปี 2000 ที่ตีพิมพ์ใน European Journal of Applied Physiology พบว่าการแช่ในน้ำเย็น 14°C เป็นเวลา 1 ชั่วโมง ทำให้ระดับโดพามีนในเลือดเพิ่มขึ้น <strong>250%</strong> และยังคงสูงกว่าปกติเป็นเวลา 2-3 ชั่วโมงหลังจากนั้น โดยไม่มีคัมดาวน์เชิงลบแบบที่เกิดจากสารเสพติด
+    </div>
+
+    <div class="action-box">
+      <h4>เริ่มกดฝั่งเจ็บปวดแบบเบาๆ</h4>
+      <ol>
+        <li><strong>Cold shower 30 วินาที</strong> ตอนท้ายการอาบน้ำปกติ (เพิ่มเป็น 2-3 นาทีใน 2 สัปดาห์)</li>
+        <li><strong>เดิน 20 นาทีโดยไม่ใส่หูฟัง</strong> ปล่อยให้สมองเจอความเบื่อ</li>
+        <li><strong>Intermittent Fasting 16:8</strong> เริ่มจาก 12 ชม. แล้วค่อยขยาย</li>
+        <li><strong>ออกกำลังแบบ HIIT 15 นาที</strong> สัปดาห์ละ 3 ครั้ง</li>
+        <li><strong>Digital Sabbath</strong> — ปิดมือถือ 1 วันต่อสัปดาห์</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="concept6">
+    <div class="section-num">08</div>
+    <div class="section-label">แนวคิดที่ 6 · Deep Practice</div>
+    <h2>Radical Honesty<br/>ความซื่อสัตย์แบบสุดขั้ว</h2>
+
+    <p class="lead">
+      Dr. Lembke พบกับคนไข้ที่เสพติดหลายพันคน และค้นพบรูปแบบที่น่าสนใจ — <strong>คนที่ฟื้นตัวได้อย่างยั่งยืน มีลักษณะร่วมกันอย่างหนึ่ง คือการฝึกพูดความจริง</strong> ทั้งกับตัวเอง และกับคนรอบข้าง แม้ในเรื่องที่อายที่สุด
+    </p>
+
+    <h3>ทำไมการโกหกถึงเป็นยาเสพติด</h3>
+    <p>
+      <strong>การโกหกก็ปล่อยโดพามีน</strong> — มันให้ความรู้สึกควบคุม หลบเลี่ยงผลกระทบ และสร้างภาพลักษณ์ที่ต้องการ แต่เหมือนยาเสพติดอื่น มันสร้าง:
+    </p>
+    <ul class="steps">
+      <li><strong>Tolerance</strong>ต้องโกหกมากขึ้นเรื่อยๆ เพื่อปกปิดโกหกเดิม</li>
+      <li><strong>Isolation</strong>ยิ่งโกหก ยิ่งแยกตัวจากคนจริงๆ เพราะกลัวถูกเปิดโปง</li>
+      <li><strong>Shame Loop</strong>ความอายจากการโกหก นำไปสู่การใช้ยาเสพติดเพื่อระงับความอาย ซึ่งต้องโกหกซ้ำอีก</li>
+    </ul>
+
+    <h3>กลไกของ Truth-Telling ในสมอง</h3>
+    <p>
+      การพูดความจริงกระตุ้น <strong>prefrontal cortex</strong> (สมองส่วนที่ควบคุมการตัดสินใจ) และลดการทำงานของ <strong>amygdala</strong> (สมองส่วนความกลัว) ขณะเดียวกันยัง <strong>สร้างความสัมพันธ์ที่แท้จริง</strong> ซึ่งเป็นแหล่งโดพามีนธรรมชาติที่ยั่งยืนที่สุด
+    </p>
+
+    <div class="pullquote">
+      <blockquote>
+        "The truth will set you free — but first, it will make you uncomfortable."
+        <span class="thai-quote">"ความจริงจะปลดปล่อยคุณ — แต่ก่อนอื่น มันจะทำให้คุณอึดอัด"</span>
+      </blockquote>
+      <cite>— Anna Lembke, Dopamine Nation</cite>
+    </div>
+
+    <div class="action-box">
+      <h4>ฝึก Radical Honesty ใน 3 ระดับ</h4>
+      <ol>
+        <li><strong>ระดับ 1 — ซื่อสัตย์กับตัวเอง:</strong> เขียน journal ทุกวัน 10 นาที เขียนสิ่งที่ "ไม่กล้าพูดกับใคร" — โดยไม่มีใครอ่าน</li>
+        <li><strong>ระดับ 2 — ซื่อสัตย์กับคนใกล้ชิด:</strong> บอก 1 คนที่ไว้ใจ เรื่องที่ปกปิดมานาน เริ่มจากเรื่องเล็กๆ ก่อน</li>
+        <li><strong>ระดับ 3 — ซื่อสัตย์ต่อสังคม:</strong> หยุดสร้างภาพในโซเชียล แชร์ความล้มเหลวบ้าง ไม่ใช่แค่ success</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="concept7">
+    <div class="section-num">09</div>
+    <div class="section-label">แนวคิดที่ 7 · Paradox</div>
+    <h2>Prosocial Shame<br/>ความอายที่เยียวยา</h2>
+
+    <p class="lead">
+      วัฒนธรรมปัจจุบัน <em>ปฏิเสธ</em> ความอาย ("don't shame people!") แต่ Dr. Lembke แย้งว่า <strong>ความอายไม่ได้เลวร้ายเสมอไป</strong> มันเป็นเครื่องมือวิวัฒนาการที่ทำให้เราอยู่ในกติกาของเผ่า — สิ่งสำคัญคือต้อง <em>แยกแยะ</em> 2 ประเภท
+    </p>
+
+    <div class="compare">
+      <div class="before">
+        <h5>Destructive Shame (ทำลาย)</h5>
+        <ul>
+          <li>❌ ปกปิดไว้คนเดียว</li>
+          <li>❌ สมบูรณ์นิยม — "ฉันเลวทั้งหมด"</li>
+          <li>❌ แยกตัวจากคนอื่น</li>
+          <li>❌ นำไปสู่การเสพติดเพื่อหลบ</li>
+          <li>❌ "I am bad" (ฉันคือคนเลว)</li>
+        </ul>
+      </div>
+      <div class="after">
+        <h5>Prosocial Shame (สร้างสรรค์)</h5>
+        <ul>
+          <li>✅ แบ่งปันกับชุมชน</li>
+          <li>✅ เฉพาะเจาะจง — "ฉันทำผิดเรื่องนี้"</li>
+          <li>✅ ขอความช่วยเหลือ</li>
+          <li>✅ นำไปสู่การเปลี่ยนแปลง</li>
+          <li>✅ "I did something bad" (ฉันทำสิ่งเลว)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Alcoholics Anonymous โมเดลที่ได้ผล</h3>
+    <p>
+      AA (Alcoholics Anonymous) คือตัวอย่างคลาสสิกของ prosocial shame — ทุกคนขึ้นยืนแนะนำตัวว่า "สวัสดี ฉันชื่อ... ฉันเป็นคนติดเหล้า" <em>ต่อหน้าทุกคน</em> การทำแบบนี้ไม่ได้ทำลายพวกเขา มันเยียวยา เพราะ:
+    </p>
+    <ul class="steps">
+      <li><strong>การสารภาพในกลุ่มลดความอายส่วนตัว</strong>"ฉันไม่ได้เลวคนเดียว คนอื่นก็เป็น"</li>
+      <li><strong>สร้างความรับผิดชอบทางสังคม</strong>เมื่อทุกคนรู้ว่าเราสู้อะไรอยู่ เราไม่อยากทำให้พวกเขาผิดหวัง</li>
+      <li><strong>เปลี่ยนอัตลักษณ์</strong>จาก "คนผิด" เป็น "คนที่กำลังหาทาง" — นี่คือโดสของศักดิ์ศรีและความสัมพันธ์</li>
+    </ul>
+  </section>
+
+  <div class="ornament">· · ·</div>
+
+  <section id="apply">
+    <div class="section-num">10</div>
+    <div class="section-label">Practical Applications</div>
+    <h2>นำไปใช้ในชีวิตจริง<br/>3 ระดับ ตามความพร้อม</h2>
+
+    <div class="action-box">
+      <h4>✅ ระดับที่ 1 — เริ่มได้วันนี้ (Easy Wins)</h4>
+      <ol>
+        <li><strong>ใส่มือถือในอีกห้องตอนนอน</strong> — แค่นี้แก้ปัญหาการเลื่อนฟีดก่อนนอน/ตื่นนอนทันที</li>
+        <li><strong>อาบน้ำเย็น 30 วินาทีตอนท้าย</strong> — Hormesis เริ่มได้ฟรี</li>
+        <li><strong>ลบ 1 แอปที่เสียเวลาที่สุด</strong> — TikTok, IG Reels, Shopee แล้วแต่คุณ</li>
+        <li><strong>Notification ปิดทั้งหมด</strong> ยกเว้นโทรศัพท์และข้อความจากคนที่สำคัญจริง</li>
+        <li><strong>เดินแบบไม่มีอะไรในหู</strong> 20 นาที — ปล่อยให้ความคิดเคลื่อนตัว</li>
+      </ol>
+    </div>
+
+    <div class="action-box">
+      <h4>⚡ ระดับที่ 2 — สร้างโครงสร้าง (Medium)</h4>
+      <ol>
+        <li><strong>ทำ Dopamine Fast 30 วัน</strong> กับ 1 พฤติกรรมที่ระบุ (โซเชียล, กาแฟ, น้ำตาล, เกม)</li>
+        <li><strong>สร้าง Self-binding rules</strong> — เช่น "ไม่เปิดเน็ตก่อน 9 โมง" หรือ "ไม่ดูซีรีส์วันธรรมดา"</li>
+        <li><strong>ออกกำลังกายเข้มข้น 3x/สัปดาห์</strong> — ใช้ความเจ็บปวดที่สมัครใจ เพื่อลดความอยากพึ่งโดพามีนง่าย</li>
+        <li><strong>Journal ก่อนนอน 10 นาที</strong> — ซื่อสัตย์กับตัวเองอย่างน้อยวันละครั้ง</li>
+        <li><strong>Digital Sabbath 1 วัน/สัปดาห์</strong> — ปิดอินเทอร์เน็ตทั้งวัน เพื่อรีเซ็ตสมอง</li>
+      </ol>
+    </div>
+
+    <div class="action-box">
+      <h4>🔥 ระดับที่ 3 — ปรับเปลี่ยนชีวิต (Advanced)</h4>
+      <ol>
+        <li><strong>หากลุ่มที่ฝึก Radical Honesty ร่วมกัน</strong> — กลุ่มเพื่อน 3-5 คน, book club, AA/SMART Recovery</li>
+        <li><strong>เปลี่ยนงาน/สิ่งแวดล้อมถ้าจำเป็น</strong> — Willpower แพ้ environment เสมอ</li>
+        <li><strong>ทำ retreat เงียบ 3-7 วัน</strong> ปีละครั้ง — reset ระบบอย่างลึก</li>
+        <li><strong>ลงทุนกับความสัมพันธ์จริง</strong> — เพราะ connection คือยาแก้ addiction ที่ดีที่สุด</li>
+        <li><strong>ถ้ามีปัญหาหนัก หาหมอ/นักบำบัด</strong> — ไม่ใช่ทุกอย่างแก้ด้วยตัวเองได้ นี่ไม่ใช่ความอ่อนแอ</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">11</div>
+    <div class="section-label">Reflection</div>
+    <h2>คำถาม 8 ข้อ<br/>สำหรับไตร่ตรองตัวเอง</h2>
+
+    <div class="reflection">
+      <h4>ลองนั่งเงียบๆ 20 นาที แล้วเขียนคำตอบในกระดาษ (ไม่ใช่หน้าจอ)</h4>
+      <ol>
+        <li>"Drug of choice" ของเราคืออะไร? สิ่งที่เราใช้เพื่อหลบจากความไม่สบายใจบ่อยที่สุด?</li>
+        <li>ถ้าเราต้องงดสิ่งนั้น 30 วัน เรากลัวอะไรมากที่สุด? ความกลัวนั้นบอกอะไรเราเกี่ยวกับตัวเอง?</li>
+        <li>ครั้งสุดท้ายที่เรารู้สึก "พอ" คือเมื่อไหร่? อะไรทำให้เกิดความรู้สึกนั้น?</li>
+        <li>มี "ความเจ็บปวดที่สมัครใจ" อะไรในชีวิต ที่หลังทำแล้วรู้สึกดี? (ออกกำลัง, อ่านหนังสือยาก, บทสนทนายาก)</li>
+        <li>เราโกหกตัวเองเรื่องอะไรมากที่สุด? และโกหกคนใกล้ชิดเรื่องอะไร?</li>
+        <li>ความอายที่เราแบกไว้คนเดียว — ถ้าแบ่งปันกับ 1 คนที่ไว้ใจ จะเป็นเรื่องอะไร?</li>
+        <li>ในชีวิตเรามี "connection" แท้ๆ กี่คน? (คนที่รู้จักเราจริงๆ รวมข้อบกพร่อง) ถ้ามีน้อย เราจะลงทุนกับสิ่งนี้อย่างไร?</li>
+        <li>ถ้าเรายังใช้ชีวิตแบบนี้ไปอีก 10 ปี สมองของเราจะเป็นอย่างไร? ชีวิตเราจะเป็นอย่างไร?</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-num">12</div>
+    <div class="section-label">Further Resources</div>
+    <h2>ศึกษาต่อยอด</h2>
+
+    <h3>📚 หนังสือที่ควรอ่านต่อ</h3>
+    <ul class="steps">
+      <li><strong>Atomic Habits — James Clear</strong>เสริม Self-binding ด้วยการออกแบบสภาพแวดล้อม</li>
+      <li><strong>Indistractable — Nir Eyal</strong>เครื่องมือจัดการสิ่งรบกวนจาก ex-psychologist ของบริษัทเทค</li>
+      <li><strong>The Molecule of More — Lieberman & Long</strong>ลึกกว่าเรื่องโดพามีน ในแง่วิวัฒนาการและความรัก</li>
+      <li><strong>Stolen Focus — Johann Hari</strong>วิจัยเชิงลึกว่าทำไมเราสูญเสียความสามารถในการจดจ่อ</li>
+      <li><strong>The Body Keeps the Score — Bessel van der Kolk</strong>ทำไมเราเสพติดเพื่อหลบจากบาดแผล</li>
+    </ul>
+
+    <h3>🎧 Podcasts & Talks</h3>
+    <ul class="steps">
+      <li><strong>Huberman Lab — "Controlling Your Dopamine"</strong>Andrew Huberman (Stanford) อธิบายกลไกแบบลึก</li>
+      <li><strong>Rich Roll Podcast — Anna Lembke interview</strong>สัมภาษณ์ผู้เขียน 2 ชั่วโมง ขยายหนังสือ</li>
+      <li><strong>The Diary of a CEO — Anna Lembke</strong>Steven Bartlett สัมภาษณ์ในปี 2024</li>
+    </ul>
+
+    <h3>🔬 งานวิจัยอ้างอิง</h3>
+    <ul class="steps">
+      <li><strong>Volkow et al. (2004)</strong>Dopamine in drug abuse and addiction (NIH)</li>
+      <li><strong>Schultz (1997)</strong>งานวิจัยดั้งเดิมเรื่อง reward prediction error</li>
+      <li><strong>Koob & Le Moal (2008)</strong>Addiction and the antireward system</li>
+      <li><strong>Šrámek et al. (2000)</strong>Cold water immersion and catecholamines</li>
+    </ul>
+
+    <h3>🛠️ Tools & Apps ที่ช่วยได้</h3>
+    <ul class="steps">
+      <li><strong>Freedom / Cold Turkey</strong>บล็อคเว็บไซต์/แอปตามช่วงเวลา</li>
+      <li><strong>One Sec</strong>สร้างการหยุดคิดก่อนเปิดแอปเสพติด</li>
+      <li><strong>Opal</strong>iOS app ที่ gamify การลดเวลาหน้าจอ</li>
+      <li><strong>Day One / Obsidian</strong>สำหรับ journal แบบส่วนตัว</li>
+      <li><strong>kSafe</strong>กล่องล็อคจริงๆ สำหรับเก็บของที่อยากคุม</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-num">13</div>
+    <div class="section-label">One Thing to Remember</div>
+    <h2>ถ้าจำได้แค่ข้อเดียว</h2>
+
+    <div class="pullquote">
+      <blockquote>
+        "The opposite of addiction is not sobriety.<br/>It is connection."
+        <span class="thai-quote">"สิ่งตรงข้ามของการเสพติดไม่ใช่ความมีสติสัมปชัญญะ — แต่คือความสัมพันธ์"</span>
+      </blockquote>
+      <cite>— Johann Hari (อ้างอิงในเล่ม)</cite>
+    </div>
+
+    <p class="lead" style="margin-top:40px;">
+      หนังสือเล่มนี้ไม่ได้บอกให้เรา <em>หยุดมีความสุข</em> — แต่บอกให้เรา <strong>ออกแบบชีวิตใหม่</strong> ให้ความสุขกลับมามีความหมาย ในโลกที่ทุกอย่างเกินพอดี <strong>การจำกัดคือการปลดปล่อย</strong> การเจ็บปวดโดยสมัครใจคือการลงทุนความสุขระยะยาว และการเชื่อมต่อกับคนอื่นด้วยความจริงใจ คือ <em>antidote</em> ที่สมองเราโหยหามาตลอด
+    </p>
+
+    <p class="lead">
+      ยุคนี้ <strong>ใครก็ตามที่ควบคุมโดพามีนของตัวเองได้ คือผู้มีอำนาจที่แท้จริง</strong> — ไม่ใช่ในโลกภายนอก แต่ในโลกของตัวเอง
+    </p>
+  </section>
+
+  <div class="ornament">◆  ◆  ◆</div>
+
+  <footer>
+    <div class="divider"></div>
+    <p>"Living well in the age of indulgence requires doing hard things."</p>
+    <p style="margin-top:8px; font-style:normal; font-family:'Bai Jamjuree',sans-serif; font-size:12px; letter-spacing:0.2em;">
+      DOPAMINE NATION · BOOK DIGEST · 2026
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
