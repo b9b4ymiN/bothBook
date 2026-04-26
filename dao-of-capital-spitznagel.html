@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dao of Capital — Mark Spitznagel</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168,120,42,0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #1A1208;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  color: var(--ink-soft);
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 40px rgba(0,0,0,0.4), 0 0 120px rgba(0,0,0,0.25);
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: #0D0900;
+  min-height: 100vh;
+  padding: 80px var(--page-pad-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute;
+  inset: 24px;
+  border: 1px solid rgba(168,120,42,0.18);
+  pointer-events: none;
+}
+.cover-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(168,120,42,0.08);
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(201,164,78,0.5);
+  margin-bottom: 64px;
+}
+.cover-author-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: rgba(201,164,78,0.45);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(42px, 8vw, 72px);
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 300;
+  color: rgba(249,245,236,0.45);
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+.cover-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 32px;
+}
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: rgba(249,245,236,0.55);
+  line-height: 1.85;
+  max-width: 440px;
+  margin-bottom: 56px;
+}
+.cover-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 64px;
+}
+.cover-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(168,120,42,0.65);
+  border: 1px solid rgba(168,120,42,0.25);
+  padding: 5px 12px;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: rgba(201,164,78,0.3);
+  text-transform: uppercase;
+  margin-top: auto;
+  padding-top: 32px;
+  border-top: 1px solid rgba(168,120,42,0.1);
+}
+
+/* ─── PAGE ─── */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+}
+.page + .page {
+  border-top: 1px solid var(--paper-deep);
+}
+
+/* ─── CHAPTER OPENING ─── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--page-pad-h) 64px;
+  border-top: 1px solid var(--paper-shadow);
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin-top: 28px;
+}
+.ch-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute;
+  top: 40px;
+  right: var(--page-pad-h);
+  line-height: 1;
+  user-select: none;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.ch-title em {
+  display: block;
+  font-family: 'Noto Serif', serif;
+  font-size: 0.6em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink-muted);
+  margin-top: 8px;
+}
+
+/* ─── EYEBROW ─── */
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+/* ─── HEADINGS ─── */
+h1 {
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(16px, 2.8vw, 21px);
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin: 48px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--gold-rule);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 32px;
+  height: 2px;
+  background: var(--gold);
+}
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-mid);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 32px 0 12px;
+}
+p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+p:last-child { margin-bottom: 0; }
+
+/* ─── PULL QUOTE ─── */
+.pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--gold);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* ─── BLOCKQUOTE FULL ─── */
+.blockquote-full {
+  background: var(--ink);
+  padding: 44px var(--page-pad-h);
+  margin: 56px calc(-1 * var(--page-pad-h));
+  text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(15px, 2.5vw, 19px);
+  font-style: italic;
+  color: rgba(249,245,236,0.78);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: rgba(201,164,78,0.45);
+  line-height: 1.7;
+}
+
+/* ─── AUTHOR VOICE ─── */
+.author-voice {
+  display: flex;
+  gap: 20px;
+  padding: 28px;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  margin: 36px 0;
+}
+.av-avatar {
+  width: 44px;
+  height: 44px;
+  background: var(--ink-soft);
+  color: var(--gold-light);
+  font-family: 'Noto Serif', serif;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.av-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+.av-text-th {
+  display: block;
+  font-style: normal;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 6px;
+}
+
+/* ─── CHECKLIST ─── */
+.checklist {
+  border: 1px solid var(--paper-shadow);
+  margin: 40px 0;
+  overflow: hidden;
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 24px 28px;
+}
+.checklist-cap h3 {
+  color: var(--gold-light);
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-family: 'Sarabun', sans-serif;
+  letter-spacing: 0.15em;
+}
+.checklist-cap p {
+  font-size: 13px;
+  color: rgba(249,245,236,0.5);
+  margin: 0;
+  line-height: 1.6;
+}
+.cl-group-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--paper-mid);
+  padding: 10px 28px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items {
+  list-style: none;
+  padding: 0;
+}
+.cl-items li {
+  display: flex;
+  gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--paper-deep);
+  align-items: flex-start;
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--paper-shadow);
+  flex-shrink: 0;
+  margin-top: 3px;
+  background: var(--paper);
+}
+.cl-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.cl-note {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+
+/* ─── SIGNAL BOX ─── */
+.signal-box {
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.signal-box.buy {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.signal-box.sell {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+}
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.signal-box.buy .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-list {
+  list-style: none;
+  padding: 0;
+}
+.signal-list li {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  line-height: 1.55;
+}
+.signal-list li:last-child { border-bottom: none; }
+.signal-box.buy .signal-list li::before { content: '+ '; color: var(--green); font-weight: 700; }
+.signal-box.sell .signal-list li::before { content: '− '; color: var(--red); font-weight: 700; }
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--paper-shadow);
+  margin: 40px 0;
+  background: var(--paper-shadow);
+  gap: 1px;
+}
+.stat-item {
+  background: var(--paper);
+  padding: 28px 20px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ─── COMPARISON TABLE ─── */
+.cmp-table-wrap { overflow-x: auto; margin: 36px 0; }
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13.5px;
+}
+.cmp-table th {
+  background: var(--ink-soft);
+  color: rgba(201,164,78,0.9);
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+}
+.cmp-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--paper-deep);
+  color: var(--ink-soft);
+  line-height: 1.55;
+  vertical-align: top;
+}
+.cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+.col-type {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ─── FORMULA BLOCK ─── */
+.formula-block {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-left: 3px solid var(--gold);
+  padding: 28px 32px;
+  margin: 36px 0;
+  text-align: center;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* ─── TWO-COL GRID ─── */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 36px 0;
+}
+.grid-card {
+  background: var(--paper);
+  padding: 24px 22px;
+}
+.grid-card h3 {
+  margin-top: 0;
+  font-size: 12px;
+}
+.grid-card p {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+.grid-card.bad { background: var(--red-bg); }
+.grid-card.good { background: var(--green-bg); }
+.grid-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.grid-card.bad .grid-label { color: var(--red); }
+.grid-card.good .grid-label { color: var(--green); }
+
+/* ─── REFLECTION ─── */
+.reflection {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 32px 36px;
+  margin: 40px 0;
+  counter-reset: reflection-counter;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.reflection-list {
+  list-style: none;
+  padding: 0;
+}
+.reflection-list li {
+  counter-increment: reflection-counter;
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper-deep);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+.reflection-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.reflection-list li::before {
+  content: counter(reflection-counter, decimal-leading-zero);
+  font-family: 'Noto Serif', serif;
+  font-size: 13px;
+  color: rgba(201,164,78,0.45);
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+/* ─── ORNAMENT ─── */
+.ornament {
+  border: none;
+  text-align: center;
+  margin: 56px 0;
+}
+.ornament::before {
+  content: '· · ·';
+  color: var(--gold-rule);
+  letter-spacing: 12px;
+  font-size: 14px;
+}
+
+/* ─── INTRO BLOCK ─── */
+.intro-block {
+  background: var(--paper-mid);
+  border-left: 3px solid var(--gold);
+  padding: 28px 32px;
+  margin: 0 0 40px;
+}
+.intro-block p {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+
+/* ─── BOOK GRID ─── */
+.book-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.book-item {
+  background: var(--paper);
+  padding: 20px 22px;
+}
+.book-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.book-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.book-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+/* ─── TOC ─── */
+.toc-list {
+  list-style: none;
+  padding: 0;
+}
+.toc-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper-deep);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-ch {
+  font-family: 'Noto Serif', serif;
+  font-size: 11px;
+  color: var(--gold);
+  flex-shrink: 0;
+  width: 36px;
+}
+.toc-title {
+  flex: 1;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--paper-shadow);
+  margin: 0 12px 3px;
+  min-width: 20px;
+}
+
+/* ─── FOOTER ─── */
+.book-footer {
+  background: #0D0900;
+  padding: 48px var(--page-pad-h);
+  text-align: center;
+  border-top: 1px solid rgba(168,120,42,0.15);
+}
+.footer-title {
+  font-family: 'Noto Serif', serif;
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(201,164,78,0.6);
+  margin-bottom: 12px;
+}
+.footer-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: rgba(201,164,78,0.25);
+  letter-spacing: 0.1em;
+}
+
+/* ─── HIGHLIGHT ─── */
+strong { color: var(--ink); font-weight: 600; }
+em { font-style: italic; color: var(--ink-mid); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 780px) {
+  :root {
+    --page-pad-h: 24px;
+    --page-pad-v: 48px;
+  }
+  .two-col-grid, .book-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+  .ch-num { display: none; }
+  .cmp-table-wrap { overflow-x: auto; }
+  .blockquote-full { padding: 32px 24px; margin: 40px calc(-1 * 24px); }
+  .cover { padding: 60px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">Investment Philosophy Series · ฉบับสมบูรณ์</div>
+  <div class="cover-author-label">ปรัชญาของ / By</div>
+  <div class="cover-title-en">The Dao<br>of Capital</div>
+  <div class="cover-title-th">เต๋าแห่งทุน — ศิลปะการถอยเพื่อรุก<br>และความอดทนที่นำมาซึ่งชัยชนะ</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    ความใจร้อนคือศัตรูใหญ่ที่สุดของผลตอบแทน ไม่ใช่ความรู้ ไม่ใช่ทักษะ
+    การชนะใหญ่ในตลาดต้องการสิ่งเดียว — ความอดทนที่จะรอจน Opportunity จริงๆ มาถึง
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">Austrian Economics</div>
+    <div class="cover-tag">Tail Risk</div>
+    <div class="cover-tag">Long-Termism</div>
+    <div class="cover-tag">Roundabout Investing</div>
+  </div>
+  <div class="cover-edition">Mark Spitznagel · Universa Investments · ฉบับวิเคราะห์และสรุปภาษาไทย</div>
+</div>
+
+<!-- ═══ TOC PAGE ═══ -->
+<div class="page">
+  <div class="eyebrow">สารบัญ / Table of Contents</div>
+  <h1>เนื้อหาในเอกสารนี้</h1>
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">6</div>
+      <div class="stat-label">บทหลัก</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Core Frameworks</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">∞</div>
+      <div class="stat-label">ปีที่ใช้ได้</div>
+    </div>
+  </div>
+  <ul class="toc-list">
+    <li>
+      <span class="toc-ch">01</span>
+      <span class="toc-title">Executive Summary — แก่นของ Dao of Capital</span>
+      <span class="toc-dots"></span>
+    </li>
+    <li>
+      <span class="toc-ch">02</span>
+      <span class="toc-title">ปรัชญาหลัก — ถอยเพื่อรุก (Roundaboutness)</span>
+      <span class="toc-dots"></span>
+    </li>
+    <li>
+      <span class="toc-ch">03</span>
+      <span class="toc-title">ศัตรูตัวร้าย — ความใจร้อนและ Short-Termism</span>
+      <span class="toc-dots"></span>
+    </li>
+    <li>
+      <span class="toc-ch">04</span>
+      <span class="toc-title">Tail Risk Hedging — กลยุทธ์การป้องกันหายนะ</span>
+      <span class="toc-dots"></span>
+    </li>
+    <li>
+      <span class="toc-ch">05</span>
+      <span class="toc-title">การประยุกต์ใช้ — ลงทุนแบบ Spitznagel ได้จริง</span>
+      <span class="toc-dots"></span>
+    </li>
+    <li>
+      <span class="toc-ch">06</span>
+      <span class="toc-title">Checklist, Reflection และแหล่งศึกษาต่อ</span>
+      <span class="toc-dots"></span>
+    </li>
+  </ul>
+</div>
+
+<!-- ═══ CHAPTER 1 ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Chapter One</div>
+  <div class="ch-title">
+    Executive Summary
+    <em>บทความนี้พูดถึงอะไร และทำไมเราต้องอ่าน</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>
+      <strong>The Dao of Capital</strong> ไม่ใช่หนังสือเกี่ยวกับการวิเคราะห์หุ้น ไม่ใช่คู่มือเลือกหลักทรัพย์ และไม่ใช่สูตรสำเร็จรวยเร็ว
+      มันคือปรัชญาการลงทุนที่ลึกที่สุดเล่มหนึ่งที่เคยถูกเขียน — เป็นการผสมผสานระหว่างเศรษฐศาสตร์สำนัก Austrian, ปรัชญาเต๋าของเล่าจื๊อ, และประสบการณ์จริงของ Mark Spitznagel ผู้ก่อตั้ง Universa Investments
+    </p>
+  </div>
+
+  <p>
+    แก่นของหนังสือเล่มนี้สรุปได้ในหนึ่งประโยค: <strong>การชนะในระยะยาวต้องการการยอมแพ้ในระยะสั้น</strong>
+    เช่นเดียวกับต้นไม้ที่ต้องแผ่รากลึกก่อนจะโตสูง นักลงทุนที่ยิ่งใหญ่ต้อง "เสียตำแหน่ง" ชั่วคราว
+    เพื่อสะสมพลังสำหรับโอกาสที่ยิ่งใหญ่กว่า
+  </p>
+
+  <p>
+    Spitznagel นำแนวคิด <strong>"Roundaboutness"</strong> จากนักเศรษฐศาสตร์ Eugen Böhm-Bawerk มาอธิบายว่า
+    วิธีการผลิตที่ "อ้อมค้อม" ที่สุดมักให้ผลผลิตสูงที่สุด เกษตรกรที่หยุดเกี่ยวข้าวด้วยมือ
+    แล้วใช้เวลาสร้างเคียวก่อน จะเก็บเกี่ยวได้มากกว่าในระยะยาว
+    นักลงทุนที่ไม่ไล่ตามผลตอบแทนทุกปีก็เช่นกัน
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The investor who is most willing to lose in the short run, wins in the long run."</div>
+    <div class="bq-th">นักลงทุนที่ยินดีเสียในระยะสั้นที่สุด คือผู้ชนะในระยะยาว</div>
+  </div>
+
+  <h2>เราจะได้อะไรจากการอ่านเอกสารนี้</h2>
+
+  <p>
+    เอกสารนี้ถูกออกแบบให้เราเปลี่ยนวิธีคิดเกี่ยวกับการลงทุนจากราก ไม่ใช่แค่เรียนเทคนิค
+    แต่เปลี่ยน <strong>Operating System</strong> ของวิธีที่เราตัดสินใจทางการเงิน
+  </p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">ประโยชน์ที่จะได้รับ</div>
+    <ul class="signal-list">
+      <li>เข้าใจว่าทำไมความใจร้อนถึงทำลายผลตอบแทนมากกว่าความโง่เขลา</li>
+      <li>รู้วิธีสร้าง "กำแพงป้องกัน" ก่อนวิกฤต ไม่ใช่หลังจากมันเกิด</li>
+      <li>เรียนรู้ Mental Model "ถอยเพื่อรุก" และนำไปใช้ได้จริง</li>
+      <li>เข้าใจหลักการ Tail Risk Hedging แบบที่ Universa ใช้</li>
+      <li>สร้าง Portfolio ที่ชนะในระยะยาวโดยไม่ต้องชนะทุกปี</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ CHAPTER 2 ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Chapter Two</div>
+  <div class="ch-title">
+    ปรัชญาหลัก — ถอยเพื่อรุก
+    <em>Roundaboutness, Daoism & Austrian Economics</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Core Philosophy</div>
+  <h1>ศิลปะของการถอยที่นำมาซึ่งชัยชนะ</h1>
+
+  <p>
+    Spitznagel เริ่มต้น The Dao of Capital ด้วยการพาเราย้อนกลับไปสู่ป่าไม้ในช่วง 1980s ที่เขาเรียนรู้การซื้อขาย
+    Futures กับ Everett Klipp นักเทรดในชิคาโก ผู้ที่สอนให้เขาเรียนรู้บทเรียนแรกและสำคัญที่สุด:
+  </p>
+
+  <div class="pullquote">
+    <p>"You've got to love to lose money, and hate to make money."</p>
+    <cite>Everett Klipp — พ่อผู้สอน Spitznagel</cite>
+  </div>
+
+  <p>
+    นี่ฟังดูขัดแย้งกับสัญชาตญาณทุกอย่าง แต่นั่นคือหัวใจของทั้งหมด —
+    <strong>การยอมเสียเล็กๆ น้อยๆ อยู่เสมอ เพื่อไม่เสียใหญ่เมื่อตลาดพัง</strong>
+    และเพื่อเปิดโอกาสให้ตัวเองโจมตีหนักเมื่อโอกาสจริงๆ มาถึง
+  </p>
+
+  <h2>The Roundabout Way — เส้นทางอ้อมที่ตรงที่สุด</h2>
+
+  <p>
+    Spitznagel หยิบยืมแนวคิดของ <strong>Eugen von Böhm-Bawerk</strong> นักเศรษฐศาสตร์สำนัก Austrian
+    ที่อธิบายว่า กระบวนการผลิตที่ "อ้อมค้อม" ที่สุดมักให้ผลผลิตสูงที่สุด
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">Böhm-Bawerk's Core Insight</div>
+    <div class="formula-eq">เส้นทางอ้อม → เครื่องมือที่ดีกว่า → ผลผลิตสูงกว่า</div>
+    <div class="formula-note">
+      เกษตรกรที่หยุดเก็บเกี่ยวด้วยมือเพื่อสร้างเคียวก่อน (ลงทุนระยะสั้น = เสียเวลา)
+      จะเก็บเกี่ยวได้มากกว่าในระยะยาว นี่คือหลักการเดียวกับการลงทุนแบบ Roundabout
+    </div>
+  </div>
+
+  <p>
+    ในบริบทการลงทุน <strong>Roundaboutness</strong> หมายถึงการยอม "ตำแหน่งกลาง" ที่เจ็บปวดชั่วคราว
+    เพื่อสะสมพลังและรอจังหวะโจมตีที่ใหญ่กว่า
+    เหมือนนักมวยที่ยอมถอยก้าวหนึ่งเพื่อตีกลับสองก้าว
+  </p>
+
+  <h2>เต๋าแห่งทุน — ปัญญาจีนพบกับตลาดทุน</h2>
+
+  <p>
+    ชื่อหนังสือไม่ได้ถูกตั้งขึ้นเพื่อความสวยงาม Spitznagel เชื่อว่าปรัชญาเต๋าและหลักการลงทุนเป็นสิ่งเดียวกัน
+    เล่าจื๊อเขียนไว้ในเต๋าเต๋อจิง:
+  </p>
+
+  <div class="author-voice">
+    <div class="av-avatar">老</div>
+    <div>
+      <div class="av-meta">เล่าจื๊อ — เต๋าเต๋อจิง</div>
+      <p class="av-text">
+        "曲則全，枉則直，窪則盈，弊則新"
+        <span class="av-text-th">
+          "ยอมโค้งจึงสมบูรณ์, ยอมงอจึงตรง, ยอมว่างจึงเต็ม, ยอมสึกหรอจึงใหม่"
+          — นี่คือหลักการเดียวกับการลงทุนแบบ Roundabout ทุกประการ
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <p>
+    ใน Daoism ความแข็งแกร่งมาจากความอ่อนนุ่ม น้ำที่อ่อนที่สุดในโลก
+    กลับสามารถเจาะหินที่แข็งที่สุดได้ด้วยความอดทน
+    นักลงทุนที่ "อ่อน" พอที่จะยอมเสียในระยะสั้น คือผู้ที่แข็งแกร่งที่สุดในระยะยาว
+  </p>
+
+  <hr class="ornament">
+
+  <h2>Austrian Economics — รากฐานทางทฤษฎี</h2>
+
+  <p>
+    Spitznagel เป็นลูกศิษย์ตัวเอกของ <strong>Ludwig von Mises</strong> ผู้นำสำนักเศรษฐศาสตร์ Austrian
+    ที่เชื่อว่าตลาดไม่มีวันสมดุลแบบถาวร มันเคลื่อนไหวด้วย Cycles ที่ถูกขับเคลื่อนโดยการแทรกแซงของธนาคารกลาง
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>หลักการ</th>
+          <th>Mainstream Economics</th>
+          <th>Austrian Economics (Spitznagel)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">มองตลาด</td>
+          <td>Efficient Market, Equilibrium</td>
+          <td>Boom-Bust Cycles, ไม่มี Equilibrium ถาวร</td>
+        </tr>
+        <tr>
+          <td class="col-type">บทบาทธนาคารกลาง</td>
+          <td>ควบคุมเศรษฐกิจได้และควรทำ</td>
+          <td>สร้าง Distortions และวิกฤตในอนาคต</td>
+        </tr>
+        <tr>
+          <td class="col-type">ผลตอบแทนในระยะสั้น</td>
+          <td>สำคัญ วัดความสำเร็จ</td>
+          <td>ไม่สำคัญ อาจเป็นสัญญาณอันตราย</td>
+        </tr>
+        <tr>
+          <td class="col-type">ความเสี่ยง</td>
+          <td>Volatility = ความเสี่ยง</td>
+          <td>การสูญเสียถาวรคือความเสี่ยงที่แท้จริง</td>
+        </tr>
+        <tr>
+          <td class="col-type">กลยุทธ์</td>
+          <td>Diversify, Stay Invested</td>
+          <td>รอ Opportunity + ป้องกัน Tail Risk</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    จากมุมมอง Austrian เศรษฐกิจที่ถูก "กระตุ้น" โดยธนาคารกลางด้วยอัตราดอกเบี้ยต่ำ
+    กำลังสะสมความไม่สมดุล (Malinvestment) ที่จะแก้ตัวเองในรูปแบบวิกฤตเสมอ
+    <strong>นักลงทุนที่รู้จักรูปแบบนี้จะเตรียมตัวได้ล่วงหน้า</strong> ไม่ใช่ตื่นตระหนกเมื่อมันเกิดขึ้น
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The intermediate position is not a weakness; it is the most powerful position of all."</div>
+    <div class="bq-th">ตำแหน่งกลางไม่ใช่ความอ่อนแอ — มันคือตำแหน่งที่ทรงพลังที่สุดในบรรดาทั้งหมด</div>
+  </div>
+</div>
+
+<!-- ═══ CHAPTER 3 ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Chapter Three</div>
+  <div class="ch-title">
+    ศัตรูตัวร้าย — ความใจร้อน
+    <em>Short-Termism, Loss Aversion & The Real Enemy</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Real Enemy</div>
+  <h1>ความใจร้อนทำลายผลตอบแทนมากกว่าความโง่เขลา</h1>
+
+  <p>
+    Spitznagel ประกาศอย่างชัดเจนตั้งแต่ต้น: <strong>ศัตรูที่ยิ่งใหญ่ที่สุดของนักลงทุนไม่ใช่ความไม่รู้
+    ไม่ใช่ขาดทักษะ และไม่ใช่ข้อมูลที่ไม่พอ</strong> — มันคือ <strong>ความไม่อดทน</strong>
+    ที่ผลักดันให้เราตัดสินใจตามความรู้สึกในระยะสั้น แทนที่จะคิดในระยะยาว
+  </p>
+
+  <h2>กับดักทางจิตวิทยา — ทำไมสมองเราถึงแพ้ตลาด</h2>
+
+  <p>
+    สมองมนุษย์ถูกวิวัฒนาการมาให้ตอบสนองต่อภัยคุกคามทันที ไม่ใช่วางแผนระยะยาว
+    ในตลาดทุน สัญชาตญาณนี้กลายเป็นอาวุธที่หันมาทำร้ายตัวเอง
+  </p>
+
+  <div class="two-col-grid">
+    <div class="grid-card bad">
+      <div class="grid-label">❌ ความใจร้อน ทำให้เรา...</div>
+      <p>ขายเมื่อตลาดร่วง เพราะกลัว "เสียมากกว่านี้" ทั้งที่นั่นคือจังหวะซื้อ</p>
+    </div>
+    <div class="grid-card good">
+      <div class="grid-label">✓ ความอดทน ทำให้เรา...</div>
+      <p>ถือต่อเมื่อตลาดร่วง เพราะรู้ว่าเรามีกำแพงป้องกันอยู่แล้ว</p>
+    </div>
+    <div class="grid-card bad">
+      <div class="grid-label">❌ ความใจร้อน ทำให้เรา...</div>
+      <p>ไล่ตามผลตอบแทนในปีที่ดี แล้วรับความเสี่ยงมากเกินไปโดยไม่รู้ตัว</p>
+    </div>
+    <div class="grid-card good">
+      <div class="grid-label">✓ ความอดทน ทำให้เรา...</div>
+      <p>อยู่ในตำแหน่งที่ "น่าเบื่อ" ระหว่างรอ แต่พร้อมโจมตีเมื่อถึงเวลา</p>
+    </div>
+    <div class="grid-card bad">
+      <div class="grid-label">❌ ความใจร้อน ทำให้เรา...</div>
+      <p>จ่ายค่าป้องกัน Downside แล้วรำคาญเมื่อไม่มีวิกฤต ถอนก่อนเวลา</p>
+    </div>
+    <div class="grid-card good">
+      <div class="grid-label">✓ ความอดทน ทำให้เรา...</div>
+      <p>มองค่าประกันเป็น "ราคาของการนอนหลับสบาย" ไม่ใช่ค่าใช้จ่ายที่สูญเปล่า</p>
+    </div>
+  </div>
+
+  <h2>The Seduction of Short-Term Gains — ยาพิษที่หวานที่สุด</h2>
+
+  <p>
+    ปัญหาที่ร้ายแรงกว่าการขาดทุนคือ <strong>การกำไรในช่วงเวลาผิด</strong>
+    เมื่อตลาด Bull Run ยาวนาน นักลงทุนที่ถือสินทรัพย์เสี่ยงสูงจะรู้สึกว่าตัวเองฉลาด
+    พวกเขายิ่งเพิ่มความเสี่ยง ยิ่งใช้ Leverage มากขึ้น — จนกว่าวิกฤตจะมา
+    และล้างทุกอย่างออกไปในเวลาสั้นๆ
+  </p>
+
+  <div class="pullquote">
+    <p>"The real danger is not the bear market. The real danger is the bull market that makes you forget bears exist."</p>
+    <cite>Mark Spitznagel — Dao of Capital</cite>
+  </div>
+
+  <h2>ทำไม Spitznagel ถึงยอมแพ้ในตลาดขาขึ้น</h2>
+
+  <p>
+    Universa Investments ของ Spitznagel มีชื่อเสียงในสิ่งที่คนอื่นมองว่าแปลกประหลาด:
+    <strong>กองทุนจะ Underperform ในปีที่ตลาดดี</strong> — บางปีขาดทุนเล็กน้อยเพราะค่า Hedge ที่จ่ายไป
+    แต่ในปีที่ตลาดพัง อย่างปี 2008 หรือ 2020 กองทุนกลับกำไรมหาศาลจนชดเชยทุกอย่างที่เสียไปและยังเหลือ
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">+4,144%</div>
+      <div class="stat-label">ผลตอบแทนของ Universa ในเดือน มีนาคม 2020 (COVID Crash)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1 เดือน</div>
+      <div class="stat-label">ใช้เวลาชดเชยปีที่ขาดทุนและยังมีกำไรมหาศาล</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">S&P −34%</div>
+      <div class="stat-label">ขณะที่ตลาดร่วงหนักที่สุดในรอบหลายสิบปี</div>
+    </div>
+  </div>
+
+  <p>
+    นี่คือตัวอย่างที่ชัดเจนที่สุดของ Roundaboutness —
+    <strong>ยอมเสียเล็กน้อยทุกปีในช่วงปกติ เพื่อกำไรมหาศาลในช่วงวิกฤต</strong>
+    แล้วใช้กำไรนั้นซื้อสินทรัพย์ที่ดีในราคาถูกที่สุด
+  </p>
+
+  <hr class="ornament">
+
+  <h2>ความแตกต่างระหว่าง "Patience" กับ "Passivity"</h2>
+
+  <p>
+    Spitznagel เน้นย้ำจุดที่หลายคนเข้าใจผิด ความอดทนไม่ใช่การนั่งเฉยๆ และรอ
+    มันคือ <strong>การเตรียมการอย่างแข็งขัน</strong> ในขณะที่รอโอกาส
+    เหมือนนักยิงธนูที่ดึงสายธนูไว้ เขาไม่ได้นิ่งเฉย — เขากำลังสะสมพลังทุกวินาที
+  </p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">ความอดทนแบบ Active (ถูกต้อง)</div>
+    <ul class="signal-list">
+      <li>ศึกษาและติดตามตลาดอย่างต่อเนื่อง รู้ว่า Valuation อยู่ที่ไหน</li>
+      <li>สร้างและบำรุงรักษา Hedge Structure ให้พร้อมเสมอ</li>
+      <li>สะสม Dry Powder (เงินสด/Liquidity) เพื่อรอโอกาส</li>
+      <li>ศึกษาประวัติศาสตร์วิกฤตและเรียนรู้รูปแบบ</li>
+      <li>ซ้อมจิตใจ ให้พร้อมตัดสินใจใหญ่เมื่อ Opportunity มาถึง</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">ความอดทนแบบ Passive (ผิด)</div>
+    <ul class="signal-list">
+      <li>Buy and Hold โดยไม่มีกลยุทธ์ป้องกัน</li>
+      <li>รอโดยไม่มีแผน ไม่รู้ว่าจะทำอะไรเมื่อโอกาสมา</li>
+      <li>ไม่มี Hedge เพราะคิดว่า "น่าจะไม่เป็นไร"</li>
+      <li>ไม่ได้เตรียม Liquidity ไม่มีเงินซื้อเมื่อตลาดลง</li>
+      <li>ตัดสินใจตามความรู้สึกในช่วงวิกฤต</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ CHAPTER 4 ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Chapter Four</div>
+  <div class="ch-title">
+    Tail Risk Hedging
+    <em>ศิลปะการป้องกันหายนะ — กลยุทธ์หลักของ Universa</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Core Strategy</div>
+  <h1>ซื้อประกันก่อนไฟไหม้ — ไม่ใช่หลัง</h1>
+
+  <p>
+    หัวใจของกลยุทธ์ Spitznagel คือสิ่งที่เขาเรียกว่า <strong>Tail Risk Hedging</strong>
+    การป้องกัน "เหตุการณ์หางยาว" หรือวิกฤตที่รุนแรงและหายาก แต่เมื่อเกิดขึ้นจะทำลายล้างอย่างสมบูรณ์
+    เช่น 2008 Financial Crisis, 2020 COVID Crash, 2000 Dot-com Bust
+  </p>
+
+  <h2>ทำไม Tail Risk ถึงสำคัญกว่าที่เราคิด</h2>
+
+  <p>
+    สถิติการลงทุนส่วนใหญ่วัดความเสี่ยงด้วย <strong>Standard Deviation</strong> ซึ่งสมมติว่าตลาดเคลื่อนไหวแบบ Normal Distribution
+    แต่ Spitznagel และ Nassim Taleb เพื่อนของเขาชี้ให้เห็นว่า <strong>ตลาดจริงมี Fat Tails</strong>
+    — เหตุการณ์ที่ "ไม่ควรเกิด" ตาม Normal Distribution เกิดขึ้นบ่อยกว่าโมเดลทางสถิติทั่วไปพยากรณ์มาก
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">The Kelly Criterion Insight</div>
+    <div class="formula-eq">Geometric Mean &gt; Arithmetic Mean</div>
+    <div class="formula-note">
+      ผลตอบแทนเฉลี่ยแบบคณิตศาสตร์ไม่ใช่สิ่งที่เราได้จริง
+      สิ่งที่สำคัญคือ Geometric Mean — และ Drawdown ขนาดใหญ่ทำลาย Geometric Mean อย่างรุนแรง
+      เสีย 50% ต้องกำไร 100% เพื่อคืนทุน ไม่ใช่แค่กำไร 50%
+    </div>
+  </div>
+
+  <h2>วิธีที่ Universa สร้าง Hedge</h2>
+
+  <p>
+    Spitznagel ไม่ได้เปิดเผยรายละเอียดทุกอย่าง แต่หลักการที่เขาเขียนใน Dao of Capital ชัดเจน:
+    Universa ใช้ <strong>Out-of-the-money Put Options</strong> บนดัชนีและสินทรัพย์ต่างๆ
+    ที่มีราคาถูกในช่วงปกติ (เพราะตลาดไม่กลัว) แต่จะกำไรมหาศาลเมื่อตลาดพัง
+  </p>
+
+  <div class="author-voice">
+    <div class="av-avatar">MS</div>
+    <div>
+      <div class="av-meta">Mark Spitznagel — Universa Investments</div>
+      <p class="av-text">
+        "We don't try to predict when the crash will come. We just make sure we're positioned to benefit enormously when it does."
+        <span class="av-text-th">
+          "เราไม่พยายามทำนายว่าวิกฤตจะมาเมื่อไหร่ เราแค่ทำให้มั่นใจว่าเราจะได้ประโยชน์มหาศาลเมื่อมันมา"
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <h2>ต้นทุนของการ Hedge — ราคาของการนอนหลับสบาย</h2>
+
+  <p>
+    ความเข้าใจผิดที่ใหญ่ที่สุดเกี่ยวกับ Hedging คือมองมันเป็น "ค่าใช้จ่าย" ที่ลด Net Return
+    แต่ Spitznagel แสดงให้เห็นว่า เมื่อคิด <strong>Risk-Adjusted Return</strong> อย่างถูกต้อง
+    การ Hedge ที่ดีจะ <em>เพิ่ม</em> Net Return ในระยะยาว ไม่ใช่ลด
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Portfolio</th>
+          <th>ปีปกติ</th>
+          <th>ปีวิกฤต (−50%)</th>
+          <th>ผลสุทธิ 10 ปี</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ไม่มี Hedge (100% Stocks)</td>
+          <td>+12% ต่อปี</td>
+          <td>−50% (ใช้เวลา 4 ปีฟื้น)</td>
+          <td>ต่ำกว่าที่คิด เพราะ Drawdown ทำลาย Compounding</td>
+        </tr>
+        <tr>
+          <td class="col-type">มี Tail Risk Hedge (3% Cost)</td>
+          <td>+9% ต่อปี (หลังค่า Hedge)</td>
+          <td>+200% หรือมากกว่า (Hedge ทำกำไร)</td>
+          <td>สูงกว่ามาก เพราะ Compounding ไม่ถูกขัดจังหวะ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>
+    กุญแจสำคัญคือการใช้กำไรจาก Hedge ในปีวิกฤตเพื่อ <strong>ซื้อสินทรัพย์ที่ดีในราคาถูกที่สุด</strong>
+    นั่นคือจุดที่ Roundaboutness เกิดขึ้นจริง — ถอยเพื่อรุก, สะสมเพื่อโจมตี
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The best time to buy fire insurance is not when your house is on fire."</div>
+    <div class="bq-th">เวลาที่ดีที่สุดในการซื้อประกันไฟไหม้ ไม่ใช่ตอนที่บ้านกำลังไหม้อยู่</div>
+  </div>
+</div>
+
+<!-- ═══ CHAPTER 5 ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Chapter Five</div>
+  <div class="ch-title">
+    การประยุกต์ใช้ในชีวิตจริง
+    <em>ลงทุนแบบ Spitznagel — Frameworks ที่ใช้ได้จริง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Practical Applications</div>
+  <h1>Key Mindsets และการนำไปใช้</h1>
+
+  <h2>🧠 Mental Model #1 — The Roundabout Investor</h2>
+
+  <div class="intro-block">
+    <p>
+      <strong>วิธีใช้ Model นี้:</strong> ก่อนตัดสินใจลงทุนทุกครั้ง ถามตัวเองว่า
+      "ฉันกำลังเลือกเส้นทางตรงหรือเส้นทางอ้อม? เส้นทางอ้อมที่เจ็บปวดกว่าในระยะสั้น
+      จะให้ผลลัพธ์ที่ดีกว่าในระยะยาวไหม?"
+    </p>
+  </div>
+
+  <p>
+    <strong>ตัวอย่างเส้นทางอ้อมในชีวิตจริง:</strong>
+    แทนที่จะไล่ซื้อหุ้นที่กำลัง Hot ตามตลาด เราเลือกสะสม Cash และ Options ป้องกันขาลงไว้ก่อน
+    ในปีที่ตลาดดี เราดูเหมือนแพ้ แต่เมื่อตลาดพัง เราพร้อมซื้อกว้านสุดชีวิต
+  </p>
+
+  <h2>🎯 Mental Model #2 — The Intermediate Position</h2>
+
+  <p>
+    Spitznagel ยืมแนวคิดทางทหารมาอธิบาย: นักยุทธศาสตร์ที่ดีไม่โจมตีเมื่อไม่พร้อม
+    พวกเขา "ยึดตำแหน่งกลาง" — ตำแหน่งที่ไม่แพ้ไม่ชนะในปัจจุบัน แต่ให้ความยืดหยุ่นสูงสุดสำหรับอนาคต
+  </p>
+
+  <div class="pullquote">
+    <p>"จงยึดตำแหน่งกลาง ก่อนที่โอกาสจะมา คนที่ไม่มีตำแหน่งเตรียมไว้ จะไม่สามารถโจมตีได้แม้โอกาสจะมาถึงหน้า"</p>
+    <cite>สรุปจาก The Dao of Capital — บท The Intermediate Position</cite>
+  </div>
+
+  <h2>✅ ระดับเริ่มต้น — Easy Wins</h2>
+
+  <p>สิ่งที่ทำได้ทันทีโดยไม่ต้องมีความรู้พิเศษ:</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">เริ่มต้นได้เลย — ไม่ต้องรอ</div>
+    <ul class="signal-list">
+      <li>สำรวจว่าตอนนี้ Portfolio เราทนการร่วง 40-50% ได้ไหมโดยไม่ตื่นตระหนก ถ้าไม่ได้แสดงว่ามีความเสี่ยงเกินไป</li>
+      <li>คำนวณ % Cash ที่มีอยู่ใน Portfolio ถ้าน้อยกว่า 10% ในช่วง Valuation สูง ควรเพิ่ม</li>
+      <li>ตั้งคำถามกับตัวเองว่า "ถ้าตลาดร่วง 40% พรุ่งนี้ เราจะทำอะไร" ถ้าไม่มีคำตอบชัดเจน ต้องวางแผน</li>
+      <li>หยุดดู Performance รายวัน เปลี่ยนเป็นดูรายไตรมาส — ลด Noise และ Anxiety</li>
+      <li>อ่านประวัติศาสตร์วิกฤตตลาดอย่างน้อย 1 เรื่องต่อเดือน เพื่อ Normalize ความกลัว</li>
+    </ul>
+  </div>
+
+  <h2>🔥 ระดับกลาง — นำ Framework มาใช้</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Spitznagel Portfolio Readiness Check</h3>
+      <p>ตรวจสอบ Portfolio ของเราให้ผ่านเช็คลิสต์นี้ทุกไตรมาส</p>
+    </div>
+    <div class="cl-group-title">ด้านจิตวิทยา</div>
+    <ul class="cl-items">
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ฉันสามารถอธิบายกลยุทธ์ทั้งหมดของฉันได้ใน 2 นาที โดยไม่ต้องอ้างอิงข่าวล่าสุด
+          <div class="cl-note">ถ้าทำไม่ได้ แสดงว่ากลยุทธ์ไม่ชัดพอ ซึ่งเป็นสัญญาณอันตราย</div>
+        </div>
+      </li>
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ฉันรู้แน่ชัดว่าจะ "ทำอะไร" ถ้าตลาดร่วง 30% ใน 1 เดือน
+          <div class="cl-note">คำตอบต้องมีอยู่ก่อน ไม่ใช่คิดตอนที่มันเกิดขึ้น</div>
+        </div>
+      </li>
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ฉันไม่ได้ตัดสินใจลงทุนเพราะ FOMO หรือดู Social Media ใน 30 วันที่ผ่านมา
+          <div class="cl-note">ถ้าทำ ให้ทบทวนว่าการตัดสินใจนั้นยังสมเหตุสมผลไหมตาม Framework ของเรา</div>
+        </div>
+      </li>
+    </ul>
+    <div class="cl-group-title">ด้านโครงสร้าง Portfolio</div>
+    <ul class="cl-items">
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          Portfolio มีการป้องกัน Downside บางรูปแบบ (Cash, Gold, Options, หรือ Asset ที่ uncorrelated)
+          <div class="cl-note">ไม่จำเป็นต้องเป็น Put Options แบบ Universa แต่ต้องมีบางอย่าง</div>
+        </div>
+      </li>
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ฉันมี Dry Powder พอที่จะ "ซื้อหนัก" ได้ถ้าตลาดลง 40-50%
+          <div class="cl-note">ถ้าไม่มี เราจะแพ้โอกาสที่ยิ่งใหญ่ที่สุดในชีวิตการลงทุน</div>
+        </div>
+      </li>
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ค่า Hedge/ประกันที่จ่ายต่อปีสมเหตุสมผล (ไม่เกิน 2-3% ของ Portfolio สำหรับนักลงทุนทั่วไป)
+          <div class="cl-note">ถ้าจ่ายมากกว่านี้ อาจต้องปรับ Strategy หรือใช้เครื่องมืออื่น</div>
+        </div>
+      </li>
+    </ul>
+    <div class="cl-group-title">ด้านมุมมองระยะยาว</div>
+    <ul class="cl-items">
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ฉันไม่ได้คาดหวังว่าจะ "ชนะ" ทุกปี และ OK กับการ Underperform ในปีที่ตลาดขึ้น
+          <div class="cl-note">ถ้ายังรู้สึกกดดันเรื่องนี้ ต้องทบทวน Time Horizon ของเรา</div>
+        </div>
+      </li>
+      <li>
+        <div class="cl-box"></div>
+        <div class="cl-text">
+          ฉันวัดผลตอบแทนในรูป Compounded Annualized Return ตลอดวัฏจักรเต็ม ไม่ใช่ปีต่อปี
+          <div class="cl-note">Spitznagel สอนว่า Geometric Mean ต่างหากที่สำคัญ ไม่ใช่ Arithmetic Mean</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2>🚀 ระดับสูง — Spitznagel Framework เต็มรูปแบบ</h2>
+
+  <p>
+    สำหรับนักลงทุนที่มีประสบการณ์และเข้าใจ Options พอสมควร หลักการของ Universa สามารถนำมาปรับใช้ได้:
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ส่วนประกอบ</th>
+          <th>Universa Version</th>
+          <th>Retail Adaptation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Core Portfolio</td>
+          <td>S&amp;P 500 หรือสินทรัพย์ที่ Client เลือก</td>
+          <td>Index ETF หรือ Long-term stocks</td>
+        </tr>
+        <tr>
+          <td class="col-type">Hedge Component</td>
+          <td>Deep OTM Put Options (ราคาถูก ดีขึ้นมากเมื่อตลาดพัง)</td>
+          <td>Gold ETF, Cash, Inverse ETF ในสัดส่วนน้อย</td>
+        </tr>
+        <tr>
+          <td class="col-type">Trigger</td>
+          <td>ใช้กำไรจาก Hedge ซื้อสินทรัพย์เมื่อตลาดพัง</td>
+          <td>มีแผนชัดเจนว่าจะซื้ออะไร ที่ราคาไหน เมื่อตลาดลงกี่ %</td>
+        </tr>
+        <tr>
+          <td class="col-type">ต้นทุน</td>
+          <td>~1-3% ต่อปีของ AUM</td>
+          <td>ขึ้นอยู่กับ Instrument ที่เลือก</td>
+        </tr>
+        <tr>
+          <td class="col-type">ความถี่ทบทวน</td>
+          <td>Continuous + Rebalance เมื่อ Volatility เปลี่ยน</td>
+          <td>ทุกไตรมาส หรือเมื่อ VIX เปลี่ยนแปลงมาก</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>One-Liners ที่ควรจำ</h2>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Lose small often, so you can win enormous once."</div>
+    <div class="bq-th">เสียเล็กบ่อยๆ เพื่อชนะมหาศาลในครั้งเดียว</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The most patient investor in the room is the most powerful investor in the room."</div>
+    <div class="bq-th">นักลงทุนที่อดทนที่สุดในห้อง คือนักลงทุนที่ทรงพลังที่สุดในห้อง</div>
+  </div>
+</div>
+
+<!-- ═══ CHAPTER 6 ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก / Chapter Six</div>
+  <div class="ch-title">
+    Reflection, Resources & Reading List
+    <em>คำถามสำรวจใจ และแหล่งเรียนรู้ต่อยอด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Reflection & Resources</div>
+  <h1>ไตร่ตรองและขยายความรู้</h1>
+
+  <h2>คำถามสำหรับไตร่ตรองตัวเอง</h2>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection Questions — Dao of Capital</div>
+    <ol class="reflection-list">
+      <li>ในปีที่ผ่านมา มีการตัดสินใจลงทุนครั้งไหนบ้างที่ถูกขับเคลื่อนโดยความใจร้อน ไม่ใช่กลยุทธ์? ผลลัพธ์เป็นอย่างไร?</li>
+      <li>ถ้าตลาดพัง 40% ในเดือนหน้า เราจะรู้สึกอย่างไร? จะทำอะไร? และถ้าคำตอบคือ "ตื่นตระหนก" นั่นหมายความว่าเรายังไม่ได้สร้าง "กำแพงจิตใจ" ที่แข็งพอ</li>
+      <li>"ตำแหน่งกลาง" ในชีวิตการลงทุนของเราตอนนี้คืออะไร? และเราพอใจที่จะอยู่ในตำแหน่งนั้นหรือเปล่า?</li>
+      <li>เราวัด "ความสำเร็จ" ของ Portfolio โดยเปรียบเทียบกับคนอื่นหรือกับเป้าหมายของตัวเอง? ทำไม?</li>
+      <li>ถ้า Spitznagel มองดู Portfolio ของเรา เขาจะบอกว่าเราเตรียมพร้อมสำหรับวิกฤตหรือยัง?</li>
+    </ol>
+  </div>
+
+  <h2>หนังสือและแหล่งเรียนรู้ต่อยอด</h2>
+
+  <div class="book-grid">
+    <div class="book-item">
+      <div class="book-title">The Black Swan</div>
+      <div class="book-author">Nassim Nicholas Taleb</div>
+      <div class="book-note">เพื่อนสนิทของ Spitznagel ผู้อธิบายทฤษฎี Fat Tails และ Antifragility</div>
+    </div>
+    <div class="book-item">
+      <div class="book-title">Human Action</div>
+      <div class="book-author">Ludwig von Mises</div>
+      <div class="book-note">รากฐาน Austrian Economics ที่ Spitznagel ศึกษาอย่างลึกซึ้ง</div>
+    </div>
+    <div class="book-item">
+      <div class="book-title">Antifragile</div>
+      <div class="book-author">Nassim Nicholas Taleb</div>
+      <div class="book-note">ต่อยอดจาก Black Swan สู่การสร้าง Portfolio ที่แข็งแกร่งขึ้นจากวิกฤต</div>
+    </div>
+    <div class="book-item">
+      <div class="book-title">เต๋าเต๋อจิง</div>
+      <div class="book-author">เล่าจื๊อ</div>
+      <div class="book-note">ปรัชญาที่ Spitznagel นำมาใช้ตลอดหนังสือ อ่านคู่กันจะเข้าใจ Dao of Capital ลึกมาก</div>
+    </div>
+    <div class="book-item">
+      <div class="book-title">Capital and Interest</div>
+      <div class="book-author">Eugen von Böhm-Bawerk</div>
+      <div class="book-note">แนวคิด Roundaboutness มาจากที่นี่ สำหรับผู้ต้องการศึกษา Theory อย่างจริงจัง</div>
+    </div>
+    <div class="book-item">
+      <div class="book-title">Safe Haven</div>
+      <div class="book-author">Mark Spitznagel</div>
+      <div class="book-note">หนังสือเล่มต่อมาของ Spitznagel ที่เน้น Risk Mitigation อย่างเป็นระบบมากขึ้น</div>
+    </div>
+  </div>
+
+  <h2>เครื่องมือและแนวคิดที่ต้องรู้จัก</h2>
+
+  <div class="signal-box buy">
+    <div class="signal-title">Concepts ที่ต้องเข้าใจก่อนลงทุนแบบ Spitznagel</div>
+    <ul class="signal-list">
+      <li><strong>Geometric Mean vs Arithmetic Mean</strong> — ทำไม Compounding ถึงทำลายได้โดย Drawdown ขนาดใหญ่</li>
+      <li><strong>VIX Index</strong> — วัด "ราคา" ของ Options ป้องกันขาลง สูง = ป้องกันแพง, ต่ำ = โอกาสซื้อประกันถูก</li>
+      <li><strong>Put Options</strong> — เครื่องมือหลักของ Universa ควรเข้าใจพื้นฐานก่อนใช้</li>
+      <li><strong>Convexity</strong> — สินทรัพย์ที่มี Positive Convexity จะกำไรมากกว่าที่คาดเมื่อ Market เคลื่อนไหวรุนแรง</li>
+      <li><strong>Kelly Criterion</strong> — วิธีคิดขนาดการลงทุนที่ Maximize Geometric Mean</li>
+    </ul>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>บทสรุปสุดท้าย — ถ้าจำได้แค่ 3 สิ่ง</h2>
+
+  <div class="two-col-grid" style="grid-template-columns: 1fr; background: none; border: none; gap: 16px;">
+    <div style="background: var(--paper-mid); border: 1px solid var(--paper-shadow); border-left: 4px solid var(--gold); padding: 24px 28px;">
+      <div style="font-family: 'Noto Serif', serif; font-size: 28px; color: var(--gold); font-weight: 700; margin-bottom: 8px;">01</div>
+      <p style="font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">ความใจร้อนคือศัตรูจริง</p>
+      <p style="font-size: 14px; margin-bottom: 0; color: var(--ink-muted);">ไม่ใช่ความโง่เขลา ไม่ใช่ขาดทักษะ ไม่ใช่ข้อมูลน้อย การตัดสินใจเร็วเกินไปคือต้นเหตุของความล้มเหลวส่วนใหญ่ในการลงทุน</p>
+    </div>
+    <div style="background: var(--paper-mid); border: 1px solid var(--paper-shadow); border-left: 4px solid var(--gold); padding: 24px 28px;">
+      <div style="font-family: 'Noto Serif', serif; font-size: 28px; color: var(--gold); font-weight: 700; margin-bottom: 8px;">02</div>
+      <p style="font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">ถอยเพื่อรุก คือกลยุทธ์ที่ยิ่งใหญ่ที่สุด</p>
+      <p style="font-size: 14px; margin-bottom: 0; color: var(--ink-muted);">ยอมแพ้ปีที่ตลาดขึ้น สะสม Hedge และ Cash รอโอกาสจริงๆ แล้วโจมตีหนักเมื่อมันมาถึง นั่นคือ Roundaboutness</p>
+    </div>
+    <div style="background: var(--paper-mid); border: 1px solid var(--paper-shadow); border-left: 4px solid var(--gold); padding: 24px 28px;">
+      <div style="font-family: 'Noto Serif', serif; font-size: 28px; color: var(--gold); font-weight: 700; margin-bottom: 8px;">03</div>
+      <p style="font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">ป้องกันก่อน แล้วค่อยโจมตี</p>
+      <p style="font-size: 14px; margin-bottom: 0; color: var(--ink-muted);">สร้าง Tail Risk Hedge ก่อนวิกฤตมา ไม่ใช่หลัง เพราะเมื่อมาแล้วสายเกินไปและแพงเกินไป ป้องกันก่อน เสียน้อยในปีปกติ กำไรมหาศาลในปีวิกฤต</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="pullquote">
+    <p>"The Dao that can be told is not the eternal Dao. The investment strategy that everyone follows is not the eternal strategy."</p>
+    <cite>ดัดแปลงจาก เต๋าเต๋อจิง บทที่ 1 — โดย Mark Spitznagel</cite>
+  </div>
+
+  <p style="text-align: center; color: var(--ink-muted); font-size: 15px; margin-top: 40px;">
+    กลยุทธ์ที่แท้จริงไม่ใช่สิ่งที่ทุกคนทำตาม<br>
+    มันคือสิ่งที่ต้องการความกล้าที่จะ "เสีย" ในระยะสั้น เพื่อชนะในระยะยาว
+  </p>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="book-footer">
+  <div class="footer-title">The Dao of Capital — Mark Spitznagel</div>
+  <div class="footer-note">สรุปและวิเคราะห์ภาษาไทย · เพื่อการศึกษาและการพัฒนาตัวเอง · ฉบับสมบูรณ์</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
