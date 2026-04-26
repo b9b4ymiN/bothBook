@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reasonable Optimism — แนวคิดการลงทุนของ Morgan Housel</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168, 120, 42, 0.25);
+
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #2A1F0E;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 4px 40px rgba(0,0,0,0.35),
+    0 0 120px rgba(0,0,0,0.2);
+}
+
+/* ── COVER ──────────────────────────────────── */
+.cover {
+  background: #120D04;
+  min-height: 100vh;
+  padding: 72px var(--page-pad-h) 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-frame {
+  position: absolute;
+  inset: 24px;
+  border: 1px solid rgba(201,164,78,0.2);
+  pointer-events: none;
+}
+.cover-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201,164,78,0.08);
+}
+
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(201,164,78,0.55);
+  margin-bottom: 56px;
+}
+
+.cover-author-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(201,164,78,0.4);
+  margin-bottom: 10px;
+}
+
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(44px, 8vw, 72px);
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 400;
+  color: rgba(201,164,78,0.5);
+  margin-bottom: 40px;
+  letter-spacing: 0.5px;
+}
+
+.cover-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 32px;
+}
+
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: rgba(249,245,236,0.5);
+  line-height: 1.9;
+  max-width: 440px;
+  margin-bottom: 48px;
+}
+
+.cover-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 56px;
+}
+
+.cover-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(201,164,78,0.55);
+  border: 1px solid rgba(201,164,78,0.2);
+  padding: 5px 12px;
+}
+
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: rgba(201,164,78,0.3);
+  letter-spacing: 1.5px;
+}
+
+/* ── PAGE ──────────────────────────────────── */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  background: var(--paper);
+}
+
+.page + .page {
+  border-top: 1px solid var(--paper-deep);
+}
+
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 28px;
+}
+
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(17px, 2.5vw, 21px);
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin: 52px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-rule);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 32px; height: 2px;
+  background: var(--gold);
+}
+
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-mid);
+  letter-spacing: 0.5px;
+  margin: 32px 0 12px;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  color: var(--ink-soft);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+p:last-child { margin-bottom: 0; }
+
+strong { color: var(--ink); font-weight: 600; }
+
+/* ── CHAPTER OPEN ──────────────────────────── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  border-top: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 40px; height: 2px;
+  background: var(--gold);
+  margin-top: 28px;
+}
+
+.ch-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute;
+  top: 48px; right: var(--page-pad-h);
+  line-height: 1;
+  user-select: none;
+}
+
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
+}
+
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 3.5vw, 30px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.ch-title em {
+  display: block;
+  font-style: italic;
+  font-size: 0.7em;
+  color: var(--ink-muted);
+  margin-top: 6px;
+  font-weight: 400;
+}
+
+/* ── PULL QUOTE ────────────────────────────── */
+.pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--gold);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* ── BLOCKQUOTE FULL ───────────────────────── */
+.blockquote-full {
+  background: var(--ink);
+  padding: 40px 48px;
+  margin: 48px 0;
+  text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.5vw, 19px);
+  color: rgba(249,245,236,0.78);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: rgba(201,164,78,0.45);
+  line-height: 1.7;
+}
+
+/* ── STAT ROW ──────────────────────────────── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--paper-shadow);
+  margin: 40px 0;
+}
+.stat-item {
+  padding: 28px 24px;
+  text-align: center;
+}
+.stat-item + .stat-item {
+  border-left: 1px solid var(--paper-shadow);
+}
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 34px;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ── SIGNAL BOX ────────────────────────────── */
+.signal-box {
+  padding: 24px 28px;
+  margin: 24px 0;
+  border-radius: 0;
+}
+.signal-box.buy {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.signal-box.sell {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+}
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.signal-box.buy .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-list {
+  list-style: none;
+  padding: 0;
+}
+.signal-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  padding: 5px 0 5px 20px;
+  position: relative;
+}
+.signal-box.buy .signal-list li::before {
+  content: '+';
+  position: absolute; left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+.signal-box.sell .signal-list li::before {
+  content: '−';
+  position: absolute; left: 0;
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* ── TWO-COL GRID ──────────────────────────── */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.grid-card {
+  background: var(--paper);
+  padding: 24px 22px;
+}
+.grid-card-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.grid-card.naive .grid-card-label { color: var(--red); }
+.grid-card.reasonable .grid-card-label { color: var(--green); }
+.grid-card h4 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.grid-card p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--ink-mid);
+  margin-bottom: 0;
+}
+
+/* ── CMP TABLE ─────────────────────────────── */
+.cmp-table-wrap {
+  overflow-x: auto;
+  margin: 32px 0;
+  border: 1px solid var(--paper-shadow);
+}
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Sarabun', sans-serif;
+}
+.cmp-table th {
+  background: var(--ink-soft);
+  color: var(--gold-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  text-align: left;
+}
+.cmp-table td {
+  padding: 13px 18px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--paper-deep);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+.col-type {
+  font-weight: 600;
+  color: var(--ink-mid) !important;
+}
+
+/* ── CHECKLIST ─────────────────────────────── */
+.checklist {
+  margin: 40px 0;
+  border: 1px solid var(--paper-shadow);
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 20px 24px;
+}
+.checklist-cap h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold-light);
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0 0 4px;
+}
+.checklist-cap p {
+  font-size: 13px;
+  color: rgba(201,164,78,0.45);
+  margin: 0;
+  font-family: 'Sarabun', sans-serif;
+  line-height: 1.5;
+}
+.cl-group { padding: 0; }
+.cl-group-title {
+  background: var(--paper-mid);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 10px 24px;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.cl-items { list-style: none; }
+.cl-items li {
+  display: flex;
+  gap: 14px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--paper-deep);
+  align-items: flex-start;
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  border: 1px solid var(--paper-shadow);
+  margin-top: 2px;
+  background: var(--paper);
+}
+.cl-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.cl-note {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+/* ── REFLECTION ────────────────────────────── */
+.reflection {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-deep);
+  padding: 32px 36px;
+  margin: 40px 0;
+  counter-reset: reflection-counter;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.reflection-list {
+  list-style: none;
+  counter-reset: q-counter;
+}
+.reflection-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  padding: 10px 0 10px 32px;
+  position: relative;
+  counter-increment: q-counter;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.reflection-list li:last-child { border-bottom: none; }
+.reflection-list li::before {
+  content: counter(q-counter);
+  position: absolute; left: 0;
+  font-family: 'Noto Serif', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(201,164,78,0.45);
+  top: 10px;
+}
+
+/* ── FORMULA BLOCK ─────────────────────────── */
+.formula-block {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-left: 3px solid var(--gold);
+  padding: 24px 28px;
+  margin: 32px 0;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: 20px;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* ── AUTHOR VOICE ──────────────────────────── */
+.author-voice {
+  display: flex;
+  gap: 18px;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-deep);
+  padding: 24px;
+  margin: 32px 0;
+  align-items: flex-start;
+}
+.av-avatar {
+  width: 40px; height: 40px;
+  background: var(--ink-soft);
+  color: var(--gold-light);
+  font-family: 'Noto Serif', serif;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.av-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  font-style: italic;
+  margin: 0;
+}
+.av-text-th {
+  display: block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  color: var(--ink-faint);
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+/* ── ORNAMENT ──────────────────────────────── */
+.ornament {
+  border: none;
+  text-align: center;
+  margin: 44px 0;
+}
+.ornament::before {
+  content: '· · ·';
+  color: rgba(168,120,42,0.35);
+  letter-spacing: 12px;
+  font-size: 14px;
+}
+
+/* ── INTRO BLOCK (EXEC SUMMARY) ────────────── */
+.intro-block {
+  background: var(--paper-mid);
+  border-left: 3px solid var(--gold);
+  padding: 32px 36px;
+  margin: 32px 0;
+}
+.intro-block p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.intro-block p:last-child { margin-bottom: 0; }
+
+/* ── BOOK FOOTER ───────────────────────────── */
+.book-footer {
+  background: var(--ink);
+  padding: 48px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: rgba(201,164,78,0.35);
+  line-height: 1.7;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* ── TOC ───────────────────────────────────── */
+.toc-list { list-style: none; margin-top: 28px; }
+.toc-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.toc-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 13px;
+  color: var(--gold);
+  min-width: 28px;
+  font-style: italic;
+}
+.toc-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: var(--ink-soft);
+  flex: 1;
+  line-height: 1.5;
+}
+.toc-sub {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+
+/* ── RESPONSIVE ────────────────────────────── */
+@media (max-width: 780px) {
+  :root {
+    --page-pad-h: 24px;
+    --page-pad-v: 48px;
+  }
+  .two-col-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+  .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--paper-shadow); }
+  .ch-num { display: none; }
+  .cmp-table-wrap { overflow-x: auto; }
+  .blockquote-full { padding: 32px 24px; }
+  .cover { padding: 48px 24px; }
+  .author-voice { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">SAME AS EVER · INVESTMENT PHILOSOPHY SERIES</div>
+  <div class="cover-author-label">ปรัชญาของ / The Mind of</div>
+  <div class="cover-title-en">Reasonable<br>Optimism</div>
+  <div class="cover-title-th">ความหวังที่ถูกที่ถูกเวลา</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    จาก Same as Ever ของ Morgan Housel — เอกสารฉบับนี้ตกผลึกแนวคิดที่สำคัญที่สุดข้อหนึ่ง: ความแตกต่างระหว่าง Naive Optimism ที่ทำลายพอร์ต และ Reasonable Optimism ที่ชนะตลาดในระยะยาว
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">การลงทุน</div>
+    <div class="cover-tag">Mindset</div>
+    <div class="cover-tag">Long-Term Thinking</div>
+    <div class="cover-tag">Risk Management</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ · ภาษาไทย · จาก Same as Ever</div>
+</div>
+
+<!-- ═══════════════ TOC ═══════════════ -->
+<div class="page">
+  <div class="eyebrow">สารบัญ · Table of Contents</div>
+  <h1>เอกสารฉบับนี้ครอบคลุมอะไรบ้าง</h1>
+  <ul class="toc-list">
+    <li>
+      <span class="toc-num">01</span>
+      <span class="toc-title">Executive Summary — แก่นของ Reasonable Optimism</span>
+      <span class="toc-sub">ภาพรวม 5 นาที</span>
+    </li>
+    <li>
+      <span class="toc-num">02</span>
+      <span class="toc-title">Optimism สองหน้า — Naive vs. Reasonable</span>
+      <span class="toc-sub">ความแตกต่างที่ชี้เป็นชี้ตาย</span>
+    </li>
+    <li>
+      <span class="toc-num">03</span>
+      <span class="toc-title">ทำไม Naive Optimist ถึงพังในตลาด</span>
+      <span class="toc-sub">กลไกทางจิตวิทยาและการเงิน</span>
+    </li>
+    <li>
+      <span class="toc-num">04</span>
+      <span class="toc-title">ทำไม Reasonable Optimist ถึงชนะตลาด</span>
+      <span class="toc-sub">เหตุผลเชิงระบบและประวัติศาสตร์</span>
+    </li>
+    <li>
+      <span class="toc-num">05</span>
+      <span class="toc-title">ราคาของการลงทุนที่ดี</span>
+      <span class="toc-sub">Volatility คือค่าเข้าชม ไม่ใช่ค่าปรับ</span>
+    </li>
+    <li>
+      <span class="toc-num">06</span>
+      <span class="toc-title">Practical Applications — ลงมือทำได้เลย</span>
+      <span class="toc-sub">Checklist และ Reflection</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ═══════════════ CHAPTER 1 ═══════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Chapter One</div>
+  <div class="ch-title">
+    Executive Summary
+    <em>แก่นสารทั้งหมดใน 5 นาที</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">บทสรุป · Executive Summary</div>
+  <h1>สิ่งที่ไม่เคยเปลี่ยนในโลกการเงิน</h1>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">100+</div>
+      <div class="stat-label">ปีของตลาดหุ้นที่ผ่านวิกฤต แต่ยังสูงขึ้น</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">2 แบบ</div>
+      <div class="stat-label">Optimism ที่ให้ผลลัพธ์ตรงข้ามกันสิ้นเชิง</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1 สัจธรรม</div>
+      <div class="stat-label">ความเสียหายระยะสั้น ≠ ล้มเหลวระยะยาว</div>
+    </div>
+  </div>
+
+  <div class="intro-block">
+    <p>Morgan Housel เขียนใน <em>Same as Ever</em> ว่าโลกเปลี่ยนแปลงตลอดเวลา แต่มีบางสิ่งที่คงเดิมเสมอ — หนึ่งในนั้นคือ <strong>ธรรมชาติของมนุษย์ที่เผชิญกับความไม่แน่นอน</strong></p>
+    <p>นักลงทุนส่วนใหญ่เข้าใจผิดว่าการเป็น Optimist คือการเชื่อว่าทุกอย่างจะดีขึ้น แต่ความจริงคือมี Optimism สองชนิดที่ให้ผลลัพธ์ตรงข้ามกันสิ้นเชิง ชนิดหนึ่งทำลายพอร์ต อีกชนิดสร้างความมั่งคั่ง</p>
+    <p><strong>Naive Optimist</strong> เชื่อว่าเส้นทางจะราบรื่น จึงตกใจและขายเมื่อเกิดความผันผวน <strong>Reasonable Optimist</strong> รู้ว่าเส้นทางจะขรุขระแน่นอน แต่เชื่อมั่นว่าปลายทางคุ้มค่า จึงอยู่ต่อได้แม้ตลาดจะดิ่ง</p>
+    <p>สิ่งนี้ไม่ใช่เรื่องใหม่ — แต่มันเป็นหนึ่งในความจริงที่ "ไม่เคยเปลี่ยน" ที่ Housel พยายามบอกเรา</p>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Optimism about the future is fine. But the optimism that assumes the path to get there will be smooth is naive — and dangerous."</div>
+    <div class="bq-th">การมีความหวังในอนาคตเป็นสิ่งดี แต่การหวังว่าเส้นทางไปสู่อนาคตนั้นจะราบรื่น คือความไร้เดียงสา — และเป็นอันตราย</div>
+  </div>
+</div>
+
+<!-- ═══════════════ CHAPTER 2 ═══════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Chapter Two</div>
+  <div class="ch-title">
+    Optimism สองหน้า
+    <em>ความแตกต่างที่ชี้เป็นชี้ตาย</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Core Concept · แนวคิดหลัก</div>
+  <h1>Naive vs. Reasonable Optimism</h1>
+
+  <p>ลองนึกถึงสองคนที่ลงทุนในตลาดหุ้น ทั้งคู่มีความหวังในอนาคต ทั้งคู่เชื่อว่าตลาดจะขึ้นในระยะยาว แต่ผลลัพธ์ของพวกเขาต่างกันสิ้นเชิง เพราะ <strong>จุดยืนของพวกเขาต่อความเจ็บปวดระยะสั้นไม่เหมือนกัน</strong></p>
+
+  <div class="two-col-grid">
+    <div class="grid-card naive">
+      <div class="grid-card-label">❌ Naive Optimist</div>
+      <h4>"ทุกอย่างจะดีขึ้นเสมอ"</h4>
+      <p>เชื่อว่าอนาคตดี <em>และ</em> เส้นทางไปถึงอนาคตนั้นจะง่าย คาดหวังการเติบโตโดยไม่คาดหวังความเจ็บปวด เมื่อความเป็นจริงมาถึง จึงตกใจ ตัดสินใจผิด และขายในเวลาที่ผิด</p>
+    </div>
+    <div class="grid-card reasonable">
+      <div class="grid-card-label">✅ Reasonable Optimist</div>
+      <h4>"ปลายทางดี แต่เส้นทางขรุขระ"</h4>
+      <p>เชื่อว่าอนาคตดี <em>แต่</em> รู้ว่าเส้นทางจะเต็มไปด้วยอุปสรรค เตรียมพร้อมรับความเจ็บปวด ไม่ตกใจเมื่อมันเกิดขึ้น และอยู่ในตลาดได้นานพอที่จะเก็บเกี่ยวผล</p>
+    </div>
+  </div>
+
+  <h2>สิ่งที่แยกทั้งสองออกจากกัน: ความเข้าใจเรื่อง "ราคา"</h2>
+
+  <p>Housel ใช้คำอุปมาที่ชัดเจนมาก: <strong>ความผันผวนของตลาดคือค่าเข้าชม ไม่ใช่ค่าปรับ</strong></p>
+
+  <p>เมื่อเราซื้อตั๋วดูหนัง เราจ่ายเงิน 200-300 บาทโดยไม่โกรธเคือง เพราะรู้ว่านั่นคือราคาของประสบการณ์ แต่ถ้ามีคนมาเรียกเก็บเงิน 300 บาทกลางถนนโดยไม่มีสัญญา เราจะรู้สึกถูกปล้น</p>
+
+  <p>Naive Optimist มองว่า Drawdown คือ "การถูกปล้น" — บางอย่างผิดปกติเกิดขึ้น ต้องหนี Reasonable Optimist มองว่า Drawdown คือ "ค่าตั๋ว" — นี่คือสิ่งที่ต้องจ่ายเพื่อรับผลตอบแทนระยะยาว</p>
+
+  <div class="pullquote">
+    <p>"The volatility you experience during holding an investment is not a fine for doing something wrong. It's the admission fee for the long-term returns."</p>
+    <cite>Morgan Housel — Same as Ever</cite>
+  </div>
+  <div class="bq-th" style="margin-top:-32px; margin-bottom:32px; font-family:'Sarabun',sans-serif; font-size:13px; color:var(--ink-faint);">ความผันผวนที่เกิดขึ้นระหว่างถือหุ้นไม่ใช่ค่าปรับจากการทำผิดอะไร แต่คือค่าเข้าชมสำหรับผลตอบแทนระยะยาว</div>
+
+  <h2>Mental Model: "Good Story, Bad Path"</h2>
+
+  <p>วิธีที่ง่ายที่สุดในการจดจำความแตกต่างนี้คือ Framework ที่เรียกว่า <strong>"Good Story, Bad Path"</strong></p>
+
+  <div class="formula-block">
+    <div class="formula-label">Mental Model</div>
+    <div class="formula-eq">Reasonable Optimism = เชื่อใน Good Story + ยอมรับ Bad Path</div>
+    <div class="formula-note">คุณสามารถมีความเชื่อมั่นในระยะยาวได้อย่างเต็มที่ โดยไม่ต้องปฏิเสธว่าเส้นทางจะมีขรุขระ ทั้งสองสิ่งนี้ไม่ขัดแย้งกัน — มันมาคู่กันเสมอ</div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>มิติ</th>
+          <th>Naive Optimist</th>
+          <th>Reasonable Optimist</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ความเชื่อในอนาคต</td>
+          <td>ตลาดจะขึ้นเสมอ อย่างราบรื่น</td>
+          <td>ตลาดจะขึ้นระยะยาว แต่ขรุขระ</td>
+        </tr>
+        <tr>
+          <td class="col-type">เมื่อตลาดลง 20%</td>
+          <td>"บางอย่างผิดปกติ ต้องขาย"</td>
+          <td>"นี่คือสิ่งที่คาดไว้อยู่แล้ว อยู่ต่อ"</td>
+        </tr>
+        <tr>
+          <td class="col-type">แหล่งที่มาของความเชื่อ</td>
+          <td>ความรู้สึก, Recency Bias</td>
+          <td>ประวัติศาสตร์ตลาด, ธรรมชาติของระบบ</td>
+        </tr>
+        <tr>
+          <td class="col-type">ปฏิกิริยาต่อข่าวร้าย</td>
+          <td>ตกใจ ตัดสินใจด้วยอารมณ์</td>
+          <td>สงบ รู้ว่านี่คือ "ค่าตั๋ว"</td>
+        </tr>
+        <tr>
+          <td class="col-type">ผลลัพธ์ระยะยาว</td>
+          <td>ซื้อแพงขายถูกซ้ำๆ</td>
+          <td>ถือยาว รับผลตอบแทนทบต้น</td>
+        </tr>
+        <tr>
+          <td class="col-type">ตัวอย่างนักลงทุน</td>
+          <td>ซื้อ Bitcoin ปี 2021, ขาย 2022</td>
+          <td>Warren Buffett ถือ Coke 40+ ปี</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════ CHAPTER 3 ═══════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Chapter Three</div>
+  <div class="ch-title">
+    ทำไม Naive Optimist ถึงพังในตลาด
+    <em>กลไกทางจิตวิทยาและโครงสร้าง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Risk Analysis · การวิเคราะห์ความเสี่ยง</div>
+  <h1>สามกับดักที่ทำลาย Naive Optimist</h1>
+
+  <p>การพังของ Naive Optimist ไม่ได้เกิดเพราะโชคร้ายหรือเลือกหุ้นผิด มันเกิดจากกลไกทางจิตวิทยาที่คาดเดาได้และทำซ้ำได้ Housel อธิบายว่ามันเป็นผลของ <strong>ธรรมชาติมนุษย์ที่ไม่เปลี่ยนแปลง</strong></p>
+
+  <h2>กับดักที่ 1 — การคาดเดาผิดเรื่อง "ปกติ"</h2>
+
+  <p>Naive Optimist กำหนดนิยาม "ปกติ" จากช่วงเวลาที่ตลาดดี เมื่อเห็นตลาดขึ้น 20% ติดต่อกัน 2 ปี ก็คิดว่านั่นคือสิ่งที่ควรจะเป็น เมื่อตลาดลง 15% ในปีที่สาม จึงรู้สึกว่า "ผิดปกติ" และตัดสินใจขาย</p>
+
+  <p>แต่ความจริงคือ ในประวัติศาสตร์ตลาดหุ้นสหรัฐฯ <strong>การปรับฐานมากกว่า 10% เกิดขึ้นเฉลี่ยประมาณทุก 1-2 ปี</strong> ความเจ็บปวดไม่ใช่สิ่งผิดปกติ มันคือส่วนหนึ่งของระบบ</p>
+
+  <div class="author-voice">
+    <div class="av-avatar">MH</div>
+    <div>
+      <div class="av-meta">Morgan Housel — Same as Ever</div>
+      <p class="av-text">"Every past market crash looks like an obvious buying opportunity. Every future market crash looks like a scary risk."
+        <span class="av-text-th">วิกฤตตลาดในอดีตทุกครั้งดูเหมือนโอกาสซื้อที่ชัดเจน แต่วิกฤตในอนาคตทุกครั้งดูเหมือนความเสี่ยงที่น่ากลัว นั่นเป็นเพราะเราอยู่ในปัจจุบัน ไม่ใช่อดีต</span>
+      </p>
+    </div>
+  </div>
+
+  <h2>กับดักที่ 2 — Story Bias: เชื่อเรื่องเล่ามากกว่าสถิติ</h2>
+
+  <p>สมองมนุษย์ออกแบบมาให้จดจำเรื่องราว ไม่ใช่ตัวเลข เมื่อนักวิเคราะห์บอกว่า "เศรษฐกิจกำลังจะดีขึ้น ตลาดจะพุ่งสูง" — สมองเราเชื่อทันที แต่เมื่อข้อมูลสถิติบอกว่าตลาดลงเฉลี่ยทุก 1-2 ปี สมองเราแค่ผ่านมันไป</p>
+
+  <p>Naive Optimist จึงตกอยู่ในวังวนของการตามเรื่องราว เมื่อเรื่องราวดี ซื้อ เมื่อเรื่องราวเลว ขาย โดยไม่เคยหยุดถามว่า <strong>"ราคาตลาดสะท้อนเรื่องราวนั้นไปแล้วหรือยัง?"</strong></p>
+
+  <h2>กับดักที่ 3 — ขาด Margin of Safety ทางอารมณ์</h2>
+
+  <p>Benjamin Graham พูดถึง Margin of Safety ในแง่ราคา แต่ Housel ขยายไปสู่แนวคิดที่ลึกกว่า: <strong>Margin of Safety ทางอารมณ์</strong></p>
+
+  <p>Naive Optimist ลงทุนเต็มที่โดยไม่เหลือพื้นที่สำหรับความเจ็บปวด เมื่อพอร์ตลง 30% เขาไม่มีความสามารถทนได้อีกต่อไป เพราะเขาไม่เคย "กำหนดราคา" ให้กับความเสี่ยงนั้นตั้งแต่แรก</p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">สัญญาณเตือน — คุณเป็น Naive Optimist ไหม?</div>
+    <ul class="signal-list">
+      <li>คุณรู้สึก "ตกใจ" ทุกครั้งที่ตลาดลงมากกว่า 10%</li>
+      <li>คุณลงทุนตามข่าว แล้วขายออกเมื่อข่าวเปลี่ยน</li>
+      <li>คุณคาดหวังผลตอบแทนที่คงที่และสม่ำเสมอทุกปี</li>
+      <li>คุณรู้สึกดีมากเมื่อตลาดขึ้น และทุกข์ใจมากเมื่อตลาดลง</li>
+      <li>คุณเคยขายหุ้นด้วยความกลัว แล้วเสียใจในภายหลัง</li>
+      <li>คุณเชื่อว่าถ้าเลือกหุ้นถูกตัว ก็ไม่ต้องเจ็บปวด</li>
+    </ul>
+  </div>
+
+  <hr class="ornament">
+
+  <p>Housel ชี้ให้เห็นว่าปัญหาที่แท้จริงของ Naive Optimist ไม่ใช่ว่าเขามองโลกในแง่ดี — การมองโลกในแง่ดีเป็นสิ่งดี ปัญหาคือเขา<strong>ไม่ได้เตรียมตัวสำหรับราคาที่ต้องจ่าย</strong> เขาต้องการผลตอบแทนโดยไม่ยอมรับความเจ็บปวน และในตลาดการเงิน นั่นเป็นไปไม่ได้</p>
+</div>
+
+<!-- ═══════════════ CHAPTER 4 ═══════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Chapter Four</div>
+  <div class="ch-title">
+    ทำไม Reasonable Optimist ถึงชนะตลาด
+    <em>เหตุผลเชิงระบบและประวัติศาสตร์</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Core Thesis · แก่นความจริง</div>
+  <h1>ระบบที่ดีชนะระยะยาวเสมอ</h1>
+
+  <p>Housel ไม่ได้บอกให้เราเป็น Optimist เพราะรู้สึกดี เขาบอกให้เป็น Optimist เพราะ <strong>มีเหตุผลเชิงประวัติศาสตร์และโครงสร้างที่แข็งแกร่งมารองรับ</strong></p>
+
+  <h2>เหตุผลที่ 1 — ธรรมชาติของมนุษย์คือการแก้ปัญหา</h2>
+
+  <p>ตลอดประวัติศาสตร์ มนุษย์เผชิญกับวิกฤตมากมาย กาฬโรค สงครามโลก ไข้หวัดใหญ่ 1918 มหาวิกฤต 1929 วิกฤต Lehman 2008 COVID-19 ทุกครั้ง คนคาดว่าโลกจะสิ้นสุด ทุกครั้ง มนุษย์ปรับตัว คิดค้น และฟื้นคืน</p>
+
+  <p>สิ่งที่ "ไม่เคยเปลี่ยน" ตามที่ Housel บอก คือ <strong>ความสามารถของมนุษย์ในการแก้ปัญหา</strong> Reasonable Optimist เชื่อในสิ่งนี้ ไม่ใช่เชื่อว่าปัญหาจะไม่เกิด แต่เชื่อว่ามนุษย์จะแก้มันได้</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Pessimists sound smart. Optimists make money."</div>
+    <div class="bq-th">นักมองโลกแง่ร้ายฟังดูฉลาด แต่นักมองโลกแง่ดีต่างหากที่สร้างความมั่งคั่ง — แต่ต้องเป็น Reasonable Optimist เท่านั้น</div>
+  </div>
+
+  <h2>เหตุผลที่ 2 — Compounding ต้องการเวลา ไม่ใช่ความสมบูรณ์แบบ</h2>
+
+  <p>คนส่วนใหญ่เข้าใจว่า Compounding คือผลของการลงทุน แต่ Housel ชี้จุดที่ละเอียดกว่า: <strong>Compounding ถูกทำลายโดยการออก ไม่ใช่โดยการลง</strong></p>
+
+  <div class="formula-block">
+    <div class="formula-label">กฎของ Compounding</div>
+    <div class="formula-eq">ผลตอบแทน × เวลา ≫ ผลตอบแทน × ความสมบูรณ์แบบ</div>
+    <div class="formula-note">หุ้นที่ให้ผล 12% ต่อปีนาน 30 ปีโดยอยู่ในตลาดตลอด ให้ผลดีกว่าการพยายาม Timing ตลาดให้สมบูรณ์แบบมาก เพราะทุกครั้งที่ออก คุณเสียวันที่ดีที่สุดของปีไปด้วย</div>
+  </div>
+
+  <p>การศึกษาของ JP Morgan พบว่าในช่วง 20 ปีตั้งแต่ปี 2002-2021 หากคุณพลาดแค่ 10 วันที่ดีที่สุดของตลาด ผลตอบแทนของคุณจะลดลงกว่าครึ่ง Naive Optimist ที่ขายในช่วงวิกฤต มักพลาดวันเหล่านี้ เพราะวันที่ดีที่สุดมักเกิดหลังจากวันที่เลวร้ายที่สุด</p>
+
+  <h2>เหตุผลที่ 3 — ประวัติศาสตร์อยู่ฝั่ง Optimist</h2>
+
+  <p>ตลาดหุ้นสหรัฐฯ ผ่านวิกฤตมาแล้วมากกว่า 30 ครั้งในศตวรรษที่ผ่านมา รวมถึงสงครามโลก วิกฤตน้ำมัน สงครามเย็น Dot-com Bubble และ COVID-19 แต่ทุกครั้ง ตลาดฟื้นคืนและทำจุดสูงสุดใหม่</p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">~10%</div>
+      <div class="stat-label">ผลตอบแทนเฉลี่ยต่อปีของ S&P 500 ในระยะ 100 ปี</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">30+</div>
+      <div class="stat-label">วิกฤตที่ผ่านมาตลอด 100 ปีนั้น</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">อัตราการฟื้นตัวของตลาดในทุกวิกฤตก่อนหน้า</div>
+    </div>
+  </div>
+
+  <p>Reasonable Optimist ไม่ได้ไม่รู้เรื่องวิกฤต เขารู้ดีกว่าใครว่าวิกฤตจะเกิดขึ้น แต่เขาก็รู้ด้วยว่า <strong>การฟื้นตัวเป็นผลของระบบที่ดี ไม่ใช่โชค</strong> และเขาเลือกที่จะอยู่กับระบบนั้น</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">สัญญาณที่ดี — คุณกำลังคิดแบบ Reasonable Optimist</div>
+    <ul class="signal-list">
+      <li>คุณมองตลาดที่ลง 20% ว่าเป็นส่วนหนึ่งของเกม ไม่ใช่สัญญาณหายนะ</li>
+      <li>คุณไม่รู้สึกจำเป็นต้องดูพอร์ตทุกวัน</li>
+      <li>คุณตั้งคำถามกับตัวเองก่อนขายว่า "นี่คือการเปลี่ยนแปลงในสิ่งที่ฉันลงทุน หรือแค่ความกลัว?"</li>
+      <li>คุณเชื่อในธุรกิจที่คุณถืออยู่ ไม่ใช่แค่ราคาในหน้าจอ</li>
+      <li>คุณมี time horizon ที่ชัดเจนและยาวพอ</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════ CHAPTER 5 ═══════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Chapter Five</div>
+  <div class="ch-title">
+    ราคาของการลงทุนที่ดี
+    <em>Volatility คือค่าเข้าชม ไม่ใช่ค่าปรับ</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Price of Admission · ต้นทุนที่แท้จริง</div>
+  <h1>ทุกสิ่งที่มีคุณค่ามีราคา</h1>
+
+  <p>หนึ่งใน Key Insights ที่ทรงพลังที่สุดของ Housel คือการเปลี่ยนกรอบความคิดเกี่ยวกับ "ต้นทุน" ของการลงทุน</p>
+
+  <p>เราทุกคนรู้ว่าของดีมีราคา ร้านอาหาร Michelin รถยนต์หรู กระเป๋าหนังแท้ — ทุกอย่างมีต้นทุนที่ต้องยอมรับ ตลาดหุ้นก็เช่นกัน ผลตอบแทนระยะยาวที่น่าตื่นเต้นมีราคา — และราคานั้นคือ <strong>ความผันผวนและความไม่แน่นอน</strong></p>
+
+  <h2>สามวิธีจ่าย "ค่าเข้าชม" ที่ Reasonable Optimist ใช้</h2>
+
+  <p>เมื่อเข้าใจว่า Volatility คือค่าเข้าชม Reasonable Optimist จะจ่ายมันด้วยสามสิ่งนี้:</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card reasonable">
+      <div class="grid-card-label">🧠 จ่ายด้วยความรู้</div>
+      <h4>เข้าใจประวัติศาสตร์ตลาด</h4>
+      <p>รู้ว่าการลง 30% เกิดขึ้นเป็นประจำ ไม่ใช่เรื่องพิเศษ ความรู้นี้เปลี่ยนความตกใจเป็นความสงบ</p>
+    </div>
+    <div class="grid-card reasonable">
+      <div class="grid-card-label">⏳ จ่ายด้วยเวลา</div>
+      <h4>ถือยาวพอที่จะให้ระบบทำงาน</h4>
+      <p>ระบบทุนนิยมและนวัตกรรมมนุษย์ต้องการเวลาในการสร้างคุณค่า การออกก่อนเวลาคือการเสียค่าตั๋วแต่ไม่ดูหนัง</p>
+    </div>
+    <div class="grid-card reasonable">
+      <div class="grid-card-label">💪 จ่ายด้วยความอดทน</div>
+      <h4>ยืนหยัดเมื่อทุกคนบอกให้ขาย</h4>
+      <p>ช่วงที่น่ากลัวที่สุดมักเป็นช่วงที่คุ้มค่าที่สุด March 2020 เป็นตัวอย่างที่ชัดเจน — ตลาดลง 34% แล้วฟื้นภายใน 6 เดือน</p>
+    </div>
+    <div class="grid-card naive">
+      <div class="grid-card-label">❌ ไม่จ่าย = ไม่ได้</div>
+      <h4>พยายามหลีกเลี่ยงความเจ็บปวน</h4>
+      <p>ถ้าออกทุกครั้งที่ตลาดน่ากลัว คุณจะไม่มีวันได้รับผลตอบแทนระยะยาว เพราะคุณไม่เคยอยู่นานพอ</p>
+    </div>
+  </div>
+
+  <h2>Case Study: Warren Buffett — Reasonable Optimist ที่แท้จริง</h2>
+
+  <p>Buffett เป็นตัวอย่างที่สมบูรณ์แบบของ Reasonable Optimist เขาไม่ได้มองโลกในแง่ดีแบบไร้เดียงสา เขาเขียนบทความหลายชิ้นเกี่ยวกับความเสี่ยงและวิกฤตที่อาจเกิดขึ้น แต่เขาก็ไม่เคยขาย Coca-Cola, American Express หรือ Apple แม้ตลาดจะลงหนักแค่ไหน</p>
+
+  <div class="pullquote">
+    <p>"The stock market is a device for transferring money from the impatient to the patient."</p>
+    <cite>Warren Buffett</cite>
+  </div>
+  <div class="bq-th" style="margin-top:-32px; margin-bottom:32px; font-family:'Sarabun',sans-serif; font-size:13px; color:var(--ink-faint);">ตลาดหุ้นคืออุปกรณ์ที่โอนเงินจากคนไม่อดทนไปยังคนที่อดทน — ความอดทนคือค่าเข้าชมที่ Naive Optimist ไม่ยอมจ่าย</div>
+
+  <p>Buffett อยู่ในตลาดมาตั้งแต่ปี 1942 ผ่านวิกฤต 30+ ครั้ง แต่ไม่เคยพยายามหลีกเลี่ยงทุกวิกฤต เขาเลือกที่จะ<strong>ยอมรับว่าวิกฤตเป็นส่วนหนึ่งของการลงทุน</strong> และนั่นคือสิ่งที่ทำให้เขาร่ำรวยที่สุดในโลก</p>
+
+  <hr class="ornament">
+
+  <h2>Housel's One-Liner ที่ควรจดจำ</h2>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"You can be optimistic about the long run while bracing for the short run."</div>
+    <div class="bq-th">คุณสามารถมีความหวังในระยะยาว ในขณะที่เตรียมรับมือกับระยะสั้นได้พร้อมกัน — นี่คือนิยามของ Reasonable Optimism</div>
+  </div>
+</div>
+
+<!-- ═══════════════ CHAPTER 6 ═══════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก / Chapter Six</div>
+  <div class="ch-title">
+    Practical Applications
+    <em>จาก Mindset สู่การลงมือทำ</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Action Guide · คู่มือปฏิบัติ</div>
+  <h1>จะเป็น Reasonable Optimist ได้อย่างไร</h1>
+
+  <p>ความเข้าใจในทฤษฎีเป็นจุดเริ่มต้น แต่ Housel เน้นเสมอว่าสิ่งที่สำคัญกว่าคือ <strong>การสร้างระบบที่ทำให้เราทำสิ่งถูกต้องโดยอัตโนมัติ แม้ในวันที่อารมณ์พาไปทางอื่น</strong></p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>✅ Checklist: Reasonable Optimist</h3>
+      <p>ตรวจสอบว่าระบบการลงทุนของเราถูกสร้างบน Reasonable Optimism หรือยัง</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นตอนที่ 1 — ตั้งความคาดหวังให้ถูกต้อง</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            รู้ว่าตลาดปรับฐาน 10-20% เกิดขึ้นเฉลี่ยทุก 1-2 ปี
+            <div class="cl-note">ไม่ใช่ข่าวร้าย แต่เป็นส่วนหนึ่งของกระบวนการ เตรียมใจไว้ก่อนลงทุน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            กำหนด Time Horizon ที่ชัดเจน (อย่างน้อย 5-10 ปี)
+            <div class="cl-note">Reasonable Optimism ทำงานได้ดีในระยะยาว ถ้า Time Horizon สั้น ต้องปรับกลยุทธ์</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            เขียนว่าจะทำอะไรเมื่อตลาดลง 30% — ก่อนที่มันจะเกิดขึ้น
+            <div class="cl-note">การตัดสินใจล่วงหน้าป้องกัน Emotional Decision Making ได้ดีที่สุด</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นตอนที่ 2 — สร้างระบบที่ทนทาน</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ลงทุนแบบ Automatic (Dollar-Cost Averaging)
+            <div class="cl-note">การลงทุนอัตโนมัติทุกเดือนทำให้ไม่ต้อง Time ตลาด และซื้อเพิ่มได้ในช่วงที่ตลาดลง</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            สร้าง Emergency Fund แยกต่างหาก (3-6 เดือนค่าใช้จ่าย)
+            <div class="cl-note">คนที่ต้องการเงินสดฉุกเฉินมักบังคับขายหุ้นในเวลาที่ผิด Liquidity buffer ช่วยให้อยู่ในตลาดได้</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ไม่ใช้ Leverage ที่ทำให้ต้องขายในช่วง Drawdown
+            <div class="cl-note">Leverage ทำลาย Reasonable Optimism เพราะบังคับให้ขายก่อนที่ระบบจะฟื้นตัว</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นตอนที่ 3 — บริหารอารมณ์</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            จำกัดการดูพอร์ตในช่วงตลาดผันผวน
+            <div class="cl-note">ยิ่งดูบ่อย ยิ่งตัดสินใจจากอารมณ์มากขึ้น Buffett บอกว่าถ้าดูราคาหุ้นทุกชั่วโมง คุณกำลังคิดแบบนักเก็งกำไร ไม่ใช่นักลงทุน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ตั้งคำถาม "อะไรเปลี่ยนแปลงในธุรกิจ?" ก่อนตัดสินใจขาย
+            <div class="cl-note">ถ้าคำตอบคือ "แค่ราคา" ไม่ใช่ "ธุรกิจเปลี่ยน" — นั่นมักไม่ใช่เหตุผลที่ดีพอในการขาย</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            อ่านประวัติศาสตร์ตลาดสม่ำเสมอ
+            <div class="cl-note">ยิ่งรู้ว่าอดีตผ่านอะไรมาบ้าง ยิ่งสงบได้เมื่อเผชิญกับวิกฤตปัจจุบัน</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Easy Wins — เริ่มได้เลยวันนี้</h2>
+
+  <p>ถ้าต้องการเปลี่ยนจาก Naive เป็น Reasonable Optimist สิ่งที่ทำได้ทันทีโดยไม่ต้องรอ:</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">ลงมือได้เลย — Easy Wins</div>
+    <ul class="signal-list">
+      <li>เปิดหน้าประวัติตลาด S&P 500 ดูว่ามันผ่านอะไรมาบ้างใน 100 ปี แล้วยังอยู่ได้</li>
+      <li>เขียนลงกระดาษว่า "ถ้าพอร์ตลง 30% ฉันจะ..." — ก่อนที่มันจะเกิดขึ้น</li>
+      <li>ตั้ง Auto-Invest ทุกเดือน แม้จำนวนน้อย เพื่อสร้างนิสัยถือยาว</li>
+      <li>ลดการดูพอร์ตจากทุกวัน เป็นทุกสัปดาห์ หรือทุกเดือน</li>
+      <li>ถาม "Time Horizon ของฉันคือกี่ปี?" ก่อนซื้อทุกครั้ง</li>
+    </ul>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง · Reflection Questions</div>
+    <ol class="reflection-list">
+      <li>ในครั้งล่าสุดที่ตลาดลงหนัก คุณรู้สึกอย่างไร? มันบอกอะไรคุณเกี่ยวกับ Mindset ของตัวเอง?</li>
+      <li>คุณลงทุนด้วยความหวังใน "เส้นทาง" หรือ "ปลายทาง"? สองอย่างนี้ต่างกันอย่างไรสำหรับการตัดสินใจของคุณ?</li>
+      <li>ถ้าพอร์ตของคุณลง 40% พรุ่งนี้ คุณจะ "ถูกบังคับ" ให้ขายไหม? เพราะอะไร?</li>
+      <li>ความเสี่ยงที่แท้จริงในการลงทุนของคุณคืออะไร — ความผันผวนของราคา หรือการไม่มีเงินพอในอีก 30 ปี?</li>
+      <li>คุณเชื่อในธุรกิจที่คุณถืออยู่ไหม? หรือแค่เชื่อว่าราคาจะขึ้น?</li>
+    </ol>
+  </div>
+
+  <h2>หนังสือและทรัพยากรที่แนะนำ</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ชื่อ</th>
+          <th>ผู้เขียน</th>
+          <th>ทำไมต้องอ่าน</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Same as Ever</td>
+          <td>Morgan Housel</td>
+          <td>ต้นฉบับของแนวคิดนี้ — สิ่งที่ไม่เคยเปลี่ยนในโลกการเงิน</td>
+        </tr>
+        <tr>
+          <td class="col-type">The Psychology of Money</td>
+          <td>Morgan Housel</td>
+          <td>ฐานความคิดเรื่องพฤติกรรมนักลงทุนจาก Housel</td>
+        </tr>
+        <tr>
+          <td class="col-type">The Intelligent Investor</td>
+          <td>Benjamin Graham</td>
+          <td>Margin of Safety และปรัชญาการลงทุนระยะยาวที่ Housel อ้างถึงบ่อย</td>
+        </tr>
+        <tr>
+          <td class="col-type">Thinking, Fast and Slow</td>
+          <td>Daniel Kahneman</td>
+          <td>เข้าใจว่าทำไมสมองเราถึงตัดสินใจผิดในช่วงตลาดผันผวน</td>
+        </tr>
+        <tr>
+          <td class="col-type">The Little Book of Common Sense Investing</td>
+          <td>John Bogle</td>
+          <td>ทำไม Index Fund ถึงเป็นเครื่องมือสำหรับ Reasonable Optimist</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════ FINAL PAGE ═══════════════ -->
+<div class="page">
+  <div class="eyebrow">บทสรุปสุดท้าย · Final Note</div>
+  <h1>สิ่งที่ Morgan Housel ต้องการบอกเรา</h1>
+
+  <p>ถ้าต้องสรุป <em>Same as Ever</em> ทั้งเล่มให้อยู่ในประโยคเดียว Housel คงบอกว่า:</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The world will keep changing. But human nature won't. And that's exactly why the principles that worked 100 years ago still work today."</div>
+    <div class="bq-th">โลกจะเปลี่ยนแปลงไปเรื่อยๆ แต่ธรรมชาติมนุษย์จะไม่เปลี่ยน นั่นคือเหตุผลที่หลักการที่ใช้ได้เมื่อ 100 ปีก่อน ยังใช้ได้ดีในวันนี้</div>
+  </div>
+
+  <p>Reasonable Optimism ไม่ใช่เรื่องใหม่ Buffett ใช้มันมา 80 ปี Munger ใช้มันมา 60 ปี แต่คนส่วนใหญ่ยังคงเป็น Naive Optimist เพราะ <strong>การยอมรับความเจ็บปวดระยะสั้นนั้นยากมาก แม้รู้ว่าผลลัพธ์จะดีในระยะยาว</strong></p>
+
+  <p>นั่นคือความท้าทายที่แท้จริง — ไม่ใช่การค้นหาหุ้นที่ดีกว่า ไม่ใช่การ Time ตลาดให้ถูก แต่คือการ <strong>สร้างระบบความคิดและชีวิตที่ทำให้เราอยู่ในตลาดได้นานพอที่จะให้ระบบทำงาน</strong></p>
+
+  <div class="pullquote">
+    <p>"The best financial plan is the one you can stick to. Not the one with the highest expected returns."</p>
+    <cite>Morgan Housel — The Psychology of Money</cite>
+  </div>
+  <div class="bq-th" style="margin-top:-32px; margin-bottom:40px; font-family:'Sarabun',sans-serif; font-size:13px; color:var(--ink-faint);">แผนการเงินที่ดีที่สุดคือแผนที่คุณสามารถยึดมั่นอยู่ได้ ไม่ใช่แผนที่มีผลตอบแทนคาดหวังสูงที่สุด</div>
+
+  <p>เริ่มต้นวันนี้ด้วยสิ่งเล็กๆ: ถามตัวเองก่อนตัดสินใจใดๆ ว่า <em>"ฉันกำลังตัดสินใจจากความเข้าใจ หรือจากความกลัว?"</em> คำถามนั้นคำเดียว คือความแตกต่างระหว่าง Naive กับ Reasonable Optimist</p>
+
+  <hr class="ornament">
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="book-footer">
+  <p>สรุปจาก Same as Ever โดย Morgan Housel · จัดทำเพื่อการศึกษาและพัฒนาแนวคิดการลงทุน<br>
+  "Things that never change in a world that never stops changing."</p>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
