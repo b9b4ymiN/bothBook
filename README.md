@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- 1) Banner (recommended size: ~1200x300) -->
-<img src="YOUR_BANNER_URL" alt="bothBook banner" width="100%" />
+<img src="https://raw.githubusercontent.com/b9b4ymiN/bothBook/main/assets/banner.png" alt="bothBook banner" width="100%" />
 
 <br/>
 <br/>
