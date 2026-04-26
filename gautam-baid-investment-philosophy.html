@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ปรัชญาการลงทุนของ Gautam Baid — The Joys of Compounding</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168,120,42,0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #2A1F0E;
+  min-height: 100vh;
+  font-family: 'Noto Serif Thai', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 40px rgba(0,0,0,0.35), 0 0 120px rgba(0,0,0,0.2);
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: #120D04;
+  min-height: 100vh;
+  padding: 80px var(--page-pad-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute; inset: 24px;
+  border: 1px solid rgba(168,120,42,0.2);
+  pointer-events: none;
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 56px;
+}
+.cover-author-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: rgba(201,164,78,0.45); letter-spacing: 2px; margin-bottom: 10px;
+}
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(40px, 8vw, 72px); font-weight: 700;
+  color: var(--gold-light); line-height: 1.1; margin-bottom: 6px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(16px, 3vw, 22px); font-weight: 300;
+  color: rgba(201,164,78,0.55); letter-spacing: 0.03em; margin-bottom: 40px;
+}
+.cover-divider {
+  width: 48px; height: 1px; background: var(--gold); margin-bottom: 32px;
+}
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.85;
+  color: rgba(249,245,236,0.5); max-width: 480px; margin-bottom: 48px;
+}
+.cover-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 64px; }
+.cover-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(168,120,42,0.7);
+  border: 1px solid rgba(168,120,42,0.25); padding: 5px 12px;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px;
+  color: rgba(201,164,78,0.25); text-transform: uppercase; margin-top: auto;
+}
+
+/* ─── PAGE ─── */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-deep);
+}
+.page-toc { background: var(--paper-mid); }
+
+/* ─── CHAPTER OPENING ─── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: ''; display: block;
+  width: 40px; height: 2px; background: var(--gold); margin-top: 28px;
+}
+.ch-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 88px; font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute; top: 48px; right: var(--page-pad-h);
+  line-height: 1; user-select: none;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 4vw, 32px); font-weight: 600;
+  color: var(--ink); line-height: 1.3;
+}
+.ch-title em { display: block; font-size: 0.6em; font-weight: 300; font-style: normal; color: var(--ink-muted); margin-top: 10px; }
+
+/* ─── TYPOGRAPHY ─── */
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+}
+h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(24px, 4vw, 36px); font-weight: 600;
+  color: var(--ink); line-height: 1.25; margin-bottom: 24px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(17px, 2.5vw, 22px); font-weight: 600;
+  color: var(--ink-soft); line-height: 1.3;
+  margin: 48px 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-rule);
+  position: relative;
+}
+h2::after {
+  content: ''; position: absolute; bottom: -1px; left: 0;
+  width: 32px; height: 2px; background: var(--gold);
+}
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--ink-mid);
+  margin: 32px 0 12px;
+}
+p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px; line-height: 1.9; color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 600; color: var(--ink); }
+
+/* ─── PULL QUOTE ─── */
+.pullquote {
+  margin: 48px 0; padding: 0 0 0 28px;
+  border-left: 3px solid var(--gold);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px; font-style: italic;
+  color: var(--ink); line-height: 1.65; margin-bottom: 12px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; color: var(--ink-muted); font-style: normal; letter-spacing: 0.05em;
+}
+
+/* ─── BLOCKQUOTE FULL WIDTH ─── */
+.blockquote-full {
+  background: var(--ink);
+  padding: 48px var(--page-pad-h); margin: 48px 0; text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(15px, 2.5vw, 19px); font-style: italic;
+  color: rgba(249,245,236,0.78); line-height: 1.65; margin-bottom: 14px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; color: rgba(201,164,78,0.45); line-height: 1.7;
+}
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--paper-shadow); margin: 32px 0;
+}
+.stat-item {
+  padding: 28px 20px; text-align: center;
+  border-right: 1px solid var(--paper-shadow);
+}
+.stat-item:last-child { border-right: none; }
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 34px; font-weight: 700; color: var(--gold); margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: var(--ink-muted); letter-spacing: 0.03em; line-height: 1.4;
+}
+
+/* ─── AUTHOR VOICE ─── */
+.author-voice {
+  display: flex; gap: 20px; align-items: flex-start;
+  background: var(--paper-mid); padding: 28px; margin: 36px 0;
+  border: 1px solid var(--paper-shadow);
+}
+.av-avatar {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: var(--ink-soft); color: var(--gold-light);
+  font-family: 'Noto Serif', serif; font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; border-radius: 50%;
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: var(--ink-muted); letter-spacing: 0.05em; margin-bottom: 8px;
+}
+.av-text {
+  font-family: 'Noto Serif', serif;
+  font-size: 16px; font-style: italic; color: var(--ink); line-height: 1.65; margin: 0;
+}
+.av-text-th {
+  display: block; font-style: normal; font-size: 13px;
+  color: var(--ink-muted); margin-top: 8px; font-family: 'Noto Serif Thai', serif;
+}
+
+/* ─── SIGNAL BOXES ─── */
+.signal-box {
+  padding: 24px 28px; margin: 20px 0; border-radius: 0;
+}
+.signal-box.buy  { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.sell { background: var(--red-bg);   border-left: 3px solid var(--red); }
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.signal-box.buy  .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-list { list-style: none; padding: 0; }
+.signal-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 8px;
+  padding-left: 20px; position: relative;
+}
+.signal-box.buy  .signal-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.signal-box.sell .signal-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+/* ─── CHECKLIST ─── */
+.checklist { border: 1px solid var(--paper-shadow); margin: 40px 0; }
+.checklist-cap {
+  background: var(--ink-soft); padding: 28px 32px;
+}
+.checklist-cap h3 {
+  font-family: 'Noto Serif Thai', serif; font-size: 17px; font-weight: 600;
+  color: var(--gold-light); text-transform: none; letter-spacing: 0;
+  margin: 0 0 8px; padding: 0;
+}
+.checklist-cap p {
+  font-family: 'Sarabun', sans-serif; font-size: 13px;
+  color: rgba(249,245,236,0.45); margin: 0; line-height: 1.5;
+}
+.cl-group { padding: 0; }
+.cl-group-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); background: var(--paper-mid);
+  padding: 10px 32px; border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items { list-style: none; padding: 0; }
+.cl-items li {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 16px 32px; border-bottom: 1px solid var(--paper-deep);
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  width: 16px; height: 16px; flex-shrink: 0;
+  border: 1px solid var(--paper-shadow); margin-top: 2px;
+}
+.cl-text {
+  font-family: 'Sarabun', sans-serif; font-size: 14px;
+  color: var(--ink-soft); line-height: 1.5;
+}
+.cl-note {
+  font-size: 12px; font-style: italic; color: var(--ink-faint); margin-top: 4px;
+}
+
+/* ─── COMPARISON TABLE ─── */
+.cmp-table-wrap { overflow-x: auto; margin: 36px 0; border: 1px solid var(--paper-shadow); }
+.cmp-table { width: 100%; border-collapse: collapse; font-family: 'Sarabun', sans-serif; }
+.cmp-table thead tr { background: var(--ink-soft); }
+.cmp-table th {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gold-light);
+  padding: 14px 18px; text-align: left;
+}
+.cmp-table td {
+  font-size: 14px; color: var(--ink-soft); padding: 14px 18px;
+  border-bottom: 1px solid var(--paper-deep); line-height: 1.6;
+}
+.cmp-table tbody tr:last-child td { border-bottom: none; }
+.cmp-table tbody tr:nth-child(even) td { background: var(--paper-mid); }
+.col-type { font-weight: 600; color: var(--ink-mid); }
+
+/* ─── TWO COL GRID ─── */
+.two-col-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow); margin: 36px 0;
+}
+.grid-card { background: var(--paper); padding: 24px; }
+.grid-card-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.grid-card h4 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 10px;
+}
+.grid-card p {
+  font-size: 14px; line-height: 1.75; margin-bottom: 0;
+}
+
+/* ─── FORMULA ─── */
+.formula-block {
+  background: var(--paper-mid); border: 1px solid var(--paper-shadow);
+  padding: 32px; margin: 36px 0; text-align: center;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(18px, 3vw, 26px); font-weight: 700; color: var(--ink); margin-bottom: 14px; line-height: 1.4;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif; font-size: 13px; color: var(--ink-muted); line-height: 1.6;
+}
+
+/* ─── REFLECTION ─── */
+.reflection {
+  background: var(--paper-mid); border-left: 3px solid var(--gold);
+  padding: 32px; margin: 40px 0;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+}
+.reflection-list {
+  counter-reset: reflection; list-style: none; padding: 0;
+}
+.reflection-list li {
+  counter-increment: reflection;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px;
+  padding-left: 32px; position: relative;
+}
+.reflection-list li::before {
+  content: counter(reflection);
+  position: absolute; left: 0; top: 2px;
+  font-family: 'Noto Serif', serif; font-size: 13px;
+  color: rgba(201,164,78,0.4); font-weight: 700;
+}
+
+/* ─── ORNAMENT ─── */
+.ornament { border: none; text-align: center; margin: 48px 0; }
+.ornament::before { content: '· · ·'; color: var(--gold-rule); letter-spacing: 12px; font-size: 18px; }
+
+/* ─── TOC ─── */
+.toc-list { list-style: none; padding: 0; margin: 32px 0; }
+.toc-list li {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 0; border-bottom: 1px dashed var(--paper-shadow);
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-ch { font-family: 'Sarabun', sans-serif; font-size: 10px; color: var(--gold); letter-spacing: 2px; margin-right: 12px; }
+.toc-title { font-family: 'Noto Serif Thai', serif; font-size: 15px; color: var(--ink-soft); flex: 1; }
+.toc-num { font-family: 'Noto Serif', serif; font-size: 14px; color: var(--ink-faint); }
+
+/* ─── BOOK-REF GRID ─── */
+.book-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--paper-shadow); border: 1px solid var(--paper-shadow); margin: 32px 0;
+}
+.book-card { background: var(--paper); padding: 22px; }
+.book-title { font-family: 'Noto Serif Thai', serif; font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.book-author { font-family: 'Sarabun', sans-serif; font-size: 11px; color: var(--gold); margin-bottom: 8px; }
+.book-desc { font-family: 'Sarabun', sans-serif; font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+
+/* ─── FOOTER ─── */
+.book-footer {
+  background: #120D04; padding: 64px var(--page-pad-h); text-align: center;
+}
+.footer-divider { width: 32px; height: 1px; background: var(--gold); margin: 0 auto 32px; }
+.footer-title {
+  font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 600;
+  color: rgba(249,245,236,0.6); margin-bottom: 10px;
+}
+.footer-sub {
+  font-family: 'Sarabun', sans-serif; font-size: 12px; letter-spacing: 2px;
+  color: rgba(168,120,42,0.35); text-transform: uppercase;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 24px; --page-pad-v: 48px; }
+  .two-col-grid, .book-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+  .ch-num { display: none; }
+  .cmp-table-wrap { overflow-x: auto; }
+  .blockquote-full { padding: 32px 24px; }
+  .author-voice { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">THE JOYS OF COMPOUNDING · ปรัชญาการลงทุน</div>
+  <div class="cover-author-label">ตกผลึกจากงานของ / Synthesized from the works of</div>
+  <div class="cover-title-en">Gautam Baid</div>
+  <div class="cover-title-th">ศิลปะแห่งการทำเงินช้าๆ อย่างมั่นใจ</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    ปรัชญาการลงทุนที่หลอมรวม Klarman + Buffett + Munger + Compounding ไว้ในแนวทางเดียว สำหรับนักลงทุนรายย่อยที่ต้องการสร้าง Wealth อย่างยั่งยืนในตลาดที่ไม่ใช่ตลาดอเมริกา
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">Value Investing</div>
+    <div class="cover-tag">Compounding</div>
+    <div class="cover-tag">Mental Models</div>
+    <div class="cover-tag">Behavioral Finance</div>
+    <div class="cover-tag">Long-term Wealth</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ภาษาไทย · สรุปจากหนังสือ The Joys of Compounding</div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="page page-toc">
+  <div class="eyebrow">สารบัญ</div>
+  <h1>เนื้อหาในเล่มนี้</h1>
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">7</div>
+      <div class="stat-label">บทหลัก</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">∞</div>
+      <div class="stat-label">Compounding Mindset</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1</div>
+      <div class="stat-label">เส้นทาง</div>
+    </div>
+  </div>
+  <ul class="toc-list">
+    <li><span class="toc-ch">01</span><span class="toc-title">ปรัชญาพื้นฐาน — ทำไมต้อง Compound ช้าๆ</span><span class="toc-num">I</span></li>
+    <li><span class="toc-ch">02</span><span class="toc-title">วิธีคิดของ Baid — Mental Models การลงทุน</span><span class="toc-num">II</span></li>
+    <li><span class="toc-ch">03</span><span class="toc-title">การประเมินมูลค่า — หาของถูกในตลาดที่แพง</span><span class="toc-num">III</span></li>
+    <li><span class="toc-ch">04</span><span class="toc-title">คุณภาพธุรกิจ — MOAT และ Compounder ที่แท้จริง</span><span class="toc-num">IV</span></li>
+    <li><span class="toc-ch">05</span><span class="toc-title">จิตวิทยาการลงทุน — ชนะตัวเองก่อนชนะตลาด</span><span class="toc-num">V</span></li>
+    <li><span class="toc-ch">06</span><span class="toc-title">Portfolio Management — ระเบียบวินัยและ Process</span><span class="toc-num">VI</span></li>
+    <li><span class="toc-ch">07</span><span class="toc-title">เส้นทางแห่ง Compounding — ชีวิตและการลงทุน</span><span class="toc-num">VII</span></li>
+  </ul>
+</div>
+
+<!-- CHAPTER 1 -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Chapter One</div>
+  <div class="ch-title">
+    ปรัชญาพื้นฐาน
+    <em>ทำไมต้อง Compound ช้าๆ — และทำไมมันถึงยากกว่าที่คิด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Executive Summary · บทสรุปหลัก</div>
+  <h1>The Joys of Compounding คืออะไร และทำไมต้องอ่าน</h1>
+  <p>
+    Gautam Baid เป็นนักลงทุนชาวอินเดียที่ทำงานในวอลล์สตรีทก่อนจะกลับมาบริหารกองทุนของตัวเอง เขาเขียน <strong>The Joys of Compounding</strong> เพื่อรวบรวมปัญญาจากนักลงทุนระดับตำนาน ได้แก่ Buffett, Munger, Klarman, Fisher และ Graham แล้วกลั่นออกมาเป็นแนวทางที่ <strong>นักลงทุนรายย่อยในตลาดเกิดใหม่</strong> สามารถนำไปปฏิบัติได้จริง
+  </p>
+  <p>
+    หัวใจของหนังสือคือ: การสร้าง Wealth ที่แท้จริงไม่ได้มาจากการเล่นสั้น ติดตามข่าว หรือหา next hot stock — แต่มาจากการเป็น <strong>นักลงทุนที่อดทน มีระเบียบวินัย และปล่อยให้ Compounding ทำงานในระยะยาว</strong>
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The stock market is a device for transferring money from the impatient to the patient."</div>
+    <div class="bq-th">ตลาดหุ้นคืออุปกรณ์โอนเงินจากคนไม่อดทน ไปให้คนอดทน — Warren Buffett (อ้างอิงโดย Baid)</div>
+  </div>
+
+  <p>
+    Baid เชื่อว่าปัญหาใหญ่ที่สุดของนักลงทุนส่วนใหญ่ไม่ใช่ "ขาดความรู้" แต่คือ <strong>"ขาดปัญญาที่จะอดทนและควบคุมอารมณ์"</strong> เขาจึงเขียนหนังสือที่ครึ่งหนึ่งว่าด้วยการลงทุน อีกครึ่งหนึ่งว่าด้วยปรัชญาชีวิตและจิตวิทยา
+  </p>
+
+  <h2>ทำไม Compounding ถึงยากกว่าที่คิด</h2>
+  <p>
+    ทุกคนรู้สูตร A = P(1+r)ⁿ แต่น้อยคนที่ทำได้จริง เพราะ Compounding ต้องการสิ่งที่ขัดกับสัญชาตญาณมนุษย์อย่างสิ้นเชิง ได้แก่ ความอดทนในยามที่ตลาดตกหนัก, การนิ่งเฉยเมื่อทุกคนรีบขาย, และการไม่ทำอะไรเมื่อ "ไม่ควรทำ"
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">หัวใจของ Compounding</div>
+    <div class="formula-eq">ผลตอบแทนที่แท้จริง = อัตราผลตอบแทน × เวลา × วินัย</div>
+    <div class="formula-note">ตัวแปรที่สำคัญที่สุดไม่ใช่อัตราผลตอบแทน แต่คือ "เวลา" และ "วินัยที่จะอยู่ในตลาด" — Baid เรียกนี่ว่า "Stay in the Game"</div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">❌ วิธีคิดแบบเก่า</div>
+      <h4>นักเก็งกำไร</h4>
+      <p>มองตลาดเป็น "เกม" ที่ต้องชนะในระยะสั้น, ไล่ราคา, ปฏิบัติต่อหุ้นเป็นแค่ตัวเลข</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ วิธีคิดแบบ Baid</div>
+      <h4>เจ้าของธุรกิจ</h4>
+      <p>มองหุ้นเป็น "ส่วนหนึ่งของธุรกิจ" ที่เราร่วมเป็นเจ้าของ, ลงทุนตาม intrinsic value, อดทนรอให้ธุรกิจเติบโต</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>สามหลักใหญ่ที่ Baid ยึดตลอดชีวิต</h2>
+
+  <div class="author-voice">
+    <div class="av-avatar">GB</div>
+    <div>
+      <div class="av-meta">Gautam Baid — The Joys of Compounding</div>
+      <p class="av-text">"Investing is simple, but not easy. The goal is not to find the most complex strategy, but to find the simplest one that you can stick to for decades."
+        <span class="av-text-th">การลงทุนนั้นเรียบง่าย แต่ไม่ง่าย เป้าหมายไม่ใช่หากลยุทธ์ที่ซับซ้อนที่สุด แต่หากลยุทธ์ที่เรียบง่ายที่สุดที่เราจะยึดมั่นได้เป็นสิบปี</span>
+      </p>
+    </div>
+  </div>
+
+  <p><strong>หลักที่ 1 — Invest in Quality:</strong> ลงทุนในธุรกิจที่มีคุณภาพสูง มี MOAT ชัดเจน และทีมผู้บริหารที่ integrity สูง ราคาที่สมเหตุสมผลย่อมดีกว่าของถูกที่ธุรกิจแย่</p>
+  <p><strong>หลักที่ 2 — Think Long-term:</strong> ตัดสินใจราวกับว่าเราจะถือหุ้นนี้อย่างน้อย 5–10 ปี คำถามที่ถูกต้องไม่ใช่ "หุ้นนี้จะขึ้นพรุ่งนี้ไหม" แต่คือ "ธุรกิจนี้จะดีกว่าเดิมในอีก 5 ปีไหม"</p>
+  <p><strong>หลักที่ 3 — Margin of Safety:</strong> ซื้อในราคาที่ต่ำกว่ามูลค่าที่แท้จริงเสมอ เพื่อให้ความผิดพลาดในการประเมินไม่ทำลายพอร์ต</p>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Chapter Two</div>
+  <div class="ch-title">
+    Mental Models การลงทุน
+    <em>วิธีคิดที่ Baid ใช้ประเมินโอกาสลงทุนทุกครั้ง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Key Insights · หลักคิดสำคัญ</div>
+  <h1>กรอบความคิดหลักของ Gautam Baid</h1>
+  <p>
+    Baid ได้รับอิทธิพลอย่างมากจาก Charlie Munger ในเรื่อง <strong>Latticework of Mental Models</strong> — ความคิดว่านักลงทุนที่ดีต้องมีกรอบความคิดจากหลายศาสตร์ ไม่ใช่แค่การเงินเพียงอย่างเดียว เขาอ่านหนังสือจากฟิสิกส์, ชีววิทยา, จิตวิทยา, ประวัติศาสตร์ เพื่อนำมาสร้าง Mental Models ที่แข็งแกร่ง
+  </p>
+
+  <h2>Model ที่ 1 — Circle of Competence</h2>
+  <p>
+    รู้ว่าตัวเองรู้อะไร และไม่รู้อะไร Baid เน้นว่า <strong>ขอบเขตของ Circle ไม่สำคัญเท่ากับความรู้ว่า "ขอบอยู่ที่ไหน"</strong> นักลงทุนที่รู้ขอบ Circle ของตัวเองแล้วอยู่ภายใน จะปลอดภัยกว่านักลงทุนที่คิดว่าตัวเองรู้ทุกอย่าง
+  </p>
+  <div class="pullquote">
+    <p>"What counts in investing is knowing what you don't know."</p>
+    <cite>Gautam Baid อ้างอิงแนวคิดของ Charlie Munger</cite>
+  </div>
+
+  <h2>Model ที่ 2 — First Principles Thinking</h2>
+  <p>
+    แทนที่จะดู consensus ของ analyst หรือตาม momentum ของตลาด Baid เริ่มต้นจากคำถามพื้นฐาน: <strong>"ธุรกิจนี้ทำเงินได้ยังไง? ทำไมลูกค้าถึงต้องซื้อ? อะไรจะทำให้ธุรกิจนี้แพ้?"</strong> การคิดจาก first principles ทำให้เห็นความจริงที่ตลาดยังไม่เห็น
+  </p>
+
+  <h2>Model ที่ 3 — Inversion (การคิดกลับ)</h2>
+  <p>
+    แทนที่จะถามว่า "ทำยังไงจะรวย" ให้ถามว่า <strong>"ทำยังไงจะไม่จน"</strong> แทนที่จะถามว่า "หุ้นตัวนี้จะขึ้นยังไง" ให้ถามว่า "อะไรที่ทำให้ thesis นี้ผิด" Baid ใช้ Inversion เป็นตัวกรองความเสี่ยงก่อนตัดสินใจทุกครั้ง
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">Inversion Framework</div>
+    <div class="formula-eq">ก่อนซื้อ → ถาม "ทำไมฉันถึงควรผิด?"</div>
+    <div class="formula-note">ถ้าหาเหตุผลที่จะผิดได้หลายข้อแต่ยังอยากลงทุน = ลงทุนด้วยความตระหนักรู้ · ถ้าหาไม่ได้เลย = ระวัง Confirmation Bias</div>
+  </div>
+
+  <h2>Model ที่ 4 — Second-Order Thinking</h2>
+  <p>
+    ตลาดมักซื้อขายตาม First-order thinking ("บริษัทกำไรดี → ราคาจะขึ้น") Baid มองลึกกว่าด้วย Second-order: <strong>"ทุกคนรู้แล้วว่าบริษัทกำไรดี → ราคาสะท้อนแล้ว → ต้องถามว่าสิ่งที่ตลาดไม่รู้คืออะไร?"</strong>
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Mental Model</th>
+          <th>คำถามที่ใช้</th>
+          <th>ประโยชน์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Circle of Competence</td>
+          <td>ฉันเข้าใจธุรกิจนี้จริงไหม?</td>
+          <td>หลีกเลี่ยงการลงทุนในสิ่งที่ไม่รู้</td>
+        </tr>
+        <tr>
+          <td class="col-type">First Principles</td>
+          <td>ธุรกิจนี้ทำเงินได้ยังไงกันแน่?</td>
+          <td>เห็นความจริงที่ซ่อนอยู่</td>
+        </tr>
+        <tr>
+          <td class="col-type">Inversion</td>
+          <td>ทำไมฉันถึงควรผิด?</td>
+          <td>กรองความเสี่ยงและ Bias</td>
+        </tr>
+        <tr>
+          <td class="col-type">Second-Order</td>
+          <td>ตลาดคิดอะไร vs ความจริงคืออะไร?</td>
+          <td>หาโอกาสที่ตลาดมองข้าม</td>
+        </tr>
+        <tr>
+          <td class="col-type">Opportunity Cost</td>
+          <td>ทางเลือกที่ดีที่สุดของเงินก้อนนี้คืออะไร?</td>
+          <td>จัดสรรทุนอย่างมีประสิทธิภาพ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Model ที่ 5 — Survivorship Bias ในการอ่านประวัติ</h2>
+  <p>
+    Baid เตือนว่าการอ่านเรื่องราวความสำเร็จของ Buffett หรือ Lynch โดยไม่ศึกษาความล้มเหลวของคนอื่นๆ ทำให้เราประเมินความยากต่ำเกินจริง เขาเน้นให้ศึกษา <strong>"บทเรียนจากคนที่แพ้"</strong> เท่ากับหรือมากกว่าคนที่ชนะ
+  </p>
+</div>
+
+<!-- CHAPTER 3 -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Chapter Three</div>
+  <div class="ch-title">
+    การประเมินมูลค่า
+    <em>หาของถูกในตลาดที่แพง — แนวทาง Value Investing แบบ Baid</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Valuation · การประเมินราคา</div>
+  <h1>Margin of Safety — หัวใจของการลงทุนที่ปลอดภัย</h1>
+  <p>
+    Baid เป็นศิษย์ตรงของแนวคิด Seth Klarman ใน Margin of Safety เขาเชื่อว่า <strong>ราคาที่ซื้อ คือตัวแปรที่สำคัญที่สุดในการลงทุน</strong> ธุรกิจที่ดีแต่ซื้อแพงเกินไปก็อาจทำให้ขาดทุนได้ ในทางกลับกัน ธุรกิจที่ธรรมดาแต่ซื้อในราคาที่มี Margin of Safety สูง อาจให้ผลตอบแทนที่ดีเยี่ยม
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">Margin of Safety</div>
+    <div class="formula-eq">Margin of Safety = Intrinsic Value − Market Price</div>
+    <div class="formula-note">Baid แนะนำ Margin of Safety อย่างน้อย 30–50% สำหรับธุรกิจที่ไม่แน่นอน และ 20–30% สำหรับธุรกิจคุณภาพสูงที่คาดการณ์ได้</div>
+  </div>
+
+  <h2>วิธีหา Intrinsic Value แบบ Baid</h2>
+  <p>
+    Baid ไม่ได้ใช้ DCF Model ซับซ้อนเพียงอย่างเดียว เขาใช้ <strong>หลายวิธีพร้อมกัน</strong> แล้วมองหา Convergence — ถ้าหลายวิธีให้ตัวเลขใกล้เคียงกัน ความมั่นใจก็สูงขึ้น
+  </p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ สัญญาณที่ Baid ชอบเห็น — ราคาน่าสนใจ</div>
+    <ul class="signal-list">
+      <li>P/E ต่ำกว่า Historical Average อย่างมีนัยสำคัญ โดยที่ธุรกิจยังแข็งแกร่ง</li>
+      <li>P/B ต่ำกว่า 1 สำหรับธุรกิจที่ ROE สูงกว่า 15% ต่อเนื่อง</li>
+      <li>FCF Yield สูงกว่า 6–8% เมื่อเทียบกับ Risk-free Rate</li>
+      <li>EV/EBITDA ต่ำกว่าเพื่อนในอุตสาหกรรมโดยไม่มีเหตุผลพื้นฐาน</li>
+      <li>Insider Buying ที่มีนัยสำคัญ — ผู้บริหารซื้อด้วยเงินตัวเอง</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">⚠️ สัญญาณที่ Baid หลีกเลี่ยง — Valuation Trap</div>
+    <ul class="signal-list">
+      <li>P/E ต่ำจากกำไรที่ผิดปกติ (one-time gains) ไม่ใช่ Core Business</li>
+      <li>ราคาถูกเพราะธุรกิจกำลังเสื่อมถอย — "Value Trap" ที่ Baid เรียกว่า "Cigar Butt"</li>
+      <li>Dividend Yield สูงมากผิดปกติ — มักสัญญาณว่าตลาดไม่เชื่อ Dividend จะยั่งยืน</li>
+      <li>ตัวเลขดีแต่ Cash Flow ไม่สนับสนุน — กำไรที่ไม่แปลงเป็นเงินสด</li>
+    </ul>
+  </div>
+
+  <h2>Quality vs. Price — ความสมดุลที่ Baid ค้นพบ</h2>
+  <p>
+    Baid เริ่มต้นเป็น Graham-style deep value investor แต่วิวัฒน์มาสู่แนวคิด Buffett ที่ว่า <strong>"ดีกว่ามากที่จะซื้อธุรกิจดีในราคาสมเหตุสมผล แทนที่จะซื้อธุรกิจธรรมดาในราคาถูกมาก"</strong> เขาเรียกนี่ว่าการ "upgrade" ปรัชญา
+  </p>
+
+  <div class="pullquote">
+    <p>"It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price."</p>
+    <cite>Warren Buffett — อ้างอิงบ่อยมากในงานของ Baid เพราะตรงกับ Evolution ของเขาเอง</cite>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>การประเมินในตลาดเกิดใหม่ — ความท้าทายพิเศษ</h2>
+  <p>
+    Baid ตระหนักว่าตลาดอย่างอินเดีย (และเอเชียโดยทั่วไป) มีลักษณะเฉพาะที่ต่างจากตลาดอเมริกา:
+  </p>
+  <p>
+    <strong>1. ข้อมูลไม่สมมาตร:</strong> ตลาดเล็ก ข้อมูลน้อย นักวิเคราะห์น้อย — นักลงทุนรายย่อยที่ทำการบ้านดีมีโอกาส <strong>ได้ edge มากกว่า</strong> ในตลาดเล็กกว่าในตลาดใหญ่
+  </p>
+  <p>
+    <strong>2. Governance Risk:</strong> ต้องให้น้ำหนักกับ Management Integrity มากกว่าตลาดที่พัฒนาแล้ว เพราะกฎหมายคุ้มครองผู้ถือหุ้นอาจอ่อนแอกว่า
+  </p>
+  <p>
+    <strong>3. Growth Premium:</strong> ธุรกิจในตลาดเกิดใหม่มักมี Runway ที่ยาวกว่ามาก เพราะ Penetration Rate ยังต่ำ — บางครั้ง P/E ที่ดูแพงในตลาดอเมริกา อาจสมเหตุสมผลในตลาดเกิดใหม่
+  </p>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Chapter Four</div>
+  <div class="ch-title">
+    คุณภาพธุรกิจ — MOAT
+    <em>สิ่งที่ทำให้ธุรกิจดีมีคุณค่าเพิ่มขึ้นทุกปี</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Business Quality · คุณภาพธุรกิจ</div>
+  <h1>MOAT คืออะไร และประเมินอย่างไรให้ได้ผลจริง</h1>
+  <p>
+    Baid นำแนวคิด Economic Moat ของ Buffett มาพัฒนาต่อ เขาอธิบายว่า MOAT คือ <strong>"ความได้เปรียบเชิงแข่งขันที่ยั่งยืน"</strong> — สิ่งที่ทำให้ธุรกิจสามารถรักษา ROE สูงไว้ได้ในระยะยาวโดยที่คู่แข่งไม่สามารถลอกเลียนได้ง่าย
+  </p>
+
+  <h2>5 ประเภทของ MOAT ที่ Baid ให้ความสำคัญ</h2>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">MOAT Type 1</div>
+      <h4>Network Effects</h4>
+      <p>ยิ่งมีคนใช้มาก ยิ่งมีคุณค่ามากขึ้น เช่น platform, marketplace, social network — เป็น MOAT ที่แข็งแกร่งที่สุด</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">MOAT Type 2</div>
+      <h4>Switching Costs</h4>
+      <p>ต้นทุนในการเปลี่ยนไปใช้คู่แข่งสูงมาก ทั้งในแง่เงิน เวลา หรือความเสี่ยง เช่น Enterprise Software, ERP System</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">MOAT Type 3</div>
+      <h4>Cost Advantages</h4>
+      <p>ต้นทุนต่ำกว่าคู่แข่งอย่างมีนัยสำคัญ จากโครงสร้าง, Scale, หรือ Location ทำให้ตัดราคาได้หรือมี Margin สูงกว่า</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">MOAT Type 4</div>
+      <h4>Intangible Assets</h4>
+      <p>แบรนด์ที่ทรงพลัง, Patent, License จากรัฐ, หรือ Regulatory Approval ที่คู่แข่งขอไม่ได้</p>
+    </div>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ สัญญาณ MOAT แท้จริง</div>
+    <ul class="signal-list">
+      <li>ROE สูงกว่า 15–20% ต่อเนื่องมากกว่า 10 ปีโดยไม่ใช้ Leverage มาก</li>
+      <li>Gross Margin คงที่หรือขยายตัวแม้ในช่วงเศรษฐกิจแย่</li>
+      <li>ขึ้นราคาได้โดยลูกค้าไม่ย้าย — Pricing Power ที่แท้จริง</li>
+      <li>Market Share เพิ่มขึ้นต่อเนื่องในอุตสาหกรรมที่เติบโต</li>
+      <li>คู่แข่งที่เข้าตลาดมาไม่สามารถกัดกินส่วนแบ่งได้หลังจากหลายปี</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">⚠️ สัญญาณ MOAT กำลังเสื่อม</div>
+    <ul class="signal-list">
+      <li>Gross Margin ลดลงต่อเนื่อง 3+ ปี แม้ Revenue เติบโต</li>
+      <li>ต้องใช้ CapEx เพิ่มขึ้นมากเพื่อรักษา Market Share เดิม</li>
+      <li>Customer Churn Rate เพิ่มขึ้น หรือ NPS ลดลง</li>
+      <li>Disruptive Technology กำลังเปลี่ยน Business Model ของอุตสาหกรรม</li>
+    </ul>
+  </div>
+
+  <h2>Compounder ที่แท้จริง — อะไรที่ Baid ตามหา</h2>
+  <p>
+    Baid ใช้คำว่า <strong>"Compounder"</strong> เพื่อหมายถึงธุรกิจที่สามารถ reinvest กำไรกลับเข้าในธุรกิจได้ในอัตรา ROE สูง เป็นเวลานาน — นี่คือ "Holy Grail" ของการลงทุนระยะยาว เพราะมูลค่าจะ compound ตามการเติบโตของ intrinsic value โดยไม่ต้องรอตลาด "เห็นด้วย"
+  </p>
+
+  <div class="author-voice">
+    <div class="av-avatar">GB</div>
+    <div>
+      <div class="av-meta">Gautam Baid — The Joys of Compounding, Chapter on Quality</div>
+      <p class="av-text">"The best business to own is one that over an extended period can employ large amounts of incremental capital at very high rates of return."
+        <span class="av-text-th">ธุรกิจที่ดีที่สุดคือธุรกิจที่สามารถนำเงินกำไรที่ได้มา reinvest ต่อในอัตราผลตอบแทนสูงๆ ได้เรื่อยๆ เป็นเวลานาน — นี่คือคำนิยามของ True Compounder</span>
+      </p>
+    </div>
+  </div>
+
+  <h2>ผู้บริหาร — ตัวแปรที่ Baid ให้ความสำคัญมาก</h2>
+  <p>
+    โดยเฉพาะในตลาดเกิดใหม่ Baid เน้นย้ำว่า <strong>Integrity ของผู้บริหารคือ Non-negotiable</strong> เขาจะไม่ลงทุนในธุรกิจที่ผู้บริหารมีประวัติไม่ดี ไม่ว่าธุรกิจจะน่าสนใจแค่ไหน เพราะ "ธุรกิจดีในมือของผู้บริหารไม่ดี จะกลายเป็นธุรกิจแย่เสมอ"
+  </p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Checklist ประเมินผู้บริหาร</h3>
+      <p>ตรวจสอบก่อนลงทุนทุกครั้งโดยไม่ข้าม</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Integrity & Alignment</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ผู้บริหารถือหุ้นในบริษัทตัวเองหรือไม่ และมากพอที่จะสนใจผู้ถือหุ้นรายย่อยไหม<div class="cl-note">Skin in the game — ถ้าไม่ถือ ทำไมเราถึงควรถือ</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ประวัติการ allocate capital เป็นอย่างไร — ซื้อหุ้นคืน, จ่าย dividend, หรือ M&A ฟุ่มเฟือย<div class="cl-note">Capital allocation คือ test สูงสุดของ CEO</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Related party transactions มีหรือไม่ และสมเหตุสมผลไหม<div class="cl-note">Red flag อันดับหนึ่งในตลาดเกิดใหม่</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Communication & Transparency</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ผู้บริหารพูดถึงความล้มเหลวและความผิดพลาดตรงๆ หรือแก้ตัวตลอดเวลา<div class="cl-note">Baid เชื่อว่าผู้บริหารที่ admit mistake ได้ คือผู้บริหารที่เรียนรู้ได้</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Annual Report อ่านเข้าใจง่าย ไม่ซ่อนข้อมูลในภาษาซับซ้อน<div class="cl-note">Buffett บอกว่าถ้าอ่านไม่รู้เรื่อง อาจตั้งใจให้อ่านไม่รู้เรื่อง</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ทิศทางที่พูดกับนักลงทุนตรงกับสิ่งที่ทำจริงในช่วงหลายปีที่ผ่านมา</div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Chapter Five</div>
+  <div class="ch-title">
+    จิตวิทยาการลงทุน
+    <em>ชนะตัวเองก่อน — บทที่ Baid บอกว่าสำคัญที่สุด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Behavioral Finance · จิตวิทยา</div>
+  <h1>ศัตรูที่ใหญ่ที่สุดของนักลงทุนคือตัวเอง</h1>
+  <p>
+    Baid อ้างถึง Benjamin Graham ว่า <strong>"The investor's chief problem — and even his worst enemy — is likely to be himself."</strong> เขาเชื่ออย่างแรงกล้าว่าทักษะการลงทุน 20% มาจากการวิเคราะห์ และ 80% มาจากการควบคุมอารมณ์และพฤติกรรม
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"To be a great investor, you need to be able to sit on your hands when others are panicking. The market will always present opportunities — but only to those who are prepared, patient, and emotionally stable."</div>
+    <div class="bq-th">นักลงทุนที่ยิ่งใหญ่ต้องสามารถนิ่งเฉยได้ขณะที่คนอื่นตื่นตระหนก ตลาดจะให้โอกาสเสมอ แต่เฉพาะกับผู้ที่เตรียมพร้อม อดทน และมีเสถียรภาพทางอารมณ์เท่านั้น — Gautam Baid</div>
+  </div>
+
+  <h2>Cognitive Biases ที่ Baid ต่อสู้ทุกวัน</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Bias</th>
+          <th>อาการ</th>
+          <th>วิธีรับมือของ Baid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Confirmation Bias</td>
+          <td>หาข้อมูลที่ยืนยันสิ่งที่คิดอยู่แล้ว</td>
+          <td>ต้องหา "Bear Case" ที่แข็งแกร่งที่สุดก่อนลงทุน</td>
+        </tr>
+        <tr>
+          <td class="col-type">Loss Aversion</td>
+          <td>เจ็บปวดกับการขาดทุนมากกว่าดีใจกับกำไรเท่ากัน</td>
+          <td>ประเมินในแง่ % ของ portfolio ไม่ใช่จำนวนเงิน</td>
+        </tr>
+        <tr>
+          <td class="col-type">Anchoring</td>
+          <td>ยึดติดราคาที่ซื้อมา ทำให้ตัดสินใจผิด</td>
+          <td>ถามว่า "ถ้าไม่เคยถือหุ้นนี้ เราจะซื้อวันนี้ไหม?"</td>
+        </tr>
+        <tr>
+          <td class="col-type">Herd Mentality</td>
+          <td>ซื้อเพราะทุกคนซื้อ ขายเพราะทุกคนขาย</td>
+          <td>Baid ใช้ Contrarian Framework — ตรวจ Sentiment ก่อนซื้อ</td>
+        </tr>
+        <tr>
+          <td class="col-type">Overconfidence</td>
+          <td>คิดว่าตัวเองถูกมากกว่าที่เป็น</td>
+          <td>เขียน Pre-mortem: "ถ้าผิด จะผิดตรงไหน?"</td>
+        </tr>
+        <tr>
+          <td class="col-type">Action Bias</td>
+          <td>ความรู้สึกว่าต้องทำอะไรบางอย่างตลอดเวลา</td>
+          <td>"Don't just do something, sit there" — Munger</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Mr. Market — เพื่อนที่เมานิดหน่อยทุกวัน</h2>
+  <p>
+    Baid ชื่นชอบ Metaphor ของ Graham มากเป็นพิเศษ: <strong>Mr. Market คือหุ้นส่วนของเราที่เดินมาเสนอซื้อขายหุ้นทุกวัน บางวันอารมณ์ดีเสนอราคาสูงมาก บางวันซึมเศร้าเสนอราคาต่ำมาก</strong> นักลงทุนที่ฉลาดจะไม่ให้ Mr. Market "เล่นด้วย" ด้วยอารมณ์ แต่ใช้ข้อเสนอของเขาเป็นโอกาส
+  </p>
+
+  <div class="pullquote">
+    <p>"The market is a voting machine in the short run, but a weighing machine in the long run."</p>
+    <cite>Benjamin Graham — อ้างอิงโดย Baid ในบริบทของ Market Psychology</cite>
+  </div>
+
+  <h2>Temperament สำคัญกว่า IQ</h2>
+  <p>
+    Baid ยืมแนวคิดจาก Buffett ที่บอกว่า <strong>การลงทุนไม่ได้ต้องการ IQ สูงมาก แต่ต้องการ Temperament ที่ถูกต้อง</strong> — ความสามารถที่จะไม่ตามฝูงชน ความอดทนรอโอกาสที่ดี และความกล้าที่จะทำในทิศตรงข้ามเมื่อตลาดตื่นตระหนก
+  </p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">❌ นักลงทุนที่ Emotional</div>
+      <h4>ซื้อตอนแพง ขายตอนถูก</h4>
+      <p>ซื้อเพราะตื่นเต้นกับข่าวดี, ขายเพราะกลัวตอนตลาดร่วง — ซึ่งตรงกันข้ามกับสิ่งที่ควรทำ</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ นักลงทุนแบบ Baid</div>
+      <h4>ซื้อตอนถูก อดทนตอนแพง</h4>
+      <p>มองตลาดร่วงเป็น "Sale" ไม่ใช่ "Crisis" และมีระเบียบวินัยไม่ขายแค่เพราะราคาลง</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>Process over Outcome — วิธีคิดที่สำคัญที่สุด</h2>
+  <p>
+    Baid เน้นย้ำว่า นักลงทุนที่ดีต้องแยกแยะระหว่าง <strong>"กระบวนการ"</strong> กับ <strong>"ผลลัพธ์"</strong> บางครั้ง Good Process อาจให้ Bad Outcome ในระยะสั้น และ Bad Process อาจให้ Good Outcome โดยบังเอิญ แต่ในระยะยาว Good Process จะชนะเสมอ
+  </p>
+  <p>
+    เขาแนะนำให้เขียน <strong>Investment Journal</strong> บันทึกทุกการตัดสินใจพร้อม reasoning ณ เวลานั้น เพื่อให้สามารถ review กระบวนการคิดได้ ไม่ใช่แค่ผลลัพธ์
+  </p>
+</div>
+
+<!-- CHAPTER 6 -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก / Chapter Six</div>
+  <div class="ch-title">
+    Portfolio Management
+    <em>ระเบียบวินัยและ Process — จาก Idea สู่การตัดสินใจ</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Portfolio · การบริหารพอร์ต</div>
+  <h1>จาก Idea สู่การลงทุน — กระบวนการของ Baid</h1>
+  <p>
+    Baid มีกระบวนการลงทุนที่ชัดเจนและเป็นระเบียบ เขาเชื่อว่า <strong>กระบวนการที่ดีต้องมาก่อนเสมอ</strong> และการตัดสินใจที่ดีมักมาจากการปฏิบัติตาม process ไม่ใช่การตัดสินใจตามอารมณ์หรือความรู้สึกในขณะนั้น
+  </p>
+
+  <h2>กระบวนการ 5 ขั้นตอนของ Baid</h2>
+
+  <div class="formula-block">
+    <div class="formula-label">Investment Process</div>
+    <div class="formula-eq">Idea → Research → Valuation → Decision → Monitor</div>
+    <div class="formula-note">แต่ละขั้นต้องผ่าน "Checklist Gate" ก่อนไปขั้นถัดไป — ไม่ข้ามขั้น ไม่ลัด</div>
+  </div>
+
+  <p>
+    <strong>ขั้นที่ 1 — Idea Generation:</strong> Baid ไม่รีบร้อนหา idea ใหม่ตลอดเวลา เขาชอบ "อยู่กับบริษัทที่รู้จักดี" และรอโอกาสในสิ่งที่อยู่ใน Circle of Competence มากกว่าวิ่งหา next hot thing
+  </p>
+  <p>
+    <strong>ขั้นที่ 2 — Research:</strong> อ่าน Annual Report ย้อนหลังอย่างน้อย 5 ปี, ทำความเข้าใจ Business Model, คุย investor call transcript, ศึกษาคู่แข่ง และถามว่า "MOAT มาจากอะไรจริงๆ"
+  </p>
+  <p>
+    <strong>ขั้นที่ 3 — Valuation:</strong> ใช้หลายวิธีหา intrinsic value, กำหนด Margin of Safety, ตั้ง Price Target ที่ชัดเจน
+  </p>
+  <p>
+    <strong>ขั้นที่ 4 — Decision:</strong> ผ่าน Checklist ทั้งหมด เขียน Investment Thesis ใน 1 หน้ากระดาษ ถ้าเขียนไม่ได้ใน 1 หน้า แสดงว่ายังไม่เข้าใจพอ
+  </p>
+  <p>
+    <strong>ขั้นที่ 5 — Monitor:</strong> ติดตาม business fundamentals ไม่ใช่ราคาหุ้น ขายเมื่อ thesis เปลี่ยน ไม่ใช่เมื่อราคาร่วง
+  </p>
+
+  <h2>Concentration vs. Diversification</h2>
+  <p>
+    Baid อยู่ในค่าย Focused Portfolio — เขาเชื่อว่านักลงทุนรายย่อยที่ทำการบ้านดีควรมีพอร์ตที่ Concentrated ไม่ใช่กระจายตราบเท่าที่ <strong>รู้จักสิ่งที่ถืออย่างลึกซึ้งจริงๆ</strong> เขาอ้างคำของ Keynes ที่ว่า "Diversification is a protection against ignorance. It makes very little sense for those who know what they are doing."
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ประเด็น</th>
+          <th>Concentrated (Baid Approach)</th>
+          <th>Diversified (Passive Approach)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">จำนวนหุ้น</td>
+          <td>10–20 ตัว (รู้ลึกทุกตัว)</td>
+          <td>100+ ตัว (รู้กว้างแต่ตื้น)</td>
+        </tr>
+        <tr>
+          <td class="col-type">Upside Potential</td>
+          <td>สูงมาก ถ้า thesis ถูก</td>
+          <td>ใกล้เคียง index return</td>
+        </tr>
+        <tr>
+          <td class="col-type">ความเสี่ยง</td>
+          <td>สูงถ้า thesis ผิด — ต้องการ Margin of Safety มาก</td>
+          <td>ต่ำ แต่ไม่ได้ผลตอบแทนพิเศษ</td>
+        </tr>
+        <tr>
+          <td class="col-type">เหมาะกับ</td>
+          <td>นักลงทุนที่มีเวลา ทักษะ และอารมณ์แน่วแน่</td>
+          <td>คนที่ไม่มีเวลา หรือยังเริ่มต้น</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>เมื่อไหร่ควรขาย — กฎของ Baid</h2>
+  <p>
+    Baid บอกว่า <strong>การรู้ว่าจะขายเมื่อไหร่ยากกว่าการรู้ว่าจะซื้อเมื่อไหร่</strong> เขามีกฎง่ายๆ: ขายเมื่อ:
+  </p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">เงื่อนไขที่ Baid จะขาย</div>
+    <ul class="signal-list">
+      <li>Investment Thesis เปลี่ยนแปลงไปอย่างมีนัยสำคัญ — ไม่ใช่แค่ราคาลง</li>
+      <li>MOAT เริ่มถดถอยอย่างชัดเจน จาก competitive dynamics ที่เปลี่ยนไป</li>
+      <li>ผู้บริหารสูญเสีย integrity หรือทำ capital allocation ที่ผิดพลาดใหญ่</li>
+      <li>ราคาแพงเกิน intrinsic value อย่างมีนัยสำคัญ และมีโอกาสที่ดีกว่ารอ</li>
+      <li>พบโอกาสที่ดีกว่าอย่างชัดเจน — Opportunity Cost สูงมาก</li>
+    </ul>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">เงื่อนไขที่ Baid ไม่ขาย</div>
+    <ul class="signal-list">
+      <li>ราคาลงโดยที่ fundamentals ไม่เปลี่ยน — นี่คือ "โอกาสซื้อเพิ่ม" ไม่ใช่สัญญาณขาย</li>
+      <li>ตลาดโดยรวมร่วง — ถ้า thesis ยังดี ถือต่อไป</li>
+      <li>คนรอบข้างบอกให้ขาย — ถ้าทำการบ้านแล้ว ไม่ฟัง noise</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่เจ็ด / Chapter Seven</div>
+  <div class="ch-title">
+    เส้นทางแห่ง Compounding
+    <em>ชีวิตและการลงทุนคือสิ่งเดียวกัน — ปรัชญาสุดท้ายของ Baid</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Life Philosophy · ปรัชญาชีวิต</div>
+  <h1>Compounding ไม่ใช่แค่การเงิน — มันคือปรัชญาการใช้ชีวิต</h1>
+  <p>
+    บทที่ทรงพลังที่สุดของหนังสือ Baid คือบทที่เขาขยาย Compounding ออกจากโลกการลงทุนสู่ชีวิตทั้งชีวิต เขาเชื่อว่า <strong>ทุกอย่างที่เราทำสม่ำเสมอและดีขึ้นเรื่อยๆ จะ compound</strong> — ทั้งความรู้ ความสัมพันธ์ ชื่อเสียง และสุขภาพ
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The most powerful force in the universe is compound interest."</div>
+    <div class="bq-th">แรงที่ทรงพลังที่สุดในจักรวาลคือดอกเบี้ยทบต้น — อ้างอิงถึง Einstein ในงานของ Baid เพื่อเชื่อมโยงกับ Compounding ในชีวิตทุกด้าน</div>
+  </div>
+
+  <h2>Compounding แห่งความรู้ — Baid's Reading Philosophy</h2>
+  <p>
+    Baid อ่านหนังสือ 50–100 เล่มต่อปี และเขาใช้หลักการ <strong>"Cross-disciplinary Reading"</strong> — อ่านจากทุกสาขาวิชา แล้ว connect the dots ระหว่างศาสตร์ต่างๆ เขาเชื่อว่า insight ที่ดีที่สุดมักมาจากจุดที่สาขาวิชาสองสาขาตัดกัน
+  </p>
+
+  <div class="author-voice">
+    <div class="av-avatar">GB</div>
+    <div>
+      <div class="av-meta">Gautam Baid — On the Habit of Reading</div>
+      <p class="av-text">"Go to bed smarter than when you woke up. Consistent learning compounds just like money."
+        <span class="av-text-th">เข้านอนให้ฉลาดกว่าตอนตื่น การเรียนรู้ที่สม่ำเสมอ compound เหมือนกับเงิน — วันละเล็กน้อย แต่หลายปีเปลี่ยนชีวิต</span>
+      </p>
+    </div>
+  </div>
+
+  <h2>Patience เป็นสินทรัพย์ที่หายาก</h2>
+  <p>
+    ในโลกที่ทุกคนต้องการผลลัพธ์ทันที Baid บอกว่า <strong>ความอดทนกลายเป็น Competitive Advantage ที่หายากที่สุด</strong> เขาเปรียบเทียบว่า "ถ้าทุกคนใจร้อน คนที่ใจเย็นคนเดียวก็กลายเป็นคนที่รวยที่สุดในห้องได้"
+  </p>
+
+  <h2>Simplicity as Strategy</h2>
+  <p>
+    Baid เรียนรู้จาก Buffett และ Munger ว่าความเรียบง่ายมักชนะความซับซ้อน เขา avoid:
+  </p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">สิ่งที่ Baid หลีกเลี่ยงอย่างตั้งใจ</div>
+    <ul class="signal-list">
+      <li>ธุรกิจที่เข้าใจยาก แม้จะดูน่าสนใจ — "If I can't explain it, I can't own it"</li>
+      <li>Leverage ที่มากเกินไป — การขยายผลตอบแทนขยาย loss ด้วย</li>
+      <li>การลงทุนใน trend ที่ตัวเองไม่เข้าใจลึก</li>
+      <li>การ trade บ่อย — เพราะ Transaction cost และ Tax กัดกิน Compound</li>
+    </ul>
+  </div>
+
+  <h2>การสร้าง Wealth ในตลาดที่ไม่ใช่ตลาดอเมริกา</h2>
+  <p>
+    Baid เขียนสำหรับนักลงทุนในตลาดเกิดใหม่โดยตรง เขาบอกว่า <strong>ตลาดเกิดใหม่มีทั้ง Risk และ Opportunity ที่ไม่เหมือนกัน</strong> ความได้เปรียบของนักลงทุนรายย่อยในตลาดเกิดใหม่คือ:
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">Less</div>
+      <div class="stat-label">Analyst Coverage<br>= โอกาสหาของถูกได้มากกว่า</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Higher</div>
+      <div class="stat-label">Growth Runway<br>= Penetration ยังต่ำมาก</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Local</div>
+      <div class="stat-label">Knowledge Edge<br>= รู้บริบทดีกว่า Global Fund</div>
+    </div>
+  </div>
+
+  <p>
+    นักลงทุนรายย่อยในไทย, อินเดีย, เวียดนาม หรือตลาดเกิดใหม่อื่นๆ มีข้อได้เปรียบคือ <strong>รู้จักประเทศ ภาษา และพฤติกรรมผู้บริโภคดีกว่า institutional investor ต่างชาติมาก</strong> Baid บอกให้ใช้ข้อได้เปรียบนี้ให้เต็มที่
+  </p>
+
+  <hr class="ornament">
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง — Reflection Questions</div>
+    <ol class="reflection-list">
+      <li>ปัจจุบันเราลงทุนด้วย "อารมณ์" หรือ "กระบวนการ" มากกว่ากัน?</li>
+      <li>Circle of Competence ของเราอยู่ที่ไหน และเราซื่อสัตย์กับมันแค่ไหน?</li>
+      <li>ถ้าตลาดปิดพรุ่งนี้และเปิดใหม่ใน 5 ปี เราจะยังสบายใจกับสิ่งที่ถืออยู่ไหม?</li>
+      <li>เรากำลัง Compound ความรู้และทักษะไปพร้อมกับการ Compound เงินหรือเปล่า?</li>
+      <li>Investment Thesis ล่าสุดที่เราเขียน — มันเปลี่ยนแปลงไปจากปีที่แล้วยังไง?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<div class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">ภาคผนวก / Appendix</div>
+  <div class="ch-title">
+    ทรัพยากรและการประยุกต์ใช้
+    <em>เริ่มต้นตามทาง Baid — ทำได้ทันที</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Practical Application · ลงมือทำ</div>
+  <h1>Easy Wins — เริ่มได้วันนี้เลย</h1>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Action Checklist — ตามทาง Baid</h3>
+      <p>ทำได้ทันที ไม่ต้องรอเงินมาก ไม่ต้องรอเวลาสมบูรณ์</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ระดับเริ่มต้น — สัปดาห์แรก</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">เปิด Investment Journal — เขียนทุกการตัดสินใจพร้อมเหตุผล<div class="cl-note">Baid บอกว่านี่คือ habit ที่สำคัญที่สุดของนักลงทุนที่ดี</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">กำหนด Circle of Competence — เขียนธุรกิจที่เข้าใจจริงๆ 5–10 ประเภท<div class="cl-note">เริ่มจากอาชีพ ธุรกิจที่ใช้ทุกวัน และอุตสาหกรรมที่ทำงานอยู่</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">อ่าน Annual Report ของบริษัทที่สนใจ 1 เล่ม จาก 5 ปีก่อน<div class="cl-note">เปรียบเทียบสิ่งที่ผู้บริหารพูดกับสิ่งที่เกิดขึ้นจริง</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ระดับกลาง — เดือนแรก</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">สร้าง Watchlist ของบริษัทที่เข้าใจ พร้อม Intrinsic Value Range และ Buy Price<div class="cl-note">ไม่ต้องรีบซื้อ รอโอกาสที่ตลาดเปิดให้</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียน "Bear Case" สำหรับทุก Thesis ก่อนตัดสินใจซื้อ<div class="cl-note">ถ้าหาเหตุผลที่จะผิดไม่ได้ ยังไม่พร้อมลงทุน</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เพิ่มการอ่านหนังสือ cross-disciplinary เดือนละ 1 เล่ม<div class="cl-note">Baid แนะนำเริ่มจาก Psychology of Money + Thinking Fast and Slow</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ระดับสูง — ระยะยาว</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">Review Portfolio ทุกปีโดยเทียบ Thesis กับความเป็นจริง ไม่ใช่แค่ตัวเลข<div class="cl-note">กระบวนการ Review สำคัญกว่าผลลัพธ์ระยะสั้น</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">สร้าง "Pre-mortem" ก่อนลงทุนทุกครั้ง: สมมติผิด — ผิดตรงไหน?<div class="cl-note">ทำให้เห็น blind spots ที่ Confirmation Bias ซ่อนอยู่</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>หนังสือที่ Baid แนะนำ</h2>
+  <div class="book-grid">
+    <div class="book-card">
+      <div class="book-title">Margin of Safety</div>
+      <div class="book-author">Seth Klarman</div>
+      <div class="book-desc">คัมภีร์ Value Investing ที่ Baid บอกว่าเป็น "Bible" ของเขา หายากมากแต่หาอ่านออนไลน์ได้</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">Poor Charlie's Almanack</div>
+      <div class="book-author">Charlie Munger</div>
+      <div class="book-desc">รวม Latticework of Mental Models ที่ Baid ใช้เป็นกรอบคิดหลักของการลงทุน</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">Common Stocks and Uncommon Profits</div>
+      <div class="book-author">Philip Fisher</div>
+      <div class="book-desc">สอนวิธีหา "Scuttlebutt" — การวิจัย qualitative ที่ Baid ใช้เสริมตัวเลข</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">The Intelligent Investor</div>
+      <div class="book-author">Benjamin Graham</div>
+      <div class="book-desc">รากฐาน Value Investing และแนวคิด Mr. Market + Margin of Safety ที่ Baid นำมาสอนต่อ</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">Psychology of Money</div>
+      <div class="book-author">Morgan Housel</div>
+      <div class="book-desc">เหมาะอ่านคู่กับ Baid เพื่อเข้าใจด้าน behavioral finance และ Compounding ของชีวิต</div>
+    </div>
+    <div class="book-card">
+      <div class="book-title">The Joys of Compounding</div>
+      <div class="book-author">Gautam Baid</div>
+      <div class="book-desc">ต้นฉบับ — ควรอ่านทั้งเล่มหลังจากเข้าใจ framework จากเอกสารนี้แล้ว</div>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>One-Liners สุดท้ายจาก Baid</h2>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Investing is not about being smart. It's about being rational — which is much harder."</div>
+    <div class="bq-th">การลงทุนไม่ใช่เรื่องของการฉลาด แต่เป็นเรื่องของการมีเหตุมีผล — ซึ่งยากกว่ามาก</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The secret to getting rich slowly is knowing that slow is fast enough."</div>
+    <div class="bq-th">ความลับของการรวยช้าๆ คือการตระหนักว่าช้าๆ นั้นเร็วพอแล้ว — อย่าเร่ง อย่าไขว่คว้า ปล่อยให้ Compounding ทำงาน</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">20%</div>
+      <div class="stat-label">ทักษะการวิเคราะห์<br>สำคัญแค่นี้</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">80%</div>
+      <div class="stat-label">จิตวิทยาและวินัย<br>สำคัญมากกว่า</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">∞</div>
+      <div class="stat-label">Compounding<br>ถ้าอดทนพอ</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="book-footer">
+  <div class="footer-divider"></div>
+  <div class="footer-title">The Joys of Compounding</div>
+  <div class="footer-sub">Gautam Baid · ตกผลึกสำหรับนักลงทุนระยะยาวทุกคน · ฉบับภาษาไทย</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
