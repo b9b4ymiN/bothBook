@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROIC — ตกผลึกโดยนักลงทุนมืออาชีพ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168, 120, 42, 0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #2A1F0E;
+  font-family: 'Noto Serif Thai', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.08),
+    0 4px 40px rgba(0,0,0,0.35),
+    0 0 120px rgba(0,0,0,0.2);
+}
+
+/* COVER */
+.cover {
+  background: #120D04;
+  min-height: 100vh;
+  padding: 72px var(--page-pad-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute;
+  inset: 24px;
+  border: 1px solid rgba(168,120,42,0.2);
+  pointer-events: none;
+}
+.cover-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(168,120,42,0.08);
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(168,120,42,0.6);
+  margin-bottom: 48px;
+}
+.cover-badge {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(168,120,42,0.4);
+  padding: 4px 12px;
+  margin-bottom: 24px;
+}
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(52px, 12vw, 88px);
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.0;
+  letter-spacing: -1px;
+  margin-bottom: 4px;
+}
+.cover-title-full {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: rgba(168,120,42,0.45);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: 600;
+  color: rgba(249,245,236,0.85);
+  margin-bottom: 40px;
+  line-height: 1.4;
+}
+.cover-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 28px;
+}
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: rgba(168,120,42,0.55);
+  line-height: 1.8;
+  max-width: 420px;
+  margin-bottom: 56px;
+}
+.cover-author-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cover-author-avatar {
+  width: 40px; height: 40px;
+  background: rgba(168,120,42,0.15);
+  border: 1px solid rgba(168,120,42,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+}
+.cover-author-info {
+  font-family: 'Sarabun', sans-serif;
+}
+.cover-author-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(249,245,236,0.7);
+  margin-bottom: 2px;
+}
+.cover-author-title {
+  font-size: 11px;
+  color: rgba(168,120,42,0.5);
+  letter-spacing: 1px;
+}
+.cover-bottom {
+  position: absolute;
+  bottom: 40px;
+  left: var(--page-pad-h);
+  right: var(--page-pad-h);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  color: rgba(168,120,42,0.3);
+  letter-spacing: 1px;
+}
+
+/* PAGE */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-deep);
+}
+
+/* CHAPTER OPENING */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 40px; height: 2px;
+  background: var(--gold);
+  margin-top: 28px;
+}
+.ch-num {
+  font-size: 72px; font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute; top: 48px; right: var(--page-pad-h);
+  font-family: 'Noto Serif', serif;
+  line-height: 1;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.ch-title em {
+  display: block;
+  font-size: 0.6em;
+  font-style: normal;
+  color: var(--ink-muted);
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 400;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* EYEBROW */
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+/* HEADINGS */
+h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(24px, 5vw, 34px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 24px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(17px, 3.5vw, 22px);
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: 48px 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-rule);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 32px; height: 2px;
+  background: var(--gold);
+}
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--ink-mid);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 32px 0 12px;
+}
+
+/* BODY */
+p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+p:last-child { margin-bottom: 0; }
+
+strong { color: var(--ink); font-weight: 600; }
+
+/* PULL QUOTE */
+.pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--gold);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  letter-spacing: 0.5px;
+  font-style: normal;
+}
+
+/* BLOCKQUOTE FULL */
+.blockquote-full {
+  background: var(--ink);
+  padding: 40px 48px;
+  margin: 48px 0;
+  text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(15px, 3vw, 19px);
+  font-style: italic;
+  color: rgba(249,245,236,0.75);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: rgba(201,164,78,0.5);
+  line-height: 1.7;
+}
+
+/* FORMULA */
+.formula-block {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-top: 3px solid var(--gold);
+  padding: 28px 32px;
+  margin: 32px 0;
+  text-align: center;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* STAT ROW */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.stat-item {
+  padding: 24px 20px;
+  text-align: center;
+  border-right: 1px solid var(--paper-shadow);
+}
+.stat-item:last-child { border-right: none; }
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+/* SIGNAL BOX */
+.signal-box {
+  padding: 24px 28px;
+  margin: 20px 0;
+  border-radius: 2px;
+}
+.signal-box.buy { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.sell { background: var(--red-bg); border-left: 3px solid var(--red); }
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.signal-box.buy .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-list {
+  list-style: none;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+.signal-list li { padding: 4px 0; }
+.signal-box.buy .signal-list li::before { content: '＋ '; color: var(--green); font-weight: 700; }
+.signal-box.sell .signal-list li::before { content: '－ '; color: var(--red); font-weight: 700; }
+
+/* TWO-COL GRID */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 24px 0;
+}
+.grid-card {
+  background: var(--paper);
+  padding: 22px;
+}
+.grid-card-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.grid-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.grid-card p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin-bottom: 0;
+}
+
+/* CHECKLIST */
+.checklist {
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 22px 28px;
+}
+.checklist-cap h3 {
+  color: var(--gold-light);
+  margin: 0 0 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.checklist-cap p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  color: rgba(168,120,42,0.55);
+  margin: 0;
+  line-height: 1.5;
+}
+.cl-group { border-top: 1px solid var(--paper-shadow); }
+.cl-group-title {
+  background: var(--paper-mid);
+  padding: 8px 28px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+}
+.cl-items { list-style: none; padding: 0; }
+.cl-items li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  width: 16px; height: 16px;
+  min-width: 16px;
+  border: 1px solid var(--paper-shadow);
+  margin-top: 3px;
+}
+.cl-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.cl-note {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+/* COMPARISON TABLE */
+.cmp-table-wrap { overflow-x: auto; margin: 28px 0; }
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+}
+.cmp-table th {
+  background: var(--ink-soft);
+  color: var(--gold-light);
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.cmp-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--paper-deep);
+  color: var(--ink-soft);
+  line-height: 1.5;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+.col-type {
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* REFLECTION */
+.reflection {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 32px 36px;
+  margin: 40px 0;
+  counter-reset: reflection-counter;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.reflection-list {
+  list-style: none;
+}
+.reflection-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  padding: 8px 0 8px 36px;
+  position: relative;
+  border-bottom: 1px solid var(--paper-deep);
+  counter-increment: reflection-counter;
+}
+.reflection-list li:last-child { border-bottom: none; }
+.reflection-list li::before {
+  content: counter(reflection-counter);
+  position: absolute;
+  left: 0;
+  font-family: 'Noto Serif', serif;
+  font-size: 18px;
+  color: rgba(201,164,78,0.4);
+  font-weight: 700;
+}
+
+/* ORNAMENT */
+hr.ornament {
+  border: none;
+  text-align: center;
+  margin: 48px 0;
+}
+hr.ornament::before {
+  content: '· · ·';
+  color: var(--gold-rule);
+  letter-spacing: 12px;
+  font-size: 18px;
+}
+
+/* AUTHOR VOICE */
+.author-voice {
+  display: flex;
+  gap: 20px;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 24px;
+  margin: 32px 0;
+  align-items: flex-start;
+}
+.av-avatar {
+  width: 44px; height: 44px;
+  min-width: 44px;
+  background: var(--ink-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--gold-light);
+  border-radius: 2px;
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.av-text {
+  font-family: 'Noto Serif', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0;
+}
+.av-text-th {
+  display: block;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  font-style: normal;
+  color: var(--ink-muted);
+  margin-top: 8px;
+}
+
+/* BUFFETT SPECIAL BOX */
+.buffett-box {
+  background: #1A0D00;
+  border: 1px solid rgba(168,120,42,0.3);
+  padding: 36px 40px;
+  margin: 40px 0;
+}
+.buffett-box-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(168,120,42,0.7);
+  margin-bottom: 20px;
+}
+.buffett-box h3 {
+  color: var(--gold-light);
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0 0 16px;
+}
+.buffett-box p {
+  color: rgba(249,245,236,0.7);
+  font-size: 15px;
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+.buffett-box ul {
+  list-style: none;
+  margin: 0;
+}
+.buffett-box ul li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: rgba(249,245,236,0.65);
+  padding: 8px 0 8px 24px;
+  border-bottom: 1px solid rgba(168,120,42,0.1);
+  line-height: 1.7;
+  position: relative;
+}
+.buffett-box ul li:last-child { border-bottom: none; }
+.buffett-box ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: rgba(168,120,42,0.5);
+}
+
+/* INTRO BLOCK */
+.intro-block {
+  background: var(--paper-mid);
+  border-top: 3px solid var(--gold);
+  border-bottom: 1px solid var(--paper-shadow);
+  padding: 32px 36px;
+  margin-bottom: 48px;
+}
+.intro-block p {
+  font-size: 16px;
+  line-height: 1.95;
+  margin-bottom: 16px;
+}
+.intro-block p:last-child { margin-bottom: 0; }
+
+/* BOOK FOOTER */
+.book-footer {
+  background: #120D04;
+  padding: 48px var(--page-pad-h);
+  text-align: center;
+}
+.footer-ornament {
+  color: rgba(168,120,42,0.3);
+  letter-spacing: 12px;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+.footer-title {
+  font-family: 'Noto Serif', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.footer-sub {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: rgba(168,120,42,0.4);
+  letter-spacing: 1px;
+}
+
+/* LABEL PILL */
+.label-pill {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  background: var(--paper-deep);
+  color: var(--ink-mid);
+  padding: 3px 10px;
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+.label-pill.gold { background: rgba(168,120,42,0.12); color: var(--gold); }
+.label-pill.red { background: var(--red-bg); color: var(--red); }
+.label-pill.green { background: var(--green-bg); color: var(--green); }
+
+/* TOC */
+.toc-list {
+  list-style: none;
+  counter-reset: toc-counter;
+}
+.toc-list li {
+  counter-increment: toc-counter;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--paper-deep);
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: var(--ink-soft);
+}
+.toc-list li::before {
+  content: counter(toc-counter, decimal-leading-zero);
+  font-family: 'Noto Serif', serif;
+  font-size: 13px;
+  color: var(--gold);
+  min-width: 28px;
+  font-weight: 600;
+}
+.toc-list li span {
+  flex: 1;
+}
+.toc-list li em {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-style: normal;
+}
+
+/* RESPONSIVE */
+@media (max-width: 780px) {
+  :root {
+    --page-pad-h: 24px;
+    --page-pad-v: 48px;
+  }
+  .two-col-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+  .ch-num { display: none; }
+  .cmp-table-wrap { overflow-x: auto; }
+  .blockquote-full { padding: 32px 24px; }
+  .author-voice { flex-direction: column; }
+  .buffett-box { padding: 28px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ═══════════════════════════════════════════ COVER ═══ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">KPMG FAS AZSA · ฉบับนักบริหาร · ตกผลึกโดยนักลงทุนมืออาชีพ</div>
+  <div class="cover-badge">Investment Deep Dive</div>
+  <div class="cover-title-en">ROIC</div>
+  <div class="cover-title-full">Return on Invested Capital</div>
+  <div class="cover-title-th">ปรับพอร์ตธุรกิจ พิชิตกำไร<br>สรุปฉบับตกผลึกสมบูรณ์</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    ROIC ไม่ใช่แค่ตัวเลข แต่เป็นเครื่องมือที่ขับเคลื่อนกลยุทธ์และการตัดสินใจอย่างมีประสิทธิภาพ — รวมถึงมุมมองที่ Warren Buffett ไม่ชอบเกี่ยวกับ ROIC
+  </div>
+  <div class="cover-author-block">
+    <div class="cover-author-avatar">PRO</div>
+    <div class="cover-author-info">
+      <div class="cover-author-name">นักลงทุนมืออาชีพ</div>
+      <div class="cover-author-title">ตกผลึกและสังเคราะห์เนื้อหา</div>
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <span>ROIC Management · Practical Edition</span>
+    <span>2026</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ TOC ═══ -->
+<div class="page">
+  <div class="eyebrow">สารบัญ</div>
+  <h1>เนื้อหาในเล่ม</h1>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">5</div>
+      <div class="stat-label">บทหลัก</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1</div>
+      <div class="stat-label">บท Buffett Perspective</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">∞</div>
+      <div class="stat-label">การนำไปใช้จริง</div>
+    </div>
+  </div>
+
+  <ol class="toc-list">
+    <li><span>Executive Summary — แก่นหลักของหนังสือ</span><em>ทำไมต้องอ่าน?</em></li>
+    <li><span>ROIC คืออะไร และทำไมถึงสำคัญ</span><em>รากฐาน</em></li>
+    <li><span>การบริหารพอร์ตธุรกิจด้วย ROIC</span><em>กลยุทธ์หลัก</em></li>
+    <li><span>ROIC ในฐานะเข็มทิศการตัดสินใจ</span><em>การประยุกต์ใช้</em></li>
+    <li><span>การสร้างวัฒนธรรมองค์กรที่ขับเคลื่อนด้วย ROIC</span><em>การปฏิบัติ</em></li>
+    <li><span>มุมมองที่ Warren Buffett ไม่ชอบ ROIC</span><em>มุมมองต่างขั้ว</em></li>
+    <li><span>Practical Application — นำไปใช้ได้จริง</span><em>Action Plan</em></li>
+  </ol>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 1: EXECUTIVE SUMMARY ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Executive Summary</div>
+  <div class="ch-title">
+    แก่นหลักของหนังสือเล่มนี้
+    <em>ทำไมต้องอ่าน · อะไรคือสิ่งที่จะได้ · และชีวิตจะเปลี่ยนยังไง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>หนังสือ ROIC: Return on Invested Capital ฉบับนักบริหาร เขียนโดย KPMG FAS AZSA บอกเราว่า ปัญหาใหญ่ที่สุดขององค์กรส่วนใหญ่ไม่ใช่การขาดเงินทุน แต่คือ <strong>การนำเงินทุนที่มีอยู่ไปใช้ผิดที่ผิดทาง</strong></p>
+    <p>ROIC คือ "อัตราผลตอบแทนจากเงินทุนที่ลงทุนไป" — ตัวเลขที่บอกว่าทุก 100 บาทที่เราลงทุนในธุรกิจ สร้างกำไรกลับมาได้เท่าไหร่ ถ้า ROIC สูงกว่าต้นทุนเงินทุน แปลว่าธุรกิจกำลังสร้างมูลค่า ถ้าต่ำกว่า แปลว่ากำลังทำลายมูลค่า</p>
+    <p>สิ่งที่หนังสือต้องการสื่อคือ ROIC ไม่ควรเป็นแค่ตัวเลขในรายงานการเงิน แต่ต้องกลายเป็น <strong>ภาษากลางของการบริหาร</strong> ที่ทุกคนในองค์กรเข้าใจและนำไปตัดสินใจได้ทุกวัน</p>
+  </div>
+
+  <h2>🎯 บทความนี้พูดถึงอะไร และทำไมต้องอ่าน</h2>
+  <p>หนังสือเล่มนี้ตอบคำถามที่ผู้บริหารและนักลงทุนต้องเผชิญทุกวัน: <strong>"เราควรลงทุนในสิ่งไหน? ธุรกิจไหนควรโต ธุรกิจไหนควรขาย? และจะรู้ได้ยังไงว่าการลงทุนนั้นสร้างมูลค่าหรือทำลายมูลค่า?"</strong></p>
+
+  <p>คำตอบที่หนังสือให้คือ ใช้ ROIC เป็นเครื่องมือหลัก โดยไม่ใช่แค่คำนวณตัวเลข แต่ต้องเชื่อมโยงกับการตัดสินใจเชิงกลยุทธ์ทั้งองค์กร ตั้งแต่การจัดสรรงบลงทุน การประเมินพอร์ตธุรกิจ ไปจนถึงการสร้างแรงจูงใจให้พนักงาน</p>
+
+  <div class="pullquote">
+    <p>"ROIC ไม่ใช่เพียงตัวชี้วัดทางการเงิน แต่คือกระจกที่สะท้อนให้เห็นว่าองค์กรใช้ทรัพยากรที่จำกัดได้ดีแค่ไหน"</p>
+    <cite>KPMG FAS AZSA — ROIC Management Practical Edition</cite>
+  </div>
+
+  <h2>💡 สิ่งที่จะนำไปใช้ได้ และประโยชน์ต่อชีวิต</h2>
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">สำหรับผู้บริหาร</div>
+      <div class="grid-card-title">เครื่องมือตัดสินใจที่ชัดเจนขึ้น</div>
+      <p>ตัดสินใจได้ว่าธุรกิจไหนควรโต ควรรักษา หรือควรออกจากพอร์ต โดยมีตัวเลขรองรับ ไม่ใช้แค่สัญชาตญาณ</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">สำหรับนักลงทุน</div>
+      <div class="grid-card-title">กรอบวิเคราะห์คุณภาพธุรกิจ</div>
+      <p>มองเห็นได้ว่าธุรกิจที่กำไรดีจริงๆ กับธุรกิจที่กำไรดูดี แต่ทำลายมูลค่า แตกต่างกันอย่างไร</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">สำหรับผู้ประกอบการ</div>
+      <div class="grid-card-title">รู้ว่าเงินทุกบาทไปอยู่ที่ไหน</div>
+      <p>เข้าใจว่าการขยายธุรกิจใหม่ หรือลงทุนในสิ่งต่างๆ สร้างผลตอบแทนจริงหรือเปล่า</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">สำหรับทุกคน</div>
+      <div class="grid-card-title">Mindset การคิดเรื่องผลตอบแทน</div>
+      <p>นำแนวคิด "ทุกการลงทุนต้องสร้างมูลค่า" ไปใช้กับชีวิตส่วนตัวได้ ตั้งแต่การลงทุนเงิน ไปจนถึงการลงทุนเวลา</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 2: ROIC BASICS ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Foundation</div>
+  <div class="ch-title">
+    ROIC คืออะไร และทำไมถึงสำคัญ
+    <em>รากฐานที่ต้องเข้าใจก่อนทุกสิ่ง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">📊 ความเข้าใจพื้นฐาน</div>
+  <h1>สูตรและความหมายของ ROIC</h1>
+
+  <p>ROIC ย่อมาจาก <strong>Return on Invested Capital</strong> หรือ <strong>"อัตราผลตอบแทนจากเงินทุนที่ลงทุนไป"</strong> เป็นตัวชี้วัดที่บอกว่าธุรกิจสามารถสร้างกำไรจากเงินทุนที่นักลงทุน (ทั้งเจ้าหนี้และผู้ถือหุ้น) ใส่เข้ามาได้มากแค่ไหน</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตรหลัก</div>
+    <div class="formula-eq">ROIC = NOPAT ÷ Invested Capital</div>
+    <div class="formula-note">
+      <strong>NOPAT</strong> = กำไรจากการดำเนินงานหลังหักภาษี (Net Operating Profit After Tax)<br>
+      ง่ายๆ คือ "กำไรจริงจากการทำธุรกิจ ก่อนหักดอกเบี้ย"<br><br>
+      <strong>Invested Capital</strong> = เงินทุนรวมที่ลงทุนในธุรกิจ ทั้งจากผู้ถือหุ้นและเจ้าหนี้<br>
+      ง่ายๆ คือ "เงินทั้งหมดที่ใช้ขับเคลื่อนธุรกิจนี้"
+    </div>
+  </div>
+
+  <h2>🔍 ความแตกต่างจากตัวชี้วัดอื่น</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ตัวชี้วัด</th>
+          <th>บอกอะไร</th>
+          <th>ข้อจำกัด</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">กำไรสุทธิ</td>
+          <td>บอกว่ากำไรเท่าไหร่</td>
+          <td>ไม่รู้ว่าใช้ทุนเท่าไหร่ในการสร้างกำไรนั้น</td>
+        </tr>
+        <tr>
+          <td class="col-type">ROE</td>
+          <td>ผลตอบแทนต่อทุนของผู้ถือหุ้น</td>
+          <td>สูงเพราะทำกำไรดี หรือสูงเพราะกู้หนี้มาก? บอกไม่ได้</td>
+        </tr>
+        <tr>
+          <td class="col-type">ROA</td>
+          <td>ผลตอบแทนต่อสินทรัพย์ทั้งหมด</td>
+          <td>รวมสินทรัพย์ที่ไม่ได้ใช้ในการดำเนินธุรกิจด้วย</td>
+        </tr>
+        <tr>
+          <td class="col-type"><strong>ROIC ✓</strong></td>
+          <td>ผลตอบแทนจากเงินทุนที่ใช้จริงในธุรกิจ</td>
+          <td>ต้องใช้ร่วมกับ WACC เพื่อตัดสินใจ (ดูด้านล่าง)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⚡ หัวใจสำคัญ: ROIC vs WACC</h2>
+
+  <p><strong>WACC (Weighted Average Cost of Capital)</strong> คือ "ต้นทุนเงินทุนถัวเฉลี่ย" หรือพูดง่ายๆ คือ อัตราผลตอบแทนขั้นต่ำที่นักลงทุนต้องการจากธุรกิจนั้น ถ้าธุรกิจสร้างผลตอบแทนต่ำกว่านี้ นักลงทุนก็ควรเอาเงินไปลงทุนที่อื่น</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">✅ ROIC > WACC</div>
+      <div class="grid-card-title">กำลังสร้างมูลค่า (Value Creation)</div>
+      <p>ธุรกิจให้ผลตอบแทนสูงกว่าที่นักลงทุนต้องการ → ควรลงทุนต่อ เพิ่มทุน และขยาย</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">❌ ROIC &lt; WACC</div>
+      <div class="grid-card-title">กำลังทำลายมูลค่า (Value Destruction)</div>
+      <p>ธุรกิจให้ผลตอบแทนต่ำกว่าที่นักลงทุนต้องการ → แม้กำไรก็ยังทำลายมูลค่าโดยรวม</p>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"A business that earns 6% on capital is destroying value when capital costs 10%."</div>
+    <div class="bq-th">"ธุรกิจที่ให้ผลตอบแทน 6% กำลังทำลายมูลค่า ถ้าต้นทุนเงินทุนอยู่ที่ 10%"<br>— หลักการพื้นฐานของ ROIC Management</div>
+  </div>
+
+  <h2>🏢 ตัวอย่างเพื่อให้เห็นภาพ</h2>
+  <p>สมมติบริษัท A มีธุรกิจ 3 ส่วน และ WACC = 8%</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ธุรกิจ</th>
+          <th>ROIC</th>
+          <th>เทียบกับ WACC 8%</th>
+          <th>ควรทำอะไร</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ธุรกิจ A (ซอฟต์แวร์)</td>
+          <td>22%</td>
+          <td>+14% → สร้างมูลค่า</td>
+          <td>ลงทุนเพิ่ม ขยาย</td>
+        </tr>
+        <tr>
+          <td class="col-type">ธุรกิจ B (ค้าปลีก)</td>
+          <td>9%</td>
+          <td>+1% → สร้างมูลค่าเล็กน้อย</td>
+          <td>รักษาและปรับปรุง</td>
+        </tr>
+        <tr>
+          <td class="col-type">ธุรกิจ C (โรงงาน)</td>
+          <td>4%</td>
+          <td>-4% → ทำลายมูลค่า</td>
+          <td>ปรับโครงสร้างหรือขายออก</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>แม้ธุรกิจ C จะมี "กำไร" แต่กำไรนั้นไม่คุ้มกับต้นทุนเงินทุนที่จ่ายไป นี่คือสิ่งที่หนังสือต้องการให้ผู้บริหารเห็น</p>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 3: PORTFOLIO MANAGEMENT ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Strategy</div>
+  <div class="ch-title">
+    การบริหารพอร์ตธุรกิจด้วย ROIC
+    <em>ปรับพอร์ต ตัดสินใจลงทุน และจัดสรรทรัพยากรอย่างชาญฉลาด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">🎯 กลยุทธ์หลัก</div>
+  <h1>Matrix การจัดการพอร์ตธุรกิจ</h1>
+
+  <p>หนังสือเสนอว่าองค์กรควรมองธุรกิจในพอร์ตผ่าน 2 มิติ: <strong>ROIC ปัจจุบัน</strong> (ดีหรือไม่ดี) และ <strong>ศักยภาพการเติบโต</strong> (สูงหรือต่ำ) ซึ่งจะแบ่งธุรกิจออกเป็น 4 ประเภท</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ประเภท</th>
+          <th>ROIC</th>
+          <th>การเติบโต</th>
+          <th>กลยุทธ์</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">⭐ Star Business</td>
+          <td>สูง</td>
+          <td>สูง</td>
+          <td>ลงทุนอย่างเต็มที่ นี่คือ "เครื่องยนต์" ของบริษัท</td>
+        </tr>
+        <tr>
+          <td class="col-type">💰 Cash Cow</td>
+          <td>สูง</td>
+          <td>ต่ำ</td>
+          <td>บีบกำไรออกมา นำเงินไปลงทุนใน Star อื่น</td>
+        </tr>
+        <tr>
+          <td class="col-type">🌱 Question Mark</td>
+          <td>ต่ำ</td>
+          <td>สูง</td>
+          <td>ตัดสินใจชัดๆ: ลงทุนเพิ่มเพื่อปรับ ROIC หรือออก</td>
+        </tr>
+        <tr>
+          <td class="col-type">🗑️ Dog Business</td>
+          <td>ต่ำ</td>
+          <td>ต่ำ</td>
+          <td>ออกให้เร็วที่สุด อย่าถลำลึก</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>🔄 กระบวนการ "Portfolio Transformation"</h2>
+  <p>หนังสืออธิบายว่าบริษัทที่ประสบความสำเร็จในการบริหาร ROIC มักทำตาม 3 ขั้นตอนหลัก:</p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>3 ขั้นตอนการ Transform พอร์ตธุรกิจ</h3>
+      <p>กระบวนการที่บริษัทชั้นนำญี่ปุ่นใช้จริง</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 1 — วิเคราะห์</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">คำนวณ ROIC แยกตามธุรกิจ ไม่ใช่รวมกันทั้งบริษัท
+            <div class="cl-note">เพราะ ROIC รวมอาจโอเค แต่ซ่อนธุรกิจที่กำลังทำลายมูลค่าอยู่</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เปรียบเทียบ ROIC กับ WACC ของแต่ละธุรกิจ
+            <div class="cl-note">เพราะ WACC ต่างกันตามความเสี่ยงของแต่ละธุรกิจ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">วิเคราะห์ว่าทำไม ROIC ถึงต่ำ — เพราะ margin ต่ำ หรือใช้ทุนเยอะเกินไป?
+            <div class="cl-note">สาเหตุต่างกัน วิธีแก้ก็ต่างกัน</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 2 — ตัดสินใจ</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">กำหนดเป้าหมาย ROIC สำหรับแต่ละธุรกิจ
+            <div class="cl-note">ต้องชัดเจนว่าต้องการให้แต่ละส่วนทำ ROIC เท่าไหร่ ภายในกี่ปี</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ตัดสินใจจัดสรรงบลงทุน (Capital Allocation) โดยใช้ ROIC เป็นเกณฑ์
+            <div class="cl-note">ธุรกิจ ROIC สูงและมีศักยภาพเติบโต ได้รับงบลงทุนก่อน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">กำหนดเส้นตาย: ถ้า ROIC ไม่ถึงเป้าใน X ปี → ออกจากธุรกิจนั้น
+            <div class="cl-note">การมีเส้นตายป้องกัน "Sunk Cost Fallacy" คือไม่ยึดติดกับสิ่งที่ลงทุนไปแล้ว</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 3 — ติดตามผล</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ทบทวน ROIC ของแต่ละธุรกิจทุกไตรมาส
+            <div class="cl-note">ไม่ใช่แค่รายปี เพราะตลาดเปลี่ยนเร็ว</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ผูก KPI และการประเมินผลของผู้บริหารกับ ROIC
+            <div class="cl-note">ถ้าผู้บริหารถูกประเมินด้วย ROIC พวกเขาจะตัดสินใจเพื่อ ROIC</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>💡 Key Insight: ปัญหา "Cross-Subsidy"</h2>
+  <p>หนังสือเน้นย้ำปัญหาที่พบบ่อยในองค์กรใหญ่คือ <strong>"Cross-Subsidy"</strong> หรือการที่ธุรกิจดีต้อง "อุ้ม" ธุรกิจแย่</p>
+
+  <div class="author-voice">
+    <div class="av-avatar">ex</div>
+    <div>
+      <div class="av-meta">ตัวอย่างจากหนังสือ — สถานการณ์ที่พบบ่อยในบริษัทใหญ่</div>
+      <p class="av-text">"ธุรกิจซอฟต์แวร์ที่ ROIC 25% กำลังถูกดูดทรัพยากรไปเลี้ยงธุรกิจโรงงานที่ ROIC 3% เพราะผู้บริหารไม่รู้ ไม่เห็น หรือรู้แต่ยึดติดกับอดีต"
+        <span class="av-text-th">ปัญหานี้ทำให้บริษัทโดยรวม underperform ทั้งที่มีธุรกิจดีอยู่ในพอร์ต — ROIC ช่วยให้มองเห็นปัญหานี้ชัดขึ้น</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 4: DECISION COMPASS ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Application</div>
+  <div class="ch-title">
+    ROIC ในฐานะเข็มทิศการตัดสินใจ
+    <em>จาก M&A ถึงการลงทุนในโครงการ ทุกการตัดสินใจใช้ ROIC เป็นตัวกรอง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">🧭 การนำไปใช้จริง</div>
+  <h1>ตัดสินใจทุกอย่างด้วย ROIC</h1>
+
+  <h2>1. การประเมินการลงทุนใหม่ (Capital Investment)</h2>
+  <p>ก่อนจะอนุมัติโครงการลงทุนใดๆ หนังสือแนะนำให้ถาม 3 คำถามนี้เสมอ:</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ โครงการที่ควรลงทุน</div>
+    <ul class="signal-list">
+      <li>ROIC ของโครงการนี้จะสูงกว่า WACC ของบริษัทหรือไม่?</li>
+      <li>มี Competitive Advantage (ข้อได้เปรียบที่คู่แข่งลอกเลียนแบบยาก) ที่จะรักษา ROIC ได้ในระยะยาวหรือไม่?</li>
+      <li>ถ้า ROIC ต่ำกว่าเป้าในปีที่ 3 จะตัดสินใจอย่างไร?</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">❌ โครงการที่ควรระวัง</div>
+    <ul class="signal-list">
+      <li>โครงการที่ตัวเลข ROIC ดูดี แต่อาศัยสมมติฐานที่낙ticistic (มองโลกในแง่ดีเกินจริง) เกินไป</li>
+      <li>โครงการที่ ROIC ดีในระยะสั้น แต่ต้องการเงินลงทุนเพิ่มมากขึ้นเรื่อยๆ ในระยะยาว</li>
+      <li>โครงการที่ทีมขอทุนโดยไม่มีแผนชัดเจนว่าจะถอนตัวยังไงถ้าไม่สำเร็จ</li>
+    </ul>
+  </div>
+
+  <h2>2. การตัดสินใจ M&A (Merger & Acquisition)</h2>
+  <p>การซื้อกิจการเป็นจุดที่ธุรกิจส่วนใหญ่ทำลายมูลค่ามากที่สุด หนังสืออธิบายว่าเหตุผลหลักคือ "ราคาที่จ่ายสูงเกินไป" และ "ประเมิน Synergy (ผลประโยชน์จากการรวมกิจการ) เกินจริง"</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตรตรวจสอบ M&A</div>
+    <div class="formula-eq">ROIC หลัง M&A > WACC หลัง M&A?</div>
+    <div class="formula-note">
+      ต้องคำนวณว่าหลังรวมกิจการแล้ว ราคาที่จ่ายไป + ต้นทุนการควบรวม จะยังทำให้ ROIC สูงกว่า WACC ใหม่หรือไม่<br>
+      ถ้าไม่ → M&A นั้นกำลังทำลายมูลค่าตั้งแต่แรก แม้ทีมจะตื่นเต้นกับมันก็ตาม
+    </div>
+  </div>
+
+  <h2>3. การตัดสินใจ Divest (ขายธุรกิจออก)</h2>
+  <p>หนังสือเน้นว่า <strong>การ Divest ไม่ใช่ความล้มเหลว แต่คือการตัดสินใจที่ชาญฉลาด</strong> เพราะ:</p>
+
+  <div class="pullquote">
+    <p>"เงินทุน 100 ล้านที่อยู่ในธุรกิจที่ให้ ROIC 4% ถ้าเราขายออกและนำไปลงทุนในธุรกิจที่ให้ ROIC 15% ผลต่างคือ 11 ล้านต่อปี ทบต้น 10 ปีคือความแตกต่างมหาศาล"</p>
+    <cite>หลักการ Capital Redeployment — ROIC Management</cite>
+  </div>
+
+  <p>ผู้บริหารหลายคนลังเลที่จะขายธุรกิจออก เพราะ "ความภูมิใจ" หรือ "ประวัติศาสตร์" ของธุรกิจนั้น หนังสือบอกว่านั่นคือ <strong>"Emotional Capital"</strong> ที่ทำให้ตัดสินใจผิดพลาด</p>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 5: CULTURE ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Culture</div>
+  <div class="ch-title">
+    สร้างวัฒนธรรม ROIC ทั่วองค์กร
+    <em>เมื่อทุกคนพูดภาษาเดียวกัน องค์กรเคลื่อนไปในทิศทางเดียวกัน</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">🏗️ การสร้างวัฒนธรรม</div>
+  <h1>จาก CFO ถึง Front Line — ทุกคนต้องเข้าใจ ROIC</h1>
+
+  <p>หนังสือเสนอว่าการที่ CEO หรือ CFO เข้าใจ ROIC คนเดียวยังไม่พอ ต้องทำให้ทุกระดับในองค์กรเข้าใจว่าการตัดสินใจของตัวเองส่งผลต่อ ROIC อย่างไร</p>
+
+  <h2>🔗 เชื่อมโยง ROIC กับทุกระดับ</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ระดับ</th>
+          <th>เชื่อมกับ ROIC อย่างไร</th>
+          <th>ตัวอย่างการตัดสินใจ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Board / CEO</td>
+          <td>กำหนด Target ROIC ของบริษัท</td>
+          <td>จะ Divest ธุรกิจ C หรือเปล่า?</td>
+        </tr>
+        <tr>
+          <td class="col-type">BU Head</td>
+          <td>ROIC ของหน่วยธุรกิจตัวเอง</td>
+          <td>ลงทุนในเครื่องจักรใหม่คุ้มไหม?</td>
+        </tr>
+        <tr>
+          <td class="col-type">ผู้จัดการ</td>
+          <td>Margin และ Asset Efficiency</td>
+          <td>ลดของเสียเพื่อลด Cost ต่อหน่วย</td>
+        </tr>
+        <tr>
+          <td class="col-type">พนักงาน</td>
+          <td>ประสิทธิภาพในการทำงาน</td>
+          <td>ใช้วัตถุดิบให้คุ้มค่าขึ้น</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>📐 ระบบ Incentive ที่ผูกกับ ROIC</h2>
+  <p>หนังสืออธิบายว่าปัญหาใหญ่ขององค์กรคือผู้บริหารถูก Incentive (แรงจูงใจ) ที่ผิด เช่น โบนัสจากยอดขาย (Revenue) ซึ่งทำให้ไล่ตามยอดขายโดยไม่สนใจกำไรหรือการใช้ทุน</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">❌ Incentive แบบเดิม</div>
+      <div class="grid-card-title">โบนัสจากยอดขายหรือกำไรสุทธิ</div>
+      <p>ผู้บริหารจะลงทุนทุกอย่างเพื่อเพิ่มยอดขาย แม้จะใช้ทุนมหาศาลและ ROIC ต่ำมาก</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ Incentive แบบ ROIC</div>
+      <div class="grid-card-title">โบนัสจาก ROIC เทียบ WACC</div>
+      <p>ผู้บริหารจะเลือกลงทุนเฉพาะสิ่งที่สร้างผลตอบแทนคุ้มค่า ไม่โตเพื่อโต</p>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Tell me how you measure me, and I will tell you how I will behave."</div>
+    <div class="bq-th">"บอกฉันว่าคุณวัดฉันอย่างไร แล้วฉันจะบอกว่าฉันจะประพฤติอย่างไร"<br>— Eliyahu M. Goldratt | ถ้าวัดด้วย ROIC พฤติกรรมทั้งองค์กรจะเปลี่ยน</div>
+  </div>
+
+  <h2>🇯🇵 กรณีศึกษา: บริษัทญี่ปุ่น</h2>
+  <p>หนังสือยกตัวอย่างบริษัทญี่ปุ่นหลายแห่งที่ใช้ ROIC เป็นกรอบการบริหาร พบว่า:</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">ผลลัพธ์ที่เกิดขึ้นจริง</div>
+    <ul class="signal-list">
+      <li>มูลค่าหุ้น (Market Cap) เพิ่มขึ้นอย่างมีนัยสำคัญในระยะ 5 ปี</li>
+      <li>ผู้บริหารตัดสินใจได้เร็วขึ้น เพราะมีเกณฑ์ชัดเจน</li>
+      <li>นักลงทุนสถาบันไว้วางใจมากขึ้น ส่งผลให้ต้นทุนเงินทุน (WACC) ลดลง</li>
+      <li>พนักงานเข้าใจทิศทางองค์กรชัดขึ้น ลด wasted effort ในโครงการที่ไม่สร้างมูลค่า</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 6: BUFFETT ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก / Special Perspective</div>
+  <div class="ch-title">
+    มุมมองที่ Warren Buffett ไม่ชอบ ROIC
+    <em>ทำไมนักลงทุนที่ยิ่งใหญ่ที่สุดถึงมีความเห็นต่างกับหนังสือเล่มนี้</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">⚠️ มุมมองต่างขั้ว</div>
+  <h1>Buffett vs ROIC — ความขัดแย้งที่น่าสนใจ</h1>
+
+  <p>ก่อนอื่นต้องบอกว่า Buffett ไม่ได้ "ไม่ชอบ ROIC" ในแง่ที่คิดว่าไม่มีประโยชน์ แต่เขา <strong>ไม่ใช้ ROIC เป็นตัวชี้วัดหลัก</strong> ในการลงทุน และมีเหตุผลที่ลึกกว่านั้น</p>
+
+  <div class="buffett-box">
+    <div class="buffett-box-label">Warren Buffett's Perspective</div>
+    <h3>เหตุผลที่ Buffett ไม่ได้ใช้ ROIC เป็นเครื่องมือหลัก</h3>
+    <ul>
+      <li><strong>ROIC เป็น Backward-Looking:</strong> มันบอกว่าธุรกิจทำได้ดีแค่ไหนในอดีต แต่ Buffett สนใจว่าธุรกิจจะทำได้ดีแค่ไหน ใน 10-20 ปีข้างหน้า ซึ่ง ROIC ในปัจจุบันบอกได้น้อยมาก</li>
+      <li><strong>ROIC ไม่บอก Economic Moat:</strong> Buffett ต้องการรู้ว่าธุรกิจมี "คูเมือง" (ข้อได้เปรียบที่ยั่งยืน) กว้างแค่ไหน บริษัทที่ ROIC สูงวันนี้ อาจไม่มี Moat และ ROIC อาจตกฮวบพรุ่งนี้</li>
+      <li><strong>การบิดเบือนทางบัญชี:</strong> Buffett รู้ดีว่า ROIC ถูกบิดเบือนได้ด้วยนโยบายบัญชี เช่น การตัดค่าเสื่อมราคา การรับรู้รายได้ ทำให้เขาชอบดู "Owner Earnings" มากกว่า</li>
+      <li><strong>WACC เป็นสมมติฐาน ไม่ใช่ความจริง:</strong> Buffett เคยพูดว่าเขาไม่ใช้ WACC เพราะมันคือตัวเลขที่คำนวณจากสมมติฐานหลายชั้น ความเสี่ยงที่แท้จริงของธุรกิจไม่ได้วัดได้ด้วยสูตร</li>
+      <li><strong>ธุรกิจที่ Buffett รักมักใช้ทุนน้อย:</strong> Buffett ชื่นชอบธุรกิจที่ไม่ต้องการเงินลงทุนมาก แต่สร้างกำไรสูง เช่น See's Candies, Coca-Cola ซึ่งพวกนี้มี ROIC สูงอยู่แล้ว แต่เขาไม่ได้ใช้ ROIC เป็นจุดเริ่มต้นของการวิเคราะห์</li>
+    </ul>
+  </div>
+
+  <h2>🎯 สิ่งที่ Buffett ใช้แทน</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>แนวคิด</th>
+          <th>Buffett ใช้อะไร</th>
+          <th>ต่างจาก ROIC อย่างไร</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">วัดกำไร</td>
+          <td>Owner Earnings = Net Income + Depreciation - CapEx ที่จำเป็น</td>
+          <td>สะท้อน "เงินสดจริงๆ" ที่ธุรกิจสร้างได้ ไม่ถูกบิดเบือนบัญชี</td>
+        </tr>
+        <tr>
+          <td class="col-type">วัดคุณภาพ</td>
+          <td>Economic Moat (กว้างแค่ไหน ทนแค่ไหน)</td>
+          <td>ROIC บอกผลลัพธ์ แต่ Moat บอกว่าผลลัพธ์นั้นจะคงอยู่ไหม</td>
+        </tr>
+        <tr>
+          <td class="col-type">วัดมูลค่า</td>
+          <td>Intrinsic Value = PV ของ Free Cash Flow ในอนาคต</td>
+          <td>มองอนาคต ไม่ใช่อดีต</td>
+        </tr>
+        <tr>
+          <td class="col-type">วัดความเสี่ยง</td>
+          <td>Margin of Safety — ซื้อถูกกว่ามูลค่าจริงมากๆ</td>
+          <td>ป้องกันความผิดพลาด ไม่ใช่คำนวณ WACC</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>⚖️ สรุป: ROIC vs Buffett — ใครถูก?</h2>
+  <p>คำตอบคือ <strong>ทั้งคู่ถูก แต่ใช้สำหรับคนละบริบท</strong></p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">ROIC เหมาะสำหรับ</div>
+      <div class="grid-card-title">ผู้บริหารองค์กรขนาดใหญ่</div>
+      <p>ที่ต้องจัดสรรทรัพยากรระหว่างธุรกิจหลายส่วน ต้องการ Framework ที่ทำให้ทุกคนพูดภาษาเดียวกัน และวัดผลได้ชัดเจน</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">Buffett เหมาะสำหรับ</div>
+      <div class="grid-card-title">นักลงทุนระยะยาว</div>
+      <p>ที่ต้องการหาธุรกิจที่ดีในราคาที่ยุติธรรม โดยเน้นความสามารถในการสร้างกระแสเงินสดในระยะยาว ไม่ใช่ตัวเลขระยะสั้น</p>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"I don't worry about the return on capital if the business has a moat so wide that no competitor can cross it."</div>
+    <div class="bq-th">"ถ้าธุรกิจมีคูเมืองกว้างพอที่คู่แข่งข้ามไม่ได้ ฉันไม่ต้องกังวลเรื่องผลตอบแทนจากเงินทุน"<br>— หลักการลงทุนของ Warren Buffett</div>
+  </div>
+
+  <p>พูดง่ายๆ คือ Buffett บอกว่า <strong>ถ้าธุรกิจดีพอ ตัวเลข ROIC จะสูงเอง</strong> เขาจึงไปหาคุณภาพที่รากฐาน ไม่ใช่วัดผลที่ปลายทาง ในขณะที่หนังสือ ROIC บอกว่า ถ้าองค์กรใหญ่ไม่มีระบบวัด ROIC ทุกคนก็จะตัดสินใจตามอารมณ์และสัญชาตญาณ ซึ่งมักผิดพลาด</p>
+</div>
+
+<!-- ════════════════════════════════ CHAPTER 7: PRACTICAL ═══ -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่เจ็ด / Action Plan</div>
+  <div class="ch-title">
+    นำไปใช้ได้จริง — วันนี้เลย
+    <em>จากทฤษฎีสู่การปฏิบัติ ทีละขั้นตอน</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">💪 Practical Application</div>
+  <h1>Action Plan ตามระดับบทบาท</h1>
+
+  <h2>✅ ระดับเริ่มต้น — ทำได้ทันที</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Easy Wins — ลงมือทำวันนี้</h3>
+      <p>ไม่ต้องรอระบบใหม่ ไม่ต้องปรึกษา Consultant ทำได้เลย</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">สำหรับผู้บริหาร / นักธุรกิจ</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">คำนวณ ROIC คร่าวๆ ของธุรกิจตัวเองเปรียบเทียบกับดอกเบี้ยเงินกู้ (เป็น WACC อย่างง่าย)
+            <div class="cl-note">ถ้า ROIC ต่ำกว่าดอกเบี้ยที่จ่าย แปลว่าธุรกิจกำลังทำลายมูลค่า</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ลิสต์ธุรกิจ/โปรเจกต์ที่ทำอยู่ทั้งหมด แล้วถามตัวเองว่าอันไหน ROIC สูงสุด
+            <div class="cl-note">เริ่มจัดสรรเวลาและทรัพยากรตาม ROIC ที่คาดการณ์</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เลิกอนุมัติโครงการลงทุนโดยไม่มีตัวเลข Return on Investment ชัดเจน
+            <div class="cl-note">แม้จะประมาณการ ก็ดีกว่าไม่มีเลย</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">สำหรับนักลงทุน</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เพิ่ม ROIC ในรายการ metric ที่ดูก่อนลงทุนในหุ้นทุกตัว
+            <div class="cl-note">หา ROIC ได้จาก Macrotrends, Wisesheets, หรือคำนวณเองจากงบการเงิน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เปรียบเทียบ ROIC ของบริษัทที่จะลงทุนกับคู่แข่งในอุตสาหกรรมเดียวกัน
+            <div class="cl-note">บริษัทที่ ROIC สูงกว่าคู่แข่งสม่ำเสมอ มักมี Competitive Advantage จริง</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ดูแนวโน้ม ROIC ย้อนหลัง 5-10 ปี ว่าขึ้นหรือลง
+            <div class="cl-note">ROIC ที่ลดลงเรื่อยๆ คือสัญญาณเตือนว่า Moat กำลังหดแคบ</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>🧠 Mental Models ที่ต้องจำ</h2>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">Mental Model 1</div>
+      <div class="grid-card-title">Productive Capital Test</div>
+      <p>ถามทุกการลงทุนว่า "ถ้าเอาเงินก้อนนี้ไปลงทุนที่อื่น เราจะได้ผลตอบแทนมากกว่านี้ไหม?" ถ้าใช่ → ทบทวนใหม่</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">Mental Model 2</div>
+      <div class="grid-card-title">Opportunity Cost Lens</div>
+      <p>ทุกการลงทุนมีต้นทุนค่าเสียโอกาส คือสิ่งที่เราเสียสิทธิ์ไปเพราะเลือกลงทุนสิ่งนี้ ROIC ช่วยให้เห็นต้นทุนนี้ชัดขึ้น</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">Mental Model 3</div>
+      <div class="grid-card-title">Hurdle Rate Framework</div>
+      <p>กำหนด "อัตราผลตอบแทนขั้นต่ำ" (Hurdle Rate) ที่ยอมรับได้ สำหรับทุกการลงทุน ถ้าต่ำกว่านั้น ไม่ลงทุน ไม่ว่าจะชอบ Idea นั้นแค่ไหน</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">Mental Model 4</div>
+      <div class="grid-card-title">Sunk Cost Immunity</div>
+      <p>เงินที่ลงทุนไปแล้วไม่ใช่เหตุผลที่ต้องลงทุนต่อ ถาม ROIC ในอนาคต ไม่ใช่คิดถึงเงินที่หายไปแล้ว</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>📚 เครื่องมือและแหล่งข้อมูลเพิ่มเติม</h2>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">หนังสือที่ต่อยอดได้</div>
+      <div class="grid-card-title">The Little Book That Builds Wealth</div>
+      <p>Pat Dorsey — อธิบาย Economic Moat อย่างชัดเจน ช่วยเชื่อม ROIC กับคุณภาพธุรกิจ</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">หนังสือที่ต่อยอดได้</div>
+      <div class="grid-card-title">The Outsiders</div>
+      <p>William Thorndike — เรื่องราวของ CEO ที่ตัดสินใจด้วย Capital Allocation อย่างเป็นเลิศ ตัวอย่างจริงของการบริหาร ROIC</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">เว็บไซต์/เครื่องมือ</div>
+      <div class="grid-card-title">Macrotrends.net</div>
+      <p>ดู ROIC ย้อนหลังของบริษัทในตลาดหุ้นสหรัฐ ฟรี และใช้งานง่าย</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">เว็บไซต์/เครื่องมือ</div>
+      <div class="grid-card-title">TIKR Terminal / Finviz</div>
+      <p>เปรียบเทียบ ROIC ระหว่างบริษัทในอุตสาหกรรมเดียวกัน ช่วยหา Outlier ที่ดีผิดปกติ</p>
+    </div>
+  </div>
+
+  <h2>🤔 คำถามสำหรับไตร่ตรอง</h2>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection Questions</div>
+    <ol class="reflection-list">
+      <li>ธุรกิจหรือโปรเจกต์ที่เราลงทุนเวลาและเงินมากที่สุดตอนนี้ มี ROIC เท่าไหร่ คุ้มกับต้นทุนที่จ่ายไปหรือไม่?</li>
+      <li>มีธุรกิจหรือสิ่งที่ทำอยู่ตอนนี้ที่เรารู้ว่า "ไม่คุ้ม" แต่ยังทำต่อเพราะอะไร? เพราะรู้สึกผูกพัน หรือเพราะ ROIC จริงๆ ดี?</li>
+      <li>ถ้าคิดแบบ ROIC กับชีวิตส่วนตัว เวลาที่ลงทุนไปในแต่ละวัน ให้ผลตอบแทน (ทักษะ, ความสัมพันธ์, สุขภาพ) คุ้มค่าแค่ไหน?</li>
+      <li>Buffett มองคุณภาพก่อน ROIC ถ้าเราต้องเลือกลงทุน 1 ธุรกิจตอนนี้ เราจะดูอะไรก่อน ROIC หรือ Moat? ทำไม?</li>
+      <li>ในองค์กรของเรา ผู้บริหารถูก Incentive ด้วยอะไร? สิ่งนั้นทำให้พวกเขาตัดสินใจที่สร้างมูลค่าระยะยาวหรือเปล่า?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ FOOTER ═══ -->
+<div class="book-footer">
+  <div class="footer-ornament">· · ·</div>
+  <div class="footer-title">ROIC</div>
+  <div class="footer-sub">Return on Invested Capital · ตกผลึกโดยนักลงทุนมืออาชีพ · 2026</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>

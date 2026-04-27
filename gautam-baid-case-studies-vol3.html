@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baid Case Studies Vol.3 — HDFC Bank & Vedant Fashions</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168,120,42,0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --blue-bg:      #F2F4F8;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#1A1008;min-height:100vh;font-family:'Noto Serif Thai',serif;-webkit-font-smoothing:antialiased;}
+.book{max-width:var(--book-width);margin:0 auto;background:var(--paper);box-shadow:0 0 0 1px rgba(0,0,0,0.08),0 4px 40px rgba(0,0,0,0.35),0 0 120px rgba(0,0,0,0.2);}
+
+/* COVER */
+.cover{background:linear-gradient(160deg,#0C0802 60%,#1A0E04 100%);min-height:100vh;padding:80px var(--page-pad-h);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(168,120,42,0.06) 0%,transparent 70%);pointer-events:none;}
+.cover-frame{position:absolute;inset:24px;border:1px solid rgba(168,120,42,0.15);pointer-events:none;}
+.cover-vol{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(168,120,42,0.5);margin-bottom:8px;}
+.cover-series{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:56px;}
+.cover-eyebrow{font-family:'Sarabun',sans-serif;font-size:11px;color:rgba(201,164,78,0.38);letter-spacing:2px;margin-bottom:10px;}
+.cover-title{font-family:'Noto Serif',serif;font-size:clamp(32px,6.5vw,58px);font-weight:700;color:var(--gold-light);line-height:1.08;margin-bottom:8px;}
+.cover-title-th{font-family:'Noto Serif Thai',serif;font-size:clamp(14px,2.5vw,19px);font-weight:300;color:rgba(201,164,78,0.48);letter-spacing:.03em;margin-bottom:40px;}
+.cover-divider{width:48px;height:1px;background:var(--gold);margin-bottom:32px;}
+.cover-subtitle{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.85;color:rgba(249,245,236,0.42);max-width:480px;margin-bottom:48px;}
+.cover-stocks{display:flex;gap:16px;margin-bottom:64px;flex-wrap:wrap;}
+.cover-stock{background:rgba(168,120,42,0.1);border:1px solid rgba(168,120,42,0.25);padding:14px 24px;}
+.cover-stock-name{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:var(--gold-light);margin-bottom:4px;}
+.cover-stock-sub{font-family:'Sarabun',sans-serif;font-size:10px;color:rgba(168,120,42,0.5);letter-spacing:1.5px;text-transform:uppercase;}
+.cover-edition{font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,164,78,0.18);text-transform:uppercase;margin-top:auto;}
+
+/* PAGE */
+.page{padding:var(--page-pad-v) var(--page-pad-h);border-bottom:1px solid var(--paper-deep);}
+.page-alt{background:var(--paper-mid);}
+
+/* CHAPTER OPENING */
+.chapter-open{background:var(--paper-mid);padding:72px var(--page-pad-h) 64px;border-bottom:1px solid var(--paper-shadow);position:relative;}
+.chapter-open::after{content:'';display:block;width:40px;height:2px;background:var(--gold);margin-top:28px;}
+.ch-num{font-family:'Noto Serif',serif;font-size:88px;font-weight:700;color:var(--paper-shadow);position:absolute;top:48px;right:var(--page-pad-h);line-height:1;user-select:none;}
+.ch-label{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.ch-title{font-family:'Noto Serif Thai',serif;font-size:clamp(20px,3.8vw,30px);font-weight:600;color:var(--ink);line-height:1.3;}
+.ch-title em{display:block;font-size:.6em;font-weight:300;font-style:normal;color:var(--ink-muted);margin-top:10px;}
+
+/* TYPOGRAPHY */
+.eyebrow{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+h1{font-family:'Noto Serif Thai',serif;font-size:clamp(20px,3.5vw,32px);font-weight:600;color:var(--ink);line-height:1.25;margin-bottom:24px;}
+h2{font-family:'Noto Serif Thai',serif;font-size:clamp(16px,2.4vw,21px);font-weight:600;color:var(--ink-soft);line-height:1.3;margin:48px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--gold-rule);position:relative;}
+h2::after{content:'';position:absolute;bottom:-1px;left:0;width:32px;height:2px;background:var(--gold);}
+h3{font-family:'Sarabun',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mid);margin:32px 0 12px;}
+p{font-family:'Noto Serif Thai',serif;font-size:17px;line-height:1.9;color:var(--ink-soft);margin-bottom:20px;}
+p:last-child{margin-bottom:0;}
+strong{font-weight:600;color:var(--ink);}
+
+/* PULLQUOTE */
+.pullquote{margin:48px 0;padding:0 0 0 28px;border-left:3px solid var(--gold);}
+.pullquote p{font-family:'Noto Serif',serif;font-size:19px;font-style:italic;color:var(--ink);line-height:1.65;margin-bottom:12px;}
+.pullquote cite{font-family:'Sarabun',sans-serif;font-size:12px;color:var(--ink-muted);font-style:normal;letter-spacing:.05em;}
+
+/* BLOCKQUOTE FULL */
+.blockquote-full{background:var(--ink);padding:48px var(--page-pad-h);margin:48px 0;text-align:center;}
+.bq-en{font-family:'Noto Serif',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:rgba(249,245,236,.78);line-height:1.65;margin-bottom:14px;}
+.bq-th{font-family:'Noto Serif Thai',serif;font-size:14px;color:rgba(201,164,78,.45);line-height:1.7;}
+
+/* AUTHOR VOICE */
+.author-voice{display:flex;gap:20px;align-items:flex-start;background:var(--paper-mid);padding:28px;margin:36px 0;border:1px solid var(--paper-shadow);}
+.av-avatar{width:44px;height:44px;flex-shrink:0;background:var(--ink-soft);color:var(--gold-light);font-family:'Noto Serif',serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+.av-meta{font-family:'Sarabun',sans-serif;font-size:11px;color:var(--ink-muted);letter-spacing:.05em;margin-bottom:8px;}
+.av-text{font-family:'Noto Serif',serif;font-size:16px;font-style:italic;color:var(--ink);line-height:1.65;margin:0;}
+.av-text-th{display:block;font-style:normal;font-size:13px;color:var(--ink-muted);margin-top:8px;font-family:'Noto Serif Thai',serif;}
+
+/* SIGNAL BOXES */
+.signal-box{padding:24px 28px;margin:20px 0;}
+.signal-box.buy{background:var(--green-bg);border-left:3px solid var(--green);}
+.signal-box.sell{background:var(--red-bg);border-left:3px solid var(--red);}
+.signal-box.note{background:var(--blue-bg);border-left:3px solid var(--blue-ink);}
+.signal-box.gold{background:#FDF8EE;border-left:3px solid var(--gold);}
+.signal-title{font-family:'Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.signal-box.buy .signal-title{color:var(--green);}
+.signal-box.sell .signal-title{color:var(--red);}
+.signal-box.note .signal-title{color:var(--blue-ink);}
+.signal-box.gold .signal-title{color:var(--gold);}
+.signal-list{list-style:none;padding:0;}
+.signal-list li{font-family:'Noto Serif Thai',serif;font-size:15px;color:var(--ink-soft);line-height:1.8;margin-bottom:10px;padding-left:22px;position:relative;}
+.signal-box.buy .signal-list li::before{content:'+';position:absolute;left:0;color:var(--green);font-weight:700;}
+.signal-box.sell .signal-list li::before{content:'−';position:absolute;left:0;color:var(--red);font-weight:700;}
+.signal-box.note .signal-list li::before{content:'→';position:absolute;left:0;color:var(--blue-ink);font-weight:700;}
+.signal-box.gold .signal-list li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:10px;top:5px;}
+
+/* CHECKLIST */
+.checklist{border:1px solid var(--paper-shadow);margin:40px 0;}
+.checklist-cap{background:var(--ink-soft);padding:28px 32px;}
+.checklist-cap h3{font-family:'Noto Serif Thai',serif;font-size:17px;font-weight:600;color:var(--gold-light);text-transform:none;letter-spacing:0;margin:0 0 8px;padding:0;}
+.checklist-cap p{font-family:'Sarabun',sans-serif;font-size:13px;color:rgba(249,245,236,.45);margin:0;line-height:1.5;}
+.cl-group-title{font-family:'Sarabun',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:var(--paper-mid);padding:10px 32px;border-bottom:1px solid var(--paper-shadow);}
+.cl-items{list-style:none;padding:0;}
+.cl-items li{display:flex;gap:16px;align-items:flex-start;padding:16px 32px;border-bottom:1px solid var(--paper-deep);}
+.cl-items li:last-child{border-bottom:none;}
+.cl-box{width:16px;height:16px;flex-shrink:0;border:1px solid var(--paper-shadow);margin-top:2px;}
+.cl-text{font-family:'Sarabun',sans-serif;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+.cl-note{font-size:12px;font-style:italic;color:var(--ink-faint);margin-top:4px;}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--paper-shadow);margin:32px 0;}
+.stat-item{padding:28px 20px;text-align:center;border-right:1px solid var(--paper-shadow);}
+.stat-item:last-child{border-right:none;}
+.stat-value{font-family:'Noto Serif',serif;font-size:34px;font-weight:700;color:var(--gold);margin-bottom:6px;}
+.stat-label{font-family:'Sarabun',sans-serif;font-size:11px;color:var(--ink-muted);letter-spacing:.03em;line-height:1.4;}
+
+/* STAT ROW 4 */
+.stat-row-4{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--paper-shadow);margin:32px 0;}
+.stat-row-4 .stat-item{padding:22px 16px;}
+
+/* TABLE */
+.cmp-table-wrap{overflow-x:auto;margin:36px 0;border:1px solid var(--paper-shadow);}
+.cmp-table{width:100%;border-collapse:collapse;font-family:'Sarabun',sans-serif;}
+.cmp-table thead tr{background:var(--ink-soft);}
+.cmp-table th{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);padding:14px 18px;text-align:left;}
+.cmp-table td{font-size:14px;color:var(--ink-soft);padding:14px 18px;border-bottom:1px solid var(--paper-deep);line-height:1.65;}
+.cmp-table tbody tr:last-child td{border-bottom:none;}
+.cmp-table tbody tr:nth-child(even) td{background:var(--paper-mid);}
+.col-type{font-weight:600;color:var(--ink-mid);min-width:130px;}
+
+/* TWO COL GRID */
+.two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--paper-shadow);border:1px solid var(--paper-shadow);margin:36px 0;}
+.grid-card{background:var(--paper);padding:26px;}
+.grid-card-label{font-family:'Sarabun',sans-serif;font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.grid-card h4{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.grid-card p{font-size:14px;line-height:1.75;margin-bottom:0;}
+
+/* FORMULA BLOCK */
+.formula-block{background:var(--paper-mid);border:1px solid var(--paper-shadow);padding:32px;margin:36px 0;text-align:center;}
+.formula-label{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.formula-eq{font-family:'Noto Serif',serif;font-size:clamp(16px,2.6vw,22px);font-weight:700;color:var(--ink);margin-bottom:14px;line-height:1.45;}
+.formula-note{font-family:'Sarabun',sans-serif;font-size:13px;color:var(--ink-muted);line-height:1.6;}
+
+/* FRAMEWORK STEPS */
+.framework{border:1px solid var(--paper-shadow);margin:40px 0;}
+.fw-header{background:var(--ink);padding:22px 28px;}
+.fw-title{font-family:'Noto Serif Thai',serif;font-size:17px;font-weight:600;color:var(--gold-light);margin-bottom:4px;}
+.fw-sub{font-family:'Sarabun',sans-serif;font-size:11px;color:rgba(249,245,236,.35);letter-spacing:1px;}
+.fw-steps{padding:0;list-style:none;counter-reset:fw-step;}
+.fw-steps li{padding:22px 28px;border-bottom:1px solid var(--paper-deep);display:flex;gap:20px;align-items:flex-start;}
+.fw-steps li:last-child{border-bottom:none;}
+.fw-num{font-family:'Noto Serif',serif;font-size:22px;font-weight:700;color:var(--gold);opacity:.4;flex-shrink:0;min-width:28px;line-height:1;margin-top:2px;}
+.fw-content{flex:1;}
+.fw-step-title{font-family:'Sarabun',sans-serif;font-size:13px;font-weight:600;color:var(--ink-mid);margin-bottom:6px;}
+.fw-step-body{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.85;color:var(--ink-soft);}
+.fw-step-body strong{color:var(--ink);}
+
+/* QUESTION-ANSWER BLOCK */
+.qa-block{margin:32px 0;}
+.qa-q{background:var(--ink);padding:18px 28px;display:flex;gap:14px;align-items:flex-start;}
+.qa-q-icon{font-family:'Noto Serif',serif;font-size:18px;font-weight:700;color:var(--gold);flex-shrink:0;line-height:1.3;}
+.qa-q-text{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:rgba(249,245,236,.85);line-height:1.5;}
+.qa-a{background:var(--paper-mid);padding:20px 28px;border-left:3px solid var(--gold);border-bottom:1px solid var(--paper-shadow);}
+.qa-a p{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.85;color:var(--ink-soft);margin-bottom:0;}
+
+/* VERDICT BOX */
+.verdict{margin:40px 0;border:2px solid var(--gold);background:#FDFAF3;padding:32px;}
+.verdict-label{font-family:'Sarabun',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.verdict-title{font-family:'Noto Serif Thai',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:12px;}
+.verdict-body{font-family:'Noto Serif Thai',serif;font-size:16px;line-height:1.85;color:var(--ink-soft);}
+
+/* BAID VOICE — special styled quote */
+.baid-voice{background:var(--ink);padding:36px 40px;margin:40px 0;position:relative;}
+.baid-voice::before{content:'\201C';font-family:'Noto Serif',serif;font-size:80px;color:rgba(168,120,42,.15);position:absolute;top:12px;left:32px;line-height:1;}
+.baid-voice-text{font-family:'Noto Serif Thai',serif;font-size:17px;font-style:italic;color:rgba(249,245,236,.8);line-height:1.8;position:relative;z-index:1;padding-left:16px;}
+.baid-voice-attr{font-family:'Sarabun',sans-serif;font-size:11px;color:rgba(201,164,78,.45);margin-top:16px;letter-spacing:1px;padding-left:16px;}
+
+/* ORNAMENT */
+.ornament{border:none;text-align:center;margin:48px 0;}
+.ornament::before{content:'· · ·';color:var(--gold-rule);letter-spacing:12px;font-size:18px;}
+
+/* REFLECTION */
+.reflection{background:var(--paper-mid);border-left:3px solid var(--gold);padding:32px;margin:40px 0;}
+.reflection-title{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.reflection-list{counter-reset:reflection;list-style:none;padding:0;}
+.reflection-list li{counter-increment:reflection;font-family:'Noto Serif Thai',serif;font-size:16px;color:var(--ink-soft);line-height:1.75;margin-bottom:16px;padding-left:32px;position:relative;}
+.reflection-list li::before{content:counter(reflection);position:absolute;left:0;top:2px;font-family:'Noto Serif',serif;font-size:13px;color:rgba(201,164,78,.4);font-weight:700;}
+
+/* BOOK FOOTER */
+.book-footer{background:#0C0802;padding:64px var(--page-pad-h);text-align:center;}
+.footer-divider{width:32px;height:1px;background:var(--gold);margin:0 auto 32px;}
+.footer-title{font-family:'Noto Serif',serif;font-size:18px;font-weight:600;color:rgba(249,245,236,.55);margin-bottom:10px;}
+.footer-sub{font-family:'Sarabun',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(168,120,42,.28);text-transform:uppercase;}
+
+/* RESPONSIVE */
+@media(max-width:780px){
+  :root{--page-pad-h:24px;--page-pad-v:48px;}
+  .two-col-grid{grid-template-columns:1fr;}
+  .stat-row,.stat-row-4{grid-template-columns:1fr;}
+  .ch-num{display:none;}
+  .cmp-table-wrap{overflow-x:auto;}
+  .blockquote-full{padding:32px 24px;}
+  .author-voice{flex-direction:column;}
+  .baid-voice{padding:28px 24px;}
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-vol">Volume III · กรณีศึกษาจับมือ</div>
+  <div class="cover-series">THE JOYS OF COMPOUNDING · Real Case Studies</div>
+  <div class="cover-eyebrow">ตกผลึกจากปรัชญาของ Gautam Baid</div>
+  <div class="cover-title">จับมือเลือกหุ้น</div>
+  <div class="cover-title-th">2 กรณีศึกษาจริง — ตั้งแต่คำถามแรกสู่การตัดสินใจ</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    เรียนรู้วิธีคิดของ Baid ผ่าน 2 หุ้นที่เขาวิเคราะห์จริง ทีละคำถาม ทีละขั้น — ตั้งแต่ "ฉันเห็นอะไรในธุรกิจนี้" ไปจนถึง "ฉันจะซื้อที่ราคาไหน" เพื่อให้อ่านแล้วเลือกหุ้นได้เองแบบ Baid
+  </div>
+  <div class="cover-stocks">
+    <div class="cover-stock">
+      <div class="cover-stock-name">HDFC Bank</div>
+      <div class="cover-stock-sub">Culture MOAT · India's Best Bank</div>
+    </div>
+    <div class="cover-stock">
+      <div class="cover-stock-name">Vedant Fashions</div>
+      <div class="cover-stock-sub">Manyavar · Wedding Wear Compounder</div>
+    </div>
+  </div>
+  <div class="cover-edition">ฉบับจับมือ Vol.3 · ต่อยอดจาก Vol.1 และ Vol.2</div>
+</div>
+
+<!-- INTRO -->
+<div class="page">
+  <div class="eyebrow">How to Read This · วิธีอ่านเล่มนี้</div>
+  <h1>ก่อนเริ่ม — เล่มนี้แตกต่างจาก 2 เล่มแรกยังไง</h1>
+  <p>
+    ใน Vol.1 และ Vol.2 เราเรียนรู้ <strong>ปรัชญา</strong> และ <strong>framework</strong> ของ Baid เล่มนี้คือการนำสิ่งที่เรียนมาทั้งหมด <strong>ลงมือใช้จริง</strong> ผ่าน 2 กรณีศึกษาที่ Baid วิเคราะห์จริง พูดถึงจริง และถือจริงในกองทุน
+  </p>
+  <p>
+    โครงสร้างของแต่ละกรณีศึกษาจะเป็นแบบ <strong>"จับมือ"</strong> — เราจะพาไปผ่านแต่ละคำถามที่ Baid ถามตัวเอง พร้อมคำตอบ เหตุผล และตัวเลข เพื่อให้เมื่ออ่านจบ เราสามารถเปิดบริษัทใดก็ได้แล้วถามคำถามชุดเดิมด้วยตัวเอง
+  </p>
+
+  <div class="signal-box note">
+    <div class="signal-title">หมายเหตุสำคัญ</div>
+    <ul class="signal-list">
+      <li>กรณีศึกษาเหล่านี้สร้างขึ้นจากปรัชญาและ framework ของ Baid — บางส่วนมาจากสิ่งที่เขาพูดสาธารณะ บางส่วนเป็นการ reconstruct กระบวนการคิดตาม principles ที่เขาเขียนไว้</li>
+      <li>ตัวเลขที่ปรากฏในเอกสารนี้เป็นตัวเลขประมาณการเพื่อการเรียนรู้ ไม่ใช่คำแนะนำการลงทุน</li>
+      <li>เป้าหมายคือ "วิธีคิด" ไม่ใช่ "คำตอบว่าควรซื้อหรือไม่"</li>
+    </ul>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">8</div>
+      <div class="stat-label">คำถามหลัก<br>ต่อ 1 กรณีศึกษา</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">2</div>
+      <div class="stat-label">หุ้นที่ Baid<br>วิเคราะห์จริง</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1</div>
+      <div class="stat-label">Master Framework<br>ที่ใช้ได้ตลอดชีวิต</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- CASE STUDY 1: HDFC BANK               -->
+<!-- ══════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">กรณีศึกษาที่หนึ่ง / Case Study One</div>
+  <div class="ch-title">
+    HDFC Bank
+    <em>ธนาคารที่ดีที่สุดในอินเดีย — Culture คือ MOAT ที่แท้จริง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Case Study 1 · บริบทเบื้องต้น</div>
+  <h1>HDFC Bank คืออะไร และทำไม Baid ถึงสนใจ</h1>
+
+  <p>
+    HDFC Bank ก่อตั้งในปี 1994 หลังจากอินเดียเปิดเสรีภาคธนาคาร เป็นธนาคารเอกชนที่ใหญ่ที่สุดของอินเดียโดยสินทรัพย์และ Market Cap ปัจจุบัน Baid ใช้ HDFC Bank เป็นตัวอย่างของ <strong>"Culture as Competitive Advantage"</strong> ซ้ำๆ ในงานเขียนและการสัมภาษณ์ เขาบอกว่า HDFC Bank เป็นหนึ่งในตัวอย่างที่ดีที่สุดของ <strong>Intelligent Fanatic Management</strong> ที่เขารู้จัก
+  </p>
+
+  <div class="baid-voice">
+    <div class="baid-voice-text">วัฒนธรรมองค์กรคือ competitive advantage ที่ยั่งยืนและยากจะลอกเลียนแบบได้มากที่สุด ลองคิดดู — คู่แข่งสามารถลอกเลียนผลิตภัณฑ์ ราคา หรือแม้แต่เทคโนโลยีได้ แต่ไม่สามารถลอกเลียนวัฒนธรรมที่สร้างมาตลอด 30 ปีได้ Buffett พูดถึงคำว่า "culture" มากกว่า 30 ครั้งในจดหมายถึงผู้ถือหุ้นนับจากปี 1970 ซึ่งเป็นหลักฐานว่าเขาเข้าใจความสำคัญของมัน</div>
+    <div class="baid-voice-attr">Gautam Baid — Market Sentiment Interview · อ้างอิงการพูดถึง HDFC Bank ในฐานะ Culture MOAT</div>
+  </div>
+
+  <h2>ข้อมูลสำคัญก่อนเริ่มวิเคราะห์</h2>
+
+  <div class="stat-row-4">
+    <div class="stat-item">
+      <div class="stat-value">478×</div>
+      <div class="stat-label">ผลตอบแทนสะสม<br>25 ปี (IPO ถึงปัจจุบัน)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">~20%</div>
+      <div class="stat-label">ROE เฉลี่ย<br>ย้อนหลัง 15+ ปี</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">#1</div>
+      <div class="stat-label">ธนาคารเอกชน<br>ใหญ่สุดในอินเดีย</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">9,000+</div>
+      <div class="stat-label">สาขาทั่วอินเดีย<br>51% ในพื้นที่ชนบท</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">การวิเคราะห์แบบจับมือ · ทีละคำถาม</div>
+  <h1>8 คำถามที่ Baid ถามตัวเองก่อนลงทุนใน HDFC Bank</h1>
+  <p>นี่คือกระบวนการคิดแบบ Baid — เราจะผ่านทีละคำถาม พร้อมทำความเข้าใจว่าเขามองอะไร และทำไม</p>
+
+  <!-- Q1 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q1</div>
+      <div class="qa-q-text">ฉันเข้าใจธุรกิจนี้ไหม? มันอยู่ใน Circle of Competence ของฉันหรือเปล่า?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> ธนาคารอยู่ใน Circle of Competence ของฉัน เพราะฉันทำงาน investment banking มา 7 ปี เข้าใจว่าธนาคารทำเงินยังไง — รับเงินฝาก (ต้นทุนต่ำ), ปล่อยกู้ (อัตราสูงกว่า), ส่วนต่างคือ Net Interest Margin ยิ่ง NIM สูงและ NPL ต่ำ = ธนาคารยิ่งดี HDFC Bank มี NIM สูงกว่า sector average อย่างสม่ำเสมอ และมี NPL ต่ำที่สุดในกลุ่ม แม้ในช่วงวิกฤต นี่คือสัญญาณว่าคุณภาพสินเชื่อดีมาก</p>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q2</div>
+      <div class="qa-q-text">MOAT ของธุรกิจนี้มาจากอะไร? ทนทานแค่ไหน?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> HDFC Bank มี MOAT จาก <strong>3 แหล่งพร้อมกัน</strong> ซึ่งหายากมาก:</p>
+    </div>
+  </div>
+
+  <div class="signal-box gold">
+    <div class="signal-title">MOAT ของ HDFC Bank — 3 ชั้น</div>
+    <ul class="signal-list">
+      <li><strong>Culture MOAT (แข็งแกร่งที่สุด):</strong> วัฒนธรรมองค์กรที่สร้างมาตลอด 30 ปี ภายใต้ผู้บริหารที่มี integrity สูง ทุกคนในองค์กรเชื่อว่า "ลูกค้าต้องมาก่อน" Baid บอกว่านี่คือ MOAT ที่ลอกเลียนไม่ได้ เพราะต้องใช้เวลาหลายสิบปีในการสร้าง</li>
+      <li><strong>Low-Cost Deposits (MOAT เชิงต้นทุน):</strong> เครือข่าย 9,000+ สาขา + CASA Ratio (เงินฝากออมทรัพย์และกระแสรายวัน) สูง = ต้นทุนเงินทุนต่ำกว่าคู่แข่ง ทำให้ทั้งปล่อยกู้ถูกกว่าหรือ Margin สูงกว่า</li>
+      <li><strong>Brand Trust (Intangible Asset):</strong> ในอินเดีย ชื่อ HDFC = ความน่าเชื่อถือ ลูกค้าหลายล้านคนฝากเงินกับ HDFC Bank เพราะ "วางใจ" ไม่ใช่แค่เพราะดอกเบี้ยสูงกว่า — นี่คือ Switching Cost ที่แท้จริง</li>
+    </ul>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q3</div>
+      <div class="qa-q-text">ผู้บริหารเป็นยังไง? พวกเขา "Integrity + Capital Allocation" ดีแค่ไหน?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> HDFC Bank ก่อตั้งโดย Deepak Parekh (HDFC Group) และบริหารผ่าน Aditya Puri (CEO 26 ปี ออกปี 2020) ซึ่ง Baid เรียกว่าเป็นหนึ่งใน <strong>"Intelligent Fanatics"</strong> ที่ดีที่สุดในเอเชีย Puri สร้างวัฒนธรรมที่ emphasis ตรง: ปล่อยกู้อย่างระมัดระวัง, ไม่ไล่ตาม growth ที่เสี่ยง, และสื่อสารตรงไปตรงมากับผู้ถือหุ้นเสมอ ในช่วง 26 ปีที่บริหาร NPL ของ HDFC Bank ต่ำที่สุดในอุตสาหกรรมทุกปี — นั่นคือหลักฐานของ Capital Allocation ที่ดีเยี่ยม</p>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q4</div>
+      <div class="qa-q-text">ธุรกิจนี้จะดีขึ้นในอีก 5–10 ปีไหม? Runway ยาวแค่ไหน?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> อินเดียมี Financial Penetration Rate ที่ต่ำมาก — ประชากรกว่า 40% ยังไม่มีบัญชีธนาคาร, สินเชื่อต่อ GDP อยู่ที่ ~50% (เทียบกับ 150%+ ในประเทศพัฒนาแล้ว) ซึ่งหมายถึง Runway ที่ยาวมากสำหรับธนาคารที่ดีที่สุดในประเทศ Baid บอกว่า "ถ้าอินเดียจะมีธนาคารที่เติบโตใน 20 ปีข้างหน้า ฉันอยากถือธนาคารที่ดีที่สุด ไม่ใช่ธนาคารที่ถูกที่สุด"</p>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">The India Banking Opportunity</div>
+    <div class="formula-eq">Credit to GDP 50% → 100% ใน 15 ปี = ตลาดเพิ่มขึ้น 2 เท่า</div>
+    <div class="formula-note">ธนาคารที่ดีที่สุดในตลาดที่กำลังเพิ่มขึ้น 2 เท่า = Compounding ที่ทรงพลังมาก · HDFC Bank ใช้เวลา 25 ปีสร้างผลตอบแทน 478 เท่า และ Runway ยังเหลืออีกมาก</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q5</div>
+      <div class="qa-q-text">ตัวเลขทางการเงินพูดว่าอะไร? ธุรกิจสร้างเงินได้จริงแค่ไหน?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> ดูที่ ROE เป็นหลัก ไม่ใช่ P/E หรือ P/B เพราะ ROE สะท้อนว่าธนาคารใช้ทุนของผู้ถือหุ้นได้ดีแค่ไหน HDFC Bank รักษา ROE ที่ 18–22% ต่อเนื่องมาตลอด — ในขณะที่ธนาคารรัฐบาลส่วนใหญ่มี ROE ต่ำกว่า 10% มาก</p>
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>ตัวชี้วัด</th><th>HDFC Bank</th><th>ธนาคารเอกชนทั่วไป</th><th>ธนาคารรัฐบาล</th><th>Baid มองว่า</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">ROE</td><td>18–22%</td><td>12–16%</td><td>5–10%</td><td>MOAT ที่วัดได้ชัดเจน</td></tr>
+        <tr><td class="col-type">NIM (Net Interest Margin)</td><td>~4%</td><td>3–3.5%</td><td>2.5–3%</td><td>Pricing Power + Low-cost deposits</td></tr>
+        <tr><td class="col-type">Gross NPL Ratio</td><td>~1.2–1.5%</td><td>2–4%</td><td>5–8%</td><td>Quality credit culture ที่แท้จริง</td></tr>
+        <tr><td class="col-type">CASA Ratio</td><td>~42–45%</td><td>35–40%</td><td>40–45%</td><td>ต้นทุนเงินทุนต่ำ = Competitive Advantage</td></tr>
+        <tr><td class="col-type">Loan Growth CAGR (10Y)</td><td>~20%</td><td>12–15%</td><td>8–12%</td><td>เติบโตได้เร็วกว่าโดยไม่เสียคุณภาพ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Q6 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q6</div>
+      <div class="qa-q-text">Inversion: ทำไมฉันถึงอาจผิด? Bear Case คืออะไร?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>Baid ถาม Bear Case ตรงๆ:</strong></p>
+    </div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">⚠️ Bear Case ที่เป็นไปได้</div>
+      <h4>ความเสี่ยงที่ต้องยอมรับ</h4>
+      <p>หลังการ Merge กับ HDFC Ltd. (2023) Balance Sheet ใหญ่ขึ้นมาก ทำให้ ROE อาจลดลงชั่วคราว, ธนาคารขนาดใหญ่เคลื่อนตัวช้าลง, และการแข่งขันจาก Fintech</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ Baid ตอบ Bear Case</div>
+      <h4>ทำไมยังน่าถือ</h4>
+      <p>Merge สร้าง Balance Sheet ที่แข็งแกร่งขึ้นระยะยาว, Culture ที่สร้างมา 30 ปีไม่เปลี่ยน, Fintech คือ Partner ไม่ใช่ Competitor (HDFC ร่วมมือ Fintech), และ ROE จะฟื้นกลับมาหลัง integration เสร็จ</p>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q7</div>
+      <div class="qa-q-text">Sentiment ตอนไหนคือ "เวลาที่ดีที่สุดในการซื้อ"?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> HDFC Bank เป็น high-quality stock ที่ตลาดมักให้ Premium Valuation อยู่เสมอ แต่มีช่วงที่ราคาตกมากกว่า fundamentals เช่น: (1) ช่วงหลัง Merge ที่นักลงทุนกังวลเรื่อง earnings dilution (2) ช่วงวิกฤต COVID ที่ทุก bank ถูกขาย (3) ช่วงที่ตลาดเป็น Risk-off แล้วขาย quality stocks พร้อมกัน — นั่นคือ Contrarian Opportunity ที่แท้จริง</p>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q8</div>
+      <div class="qa-q-text">ราคาเหมาะสมคือเท่าไหร่? Margin of Safety อยู่ที่ไหน?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> สำหรับธนาคาร Baid ใช้ <strong>Price-to-Book (P/B)</strong> เทียบกับ ROE เป็นหลัก หลักการง่ายๆ คือ: P/B ที่ยุติธรรมสำหรับธนาคาร = ROE ÷ Cost of Equity ถ้า ROE = 20% และ Cost of Equity = 12% → P/B ที่ยุติธรรม ≈ 1.67x ถ้าราคาต่ำกว่านี้ มี Margin of Safety</p>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Bank Valuation — Baid's Simple Rule</div>
+    <div class="formula-eq">Fair P/B = ROE ÷ Cost of Equity</div>
+    <div class="formula-note">HDFC Bank ROE = 20% · Cost of Equity อินเดีย ≈ 12–14% · Fair P/B ≈ 1.4–1.7x<br>ถ้าตลาดให้ P/B ต่ำกว่านี้อย่างมีนัยสำคัญ (เช่น ช่วงหลัง Merge ที่ P/B ลงมาใกล้ 2x จากปกติ 3–4x) = Margin of Safety ที่ชัดเจน</div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Baid's Verdict on HDFC Bank</div>
+    <div class="verdict-title">ธุรกิจที่สามารถถือได้ "ตลอดไป" ถ้าซื้อในราคาที่เหมาะสม</div>
+    <div class="verdict-body">
+      HDFC Bank ผ่านทุกเกณฑ์ใน Baid's Framework: Circle of Competence ✓ · MOAT ที่แข็งแกร่งและหลายชั้น ✓ · ผู้บริหาร integrity สูง ✓ · Runway ยาวในตลาดที่กำลังเติบโต ✓ · ตัวเลขสนับสนุน Thesis ✓<br><br>สิ่งที่ Baid รอคือ "ราคาที่เหมาะสม" — เขาไม่รีบซื้อเมื่อ P/B สูงมาก แต่ถ้าตลาด panic และให้ Margin of Safety ที่ชัดเจน นั่นคือจังหวะที่ต้องกล้าลงทุน
+    </div>
+  </div>
+</div>
+
+<div class="page page-alt">
+  <div class="eyebrow">บทเรียนจาก HDFC Bank · สิ่งที่นำไปใช้ต่อ</div>
+  <h1>สิ่งที่ Baid เรียนรู้จาก HDFC Bank และนำไปใช้กับทุกหุ้น</h1>
+
+  <h2>บทเรียนที่ 1 — Culture คือ MOAT ที่วัดยากที่สุดแต่ทรงพลังที่สุด</h2>
+  <p>
+    Baid บอกว่าเขาเปลี่ยนมาให้ความสำคัญกับ "Culture" หลังจากอ่านประวัติของ HDFC Bank อย่างละเอียด เขาเริ่มถามในทุกบริษัทที่วิเคราะห์ว่า <strong>"วัฒนธรรมองค์กรที่แท้จริงคืออะไร? ผู้คนในบริษัทนี้ทำอะไรเมื่อไม่มีใครมอง?"</strong>
+  </p>
+
+  <h2>บทเรียนที่ 2 — ธุรกิจที่ดีในตลาดที่กำลังเติบโต คือสูตรสำเร็จ</h2>
+  <p>
+    HDFC Bank เป็นตัวอย่างของการผสม 2 อย่างเข้าด้วยกัน: <strong>ธุรกิจที่ดีที่สุดในอุตสาหกรรม</strong> + <strong>อุตสาหกรรมที่กำลังเติบโตมากในประเทศกำลังพัฒนา</strong> สองสิ่งนี้รวมกัน = Compounding ที่ทรงพลังผิดปกติ
+  </p>
+
+  <h2>บทเรียนที่ 3 — อดทนกับ High-Quality Compounder คือกลยุทธ์ที่ดีที่สุด</h2>
+  <p>
+    Baid บอกว่าคนที่ซื้อ HDFC Bank แล้วถือ 25 ปีโดยไม่ทำอะไร ได้ผลตอบแทน 478 เท่า คนที่ trade เข้าออกตลอดได้น้อยกว่านั้นมาก บทเรียนคือ: <strong>เมื่อพบ True Compounder แล้ว งานของเราคือ "ไม่ทำอะไร" ให้มากที่สุด</strong>
+  </p>
+
+  <div class="pullquote">
+    <p>"The single biggest mistake an investor can make is to sell a wonderful business too early. Time is the only non-renewable resource in investing."</p>
+    <cite>Gautam Baid — อ้างอิงแนวคิดของ Munger ในบริบทของ HDFC Bank</cite>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- CASE STUDY 2: VEDANT FASHIONS         -->
+<!-- ══════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">กรณีศึกษาที่สอง / Case Study Two</div>
+  <div class="ch-title">
+    Vedant Fashions (Manyavar)
+    <em>เจ้าของงานแต่งอินเดีย — Brand MOAT ที่ไม่ลด Sale ไม่เคย</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Case Study 2 · บริบทเบื้องต้น</div>
+  <h1>Vedant Fashions คืออะไร และทำไม Baid ถึงนำเสนอ Thesis นี้ต่อสาธารณะ</h1>
+
+  <p>
+    Vedant Fashions เป็นบริษัทที่เป็นเจ้าของแบรนด์ <strong>Manyavar</strong> — แบรนด์ชุดงานแต่งและเทศกาลสำหรับผู้ชายอินเดียที่ใหญ่ที่สุดและมี Market Share สูงสุด นอกจากนี้ยังมีแบรนด์ Mohey (ผู้หญิง), Twamev (ระดับ premium), และ Manthan (ระดับ value)
+  </p>
+  <p>
+    ในปี 2023 Baid ได้รับเชิญให้นำเสนอ Investment Thesis ของ Vedant Fashions ต่อสาธารณะที่งาน Wide-Moat Investing Summit ซึ่งถือว่าหายากมากที่นักลงทุนจะเปิดเผย Thesis ต่อสาธารณะ — แสดงว่า Baid มั่นใจในการวิเคราะห์นี้อย่างมาก
+  </p>
+
+  <div class="baid-voice">
+    <div class="baid-voice-text">Vedant Fashions มีทุกสิ่งที่ฉันมองหาใน Long-term Compounder: ตลาดขนาดใหญ่ที่ยังไม่มีแบรนด์ครอง, ความได้เปรียบในการแข่งขันที่ชัดเจน, ผู้บริหารที่มี Skin in the Game, Operating Margin ใกล้ 50% ที่หายากมากในอุตสาหกรรม Retail, และ Asset-Light Business Model ที่ทำให้ Compounding ทรงพลังมาก</div>
+    <div class="baid-voice-attr">Gautam Baid — Wide-Moat Investing Summit 2023 · Investment Thesis Presentation บน Vedant Fashions</div>
+  </div>
+
+  <div class="stat-row-4">
+    <div class="stat-item">
+      <div class="stat-value">~67%</div>
+      <div class="stat-label">Gross Margin<br>หายากมากใน Retail</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">~48%</div>
+      <div class="stat-label">Operating Margin<br>สูงที่สุดในอุตสาหกรรม</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">0%</div>
+      <div class="stat-label">ส่วนลด Discount<br>"ไม่ลดราคาเลย"</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">₹1.8L Cr</div>
+      <div class="stat-label">ขนาดตลาด Indian<br>Wedding Wear (Cr = Crore)</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">การวิเคราะห์แบบจับมือ · ทีละคำถาม</div>
+  <h1>8 คำถามที่ Baid ถามก่อนลงทุนใน Vedant Fashions</h1>
+
+  <!-- Q1 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q1</div>
+      <div class="qa-q-text">ฉันเข้าใจธุรกิจนี้ไหม? และทำไมธุรกิจนี้จึง "ง่าย" ในแบบที่ดี?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> Vedant Fashions ทำธุรกิจง่ายมากเมื่อเข้าใจ — ขายชุดงานแต่งในอินเดีย ซึ่งเป็นประเทศที่มีงานแต่งงานมากที่สุดในโลก (10 ล้านงานต่อปี) ธุรกิจนี้ไม่เปลี่ยนแปลงตามเทคโนโลยี ไม่มี Disruption Risk จาก App ไม่ต้องลงทุน R&D มาก เป็นธุรกิจที่เข้าใจได้ง่ายใน 5 นาที — ซึ่งตรงกับหลักการ Baid ที่ชอบธุรกิจ <strong>"Simple, Predictable, and Free Cash Flow Generative"</strong></p>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q2</div>
+      <div class="qa-q-text">MOAT มาจากอะไร? และมี "สัญญาณจริง" ที่วัดได้ว่า MOAT แข็งแกร่งไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> Baid บอกว่า MOAT ที่แข็งแกร่งที่สุดของ Vedant Fashions วัดได้จากข้อเท็จจริงเดียวที่ทรงพลังมาก: <strong>"บริษัทนี้ไม่เคยลดราคา ไม่มี End-of-Season Sale ไม่มี Discount เลย"</strong></p>
+    </div>
+  </div>
+
+  <div class="signal-box gold">
+    <div class="signal-title">ทำไม "ไม่ลดราคา" คือ MOAT ที่แข็งแกร่งที่สุด</div>
+    <ul class="signal-list">
+      <li><strong>Pricing Power ที่แท้จริง:</strong> ธุรกิจที่ขึ้นราคาได้โดยลูกค้าไม่ย้าย = MOAT ที่ Buffett เรียกว่า "Pricing Power" ซึ่งเป็นสัญญาณของแบรนด์ที่แข็งแกร่งจริงๆ</li>
+      <li><strong>Gross Margin 67% ที่ไม่มีใครลอกเลียน:</strong> ถ้าไม่มี Pricing Power จริง Margin ไม่สามารถอยู่ที่ 67% ได้ในธุรกิจ Retail ที่การแข่งขันสูง</li>
+      <li><strong>Inventory Management ที่เหนือกว่า:</strong> เพราะไม่ลดราคา Inventory ไม่ค้าง สินค้าขายหมดในราคาเต็มทุกปี ทำให้ Working Capital หมุนเวียนดีมาก</li>
+      <li><strong>สัญญาณ MOAT ที่ชัดเจนที่สุด:</strong> "คู่แข่งในอุตสาหกรรมมีขนาดเพียง 1/7 ของ Manyavar" หลังจาก Vedant เป็น Listed Company มาหลายปี — ถ้าไม่มี MOAT คู่แข่งจะใหญ่กว่านี้มากแล้ว</li>
+    </ul>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q3</div>
+      <div class="qa-q-text">ผู้บริหารเป็นอย่างไร? มี "Skin in the Game" ไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> Ravi Modi ผู้ก่อตั้งและ MD ยังถือหุ้นในบริษัทกว่า 75% ซึ่งหมายความว่าเขามี <strong>"Skin in the Game"</strong> สูงมาก — ทุกการตัดสินใจที่ไม่ดีจะกระทบเขาโดยตรงมากกว่าผู้ถือหุ้นรายย่อยด้วยซ้ำ Baid ยังชื่นชมที่ Modi สร้าง Asset-Light model (Franchise-Owned, Franchise-Operated) ซึ่งแสดงให้เห็นว่าเขา prioritize ROE สูงกว่า Revenue Growth ในระยะสั้น</p>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q4</div>
+      <div class="qa-q-text">Runway ยาวแค่ไหน? ยังเติบโตได้อีกมากไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> ตลาดชุดงานแต่งอินเดียมีมูลค่า ₹1.8 Lakh Crore (~$220B) แต่ <strong>แบรนด์ครองตลาดเพียง 15–20%</strong> เท่านั้น — ส่วนที่เหลือยังเป็น unorganized market (ช่างตัดเสื้อ ร้านเล็กๆ) Baid มองว่า Organized Retail กำลังกินส่วนแบ่งจาก Unorganized อย่างต่อเนื่อง ซึ่งหมายถึง Runway ที่ยาวมากสำหรับ Manyavar ที่เป็นผู้นำในตลาด</p>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Vedant Fashions Runway Calculation</div>
+    <div class="formula-eq">Organized Share 15% → 40% ใน 15 ปี = Revenue Opportunity 2.6x จากแค่การ Formalization</div>
+    <div class="formula-note">บวกกับการเติบโตของตลาดรวมจากรายได้ที่เพิ่มขึ้น + การขยายไปต่างประเทศ (US, Canada, UAE) = Runway ที่ Baid บอกว่า "ยาวกว่าที่ใครคาดไว้มาก"</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q5</div>
+      <div class="qa-q-text">ตัวเลขทางการเงินยืนยัน Thesis ไหม? โดยเฉพาะ Asset-Light Model</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> Asset-Light Model ของ Vedant คือหัวใจของ Compounding Power เพราะ FOFO (Franchise-Owned Franchise-Operated) หมายถึง Vedant ไม่ต้องลงทุน Capex ในการเปิดร้านใหม่มาก ผลคือ Free Cash Flow Conversion สูงมาก — กำไรที่ได้แทบทั้งหมดกลายเป็น Cash จริงๆ ไม่ถูกกิน Capex</p>
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>ตัวชี้วัด</th><th>Vedant Fashions</th><th>Retail เสื้อผ้าทั่วไป</th><th>Baid มองว่า</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">Gross Margin</td><td>~67%</td><td>35–50%</td><td>Brand Power ที่แท้จริง</td></tr>
+        <tr><td class="col-type">EBITDA Margin</td><td>~48%</td><td>8–15%</td><td>Asset-Light ทำให้ Operating Leverage สูงมาก</td></tr>
+        <tr><td class="col-type">ROCE (ผลตอบแทนจากเงินที่ใช้ในธุรกิจ)</td><td>~45–50%</td><td>15–25%</td><td>True Compounder — ลงทุนน้อยได้กำไรมาก</td></tr>
+        <tr><td class="col-type">Net Debt</td><td>Net Cash (ไม่มีหนี้)</td><td>มีหนี้ทั่วไป</td><td>Financial Fortress ในยามวิกฤต</td></tr>
+        <tr><td class="col-type">FCF Conversion</td><td>&gt;90% ของ Net Profit</td><td>50–70%</td><td>กำไรบัญชี = กำไรจริง ไม่หลอกลวง</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Q6 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q6</div>
+      <div class="qa-q-text">Inversion: Bear Case ที่แข็งแกร่งที่สุดคืออะไร? Baid ตอบยังไง?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>Baid ถาม Bear Case อย่างจริงจัง:</strong></p>
+    </div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">⚠️ Bear Case 3 ข้อ</div>
+      <h4>ความเสี่ยงที่ต้องยอมรับ</h4>
+      <p><strong>1.</strong> Seasonality สูง — รายได้กระจุกตัวในฤดูงานแต่ง<br><br><strong>2.</strong> Promoter Holding สูง — liquidity อาจต่ำ ถ้า Promoter ขายจะกดราคา<br><br><strong>3.</strong> Fashion Risk — trend เสื้อผ้าอาจเปลี่ยน คนอาจไม่นิยมชุดอินเดียในงานแต่ง</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ Baid ตอบแต่ละ Bear Case</div>
+      <h4>เหตุผลที่ยังน่าลงทุน</h4>
+      <p><strong>1.</strong> Seasonality = Predictable Cash Flow ไม่ใช่ Risk — ธนาคารก็มี Seasonality<br><br><strong>2.</strong> Promoter ไม่ขาย ถ้าขายก็เป็น Signal ให้ตรวจสอบ<br><br><strong>3.</strong> งานแต่งอินเดียใช้ชุดอินเดียมาหลายพันปี — Cultural Moat ที่ Baid บอกว่า "ถ้าอินเดียเลิกแต่งงาน ค่อยกลัว"</p>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q7</div>
+      <div class="qa-q-text">Contrarian Opportunity: ตอนไหนที่ Sentiment ทำให้ราคาต่ำกว่า Intrinsic Value?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> หลัง IPO (2022 ที่ ₹866 ต่อหุ้น) หุ้นปรับตัวลงเพราะ: (1) วิกฤต Pandemic ยังส่งผลกระทบต่อ Sentiment งานแต่ง (2) นักวิเคราะห์กังวลว่า Growth Rate จะชะลอ (3) Valuation IPO ดูแพงในช่วงที่ตลาดเริ่มกลัว Rate Hike — แต่ Baid บอกว่า <strong>"Fundamental ของธุรกิจไม่เปลี่ยน ตลาด Panic เอง"</strong> ซึ่งคือ Contrarian Setup ที่ชัดเจนมาก</p>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q8</div>
+      <div class="qa-q-text">Valuation: ราคาสมเหตุสมผลคือเท่าไหร่ และ Baid ใช้วิธีไหนประเมิน?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบของ Baid:</strong> สำหรับ Asset-Light Compounder ที่มี Margin สูง Baid ใช้ <strong>EV/EBITDA และ FCF Yield</strong> มากกว่า P/E เพราะ Net Profit อาจถูกบิดเบือนจาก D&A ต่ำ โดย Reference ว่า "ธุรกิจ Consumer Brand ที่มี MOAT แข็งแกร่งใน Emerging Market ควรได้ Premium Valuation" แต่ต้อง "reasonable premium" ไม่ใช่ extreme premium</p>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">Vedant Fashions Valuation Framework</div>
+    <div class="formula-eq">Fair Value = Normalized EBITDA × 30–40x (Premium Brand + Growth)</div>
+    <div class="formula-note">Multiple ที่ยุติธรรมสูงกว่า Retail ทั่วไป เพราะ: Asset-Light ✓ · Pricing Power ✓ · No Discount Policy ✓ · Market Leadership ✓<br>แต่ถ้าตลาดให้ Multiple &gt; 50x โดยไม่มี growth acceleration ที่ชัดเจน = Overvalued แม้ธุรกิจจะดีแค่ไหน</div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Baid's Verdict on Vedant Fashions</div>
+    <div class="verdict-title">Consumer Brand ที่หายากมาก — Compounder ที่แท้จริงในตลาดเกิดใหม่</div>
+    <div class="verdict-body">
+      Vedant Fashions เป็นตัวอย่างที่ดีมากของ <strong>"Wonderful Business at a Fair Price"</strong> ที่ Buffett/Munger สอน: Brand MOAT ที่แข็งแกร่ง (วัดได้จาก No Discount Policy), Asset-Light ที่ทำให้ ROE/ROCE สูงผิดปกติ, ตลาดที่ยังมี Runway ยาวมาก, และผู้บริหารที่มี Skin in the Game<br><br>Baid มั่นใจพอที่จะนำเสนอ Thesis นี้ต่อสาธารณะ — ซึ่งหมายความว่าเขาพร้อมรับ Scrutiny จากนักลงทุนทั่วโลก
+    </div>
+  </div>
+</div>
+
+<div class="page page-alt">
+  <div class="eyebrow">บทเรียนจาก Vedant Fashions · สิ่งที่นำไปใช้ต่อ</div>
+  <h1>3 บทเรียนใหญ่ที่ Baid นำไปใช้กับทุกหุ้นหลัง Vedant Fashions</h1>
+
+  <h2>บทเรียนที่ 1 — "No Discount" คือ Test ที่ดีที่สุดของ Pricing Power</h2>
+  <p>
+    หลังจาก Vedant Fashions Baid เริ่มถามทุกบริษัทว่า <strong>"ธุรกิจนี้ต้องลดราคาเพื่อขายสินค้าหรือเปล่า?"</strong> ถ้าต้องลดราคาตลอด แสดงว่าสินค้าหรือบริการไม่ได้มีคุณค่าพิเศษในสายตาลูกค้า ถ้าไม่ต้องลดเลย แสดงว่า Brand มีพลังจริง
+  </p>
+
+  <h2>บทเรียนที่ 2 — Asset-Light = Compounding ที่ทรงพลังกว่า Capital-Intensive</h2>
+  <p>
+    Baid เปรียบเทียบว่า ธุรกิจที่ต้องลงทุน Capex สูงเพื่อเติบโต (เช่น โรงงาน) vs ธุรกิจ Asset-Light ที่ Franchise ออกไป — ทั้งสองอาจมีรายได้เท่ากัน แต่ Asset-Light สร้าง Free Cash Flow ได้มากกว่ามาก ซึ่ง compound ได้เร็วกว่า
+  </p>
+
+  <h2>บทเรียนที่ 3 — ตลาดที่ยังไม่มีแบรนด์ครอง คือ Opportunity ที่ดีที่สุด</h2>
+  <p>
+    Baid บอกว่าใน Emerging Markets ยังมีหลายอุตสาหกรรมที่ unorganized ครองตลาดกว่า 70–80% เมื่อ Organized Player ที่แข็งแกร่งเข้ามา จะ compound ได้เร็วมากจากการ "กิน" ส่วนแบ่งตลาดจาก Unorganized โดยไม่ต้องรอตลาดโดยรวมเติบโต
+  </p>
+
+  <div class="pullquote">
+    <p>"In India, the shift from unorganized to organized retail is a multi-decade trend. The brand that wins in each category will compound at rates that seem impossible to investors who only know mature, fully-penetrated markets."</p>
+    <cite>Gautam Baid — Wide-Moat Summit 2023 · Vedant Fashions Presentation</cite>
+  </div>
+</div>
+
+<!-- MASTER FRAMEWORK -->
+<div class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">Master Framework · นำไปใช้ได้เลย</div>
+  <div class="ch-title">
+    The Baid Stock Selection Framework
+    <em>8 คำถาม ที่เอาไปใช้กับทุกหุ้น ทุกตลาด ทุกเวลา</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Master Template · ใช้ได้ตลอดชีวิต</div>
+  <h1>หลังอ่าน 2 กรณีศึกษา — นี่คือสิ่งที่เราเรียนรู้</h1>
+  <p>
+    Baid ใช้คำถามชุดเดิมทุกครั้งที่วิเคราะห์หุ้น ไม่ว่าจะเป็น HDFC Bank ธนาคารยักษ์ใหญ่ หรือ Vedant Fashions บริษัทชุดงานแต่ง คำถามชุดนี้ <strong>ไม่เปลี่ยนตามขนาดหรือประเภทธุรกิจ</strong> เพราะเป็นหลักการที่ universal
+  </p>
+
+  <div class="framework">
+    <div class="fw-header">
+      <div class="fw-title">The Baid 8-Question Framework · ใช้กับทุกหุ้น</div>
+      <div class="fw-sub">เรียงตามลำดับ · ถ้าตอบไม่ผ่านข้อไหน ให้หยุดก่อน ไม่ต้องถามข้อถัดไป</div>
+    </div>
+    <ul class="fw-steps">
+      <li>
+        <div class="fw-num">1</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Circle of Competence — ฉันเข้าใจธุรกิจนี้จริงหรือเปล่า?</div>
+          <div class="fw-step-body">อธิบายได้ใน 5 นาทีไหมว่าธุรกิจทำเงินยังไง? ถ้าต้องใช้ศัพท์เทคนิคที่ตัวเองไม่เข้าใจ → <strong>หยุด ไม่ลงทุน</strong></div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">2</div>
+        <div class="fw-content">
+          <div class="fw-step-title">MOAT — มีความได้เปรียบการแข่งขันที่แท้จริงไหม?</div>
+          <div class="fw-step-body">คู่แข่งเข้ามาแล้ว 5 ปีผ่านไปยังชนะไม่ได้ → MOAT จริง · ลูกค้าเปลี่ยนไปคู่แข่งได้ง่าย → ไม่มี MOAT · <strong>Test ที่ Baid ชอบ: ขึ้นราคาได้ไหมโดยลูกค้าไม่ย้าย?</strong></div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">3</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Management — ผู้บริหารซื่อสัตย์และ allocate capital ดีไหม?</div>
+          <div class="fw-step-body">ดู Skin in the Game, ประวัติ Capital Allocation, การสื่อสารกับผู้ถือหุ้น และ Related Party Transactions · <strong>ถ้ามีสัญญาณ Governance ไม่ดี → หยุดทันที ไม่มีราคาถูกพอ</strong></div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">4</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Runway — ธุรกิจจะยังเติบโตได้อีก 5–10 ปีไหม?</div>
+          <div class="fw-step-body">ตลาดยังไม่อิ่มตัว, Penetration Rate ยังต่ำ, หรือบริษัทกำลังขยายไปตลาดใหม่ · <strong>HDFC Bank: Credit/GDP ต่ำ · Vedant: Organized Retail ยังแค่ 15%</strong></div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">5</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Financials — ตัวเลขสนับสนุน Thesis ไหม?</div>
+          <div class="fw-step-body">ROE สูงกว่า 15% ต่อเนื่อง, FCF Conversion ดี, หนี้ไม่สูงเกิน, Margin stable หรือขยาย · <strong>ถ้าตัวเลขบอกว่า MOAT ไม่มีจริง อย่าเชื่อ Thesis เพียงอย่างเดียว</strong></div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">6</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Inversion — ทำไมฉันถึงอาจผิด? Bear Case ที่แข็งแกร่งคืออะไร?</div>
+          <div class="fw-step-body">เขียน Bear Case ที่ดีที่สุดที่ทำให้ Thesis ผิด · ถ้าหา Bear Case ไม่ได้เลย = <strong>อาจติด Confirmation Bias</strong> ลองขอคนอื่นช่วยหา</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">7</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Sentiment — ตลาดรู้สึกยังไงกับหุ้นตัวนี้ตอนนี้?</div>
+          <div class="fw-step-body">ตรวจ Media, Analyst Rating, Insider Buying, Valuation vs History · <strong>Contrarian Opportunity = Fundamentals ดี + Sentiment แย่ + Valuation ต่ำกว่าประวัติ</strong></div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">8</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Valuation — Margin of Safety มีพอไหม? จะซื้อที่ราคาไหน?</div>
+          <div class="fw-step-body">คำนวณ Intrinsic Value ใน Base + Worst Case · ตั้ง Buy Price ที่ให้ Margin of Safety ≥ 20–30% · <strong>ถ้าราคาปัจจุบันสูงกว่า Buy Price ให้ใส่ใน Watchlist รอจังหวะ ไม่รีบซื้อ</strong></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2>เปรียบเทียบ 2 กรณีศึกษา — เห็น Pattern ไหม?</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>คำถาม</th><th>HDFC Bank</th><th>Vedant Fashions</th><th>สิ่งที่ต่างกัน</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">Q1: Circle of Competence</td><td>ธนาคาร — เข้าใจง่าย</td><td>Retail Brand — เข้าใจง่าย</td><td>ทั้งคู่ "Simple Business"</td></tr>
+        <tr><td class="col-type">Q2: MOAT</td><td>Culture + Low-cost deposits + Brand</td><td>Brand Pricing Power + No Discount</td><td>MOAT ต่างประเภท แต่วัดได้ทั้งคู่</td></tr>
+        <tr><td class="col-type">Q3: Management</td><td>Aditya Puri — 26 ปี Track Record</td><td>Ravi Modi — 75% Ownership</td><td>ทั้งคู่ High Integrity + Skin in Game</td></tr>
+        <tr><td class="col-type">Q4: Runway</td><td>Credit/GDP ต่ำ, Financial Inclusion</td><td>Organized Retail ยังแค่ 15%</td><td>ทั้งคู่อยู่ใน Underpenetrated Market</td></tr>
+        <tr><td class="col-type">Q5: Financials</td><td>ROE 20%+, NPL ต่ำสุด</td><td>Gross 67%, EBITDA 48%, Net Cash</td><td>ตัวเลขต่างกัน แต่ทั้งคู่ยืนยัน MOAT</td></tr>
+        <tr><td class="col-type">Q8: Valuation Tool</td><td>P/B vs ROE/COE</td><td>EV/EBITDA + FCF Yield</td><td>เลือก Valuation Method ตามประเภทธุรกิจ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The pattern is always the same: Simple business, durable moat, honest management, long runway, financial proof, and a price that gives you room for error. Find all six, and hold for decades."</div>
+    <div class="bq-th">รูปแบบเดิมเสมอ: ธุรกิจง่าย, MOAT ที่ทนทาน, ผู้บริหารซื่อสัตย์, Runway ยาว, ตัวเลขยืนยัน, และราคาที่ให้ Margin of Safety — หาให้ครบ 6 ข้อ แล้วถือเป็นสิบๆ ปี</div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Master Pre-Investment Checklist — ก่อนซื้อทุกครั้ง</h3>
+      <p>ผ่านทุกข้อแล้วค่อยลงทุน — ข้ามข้อไม่ได้</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ด่านที่ 1 — ความเข้าใจพื้นฐาน</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">อธิบายธุรกิจให้เพื่อนที่ไม่รู้เรื่องหุ้นฟังได้ใน 5 นาที<div class="cl-note">ถ้าอธิบายไม่ได้ = ยังไม่เข้าใจพอ ไม่ใช่ธุรกิจซับซ้อนเกินไป</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">อ่าน Annual Report ย้อนหลัง 5 ปีเรียบร้อยแล้ว<div class="cl-note">ดูว่าสิ่งที่ผู้บริหารพูดไว้ 5 ปีก่อนเกิดขึ้นจริงไหม</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ด่านที่ 2 — คุณภาพธุรกิจ</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ระบุ MOAT ได้ชัดเจนว่าคืออะไร และมีหลักฐานที่วัดได้<div class="cl-note">เช่น No Discount = Pricing Power · Low NPL = Credit Culture · Market Share เพิ่มขึ้นต่อเนื่อง</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ROE สูงกว่า 15% ต่อเนื่องมากกว่า 5 ปี โดยไม่ใช้ Leverage มากผิดปกติ<div class="cl-note">ROE สูงจาก Leverage ไม่ใช่ MOAT แท้จริง</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">FCF Conversion ดี — กำไรบัญชีแปลงเป็นเงินสดได้จริง<div class="cl-note">ถ้า Net Profit สูงแต่ FCF ต่ำ = มีบางอย่างผิดปกติ ต้องตรวจสอบ</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ด่านที่ 3 — คุณภาพผู้บริหาร</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ผู้บริหารถือหุ้นตัวเองในสัดส่วนที่ meaningful<div class="cl-note">Baid ชอบ Promoter Holding สูง เพราะ alignment ดี</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ประวัติ Capital Allocation ดี — ไม่ M&A แบบฟุ่มเฟือย, ไม่ Dilute ผู้ถือหุ้น<div class="cl-note">ดูการใช้เงินสดในช่วง 5–10 ปีที่ผ่านมา</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Related Party Transactions สมเหตุสมผลและโปร่งใส<div class="cl-note">Red Flag อันดับ 1 ในตลาดเอเชียและ Emerging Markets</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ด่านที่ 4 — Sentiment + Valuation</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">เขียน Investment Thesis ใน 1 หน้ากระดาษ พร้อม Bear Case ที่ชัดเจน<div class="cl-note">ถ้าเขียน Thesis ไม่ได้ใน 1 หน้า = ยังไม่เข้าใจพอ</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Valuation อยู่ใน Margin of Safety ที่ยอมรับได้ตาม Risk ของธุรกิจ<div class="cl-note">Quality สูง = Margin of Safety 20% ก็พอ · Uncertainty สูง = ต้องการ 40–50%</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ตั้ง "Exit Thesis" ไว้แล้ว — จะขายเมื่ออะไรเปลี่ยน<div class="cl-note">ไม่ใช่เมื่อราคาลง แต่เมื่อ Thesis เปลี่ยน</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสุดท้าย — จับมือเลือกหุ้นด้วยตัวเอง</div>
+    <ol class="reflection-list">
+      <li>มีธุรกิจอะไรในชีวิตประจำวันที่เราใช้แล้วรู้สึกว่า "ขาดไม่ได้" — นั่นอาจเป็นจุดเริ่มต้นของ Circle of Competence</li>
+      <li>ถ้าต้องเลือก 1 บริษัทในอุตสาหกรรมที่รู้จักดี และถือ 10 ปีโดยห้ามขาย จะเลือกอะไร — และทำไม?</li>
+      <li>บริษัทที่เลือก มีหลักฐานอะไรที่วัดได้ว่า MOAT จริง? ไม่ใช่แค่รู้สึกว่าดี</li>
+      <li>ผู้บริหารถือหุ้นตัวเองไหม? เขียนอะไรใน Annual Report เมื่อปีที่แล้วที่เกิดขึ้นจริงในปีนี้?</li>
+      <li>ถ้าต้องเขียน "Bear Case ที่แข็งแกร่งที่สุด" สำหรับบริษัทนั้น จะเขียนว่าอะไร — และเหตุผลนั้นทำให้ Thesis ล้มเหลวไหม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="book-footer">
+  <div class="footer-divider"></div>
+  <div class="footer-title">Gautam Baid Case Studies · Volume III</div>
+  <div class="footer-sub">HDFC Bank + Vedant Fashions · Master Framework · จับมือเลือกหุ้น</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baid Deep Dive Vol.2 — ปรัชญาที่วิวัฒน์ + Contrarian Framework</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168,120,42,0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --blue-bg:      #F2F4F8;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #2A1F0E;
+  min-height: 100vh;
+  font-family: 'Noto Serif Thai', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 40px rgba(0,0,0,0.35), 0 0 120px rgba(0,0,0,0.2);
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: #0E0A04;
+  min-height: 100vh;
+  padding: 80px var(--page-pad-h);
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.cover-frame { position: absolute; inset: 24px; border: 1px solid rgba(168,120,42,0.18); pointer-events: none; }
+.cover-vol {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(168,120,42,0.6); margin-bottom: 10px;
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 56px;
+}
+.cover-author-label { font-family: 'Sarabun', sans-serif; font-size: 11px; color: rgba(201,164,78,0.4); letter-spacing: 2px; margin-bottom: 10px; }
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(36px, 7vw, 62px); font-weight: 700;
+  color: var(--gold-light); line-height: 1.1; margin-bottom: 6px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(15px, 2.8vw, 20px); font-weight: 300;
+  color: rgba(201,164,78,0.5); letter-spacing: 0.03em; margin-bottom: 40px;
+}
+.cover-divider { width: 48px; height: 1px; background: var(--gold); margin-bottom: 32px; }
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.85;
+  color: rgba(249,245,236,0.45); max-width: 480px; margin-bottom: 48px;
+}
+.cover-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 64px; }
+.cover-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(168,120,42,0.65);
+  border: 1px solid rgba(168,120,42,0.2); padding: 5px 12px;
+}
+.cover-edition { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; color: rgba(201,164,78,0.2); text-transform: uppercase; margin-top: auto; }
+
+/* ─── PAGE ─── */
+.page { padding: var(--page-pad-v) var(--page-pad-h); border-bottom: 1px solid var(--paper-deep); }
+.page-toc { background: var(--paper-mid); }
+
+/* ─── CHAPTER OPENING ─── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after { content: ''; display: block; width: 40px; height: 2px; background: var(--gold); margin-top: 28px; }
+.ch-num {
+  font-family: 'Noto Serif', serif; font-size: 88px; font-weight: 700;
+  color: var(--paper-shadow); position: absolute; top: 48px; right: var(--page-pad-h);
+  line-height: 1; user-select: none;
+}
+.ch-label { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.ch-title { font-family: 'Noto Serif Thai', serif; font-size: clamp(22px, 4vw, 32px); font-weight: 600; color: var(--ink); line-height: 1.3; }
+.ch-title em { display: block; font-size: 0.6em; font-weight: 300; font-style: normal; color: var(--ink-muted); margin-top: 10px; }
+
+/* ─── TYPOGRAPHY ─── */
+.eyebrow { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+h1 { font-family: 'Noto Serif Thai', serif; font-size: clamp(22px, 3.8vw, 34px); font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 24px; }
+h2 {
+  font-family: 'Noto Serif Thai', serif; font-size: clamp(17px, 2.5vw, 21px); font-weight: 600;
+  color: var(--ink-soft); line-height: 1.3; margin: 48px 0 16px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--gold-rule); position: relative;
+}
+h2::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 32px; height: 2px; background: var(--gold); }
+h3 { font-family: 'Sarabun', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-mid); margin: 32px 0 12px; }
+p { font-family: 'Noto Serif Thai', serif; font-size: 17px; line-height: 1.9; color: var(--ink-soft); margin-bottom: 20px; }
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 600; color: var(--ink); }
+
+/* ─── PULL QUOTE ─── */
+.pullquote { margin: 48px 0; padding: 0 0 0 28px; border-left: 3px solid var(--gold); }
+.pullquote p { font-family: 'Noto Serif', serif; font-size: 19px; font-style: italic; color: var(--ink); line-height: 1.65; margin-bottom: 12px; }
+.pullquote cite { font-family: 'Sarabun', sans-serif; font-size: 12px; color: var(--ink-muted); font-style: normal; letter-spacing: 0.05em; }
+
+/* ─── BLOCKQUOTE FULL ─── */
+.blockquote-full { background: var(--ink); padding: 48px var(--page-pad-h); margin: 48px 0; text-align: center; }
+.bq-en { font-family: 'Noto Serif', serif; font-size: clamp(15px, 2.5vw, 19px); font-style: italic; color: rgba(249,245,236,0.78); line-height: 1.65; margin-bottom: 14px; }
+.bq-th { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: rgba(201,164,78,0.45); line-height: 1.7; }
+
+/* ─── AUTHOR VOICE ─── */
+.author-voice { display: flex; gap: 20px; align-items: flex-start; background: var(--paper-mid); padding: 28px; margin: 36px 0; border: 1px solid var(--paper-shadow); }
+.av-avatar { width: 44px; height: 44px; flex-shrink: 0; background: var(--ink-soft); color: var(--gold-light); font-family: 'Noto Serif', serif; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.av-meta { font-family: 'Sarabun', sans-serif; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.05em; margin-bottom: 8px; }
+.av-text { font-family: 'Noto Serif', serif; font-size: 16px; font-style: italic; color: var(--ink); line-height: 1.65; margin: 0; }
+.av-text-th { display: block; font-style: normal; font-size: 13px; color: var(--ink-muted); margin-top: 8px; font-family: 'Noto Serif Thai', serif; }
+
+/* ─── SIGNAL BOXES ─── */
+.signal-box { padding: 24px 28px; margin: 20px 0; }
+.signal-box.buy  { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.sell { background: var(--red-bg);   border-left: 3px solid var(--red); }
+.signal-box.note { background: var(--blue-bg);  border-left: 3px solid var(--blue-ink); }
+.signal-title { font-family: 'Sarabun', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+.signal-box.buy  .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-box.note .signal-title { color: var(--blue-ink); }
+.signal-list { list-style: none; padding: 0; }
+.signal-list li { font-family: 'Noto Serif Thai', serif; font-size: 15px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 10px; padding-left: 20px; position: relative; }
+.signal-box.buy  .signal-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.signal-box.sell .signal-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+.signal-box.note .signal-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue-ink); font-weight: 700; }
+
+/* ─── CHECKLIST ─── */
+.checklist { border: 1px solid var(--paper-shadow); margin: 40px 0; }
+.checklist-cap { background: var(--ink-soft); padding: 28px 32px; }
+.checklist-cap h3 { font-family: 'Noto Serif Thai', serif; font-size: 17px; font-weight: 600; color: var(--gold-light); text-transform: none; letter-spacing: 0; margin: 0 0 8px; padding: 0; }
+.checklist-cap p { font-family: 'Sarabun', sans-serif; font-size: 13px; color: rgba(249,245,236,0.45); margin: 0; line-height: 1.5; }
+.cl-group-title { font-family: 'Sarabun', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); background: var(--paper-mid); padding: 10px 32px; border-bottom: 1px solid var(--paper-shadow); }
+.cl-items { list-style: none; padding: 0; }
+.cl-items li { display: flex; gap: 16px; align-items: flex-start; padding: 16px 32px; border-bottom: 1px solid var(--paper-deep); }
+.cl-items li:last-child { border-bottom: none; }
+.cl-box { width: 16px; height: 16px; flex-shrink: 0; border: 1px solid var(--paper-shadow); margin-top: 2px; }
+.cl-text { font-family: 'Sarabun', sans-serif; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+.cl-note { font-size: 12px; font-style: italic; color: var(--ink-faint); margin-top: 4px; }
+
+/* ─── COMPARISON TABLE ─── */
+.cmp-table-wrap { overflow-x: auto; margin: 36px 0; border: 1px solid var(--paper-shadow); }
+.cmp-table { width: 100%; border-collapse: collapse; font-family: 'Sarabun', sans-serif; }
+.cmp-table thead tr { background: var(--ink-soft); }
+.cmp-table th { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-light); padding: 14px 18px; text-align: left; }
+.cmp-table td { font-size: 14px; color: var(--ink-soft); padding: 14px 18px; border-bottom: 1px solid var(--paper-deep); line-height: 1.65; }
+.cmp-table tbody tr:last-child td { border-bottom: none; }
+.cmp-table tbody tr:nth-child(even) td { background: var(--paper-mid); }
+.col-type { font-weight: 600; color: var(--ink-mid); min-width: 140px; }
+
+/* ─── TWO COL GRID ─── */
+.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--paper-shadow); border: 1px solid var(--paper-shadow); margin: 36px 0; }
+.grid-card { background: var(--paper); padding: 26px; }
+.grid-card-label { font-family: 'Sarabun', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.grid-card h4 { font-family: 'Noto Serif Thai', serif; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.grid-card p { font-size: 14px; line-height: 1.75; margin-bottom: 0; }
+
+/* ─── FORMULA BLOCK ─── */
+.formula-block { background: var(--paper-mid); border: 1px solid var(--paper-shadow); padding: 32px; margin: 36px 0; text-align: center; }
+.formula-label { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.formula-eq { font-family: 'Noto Serif', serif; font-size: clamp(16px, 2.8vw, 24px); font-weight: 700; color: var(--ink); margin-bottom: 14px; line-height: 1.45; }
+.formula-note { font-family: 'Sarabun', sans-serif; font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+
+/* ─── REFLECTION ─── */
+.reflection { background: var(--paper-mid); border-left: 3px solid var(--gold); padding: 32px; margin: 40px 0; }
+.reflection-title { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.reflection-list { counter-reset: reflection; list-style: none; padding: 0; }
+.reflection-list li { counter-increment: reflection; font-family: 'Noto Serif Thai', serif; font-size: 16px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 16px; padding-left: 32px; position: relative; }
+.reflection-list li::before { content: counter(reflection); position: absolute; left: 0; top: 2px; font-family: 'Noto Serif', serif; font-size: 13px; color: rgba(201,164,78,0.4); font-weight: 700; }
+
+/* ─── ORNAMENT ─── */
+.ornament { border: none; text-align: center; margin: 48px 0; }
+.ornament::before { content: '· · ·'; color: var(--gold-rule); letter-spacing: 12px; font-size: 18px; }
+
+/* ─── STAT ROW ─── */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--paper-shadow); margin: 32px 0; }
+.stat-item { padding: 28px 20px; text-align: center; border-right: 1px solid var(--paper-shadow); }
+.stat-item:last-child { border-right: none; }
+.stat-value { font-family: 'Noto Serif', serif; font-size: 34px; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+.stat-label { font-family: 'Sarabun', sans-serif; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.03em; line-height: 1.4; }
+
+/* ─── TIMELINE ─── */
+.timeline { margin: 40px 0; position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 2px; background: var(--paper-shadow); }
+.tl-item { position: relative; margin-bottom: 40px; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-dot { position: absolute; left: -35px; top: 4px; width: 14px; height: 14px; background: var(--gold); border: 2px solid var(--paper); border-radius: 50%; }
+.tl-phase { font-family: 'Sarabun', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.tl-title { font-family: 'Noto Serif Thai', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.tl-body { font-family: 'Noto Serif Thai', serif; font-size: 16px; line-height: 1.85; color: var(--ink-soft); }
+
+/* ─── FRAMEWORK BOX ─── */
+.framework { border: 1px solid var(--paper-shadow); margin: 40px 0; }
+.fw-header { background: var(--ink); padding: 20px 28px; }
+.fw-title { font-family: 'Noto Serif Thai', serif; font-size: 16px; font-weight: 600; color: var(--gold-light); margin-bottom: 4px; }
+.fw-sub { font-family: 'Sarabun', sans-serif; font-size: 11px; color: rgba(249,245,236,0.35); letter-spacing: 1px; }
+.fw-steps { padding: 0; list-style: none; counter-reset: fw-step; }
+.fw-steps li { counter-increment: fw-step; padding: 20px 28px; border-bottom: 1px solid var(--paper-deep); display: flex; gap: 20px; align-items: flex-start; }
+.fw-steps li:last-child { border-bottom: none; }
+.fw-num { font-family: 'Noto Serif', serif; font-size: 22px; font-weight: 700; color: var(--gold); opacity: 0.4; flex-shrink: 0; min-width: 28px; line-height: 1; margin-top: 2px; }
+.fw-content { flex: 1; }
+.fw-step-title { font-family: 'Sarabun', sans-serif; font-size: 13px; font-weight: 600; color: var(--ink-mid); margin-bottom: 6px; }
+.fw-step-body { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
+
+/* ─── SENTIMENT GAUGE ─── */
+.gauge-wrap { margin: 36px 0; border: 1px solid var(--paper-shadow); overflow: hidden; }
+.gauge-header { background: var(--paper-mid); padding: 16px 24px; border-bottom: 1px solid var(--paper-shadow); }
+.gauge-label { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); }
+.gauge-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.gauge-seg { padding: 18px 16px; text-align: center; }
+.gauge-seg.fear   { background: #FDF2F2; border-right: 1px solid var(--paper-shadow); }
+.gauge-seg.neutral{ background: var(--paper-mid); border-right: 1px solid var(--paper-shadow); }
+.gauge-seg.greed  { background: #F0FAF2; }
+.gauge-seg-title  { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.gauge-seg.fear   .gauge-seg-title { color: var(--red); }
+.gauge-seg.neutral .gauge-seg-title { color: var(--ink-muted); }
+.gauge-seg.greed  .gauge-seg-title { color: var(--green); }
+.gauge-seg-action { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+
+/* ─── INDICATOR GRID ─── */
+.indicator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--paper-shadow); border: 1px solid var(--paper-shadow); margin: 32px 0; }
+.ind-card { background: var(--paper); padding: 22px 24px; }
+.ind-name { font-family: 'Sarabun', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.ind-desc { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 10px; }
+.ind-read { font-family: 'Sarabun', sans-serif; font-size: 12px; color: var(--ink-muted); }
+.ind-read strong { color: var(--green); font-weight: 600; }
+.ind-read em { color: var(--red); font-style: normal; font-weight: 600; }
+
+/* ─── CONTRAST BLOCK ─── */
+.contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 36px 0; border: 1px solid var(--paper-shadow); }
+.contrast-side { padding: 28px; }
+.contrast-side.old { background: var(--red-bg); border-right: 1px solid var(--paper-shadow); }
+.contrast-side.new { background: var(--green-bg); }
+.contrast-label { font-family: 'Sarabun', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+.contrast-side.old .contrast-label { color: var(--red); }
+.contrast-side.new .contrast-label { color: var(--green); }
+.contrast-title { font-family: 'Noto Serif Thai', serif; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+.contrast-body { font-family: 'Noto Serif Thai', serif; font-size: 14px; line-height: 1.8; color: var(--ink-soft); }
+
+/* ─── BOOK FOOTER ─── */
+.book-footer { background: #0E0A04; padding: 64px var(--page-pad-h); text-align: center; }
+.footer-divider { width: 32px; height: 1px; background: var(--gold); margin: 0 auto 32px; }
+.footer-title { font-family: 'Noto Serif', serif; font-size: 18px; font-weight: 600; color: rgba(249,245,236,0.55); margin-bottom: 10px; }
+.footer-sub { font-family: 'Sarabun', sans-serif; font-size: 12px; letter-spacing: 2px; color: rgba(168,120,42,0.3); text-transform: uppercase; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 24px; --page-pad-v: 48px; }
+  .two-col-grid, .indicator-grid, .contrast { grid-template-columns: 1fr; }
+  .contrast-side.old { border-right: none; border-bottom: 1px solid var(--paper-shadow); }
+  .stat-row { grid-template-columns: 1fr; }
+  .gauge-bar { grid-template-columns: 1fr; }
+  .gauge-seg { border-right: none !important; border-bottom: 1px solid var(--paper-shadow); }
+  .ch-num { display: none; }
+  .cmp-table-wrap { overflow-x: auto; }
+  .blockquote-full { padding: 32px 24px; }
+  .author-voice { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-vol">Volume II · เจาะลึก</div>
+  <div class="cover-series">THE JOYS OF COMPOUNDING · ต่อยอดจากเล่มแรก</div>
+  <div class="cover-author-label">ตกผลึกจากปรัชญาของ</div>
+  <div class="cover-title-en">Gautam Baid</div>
+  <div class="cover-title-th">วิวัฒนาการแห่งปรัชญา + Contrarian Framework</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    เอกสารเจาะลึก 2 หัวข้อสำคัญที่สุด: เส้นทางจาก Graham สู่ Buffett ที่ Baid เรียกว่า "Upgrade ปรัชญา" — และ Contrarian Sentiment Framework ที่ใช้งานได้จริง ทีละขั้นตอน
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">Philosophy Evolution</div>
+    <div class="cover-tag">Contrarian Investing</div>
+    <div class="cover-tag">Sentiment Analysis</div>
+    <div class="cover-tag">Quality vs. Price</div>
+  </div>
+  <div class="cover-edition">ฉบับเจาะลึก Vol.2 · ต่อยอดจากเอกสารเล่มแรก</div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- PART ONE: PHILOSOPHY EVOLUTION               -->
+<!-- ════════════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">I</div>
+  <div class="ch-label">ส่วนที่หนึ่ง / Part One</div>
+  <div class="ch-title">
+    Upgrade ปรัชญา
+    <em>จาก Graham สู่ Buffett — เส้นทางที่ Baid ต้องเผชิญด้วยตัวเอง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Philosophy Evolution · วิวัฒนาการแห่งความคิด</div>
+  <h1>ทำไม Baid ถึงต้อง "เปลี่ยน" — และทำไมมันถึงยากมาก</h1>
+
+  <p>
+    ในโลกการลงทุน มีนักลงทุนน้อยมากที่กล้ายอมรับว่าตัวเองเคยคิดผิด แล้วเปลี่ยนได้จริง Baid คือหนึ่งในนั้น เขาบอกตรงๆ ว่า <strong>การเปลี่ยนจาก Graham-style สู่ Buffett-style ไม่ใช่แค่การเปลี่ยนกลยุทธ์ แต่เป็นการทลายความเชื่อหลักที่ยึดมาตลอด</strong>
+  </p>
+  <p>
+    เรื่องนี้สำคัญมากเพราะนักลงทุนรายย่อยส่วนใหญ่ในเอเชียเริ่มต้นจากจุดเดียวกันกับ Baid — อ่าน Graham, เข้าใจ P/E ต่ำ, ชอบของถูก แต่หลายคนไม่เคยวิวัฒน์ออกไปจากจุดนั้น
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price."</div>
+    <div class="bq-th">ดีกว่ามากที่จะซื้อธุรกิจที่ดีเยี่ยมในราคาสมเหตุสมผล แทนที่จะซื้อธุรกิจธรรมดาในราคาที่ดีเยี่ยม — Warren Buffett, จุดเปลี่ยนสำคัญที่ Baid นำมาเป็นแกนกลางของการวิวัฒน์ปรัชญา</div>
+  </div>
+
+  <h2>เริ่มต้นตรงไหน — Graham-Style คืออะไร</h2>
+  <p>
+    <strong>Benjamin Graham</strong> คือบิดาแห่ง Value Investing ผู้วางรากฐานแนวคิดที่ว่า "ซื้อเมื่อราคาต่ำกว่ามูลค่า" โดย Graham เน้นการหาหุ้นที่ขายในราคาต่ำกว่ามูลค่าสินทรัพย์สุทธิ (Net Asset Value) อย่างมาก เขาเรียกหุ้นเหล่านี้ว่า <strong>"Cigar Butt"</strong>
+  </p>
+
+  <div class="signal-box note">
+    <div class="signal-title">คำอธิบาย — "Cigar Butt" คืออะไร</div>
+    <ul class="signal-list">
+      <li>เปรียบเทียบกับก้นบุหรี่ที่ทิ้งไว้บนพื้น — ยังพอมีควันเหลืออยู่นิดหน่อย ยังพอสูบได้ฟรีอีกหนึ่งปาก</li>
+      <li>หุ้น Cigar Butt คือหุ้นที่ราคาถูกมาก (ต่ำกว่า book value หนักๆ) แม้ธุรกิจจะไม่น่าสนใจ แต่ราคาถูกพอที่จะทำกำไรได้เล็กน้อยก่อนขายออก</li>
+      <li>Graham ใช้วิธีนี้ได้ผลดีในยุคที่ตลาดยังขาดประสิทธิภาพสูงมาก และข้อมูลหายาก</li>
+    </ul>
+  </div>
+
+  <p>
+    Baid เริ่มต้นด้วยวิธีนี้และได้ผลในช่วงแรก เขาซื้อหุ้นที่ P/B ต่ำมาก, P/E ต่ำมาก, รอให้ราคาขึ้นมาใกล้มูลค่าแล้วขายออก วนซ้ำ แต่เมื่อเวลาผ่านไป เขาเริ่มพบกับ <strong>ปัญหาที่ Graham ไม่ได้บอกไว้</strong>
+  </p>
+
+  <h2>ปัญหาที่ Baid พบจากการเป็น Graham-Style Investor</h2>
+
+  <div class="contrast">
+    <div class="contrast-side old">
+      <div class="contrast-label">❌ ปัญหาที่พบ</div>
+      <div class="contrast-title">ของถูกที่ "ถูก" ด้วยเหตุผล</div>
+      <div class="contrast-body">หุ้นที่ P/B ต่ำมากส่วนใหญ่ถูกเพราะธุรกิจกำลังเสื่อมถอย ไม่มี MOAT ไม่มีการเติบโต ซื้อมาแล้วรอ แต่รอนานแค่ไหนก็ไม่ขึ้นเพราะ intrinsic value ก็กำลังลดลงเรื่อยๆ</div>
+    </div>
+    <div class="contrast-side new">
+      <div class="contrast-label">✅ บทเรียน</div>
+      <div class="contrast-title">ราคาถูก ≠ การลงทุนที่ดี</div>
+      <div class="contrast-body">ธุรกิจที่ดีในราคาสมเหตุสมผลให้ผลตอบแทนดีกว่าธุรกิจแย่ในราคาถูกมาก เพราะธุรกิจดีมี intrinsic value ที่เพิ่มขึ้นทุกปี แม้ตลาดยังไม่เห็น เราก็รวยขึ้นอยู่ดี</div>
+    </div>
+  </div>
+
+  <p>
+    <strong>ปัญหาที่ 1 — Value Trap:</strong> Baid ซื้อหุ้นที่ P/E 5 เท่า ดูถูกมาก แต่ปีต่อมา P/E ยังอยู่ที่ 5 เท่า เพราะกำไรลดลงไปด้วย ราคาหุ้นไม่ขึ้น และธุรกิจก็ไม่ได้ดีขึ้น — นี่คือ "Value Trap" ที่หลายคนติดกัน
+  </p>
+  <p>
+    <strong>ปัญหาที่ 2 — ไม่มี Compounding:</strong> Cigar Butt strategy ไม่ได้ compound ในระยะยาว เพราะซื้อ-ขาย-หาตัวใหม่ ต้องใช้ความพยายามสูง และกำไรแต่ละดีลมักน้อย ขณะที่ธุรกิจดีที่ถือยาวๆ compound ให้เราโดยไม่ต้องทำอะไร
+  </p>
+  <p>
+    <strong>ปัญหาที่ 3 — ต้นทุนโอกาส:</strong> เงินที่ล็อคอยู่ใน Cigar Butt ที่รอนาน ทำให้ขาดโอกาสลงทุนในธุรกิจที่ดีกว่า Baid เริ่มคำนวณว่า ถ้าเอาเงินก้อนเดิมไปซื้อธุรกิจดีๆ ตั้งแต่ต้น จะได้ผลตอบแทนต่างกันแค่ไหน
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Evolution · เส้นทางการเปลี่ยนแปลง</div>
+  <h1>3 ระยะของการวิวัฒน์ปรัชญา Baid</h1>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Phase 1 · จุดเริ่มต้น</div>
+      <div class="tl-title">Graham Pure — ซื้อของถูก ขายทำกำไร</div>
+      <div class="tl-body">
+        Baid เริ่มต้นด้วยหลักการ Graham บริสุทธิ์ — หาหุ้นที่ P/B ต่ำกว่า 1, Net-net stocks (หุ้นที่ราคาต่ำกว่า working capital สุทธิ), และ deep discount to book value เขาได้ผลตอบแทนที่ดีในช่วงแรก และสร้างความมั่นใจว่า "วิธีนี้ใช้ได้" แต่เขายังไม่เห็นภาพใหญ่
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Phase 2 · บทเรียนเจ็บปวด</div>
+      <div class="tl-title">Value Trap ครั้งแรก — ของถูกที่ถูกด้วยเหตุผล</div>
+      <div class="tl-body">
+        Baid พบว่าหุ้นหลายตัวที่ดูถูกมากตาม Graham framework ราคาไม่กลับขึ้นมา เพราะธุรกิจกำลังเสื่อมถอยอย่างช้าๆ นี่คือ "ของถูกที่ถูกด้วยเหตุผล" — ตลาดไม่ได้โง่เสมอไป บางครั้งตลาดเห็นสิ่งที่เราไม่เห็น เขาเริ่มตั้งคำถามกับตัวเองว่า "ถ้าธุรกิจนี้ไม่ดี แล้วทำไมราคาถึงจะขึ้น?"
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Phase 3 · การค้นพบ Munger</div>
+      <div class="tl-title">Charlie Munger เปลี่ยนทุกอย่าง</div>
+      <div class="tl-body">
+        Baid อ่านงานของ Charlie Munger และพบประโยคที่เปลี่ยนชีวิต: "Buffett became a better investor when he moved away from Graham's pure quantitative approach and started focusing on qualitative factors like competitive advantages and management quality." Munger เป็นคนที่โน้มน้าว Buffett ให้ซื้อ See's Candy ในราคาที่ Graham จะบอกว่าแพงเกินไป — และนั่นกลายเป็นหนึ่งในการลงทุนที่ดีที่สุดในประวัติศาสตร์
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Phase 4 · Upgrade สมบูรณ์</div>
+      <div class="tl-title">Buffett-Style Quality Investor — เป้าหมายถาวร</div>
+      <div class="tl-body">
+        Baid รวมทั้งสามศาสตร์เข้าหากัน: ความเข้มงวดด้านราคาของ Graham (Margin of Safety), การมองหาธุรกิจที่ดีของ Fisher (Scuttlebutt research), และการเน้น MOAT + Management ของ Buffett/Munger เขาเรียกนี่ว่า "ปรัชญาที่สมบูรณ์" ที่เหมาะกับนักลงทุนยุคปัจจุบัน
+      </div>
+    </div>
+  </div>
+
+  <h2>กรณีศึกษา — See's Candy: บทเรียนที่เปลี่ยน Baid</h2>
+  <p>
+    Baid ใช้กรณี See's Candy เป็นตัวอย่างที่ชัดเจนที่สุดในการอธิบาย "Upgrade ปรัชญา" เพราะมันแสดงให้เห็นว่า Buffett เองก็ต้องเรียนรู้เรื่องนี้จาก Munger
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">กรณีศึกษา See's Candy — 1972</div>
+    <div class="formula-eq">ซื้อในราคา $25M · Graham บอกว่า "แพงเกินไป" · Munger บอก "ซื้อเลย"</div>
+    <div class="formula-note">ตลอด 50 ปีถัดมา See's Candy สร้างกำไรสะสมกว่า $2,000M ให้ Berkshire — ด้วยเงินลงทุนเพียง $25M เพราะ MOAT (แบรนด์ + ความภักดีของลูกค้า) ทำให้ขึ้นราคาได้ทุกปีโดยไม่ต้องลงทุนเพิ่ม</div>
+  </div>
+
+  <p>
+    <strong>บทเรียนจาก See's Candy:</strong> ถ้า Buffett ใช้ Graham framework บริสุทธิ์ เขาจะไม่ซื้อเพราะ "แพงเกินไปตาม P/B" แต่เพราะ Munger ช่วยให้เขาเห็น <strong>พลังของ Pricing Power และ Brand MOAT</strong> ที่ไม่ปรากฏในตัวเลขงบการเงิน See's Candy กลายเป็น compounder ที่สร้างผลตอบแทน 80x ในระยะเวลา 50 ปี
+  </p>
+
+  <div class="author-voice">
+    <div class="av-avatar">GB</div>
+    <div>
+      <div class="av-meta">Gautam Baid — The Joys of Compounding, บทว่าด้วย Quality vs. Price</div>
+      <p class="av-text">"Graham taught me to look for value. Buffett taught me that value and quality are inseparable in the long run. Munger taught me that the best businesses can be held forever."
+        <span class="av-text-th">Graham สอนให้มองหามูลค่า · Buffett สอนว่ามูลค่าและคุณภาพแยกจากกันไม่ได้ในระยะยาว · Munger สอนว่าธุรกิจที่ดีที่สุดสามารถถือได้ตลอดไป — นี่คือแก่นของ "Upgrade ปรัชญา" ที่ Baid พูดถึง</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Upgrade Framework · วิธีคิดใหม่</div>
+  <h1>วิธีใช้ปรัชญาที่ Upgrade แล้วในทางปฏิบัติ</h1>
+  <p>
+    เมื่อ Baid วิวัฒน์ปรัชญา คำถามที่เปลี่ยนไปไม่ใช่แค่ "ถูกพอไหม?" แต่กลายเป็น 3 คำถามที่ต้องตอบได้ทั้งหมด
+  </p>
+
+  <div class="framework">
+    <div class="fw-header">
+      <div class="fw-title">The Upgraded Investment Test — 3 คำถามที่ต้องผ่านทั้งหมด</div>
+      <div class="fw-sub">Graham · Fisher · Buffett/Munger รวมกัน</div>
+    </div>
+    <ul class="fw-steps">
+      <li>
+        <div class="fw-num">1</div>
+        <div class="fw-content">
+          <div class="fw-step-title">คุณภาพธุรกิจ — มาจาก Fisher + Buffett</div>
+          <div class="fw-step-body">ธุรกิจนี้มี MOAT ที่ยั่งยืนไหม? ทีมผู้บริหารมี integrity และ capital allocation ที่ดีไหม? Baid ถามตัวเองว่า "ถ้าต้องถือ 10 ปีโดยไม่ดูราคา ธุรกิจนี้จะดีขึ้นหรือแย่ลง?" — ถ้าตอบว่าดีขึ้น ผ่านด่านแรก</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">2</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ราคาสมเหตุสมผล — มาจาก Graham</div>
+          <div class="fw-step-body">ไม่จำเป็นต้องถูกมาก แต่ต้องไม่แพงเกินจน Margin of Safety หายไปทั้งหมด Baid ยอมจ่ายแพงกว่า P/E Graham ยอมรับ แต่ต้องการ "ราคาสมเหตุสมผลเมื่อเทียบกับ intrinsic value ที่เติบโต" ไม่ใช่ถูกที่สุดในตลาด</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">3</div>
+        <div class="fw-content">
+          <div class="fw-step-title">Compounding Power — มาจาก Munger</div>
+          <div class="fw-step-body">ธุรกิจนี้สามารถ reinvest กำไรในอัตรา ROE สูงได้นานแค่ไหน? ถ้า reinvest ได้ในอัตรา 20% ต่อปีเป็น 20 ปี intrinsic value จะเพิ่มขึ้น 38 เท่า — นี่คือ Power ที่ Cigar Butt ไม่มี และ Baid หยุดมองข้ามมันตั้งแต่วันที่ Upgrade ปรัชญา</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2>เปรียบเทียบตัวเลข — ทำไม Quality ถึงชนะในระยะยาว</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>สถานการณ์</th>
+          <th>Graham-Style (Cigar Butt)</th>
+          <th>Buffett-Style (Quality)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ราคาซื้อ</td>
+          <td>P/E 5x (ถูกมาก)</td>
+          <td>P/E 20x (ราคาสมเหตุสมผล)</td>
+        </tr>
+        <tr>
+          <td class="col-type">การเติบโตของกำไร</td>
+          <td>0% ต่อปี (ธุรกิจหยุดนิ่ง)</td>
+          <td>15% ต่อปี (ธุรกิจมี MOAT เติบโต)</td>
+        </tr>
+        <tr>
+          <td class="col-type">หลังถือ 10 ปี</td>
+          <td>กำไรเท่าเดิม ราคาอาจลด</td>
+          <td>กำไรเพิ่มขึ้น 4x ราคาตามขึ้น</td>
+        </tr>
+        <tr>
+          <td class="col-type">ผลตอบแทนรวม</td>
+          <td>อาจได้ 30–50% ใน 10 ปี (ถ้าตลาดเห็นด้วย)</td>
+          <td>400–600% ใน 10 ปี จาก earnings growth</td>
+        </tr>
+        <tr>
+          <td class="col-type">ความเสี่ยง</td>
+          <td>ธุรกิจอาจเสื่อมถอยต่อ ราคาไม่ขึ้น</td>
+          <td>P/E compression ได้ แต่ earnings growth ชดเชย</td>
+        </tr>
+        <tr>
+          <td class="col-type">สรุป Baid</td>
+          <td>เหมาะกับ trade ระยะสั้น ไม่ใช่ compounding</td>
+          <td>"This is what I want to own for decades"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pullquote">
+    <p>"Time is the friend of the wonderful business, the enemy of the mediocre."</p>
+    <cite>Warren Buffett — ประโยคที่ Baid บอกว่า "เปลี่ยนวิธีมองการลงทุนของผมตลอดกาล"</cite>
+  </div>
+
+  <p>
+    Baid อธิบายให้เห็นภาพชัดว่า: ธุรกิจธรรมดาที่ซื้อถูก — เวลาเป็นศัตรู เพราะยิ่งถือนาน ธุรกิจยิ่งอ่อนแอลง แต่ธุรกิจดีที่ซื้อในราคาสมเหตุสมผล — เวลาเป็นเพื่อน เพราะ intrinsic value เพิ่มขึ้นทุกปีโดยอัตโนมัติ
+  </p>
+
+  <h2>สิ่งที่ Baid ยังเก็บรักษาจาก Graham</h2>
+  <p>
+    การ "Upgrade" ไม่ได้หมายความว่าทิ้ง Graham ทั้งหมด Baid บอกชัดว่า <strong>Graham ยังเป็น "รากฐาน"</strong> เขายังใช้:
+  </p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ สิ่งที่ยังคงมาจาก Graham</div>
+    <ul class="signal-list">
+      <li>Margin of Safety — ยังต้องซื้อในราคาที่มีส่วนเผื่อ ไม่ใช่ซื้อแพงทุกราคาแค่เพราะธุรกิจดี</li>
+      <li>Mr. Market Metaphor — ยังใช้ตลาดให้เป็นประโยชน์ ไม่ตามฝูงชน</li>
+      <li>ความเข้มงวดในการวิเคราะห์ตัวเลข — Graham สอนให้อ่านงบการเงินอย่างละเอียด</li>
+      <li>ความระมัดระวังในยามตลาดร้อน — Graham สอนให้กลัวมากกว่าโลภ</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">⚠️ สิ่งที่ Baid ปรับออกจาก Graham</div>
+    <ul class="signal-list">
+      <li>การมองแค่ตัวเลขโดยไม่สนใจ qualitative factors — MOAT, ผู้บริหาร, อุตสาหกรรม</li>
+      <li>การยึดติดกับ P/B ต่ำเป็นเกณฑ์หลัก — P/B ต่ำอาจหมายความว่า intangible assets สูง</li>
+      <li>การขายเมื่อราคาขึ้นถึง intrinsic value — Baid บอกว่าถ้าธุรกิจยังดีและยังถูก ถือต่อ</li>
+      <li>การกระจายหุ้นมากเกินไปแบบ Graham แนะนำ — Baid ชอบ Focused Portfolio มากกว่า</li>
+    </ul>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">Graham</div>
+      <div class="stat-label">รากฐาน ·<br>ความเข้มงวดด้านราคา</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Fisher</div>
+      <div class="stat-label">ชั้นที่สอง ·<br>การวิจัยเชิงคุณภาพ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">Munger</div>
+      <div class="stat-label">ชั้นสูงสุด ·<br>MOAT + Compounding Power</div>
+    </div>
+  </div>
+
+  <p style="text-align:center; margin-top: 24px;">
+    <em style="color: var(--ink-muted); font-family: 'Sarabun', sans-serif; font-size: 14px;">นี่คือ "สถาปัตยกรรมปรัชญา" ที่ Baid สร้างขึ้นหลังการ Upgrade — ไม่ได้ทิ้งใคร แต่วางแต่ละชั้นให้ถูกที่</em>
+  </p>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง — ปรัชญาของเราอยู่ที่ไหน</div>
+    <ol class="reflection-list">
+      <li>ปัจจุบันเราเป็น "Graham-style" หรือ "Quality-style" มากกว่ากัน — และมีเหตุผลอะไรที่ทำให้เป็นแบบนั้น?</li>
+      <li>เคยติด "Value Trap" ไหม — ซื้อของถูกแล้วรอนาน แต่ไม่ขึ้น เพราะธุรกิจไม่ดีขึ้น?</li>
+      <li>ถ้าต้องถือหุ้นที่มีในพอร์ตตอนนี้อีก 10 ปีโดยห้ามขาย เรารู้สึกยังไง — สบายใจ หรือกังวล?</li>
+      <li>เราให้น้ำหนักกับ "ราคา" กับ "คุณภาพธุรกิจ" ในสัดส่วนเท่าไหร่ และเหมาะสมกับ horizon การลงทุนของเราไหม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- PART TWO: CONTRARIAN FRAMEWORK              -->
+<!-- ════════════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">II</div>
+  <div class="ch-label">ส่วนที่สอง / Part Two</div>
+  <div class="ch-title">
+    Contrarian Sentiment Framework
+    <em>วิธีที่ Baid ตรวจ Sentiment ก่อนลงทุน — ทีละขั้นตอน</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Contrarian Investing · การลงทุนทวนกระแส</div>
+  <h1>Contrarian คืออะไร — และทำไม Baid ถึงเชื่อเรื่องนี้</h1>
+
+  <p>
+    <strong>Contrarian Investor</strong> คือนักลงทุนที่ซื้อเมื่อตลาดกลัว และขาย (หรืออย่างน้อยระมัดระวัง) เมื่อตลาดโลภ แต่ Baid เตือนว่า <strong>การเป็น Contrarian ที่ดีไม่ใช่แค่ "ทำตรงกันข้ามกับตลาด" เสมอไป</strong> — นั่นเป็นความเข้าใจผิดที่อันตราย
+  </p>
+  <p>
+    Contrarian ที่แท้จริงในสไตล์ Baid คือ: <strong>ใช้ Sentiment ของตลาดเป็นข้อมูลเพิ่มเติม ประกอบกับการวิเคราะห์พื้นฐาน เพื่อหาจังหวะที่ "ราคาถูกกว่า intrinsic value มากผิดปกติ"</strong> — นั่นคือเมื่อตลาดตื่นตระหนกเกินเหตุ
+  </p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Be fearful when others are greedy, and greedy when others are fearful."</div>
+    <div class="bq-th">จงกลัวเมื่อคนอื่นโลภ และโลภเมื่อคนอื่นกลัว — Warren Buffett ประโยคที่ Baid บอกว่าดูง่ายแต่ทำยากมาก เพราะต้องฝืนสัญชาตญาณทุกอณู</div>
+  </div>
+
+  <h2>ทำไมตลาดถึงสร้างโอกาส Contrarian อยู่ตลอดเวลา</h2>
+  <p>
+    Baid อธิบายด้วย behavioral economics ว่า ตลาดมักเกิดความไม่สมดุลระหว่าง "ราคา" กับ "มูลค่า" เป็นประจำ เพราะนักลงทุนส่วนใหญ่ตัดสินใจด้วยอารมณ์ ไม่ใช่เหตุผล ผลคือ:
+  </p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">ตลาดกลัวมากเกินไป</div>
+      <h4>ราคาต่ำกว่ามูลค่ามาก</h4>
+      <p>เกิดขึ้นเมื่อ: ข่าวร้าย, วิกฤตเศรษฐกิจ, อุตสาหกรรมเจอปัญหาชั่วคราว, บริษัทเจอ scandal เล็กน้อย — ตลาดขายแบบไม่แยกแยะ ทั้งหุ้นดีและแย่ราคาตกเหมือนกัน</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">ตลาดโลภมากเกินไป</div>
+      <h4>ราคาสูงกว่ามูลค่ามาก</h4>
+      <p>เกิดขึ้นเมื่อ: ตลาดขาขึ้นนาน, FOMO ระบาด, ทุกคนซื้อเพราะกลัวพลาด — ราคาแพงกว่า intrinsic value มาก และ Margin of Safety หายไป</p>
+    </div>
+  </div>
+
+  <p>
+    Baid บอกว่าโอกาสที่ดีที่สุดมักเกิดในช่วง <strong>"Maximum Pessimism"</strong> — เมื่อนักลงทุนส่วนใหญ่กลัว, สื่อพาดหัวข่าวร้าย, และแทบไม่มีใครพูดถึงหุ้นตัวนั้นในแง่ดีเลย นั่นแหละคือเวลาที่ Contrarian ลงมือ
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Framework · กรอบการทำงาน</div>
+  <h1>Contrarian Sentiment Framework — ทีละขั้นตอน</h1>
+  <p>
+    Baid ไม่ได้ลงทุน Contrarian แบบสุ่มสี่สุ่มห้า เขามีกระบวนการที่ชัดเจนในการประเมิน Sentiment ก่อนตัดสินใจ framework นี้แบ่งเป็น 4 ขั้นตอนที่ทำงานร่วมกัน
+  </p>
+
+  <div class="framework">
+    <div class="fw-header">
+      <div class="fw-title">Baid's Contrarian Sentiment Framework</div>
+      <div class="fw-sub">4 ขั้นตอน · ใช้ก่อนตัดสินใจลงทุนทุกครั้ง</div>
+    </div>
+    <ul class="fw-steps">
+      <li>
+        <div class="fw-num">1</div>
+        <div class="fw-content">
+          <div class="fw-step-title">วัด Sentiment ตลาด — ตลาดรู้สึกยังไงตอนนี้?</div>
+          <div class="fw-step-body">ก่อนอื่นต้องเข้าใจว่า Sentiment โดยรวมอยู่ที่จุดไหน — กลัว, เป็นกลาง, หรือโลภ โดยใช้ชุดตัวชี้วัดที่ Baid สังเกตเป็นประจำ (ดูส่วน Indicators ด้านล่าง)</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">2</div>
+        <div class="fw-content">
+          <div class="fw-step-title">แยกแยะ Sector/Stock Sentiment — เฉพาะหุ้นที่สนใจ</div>
+          <div class="fw-step-body">ตลาดโดยรวมกับหุ้นหรืออุตสาหกรรมที่เราสนใจอาจอยู่ต่างจุดกัน บางครั้งตลาดโดยรวมปกติ แต่อุตสาหกรรมหนึ่งเจอ Panic Selling เฉพาะจุด — นั่นคือ "Sector Contrarian Opportunity"</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">3</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ตรวจสอบว่า Panic มีเหตุผลหรือเกินเหตุ — ขั้นตอนที่สำคัญที่สุด</div>
+          <div class="fw-step-body">Baid เน้นย้ำว่า "ไม่ใช่ทุก Panic คือโอกาส" บางครั้งตลาดกลัวมีเหตุผล — ธุรกิจกำลังพังจริงๆ ต้องถามว่า "ปัญหาที่ตลาดกลัวคืออะไร? เป็นปัญหาชั่วคราวหรือถาวร? ส่งผลต่อ intrinsic value จริงแค่ไหน?"</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">4</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ลงมือซื้อเมื่อ Sentiment + Fundamentals ตรงกัน</div>
+          <div class="fw-step-body">ซื้อเมื่อ: Sentiment อยู่ในโซน Fear/Panic + ธุรกิจยังแข็งแกร่ง + ราคามี Margin of Safety ที่ชัดเจน — เมื่อทั้ง 3 เงื่อนไขมาพร้อมกัน Baid บอกว่านั่นคือ "โอกาสทองที่ต้องกล้าลงมือ"</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2>ตัวชี้วัด Sentiment ที่ Baid ใช้ติดตาม</h2>
+  <p>
+    Baid ไม่มีสูตรตายตัวในการวัด Sentiment แต่เขาติดตามชุดตัวชี้วัดหลายอย่างพร้อมกัน แล้ว "รู้สึก" ว่าตลาดอยู่ในโซนไหน — ไม่ใช่การคำนวณแม่นยำ แต่เป็นการสังเกตที่สม่ำเสมอ
+  </p>
+
+  <div class="indicator-grid">
+    <div class="ind-card">
+      <div class="ind-name">Media Coverage</div>
+      <div class="ind-desc">ดูว่าหุ้นหรืออุตสาหกรรมที่สนใจถูกพูดถึงในสื่อยังไง — พาดหัวเชิงลบมากๆ, นักวิเคราะห์ลดเป้าราคาพร้อมกัน, ทุกคนพูดถึงความเสี่ยงแต่ไม่มีใครพูดถึง upside</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> พาดหัวข่าวร้ายทุกสื่อ, เสียงกลัวดังมาก<br><em>โซน Sell:</em> ทุกสื่อยกย่อง, นักวิเคราะห์แข่งกันขึ้นราคาเป้า</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Analyst Consensus</div>
+      <div class="ind-desc">ดูทิศทางของ analyst rating — ถ้า consensus เป็น Sell/Underperform ทั้งหมด และนักวิเคราะห์พร้อมใจลดราคาเป้า มักเป็นสัญญาณว่าตลาดตื่นตระหนกมากเกิน</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> Rating เป็น Sell ส่วนใหญ่, ราคาเป้าต่ำมาก<br><em>โซน Sell:</em> Rating เป็น Buy ทั้งหมด, ราคาเป้าพุ่งสูง</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Insider Activity</div>
+      <div class="ind-desc">ผู้บริหารและผู้ถือหุ้นรายใหญ่ทำอะไรอยู่ — ถ้าราคาลงมามากแต่ Insider กำลังซื้อเพิ่ม นั่นเป็นสัญญาณที่แข็งแกร่งมากว่า "คนในรู้อะไรที่ตลาดไม่รู้"</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> Insider ซื้อเพิ่ม ขณะราคาตก<br><em>โซน Sell:</em> Insider ขายออกขณะราคาสูง</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Short Interest</div>
+      <div class="ind-desc">สัดส่วนผู้ที่ "เดิมพันว่าราคาจะลง" (Short Selling) ถ้าสูงมากผิดปกติ อาจหมายความว่าตลาดกลัวมากเกิน และถ้า short squeezed จะทำให้ราคาพุ่งสูงได้รวดเร็ว</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> Short Interest สูงผิดปกติ<br><em>โซน Sell:</em> Short Interest ต่ำมาก ทุกคนมั่นใจ</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Put/Call Ratio</div>
+      <div class="ind-desc">อัตราส่วนของตราสารที่คนซื้อเพื่อ "กันความเสี่ยงขาลง" (Put) เทียบกับ "เดิมพันขาขึ้น" (Call) — ค่าสูงหมายถึงคนกลัวมาก ค่าต่ำหมายถึงคนมั่นใจมาก</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> Put/Call Ratio สูงผิดปกติ<br><em>โซน Sell:</em> Put/Call Ratio ต่ำมาก ทุกคนมั่นใจ</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Fund Flows</div>
+      <div class="ind-desc">เงินไหลเข้า-ออกจาก Fund หรือ Sector — ถ้าเงินไหลออกจาก Sector ต่อเนื่องหลายเดือน มักหมายความว่า Institutional ขายออกจนหมดแล้ว และ "แรงขายใกล้หมด"</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> เงินไหลออกต่อเนื่อง<br><em>โซน Sell:</em> เงินไหลเข้าต่อเนื่อง</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Valuation vs. History</div>
+      <div class="ind-desc">เปรียบเทียบ P/E, EV/EBITDA ปัจจุบันกับ historical range ของบริษัทเองและอุตสาหกรรม — ถ้า P/E อยู่ที่ percentile ต่ำมากในประวัติศาสตร์ ขณะที่ fundamentals ยังดี เป็น contrarian signal ที่ชัดเจน</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> Valuation ต่ำกว่า Historical Average มาก<br><em>โซน Sell:</em> Valuation สูงกว่า Historical Average มาก</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-name">Social Sentiment</div>
+      <div class="ind-desc">บทสนทนาในชุมชนนักลงทุน ถ้าหุ้นตัวหนึ่งไม่มีคนพูดถึงเลย หรือพูดถึงแต่ในแง่ลบ นั่นอาจเป็น "forgotten stock" ที่ตลาดมองข้ามไป — Baid ชอบค้นหาหุ้นประเภทนี้</div>
+      <div class="ind-read"><strong>โซน Buy:</strong> ไม่มีใครพูดถึง หรือพูดแต่เชิงลบ<br><em>โซน Sell:</em> ทุกคนตื่นเต้น พูดถึงในทุก platform</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Sentiment Zones · โซน Sentiment</div>
+  <h1>แผนที่ Sentiment — เราอยู่ที่ไหน ควรทำอะไร</h1>
+
+  <div class="gauge-wrap">
+    <div class="gauge-header">
+      <div class="gauge-label">Baid's Sentiment Zone Map — ควรทำอะไรในแต่ละโซน</div>
+    </div>
+    <div class="gauge-bar">
+      <div class="gauge-seg fear">
+        <div class="gauge-seg-title">🔴 FEAR / PANIC</div>
+        <div class="gauge-seg-action">เวลาของ Contrarian · ซื้อธุรกิจดีที่ราคาตกโดยไม่มีเหตุผลพื้นฐาน</div>
+      </div>
+      <div class="gauge-seg neutral">
+        <div class="gauge-seg-title">⚪ NEUTRAL</div>
+        <div class="gauge-seg-action">รอจังหวะ · ทำการบ้าน ไม่รีบ ให้ Mr. Market มาหาเราเอง</div>
+      </div>
+      <div class="gauge-seg greed">
+        <div class="gauge-seg-title">🟢 GREED / EUPHORIA</div>
+        <div class="gauge-seg-action">ระมัดระวัง · อาจถือเงินสดมากขึ้น หลีกเลี่ยงหุ้นที่ Overvalued ชัดเจน</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>ข้อผิดพลาดสำคัญของ Contrarian ที่ Baid เตือน</h2>
+  <p>
+    Baid ย้ำหนักมากว่า <strong>การเป็น Contrarian ที่ผิดวิธีอาจอันตรายกว่าการตามกระแส</strong> เขาเห็นนักลงทุนหลายคน "คิดว่าตัวเองเป็น Contrarian" แต่จริงๆ แล้วแค่ดื้อรั้น
+  </p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">⚠️ Contrarian ที่ผิด — อย่าทำแบบนี้</div>
+    <ul class="signal-list">
+      <li>ซื้อเพราะราคาลงมามาก โดยไม่ตรวจสอบว่าปัญหาเป็นชั่วคราวหรือถาวร — "Falling Knife" ที่จับแล้วเจ็บมือ</li>
+      <li>ทำตรงกันข้ามกับตลาดทุกครั้งโดยไม่คิด — บางครั้งตลาดถูก ปัญหาธุรกิจเป็นเรื่องจริง</li>
+      <li>ถือหุ้นที่ราคาลงโดยอ้างว่า "เป็น Contrarian" ทั้งที่จริงๆ แค่ไม่กล้ายอมรับว่าผิด</li>
+      <li>ไม่มี Exit Plan — ถ้า Thesis ผิดจะทำอะไร Contrarian ต้องรู้ว่า "เมื่อไหร่จะยอมรับว่าผิด"</li>
+    </ul>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ Contrarian ที่ถูก — แบบ Baid</div>
+    <ul class="signal-list">
+      <li>วิเคราะห์พื้นฐานก่อน — ธุรกิจดีและ intrinsic value ไม่เปลี่ยน แต่ราคาลงเพราะ sentiment ไม่ใช่เพราะธุรกิจพัง</li>
+      <li>ตรวจสอบว่าปัญหาที่ตลาดกลัวเป็น "ชั่วคราว" — เช่น ข่าวร้ายที่แก้ไขได้, วิกฤตที่ไม่ได้กระทบ business model</li>
+      <li>มี Margin of Safety ชัดเจน — ไม่ใช่ "คิดว่าถูก" แต่ตัวเลขบอกว่าถูก</li>
+      <li>มี Thesis ที่ชัดเจนว่า "เมื่อไหร่ตลาดจะกลับมามอง" — อาจเป็น catalyst ที่คาดได้</li>
+    </ul>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>กรณีศึกษา — วิธีที่ Baid คิดในช่วง Panic</h2>
+  <p>
+    เพื่อให้เห็นภาพชัดขึ้น ลองดูว่า Baid จะคิดยังไงในสถานการณ์ตลาด Panic ทั่วไป:
+  </p>
+
+  <div class="framework">
+    <div class="fw-header">
+      <div class="fw-title">ตัวอย่าง: อุตสาหกรรม X เจอ Bad News ราคาตก 40%</div>
+      <div class="fw-sub">Baid's Thinking Process — ทีละขั้น</div>
+    </div>
+    <ul class="fw-steps">
+      <li>
+        <div class="fw-num">1</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ขั้นแรก — เข้าใจ Panic ให้ลึก</div>
+          <div class="fw-step-body">อ่านข่าวทุกชิ้น ทำความเข้าใจว่าตลาดกลัวอะไรจริงๆ ไม่ใช่แค่ "ราคาลง" แต่ "ลงเพราะอะไร" — regulatory risk? Demand ลด? คู่แข่งใหม่? Management scandal? แต่ละอย่างมีน้ำหนักต่างกันมาก</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">2</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ขั้นสอง — แยก Signal ออกจาก Noise</div>
+          <div class="fw-step-body">ถามว่า "ปัญหานี้ส่งผลกระทบต่อ intrinsic value จริงแค่ไหน?" ถ้าตลาดกลัวว่ากำไรจะลด 20% แต่ราคาลด 40% — มีความไม่สมดุลที่น่าสนใจ แต่ถ้ากำไรจะหายไปทั้งหมดถาวร — ราคาลดแค่ 40% อาจยังแพงอยู่</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">3</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ขั้นสาม — คำนวณ Intrinsic Value ใหม่</div>
+          <div class="fw-step-body">อย่าซื้อก่อนคำนวณ ใช้ worst-case scenario ที่เป็นไปได้จริง แล้วดูว่าที่ราคาปัจจุบัน มี Margin of Safety เพียงพอไหมแม้ในกรณีที่แย่ที่สุด ถ้าใช่ — นั่นคือ opportunity ที่แท้จริง</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">4</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ขั้นสี่ — ตรวจ Sentiment Indicators</div>
+          <div class="fw-step-body">ดู Insider ยังซื้ออยู่ไหม, Fund ยังขายอยู่ไหม, นักวิเคราะห์ consensus อยู่ที่ไหน — ถ้าทุกอย่างบอกว่า "กลัวมาก" แต่พื้นฐานยังดี ก็ยิ่งน่าสนใจมาก</div>
+        </div>
+      </li>
+      <li>
+        <div class="fw-num">5</div>
+        <div class="fw-content">
+          <div class="fw-step-title">ขั้นห้า — ลงมือหรือรอ</div>
+          <div class="fw-step-body">ถ้าผ่านทั้ง 4 ขั้น — ซื้อ แต่ไม่ต้องรีบใส่ทั้งหมดทีเดียว Baid มักซื้อ 1/3 ก่อน แล้วรอดูว่า Panic ลึกลงไปอีกไหม ถ้าลึกลง (และพื้นฐานไม่เปลี่ยน) ก็เพิ่มอีก — เขาเรียกนี่ว่า "Buying in tranches"</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Practical Tools · เครื่องมือใช้งาน</div>
+  <h1>Contrarian Checklist — ใช้ก่อนลงทุนทุกครั้ง</h1>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Baid's Contrarian Investment Checklist</h3>
+      <p>ผ่านทุกข้อก่อนลงทุนใน Contrarian Opportunity — ถ้าติดข้อไหน ต้องหาคำตอบให้ได้ก่อน</p>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">Step 1 — เข้าใจ Panic</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ระบุได้ชัดเจนว่าตลาดกลัวอะไร — ไม่ใช่แค่ "กลัวราคาลง"<div class="cl-note">เขียนออกมาเป็นคำพูดชัดๆ ว่า "ตลาดกลัวว่า X จะเกิดขึ้น"</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ประเมินว่าความกลัวนั้นมีเหตุผลหรือเกินเหตุ<div class="cl-note">ดูจากประวัติศาสตร์: เคยเกิดแบบนี้ก่อนไหม? ผลเป็นอย่างไร?</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ปัญหาที่ตลาดกลัวเป็นชั่วคราว (ไม่เกิน 1–2 ปี) หรือถาวร<div class="cl-note">ถ้าถาวร — ไม่ใช่ Contrarian Opportunity แต่เป็น Value Trap</div></div></li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">Step 2 — ตรวจ Fundamentals</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">MOAT ของธุรกิจยังคงสมบูรณ์ ไม่ได้ถูกกระทบโดยปัญหาที่เกิดขึ้น<div class="cl-note">ถามว่า "ในอีก 5 ปี ธุรกิจนี้จะยังมี competitive advantage ไหม?"</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ผู้บริหาร integrity ยังดีอยู่ ไม่มีปัญหาด้าน governance ใหม่<div class="cl-note">ถ้า Panic มาจาก management scandal — ระวังมาก</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">งบการเงินยังแข็งแกร่ง หนี้ไม่สูงเกิน cash flow สามารถแบกรับวิกฤตได้<div class="cl-note">บริษัทที่มีหนี้สูงในยามวิกฤตอาจไม่รอด แม้ business model ดี</div></div></li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">Step 3 — วัด Sentiment</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ตรวจ Media Coverage — ส่วนใหญ่เป็นเชิงลบ หรือไม่มีใครพูดถึงเลย<div class="cl-note">ถ้ายังมีสื่อชมเชยอยู่บ้าง Panic อาจยังไม่ถึงจุดสูงสุด</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Analyst Consensus เป็น Sell/Underperform เป็นส่วนใหญ่<div class="cl-note">เมื่อ consensus เป็น Buy ทั้งหมด — ทุกคนซื้อแล้ว ไม่มี upside</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ตรวจ Insider Buying — มีผู้บริหารซื้อหุ้นตัวเองในช่วงราคาตกไหม<div class="cl-note">นี่คือ Signal ที่แข็งแกร่งที่สุด — คนในรู้ดีที่สุดว่าธุรกิจเป็นยังไง</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Valuation อยู่ต่ำกว่า Historical Average อย่างมีนัยสำคัญ (Bottom Quartile)<div class="cl-note">เปรียบเทียบ P/E ปัจจุบันกับ 5–10 ปีย้อนหลัง</div></div></li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">Step 4 — วางแผนก่อนลงมือ</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">คำนวณ Intrinsic Value ในกรณี Base และ Worst Case<div class="cl-note">ถ้า Worst Case ยังให้ Margin of Safety — ลงทุนได้</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">กำหนด Position Size ที่เหมาะสม — ไม่ใส่ทุกอย่างในครั้งเดียว<div class="cl-note">Baid แนะนำ 1/3 ก่อน แล้วรอโอกาสเพิ่มถ้า Panic ลึกขึ้น</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียน "Exit Thesis" — ถ้าอะไรเปลี่ยน เราจะขาย<div class="cl-note">Contrarian ต้องรู้ว่า Thesis เปลี่ยนเมื่อไหร่ ไม่ใช่แค่ถือตายตัว</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>คำถามสำคัญที่สุด — ชั่วคราว หรือ ถาวร?</h2>
+  <p>
+    Baid บอกว่าคำถามนี้สำคัญที่สุดใน Contrarian Framework: <strong>"ปัญหาที่ทำให้ราคาลงนี้ เป็นปัญหาชั่วคราวหรือถาวร?"</strong>
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ประเภทปัญหา</th>
+          <th>ตัวอย่าง</th>
+          <th>Contrarian Opportunity?</th>
+          <th>การตอบสนองของ Baid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ชั่วคราว ✅</td>
+          <td>วิกฤตเศรษฐกิจ, ราคาวัตถุดิบพุ่ง, ข่าวร้ายที่แก้ไขได้</td>
+          <td>ใช่ — ถ้าธุรกิจแข็งแกร่งพอรับได้</td>
+          <td>ซื้อในช่วง Panic สูงสุด รอ sentiment กลับ</td>
+        </tr>
+        <tr>
+          <td class="col-type">อาจชั่วคราว ⚠️</td>
+          <td>Regulatory ใหม่, คู่แข่งรายใหม่เข้าตลาด</td>
+          <td>ต้องวิเคราะห์ลึก — ขึ้นกับบริษัทเฉพาะ</td>
+          <td>รอข้อมูลเพิ่มก่อน ไม่รีบลงทุน</td>
+        </tr>
+        <tr>
+          <td class="col-type">ถาวร ❌</td>
+          <td>Disruption จาก Technology, Secular Decline, MOAT พังถาวร</td>
+          <td>ไม่ — นี่คือ Value Trap</td>
+          <td>หลีกเลี่ยง แม้ราคาจะถูกแค่ไหน</td>
+        </tr>
+        <tr>
+          <td class="col-type">Governance ❌❌</td>
+          <td>Fraud, Management ทุจริต, Accounting ปลอม</td>
+          <td>ไม่ — เด็ดขาด ไม่ลงทุน</td>
+          <td>Baid บอกว่า "ไม่มีราคาถูกพอที่จะซื้อธุรกิจที่ผู้บริหารไม่ซื่อสัตย์"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="author-voice">
+    <div class="av-avatar">GB</div>
+    <div>
+      <div class="av-meta">Gautam Baid — The Joys of Compounding, บทว่าด้วย Contrarian Thinking</div>
+      <p class="av-text">"The goal of the contrarian investor is not to be different for the sake of being different. It's to be right when others are wrong — and that requires doing the work to know you're right."
+        <span class="av-text-th">เป้าหมายของ Contrarian ไม่ใช่การแตกต่างเพื่อแตกต่าง แต่คือการถูกเมื่อคนอื่นผิด — และสิ่งนั้นต้องการการทำการบ้านจนรู้ว่าตัวเองถูก ไม่ใช่แค่รู้สึกว่าถูก</span>
+      </p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง — Contrarian Framework</div>
+    <ol class="reflection-list">
+      <li>ในพอร์ตปัจจุบัน มีหุ้นตัวไหนที่ "ทุกคนรักมาก" — ถ้ามี เราแน่ใจแค่ไหนว่าไม่ได้ซื้อเพราะ FOMO?</li>
+      <li>ครั้งสุดท้ายที่เราซื้อในช่วงตลาดตกหนัก — เราทำด้วยการวิเคราะห์หรือเพราะแค่ "ดูถูก"?</li>
+      <li>มีอุตสาหกรรมหรือหุ้นอะไรที่ทุกคนกำลังเกลียดอยู่ตอนนี้ — เราได้ตรวจสอบ fundamentals หรือยัง?</li>
+      <li>เราสามารถนิ่งเฉยได้ไหมเมื่อหุ้นที่ซื้อด้วย Contrarian thesis ลงต่อไปอีก 20% ก่อนจะขึ้น?</li>
+      <li>ถ้าต้องเขียน "Bear Case" สำหรับหุ้นที่ชอบที่สุดในพอร์ตตอนนี้ จะเขียนว่าอะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="book-footer">
+  <div class="footer-divider"></div>
+  <div class="footer-title">Gautam Baid Deep Dive · Volume II</div>
+  <div class="footer-sub">Philosophy Evolution + Contrarian Framework · ต่อยอดจากเล่มแรก</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
