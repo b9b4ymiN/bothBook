@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trading in the Zone — ปรัชญาของ Mark Douglas</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #F9F5EC;
+    --paper-mid:    #F1EAD8;
+    --paper-deep:   #E8DDCA;
+    --paper-shadow: #DDD0B8;
+    --ink:          #1E1508;
+    --ink-soft:     #3A2D16;
+    --ink-mid:      #5C4A28;
+    --ink-muted:    #8C7455;
+    --ink-faint:    #B09A78;
+    --gold:         #A8782A;
+    --gold-light:   #C9A44E;
+    --gold-rule:    rgba(168,120,42,0.25);
+    --red:          #7A1A1A;
+    --red-bg:       #FDF5F5;
+    --green:        #1A4E2A;
+    --green-bg:     #F4FAF5;
+    --blue-ink:     #1A2B4A;
+    --book-width:   740px;
+    --page-pad-h:   72px;
+    --page-pad-v:   80px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #2A1F0E;
+    font-family: 'Noto Serif Thai', 'Noto Serif', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .book {
+    max-width: var(--book-width);
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 40px rgba(0,0,0,0.35), 0 0 120px rgba(0,0,0,0.2);
+  }
+
+  /* ─── COVER ─── */
+  .cover {
+    background: #120D04;
+    min-height: 100vh;
+    padding: 64px var(--page-pad-h);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover-frame {
+    position: absolute; inset: 20px;
+    border: 1px solid rgba(168,120,42,0.2);
+    pointer-events: none;
+  }
+  .cover-frame::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(168,120,42,0.08);
+  }
+  .cover-series {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(168,120,42,0.6);
+    margin-bottom: 48px;
+  }
+  .cover-author-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; color: rgba(168,120,42,0.5);
+    letter-spacing: 2px; margin-bottom: 6px;
+  }
+  .cover-title-en {
+    font-family: 'Noto Serif', serif;
+    font-size: clamp(44px, 8vw, 72px);
+    font-weight: 700; line-height: 1.0;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  .cover-title-th {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 400; color: rgba(201,164,78,0.55);
+    margin-bottom: 40px; line-height: 1.5;
+  }
+  .cover-divider {
+    width: 48px; height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 32px;
+  }
+  .cover-subtitle {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px; line-height: 1.8;
+    color: rgba(249,245,236,0.45);
+    max-width: 440px; margin-bottom: 48px;
+  }
+  .cover-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 64px;
+  }
+  .cover-tag {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; letter-spacing: 1.5px;
+    padding: 4px 12px;
+    border: 1px solid rgba(168,120,42,0.3);
+    color: rgba(168,120,42,0.6);
+  }
+  .cover-edition {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; color: rgba(168,120,42,0.3);
+    letter-spacing: 2px; margin-top: auto;
+  }
+  .cover-fear-banner {
+    margin: 32px 0;
+    padding: 20px 24px;
+    border: 1px solid rgba(122,26,26,0.4);
+    background: rgba(122,26,26,0.08);
+  }
+  .cover-fear-banner p {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px; color: rgba(249,245,236,0.5);
+    font-style: italic; line-height: 1.7;
+  }
+
+  /* ─── CHAPTER OPEN ─── */
+  .chapter-open {
+    background: var(--paper-mid);
+    padding: 72px var(--page-pad-h) 64px;
+    border-bottom: 1px solid var(--paper-shadow);
+    position: relative;
+  }
+  .chapter-open::after {
+    content: '';
+    display: block;
+    width: 40px; height: 2px;
+    background: var(--gold);
+    margin-top: 28px;
+  }
+  .ch-num {
+    font-family: 'Noto Serif', serif;
+    font-size: 88px; font-weight: 700;
+    color: var(--paper-shadow);
+    position: absolute; top: 40px; right: var(--page-pad-h);
+    line-height: 1;
+    user-select: none;
+  }
+  .ch-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  .ch-title {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 600; color: var(--ink);
+    line-height: 1.3;
+  }
+  .ch-title em {
+    display: block; font-style: italic;
+    font-size: 0.65em; font-weight: 400;
+    color: var(--ink-mid); margin-top: 8px;
+  }
+
+  /* ─── PAGE ─── */
+  .page {
+    padding: var(--page-pad-v) var(--page-pad-h);
+    border-bottom: 1px solid var(--paper-deep);
+  }
+
+  .eyebrow {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 600; color: var(--ink);
+    line-height: 1.3; margin-bottom: 24px;
+  }
+  h2 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: 600; color: var(--ink-soft);
+    margin: 48px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gold-rule);
+    position: relative;
+  }
+  h2::after {
+    content: ''; position: absolute;
+    bottom: -1px; left: 0;
+    width: 32px; height: 2px;
+    background: var(--gold);
+  }
+  h3 {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--ink-mid);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin: 32px 0 12px;
+  }
+  p {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 17px; line-height: 1.9;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  strong { color: var(--ink); font-weight: 600; }
+
+  /* ─── PULL QUOTE ─── */
+  .pullquote {
+    margin: 48px 0;
+    padding: 0 0 0 28px;
+    border-left: 3px solid var(--gold);
+  }
+  .pullquote p {
+    font-family: 'Noto Serif', serif;
+    font-size: 19px; font-style: italic;
+    color: var(--ink); line-height: 1.65;
+    margin-bottom: 10px;
+  }
+  .pullquote cite {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 12px; color: var(--ink-muted);
+    font-style: normal; letter-spacing: 1px;
+  }
+
+  /* ─── BLOCKQUOTE FULL ─── */
+  .blockquote-full {
+    background: var(--ink);
+    padding: 40px 48px; margin: 48px 0;
+    text-align: center;
+  }
+  .bq-en {
+    font-family: 'Noto Serif', serif;
+    font-size: clamp(15px, 2.5vw, 19px);
+    font-style: italic;
+    color: rgba(249,245,236,0.75);
+    line-height: 1.6; margin-bottom: 12px;
+  }
+  .bq-th {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 13px;
+    color: rgba(201,164,78,0.5);
+    line-height: 1.6;
+  }
+
+  /* ─── TRUTH BOX ─── */
+  .truth-box {
+    margin: 32px 0;
+    border: 1px solid var(--paper-shadow);
+    overflow: hidden;
+  }
+  .truth-header {
+    background: var(--ink-soft);
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .truth-num {
+    font-family: 'Noto Serif', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--gold-light); opacity: 0.6;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .truth-title-en {
+    font-family: 'Noto Serif', serif;
+    font-size: 15px; font-style: italic;
+    color: rgba(249,245,236,0.8);
+    line-height: 1.3;
+  }
+  .truth-title-th {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 12px; color: rgba(201,164,78,0.5);
+    margin-top: 3px;
+  }
+  .truth-body {
+    padding: 24px;
+    background: var(--paper);
+  }
+  .truth-body p {
+    font-size: 16px; line-height: 1.85;
+    margin-bottom: 14px;
+  }
+  .truth-body p:last-child { margin-bottom: 0; }
+  .truth-why {
+    margin-top: 16px;
+    padding: 16px 20px;
+    background: var(--paper-mid);
+    border-left: 2px solid var(--gold);
+  }
+  .truth-why-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 8px; font-weight: 600;
+  }
+  .truth-why p {
+    font-size: 15px; line-height: 1.75;
+    color: var(--ink-mid); margin: 0;
+  }
+
+  /* ─── SIGNAL BOX ─── */
+  .signal-box {
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .signal-box.buy {
+    background: var(--green-bg);
+    border-left: 3px solid var(--green);
+  }
+  .signal-box.sell {
+    background: var(--red-bg);
+    border-left: 3px solid var(--red);
+  }
+  .signal-title {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .signal-box.buy .signal-title { color: var(--green); }
+  .signal-box.sell .signal-title { color: var(--red); }
+  .signal-list {
+    list-style: none; padding: 0;
+  }
+  .signal-list li {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px; line-height: 1.6;
+    color: var(--ink-soft); padding: 4px 0;
+    display: flex; gap: 10px;
+  }
+  .signal-box.buy .signal-list li::before { content: '+'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .signal-box.sell .signal-list li::before { content: '−'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+  /* ─── COMPARISON TABLE ─── */
+  .cmp-table-wrap { overflow-x: auto; margin: 32px 0; }
+  .cmp-table {
+    width: 100%; border-collapse: collapse;
+    font-family: 'Sarabun', sans-serif; font-size: 14px;
+  }
+  .cmp-table th {
+    background: var(--ink-soft);
+    color: var(--gold-light);
+    padding: 12px 16px; text-align: left;
+    font-weight: 600; font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .cmp-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--paper-deep);
+    color: var(--ink-soft); line-height: 1.6;
+    vertical-align: top;
+  }
+  .cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+  .col-type {
+    font-weight: 600; color: var(--ink);
+    white-space: nowrap;
+  }
+  .col-neg { color: var(--red) !important; }
+  .col-pos { color: var(--green) !important; }
+
+  /* ─── CHECKLIST ─── */
+  .checklist { margin: 40px 0; border: 1px solid var(--paper-shadow); }
+  .checklist-cap {
+    background: var(--ink-soft);
+    padding: 20px 24px;
+  }
+  .checklist-cap h3 {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--gold-light); letter-spacing: 2px;
+    text-transform: uppercase; margin: 0 0 6px;
+  }
+  .checklist-cap p {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px; color: rgba(249,245,236,0.5);
+    margin: 0; font-style: italic;
+  }
+  .cl-group { padding: 0 24px 20px; }
+  .cl-group-title {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; font-weight: 600;
+    color: var(--gold); letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 16px 0 10px;
+    border-bottom: 1px solid var(--paper-deep);
+    margin-bottom: 14px;
+    background: var(--paper-mid);
+    margin-left: -24px; margin-right: -24px;
+    padding-left: 24px;
+  }
+  .cl-items { list-style: none; padding: 0; }
+  .cl-items li {
+    display: flex; gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--paper-deep);
+    align-items: flex-start;
+  }
+  .cl-items li:last-child { border-bottom: none; }
+  .cl-box {
+    width: 16px; height: 16px;
+    border: 1px solid var(--paper-shadow);
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .cl-text {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 14px; color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .cl-note {
+    font-size: 12px; font-style: italic;
+    color: var(--ink-faint); margin-top: 4px;
+  }
+
+  /* ─── STAT ROW ─── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--paper-mid);
+    border: 1px solid var(--paper-shadow);
+    margin: 32px 0;
+  }
+  .stat-item {
+    padding: 24px;
+    text-align: center;
+    border-right: 1px solid var(--paper-shadow);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-value {
+    font-family: 'Noto Serif', serif;
+    font-size: 36px; font-weight: 700;
+    color: var(--gold); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; color: var(--ink-muted);
+    line-height: 1.4;
+  }
+
+  /* ─── TWO-COL GRID ─── */
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--paper-shadow);
+    border: 1px solid var(--paper-shadow);
+    margin: 32px 0;
+  }
+  .grid-card {
+    background: var(--paper);
+    padding: 22px;
+  }
+  .grid-card h4 {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: var(--gold); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .grid-card p {
+    font-size: 14px; line-height: 1.7;
+    color: var(--ink-mid); margin: 0;
+  }
+
+  /* ─── REFLECTION ─── */
+  .reflection {
+    margin: 40px 0;
+    border: 1px solid var(--paper-shadow);
+    overflow: hidden;
+  }
+  .reflection-title {
+    background: var(--paper-mid);
+    padding: 14px 24px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); border-bottom: 1px solid var(--paper-shadow);
+  }
+  .reflection-list {
+    list-style: none; padding: 16px 24px;
+    counter-reset: ref-counter;
+  }
+  .reflection-list li {
+    counter-increment: ref-counter;
+    padding: 12px 0 12px 40px;
+    border-bottom: 1px solid var(--paper-deep);
+    position: relative;
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px; line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .reflection-list li:last-child { border-bottom: none; }
+  .reflection-list li::before {
+    content: counter(ref-counter);
+    position: absolute; left: 0; top: 12px;
+    font-family: 'Noto Serif', serif;
+    font-size: 20px; font-weight: 700;
+    color: rgba(168,120,42,0.25);
+    line-height: 1;
+  }
+
+  /* ─── ORNAMENT ─── */
+  .ornament {
+    border: none; text-align: center;
+    margin: 48px 0;
+  }
+  .ornament::before {
+    content: '· · ·'; color: var(--gold-rule);
+    letter-spacing: 12px; font-size: 18px;
+  }
+
+  /* ─── FORMULA BLOCK ─── */
+  .formula-block {
+    margin: 32px 0;
+    padding: 24px 28px;
+    background: var(--paper-mid);
+    border: 1px solid var(--paper-shadow);
+    text-align: center;
+  }
+  .formula-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 14px; font-weight: 600;
+  }
+  .formula-eq {
+    font-family: 'Noto Serif', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--ink); line-height: 1.4;
+    margin-bottom: 14px;
+  }
+  .formula-note {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13px; color: var(--ink-muted);
+    line-height: 1.6; max-width: 500px; margin: 0 auto;
+  }
+
+  /* ─── FEAR BOX ─── */
+  .fear-box {
+    margin: 32px 0;
+    background: #FDF5F5;
+    border: 1px solid rgba(122,26,26,0.15);
+    padding: 24px 28px;
+  }
+  .fear-box-title {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 14px;
+  }
+  .fear-box p {
+    font-size: 15px; color: var(--ink-soft);
+    line-height: 1.8; margin-bottom: 10px;
+  }
+  .fear-box p:last-child { margin: 0; }
+
+  /* ─── STEP LIST ─── */
+  .step-list { padding: 0; list-style: none; counter-reset: step-counter; margin: 24px 0; }
+  .step-list li {
+    counter-increment: step-counter;
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 16px 0; border-bottom: 1px solid var(--paper-deep);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: counter(step-counter);
+    font-family: 'Noto Serif', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--gold); opacity: 0.5;
+    line-height: 1; flex-shrink: 0;
+    min-width: 28px; text-align: right;
+    margin-top: 2px;
+  }
+  .step-content { font-family: 'Noto Serif Thai', serif; font-size: 16px; line-height: 1.8; color: var(--ink-soft); }
+  .step-content strong { color: var(--ink); }
+
+  /* ─── AUTHOR VOICE ─── */
+  .author-voice {
+    display: flex; gap: 18px; align-items: flex-start;
+    margin: 32px 0; padding: 20px 24px;
+    background: var(--paper-mid);
+    border: 1px solid var(--paper-shadow);
+  }
+  .av-avatar {
+    width: 44px; height: 44px;
+    background: var(--ink-soft);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif', serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--gold-light); flex-shrink: 0;
+  }
+  .av-meta {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; color: var(--ink-muted);
+    letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .av-text {
+    font-family: 'Noto Serif', serif;
+    font-size: 15px; font-style: italic;
+    color: var(--ink); line-height: 1.65;
+    margin: 0;
+  }
+  .av-text-th {
+    display: block; font-style: normal;
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 13px; color: var(--ink-mid);
+    margin-top: 8px; line-height: 1.7;
+  }
+
+  /* ─── BOOK FOOTER ─── */
+  .book-footer {
+    background: #120D04;
+    padding: 48px var(--page-pad-h);
+    text-align: center;
+  }
+  .book-footer p {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 12px; color: rgba(168,120,42,0.35);
+    letter-spacing: 1.5px; line-height: 1.8;
+  }
+  .book-footer .footer-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 18px; font-style: italic;
+    color: rgba(201,164,78,0.3);
+    margin-bottom: 16px;
+  }
+
+  /* ─── INTRO / SUMMARY BOX ─── */
+  .intro-block {
+    padding: 28px 32px;
+    background: var(--paper-mid);
+    border-left: 4px solid var(--gold);
+    margin-bottom: 40px;
+  }
+  .intro-block .intro-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 12px; font-weight: 600;
+  }
+  .intro-block p {
+    font-size: 16px; line-height: 1.85;
+    color: var(--ink-soft); margin: 0;
+  }
+  .intro-block p + p { margin-top: 12px; }
+
+  /* ─── MINDSET TAG ─── */
+  .mindset-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .mtag {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px; padding: 4px 14px;
+    border: 1px solid var(--paper-shadow);
+    color: var(--ink-muted); background: var(--paper);
+  }
+
+  /* ─── TOC ─── */
+  .toc-list { list-style: none; padding: 0; margin: 24px 0; }
+  .toc-list li {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--paper-deep);
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px; color: var(--ink-soft);
+  }
+  .toc-list li:last-child { border-bottom: none; }
+  .toc-ch {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px; color: var(--gold);
+    letter-spacing: 1.5px; margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .toc-title { flex: 1; line-height: 1.4; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 780px) {
+    :root {
+      --page-pad-h: 24px;
+      --page-pad-v: 48px;
+    }
+    .two-col-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    .ch-num { display: none; }
+    .cmp-table-wrap { overflow-x: auto; }
+    .blockquote-full { padding: 32px 24px; }
+    .cover { padding: 48px 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ───────────────── COVER ───────────────── -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">TRADING PSYCHOLOGY · MARK DOUGLAS</div>
+  <div class="cover-author-label">ปรัชญาของ / By</div>
+  <div class="cover-title-en">Trading<br>in the Zone</div>
+  <div class="cover-title-th">เทรดอยู่ใน Zone — สภาวะจิตใจของนักลงทุนที่ชนะ</div>
+  <div class="cover-divider"></div>
+  <div class="cover-fear-banner">
+    <p>"ทำไมเราถึงกลัวกดปุ่ม Buy ทั้งที่ Analysis บอกว่าใช่แล้ว?"</p>
+  </div>
+  <div class="cover-subtitle">เอกสารฉบับสมบูรณ์ว่าด้วยจิตวิทยาการเทรด Five Fundamental Truths และศิลปะของการคิดแบบ Probabilistic เพื่อให้ลงมือได้โดยไม่มีความกลัวครอบงำ</div>
+  <div class="cover-tags">
+    <div class="cover-tag">Psychology</div>
+    <div class="cover-tag">Five Truths</div>
+    <div class="cover-tag">Probabilistic Mindset</div>
+    <div class="cover-tag">ภาษาไทย</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ · ภาษาไทย · สกัดจาก Trading in the Zone</div>
+</div>
+
+<!-- ───────────────── TABLE OF CONTENTS ───────────────── -->
+<div class="page">
+  <div class="eyebrow">สารบัญ</div>
+  <h1>เนื้อหาทั้งหมด</h1>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Fundamental Truths<br>ที่ต้องเข้าใจ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">4</div>
+      <div class="stat-label">ประเภทความกลัว<br>ของนักเทรด</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1</div>
+      <div class="stat-label">Mindset ที่เปลี่ยน<br>ทุกอย่างได้</div>
+    </div>
+  </div>
+
+  <ul class="toc-list">
+    <li>
+      <span class="toc-ch">บทนำ</span>
+      <span class="toc-title">Executive Summary — แก่นสารที่ต้องรู้</span>
+    </li>
+    <li>
+      <span class="toc-ch">บทที่ 1</span>
+      <span class="toc-title">ทำไมเราถึงกลัวกดปุ่ม Buy — ต้นตอของความกลัวในการเทรด</span>
+    </li>
+    <li>
+      <span class="toc-ch">บทที่ 2</span>
+      <span class="toc-title">Five Fundamental Truths — ความจริง 5 ข้อที่เปลี่ยน Mindset</span>
+    </li>
+    <li>
+      <span class="toc-ch">บทที่ 3</span>
+      <span class="toc-title">Probabilistic Mindset — วิธีคิดแบบนักเทรดมืออาชีพ</span>
+    </li>
+    <li>
+      <span class="toc-ch">บทที่ 4</span>
+      <span class="toc-title">ความเชื่อที่ทำลายการเทรด — และวิธีถอนรากออก</span>
+    </li>
+    <li>
+      <span class="toc-ch">บทที่ 5</span>
+      <span class="toc-title">การลงมือทำ — จาก Theory สู่ Practice</span>
+    </li>
+    <li>
+      <span class="toc-ch">บทสรุป</span>
+      <span class="toc-title">Checklist และคำถามไตร่ตรอง</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ───────────────── EXECUTIVE SUMMARY ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">00</div>
+  <div class="ch-label">บทนำ / Introduction</div>
+  <div class="ch-title">
+    Executive Summary
+    <em>แก่นสารที่ต้องรู้ก่อนอ่านทั้งหมด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <div class="intro-label">สรุปหลักสำคัญ</div>
+    <p>Trading in the Zone ของ Mark Douglas ไม่ใช่หนังสือสอนเทคนิคการวิเคราะห์ แต่เป็นคำตอบของคำถามที่นักเทรดเกือบทุกคนเคยสงสัย — <strong>ทำไมฉันถึงรู้ว่าควรซื้อ แต่กลับกดไม่ลง?</strong> ทำไมพอเข้าออเดอร์แล้วถึงตัดขาดทุนไม่ได้? ทำไมถึงออกกำไรเร็วแต่ปล่อยขาดทุนนาน?</p>
+    <p>คำตอบทั้งหมดอยู่ที่ <strong>จิตใจ ไม่ใช่ระบบ</strong> Mark Douglas บอกว่าปัญหาของนักเทรดไม่ได้อยู่ที่การวิเคราะห์ตลาด แต่อยู่ที่ความเชื่อและกรอบความคิดที่มีต่อ "ความเป็นไปได้" และ "ความไม่แน่นอน"</p>
+    <p>เอกสารนี้จะพาทุกคนเข้าใจ <strong>Five Fundamental Truths</strong> — ความจริง 5 ข้อที่ถ้าซึมซับได้จริง จะเปลี่ยนวิธีที่เราสัมพันธ์กับตลาด เปลี่ยนจากการ "กลัว" เป็น "ยอมรับ" และเปลี่ยนจากการ "หวัง" เป็นการ "ลงมือตามระบบ"</p>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The best traders think in a completely different way than the majority of traders. They have a set of unique skills that allow them to trade without fear and without reckless abandon."</div>
+    <div class="bq-th">นักเทรดที่ดีที่สุดมีวิธีคิดที่แตกต่างจากคนส่วนใหญ่ — พวกเขาเทรดโดยไม่มีความกลัว และไม่ได้สะเพร่า</div>
+  </div>
+
+  <h2>บทความนี้จะให้อะไร</h2>
+  <p>หลังอ่านจบ เราจะเข้าใจว่า <strong>ความกลัวในการเทรดเกิดขึ้นได้อย่างไร</strong> และมีรากฐานมาจากอะไร เราจะรู้จัก Five Fundamental Truths ในเชิงลึกพร้อมตัวอย่างที่เป็นรูปธรรม และที่สำคัญที่สุด — เราจะมีแนวทางที่ชัดเจนในการฝึก Probabilistic Mindset เพื่อลงมือได้โดยไม่ต้องรอให้ความกลัวหายไปก่อน</p>
+
+  <div class="mindset-tags">
+    <span class="mtag">🧠 จิตวิทยาการเทรด</span>
+    <span class="mtag">📊 Probabilistic Thinking</span>
+    <span class="mtag">💪 Discipline</span>
+    <span class="mtag">🎯 Edge Management</span>
+    <span class="mtag">😨 Fear &amp; Risk</span>
+  </div>
+</div>
+
+<!-- ───────────────── CHAPTER 1 ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Chapter One</div>
+  <div class="ch-title">
+    ทำไมเราถึงกลัวกดปุ่ม Buy
+    <em>ทั้งที่ Analysis บอกว่าใช่แล้ว</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ต้นตอของปัญหา</div>
+  <h1>ความกลัวไม่ได้มาจากตลาด — มาจากในหัวเรา</h1>
+
+  <p>ลองนึกถึงสถานการณ์ที่คุ้นเคย: กราฟส่งสัญญาณครบ Volume เข้ามารองรับ Pattern ชัดเจน ทุกอย่างที่ระบบบอกว่า "ใช่" กำลังบอกว่า "ใช่" แต่มือที่คลิก Buy กลับไม่ยอมขยับ หรือถ้าขยับ ก็ใช้ขนาดเล็กกว่าที่ควรจะเป็น</p>
+
+  <p>นี่คือปัญหาที่ Mark Douglas ศึกษามากว่า 30 ปี และคำตอบที่เขาค้นพบเปลี่ยนโลกของจิตวิทยาการเทรดไปตลอดกาล</p>
+
+  <div class="pullquote">
+    <p>"Fear is not a market condition. It's a mental condition created by your beliefs about what the market is going to do."</p>
+    <cite>Mark Douglas — Trading in the Zone</cite>
+  </div>
+
+  <p>ความกลัวในการเทรดไม่ได้เกิดจากตลาด เพราะตลาดไม่รู้ว่าเราอยู่ตรงนั้น ตลาดแค่เคลื่อนไหวไปตามแรงซื้อและแรงขายของผู้เล่นนับล้านรายทั่วโลก ความกลัวเกิดจาก <strong>ความเชื่อที่เราสร้างขึ้นในหัว</strong> เกี่ยวกับสิ่งที่ตลาด "กำลังจะ" เกิดขึ้น</p>
+
+  <h2>ความกลัว 4 รูปแบบที่นักเทรดเจอ</h2>
+  <p>Mark Douglas ระบุว่าความกลัวในการเทรดมีอยู่ 4 รูปแบบหลัก และแต่ละรูปแบบทำให้เราทำพฤติกรรมที่ขัดกับ Edge ของตัวเอง</p>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">1</div>
+      <div>
+        <div class="truth-title-en">Fear of Being Wrong</div>
+        <div class="truth-title-th">กลัวว่าจะวิเคราะห์ผิด</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>ความกลัวรูปแบบนี้ทำให้เรา <strong>ลังเลก่อนกดซื้อ</strong> หรือปรับ Stop Loss ออกไปเรื่อยๆ เพราะถ้า Stop ถูก Hit แสดงว่าเราวิเคราะห์ผิด และนั่นทำให้รู้สึกด้อยค่า</p>
+      <p>ปัญหาคือในตลาด "ผิด" และ "ถูก" ไม่มีความหมายตามที่เราเชื่อ Trade ที่ขาดทุนไม่ได้แปลว่าการวิเคราะห์แย่ และ Trade ที่กำไรก็ไม่ได้แปลว่าวิเคราะห์ดี</p>
+      <div class="truth-why">
+        <div class="truth-why-label">ผลที่เกิดขึ้น</div>
+        <p>ขยับ Stop Loss จนไม่มีความหมาย, เพิ่ม Position เพื่อ Average Down หวังให้ราคากลับมา, ไม่ยอมตัดขาดทุนเพราะยัง "ไม่ยอมรับว่าผิด"</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">2</div>
+      <div>
+        <div class="truth-title-en">Fear of Losing Money</div>
+        <div class="truth-title-th">กลัวเสียเงิน</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>รูปแบบนี้ดูเหมือนสมเหตุสมผล แต่เมื่อมันควบคุมการตัดสินใจ มันทำให้เรา <strong>ไม่กล้าเข้า Position ตามระบบ</strong> หรือใช้ขนาดที่เล็กเกินจนผลตอบแทนไม่สมเหตุสมผลกับเวลาที่ลงทุนไป</p>
+      <div class="truth-why">
+        <div class="truth-why-label">ผลที่เกิดขึ้น</div>
+        <p>Skip การเทรดที่ดีเพราะ "รู้สึกว่า" จะแพ้, ลด Position Size จนไม่มีความหมาย, ออกกำไรเร็วมากเพราะกลัวกำไรหาย</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">3</div>
+      <div>
+        <div class="truth-title-en">Fear of Missing Out (FOMO)</div>
+        <div class="truth-title-th">กลัวพลาดโอกาส</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>ความกลัวที่ดูเหมือนตรงข้าม แต่มีรากเดียวกัน นั่นคือ <strong>การไม่ยอมรับความไม่แน่นอน</strong> เมื่อเห็นตลาดวิ่งไปโดยไม่มีเรา เราตีความว่านั่นคือ "ความผิดพลาด" และรีบเข้าตลาดโดยไม่ผ่าน Setup ที่ถูกต้อง</p>
+      <div class="truth-why">
+        <div class="truth-why-label">ผลที่เกิดขึ้น</div>
+        <p>ไล่ราคาหลังขึ้นไปแล้ว, เข้า Trade ที่ไม่ตรงกับระบบ, รู้สึกหงุดหงิดทุกครั้งที่ไม่ได้เข้า</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">4</div>
+      <div>
+        <div class="truth-title-en">Fear of Leaving Money on the Table</div>
+        <div class="truth-title-th">กลัวว่ากำไรจะยังวิ่งต่อหลังจากเราออก</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>รูปแบบนี้ทำให้เราไม่ยอม Take Profit ตาม Plan เพราะ "อาจจะ" วิ่งต่อ ผลคือเราถือยาวกว่าที่ควร และในที่สุดกำไรหายไปหมด หรือกลับเป็นขาดทุน</p>
+      <div class="truth-why">
+        <div class="truth-why-label">ผลที่เกิดขึ้น</div>
+        <p>เลื่อน Take Profit ออกไปเรื่อยๆ, กลับมาดูกราฟตลอดเวลา, ออกช้าเกินจนกำไรหายหรือกลับทาง</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>รากฐานของความกลัวทั้งหมด — ความเชื่อที่ผิดเกี่ยวกับตลาด</h2>
+  <p>Mark Douglas อธิบายว่าความกลัวทั้ง 4 รูปแบบมีรากจากความเชื่อเดียวกัน คือ <strong>เราเชื่อว่าเราสามารถรู้ล่วงหน้าได้ว่าตลาดจะไปทางไหน</strong> และเมื่อตลาดไม่ทำตามที่คิด นั่นคือ "ความล้มเหลว"</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ความเชื่อแบบเดิม ❌</th>
+          <th>ความเชื่อแบบมืออาชีพ ✅</th>
+          <th>ผลต่อการเทรด</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type col-neg">การวิเคราะห์ที่ดีจะบอกผลที่แน่นอน</td>
+          <td class="col-pos">การวิเคราะห์บอกแค่ความน่าจะเป็น</td>
+          <td>หยุดโทษตัวเองเมื่อ Trade ขาดทุน</td>
+        </tr>
+        <tr>
+          <td class="col-type col-neg">ทุก Trade ต้องได้กำไร</td>
+          <td class="col-pos">Expectancy ที่ดีต้องพิจารณาเป็น Series</td>
+          <td>ลงมือทำทุก Signal ที่ระบบให้</td>
+        </tr>
+        <tr>
+          <td class="col-type col-neg">ตลาดทำร้ายฉัน</td>
+          <td class="col-pos">ตลาดไม่รู้ว่าฉันมีอยู่</td>
+          <td>หยุดคิดว่าตลาด "สู้กับเรา"</td>
+        </tr>
+        <tr>
+          <td class="col-type col-neg">ต้องรู้ก่อนว่าจะชนะ ถึงจะกล้าเข้า</td>
+          <td class="col-pos">ไม่มีทางรู้ล่วงหน้า แต่ Edge คือพอเพียง</td>
+          <td>กดซื้อทันทีเมื่อเงื่อนไขครบ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fear-box">
+    <div class="fear-box-title">🔍 ทำความเข้าใจ: ทำไมจิตใจเราถึง "ไม่เชื่อ" ตลาด</div>
+    <p>สมองมนุษย์ถูกสร้างมาเพื่อ <strong>หาแบบแผน (Pattern Recognition)</strong> และหลีกเลี่ยงอันตราย ในยุคก่อนประวัติศาสตร์ ถ้าเห็นเงา = สิงโต = วิ่ง นั่นคือการอยู่รอด แต่ตลาดการเงินทำงานต่างออกไปโดยสิ้นเชิง</p>
+    <p>ตลาดเป็นระบบที่ซับซ้อนที่มีตัวแปรนับล้าน และผลลัพธ์ของแต่ละ Trade เป็นเหตุการณ์ที่ <strong>ไม่เคยซ้ำกันเลยแม้แต่ครั้งเดียว</strong> สมองที่คุ้นเคยกับ "ถ้า A แล้ว B" จึงเจ็บปวดมากเมื่อพบว่าตลาดไม่ทำตามที่ "เคย" เป็นมา</p>
+    <p>นั่นคือเหตุผลที่ Mark Douglas บอกว่า การเป็นนักเทรดที่ดีต้องการ <strong>การเปลี่ยนแปลงระดับความเชื่อขั้นพื้นฐาน</strong> ไม่ใช่แค่การหาระบบที่ดีขึ้น</p>
+  </div>
+
+  <div class="ornament"></div>
+
+  <h2>หนึ่งตัวอย่างที่ทุกคนเจอ</h2>
+  <p>สมมติว่าเราเทรด Breakout System มา 20 ครั้ง แพ้ 3 ครั้งติดกัน ครั้งที่ 21 ระบบให้สัญญาณอีกครั้ง แต่มือเราไม่ยอมกด</p>
+  <p>ทำไม? เพราะสมองกำลังบอกว่า <strong>"แพ้มาแล้ว 3 ครั้ง ครั้งนี้น่าจะแพ้อีก"</strong> ซึ่งไม่ถูกต้องทางสถิติ แต่ถูกต้องทางจิตวิทยา</p>
+  <p>นี่คือสิ่งที่ Five Fundamental Truths จะช่วยแก้ไข — ไม่ใช่การบอกว่าครั้งที่ 21 จะชนะ แต่การทำให้เราลงมือทำโดยไม่ต้องรู้ผลลัพธ์ล่วงหน้า</p>
+</div>
+
+<!-- ───────────────── CHAPTER 2 ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Chapter Two</div>
+  <div class="ch-title">
+    Five Fundamental Truths
+    <em>ความจริง 5 ข้อที่เปลี่ยน Mindset การเทรด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">หัวใจของหนังสือ</div>
+  <h1>Five Fundamental Truths of Trading</h1>
+
+  <div class="intro-block">
+    <div class="intro-label">ทำความเข้าใจก่อน</div>
+    <p>Mark Douglas ออกแบบ Five Fundamental Truths ให้เป็น <strong>ชุดความเชื่อใหม่</strong> ที่ถ้าเราซึมซับได้จริง มันจะเปลี่ยนการตอบสนองของเราต่อตลาดโดยอัตโนมัติ เป้าหมายไม่ใช่การจดจำข้อความ แต่คือการ <strong>ทำให้ความจริงเหล่านี้กลายเป็นส่วนหนึ่งของวิธีที่เรามองตลาด</strong></p>
+  </div>
+
+  <!-- TRUTH 1 -->
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">1</div>
+      <div>
+        <div class="truth-title-en">Anything Can Happen</div>
+        <div class="truth-title-th">ทุกอย่างเป็นไปได้เสมอ</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>นี่คือความจริงข้อแรกและพื้นฐานที่สุด ตลาดประกอบด้วยนักเทรดนับล้านคนทั่วโลก แต่ละคนมีเหตุผล ความเชื่อ และข้อมูลที่ต่างกัน ณ ทุกวินาที มีคนตัดสินใจซื้อและขายด้วยเหตุผลที่เราไม่มีทางรู้ได้ทั้งหมด</p>
+      <p>ดังนั้น <strong>ทุกผลลัพธ์ที่เป็นไปได้ คือผลลัพธ์ที่อาจเกิดขึ้นได้เสมอ</strong> — ราคาอาจขึ้น ลง หรือ Sideway ไม่มีสิ่งใดที่ "แน่นอน 100%"</p>
+
+      <div class="two-col-grid" style="margin: 20px 0;">
+        <div class="grid-card">
+          <h4>❌ ความคิดที่ผิด</h4>
+          <p>"Setup นี้แน่นอนมาก ครั้งที่แล้วก็ชนะด้วย Setup เดียวกัน ครั้งนี้ต้องชนะ"</p>
+        </div>
+        <div class="grid-card">
+          <h4>✅ ความคิดที่ถูก</h4>
+          <p>"Setup นี้ดี มี Edge สูง แต่ก็มีโอกาสแพ้เสมอ ฉันจะเข้าด้วยขนาดที่เหมาะสมและ Manage Risk ให้ดี"</p>
+        </div>
+      </div>
+
+      <div class="truth-why">
+        <div class="truth-why-label">ทำไมข้อนี้สำคัญกับความกลัว</div>
+        <p>ความกลัวกดปุ่ม Buy ส่วนใหญ่เกิดจากการที่เราอยากมั่นใจ 100% ก่อนเข้า แต่ถ้าเรายอมรับว่า "ทุกอย่างเป็นไปได้" เราจะไม่รอความมั่นใจที่ไม่มีวันมา เราจะเข้าได้เมื่อ Edge ครบ</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"If you really believed in the uncertainty of each moment, you would never think of trading as painful."</div>
+    <div class="bq-th">ถ้าเรายอมรับความไม่แน่นอนของแต่ละ Moment จริงๆ เราจะไม่รู้สึกเจ็บปวดกับการเทรดอีกต่อไป</div>
+  </div>
+
+  <!-- TRUTH 2 -->
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">2</div>
+      <div>
+        <div class="truth-title-en">You Don't Need to Know What's Going to Happen Next to Make Money</div>
+        <div class="truth-title-th">ไม่จำเป็นต้องรู้ว่าจะเกิดอะไรขึ้น เพื่อจะทำกำไรได้</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>นี่คือความจริงที่ขัดกับสัญชาตญาณมากที่สุด เพราะคนส่วนใหญ่เชื่อว่า <strong>ถ้าจะทำกำไรได้ ต้องรู้ก่อนว่าราคาจะไปทางไหน</strong> แต่ Mark Douglas พิสูจน์ว่านั่นไม่จริง</p>
+
+      <p>ลองนึกถึงคาสิโน คาสิโนไม่รู้ว่าแต่ละเกมจะจบอย่างไร แต่คาสิโนรู้ว่า <strong>ถ้าเล่น 1,000 ครั้ง พวกเขาจะได้กำไรเสมอ</strong> เพราะพวกเขามี Edge ที่เรียกว่า House Edge</p>
+
+      <div class="formula-block">
+        <div class="formula-label">สูตรคิด Expectancy (ผลตอบแทนที่คาดหวังเฉลี่ยต่อ Trade)</div>
+        <div class="formula-eq">Expectancy = (Win Rate × Avg. Win) − (Loss Rate × Avg. Loss)</div>
+        <div class="formula-note">
+          ถ้า Expectancy เป็นบวก → ระบบของเรามี Edge<br>
+          เราไม่ต้องรู้ว่า Trade นี้จะชนะ แต่รู้ว่าถ้าทำ 100 ครั้งจะได้กำไรโดยรวม<br><br>
+          <strong>ตัวอย่าง:</strong> ชนะ 40% × กำไรเฉลี่ย 300 บาท − แพ้ 60% × ขาดทุนเฉลี่ย 100 บาท = 120 − 60 = +60 บาทต่อ Trade
+        </div>
+      </div>
+
+      <p>เมื่อเรามี System ที่มี Positive Expectancy เราไม่ต้อง "รู้" ผลลัพธ์ของ Trade ปัจจุบัน เราแค่ต้องทำตาม System ให้ครบ ทุกครั้ง และปล่อยให้ Edge ทำงานตามเวลา</p>
+
+      <div class="truth-why">
+        <div class="truth-why-label">ทำไมข้อนี้สำคัญกับความกลัว</div>
+        <p>ความกลัวกดปุ่มมักมาจาก "ฉันไม่แน่ใจว่าจะชนะ" แต่ถ้าเราเข้าใจว่า "ไม่ต้องแน่ใจในแต่ละ Trade ขอแค่ทำตาม Edge" ความกลัวนั้นจะลดลงทันที เพราะเราหยุดวัดความสำเร็จที่รายการ แต่วัดที่ Series แทน</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUTH 3 -->
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">3</div>
+      <div>
+        <div class="truth-title-en">There is a Random Distribution Between Wins and Losses for Any Given Set of Variables That Define an Edge</div>
+        <div class="truth-title-th">การชนะ-แพ้กระจายแบบสุ่มใน Series — แม้ระบบจะดีแค่ไหนก็ตาม</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>สมมติว่าระบบของเรามีชัยชนะ 55% หมายความว่าทุก 100 Trade จะชนะ 55 ครั้ง แต่ไม่มีใครรู้ว่า 55 ครั้งนั้นกระจายอยู่อย่างไร</p>
+
+      <p>อาจเป็น: <strong>แพ้ 10 ครั้งติดกัน ชนะ 65 ครั้ง</strong> หรืออาจเป็น <strong>ชนะ 5 แพ้ 3 ชนะ 8 แพ้ 2...</strong> ไม่มีรูปแบบที่แน่นอน</p>
+
+      <div class="two-col-grid" style="margin: 20px 0;">
+        <div class="grid-card">
+          <h4>📊 ความเข้าใจผิด</h4>
+          <p>"ชนะ 3 ครั้งติดกัน แสดงว่าระบบกำลังทำงานดี" หรือ "แพ้ 3 ครั้งติดกัน แสดงว่าระบบเสียแล้ว"</p>
+        </div>
+        <div class="grid-card">
+          <h4>📊 ความเข้าใจที่ถูก</h4>
+          <p>ผลลัพธ์ของแต่ละ Trade เป็นอิสระต่อกัน การแพ้ 3 ครั้งไม่ได้เพิ่มหรือลดโอกาสชนะครั้งหน้า</p>
+        </div>
+      </div>
+
+      <p>นี่คือหลักการเดียวกับการโยนเหรียญ ถ้าออกหัว 5 ครั้งติดกัน ก็ยังไม่แปลว่าครั้งหน้าต้องออกก้อย โอกาสยังคง 50/50 เสมอ ตลาดก็เหมือนกัน</p>
+
+      <div class="truth-why">
+        <div class="truth-why-label">ทำไมข้อนี้สำคัญกับความกลัว</div>
+        <p>เมื่อเราแพ้ติดกัน 3–5 ครั้ง และระบบยังบอกให้เข้า เราจะกลัวมาก เพราะสมองคิดว่า "โมเมนตัมกำลังไม่ดี" แต่ถ้าเข้าใจ Truth ข้อนี้ เราจะรู้ว่าไม่มีโมเมนตัมในระยะ Signal-to-Signal เลย แต่ละครั้งเป็นเหตุการณ์ใหม่</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pullquote">
+    <p>"The market's behavior is random at the individual trade level, but orderly at the aggregate level."</p>
+    <cite>Mark Douglas — Trading in the Zone</cite>
+  </div>
+
+  <!-- TRUTH 4 -->
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">4</div>
+      <div>
+        <div class="truth-title-en">An Edge is Nothing More Than an Indication of a Higher Probability of One Thing Happening Over Another</div>
+        <div class="truth-title-th">Edge คือโอกาสที่สูงกว่าเท่านั้น — ไม่ใช่ความแน่นอน</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p><strong>Edge</strong> (หรือ "ขอบ") ในการเทรด หมายถึงเงื่อนไขที่ทำให้โอกาสชนะสูงกว่าโอกาสแพ้เล็กน้อย เช่น 55% vs 45% มันไม่ใช่การรับประกัน และไม่ใช่การพยากรณ์</p>
+
+      <p>หลายคนเข้าใจผิดว่า Setup ที่ดี = ต้องชนะ แต่ความจริงคือ Setup ที่ดีคือ Setup ที่ถ้าทำซ้ำ 100 ครั้ง จะให้ผลบวกโดยรวม ไม่ได้หมายความว่าทุกครั้งจะชนะ</p>
+
+      <div class="signal-box buy">
+        <div class="signal-title">✅ การคิดถูกเกี่ยวกับ Edge</div>
+        <ul class="signal-list">
+          <li>Edge คือสิ่งที่ให้ Advantage ในระยะยาว ไม่ใช่การรับประกันรายการ</li>
+          <li>ระบบที่ชนะ 55% กับ R:R 2:1 นั้นยอดเยี่ยมมาก</li>
+          <li>ยิ่งทำตาม Edge มากครั้ง ยิ่งรับประกันผลระยะยาวได้</li>
+          <li>แพ้บาง Trade ไม่ได้หมายว่า Edge หายไป</li>
+        </ul>
+      </div>
+
+      <div class="signal-box sell">
+        <div class="signal-title">❌ การคิดผิดเกี่ยวกับ Edge</div>
+        <ul class="signal-list">
+          <li>ถ้า Setup ดีมาก ควรจะชนะทุกครั้ง</li>
+          <li>แพ้ 2 ครั้งติด หมายความว่า Edge ของระบบอาจเสียแล้ว</li>
+          <li>ยิ่งวิเคราะห์ดีเท่าไหร่ ยิ่งไม่ควรแพ้</li>
+          <li>Trade ที่แพ้ = ฉันทำพลาด</li>
+        </ul>
+      </div>
+
+      <div class="truth-why">
+        <div class="truth-why-label">ทำไมข้อนี้สำคัญกับความกลัว</div>
+        <p>เมื่อเข้าใจว่า Edge คือความน่าจะเป็นที่ดีกว่า ไม่ใช่ความแน่นอน เราจะหยุดตั้งความคาดหวังผิดๆ ว่าต้องชนะทุก Trade และเมื่อนั้นความกลัวจะลดลง เพราะเรายอมรับว่าแพ้บ้างคือส่วนหนึ่งของการมี Edge</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUTH 5 -->
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">5</div>
+      <div>
+        <div class="truth-title-en">Every Moment in the Market is Unique</div>
+        <div class="truth-title-th">ทุก Moment ในตลาดเป็นเอกลักษณ์ — ไม่มีซ้ำกันสักครั้ง</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>กราฟอาจ "ดูเหมือน" เดือนที่แล้ว Pattern อาจ "เหมือน" กับครั้งก่อน แต่ความเป็นจริงคือมันไม่เคยเหมือนกันเลย เพราะผู้เล่นในตลาดวันนี้ต่างจากเมื่อวาน ข้อมูลวันนี้ต่างจากเมื่อวาน และบริบทโลกวันนี้ต่างจากเมื่อวาน</p>
+
+      <p>ความจริงข้อนี้มีสองมิติที่สำคัญ:</p>
+
+      <p><strong>มิติที่ 1 — อดีตไม่ได้กำหนดอนาคต:</strong> Trade ที่แพ้ครั้งที่แล้วไม่ได้ทำให้ Trade ครั้งนี้มีโอกาสน้อยลง และ Trade ที่ชนะครั้งที่แล้วก็ไม่ได้การันตีว่าครั้งนี้จะชนะ</p>
+
+      <p><strong>มิติที่ 2 — ปัจจุบันคือสิ่งเดียวที่เราควบคุมได้:</strong> เราควบคุมได้แค่ว่าเราจะปฏิบัติตามระบบหรือไม่ ณ ขณะที่ Signal เกิดขึ้น นั่นคือทั้งหมดที่เราทำได้</p>
+
+      <div class="author-voice">
+        <div class="av-avatar">MD</div>
+        <div>
+          <div class="av-meta">Mark Douglas — Trading in the Zone, Chapter 7</div>
+          <p class="av-text">"Each trade is a unique event in a market that has no memory of what it has done before."
+            <span class="av-text-th">แต่ละ Trade คือเหตุการณ์เอกลักษณ์ในตลาดที่ไม่มีความทรงจำว่าเคยทำอะไรมาก่อน — ดังนั้นจงหยุดนำอดีตมาตัดสินปัจจุบัน</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="truth-why">
+        <div class="truth-why-label">ทำไมข้อนี้สำคัญกับความกลัว</div>
+        <p>ความกลัวกดปุ่มมักมาจากความทรงจำของ Trade ที่แพ้ในอดีต เมื่อเราเห็น Setup ที่ "คล้าย" กับครั้งที่เคยเจ็บปวด สมองจะสร้างความกลัวขึ้นมา แต่ถ้าเรายอมรับว่า Moment นี้ไม่เคยเกิดขึ้นมาก่อน ความกลัวจากอดีตจะไม่มีเหตุผลที่จะมาครอบงำ Moment ปัจจุบัน</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ornament"></div>
+
+  <h2>Five Truths ร่วมกันสร้างอะไร</h2>
+  <p>เมื่อเราซึมซับ Five Fundamental Truths ทั้ง 5 ข้อเข้าไปจนเป็นส่วนหนึ่งของวิธีคิด จะเกิดการเปลี่ยนแปลงที่ Mark Douglas เรียกว่า <strong>"Probabilistic Mindset"</strong> — วิธีคิดที่มองตลาดเป็น Game of Probability ไม่ใช่ Game of Certainty</p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">∞</div>
+      <div class="stat-label">ทุก Moment คือเอกลักษณ์ใหม่<br>ไม่มีซ้ำกัน</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">0%</div>
+      <div class="stat-label">โอกาสที่เราจะ รู้แน่นอน<br>ว่าผลลัพธ์คืออะไร</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">สิ่งที่เราควบคุมได้<br>คือการทำตาม Edge</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────── CHAPTER 3 ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Chapter Three</div>
+  <div class="ch-title">
+    Probabilistic Mindset
+    <em>วิธีคิดที่ทำให้กดซื้อได้โดยไม่กลัว</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">การเปลี่ยนแปลงระดับ Mindset</div>
+  <h1>จาก "ต้องรู้" สู่ "ยอมรับความน่าจะเป็น"</h1>
+
+  <p>Probabilistic Mindset คือวิธีคิดที่มองทุก Trade ในฐานะส่วนหนึ่งของ Sample ขนาดใหญ่ ไม่ใช่เหตุการณ์ที่ต้องกำหนดตายตัวว่าจะชนะหรือแพ้ก่อน จึงจะเข้า</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Think of it this way: your edge is a probability. Not a certainty. And probability only works over a large number of samples."</div>
+    <div class="bq-th">คิดแบบนี้: Edge ของเราคือความน่าจะเป็น ไม่ใช่ความแน่นอน และความน่าจะเป็นทำงานได้เมื่อมีจำนวน Sample มากพอ</div>
+  </div>
+
+  <h2>การคิดแบบ Probabilistic ต่างจากแบบเดิมอย่างไร</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>สถานการณ์</th><th>❌ วิธีคิดเดิม</th><th>✅ Probabilistic Thinking</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ก่อนกดซื้อ</td>
+          <td>"ฉันต้องมั่นใจก่อนว่าจะชนะ"</td>
+          <td>"Signal ครบ ฉันจะ Execute ตามระบบ"</td>
+        </tr>
+        <tr>
+          <td class="col-type">ระหว่างถือ Position</td>
+          <td>"ทำไมราคาลง? ฉันผิดหรือเปล่า?"</td>
+          <td>"Noise ปกติ ฉันยังอยู่ใน Plan"</td>
+        </tr>
+        <tr>
+          <td class="col-type">หลัง Trade แพ้</td>
+          <td>"ระบบแย่มาก ฉันทำพลาด"</td>
+          <td>"นี่คือ Loss ที่ Expected ใน Series"</td>
+        </tr>
+        <tr>
+          <td class="col-type">หลัง 3 Trades แพ้</td>
+          <td>"หยุดก่อน รอดูว่าระบบยังใช้ได้ไหม"</td>
+          <td>"ยังอยู่ใน Normal Drawdown ทำ Trade ต่อไป"</td>
+        </tr>
+        <tr>
+          <td class="col-type">พลาด Trade ที่ดี</td>
+          <td>"เสียดายมาก ทำไมฉันไม่เข้า"</td>
+          <td>"มีโอกาสอีกใน Next Signal ทำตาม Process"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>สามขั้นตอนสู่ Probabilistic Thinking</h2>
+
+  <ul class="step-list">
+    <li>
+      <div class="step-content">
+        <strong>ขั้นที่ 1: Define Edge ให้ชัด</strong><br>
+        เขียนออกมาให้ชัดเจนว่า Setup ของเราคืออะไร เงื่อนไขที่ต้องครบก่อนเข้าคืออะไร และ Stop Loss / Take Profit อยู่ที่ไหน ถ้าเราไม่มี Edge ที่ชัดเจน เราไม่ได้เทรดด้วย Edge แต่กำลังเดาอยู่
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>ขั้นที่ 2: Track ผลลัพธ์เป็น Series</strong><br>
+        บันทึก Trade ทุกรายการ และดูผลลัพธ์รวมของ 20–50 Trades แทนที่จะประเมินแต่ละ Trade แยกกัน วิธีนี้จะช่วยให้เห็นว่า Edge ยังทำงานอยู่หรือไม่ในระยะยาว
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>ขั้นที่ 3: สร้าง Trade Execution Rules แบบ Non-negotiable</strong><br>
+        Non-negotiable หมายถึง กฎที่ต้องทำตามเสมอ ห้ามต่อรอง — เช่น "ถ้า Signal ครบ ฉันจะเข้าทุกครั้ง" และ "ถ้า Stop ถูก Hit ฉันจะออกทันที ไม่มีข้อยกเว้น" กฎเหล่านี้คือเกราะป้องกันอารมณ์
+      </div>
+    </li>
+  </ul>
+
+  <div class="ornament"></div>
+
+  <h2>เปรียบเทียบกับนักกีฬาอาชีพ</h2>
+  <p>Mark Douglas ชอบเปรียบนักเทรดมืออาชีพกับนักกีฬา นักเทนนิสอาชีพที่ฝีมือดีรู้ว่าตัวเองมี "Edge" เหนือคู่ต่อสู้ที่ฝีมือต่ำกว่า แต่ก็ยังรู้ว่าบางวันอาจแพ้ได้</p>
+
+  <p>นักเทนนิสที่ดีไม่ได้บอกว่า "ฉันจะไม่ลงสนามเว้นแต่มั่นใจ 100% ว่าชนะ" — เขาลงสนาม ทำดีที่สุด และยอมรับผลลัพธ์ นักเทรดที่ดีก็ต้องเหมือนกัน</p>
+
+  <div class="pullquote">
+    <p>"Consistency in trading comes from consistently applying your edge, not from predicting the market correctly every time."</p>
+    <cite>Mark Douglas — Trading in the Zone</cite>
+  </div>
+
+  <h2>Mental Rehearsal — การฝึกสมองก่อนลงมือจริง</h2>
+  <p>Mark Douglas แนะนำให้นักเทรดฝึก <strong>Mental Rehearsal</strong> ก่อน Trading Session ทุกวัน โดยการทบทวน Five Truths ในใจ และสร้างภาพว่าเราจะตอบสนองต่อสถานการณ์ต่างๆ อย่างไร</p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Mental Rehearsal ก่อนเทรด</h3>
+      <p>ทบทวนสั้นๆ ก่อน Market เปิด ใช้เวลา 5–10 นาที</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ความเชื่อที่ต้องยืนยัน</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ทุกอย่างเป็นไปได้ — ฉันไม่รู้ว่า Trade ไหนจะชนะ
+            <div class="cl-note">ปลดแอกความคาดหวังว่าจะชนะทุก Trade</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ฉันไม่ต้องรู้ผลลัพธ์ล่วงหน้า — ฉันแค่ต้องทำตาม Edge
+            <div class="cl-note">ลดความกดดันในการ "ต้องเดาถูก"</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            การแพ้บ้างเป็นเรื่องปกติและเป็นส่วนหนึ่งของระบบที่ดี
+            <div class="cl-note">หยุดโทษตัวเองเมื่อ Trade ขาดทุน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            Moment นี้ไม่เคยเกิดขึ้นมาก่อน — อดีตไม่ได้กำหนดอนาคต
+            <div class="cl-note">ตัดความกลัวจากประสบการณ์ที่เจ็บปวดในอดีต</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">กฎที่ต้องยืนยันก่อนเทรด</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ฉันจะเข้าเมื่อ Signal ครบตามระบบ ทุกครั้ง โดยไม่มีข้อยกเว้น
+            <div class="cl-note">Commitment to Execute</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ฉันจะออกเมื่อถึง Stop Loss ทันที ไม่ขยับ ไม่รอ
+            <div class="cl-note">Risk Management คือหัวใจ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ฉันจะไม่ประเมินระบบจาก 1–3 Trade แต่จะดูจาก 30–50 Trades
+            <div class="cl-note">Evaluate Edge ใน Series ไม่ใช่รายการ</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ───────────────── CHAPTER 4 ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Chapter Four</div>
+  <div class="ch-title">
+    ความเชื่อที่ทำลายการเทรด
+    <em>และวิธีถอนรากออก</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ปัญหาระดับ Belief System</div>
+  <h1>ทำไมแค่รู้ไม่พอ — ต้องเปลี่ยนความเชื่อ</h1>
+
+  <p>Mark Douglas ชี้ว่าปัญหาที่แท้จริงของนักเทรดส่วนใหญ่ไม่ใช่การขาดความรู้ นักเทรดส่วนใหญ่รู้ว่า "ต้องตัด Stop Loss" รู้ว่า "ไม่ควรแก้แค้นตลาด" รู้ว่า "ควรทำตามระบบ" แต่ก็ยังไม่ทำ</p>
+
+  <p>เหตุผลคือ <strong>ความรู้ระดับสติปัญญา (Intellectual Knowledge)</strong> กับ <strong>ความเชื่อระดับจิตใต้สำนึก (Belief)</strong> เป็นคนละอย่างกัน สมองสามารถ "รู้" ว่าควรทำอะไร แต่จิตใต้สำนึกที่ถูก Program มาจากประสบการณ์ในอดีตจะสั่งงานตามความเชื่อเก่า</p>
+
+  <div class="pullquote">
+    <p>"If you don't trust yourself to do what needs to be done when it needs to be done, you will rationalize, hesitate, and make trading errors."</p>
+    <cite>Mark Douglas — Trading in the Zone</cite>
+  </div>
+
+  <h2>ความเชื่อ 5 อย่างที่ทำลายนักเทรด</h2>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">A</div>
+      <div>
+        <div class="truth-title-en">Market Must Validate My Analysis</div>
+        <div class="truth-title-th">ตลาดต้องยืนยันว่าฉันถูก</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>นักเทรดหลายคนมองตลาดเป็น "กรรมการ" ที่ตัดสินว่าการวิเคราะห์ของเราดีหรือแย่ เมื่อตลาดไปทางที่เราคิด = ฉันเก่ง เมื่อตลาดสวนทาง = ตลาดผิด หรือ ฉันไม่เก่ง</p>
+      <p>ความเชื่อนี้ทำให้เรา <strong>ปรับ Stop Loss ออกเพื่อรอ</strong> ให้ตลาดกลับมายืนยันว่าเราถูก แทนที่จะ Accept Loss แล้วไปต่อ</p>
+    </div>
+  </div>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">B</div>
+      <div>
+        <div class="truth-title-en">More Analysis = Better Results</div>
+        <div class="truth-title-th">วิเคราะห์มากขึ้น = ผลลัพธ์ดีขึ้น</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>นักเทรดหลายคนตอบสนองต่อการขาดทุนด้วยการ "วิเคราะห์เพิ่ม" หาตัวชี้วัดมากขึ้น เพิ่ม Filter มากขึ้น หวังว่าจะ "กรอง" ความไม่แน่นอนออกไปได้</p>
+      <p>แต่ Mark Douglas บอกว่า ความไม่แน่นอนในตลาดไม่สามารถวิเคราะห์ออกไปได้ การวิเคราะห์มากเกินไปมักนำไปสู่ <strong>Analysis Paralysis</strong> — ยิ่งวิเคราะห์ ยิ่งเห็นเหตุผลที่ไม่ควรเข้า</p>
+
+      <div class="fear-box">
+        <div class="fear-box-title">📌 Analysis Paralysis คืออะไร</div>
+        <p>Analysis Paralysis หมายถึง ภาวะที่เราคิดและวิเคราะห์มากจนเกินไป จนตัดสินใจไม่ได้ เหมือนคนที่อยากสั่งอาหาร แต่อ่านเมนูซ้ำไปซ้ำมาจน Order ไม่ได้ในที่สุด ในการเทรด มันคือการที่เราเห็น Setup แล้วยังคิดหาเหตุผลเพิ่มเติมอยู่จนราคาผ่านไปแล้ว</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="truth-box">
+    <div class="truth-header">
+      <div class="truth-num">C</div>
+      <div>
+        <div class="truth-title-en">Past Pain = Present Danger</div>
+        <div class="truth-title-th">ความเจ็บปวดในอดีต = อันตรายในปัจจุบัน</div>
+      </div>
+    </div>
+    <div class="truth-body">
+      <p>นี่คือกลไกที่ซ่อนเร้นที่สุด สมองเชื่อมโยง Setup ที่ "ดูคล้าย" กับ Trade ที่เคยเจ็บปวดในอดีต และสร้างความกลัวขึ้นมาโดยอัตโนมัติ แม้ว่าสถานการณ์ปัจจุบันจะแตกต่างโดยสิ้นเชิง</p>
+      <p>นี่คือเหตุผลที่ Fundamental Truth ข้อ 5 สำคัญมาก — <strong>ทุก Moment ในตลาดเป็นเอกลักษณ์</strong> ดังนั้นความกลัวที่มาจากอดีตจึงไม่ควรมีอิทธิพลต่อการตัดสินใจในปัจจุบัน</p>
+    </div>
+  </div>
+
+  <h2>วิธีเปลี่ยนความเชื่อ — ไม่ใช่แค่ "รู้" แต่ต้อง "เชื่อ"</h2>
+  <p>Mark Douglas บอกว่าการเปลี่ยนความเชื่อต้องผ่านกระบวนการที่เรียกว่า <strong>Belief Replacement</strong> — การแทนที่ความเชื่อเดิมด้วยความเชื่อใหม่ผ่านการทำซ้ำและประสบการณ์ตรง</p>
+
+  <ul class="step-list">
+    <li>
+      <div class="step-content">
+        <strong>ระบุความเชื่อเดิม:</strong> เขียนออกมาว่าเราเชื่ออะไรเกี่ยวกับตลาด เช่น "ฉันต้องมั่นใจก่อนเข้า" หรือ "การแพ้แปลว่าฉันไม่เก่ง" แค่การเห็นความเชื่อชัดๆ ก็ช่วยได้มากแล้ว
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>ทดสอบความเชื่อด้วยหลักฐาน:</strong> ถามตัวเองว่า ความเชื่อนี้จริงหรือไม่? มีหลักฐานที่ขัดแย้งไหม? เช่น "นักเทรดที่ดีที่สุดในโลกยังมี Win Rate 55% นั่นแปลว่าการแพ้บ้างไม่ได้หมายความว่าไม่เก่ง"
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>ลงมือเพื่อสร้างประสบการณ์ใหม่:</strong> ทำตาม Five Truths ในการเทรดจริง แม้จะยังรู้สึกกลัวอยู่ ทุกครั้งที่ลงมือและผลลัพธ์เป็นไปตาม System (ไม่ใช่ว่าต้องชนะ แต่ต้องทำตาม Process) จะสร้างความเชื่อใหม่ขึ้นมาทีละนิด
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Repetition คือกุญแจ:</strong> ทำซ้ำจนสมองสร้าง Neural Pathway ใหม่ — Neural Pathway คือ "เส้นทางในสมอง" ที่ยิ่งใช้บ่อยยิ่งแข็งแกร่ง เหมือนเส้นทางในป่าที่ยิ่งเดินมากยิ่งชัดเจน
+      </div>
+    </li>
+  </ul>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Accepting the risk means accepting the consequences of your trades without emotional discomfort."</div>
+    <div class="bq-th">การยอมรับความเสี่ยง หมายถึงการยอมรับผลลัพธ์ของ Trade ทุกชนิด โดยไม่ทุกข์ใจ — นั่นคือสภาวะที่เราต้องการไปถึง</div>
+  </div>
+
+  <h2>The Zone — เป้าหมายสูงสุด</h2>
+  <p>"The Zone" ที่ Mark Douglas พูดถึงในชื่อหนังสือ คือสภาวะที่นักเทรดเข้าถึงเมื่อความเชื่อภายในและพฤติกรรมภายนอกสอดคล้องกันอย่างสมบูรณ์ เมื่อ Signal เกิด → ลงมือทันที เมื่อ Stop Hit → ออกทันที เมื่อ Target มา → รับกำไรตาม Plan</p>
+
+  <p>ทั้งหมดนี้ทำโดยไม่มีอารมณ์ขัดขวาง ไม่ต้องต่อสู้กับตัวเอง ไม่ต้องใช้ "ความกล้า" มากเกินไป เพราะมันกลายเป็นสิ่งที่เป็น "ธรรมชาติ" ของเรา</p>
+</div>
+
+<!-- ───────────────── CHAPTER 5 ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Chapter Five</div>
+  <div class="ch-title">
+    การลงมือทำ
+    <em>จาก Theory สู่ Practice ที่ใช้งานได้จริง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Practical Application</div>
+  <h1>ทำอะไรได้บ้างตั้งแต่วันนี้</h1>
+
+  <p>ทั้งหมดที่ Mark Douglas สอนมาจะไม่มีความหมายถ้าไม่ถูก Translate ออกมาเป็นการกระทำที่เป็นรูปธรรม ส่วนนี้คือแผนปฏิบัติการที่เราสามารถเริ่มได้ทันที</p>
+
+  <h2>✅ ระดับเริ่มต้น — สิ่งที่ทำได้วันนี้เลย</h2>
+
+  <div class="signal-box buy">
+    <div class="signal-title">Easy Wins — เริ่มจากสิ่งที่ง่ายที่สุด</div>
+    <ul class="signal-list">
+      <li><strong>เขียน Five Truths ไว้หน้า Monitor:</strong> พริ้นท์หรือเขียนมือ ติดไว้ที่มองเห็นง่าย — "ทุกอย่างเป็นไปได้, ฉันไม่ต้องรู้ล่วงหน้า, ชนะ-แพ้กระจายสุ่ม, Edge คือความน่าจะเป็น, ทุก Moment เป็นเอกลักษณ์"</li>
+      <li><strong>เริ่ม Trading Journal:</strong> บันทึกทุก Trade พร้อม Setup ที่เห็น สาเหตุที่เข้า และความรู้สึกก่อน/ระหว่าง/หลัง Trade</li>
+      <li><strong>ฝึก Mental Rehearsal ก่อนเทรด 5 นาที:</strong> ทบทวน Five Truths และยืนยัน Execution Rules ก่อน Market เปิดทุกวัน</li>
+      <li><strong>ตั้ง Position Size ที่ "นอนหลับสบาย":</strong> ขนาดที่ถ้า Stop Hit แล้ว ยังนอนหลับสบายได้ ไม่ใช่ขนาดที่ "Maximize" กำไร</li>
+    </ul>
+  </div>
+
+  <h2>🚀 ระดับกลาง — สิ่งที่ต้องทำอย่างสม่ำเสมอ</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>แผนพัฒนา Probabilistic Mindset — 30 วัน</h3>
+      <p>ทำทุกวัน ผลจะเริ่มเห็นใน 3–4 สัปดาห์</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">สัปดาห์ที่ 1–2: สร้างฐาน</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            อ่าน Five Truths ทุกเช้าก่อนเปิด Chart
+            <div class="cl-note">ใช้เวลา 2 นาที สร้าง Habit ง่ายที่สุด</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            บันทึก Trade Journal ทุกรายการ — เน้นความรู้สึกก่อนเข้า
+            <div class="cl-note">สังเกตว่ากลัวอะไรก่อนกด Buy</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ทดสอบ Execute ทุก Signal โดยไม่ skip แม้จะกลัว — ด้วย Size เล็ก
+            <div class="cl-note">เป้าคือฝึก Process ไม่ใช่กำไร</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">สัปดาห์ที่ 3–4: เริ่ม Review และปรับ</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            Review Journal ทุกวันศุกร์ — ดูกี่ครั้งที่ทำตาม Process
+            <div class="cl-note">วัดความสำเร็จที่ Process Compliance ไม่ใช่กำไร</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ระบุความกลัวที่เกิดซ้ำบ่อยที่สุด แล้วเชื่อมกับ Truth ที่แก้ได้
+            <div class="cl-note">เช่น กลัวแพ้ = Truth ข้อ 3 (กระจายสุ่ม)</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            คำนวณ Expectancy ของระบบจาก 20 Trades ที่ผ่านมา
+            <div class="cl-note">ถ้า Expectancy บวก = Edge ยังทำงาน</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>⚡ ระดับสูง — สร้าง Trading Philosophy ของตัวเอง</h2>
+
+  <p>Mark Douglas บอกว่า ขั้นสุดท้ายของการพัฒนานักเทรดคือการมี <strong>Personal Trading Philosophy</strong> — ชุดความเชื่อและหลักการที่เป็นของตัวเองและ "เชื่อได้จริง" ไม่ใช่แค่ "อยากเชื่อ"</p>
+
+  <ul class="step-list">
+    <li>
+      <div class="step-content">
+        <strong>สร้าง Trading Manifesto ของตัวเอง:</strong> เขียนประโยคสั้นๆ ที่สรุปว่าเราเชื่ออะไรเกี่ยวกับตลาด เกี่ยวกับการเทรด และเกี่ยวกับตัวเองในฐานะนักเทรด แล้วตรวจสอบว่ามัน Align กับ Five Truths ไหม
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>Backtest ระบบให้ครบ 100+ Trades:</strong> เพื่อสร้างความเชื่อมั่นใน Edge ของตัวเอง Backtest หมายถึงการนำระบบไปทดสอบกับข้อมูลราคาในอดีต เพื่อดูว่าถ้าใช้ระบบนี้ในอดีต จะได้ผลลัพธ์อย่างไร
+      </div>
+    </li>
+    <li>
+      <div class="step-content">
+        <strong>กำหนด Maximum Drawdown ที่ยอมรับได้:</strong> Drawdown คือการขาดทุนสะสมจาก Peak สูงสุดลงมา ถ้ากำหนดไว้ว่า "ฉันจะหยุดและ Review ถ้า Drawdown เกิน X%" จะช่วยให้ตัดสินใจเชิงระบบ ไม่ใช่เชิงอารมณ์
+      </div>
+    </li>
+  </ul>
+
+  <div class="ornament"></div>
+
+  <h2>ตัวอย่างการนำไปใช้จริง</h2>
+  <p>สมมติว่าเราเทรดด้วย Breakout System บน SET Index</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h4>❌ ก่อนเรียนรู้ Five Truths</h4>
+      <p>เห็น Breakout Signal → คิดว่า "ครั้งที่แล้วก็ Breakout แล้วกลับมา" → ลังเล → ราคาวิ่งขึ้นไปโดยไม่มีเรา → เสียดาย → ไล่ซื้อตาม → ราคา Pullback → Stop Out</p>
+    </div>
+    <div class="grid-card">
+      <h4>✅ หลังเรียนรู้ Five Truths</h4>
+      <p>เห็น Breakout Signal → ยืนยัน Checklist ครบ → "ทุกอย่างเป็นไปได้ แต่ Edge ของฉันบอกว่าเข้า" → กด Buy ตาม Size ที่กำหนด → วาง Stop → ปล่อยให้ตลาดทำงาน</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 24px;">ความแตกต่างไม่ได้อยู่ที่ความสามารถในการวิเคราะห์ แต่อยู่ที่ <strong>ความสัมพันธ์กับความไม่แน่นอน</strong> นักเทรดคนที่สองยอมรับว่าอาจแพ้ได้ แต่ยังเข้าเพราะ Edge บอกว่าควรเข้า</p>
+</div>
+
+<!-- ───────────────── FINAL CHAPTER ───────────────── -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทสรุป / Summary</div>
+  <div class="ch-title">
+    Checklist และคำถามไตร่ตรอง
+    <em>เครื่องมือสำหรับนำไปใช้จริง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">เครื่องมือปฏิบัติ</div>
+  <h1>สิ่งที่ต้องจำ และคำถามที่ต้องถามตัวเอง</h1>
+
+  <h2>One-Liners ที่ต้องจดจำ</h2>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The best trade is the one you take consistently, not the one you think will win."</div>
+    <div class="bq-th">Trade ที่ดีที่สุด ไม่ใช่ Trade ที่เราคิดว่าจะชนะ แต่คือ Trade ที่เราทำตาม Edge อย่างสม่ำเสมอ</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The market doesn't owe you anything. But your edge — if real — will deliver over time."</div>
+    <div class="bq-th">ตลาดไม่ได้เป็นหนี้เราอะไร แต่ถ้า Edge ของเราเป็นจริง มันจะให้ผลในระยะยาวเสมอ</div>
+  </div>
+
+  <h2>สรุป Five Fundamental Truths ในหนึ่งหน้า</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>#</th><th>Truth</th><th>ความหมายสั้นๆ</th><th>แก้ความกลัวแบบไหน</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">1</td>
+          <td>Anything Can Happen</td>
+          <td>ทุกผลลัพธ์เป็นไปได้</td>
+          <td>หยุดรอความมั่นใจ 100%</td>
+        </tr>
+        <tr>
+          <td class="col-type">2</td>
+          <td>Don't Need to Know</td>
+          <td>ไม่ต้องรู้ผลลัพธ์ล่วงหน้า</td>
+          <td>ลดความกดดันในการ "ต้องเดาถูก"</td>
+        </tr>
+        <tr>
+          <td class="col-type">3</td>
+          <td>Random Distribution</td>
+          <td>ชนะ-แพ้กระจายสุ่ม</td>
+          <td>หยุดโทษตัวเองจากการแพ้ติดกัน</td>
+        </tr>
+        <tr>
+          <td class="col-type">4</td>
+          <td>Edge = Probability</td>
+          <td>Edge คือโอกาสที่สูงกว่า</td>
+          <td>ยอมรับ Loss เป็นต้นทุนของ Edge</td>
+        </tr>
+        <tr>
+          <td class="col-type">5</td>
+          <td>Every Moment Unique</td>
+          <td>ทุก Moment ไม่เคยซ้ำกัน</td>
+          <td>ตัดความกลัวจากอดีตออก</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>คำถามสำหรับไตร่ตรอง</h2>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection Questions — ถามตัวเองสัปดาห์ละครั้ง</div>
+    <ol class="reflection-list">
+      <li>ในสัปดาห์ที่ผ่านมา มี Signal ไหนที่ฉัน Skip ไป? เหตุผลที่แท้จริงคืออะไร? มันมาจาก Logic หรือจาก Fear?</li>
+      <li>ฉันวัดความสำเร็จของตัวเองจาก "กำไรรายการ" หรือจาก "การทำตาม Process"? ถ้าเป็นอย่างแรก ฉันกำลังวัดผิดวิธี</li>
+      <li>ความเชื่อใดที่ฉันยังมีอยู่ที่ขัดกับ Five Truths? เช่น ฉันยังรู้สึกว่าตลาดกำลัง "สู้กับฉัน" อยู่ไหม?</li>
+      <li>Drawdown ล่าสุดที่ฉันมี อยู่ในช่วงที่ปกติของระบบหรือไม่? ฉันตัดสินใจเปลี่ยนระบบเพราะ Logic หรือ Emotion?</li>
+      <li>ถ้านักเทรดที่เทรดโดยไม่มีความกลัวเลย จะตัดสินใจอย่างไรกับ Setup ที่ฉันเห็นวันนี้?</li>
+    </ol>
+  </div>
+
+  <h2>📚 สิ่งที่ควรศึกษาต่อ</h2>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h4>📖 หนังสือแนะนำ</h4>
+      <p><strong>Trading in the Zone</strong> — Mark Douglas (ต้นฉบับ)<br><br>
+      <strong>The Disciplined Trader</strong> — Mark Douglas (เล่มก่อนหน้า)<br><br>
+      <strong>Market Wizards</strong> — Jack D. Schwager (สัมภาษณ์นักเทรดมืออาชีพ)<br><br>
+      <strong>Thinking, Fast and Slow</strong> — Daniel Kahneman (จิตวิทยาการตัดสินใจ)</p>
+    </div>
+    <div class="grid-card">
+      <h4>🛠️ เครื่องมือแนะนำ</h4>
+      <p><strong>Trading Journal (Excel/Notion):</strong> บันทึก Setup, Feeling, ผลลัพธ์<br><br>
+      <strong>TradingView:</strong> Backtest ระบบด้วย Paper Trading<br><br>
+      <strong>หน้าต่าง Sticky Notes:</strong> เขียน Five Truths ติดไว้<br><br>
+      <strong>Timer 5 นาที:</strong> สำหรับ Mental Rehearsal ก่อนเทรด</p>
+    </div>
+  </div>
+
+  <div class="ornament"></div>
+
+  <h2>คำปิดท้าย — จาก Mark Douglas</h2>
+
+  <div class="pullquote">
+    <p>"Learning to trade is not about learning the markets. It's about learning yourself."</p>
+    <cite>Mark Douglas — Trading in the Zone</cite>
+  </div>
+
+  <p>การเรียนรู้ที่จะเทรดไม่ใช่เรื่องของการเรียนรู้ตลาด แต่เป็นเรื่องของการเรียนรู้ตัวเอง ตลาดเป็นเพียงกระจกที่สะท้อนความเชื่อ ความกลัว และความโลภของเราออกมา</p>
+
+  <p>เมื่อเราพัฒนา Probabilistic Mindset และซึมซับ Five Fundamental Truths ได้จริง เราจะค้นพบว่าความกลัวกดปุ่ม Buy ไม่ได้หายไปทันที แต่มันจะเบาลงทีละน้อยจนกลายเป็นเสียงที่เราได้ยิน แต่ไม่จำเป็นต้องเชื่อฟังอีกต่อไป</p>
+
+  <p>และนั่น คือ "The Zone" ที่ Mark Douglas ต้องการพาเราไปถึง</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"When you truly believe that trading is simply a probability game, you will have no emotional attachment to outcomes."</div>
+    <div class="bq-th">เมื่อเราเชื่อจริงๆ ว่าการเทรดเป็นแค่เกมของความน่าจะเป็น เราจะไม่มีความผูกพันทางอารมณ์กับผลลัพธ์อีกต่อไป — นั่นแหละคือเสรีภาพที่แท้จริงในการเทรด</div>
+  </div>
+</div>
+
+<!-- ───────────────── FOOTER ───────────────── -->
+<div class="book-footer">
+  <div class="footer-title">Trading in the Zone</div>
+  <p>สกัดและเรียบเรียงจากปรัชญาของ Mark Douglas<br>
+  เพื่อให้ทุกคนอ่านแล้วนำไปใช้งานได้จริง<br><br>
+  "The market is never wrong. Opinions often are."<br>
+  — Mark Douglas</p>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
