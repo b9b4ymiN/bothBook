@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Will Cry When You Die? — Robin Sharma | สรุปฉบับสมบูรณ์</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   DESIGN SYSTEM — INSPIRED BY THE BOOK
+   Sky Blue · Warm Cream · Deep Navy
+   ═══════════════════════════════════════ */
+:root {
+  /* Paper — warm and calm, like morning pages */
+  --paper:         #F7F3EE;
+  --paper-mid:     #EDF5FA;   /* sky-tinted chapter openers */
+  --paper-blue:    #E4F0F7;   /* deeper blue sections */
+  --paper-border:  #C8DDE9;   /* blue-grey borders */
+  --paper-shadow:  #B0CDD9;   /* subtle borders */
+
+/* Ink — deep ocean navy, not harsh black */
+–ink:           #0C1C2C;
+–ink-soft:      #1A3145;
+–ink-mid:       #2E5877;
+–ink-muted:     #5884A0;
+–ink-faint:     #8AAEC4;
+
+/* Sky Blue — primary accent, book cover colour */
+–sky:           #1480B0;
+–sky-light:     #3BAADB;
+–sky-pale:      #D0EAF5;
+–sky-rule:      rgba(20,128,176,0.22);
+
+/* Warm accent — terracotta/human warmth */
+–warm:          #C0633A;
+–warm-light:    #D9845F;
+–warm-bg:       #FBF0EB;
+
+/* Cover */
+–cover-bg:      #062035;   /* deep ocean */
+–cover-mid:     #0A3352;
+–cover-sky:     #4FC3E8;   /* bright sky accent */
+–cover-sky-dim: rgba(79,195,232,0.35);
+
+/* Semantic */
+–green:         #1A5C3A;
+–green-bg:      #EDF7F2;
+–red:           #7A2020;
+–red-bg:        #FDF5F5;
+
+/* Layout */
+–book-width:    740px;
+–pad-h:         68px;
+–pad-v:         76px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+background: #0A1A28;
+font-family: ‘Noto Serif Thai’, serif;
+color: var(–ink-soft);
+-webkit-font-smoothing: antialiased;
+}
+
+/* ─── BOOK SHELL ─── */
+.book {
+max-width: var(–book-width);
+margin: 0 auto;
+background: var(–paper);
+box-shadow:
+0 0 0 1px rgba(0,0,0,0.12),
+0 8px 48px rgba(0,0,0,0.45),
+0 0 140px rgba(0,0,0,0.25);
+}
+
+/* ═══════════════════════════════════════
+COVER PAGE
+═══════════════════════════════════════ */
+.cover {
+background: var(–cover-bg);
+min-height: 100vh;
+padding: 60px var(–pad-h) 60px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+position: relative;
+overflow: hidden;
+}
+/* Sky gradient at top — like horizon */
+.cover::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 280px;
+background: linear-gradient(180deg, rgba(79,195,232,0.12) 0%, transparent 100%);
+pointer-events: none;
+}
+/* Silhouette-inspired decorative arc at bottom */
+.cover::after {
+content: ‘’;
+position: absolute;
+bottom: 0; left: 0; right: 0;
+height: 3px;
+background: linear-gradient(90deg, transparent, var(–cover-sky), transparent);
+}
+.cover-frame {
+position: absolute;
+inset: 28px;
+border: 1px solid rgba(79,195,232,0.18);
+pointer-events: none;
+}
+.cover-frame::before {
+content: ‘’;
+position: absolute;
+inset: 7px;
+border: 1px solid rgba(79,195,232,0.08);
+}
+.cover-badge {
+position: absolute;
+top: 52px;
+right: var(–pad-h);
+border: 1px solid var(–cover-sky-dim);
+padding: 14px 18px;
+text-align: center;
+}
+.cover-badge-num {
+font-family: ‘Noto Serif’, serif;
+font-size: 34px;
+font-weight: 700;
+color: var(–cover-sky);
+display: block;
+line-height: 1;
+}
+.cover-badge-label {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+letter-spacing: 2px;
+color: var(–cover-sky-dim);
+text-transform: uppercase;
+display: block;
+margin-top: 5px;
+}
+.cover-series {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+letter-spacing: 3.5px;
+text-transform: uppercase;
+color: rgba(79,195,232,0.45);
+margin-bottom: 36px;
+}
+.cover-by {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 10px;
+letter-spacing: 2px;
+color: rgba(79,195,232,0.35);
+margin-bottom: 8px;
+text-transform: uppercase;
+}
+.cover-author {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 22px;
+font-weight: 600;
+color: var(–cover-sky);
+margin-bottom: 36px;
+letter-spacing: 0.5px;
+}
+.cover-title-en {
+font-family: ‘Noto Serif’, serif;
+font-size: clamp(32px, 6.5vw, 52px);
+font-weight: 700;
+color: #FFFFFF;
+line-height: 1.15;
+margin-bottom: 12px;
+letter-spacing: -0.5px;
+}
+.cover-title-question {
+font-family: ‘Noto Serif’, serif;
+font-size: clamp(32px, 6.5vw, 52px);
+font-weight: 700;
+color: var(–cover-sky);
+line-height: 1.15;
+margin-bottom: 20px;
+}
+.cover-title-th {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 16px;
+font-weight: 400;
+color: rgba(79,195,232,0.5);
+margin-bottom: 40px;
+line-height: 1.8;
+}
+.cover-line {
+width: 48px;
+height: 2px;
+background: var(–cover-sky);
+margin-bottom: 32px;
+opacity: 0.6;
+}
+.cover-desc {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 15px;
+color: rgba(255,255,255,0.38);
+line-height: 1.95;
+max-width: 460px;
+margin-bottom: 44px;
+}
+.cover-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 8px;
+margin-bottom: 56px;
+}
+.cover-tag {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 10px;
+letter-spacing: 1.5px;
+padding: 5px 12px;
+border: 1px solid rgba(79,195,232,0.25);
+color: rgba(79,195,232,0.5);
+text-transform: uppercase;
+}
+.cover-foot {
+position: absolute;
+bottom: 44px;
+left: var(–pad-h);
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+letter-spacing: 2px;
+color: rgba(79,195,232,0.2);
+text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════
+BASE TYPOGRAPHY
+═══════════════════════════════════════ */
+.page {
+padding: var(–pad-v) var(–pad-h);
+}
+.eyebrow {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 10px;
+font-weight: 500;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–sky);
+margin-bottom: 14px;
+}
+h1 {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: clamp(22px, 3vw, 30px);
+font-weight: 700;
+color: var(–ink);
+line-height: 1.45;
+margin-bottom: 22px;
+}
+h2 {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: clamp(17px, 2.3vw, 21px);
+font-weight: 600;
+color: var(–ink-soft);
+line-height: 1.5;
+margin: 44px 0 16px;
+padding-bottom: 12px;
+border-bottom: 1px solid var(–sky-rule);
+position: relative;
+}
+h2::after {
+content: ‘’;
+position: absolute;
+bottom: -1px; left: 0;
+width: 30px; height: 2px;
+background: var(–sky);
+}
+h3 {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 13px;
+font-weight: 600;
+letter-spacing: 1.2px;
+text-transform: uppercase;
+color: var(–ink-mid);
+margin: 26px 0 10px;
+}
+p {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 17px;
+line-height: 1.95;
+color: var(–ink-soft);
+margin-bottom: 18px;
+}
+strong { color: var(–ink); font-weight: 600; }
+em { font-style: italic; color: var(–ink-mid); }
+
+/* ═══════════════════════════════════════
+CHAPTER OPENING
+═══════════════════════════════════════ */
+.chapter-open {
+background: var(–paper-mid);
+padding: 68px var(–pad-h) 60px;
+border-bottom: 1px solid var(–paper-border);
+border-top: 1px solid var(–paper-border);
+position: relative;
+overflow: hidden;
+}
+/* Sky wash behind chapter open */
+.chapter-open::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 3px;
+background: var(–sky);
+}
+.chapter-open::after {
+content: ‘’;
+display: block;
+width: 36px;
+height: 2px;
+background: var(–sky);
+margin-top: 28px;
+opacity: 0.6;
+}
+.ch-num {
+font-family: ‘Noto Serif’, serif;
+font-size: 88px;
+font-weight: 700;
+color: var(–paper-blue);
+position: absolute;
+top: 36px;
+right: var(–pad-h);
+line-height: 1;
+user-select: none;
+}
+.ch-label {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+font-weight: 500;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–sky);
+margin-bottom: 16px;
+}
+.ch-title {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: clamp(20px, 3.2vw, 28px);
+font-weight: 700;
+color: var(–ink);
+line-height: 1.45;
+}
+.ch-title em {
+display: block;
+font-style: normal;
+font-size: 0.62em;
+color: var(–ink-muted);
+margin-top: 10px;
+font-family: ‘Sarabun’, sans-serif;
+font-weight: 400;
+letter-spacing: 0.3px;
+}
+
+/* ═══════════════════════════════════════
+COMPONENTS
+═══════════════════════════════════════ */
+
+/* Intro Block — teal bar at top */
+.intro-block {
+background: var(–paper-mid);
+border-top: 3px solid var(–sky);
+border-bottom: 1px solid var(–paper-border);
+padding: 28px 32px;
+margin: 28px 0 32px;
+}
+.intro-block p {
+font-size: 16px;
+line-height: 1.95;
+color: var(–ink-soft);
+margin: 0;
+}
+
+/* Pull Quote — sky left border */
+.pullquote {
+margin: 40px 0;
+padding: 6px 0 6px 28px;
+border-left: 3px solid var(–sky);
+}
+.pullquote p {
+font-family: ‘Noto Serif’, serif;
+font-size: 18.5px;
+font-style: italic;
+color: var(–ink);
+line-height: 1.7;
+margin-bottom: 8px;
+}
+.pullquote cite {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 11px;
+color: var(–ink-muted);
+letter-spacing: 0.5px;
+font-style: normal;
+}
+.pullquote .th-trans {
+display: block;
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 14px;
+font-style: normal;
+color: var(–sky);
+margin-top: 8px;
+line-height: 1.7;
+opacity: 0.8;
+}
+
+/* Full-Width Blockquote — sky version */
+.blockquote-full {
+background: var(–ink);
+padding: 44px var(–pad-h);
+margin: 48px 0;
+text-align: center;
+position: relative;
+}
+.blockquote-full::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: var(–sky);
+}
+.bq-en {
+font-family: ‘Noto Serif’, serif;
+font-style: italic;
+font-size: clamp(15px, 2vw, 19px);
+color: rgba(255,255,255,0.75);
+line-height: 1.75;
+margin-bottom: 12px;
+}
+.bq-th {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 14px;
+color: rgba(79,195,232,0.55);
+line-height: 1.85;
+}
+
+/* Stat Row */
+.stat-row {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+background: var(–paper-border);
+gap: 1px;
+border: 1px solid var(–paper-border);
+margin: 32px 0;
+}
+.stat-item {
+background: var(–paper);
+padding: 28px 18px;
+text-align: center;
+}
+.stat-value {
+font-family: ‘Noto Serif’, serif;
+font-size: 38px;
+font-weight: 700;
+color: var(–sky);
+line-height: 1;
+margin-bottom: 8px;
+}
+.stat-label {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 11px;
+color: var(–ink-muted);
+line-height: 1.55;
+}
+
+/* Two-col Grid */
+.two-col-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1px;
+background: var(–paper-border);
+border: 1px solid var(–paper-border);
+margin: 24px 0;
+}
+.grid-card {
+background: var(–paper);
+padding: 22px;
+}
+.grid-card h4 {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.8px;
+color: var(–sky);
+margin-bottom: 9px;
+text-transform: uppercase;
+}
+.grid-card p {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 14px;
+line-height: 1.7;
+color: var(–ink-soft);
+margin: 0;
+}
+
+/* Lesson Card — the main content unit */
+.lesson-card {
+background: var(–paper);
+border: 1px solid var(–paper-border);
+border-left: 3px solid var(–sky);
+padding: 24px 28px;
+margin: 22px 0;
+}
+.lesson-num {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 2.5px;
+text-transform: uppercase;
+color: var(–sky);
+margin-bottom: 8px;
+}
+.lesson-title {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 17px;
+font-weight: 700;
+color: var(–ink);
+margin-bottom: 12px;
+line-height: 1.5;
+}
+.lesson-body {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 14.5px;
+color: var(–ink-soft);
+line-height: 1.8;
+}
+.lesson-body strong { color: var(–ink); }
+.lesson-action {
+margin-top: 12px;
+padding-top: 11px;
+border-top: 1px solid var(–paper-blue);
+font-family: ‘Sarabun’, sans-serif;
+font-size: 12.5px;
+color: var(–sky);
+font-style: italic;
+}
+.lesson-metaphor {
+background: var(–paper-mid);
+border-left: 2px solid var(–sky-light);
+padding: 10px 14px;
+margin: 10px 0;
+font-family: ‘Sarabun’, sans-serif;
+font-size: 13px;
+color: var(–ink-mid);
+line-height: 1.7;
+font-style: italic;
+}
+
+/* Signal Box */
+.signal-box {
+padding: 20px 26px;
+margin: 18px 0;
+}
+.signal-box.go  { background: var(–green-bg);  border-left: 3px solid var(–green); }
+.signal-box.stop{ background: var(–red-bg);    border-left: 3px solid var(–red);   }
+.signal-box.sky { background: var(–paper-mid); border-left: 3px solid var(–sky);   }
+.signal-title {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 10px;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 11px;
+}
+.signal-box.go .signal-title   { color: var(–green); }
+.signal-box.stop .signal-title { color: var(–red);   }
+.signal-box.sky .signal-title  { color: var(–sky);   }
+.signal-list { list-style: none; }
+.signal-list li {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 14px;
+color: var(–ink-soft);
+padding: 5px 0;
+line-height: 1.65;
+display: flex;
+gap: 10px;
+align-items: flex-start;
+}
+.signal-box.go   .signal-list li::before { content: ‘✓’; color: var(–green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.signal-box.stop .signal-list li::before { content: ‘×’; color: var(–red);   font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.signal-box.sky  .signal-list li::before { content: ‘→’; color: var(–sky);   font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* Checklist */
+.checklist {
+border: 1px solid var(–paper-border);
+margin: 32px 0;
+overflow: hidden;
+}
+.checklist-cap {
+background: var(–ink-soft);
+padding: 20px 26px;
+}
+.checklist-cap h3 {
+color: var(–sky-light);
+margin: 0 0 5px;
+font-size: 12px;
+letter-spacing: 1.5px;
+}
+.checklist-cap p {
+color: rgba(255,255,255,0.42);
+font-family: ‘Sarabun’, sans-serif;
+font-size: 13px;
+margin: 0;
+line-height: 1.6;
+}
+.cl-group { padding: 12px 0; }
+.cl-group-title {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 2.5px;
+text-transform: uppercase;
+color: var(–sky);
+background: var(–paper-blue);
+padding: 7px 26px;
+margin-bottom: 2px;
+}
+.cl-items { list-style: none; }
+.cl-items li {
+display: flex;
+align-items: flex-start;
+gap: 13px;
+padding: 10px 26px;
+border-bottom: 1px solid var(–paper-blue);
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+flex-shrink: 0;
+width: 16px; height: 16px;
+border: 1px solid var(–paper-shadow);
+margin-top: 2px;
+background: var(–paper);
+}
+.cl-text {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 14px;
+color: var(–ink-soft);
+line-height: 1.65;
+}
+.cl-note {
+font-size: 12px;
+font-style: italic;
+color: var(–ink-faint);
+margin-top: 3px;
+}
+
+/* Formula Block */
+.formula-block {
+background: var(–ink-soft);
+padding: 28px 32px;
+margin: 32px 0;
+text-align: center;
+border-top: 2px solid var(–sky);
+}
+.formula-label {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: rgba(79,195,232,0.45);
+margin-bottom: 14px;
+}
+.formula-eq {
+font-family: ‘Noto Serif’, serif;
+font-size: 18px;
+font-weight: 600;
+color: var(–sky-light);
+margin-bottom: 10px;
+line-height: 1.5;
+}
+.formula-note {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 13px;
+color: rgba(255,255,255,0.38);
+line-height: 1.65;
+}
+
+/* Author Voice */
+.author-voice {
+display: flex;
+gap: 18px;
+background: var(–paper-mid);
+border: 1px solid var(–paper-border);
+padding: 22px 26px;
+margin: 30px 0;
+align-items: flex-start;
+}
+.av-avatar {
+flex-shrink: 0;
+width: 44px; height: 44px;
+background: var(–sky);
+color: #fff;
+font-family: ‘Noto Serif’, serif;
+font-size: 15px;
+font-weight: 700;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.av-meta {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 11px;
+color: var(–ink-muted);
+margin-bottom: 7px;
+}
+.av-text {
+font-family: ‘Noto Serif’, serif;
+font-size: 15px;
+font-style: italic;
+color: var(–ink);
+line-height: 1.72;
+margin: 0;
+}
+.av-text-th {
+display: block;
+font-style: normal;
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 13px;
+color: var(–sky);
+margin-top: 8px;
+line-height: 1.7;
+opacity: 0.85;
+}
+
+/* Reflection Box */
+.reflection {
+background: var(–paper-mid);
+border: 1px solid var(–paper-border);
+border-top: 2px solid var(–sky);
+padding: 28px 32px;
+margin: 36px 0;
+counter-reset: ref-counter;
+}
+.reflection-title {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–sky);
+margin-bottom: 18px;
+}
+.reflection-list { list-style: none; }
+.reflection-list li {
+counter-increment: ref-counter;
+display: flex;
+gap: 16px;
+padding: 10px 0;
+border-bottom: 1px solid var(–paper-blue);
+font-family: ‘Sarabun’, sans-serif;
+font-size: 14px;
+color: var(–ink-soft);
+line-height: 1.75;
+}
+.reflection-list li:last-child { border-bottom: none; }
+.reflection-list li::before {
+content: counter(ref-counter, decimal-leading-zero);
+font-family: ‘Noto Serif’, serif;
+font-size: 15px;
+color: rgba(20,128,176,0.35);
+flex-shrink: 0;
+width: 28px;
+font-weight: 600;
+margin-top: 1px;
+}
+
+/* Ornament Divider */
+.ornament {
+border: none;
+text-align: center;
+margin: 44px 0;
+}
+.ornament::before {
+content: ‘· · ·’;
+color: var(–sky-rule);
+letter-spacing: 12px;
+font-size: 14px;
+}
+
+/* TOC */
+.toc-list { list-style: none; margin: 20px 0; }
+.toc-list li {
+display: flex;
+align-items: baseline;
+gap: 10px;
+padding: 11px 0;
+border-bottom: 1px dotted var(–paper-border);
+font-family: ‘Sarabun’, sans-serif;
+font-size: 14px;
+color: var(–ink-soft);
+}
+.toc-ch {
+color: var(–sky);
+font-size: 10px;
+font-weight: 600;
+flex-shrink: 0;
+width: 56px;
+}
+.toc-title { flex: 1; }
+.toc-num {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 11px;
+color: var(–ink-faint);
+}
+
+/* Insight Card — warm accent variant */
+.insight-card {
+background: var(–warm-bg);
+border-left: 3px solid var(–warm);
+padding: 18px 24px;
+margin: 18px 0;
+}
+.insight-label {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 9px;
+font-weight: 600;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–warm);
+margin-bottom: 8px;
+}
+.insight-text {
+font-family: ‘Noto Serif Thai’, serif;
+font-size: 15px;
+color: var(–ink-soft);
+line-height: 1.8;
+}
+
+/* Comparison Table */
+.cmp-table-wrap { overflow-x: auto; margin: 24px 0; }
+.cmp-table {
+width: 100%;
+border-collapse: collapse;
+font-family: ‘Sarabun’, sans-serif;
+font-size: 13.5px;
+}
+.cmp-table th {
+background: var(–ink-soft);
+color: var(–sky-light);
+font-size: 10px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+padding: 12px 16px;
+text-align: left;
+font-weight: 500;
+}
+.cmp-table td {
+padding: 11px 16px;
+border-bottom: 1px solid var(–paper-blue);
+color: var(–ink-soft);
+vertical-align: top;
+line-height: 1.65;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: var(–paper-mid); }
+.col-cat {
+font-weight: 600;
+color: var(–sky);
+white-space: nowrap;
+}
+
+/* Book Footer */
+.book-footer {
+background: var(–cover-bg);
+padding: 48px var(–pad-h);
+text-align: center;
+border-top: 2px solid var(–sky);
+}
+.book-footer p {
+font-family: ‘Sarabun’, sans-serif;
+font-size: 11px;
+color: rgba(79,195,232,0.3);
+letter-spacing: 1px;
+margin: 0;
+line-height: 2.2;
+}
+.footer-line {
+width: 40px; height: 1px;
+background: rgba(79,195,232,0.18);
+margin: 18px auto;
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+:root { –pad-h: 22px; –pad-v: 44px; }
+.two-col-grid { grid-template-columns: 1fr; }
+.stat-row { grid-template-columns: 1fr; }
+.ch-num { display: none; }
+.blockquote-full { padding: 30px 22px; }
+.cover-badge { display: none; }
+.author-voice { flex-direction: column; }
+.cmp-table-wrap { overflow-x: auto; }
+}
+</style>
+
+</head>
+<body>
+<div class="book">
+
+<!-- ══════════════════════ COVER ══════════════════════ -->
+
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-badge">
+    <span class="cover-badge-num">101</span>
+    <span class="cover-badge-label">Life Lessons</span>
+  </div>
+  <div class="cover-series">สรุปฉบับสมบูรณ์ภาษาไทย</div>
+  <div class="cover-by">ปรัชญาของ</div>
+  <div class="cover-author">Robin Sharma</div>
+  <div class="cover-title-en">Who Will Cry</div>
+  <div class="cover-title-question">When You Die?</div>
+  <div class="cover-title-th">ใครจะร้องไห้เมื่อเราจากไป?<br>บทเรียนชีวิตจากพระที่ขายเฟอร์รารี่</div>
+  <div class="cover-line"></div>
+  <div class="cover-desc">
+    หนังสือที่ถามคำถามหนึ่งคำถาม — แล้วเปลี่ยนวิธีที่เราใช้ชีวิตทุกวันไปตลอดกาล ไม่ใช่คำถามที่ทำให้กลัว แต่คำถามที่ทำให้ตื่น ให้รู้ว่าสิ่งใดสำคัญจริงๆ ก่อนที่เวลาจะหมด
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">จุดมุ่งหมาย</div>
+    <div class="cover-tag">นิสัยดี</div>
+    <div class="cover-tag">ความสัมพันธ์</div>
+    <div class="cover-tag">มรดกชีวิต</div>
+    <div class="cover-tag">การเติบโต</div>
+  </div>
+  <div class="cover-foot">ฉบับสมบูรณ์ · 101 บทเรียน · ภาษาไทย</div>
+</div>
+
+<!-- ══════════════════════ INTRO & TOC ══════════════════════ -->
+
+<div class="page">
+  <div class="eyebrow">ภาพรวม · Overview</div>
+  <h1>ทำความรู้จักกับหนังสือเล่มนี้</h1>
+
+  <div class="intro-block">
+    <p>
+      "Who Will Cry When You Die?" ไม่ใช่หนังสือที่สอนวิธีรวยหรือวิธีประสบความสำเร็จในสายอาชีพ — แต่เป็นหนังสือที่ถามคำถามที่ทรงพลังที่สุดในชีวิต: <strong>เมื่อเราจากโลกนี้ไป จะมีใครเสียใจจริงๆ บ้างไหม? เราได้สร้างรอยประทับในชีวิตใครบ้าง? ชีวิตที่เราใช้อยู่ทุกวันนี้ มีความหมายพอที่ใครจะจดจำเราด้วยความรักไหม?</strong>
+    </p>
+  </div>
+
+  <p>
+    Robin Sharma เขียนหนังสือเล่มนี้หลังจากทำงานเป็นที่ปรึกษาให้กับผู้บริหารระดับสูง นักกีฬาทีมชาติ และผู้นำจากทั่วโลกมาหลายสิบปี เขาพบว่าคนที่ "ประสบความสำเร็จ" ในสายตาโลกจำนวนมาก กลับรู้สึกว่าชีวิตขาดบางอย่างสำคัญ — บางอย่างที่ไม่สามารถซื้อได้ด้วยเงิน ไม่สามารถวัดได้ด้วยตำแหน่ง
+  </p>
+  <p>
+    หนังสือเล่มนี้รวม <strong>101 บทเรียนชีวิต</strong> ที่กลั่นกรองจากประสบการณ์นั้น แต่ละบทเรียนสั้น ปฏิบัติได้จริง และออกแบบมาเพื่อให้เราเปลี่ยนวิธีคิดและวิธีใช้ชีวิตทีละเล็กทีละน้อย จนกระทั่งเมื่อมองย้อนกลับ เราจะพบว่าชีวิตเปลี่ยนไปโดยสิ้นเชิง
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">101</div>
+      <div class="stat-label">บทเรียนชีวิต<br>ที่นำไปใช้ได้ทันที</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">7</div>
+      <div class="stat-label">ธีมหลัก<br>ของการมีชีวิตที่มีความหมาย</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">20M</div>
+      <div class="stat-label">เล่มที่ขายได้ทั่วโลก<br>ใน 55+ ประเทศ</div>
+    </div>
+  </div>
+
+  <h2>สารบัญ — 7 ธีมหลักของหนังสือ</h2>
+
+  <ul class="toc-list">
+    <li>
+      <span class="toc-ch">บท 01</span>
+      <span class="toc-title">ค้นหาจุดมุ่งหมายและพันธกิจชีวิต</span>
+      <span class="toc-num">บทเรียนที่ 1–15</span>
+    </li>
+    <li>
+      <span class="toc-ch">บท 02</span>
+      <span class="toc-title">พลังของกิจวัตรและนิสัยประจำวัน</span>
+      <span class="toc-num">บทเรียนที่ 16–30</span>
+    </li>
+    <li>
+      <span class="toc-ch">บท 03</span>
+      <span class="toc-title">ความแข็งแกร่งของจิตใจและการรับมืออุปสรรค</span>
+      <span class="toc-num">บทเรียนที่ 31–48</span>
+    </li>
+    <li>
+      <span class="toc-ch">บท 04</span>
+      <span class="toc-title">ความสัมพันธ์ที่มีความหมายและการให้</span>
+      <span class="toc-num">บทเรียนที่ 49–65</span>
+    </li>
+    <li>
+      <span class="toc-ch">บท 05</span>
+      <span class="toc-title">ร่างกาย พลังงาน และการดูแลตัวเอง</span>
+      <span class="toc-num">บทเรียนที่ 66–76</span>
+    </li>
+    <li>
+      <span class="toc-ch">บท 06</span>
+      <span class="toc-title">งาน ความเป็นเลิศ และการเติบโตต่อเนื่อง</span>
+      <span class="toc-num">บทเรียนที่ 77–88</span>
+    </li>
+    <li>
+      <span class="toc-ch">บท 07</span>
+      <span class="toc-title">มรดกชีวิต — สร้างสิ่งที่ยังคงอยู่หลังจากเราไม่อยู่</span>
+      <span class="toc-num">บทเรียนที่ 89–101</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ══════════════════════ CHAPTER 1 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Chapter One</div>
+  <div class="ch-title">
+    ค้นหาจุดมุ่งหมายและพันธกิจชีวิต
+    <em>Discover Your Calling — ทำไมเราถึงมีชีวิตอยู่? และเราจะทำให้ชีวิตมีความหมายได้อย่างไร?</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 1 · จุดมุ่งหมาย</div>
+  <h1>ชีวิตที่ไม่รู้ว่ากำลังเดินไปทางไหน คือชีวิตที่แล่นเรือโดยไม่มีเข็มทิศ</h1>
+
+  <p>
+    Sharma เริ่มต้นด้วยคำถามที่ทำให้หัวใจเต้นแรง — <em>"ถ้าเราตายวันพรุ่งนี้ เราได้ใช้ชีวิตอย่างที่ใจต้องการจริงๆ แล้วหรือยัง?"</em> สำหรับคนส่วนใหญ่ คำตอบคือ "ยัง" — และนั่นคือสัญญาณที่ทรงพลังที่สุดที่บอกว่าถึงเวลาต้องเปลี่ยน ไม่ใช่เปลี่ยนพรุ่งนี้ — แต่เปลี่ยนวันนี้
+  </p>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 1 · Discover Your Calling</div>
+    <div class="lesson-title">ค้นพบสิ่งที่เรารักจริงๆ แล้วกล้าที่จะดำเนินชีวิตตามมัน</div>
+    <div class="lesson-body">
+      Sharma บอกว่าทุกคนเกิดมาพร้อมกับ <strong>"พรสวรรค์เฉพาะตัว"</strong> ที่โลกต้องการ ปัญหาคือคนส่วนใหญ่ใช้ชีวิตทั้งชีวิตทำในสิ่งที่ <em>สังคมคาดหวัง</em> ไม่ใช่สิ่งที่ <em>หัวใจเรียกร้อง</em> เราไล่ตามตำแหน่งที่พ่อแม่อยากให้เป็น เงินเดือนที่สังคมยกย่อง หรือวิถีชีวิตที่โซเชียลมีเดียนิยมชมชอบ — จนลืมถามตัวเองว่า "ฉันอยากเป็นอะไร?"
+      <br><br>
+      เครื่องมือที่ Sharma แนะนำให้ใช้คือคำถามสามข้อ: <strong>สิ่งใดที่ทำแล้วลืมเวลา? สิ่งใดที่คนอื่นมักขอคำแนะนำจากเรา? สิ่งใดที่ถ้าไม่ได้ทำแล้วรู้สึกไม่ครบถ้วน?</strong> จุดตัดของสามคำถามนี้คือเบาะแสของพันธกิจชีวิต
+    </div>
+    <div class="lesson-action">→ ลองนั่งเงียบๆ 10 นาที แล้วตอบสามคำถามนี้ในสมุดบันทึก</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 2 · Live Each Day as Your Last</div>
+    <div class="lesson-title">ใช้ชีวิตทุกวันเหมือนมันเป็นวันสุดท้าย — แต่วางแผนราวกับว่าจะอยู่อีกร้อยปี</div>
+    <div class="lesson-body">
+      นี่ไม่ได้หมายความว่าให้ใช้จ่ายสุรุ่ยสุร่ายหรือทำทุกอย่างแบบไม่รับผิดชอบ Sharma หมายถึง <strong>การตื่นตัวกับความสำคัญของวันนี้</strong> ไม่เลื่อนการบอกรักคนที่รัก ไม่รอให้มีเวลา "สักวัน" ก่อนจะเริ่มดำเนินตามความฝัน ไม่ปล่อยให้ความกลัวทำให้เราหยุดอยู่กับที่
+      <div class="lesson-metaphor">
+        💡 Sharma ใช้ภาพเปรียบ: "ถ้าเราโดนหมอบอกว่าเหลือเวลาอีก 30 วัน — เราจะทำอะไร? จะไปที่ไหน? จะบอกอะไรกับใคร?" คำตอบนั้นคือสิ่งที่เราควรทำวันนี้
+      </div>
+    </div>
+    <div class="lesson-action">→ ถามตัวเองทุกเช้า: "ถ้าวันนี้เป็นวันสุดท้าย ฉันจะใช้มันต่างจากที่วางแผนไว้ไหม?"</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 3 · Write a Personal Mission Statement</div>
+    <div class="lesson-title">เขียนคำประกาศพันธกิจส่วนตัว — เข็มทิศที่กำหนดทิศทางทุกการตัดสินใจ</div>
+    <div class="lesson-body">
+      องค์กรใหญ่ทุกแห่งมี Mission Statement — แล้วชีวิตเรา ซึ่งสำคัญกว่าองค์กรใดๆ ล่ะ? Sharma แนะนำให้เขียน Personal Mission Statement ซึ่งตอบว่า: <strong>เราคือใคร? เราให้คุณค่ากับอะไรมากที่สุด? เราต้องการสร้างผลกระทบอะไรให้กับโลก?</strong>
+      <br><br>
+      ตัวอย่างเช่น: <em>"ฉันมุ่งมั่นที่จะเป็นแม่ที่ทำให้ลูกรู้สึกว่าพวกเขาสามารถทำได้ทุกอย่าง และเป็นผู้หญิงที่ทำงานด้วยความซื่อสัตย์และสร้างสรรค์ทุกวัน"</em> ทบทวน Mission Statement ทุกเช้าเพื่อเตือนใจว่าวันนี้กำลังเดินไปทางไหน
+    </div>
+    <div class="lesson-action">→ ใช้เวลา 20 นาทีเขียน Mission Statement ส่วนตัว ไม่จำเป็นต้องสมบูรณ์แบบ แต่ต้องมาจากใจจริง</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 4 · Use a Life Goals Book</div>
+    <div class="lesson-title">ใช้สมุดเป้าหมายชีวิต — เปลี่ยนความฝันในหัวให้กลายเป็นแผนที่มองเห็นได้</div>
+    <div class="lesson-body">
+      Sharma แนะนำให้มีสมุดบันทึกที่เรียกว่า "Life Goals Book" — สมุดที่บันทึกเป้าหมายทุกด้านชีวิต ทั้งสุขภาพ ครอบครัว อาชีพ การเดินทาง การเงิน ความสัมพันธ์ และการพัฒนาตัวเอง <strong>การเขียนเป้าหมายลงบนกระดาษทำให้สมองรับรู้มันว่า "จริงจัง"</strong> ต่างจากการคิดลอยๆ ในหัว ซึ่งมักหายไปกับสายลม
+      <br><br>
+      งานวิจัยจาก Dominican University พบว่าคนที่เขียนเป้าหมายลงกระดาษมีโอกาสบรรลุเป้าหมายสูงกว่าคนที่ไม่เขียนถึง 42%
+    </div>
+    <div class="lesson-action">→ ซื้อสมุดบันทึกสวยๆ เล่มหนึ่ง แล้วเขียนเป้าหมาย 10 ข้อที่อยากทำก่อนตาย</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 5 · Be Bold in Your Vision</div>
+    <div class="lesson-title">กล้าฝันใหญ่ — ความฝันขนาดกลางๆ ไม่สร้างแรงบันดาลใจพอที่จะทำให้ลุกขึ้นต้านทานอุปสรรค</div>
+    <div class="lesson-body">
+      Sharma บอกว่าคนส่วนใหญ่ตั้งเป้าหมายที่ "พอเหมาะพอดี" เพื่อหลีกเลี่ยงความผิดหวัง — แต่ผลลัพธ์คือพวกเขาได้ชีวิต "พอเหมาะพอดี" ที่ไม่เคยตื่นเต้นหรือมีความหมาย <strong>ความฝันที่ยิ่งใหญ่คือสิ่งเดียวที่ทำให้เราอยากตื่นเช้า</strong> อยากผลักดันตัวเองเกินขีดจำกัด และอยากทนต่ออุปสรรคที่แสนยาก
+      <div class="lesson-metaphor">
+        💡 "ถ้าความฝันของเราไม่ได้ทำให้ใจเต้นแรงเล็กน้อย นั่นอาจเป็นสัญญาณว่าฝันนั้นยังเล็กเกินไป"
+      </div>
+    </div>
+    <div class="lesson-action">→ ลองขยายเป้าหมายที่มีอยู่ให้ใหญ่ขึ้น 10 เท่า แล้วสังเกตว่ารู้สึกอย่างไร</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 6 · Have a Dream Wall</div>
+    <div class="lesson-title">สร้าง "กำแพงความฝัน" — ทำให้ภาพอนาคตที่ต้องการมองเห็นได้ทุกวัน</div>
+    <div class="lesson-body">
+      Sharma แนะนำให้สร้าง Dream Wall หรือ Vision Board — ติดรูป คำ หรือสัญลักษณ์ที่แสดงถึงชีวิตที่ต้องการไว้ในที่ที่มองเห็นทุกวัน เช่น ห้องทำงาน หัวเตียง หรือหน้าจอโทรศัพท์ <strong>สมองมนุษย์ตอบสนองต่อภาพ</strong> — การเห็นภาพอนาคตซ้ำๆ ทุกวันช่วยให้สมองเริ่มมองหาโอกาสและทางออกที่พาเราไปสู่ภาพนั้น โดยไม่รู้ตัว
+    </div>
+    <div class="lesson-action">→ ตัดรูปหรือเขียนคำ 5 อย่างที่แทนชีวิตในฝัน แล้วติดไว้ในที่ที่มองเห็นทุกเช้า</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The purpose of life is a life of purpose."</div>
+    <div class="bq-th">จุดมุ่งหมายของชีวิตคือการมีชีวิตที่มีจุดมุ่งหมาย — Robin Sharma</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 7 · Look for the Higher Meaning of Your Work</div>
+    <div class="lesson-title">มองหาความหมายที่สูงกว่าในงานที่ทำ — แม้งานที่ดูเล็กน้อยก็มีผลกระทบที่ยิ่งใหญ่</div>
+    <div class="lesson-body">
+      Sharma เล่าเรื่องคนงานก่อสร้างสามคนที่กำลังวางอิฐ เมื่อถูกถามว่ากำลังทำอะไร คนแรกตอบว่า "วางอิฐ" คนที่สองตอบว่า "สร้างกำแพง" แต่คนที่สามตอบว่า <strong>"ฉันกำลังสร้างอาสนวิหาร"</strong> งานเดียวกัน แต่ความหมายต่างกันสิ้นเชิง
+      <br><br>
+      ถ้าเราเป็นครู — เราไม่ได้แค่สอนหนังสือ เราปั้นอนาคตของชาติ ถ้าเราเป็นพนักงานร้านกาแฟ — เราไม่ได้แค่ชงกาแฟ เราสร้างช่วงเวลาดีๆ ให้กับใครสักคนที่อาจกำลังมีวันที่แสนยาก
+    </div>
+    <div class="lesson-action">→ เขียนว่างานที่ทำอยู่ตอนนี้ส่งผลกระทบบวกต่อชีวิตใครบ้าง — ทำให้เห็นภาพกว้างขึ้น</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 8 · Carry a Goal Card</div>
+    <div class="lesson-title">พกบัตรเป้าหมายไว้ในกระเป๋า — เตือนใจทุกนาทีที่รู้สึกหลงทาง</div>
+    <div class="lesson-body">
+      ไม่จำเป็นต้องซับซ้อน — เพียงแค่บัตรเล็กๆ ขนาดนามบัตร เขียนเป้าหมายหลัก 3-5 ข้อของปีนี้ไว้บนนั้น แล้วพกติดตัวตลอดเวลา <strong>เมื่อต้องตัดสินใจอะไรสำคัญ ลองดูบัตรก่อนเสมอ</strong> — การตัดสินใจนั้นพาเราเข้าใกล้หรือห่างจากเป้าหมายบนบัตร? คำตอบมักชัดเจนมากกว่าที่คิด
+    </div>
+    <div class="lesson-action">→ ตัดกระดาษนามบัตร เขียนเป้าหมายสำคัญ 3 ข้อ ใส่กระเป๋าตั้งแต่วันนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 9 · Have a Living Funeral</div>
+    <div class="lesson-title">จินตนาการงานศพของตัวเอง — แบบฝึกหัดที่โหดที่สุดและทรงพลังที่สุดในหนังสือเล่มนี้</div>
+    <div class="lesson-body">
+      Sharma แนะนำให้ทำแบบฝึกหัดที่อาจฟังดูน่ากลัว แต่ทรงพลังอย่างเหลือเชื่อ: <strong>จงนั่งลงเงียบๆ แล้วจินตนาการว่าวันนี้คือวันงานศพของตัวเอง</strong> ใครอยู่ในงาน? พวกเขาพูดถึงเราอย่างไร? ลูกหลานรู้สึกอย่างไรกับเรา? เพื่อนร่วมงานจดจำเราว่าเป็นคนอย่างไร? สิ่งที่เราต้องการให้คนพูดถึงในวันนั้นคืออะไร?
+      <br><br>
+      ถ้าคำตอบที่ต้องการกับชีวิตที่กำลังใช้อยู่ยังห่างกันมาก — นั่นคือสัญญาณที่ชัดเจนที่สุดว่าต้องเริ่มเปลี่ยนตั้งแต่วันนี้
+    </div>
+    <div class="lesson-action">→ ใช้เวลา 15 นาทีทำแบบฝึกหัดนี้คืนนี้ เขียนว่าต้องการให้คนจดจำเราว่าอย่างไร</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 10 · Respect Your Instincts</div>
+    <div class="lesson-title">เชื่อเสียงภายใน — สัญชาตญาณมักรู้ก่อนสมองว่าอะไรถูกต้อง</div>
+    <div class="lesson-body">
+      เราทุกคนมีสัญชาตญาณ — ความรู้สึกที่บอกว่า "นี่ถูก" หรือ "นี่ผิด" ก่อนที่จะมีเหตุผลอธิบายได้ Sharma บอกว่าคนที่ประสบความสำเร็จและมีชีวิตที่มีความหมายมักเป็นคนที่ <strong>เรียนรู้ที่จะฟังและเชื่อเสียงนั้น</strong> แทนที่จะเพิกเฉยเพราะกลัวความเห็นของคนอื่น เสียงภายในมักรู้จักตัวเราดีกว่าทุกที่ปรึกษาภายนอก
+    </div>
+    <div class="lesson-action">→ ครั้งต่อไปที่รู้สึกว่า "ไม่ค่อยแน่ใจ" กับการตัดสินใจ ลองนั่งเงียบๆ แล้วถามตัวเองว่า "ใจจริงๆ อยากทำอะไร?"</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAPTER 2 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Chapter Two</div>
+  <div class="ch-title">
+    พลังของกิจวัตรและนิสัยประจำวัน
+    <em>Daily Rituals — ชีวิตถูกสร้างจากสิ่งที่ทำซ้ำทุกวัน ไม่ใช่จากช่วงเวลาพิเศษ</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 2 · นิสัยและกิจวัตร</div>
+  <h1>เราไม่ได้กลายเป็นคนที่เราเป็น เพราะการตัดสินใจครั้งใหญ่ครั้งเดียว แต่เพราะสิ่งเล็กๆ ที่ทำทุกวัน</h1>
+
+  <p>
+    Sharma เปรียบกิจวัตรประจำวันว่าเหมือน <strong>"รากของต้นไม้"</strong> — มองไม่เห็นจากภายนอก แต่กำหนดว่าต้นไม้จะเติบโตแข็งแกร่งหรืออ่อนแอ คนที่ใช้ชีวิตอย่างยอดเยี่ยมไม่ได้ทำสิ่งพิเศษ แต่ทำสิ่งธรรมดาอย่างสม่ำเสมอ
+  </p>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 11 · Rise with the Sun</div>
+    <div class="lesson-title">ตื่นก่อนโลกตื่น — เพราะชั่วโมงแรกของวันกำหนดทิศทางของทุกชั่วโมงที่เหลือ</div>
+    <div class="lesson-body">
+      Benjamin Franklin กล่าวไว้ว่า "ตื่นเช้า ทำงานหนัก พบแพทย์น้อยลง" Sharma เห็นด้วยอย่างยิ่ง และอธิบายว่าการตื่นเช้าไม่ใช่แค่เรื่องของเวลา แต่เป็นเรื่องของ <strong>การควบคุมชีวิต</strong> คนที่ตื่นเช้ากว่าความวุ่นวายของวันจะเริ่มต้น จะมีเวลาสงบๆ สำหรับสิ่งที่สำคัญที่สุด — ก่อนที่งาน อีเมล ข่าวสาร และความต้องการของคนอื่นจะมาแย่งความสนใจ
+      <br><br>
+      ผู้นำโลกที่ตื่นเช้ามาก: Tim Cook (3:45), Oprah Winfrey (6:00), Jocko Willink (4:30) — ไม่ใช่ความบังเอิญ
+    </div>
+    <div class="lesson-action">→ เริ่มจากเลื่อนนาฬิกาให้เร็วขึ้น 30 นาทีต่อสัปดาห์จนถึงเวลาที่ต้องการ</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 12 · Keep a Journal</div>
+    <div class="lesson-title">เขียนบันทึกประจำวัน — กระจกที่สะท้อนชีวิตและช่วยให้เราไม่หลงทาง</div>
+    <div class="lesson-body">
+      Sharma บอกว่าการเขียนบันทึกไม่ใช่แค่การจดเรื่องที่เกิดขึ้น แต่เป็น <strong>การสนทนากับตัวเองที่ลึกที่สุด</strong> เมื่อเราเขียน เราบังคับตัวเองให้ชัดเจนกับความรู้สึก ความคิด และทิศทางชีวิต สิ่งที่อยู่ในหัวแบบคลุมเครือ เมื่อถูกเขียนลงกระดาษจะกลายเป็นรูปเป็นร่างที่จัดการได้
+      <br><br>
+      นักเขียน นักคิด และผู้นำที่ยิ่งใหญ่เกือบทุกคนเขียนบันทึก — Marcus Aurelius, Charles Darwin, Leonardo da Vinci, Oprah Winfrey ล้วนมีบันทึกส่วนตัวที่พวกเขาใช้ประมวลความคิดและตรวจสอบตัวเอง
+    </div>
+    <div class="lesson-action">→ เริ่มจากง่ายๆ: เขียนก่อนนอนทุกคืนว่า "วันนี้เกิดอะไรดี?" "เรียนรู้อะไร?" และ "พรุ่งนี้จะทำอะไรต่างออกไป?"</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 13 · Make Time to Think</div>
+    <div class="lesson-title">จัดเวลาเพื่อนั่งคิดเป็นประจำ — ในโลกที่ยุ่ง การหยุดคิดคือการกระทำที่ทรงพลังที่สุด</div>
+    <div class="lesson-body">
+      Sharma เล่าถึงนิสัยของ Bill Gates ที่มีสิ่งที่เรียกว่า "Think Week" — หยุดพักจากทุกอย่างปีละสองครั้งเพื่อนั่งอ่านหนังสือและคิดเรื่องสำคัญ Sharma แนะนำให้ทุกคนทำในระดับที่เล็กกว่า: <strong>จัดเวลา "คิด" อย่างน้อยสัปดาห์ละ 1 ชั่วโมง</strong> ไม่โทรศัพท์ ไม่อินเทอร์เน็ต ไม่การประชุม — แค่นั่งเงียบๆ คิดเรื่องที่สำคัญในชีวิตและงาน
+      <br><br>
+      คนส่วนใหญ่ยุ่งเกินไปที่จะคิด — และนั่นเองคือสาเหตุที่พวกเขาวิ่งอยู่บนเส้นทางเดิมโดยไม่รู้ว่าทางที่ดีกว่าอยู่ที่ไหน
+    </div>
+    <div class="lesson-action">→ จองเวลาในปฏิทินสัปดาห์หน้า 60 นาที เขียนว่า "คิด" แล้วอย่ายกเลิก</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 14 · Drink Deeply from Good Books</div>
+    <div class="lesson-title">อ่านหนังสือดีๆ อย่างลึกซึ้ง — ไม่ใช่แค่เพื่อบอกว่าอ่านแล้ว แต่เพื่อเปลี่ยนแปลงตัวเอง</div>
+    <div class="lesson-body">
+      <strong>"Leaders are readers"</strong> — Sharma พูดซ้ำประโยคนี้หลายครั้ง เพราะเชื่อว่าหนังสือดีหนึ่งเล่มสามารถให้ประสบการณ์ชีวิตที่เราไม่ต้องผ่านเองได้ ช่วยให้เราหลีกเลี่ยงข้อผิดพลาด เรียนรู้จากคนที่มาก่อน และขยายมุมมองโลก
+      <br><br>
+      สำคัญกว่าการอ่านมากคือการ <strong>อ่านอย่างลึกซึ้ง</strong> — ขีดเส้น จดบันทึก ตั้งคำถามกับตัวเอง และที่สำคัญที่สุดคือ <em>ลงมือทำตามสิ่งที่อ่าน</em> หนังสือที่อ่านแต่ไม่ได้ทำตามคือแค่การบันเทิง
+    </div>
+    <div class="lesson-action">→ อ่าน 15-30 นาทีก่อนนอนทุกคืน แทนที่การเลื่อนโซเชียล — ปีหนึ่งจะได้หนังสือ 12-18 เล่ม</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 15 · Take a Weekly Sabbatical</div>
+    <div class="lesson-title">หยุดพักอย่างน้อยสัปดาห์ละครั้ง — ร่างกายและจิตใจต้องการเวลาฟื้นฟู ไม่ใช่แค่วิ่งต่อไปเรื่อยๆ</div>
+    <div class="lesson-body">
+      Sharma อธิบายว่าในความเชื่อของชาวยิว มี "Sabbath" — วันพักผ่อนศักดิ์สิทธิ์ที่ห้ามทำงาน ไม่ใช่เพราะขี้เกียจ แต่เพราะเข้าใจว่า <strong>ร่างกายและสมองต้องการเวลาฟื้นฟู</strong> เพื่อจะทำงานได้อย่างเต็มประสิทธิภาพในสัปดาห์ถัดไป
+      <br><br>
+      การพักผ่อนไม่ใช่ความอ่อนแอ แต่คือ <em>การลงทุนเชิงกลยุทธ์</em> ในผลงานของสัปดาห์หน้า คนที่ไม่พักเลยมักทำงานได้น้อยกว่าคนที่พักอย่างเพียงพอ เพราะสมองล้าทำให้ประสิทธิภาพลดลงโดยไม่รู้ตัว
+    </div>
+    <div class="lesson-action">→ กำหนดวันหยุด "จริงๆ" อย่างน้อยครึ่งวันต่อสัปดาห์ ไม่รับโทรศัพท์งาน ไม่เช็คอีเมล</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 16 · Walk in the Woods</div>
+    <div class="lesson-title">เดินในธรรมชาติเป็นประจำ — ยาที่ไม่ต้องใบสั่งแพทย์และไม่มีผลข้างเคียง</div>
+    <div class="lesson-body">
+      นักวิทยาศาสตร์ชาวญี่ปุ่นตั้งชื่อปรากฏการณ์นี้ว่า <strong>"Shinrin-yoku"</strong> หรือการอาบป่า — ซึ่งพิสูจน์แล้วว่าช่วยลดฮอร์โมนคอร์ติซอล (ฮอร์โมนความเครียด) เพิ่มเซลล์ภูมิคุ้มกัน และทำให้ความคิดสร้างสรรค์เพิ่มขึ้นอย่างมีนัยสำคัญ
+      <br><br>
+      Sharma แนะนำ <strong>"Disconnected Walk"</strong> — การเดินในสวนหรือที่มีต้นไม้โดยไม่มีโทรศัพท์หรือหูฟัง อนุญาตให้สมองได้ออกแบบตัวเองโดยไม่ถูกรบกวน มักพบว่าไอเดียดีที่สุดมาจากช่วงเวลานี้
+    </div>
+    <div class="lesson-action">→ เดินในสวนโดยไม่มีโทรศัพท์ 20 นาที อย่างน้อย 3 ครั้งต่อสัปดาห์</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 17 · Stop Watching So Much Television</div>
+    <div class="lesson-title">ลดเวลาหน้าจอลง — ทุกชั่วโมงที่ดูทีวีคือชั่วโมงที่หายไปจากชีวิตที่อยากสร้าง</div>
+    <div class="lesson-body">
+      คนอเมริกันโดยเฉลี่ยดูทีวี 4 ชั่วโมงต่อวัน — คิดเป็น 1,460 ชั่วโมงต่อปี หรือเกือบ 2 เดือนเต็ม Sharma ถามตรงๆ ว่า <strong>"ถ้าเรามีเวลา 2 เดือนพิเศษในแต่ละปี เราจะทำอะไรกับมัน?"</strong> แน่นอนว่าไม่ใช่การนั่งดูรายการโทรทัศน์ที่ลืมเนื้อหาไปภายในอาทิตย์
+      <br><br>
+      Sharma ไม่ได้บอกให้หยุดดูทุกอย่าง แต่ให้ <em>"ดูอย่างมีสติ"</em> เลือกเฉพาะสิ่งที่ให้คุณค่าจริงๆ แล้วใช้เวลาที่เหลือกับสิ่งที่สร้างชีวิต
+    </div>
+    <div class="lesson-action">→ ติดตามเวลาที่ใช้กับหน้าจอในสัปดาห์นี้ แล้วตัดสิ่งที่ไม่ได้คุณค่าออก 50%</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 18 · Use Your Commute Time Wisely</div>
+    <div class="lesson-title">ใช้เวลาเดินทางให้คุ้มค่า — มหาวิทยาลัยบนล้อที่หลายคนมองข้าม</div>
+    <div class="lesson-body">
+      คนที่เดินทางไปกลับด้วยรถหรือรถไฟโดยเฉลี่ยใช้เวลา 1 ชั่วโมงต่อวัน — หรือ 250 ชั่วโมงต่อปี <strong>ถ้าใช้เวลานี้ฟัง podcast หรือ audiobook แทนที่จะบ่นเรื่องรถติด</strong> เราจะ "อ่านหนังสือ" ได้มากกว่า 25 เล่มต่อปีโดยไม่ต้องเพิ่มเวลาพิเศษเลย
+      <br><br>
+      Sharma เรียกเวลาเดินทางว่าเป็น <em>"University on Wheels"</em> — มหาวิทยาลัยบนล้อที่เปิดให้บริการทุกวัน ฟรี และเดินทางไปที่ไหนก็ได้
+    </div>
+    <div class="lesson-action">→ ดาวน์โหลด podcast หรือ audiobook สักรายการ แล้วเริ่มฟังในการเดินทางครั้งต่อไป</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 19 · Organize Your Life</div>
+    <div class="lesson-title">จัดระเบียบชีวิต — ความวุ่นวายภายนอกสะท้อนความวุ่นวายภายใน</div>
+    <div class="lesson-body">
+      Sharma บอกว่าสภาพแวดล้อมที่อยู่รอบตัวส่งผลต่อสภาพจิตใจมากกว่าที่คิด ห้องทำงานที่รกและโต๊ะที่รกทำให้สมองล้าและวอกแวกโดยไม่รู้ตัว <strong>การจัดระเบียบพื้นที่ภายนอกคือการจัดระเบียบพื้นที่ภายใน</strong>
+      <br><br>
+      แต่การจัดระเบียบไม่ใช่แค่เรื่องของห้อง — มันรวมถึงตารางเวลา ข้อผูกพัน ความสัมพันธ์ และเป้าหมายด้วย ชีวิตที่ไม่มีโครงสร้างจะพาเราไปตามกระแสของคนอื่น แทนที่จะเดินตามเข็มทิศของตัวเอง
+    </div>
+    <div class="lesson-action">→ ใช้เวลา 30 นาทีจัดโต๊ะทำงานหรือห้องนอน สังเกตว่าความรู้สึกเปลี่ยนไปอย่างไร</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 20 · Slow Down Your Life</div>
+    <div class="lesson-title">ชะลอความเร็วของชีวิต — คนที่รีบเร่งตลอดเวลามักพลาดสิ่งสำคัญที่สุด</div>
+    <div class="lesson-body">
+      Sharma ตั้งคำถามว่า <strong>"ทำไมเราถึงรีบเร่งตลอดเวลา? เราเร่งไปหาอะไร?"</strong> ในสังคมที่ยกย่องความยุ่ง คนส่วนใหญ่วิ่งอยู่ตลอดเวลาโดยไม่รู้ว่าวิ่งไปทางไหน ผลลัพธ์คือ — เราพลาดการสนทนาที่มีความหมาย พลาดช่วงเวลาสวยงามของลูกที่กำลังโต และพลาดความรู้สึกว่าชีวิตมีค่า
+      <div class="lesson-metaphor">
+        💡 "ต้นไม้ที่เติบโตช้าๆ มักมีไม้ที่แข็งแกร่งที่สุด" — ชีวิตที่ดีก็เช่นกัน ต้องการเวลาและความเงียบ ไม่ใช่แค่ความเร็ว
+      </div>
+    </div>
+    <div class="lesson-action">→ เลือกกิจกรรมหนึ่งในวันนี้ที่ปกติทำแบบรีบๆ แล้วลองทำมันช้าลงกว่าเดิมสองเท่า สังเกตว่ารู้สึกต่างไหม</div>
+  </div>
+
+  <h2>กิจวัตรเช้าที่สมบูรณ์แบบตาม Sharma</h2>
+  <p>
+    Sharma แนะนำว่าชั่วโมงแรกของวันคือ <strong>"เวลาศักดิ์สิทธิ์"</strong> ที่ต้องปกป้องอย่างเคร่งครัด ก่อนที่โลกภายนอกจะเริ่มเรียกร้องความสนใจ ลองจัดกิจวัตรเช้าเป็น 3 ส่วน 20 นาที:
+  </p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>The Morning Ritual — 60 นาทีที่เปลี่ยนชีวิต</h3>
+      <p>ทำทุกวันก่อนเปิดโทรศัพท์ ก่อนเช็คอีเมล ก่อนทุกสิ่ง</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">20 นาทีแรก — ร่างกาย (Move)</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ออกกำลังกายหรือยืดกล้ามเนื้อ 20 นาที
+            <div class="cl-note">กระตุ้น endorphin และ BDNF (สารที่ช่วยให้สมองทำงานดีขึ้น) ก่อนเริ่มวัน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            ดื่มน้ำ 1-2 แก้วก่อนอาหารหรือกาแฟ
+            <div class="cl-note">ร่างกายขาดน้ำระหว่างนอน การเติมน้ำก่อนเพิ่มพลังงานโดยทันที</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">20 นาทีที่สอง — จิตใจ (Reflect)</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            นั่งสมาธิหรือหายใจลึกๆ 10-15 นาที
+            <div class="cl-note">ไม่จำเป็นต้องซับซ้อน แค่นั่งเงียบ หายใจ และปล่อยให้จิตใจสงบก็พอ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            เขียน 3 สิ่งที่ขอบคุณ + ทบทวน Mission Statement
+            <div class="cl-note">เริ่มวันด้วยความขอบคุณและความชัดเจนว่ากำลังมุ่งไปทางไหน</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">20 นาทีที่สาม — ความรู้ (Read)</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            อ่านหนังสือดีๆ 20 นาที
+            <div class="cl-note">ใส่ความคิดดีๆ เข้าไปก่อนที่ข่าวร้ายหรือโซเชียลมีเดียจะเข้ามา</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">
+            วางแผน 3 งานสำคัญที่สุดของวัน
+            <div class="cl-note">ไม่ใช่งานทุกอย่าง — แค่ 3 งานที่ถ้าทำเสร็จจะรู้สึกว่าวันนี้มีคุณค่า</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAPTER 3 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Chapter Three</div>
+  <div class="ch-title">
+    ความแข็งแกร่งของจิตใจและการรับมืออุปสรรค
+    <em>Mindset & Resilience — เราไม่เลือกได้ว่าอะไรจะเกิดขึ้น แต่เลือกได้เสมอว่าจะตอบสนองอย่างไร</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 3 · จิตใจและความยืดหยุ่น</div>
+  <h1>ความแข็งแกร่งของจิตใจไม่ใช่การไม่รู้สึก แต่คือการเลือกได้ว่าจะรู้สึกอย่างไร</h1>
+
+  <p>
+    Sharma เชื่อว่าปัญหาที่ยิ่งใหญ่ที่สุดในชีวิตไม่ใช่ปัญหาภายนอก แต่คือ <strong>วิธีที่เราตอบสนองต่อปัญหาภายนอก</strong> สองคนเผชิญกับสถานการณ์เดียวกัน แต่คนหนึ่งพังพาบและอีกคนเติบโต — ความแตกต่างอยู่ที่ mindset ไม่ใช่สถานการณ์
+  </p>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 21 · Awareness Precedes Change</div>
+    <div class="lesson-title">การตระหนักรู้มาก่อนการเปลี่ยนแปลงเสมอ — ไม่มีใครเปลี่ยนสิ่งที่ตัวเองไม่ยอมรับว่ามีอยู่</div>
+    <div class="lesson-body">
+      ก้าวแรกในการเปลี่ยนแปลงใดๆ คือการ <strong>ยอมรับอย่างซื่อสัตย์ว่าปัญหาอยู่ที่ไหน</strong> Sharma บอกว่าคนที่โทษโชคชะตา โทษคนอื่น หรือโทษสภาพแวดล้อม ไม่มีวันเปลี่ยนแปลงได้จริง เพราะพวกเขาไม่ยอมรับว่าตัวเองเป็นส่วนหนึ่งของสมการ
+      <br><br>
+      การตั้งคำถามกับตัวเองอย่างซื่อสัตย์ว่า "ฉันมีส่วนทำให้สถานการณ์นี้เป็นอย่างนี้ไหม?" อาจเจ็บปวด แต่เป็นก้าวแรกที่จำเป็นของทุกการเปลี่ยนแปลงที่แท้จริง
+    </div>
+    <div class="lesson-action">→ เลือกปัญหาหนึ่งในชีวิตที่กำลังเผชิญ แล้วถามตัวเองอย่างซื่อสัตย์ว่า "ฉันมีส่วนไหนในปัญหานี้บ้าง?"</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 22 · Stop Complaining</div>
+    <div class="lesson-title">เลิกบ่น — การบ่นคือการบอกสมองซ้ำๆ ว่าเราเป็น "เหยื่อ" ของสถานการณ์</div>
+    <div class="lesson-body">
+      นักจิตวิทยาพบว่าทุกครั้งที่เราบ่น สมองสร้างเส้นทางประสาทใหม่ที่ทำให้การบ่นครั้งต่อไปง่ายขึ้น — จนกลายเป็น <strong>นิสัยทางสมอง</strong> ที่ทำให้เรามองหาสิ่งที่ผิดพลาดโดยอัตโนมัติ แทนที่จะมองหาทางออก
+      <br><br>
+      Sharma แนะนำ <strong>"No Complaint Challenge"</strong> — ลองไม่บ่นแม้แต่ประโยคเดียวเป็นเวลา 21 วัน ทุกครั้งที่รู้สึกอยากบ่น ให้แทนที่ด้วยคำถามว่า "ฉันทำอะไรได้บ้างเพื่อเปลี่ยนสถานการณ์นี้?" คำถามนี้เปลี่ยนสมองจากโหมด "เหยื่อ" เป็นโหมด "ผู้แก้ปัญหา"
+    </div>
+    <div class="lesson-action">→ ลอง No Complaint Challenge 7 วัน ใส่หนังยางไว้ที่ข้อมือ ทุกครั้งที่บ่นให้ดีดหนังยาง เพื่อรับรู้ว่าบ่นบ่อยแค่ไหน</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 23 · Schedule Worry Time</div>
+    <div class="lesson-title">กำหนด "เวลาเป็นห่วง" — แทนที่จะให้ความกังวลรบกวนทุกชั่วโมงตลอดวัน</div>
+    <div class="lesson-body">
+      Sharma แนะนำเทคนิคที่ฟังดูแปลกแต่ได้ผลมาก: <strong>กำหนดเวลาสำหรับความกังวลโดยเฉพาะ</strong> เช่น ทุกวันเวลา 17:00-17:20 เป็น "เวลาเป็นห่วง" อย่างเป็นทางการ เมื่อความกังวลเข้ามาในเวลาอื่น ให้บอกตัวเองว่า "ฉันจะกังวลเรื่องนี้ตอน 17:00 โมง" แล้วจดมันไว้
+      <br><br>
+      ผลลัพธ์ที่มักเกิดขึ้นคือ — เมื่อถึงเวลา 17:00 โมง ความกังวลส่วนใหญ่หมดความสำคัญไปแล้วเอง หรือเราพบว่าแก้ไขได้ง่ายกว่าที่คิด นี่คือการพิสูจน์ว่า 90% ของสิ่งที่เราเป็นห่วง ไม่เคยเกิดขึ้นจริง
+    </div>
+    <div class="lesson-action">→ ลองกำหนด "เวลาเป็นห่วง" 15 นาทีในช่วงบ่ายสักวันนี้ แล้วปล่อยให้ทุกความกังวลรอถึงเวลานั้น</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 24 · Learn the Lesson of the Hammer</div>
+    <div class="lesson-title">บทเรียนของค้อน — โฟกัสที่สิ่งที่ควบคุมได้ ปล่อยวางสิ่งที่ควบคุมไม่ได้</div>
+    <div class="lesson-body">
+      Sharma เล่าถึงชายคนหนึ่งที่ตีหัวแม่โป้งตัวเองด้วยค้อนโดยบังเอิญ แทนที่จะตั้งสติและรับมือกับความเจ็บปวด เขากลับโกรธค้อน โกรธตะปู โกรธคนที่ออกแบบค้อน และโกรธทุกคนที่ผ่านมา <strong>เราหัวเราะกับเรื่องนี้ — แต่นั่นคือสิ่งที่คนส่วนใหญ่ทำในชีวิตทุกวัน</strong>
+      <br><br>
+      นักปรัชญาชาวกรีก Epictetus สอนว่า: แบ่งทุกสิ่งออกเป็นสองกลุ่ม — สิ่งที่อยู่ในอำนาจเรา และสิ่งที่ไม่อยู่ในอำนาจเรา โฟกัสพลังงานทั้งหมดไปที่กลุ่มแรก ปล่อยวางกลุ่มที่สอง
+    </div>
+    <div class="lesson-action">→ เขียนปัญหาที่กำลังเครียดอยู่ แล้วแบ่งว่าส่วนไหนควบคุมได้ ส่วนไหนควบคุมไม่ได้ โฟกัสแค่ส่วนแรก</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 25 · Develop Mental Toughness</div>
+    <div class="lesson-title">พัฒนาความแข็งแกร่งของจิตใจ — กล้ามเนื้อที่ฝึกได้เหมือนกล้ามเนื้อร่างกาย</div>
+    <div class="lesson-body">
+      ความแข็งแกร่งทางจิตใจไม่ใช่สิ่งที่เกิดมาพร้อมกับบางคน แต่เป็นทักษะที่ฝึกได้ Sharma แนะนำให้ <strong>ทำสิ่งที่ไม่สบายใจทุกวัน</strong> — ไม่ใช่เพื่อทรมานตัวเอง แต่เพื่อพิสูจน์ให้สมองรู้ว่า "ฉันสามารถทำสิ่งที่ยากได้" ทุกครั้งที่ทำสำเร็จ สมองจะสร้างความเชื่อมั่นใหม่
+      <br><br>
+      ตัวอย่างการฝึก: อาบน้ำเย็น 30 วิทีแรก ตื่นเช้าในวันที่ไม่อยากตื่น ออกกำลังกายในวันที่อยากพักผ่อน ยืนหยัดในสิ่งที่เชื่อแม้จะไม่เป็นที่นิยม
+    </div>
+    <div class="lesson-action">→ เลือกสิ่งหนึ่งที่ไม่สบายใจ แล้วทำมันวันนี้ สัปดาห์หน้าเลือกสิ่งที่ยากขึ้นอีกนิด</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 26 · Practice Forgiveness</div>
+    <div class="lesson-title">ฝึกการให้อภัย — ไม่ใช่เพื่อคนที่ทำผิด แต่เพื่อปลดปล่อยตัวเราเองจากคุกแห่งความโกรธ</div>
+    <div class="lesson-body">
+      Sharma อธิบายว่าการถือโกรธเปรียบเหมือน <strong>"การดื่มยาพิษแล้วหวังว่าคนอื่นจะตาย"</strong> ความโกรธและความเคียดแค้นไม่ได้ทำร้ายคนที่เราโกรธแม้แต่น้อย แต่กำลังทำลายสุขภาพจิต สุขภาพกาย และคุณภาพชีวิตของเราเอง
+      <br><br>
+      การให้อภัยไม่ได้หมายความว่าสิ่งที่เกิดขึ้นถูกต้อง หรือเราต้องยอมรับการกระทำนั้น — มันหมายความว่าเราเลือกที่จะ <em>ไม่ถูกจองจำโดยอดีต</em> และเดินหน้าต่อด้วยหัวใจที่เบาลง
+    </div>
+    <div class="lesson-action">→ มีใครที่เราค้างการให้อภัยไหม? ลองนั่งเงียบๆ แล้วส่งความปรารถนาดีให้เขาในใจ แม้เพียงครั้งเดียว</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 27 · Manage Your Emotions</div>
+    <div class="lesson-title">จัดการอารมณ์ — ช่องว่างระหว่างการกระตุ้นและการตอบสนองคือที่ที่เสรีภาพของเราอยู่</div>
+    <div class="lesson-body">
+      Viktor Frankl นักจิตวิทยาที่รอดชีวิตจากค่ายกักกันนาซี เขียนว่า <em>"ระหว่างสิ่งเร้าและการตอบสนอง มีช่องว่าง และในช่องว่างนั้นคือพลังและเสรีภาพของเรา"</em> Sharma นำแนวคิดนี้มาขยาย: <strong>ทุกอารมณ์ที่เกิดขึ้นเราไม่สามารถเลือกได้ แต่เราเลือกได้ว่าจะทำอะไรกับมัน</strong>
+      <br><br>
+      เทคนิคง่ายๆ: ก่อนตอบสนองต่อสิ่งที่ทำให้โกรธหรือเครียด ให้หายใจลึกๆ 3 ครั้ง หรือนับ 1-10 ในใจ ช่องว่างเล็กๆ นี้มักเพียงพอที่จะเปลี่ยนการตอบสนองจากแบบที่จะเสียใจ เป็นแบบที่จะภาคภูมิใจ
+    </div>
+    <div class="lesson-action">→ ฝึก "หยุด 3 วินาที" ก่อนตอบสนองต่อทุกสถานการณ์ที่ทำให้อารมณ์เสียเป็นเวลา 1 สัปดาห์</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 28 · Breathe</div>
+    <div class="lesson-title">หายใจ — เครื่องมือที่ทรงพลังที่สุดในการควบคุมจิตใจที่ทุกคนมีอยู่แล้วแต่ไม่เคยใช้</div>
+    <div class="lesson-body">
+      เมื่อเราเครียดหรือกลัว ร่างกายเปลี่ยนไปสู่โหมด "สู้หรือหนี" — หายใจตื้น หัวใจเต้นเร็ว และสมองส่วนคิดเหตุผลถูกปิดลง Sharma บอกว่า <strong>การหายใจลึกๆ ช้าๆ เป็นวิธีเดียวที่เร็วที่สุดในการบอกร่างกายว่า "เราปลอดภัย"</strong> และเปิดสมองส่วนคิดกลับมาทำงาน
+      <br><br>
+      เทคนิค 4-7-8: หายใจเข้า 4 วินาที กลั้น 7 วินาที หายใจออก 8 วินาที ทำ 3-4 รอบ — ช่วยลดความวิตกกังวลได้อย่างรวดเร็วและพิสูจน์โดยวิทยาศาสตร์
+    </div>
+    <div class="lesson-action">→ ลองเทคนิค 4-7-8 ตอนนี้เลย หรือใช้ก่อนการประชุมสำคัญครั้งต่อไป</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The greatest discovery of my generation is that human beings can alter their lives by altering their attitudes of mind."</div>
+    <div class="bq-th">การค้นพบที่ยิ่งใหญ่ที่สุดของยุคสมัยเราคือ มนุษย์สามารถเปลี่ยนชีวิตได้โดยการเปลี่ยนทัศนคติของตัวเอง — William James (ที่ Sharma อ้างถึงบ่อยที่สุด)</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 29 · Be More Positive in Your Thinking</div>
+    <div class="lesson-title">ฝึกคิดบวก — ไม่ใช่การหลอกตัวเอง แต่เป็นการเลือกโฟกัสที่สิ่งที่มีประโยชน์</div>
+    <div class="lesson-body">
+      ความคิดบวกไม่ได้แปลว่าปฏิเสธความเป็นจริง — แต่หมายความว่า <strong>เมื่อเผชิญกับสถานการณ์เดียวกัน เราเลือกโฟกัสที่ส่วนที่สร้างสรรค์มากกว่าส่วนที่ทำลาย</strong> งานวิจัยของ Barbara Fredrickson แสดงให้เห็นว่าอารมณ์บวกขยายขีดความสามารถในการคิดสร้างสรรค์และแก้ปัญหา ในขณะที่อารมณ์ลบทำให้การมองเห็นโอกาสแคบลง
+      <br><br>
+      Sharma แนะนำให้ <em>"อาหารสมอง"</em> — ควบคุมสิ่งที่เราป้อนเข้าไปในความคิด ทั้งข่าวสาร การสนทนา และสื่อที่บริโภค เพราะสมองคล้ายสวน — ปลูกสิ่งดี ได้สิ่งดี ปลูกวัชพืช ได้วัชพืช
+    </div>
+    <div class="lesson-action">→ วันนี้ ลองงดข่าวและโซเชียลมีเดีย 1 วัน สังเกตว่าอารมณ์และพลังงานเปลี่ยนไปไหม</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 30 · Increase Your Capacity for Tolerance</div>
+    <div class="lesson-title">เพิ่มความอดทนต่อความแตกต่าง — ในโลกที่หลากหลาย ความเข้าใจคือทักษะที่สำคัญที่สุด</div>
+    <div class="lesson-body">
+      Sharma บอกว่าหนึ่งในสัญลักษณ์ที่ชัดเจนที่สุดของการเติบโตทางจิตวิญญาณคือ <strong>ความสามารถในการเข้าใจและยอมรับว่าคนอื่นมีวิธีคิดและวิธีมองโลกที่ต่างจากเรา — โดยไม่จำเป็นต้องเห็นด้วย</strong> ความโกรธและความขัดแย้งส่วนใหญ่เกิดจากการที่เราคิดว่าวิธีของเราคือวิธีที่ถูกต้องเพียงวิธีเดียว
+      <br><br>
+      ลองฝึกนิสัยง่ายๆ: ก่อนตัดสินใครหรืออะไร ถามตัวเองก่อนว่า "ถ้าฉันอยู่ในสถานการณ์และประสบการณ์ชีวิตของเขา — ฉันจะคิดหรือทำต่างจากนี้ไหม?"
+    </div>
+    <div class="lesson-action">→ วันนี้ ลองฟังความเห็นที่แตกต่างจากเรา โดยไม่ตอบโต้ — แค่ฟังและพยายามเข้าใจว่าทำไมเขาถึงคิดแบบนั้น</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAPTER 4 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Chapter Four</div>
+  <div class="ch-title">
+    ความสัมพันธ์ที่มีความหมายและการให้
+    <em>Relationships & Kindness — ในตอนสุดท้าย ชีวิตวัดด้วยความรัก ไม่ใช่ความมั่งคั่ง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 4 · ความสัมพันธ์</div>
+  <h1>ไม่มีใครใกล้ตายแล้วนึกถึงเงินในบัญชี — พวกเขานึกถึงคนที่รัก</h1>
+
+  <p>
+    Harvard Study of Adult Development ที่ติดตามชีวิตผู้คน 724 คนเป็นเวลา 75 ปี พบว่า <strong>สิ่งที่ทำนายความสุขและสุขภาพที่ดีได้ชัดเจนที่สุดไม่ใช่ความมั่งคั่ง ชื่อเสียง หรือการทำงานหนัก แต่คือคุณภาพของความสัมพันธ์</strong> Sharma รู้เรื่องนี้มานาน และนั่นคือเหตุผลที่บทนี้มีน้ำหนักมากที่สุดในหนังสือ
+  </p>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 31 · Every Day, Be Kind to a Stranger</div>
+    <div class="lesson-title">ทำความดีกับคนแปลกหน้าทุกวัน — สร้างคลื่นความดีที่ไม่รู้จุดสิ้นสุด</div>
+    <div class="lesson-body">
+      นักวิจัยจาก University of British Columbia ให้เงินผู้เข้าร่วมการทดลองสองกลุ่ม — กลุ่มหนึ่งให้ใช้กับตัวเอง อีกกลุ่มให้ใช้กับคนอื่น ผลลัพธ์ชัดเจน: <strong>กลุ่มที่ให้เงินคนอื่นรายงานว่ามีความสุขมากกว่าอย่างมีนัยสำคัญ</strong>
+      <br><br>
+      Sharma แนะนำให้ทำความดีเล็กๆ ทุกวัน — จ่ายกาแฟให้คนข้างหลัง ชมรอยยิ้มของพนักงานร้านสะดวกซื้อ ถือประตูให้คนแก่ เพราะทุกความดีเล็กๆ สร้าง "คลื่น" ที่ไม่รู้ว่าจะไปไกลแค่ไหน
+    </div>
+    <div class="lesson-action">→ วันนี้ ทำความดีกับคนแปลกหน้าหนึ่งคนโดยที่เขาไม่รู้ว่าเป็นฝีมือเรา</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 32 · Tell Those You Love How You Feel</div>
+    <div class="lesson-title">บอกคนที่รักว่าเรารักเขา — อย่ารอให้ถึงงานศพแล้วค่อยพูดในสิ่งที่ควรพูดตอนนี้</div>
+    <div class="lesson-body">
+      Sharma เล่าถึงความเสียใจที่พบบ่อยที่สุดในผู้ที่ใกล้ตาย — ไม่ใช่เรื่องงาน ไม่ใช่เรื่องเงิน แต่คือ <strong>"ฉันไม่เคยบอกพ่อว่ารักเขา" "ฉันไม่เคยขอโทษเพื่อนที่ดีที่สุด" "ฉันไม่เคยขอบคุณครูที่เปลี่ยนชีวิตฉัน"</strong>
+      <br><br>
+      ชีวิตสั้นเกินกว่าจะปล่อยให้คำพูดสำคัญค้างอยู่ในใจ คนที่เรารักต้องการได้ยินมันจากปากเรา ไม่ใช่เดาเอาเอง
+    </div>
+    <div class="lesson-action">→ วันนี้ โทรหาหรือส่งข้อความถึงคนที่รักสักคนว่าเขาสำคัญกับเราแค่ไหน — ไม่ต้องรอโอกาสพิเศษ</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 33 · Be a Better Listener</div>
+    <div class="lesson-title">ฟังให้ดีขึ้น — ของขวัญที่มีค่าที่สุดที่ให้คนอื่นได้ในยุคที่ทุกคนอยากพูดแต่ไม่มีใครฟัง</div>
+    <div class="lesson-body">
+      Stephen Covey เคยกล่าวว่าคนส่วนใหญ่ไม่ได้ฟังเพื่อเข้าใจ — พวกเขาฟังเพื่อรอโอกาสพูด Sharma เห็นด้วยอย่างยิ่ง และบอกว่า <strong>การฟังอย่างแท้จริง — วางโทรศัพท์ สบตา ไม่คิดว่าจะตอบอะไร แค่อยู่กับคนที่พูด</strong> คือหนึ่งในการกระทำที่เปลี่ยนความสัมพันธ์ได้มากที่สุด
+      <br><br>
+      คนที่รู้สึกว่าได้รับการฟังอย่างจริงใจจะ "เปิด" ตัวเองให้เรามากขึ้น ความไว้วางใจเกิดขึ้นจากการฟัง ไม่ใช่การพูด
+    </div>
+    <div class="lesson-action">→ ในการสนทนาครั้งต่อไป ลองวางโทรศัพท์คว่ำลง สบตาคู่สนทนา และฟัง 100% โดยไม่คิดว่าจะตอบอะไร</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 34 · Write Love Letters</div>
+    <div class="lesson-title">เขียนจดหมายรัก — ไม่ใช่แค่สำหรับคนรัก แต่สำหรับทุกคนที่มีความหมายในชีวิตเรา</div>
+    <div class="lesson-body">
+      ในยุคของ LINE และ emoji Sharma บอกว่าจดหมายที่เขียนด้วยมือยังคงมีพลังที่ไม่มีเทคโนโลยีใดทดแทนได้ <strong>เพราะมันบอกว่าเราใช้สิ่งที่มีค่าที่สุดในชีวิต — เวลา — เพื่อคนนั้น</strong>
+      <br><br>
+      ลองเขียนจดหมายถึงพ่อแม่ที่อธิบายว่าพวกเขาสร้างตัวเราอย่างไร เขียนถึงเพื่อนเก่าที่เปลี่ยนชีวิตเรา เขียนถึงลูกเพื่ออธิบายว่าเรารักเขาอย่างไร — จดหมายเหล่านี้มีค่ากว่าของขวัญราคาแพงใดๆ และจะถูกเก็บไว้ตลอดชีวิต
+    </div>
+    <div class="lesson-action">→ ลองเขียนจดหมายถึงคนที่สำคัญในชีวิตสักคน ไม่ต้องยาว แค่จริงใจ</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 35 · Be a Brilliant Friend</div>
+    <div class="lesson-title">เป็นเพื่อนที่ดีเลิศ — คนที่ทุกคนต้องการแต่ไม่ค่อยมีใครเป็น</div>
+    <div class="lesson-body">
+      Sharma บอกว่าเพื่อนที่แท้จริงมีคุณสมบัติเฉพาะ: <strong>เขาดึงศักยภาพที่ดีที่สุดออกมาจากเรา ซื่อสัตย์แม้จะเจ็บปวด เฉลิมฉลองความสำเร็จของเราอย่างจริงใจโดยไม่อิจฉา และอยู่เคียงข้างในวันที่เราล้มเหลวมากที่สุด</strong>
+      <br><br>
+      แต่ก่อนจะถามว่า "ฉันมีเพื่อนแบบนี้ไหม?" Sharma แนะนำให้ถามก่อนว่า "ฉันเป็นเพื่อนแบบนี้ให้ใครไหม?" — เพราะคุณภาพความสัมพันธ์สะท้อนคุณภาพของตัวเราเอง
+    </div>
+    <div class="lesson-action">→ คิดถึงเพื่อนสำคัญหนึ่งคน แล้วทำสิ่งหนึ่งอย่างเพื่อเขาที่ไม่ได้หวังอะไรตอบแทนสัปดาห์นี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 36 · Honor Your Parents</div>
+    <div class="lesson-title">ให้เกียรติพ่อแม่ — ก่อนที่โอกาสนั้นจะหมดไปตลอดกาล</div>
+    <div class="lesson-body">
+      Sharma เขียนบทนี้ด้วยน้ำเสียงที่อ่อนโยนที่สุดในหนังสือ เขาบอกว่า <strong>พ่อแม่ทุกคนทำดีที่สุดตามความเข้าใจและประสบการณ์ที่พวกเขามีในเวลานั้น</strong> แม้จะไม่สมบูรณ์แบบ แต่ความรักที่พวกเขามีให้เรามักจริงและยิ่งใหญ่เกินที่จะวัดได้
+      <br><br>
+      ให้เกียรติพ่อแม่ไม่ได้หมายถึงการเห็นด้วยกับทุกอย่างที่เขาทำ แต่หมายถึงการยอมรับว่าพวกเขาสำคัญ ใช้เวลากับพวกเขา โทรถามไถ่ บอกรักพวกเขา — ก่อนที่โอกาสนั้นจะหายไปตลอดกาล
+    </div>
+    <div class="lesson-action">→ โทรหาพ่อหรือแม่วันนี้ ถ้าพวกเขายังอยู่ อย่ารอให้ถึงวันพิเศษ</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 37 · See Your Children as Gifts</div>
+    <div class="lesson-title">มองลูกว่าเป็นของขวัญ — ไม่ใช่ภาระที่ต้องจัดการ</div>
+    <div class="lesson-body">
+      Sharma เล่าว่าผู้ใหญ่ที่ใกล้ตายมักแสดงความเสียใจสองเรื่องเกี่ยวกับลูก: <em>"ฉันทำงานหนักเกินไปจนไม่มีเวลาให้ลูก"</em> และ <em>"ฉันอยู่ที่บ้านแต่ไม่ได้อยู่จริงๆ เพราะคิดแต่เรื่องงาน"</em>
+      <br><br>
+      <strong>การ "อยู่จริงๆ" กับลูกไม่ได้วัดด้วยชั่วโมง แต่วัดด้วยคุณภาพ</strong> — วางโทรศัพท์ มองหน้าเขา เล่นกับเขาจริงๆ ฟังเรื่องที่เขาอยากเล่าแม้จะดูไม่สำคัญ เพราะช่วงเวลาเหล่านั้นจะไม่กลับมาอีก
+    </div>
+    <div class="lesson-action">→ วันนี้ กำหนดเวลา "tech-free" กับลูกหรือคนที่รัก อย่างน้อย 30 นาที ไม่มีโทรศัพท์ทั้งสองฝ่าย</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 38 · Spend Time With Young People and Old People</div>
+    <div class="lesson-title">ใช้เวลากับคนวัยต่างๆ — เยาวชนสอนเราเรื่องความสดใหม่ คนสูงอายุสอนเราเรื่องมุมมองและเวลา</div>
+    <div class="lesson-body">
+      Sharma บอกว่า <strong>คนหนุ่มสาวสอนเราให้กล้า ฝัน และมองโลกด้วยสายตาที่ไม่เคยชิน</strong> ในขณะที่ <strong>คนสูงอายุสอนเราให้รู้ว่าอะไรสำคัญจริงๆ เมื่อมองย้อนกลับไปในชีวิต</strong> ทั้งสองแบบมีปัญญาที่ต่างกันและเสริมกัน
+      <br><br>
+      ลองนั่งคุยกับผู้สูงอายุที่เคารพสักคน ถามพวกเขาว่า "สิ่งที่อยากบอกคนรุ่นเยาว์มากที่สุดคืออะไร?" คำตอบมักเปลี่ยนมุมมองชีวิตได้อย่างลึกซึ้ง
+    </div>
+    <div class="lesson-action">→ หาโอกาสพูดคุยกับผู้สูงอายุที่น่าเคารพสักคน ถามถึงบทเรียนสำคัญที่สุดในชีวิตของเขา</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 39 · Write Thank You Notes</div>
+    <div class="lesson-title">เขียนการ์ดขอบคุณ — สิ่งเล็กๆ ที่มีผลใหญ่กว่าที่คิดทั้งต่อผู้รับและผู้ส่ง</div>
+    <div class="lesson-body">
+      งานวิจัยของ Martin Seligman พ่อแห่งจิตวิทยาเชิงบวก พบว่าการเขียนจดหมายขอบคุณและส่งให้คนที่ควรขอบคุณแต่ยังไม่เคยทำ <strong>ทำให้ความสุขของผู้ส่งเพิ่มขึ้นอย่างชัดเจนและคงอยู่นาน</strong> — มากกว่าการรับของขวัญหรือรางวัลใดๆ
+      <br><br>
+      Sharma บอกว่าคนส่วนใหญ่มีบัญชีขอบคุณที่ยังไม่ได้ส่งอยู่เต็มหัวใจ — ครูที่เปลี่ยนชีวิต เพื่อนที่ช่วยในยามยาก เพื่อนร่วมงานที่สอนทักษะสำคัญ อย่าปล่อยให้คำขอบคุณเหล่านั้นเหี่ยวเฉาอยู่ในใจ
+    </div>
+    <div class="lesson-action">→ เขียนการ์ดหรือข้อความขอบคุณคนหนึ่งคนที่เคยช่วยเหลือเรา แล้วส่งออกไปวันนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 40 · Develop Good Manners</div>
+    <div class="lesson-title">ฝึกมารยาทที่ดี — ไม่ใช่เรื่องเก่าโบราณ แต่คือการแสดงความเคารพต่อทุกชีวิตที่เราพบ</div>
+    <div class="lesson-body">
+      Sharma บอกว่ามารยาทที่ดีไม่ใช่เรื่องของชนชั้นหรือวัฒนธรรม แต่คือ <strong>การตระหนักว่าทุกคนที่เราพบมีคุณค่าและสมควรได้รับการปฏิบัติด้วยความสุภาพ</strong> ไม่ว่าจะเป็นซีอีโอหรือพนักงานเก็บขยะ
+      <br><br>
+      สิ่งเล็กๆ ที่ Sharma เน้น: เรียกชื่อคนที่พูดด้วย ขอบคุณทุกครั้งที่ได้รับความช่วยเหลือ ถามไถ่เรื่องชีวิตของคนอื่น ไม่ตรวจโทรศัพท์ขณะมีการสนทนา — สิ่งเหล่านี้บอกว่าเราให้คุณค่ากับคนตรงหน้ามากกว่าหน้าจอ
+    </div>
+    <div class="lesson-action">→ วันนี้ เรียกชื่อทุกคนที่ให้บริการเรา (พนักงาน, ไรเดอร์, ยาม) — สังเกตปฏิกิริยาของพวกเขา</div>
+  </div>
+
+  <h2>ตรวจสอบ "ระบบนิเวศความสัมพันธ์" ของเรา</h2>
+
+  <div class="signal-box go">
+    <div class="signal-title">✓ ความสัมพันธ์ที่เพิ่มพลังให้ชีวิต</div>
+    <ul class="signal-list">
+      <li>คนที่ทำให้เรารู้สึกว่าตัวเองดีขึ้นหลังพูดคุย</li>
+      <li>คนที่ซื่อสัตย์กับเราแม้ความจริงจะเจ็บปวด</li>
+      <li>คนที่เชื่อมั่นในศักยภาพของเราแม้เราสงสัยในตัวเอง</li>
+      <li>คนที่อยู่เคียงข้างในวันที่ยากที่สุด ไม่ใช่แค่วันที่ดี</li>
+      <li>คนที่กระตุ้นให้เราเป็นคนที่ดีกว่าเดิม</li>
+    </ul>
+  </div>
+
+  <div class="signal-box stop">
+    <div class="signal-title">× ความสัมพันธ์ที่ดูดพลังชีวิต</div>
+    <ul class="signal-list">
+      <li>คนที่บ่นและมองโลกในแง่ร้ายตลอดเวลา</li>
+      <li>คนที่แสดงความยินดีกับความล้มเหลวของเราแบบไม่รู้ตัว</li>
+      <li>คนที่ทำให้เรารู้สึกเล็กลงหรือไม่พอเพียงหลังพบ</li>
+      <li>คนที่เอาจากเราตลอดเวลาโดยไม่เคยให้กลับคืน</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAPTER 5 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Chapter Five</div>
+  <div class="ch-title">
+    ร่างกาย พลังงาน และการดูแลตัวเอง
+    <em>Health & Vitality — ร่างกายคือยานพาหนะที่พาเราไปสู่ทุกความฝัน ถ้ามันพัง ทุกอย่างพังตาม</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 5 · สุขภาพ</div>
+  <h1>ไม่มีใครใช้ชีวิตที่ยิ่งใหญ่ได้จากร่างกายที่ขาดการดูแล</h1>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 41 · Think of Your Body as a Temple</div>
+    <div class="lesson-title">มองร่างกายเหมือนวัดวาอาราม — ดูแลมันด้วยความเคารพ ไม่ใช่ทำลายมันด้วยความประมาท</div>
+    <div class="lesson-body">
+      Sharma ใช้ภาษาที่ชัดเจน: <strong>"ร่างกายคือยานพาหนะที่พาเราไปสู่ทุกความฝัน ถ้ายานพาหนะพัง เราจะไปถึงที่หมายได้อย่างไร?"</strong> น่าเสียดายที่คนส่วนใหญ่ดูแลรถยนต์ โทรศัพท์ และอุปกรณ์อิเล็กทรอนิกส์ดีกว่าดูแลร่างกายของตัวเอง
+      <br><br>
+      การดูแลร่างกายไม่ใช่เรื่องของความงามหรือรูปร่าง แต่เป็นเรื่องของ <em>พลังงาน ความชัดเจนของจิตใจ และอายุขัยที่มีคุณภาพ</em> — สิ่งเหล่านี้คือรากฐานของทุกสิ่งที่ต้องการทำในชีวิต
+    </div>
+    <div class="lesson-action">→ สำรวจนิสัยด้านสุขภาพของตัวเองอย่างซื่อสัตย์ แล้วเลือกปรับหนึ่งอย่างที่ส่งผลมากที่สุด</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 42 · Eat Less, Live More</div>
+    <div class="lesson-title">กินน้อยลง มีชีวิตมากขึ้น — ความพอดีในการกินคือหนึ่งในความลับของผู้ที่มีพลังงานสูง</div>
+    <div class="lesson-body">
+      ชาวโอกินาวา ญี่ปุ่น มีหลักปฏิบัติที่เรียกว่า <strong>"Hara Hachi Bu"</strong> — กินจนรู้สึกอิ่ม 80% แล้วหยุด แทนที่จะกินจนอิ่ม 100% หรืออิ่มเกินไป ชาวโอกินาวามีอายุเฉลี่ยยาวที่สุดในโลกและมีอัตราโรคเรื้อรังต่ำมาก
+      <br><br>
+      Sharma แนะนำให้มองอาหารเป็น <strong>"เชื้อเพลิง"</strong> ไม่ใช่รางวัล ไม่ใช่ที่ระบายอารมณ์ และไม่ใช่แค่การเติมช่องว่างเวลาว่าง อาหารที่ดีให้พลังงานสม่ำเสมอ ทำให้คิดชัด และทำให้อารมณ์มั่นคง
+    </div>
+    <div class="lesson-action">→ ในมื้อต่อไป ลองหยุดกินก่อนรู้สึกอิ่มเต็มๆ รอ 20 นาที แล้วสังเกตว่ารู้สึกอย่างไร</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 43 · Focus on Great Sleep</div>
+    <div class="lesson-title">ให้ความสำคัญกับการนอนหลับ — ชั่วโมงที่ดีที่สุดของการทำงานขึ้นอยู่กับคืนก่อนหน้า</div>
+    <div class="lesson-body">
+      Matthew Walker นักวิทยาศาสตร์ด้านการนอนหลับจาก UC Berkeley เขียนในหนังสือ "Why We Sleep" ว่า <strong>การนอนน้อยกว่า 7 ชั่วโมงเพียงคืนเดียวทำให้ประสิทธิภาพทางสติปัญญาลดลงเทียบเท่ากับการไม่นอนหลับ 24-48 ชั่วโมง</strong> แต่คนส่วนใหญ่ไม่รู้สึกตัวเพราะร่างกายปรับตัวเข้ากับความล้า
+      <br><br>
+      Sharma เน้นเรื่อง "Sleep Hygiene" — นอนและตื่นเวลาเดิมทุกวัน ปิดไฟมืดในห้องนอน อุณหภูมิเย็นกว่าห้องอื่นเล็กน้อย และที่สำคัญที่สุด: <em>ไม่มีหน้าจอ 30-60 นาทีก่อนนอน</em>
+    </div>
+    <div class="lesson-action">→ ตั้งเวลาเข้านอนและตื่นนอนที่แน่นอน แล้วรักษาเวลานั้น 7 วันติดต่อกัน สังเกตว่าพลังงานเปลี่ยนไปอย่างไร</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 44 · Find Solitude</div>
+    <div class="lesson-title">ค้นหาความเงียบ — ในความเงียบเกิดความชัดเจน ในความวุ่นวายเกิดแต่ความสับสน</div>
+    <div class="lesson-body">
+      Sharma บอกว่า <strong>ทุกนักปราชญ์ นักคิด และผู้นำที่ยิ่งใหญ่ในประวัติศาสตร์ล้วนมีช่วงเวลาแห่งความเงียบส่วนตัว</strong> — Buddha ใช้เวลาใต้ต้นโพธิ์ Jesus ถอนตัวออกไปในทะเลทราย Gandhi เข้าถือศีลอดในความเงียบ
+      <br><br>
+      ความเงียบไม่ใช่ความเปล่าเปลือว — มันเป็นพื้นที่ที่ปัญญาเกิดขึ้น ที่ความคิดสร้างสรรค์โผล่ขึ้นมา และที่เราได้ยินเสียงของตัวเองที่มักถูกกลบโดยเสียงรอบข้างตลอดเวลา
+    </div>
+    <div class="lesson-action">→ หาเวลา 10-15 นาทีทุกวันที่ไม่มีเสียงรบกวน ไม่มีโทรศัพท์ — แค่นั่งเงียบๆ กับตัวเอง</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 45 · Laugh Often</div>
+    <div class="lesson-title">หัวเราะให้บ่อย — เสียงหัวเราะคือยาที่ดีที่สุดที่ร่างกายผลิตได้เอง</div>
+    <div class="lesson-body">
+      Norman Cousins ป่วยด้วยโรคร้ายแรงที่แพทย์บอกว่าไม่มีทางรักษาได้ เขาตัดสินใจ "รักษา" ตัวเองด้วยการดูหนังตลกและอ่านหนังสือขำขันทุกวัน — และหายป่วยอย่างน่าอัศจรรย์ Sharma เล่าเรื่องนี้เพื่อบอกว่า <strong>ความสุขและเสียงหัวเราะมีผลทางกายภาพที่วัดได้จริง</strong>
+      <br><br>
+      เราอาจโตขึ้น แต่ไม่ต้องแก่ในหัวใจ ความสามารถในการหัวเราะกับตัวเอง หาสิ่งตลกในสถานการณ์ที่ยาก และสนุกกับชีวิตแบบเด็กๆ คือทักษะที่ต้องฝึกและปกป้อง
+    </div>
+    <div class="lesson-action">→ วันนี้ ดูวิดีโอตลก อ่านเรื่องขำขัน หรือใช้เวลากับคนที่ทำให้หัวเราะ — ไม่ใช่ฟุ่มเฟือย แต่จำเป็น</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 46 · Visit Beautiful Places</div>
+    <div class="lesson-title">ไปเยือนสถานที่สวยงาม — เพราะความงดงามของโลกเปลี่ยนวิธีที่เรามองชีวิต</div>
+    <div class="lesson-body">
+      <strong>Awe — ความรู้สึกตื่นตะลึงต่อความยิ่งใหญ่</strong> คือหนึ่งในอารมณ์ที่ทรงพลังที่สุดของมนุษย์ งานวิจัยพบว่าประสบการณ์ Awe ทำให้คนรู้สึกเล็กลง (ในแง่ดี) ปัญหาของตัวเองดูเล็กลง และรู้สึกเชื่อมต่อกับบางอย่างที่ใหญ่กว่าตัวเอง
+      <br><br>
+      Sharma บอกว่าไม่จำเป็นต้องบินไปต่างประเทศ — พระอาทิตย์ขึ้นที่ภูเขา น้ำตกในป่า หรือแม้แต่ท้องฟ้าคืนที่มีดาวเต็มไปหมด ล้วนสร้าง Awe ได้เท่ากัน ถ้าเราหยุดมองและรู้สึกจริงๆ
+    </div>
+    <div class="lesson-action">→ วางแผนการเดินทางเล็กๆ ไปยังสถานที่สวยงามที่ไม่เคยไป — ไม่ต้องไกล แค่ต้องออกจาก comfort zone</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAPTER 6 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก / Chapter Six</div>
+  <div class="ch-title">
+    งาน ความเป็นเลิศ และการเติบโตต่อเนื่อง
+    <em>Work & Mastery — ทำงานที่รักด้วยความเป็นเลิศ แล้วชีวิตจะไม่รู้สึกว่า "ทำงาน" เลยแม้แต่วันเดียว</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 6 · งานและความเป็นเลิศ</div>
+  <h1>ความแตกต่างระหว่าง "ยุ่ง" กับ "มีประสิทธิผล" คือความแตกต่างระหว่างการวิ่งบนลู่กับการเดินทางจริงๆ</h1>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 47 · Seek Mastery</div>
+    <div class="lesson-title">มุ่งสู่ความเชี่ยวชาญ — อย่าพอใจกับ "พอใช้ได้" เมื่อ "ยอดเยี่ยม" อยู่ในเอื้อมมือ</div>
+    <div class="lesson-body">
+      Sharma อ้างถึงงานวิจัยของ Anders Ericsson ที่พบว่า <strong>ความเชี่ยวชาญระดับโลกต้องการการฝึกฝนแบบมีเป้าหมายประมาณ 10,000 ชั่วโมง</strong> แต่สิ่งที่สำคัญกว่าชั่วโมงคือ <em>คุณภาพ</em> ของการฝึก — การฝึกแบบ Deliberate Practice ที่โฟกัสที่จุดอ่อนและขยายขีดจำกัดเสมอ แทนที่จะทำซ้ำสิ่งที่ถนัดอยู่แล้ว
+      <br><br>
+      ช่างฝีมือที่ยิ่งใหญ่ในทุกสาขา — ไม่ว่าจะเป็นดนตรี กีฬา การทำอาหาร หรือการเขียนโค้ด — ล้วนมีความหลงใหลในรายละเอียดที่คนอื่นมองว่า "ไม่สำคัญ"
+    </div>
+    <div class="lesson-action">→ ระบุทักษะหนึ่งที่อยากพัฒนาให้ถึงระดับ "เชี่ยวชาญ" แล้วหาทางฝึกฝนมันอย่างเจาะจงทุกวัน</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 48 · Become Your Work</div>
+    <div class="lesson-title">กลายเป็นหนึ่งเดียวกับงาน — เมื่องานคือส่วนหนึ่งของตัวตน คุณภาพจะมาจากข้างในเอง</div>
+    <div class="lesson-body">
+      Sharma บอกว่าคนที่ทำงานอย่างยอดเยี่ยมไม่ได้ทำงานเพราะกฎหรือกลัวถูกลงโทษ — พวกเขาทำเพราะ <strong>ความเป็นเลิศคือส่วนหนึ่งของอัตลักษณ์ของพวกเขา</strong> เมื่อเราเชื่อมโยงคุณค่าของตัวเองเข้ากับคุณภาพของงาน การทำงานแบบไม่ดีจะรู้สึกผิดปกติ ไม่ใช่เรื่องปกติ
+      <br><br>
+      Michael Jordan เคยพูดว่า "ฉันสามารถยอมรับความล้มเหลวได้ ทุกคนล้มเหลวในบางสิ่ง แต่ฉันยอมรับไม่ได้ถ้าไม่ได้พยายาม" — นั่นคือตัวอย่างของคนที่ "กลายเป็นงาน"
+    </div>
+    <div class="lesson-action">→ ในงานต่อไปที่ทำ ลองถามตัวเองก่อนส่งว่า "ถ้าฉันใส่ชื่อตัวเองไว้บนสิ่งนี้ ฉันภาคภูมิใจไหม?"</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 49 · Upgrade Your Skills Constantly</div>
+    <div class="lesson-title">พัฒนาทักษะอย่างต่อเนื่อง — ในโลกที่เปลี่ยนเร็ว การหยุดเรียนรู้คือการถอยหลัง</div>
+    <div class="lesson-body">
+      Sharma เปรียบว่า <strong>ทักษะที่ไม่ถูกพัฒนาเสื่อมสลายเหมือนกล้ามเนื้อที่ไม่ถูกใช้</strong> ในโลกที่เทคโนโลยีและอุตสาหกรรมเปลี่ยนแปลงทุกไม่กี่ปี คนที่ไม่เรียนรู้ทักษะใหม่จะพบว่าตัวเองกลายเป็น "โบราณ" โดยไม่รู้ตัว
+      <br><br>
+      ลงทุนในตัวเองอย่างน้อย 3% ของรายได้ต่อปีในการเรียนรู้ — หลักสูตร หนังสือ seminar หรือ coach ส่วนตัว เพราะ ROI ของการลงทุนในตัวเองสูงกว่าการลงทุนใดๆ ในระยะยาว
+    </div>
+    <div class="lesson-action">→ เลือกทักษะหนึ่งที่จะเรียนรู้ในปีนี้ แล้วลงทะเบียนหรือสั่งซื้อหนังสือวันนี้เลย</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 50 · Seek Out Mentors</div>
+    <div class="lesson-title">หาที่ปรึกษา — ทุกคนที่ยิ่งใหญ่มีคนที่ยิ่งใหญ่กว่าคอยชี้ทาง</div>
+    <div class="lesson-body">
+      Socrates เป็น mentor ของ Plato, Plato เป็น mentor ของ Aristotle, Aristotle เป็น mentor ของ Alexander the Great — สายการเรียนรู้นี้เปลี่ยนประวัติศาสตร์โลก Sharma บอกว่า <strong>mentor ที่ดีไม่ได้แค่ให้คำแนะนำ — เขาเปิดประตูที่เราไม่รู้ว่ามีอยู่ และเห็นในตัวเราในสิ่งที่เราไม่เห็นเอง</strong>
+      <br><br>
+      วิธีหา mentor: เริ่มจากการเป็นคนที่คู่ควรกับเวลาของเขา ศึกษาผลงานของเขา ทำสิ่งที่เขาสอนก่อนขอคำแนะนำใหม่ และแสดงให้เห็นว่าเราเรียนรู้ได้จริง
+    </div>
+    <div class="lesson-action">→ คิดว่าใครในชีวิตหรืออุตสาหกรรมที่เราเคารพและอยากเรียนรู้จาก — เขียนจดหมายหรืออีเมลถึงเขาวันนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 51 · Create a Mastermind Alliance</div>
+    <div class="lesson-title">สร้างกลุ่ม Mastermind — รวมคนที่มีความฝัน ทักษะ และค่านิยมคล้ายกัน เพื่อเติบโตไปพร้อมกัน</div>
+    <div class="lesson-body">
+      Napoleon Hill ผู้เขียน "Think and Grow Rich" เรียกว่า "Mastermind Alliance" — กลุ่มเล็กๆ ของคนที่มาพบกันอย่างสม่ำเสมอเพื่อแบ่งปันความรู้ ความท้าทาย และสนับสนุนกัน <strong>เมื่อจิตใจสองดวงหรือมากกว่าทำงานร่วมกัน พวกเขาสร้างสิ่งที่เรียกว่า "จิตใจที่สาม"</strong> — ปัญญาที่ไม่มีในตัวคนใดคนหนึ่งโดดๆ
+      <br><br>
+      Sharma แนะนำให้เริ่มกลุ่ม Mastermind 4-6 คน พบกันเดือนละครั้ง แบ่งปันเป้าหมาย ความก้าวหน้า และสิ่งที่ต้องการความช่วยเหลือ
+    </div>
+    <div class="lesson-action">→ คิดถึงคน 3-5 คนที่ต้องการเชิญเข้ากลุ่ม Mastermind แล้วส่งข้อความหาพวกเขาวันนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 52 · Be a Deadline Maniac</div>
+    <div class="lesson-title">รักษาเส้นตาย — ชื่อเสียงสร้างจากสัญญาที่รักษาได้ ไม่ใช่จากสัญญาที่ดีที่สุด</div>
+    <div class="lesson-body">
+      Parkinson's Law บอกว่า <strong>"งานขยายตัวเพื่อเต็มเวลาที่กำหนดไว้"</strong> — ถ้ากำหนดให้เสร็จใน 1 สัปดาห์ มักใช้เวลา 1 สัปดาห์พอดี ถ้ากำหนด 2 วัน ก็มักเสร็จใน 2 วัน Sharma บอกให้ใช้ประโยชน์จากกฎนี้ด้วยการตั้งเส้นตายที่แน่วแน่และรักษามันไว้เป็นเรื่องเกียรติยศ
+      <br><br>
+      คนที่รักษาคำมั่นสัญญาได้เสมอ — แม้แต่สัญญาเล็กๆ กับตัวเอง — จะสร้างความไว้วางใจที่เป็นรากฐานของทุกความสำเร็จ
+    </div>
+    <div class="lesson-action">→ วันนี้ เขียนสัญญาหนึ่งอย่างที่จะทำให้ตัวเองและตั้งเส้นตายที่ชัดเจน แล้วทำให้ตรงเวลา</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 53 · Read Biographies of Great People</div>
+    <div class="lesson-title">อ่านชีวประวัติของคนยิ่งใหญ่ — เรียนรู้จากประสบการณ์ชีวิตที่เราไม่ต้องผ่านเอง</div>
+    <div class="lesson-body">
+      Sharma บอกว่าชีวประวัติคือหนังสือที่ "คุ้มค่า" ที่สุดประเภทหนึ่ง เพราะ <strong>เราได้เรียนรู้บทเรียนที่คนยิ่งใหญ่ใช้เวลาทั้งชีวิตเรียนรู้ — ภายในไม่กี่ร้อยหน้า</strong> ไม่ว่าจะเป็น Steve Jobs, Nelson Mandela, Marie Curie หรือ Albert Einstein ทุกคนมีบทเรียนที่ยังคงใช้ได้ในปัจจุบัน
+      <br><br>
+      ที่สำคัญกว่าคือชีวประวัติช่วยให้เราเห็นว่าคนยิ่งใหญ่ก็เผชิญกับความล้มเหลว ความสงสัย และความกลัว — แต่พวกเขาเลือกที่จะเดินหน้าต่อ
+    </div>
+    <div class="lesson-action">→ เลือกชีวประวัติของคนที่ชื่นชมสักเล่ม แล้วสั่งซื้อหรือยืมจากห้องสมุดวันนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 54 · Develop Your Unique Style</div>
+    <div class="lesson-title">พัฒนาสไตล์เฉพาะตัว — ในโลกที่เต็มไปด้วยคนเลียนแบบ ความเป็นตัวเองคือสินทรัพย์ที่หายาก</div>
+    <div class="lesson-body">
+      Sharma หมายถึงสไตล์ในความหมายที่กว้างกว่าเสื้อผ้า — เป็นวิธีที่เราสื่อสาร วิธีที่เราคิด วิธีที่เราแก้ปัญหา และวิธีที่เราเชื่อมต่อกับคนอื่น <strong>คนที่มีสไตล์เฉพาะตัวชัดเจนคือคนที่ยากจะลืมและยากจะทดแทน</strong>
+      <br><br>
+      อย่าพยายามเป็นสำเนาที่ดีของคนอื่น — เพราะสำเนาที่ดีที่สุดก็ยังด้อยกว่าต้นฉบับ แต่จงเป็น "ตัวเอง" เวอร์ชันที่ดีที่สุด เพราะในความแท้นั้น ไม่มีการแข่งขัน
+    </div>
+    <div class="lesson-action">→ เขียนคุณสมบัติเฉพาะตัว 5 อย่างที่ทำให้เราต่างจากคนอื่นในแง่บวก แล้วลงทุนในการพัฒนาสิ่งเหล่านั้น</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ CHAPTER 7 ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่เจ็ด / Chapter Seven</div>
+  <div class="ch-title">
+    มรดกชีวิต — สร้างสิ่งที่ยังคงอยู่
+    <em>Legacy & Contribution — คำถามสุดท้ายไม่ใช่ว่าเราสะสมอะไรได้บ้าง แต่ว่าเราให้อะไรไว้บ้าง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ธีมที่ 7 · มรดกและการให้</div>
+  <h1>ไม่มีสิ่งใดที่เขียนบนหลุมฝังศพว่า "เขาทำงานหนักมาก แต่ลืมที่จะมีชีวิต"</h1>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 55 · Selflessly Serve</div>
+    <div class="lesson-title">ให้บริการโดยไม่หวังผลตอบแทน — แปลกแต่จริงที่คนที่ให้มากที่สุดมักได้รับมากที่สุดกลับคืน</div>
+    <div class="lesson-body">
+      Sharma อ้างถึงหลักการที่เรียกว่า <strong>"ความขัดแย้งของการให้"</strong> — ยิ่งเราให้โดยไม่หวังผลตอบแทน ยิ่งมีสิ่งดีๆ กลับมาสู่ชีวิต ไม่ใช่เพราะเหตุผลทางไสยศาสตร์ แต่เพราะคนที่เราช่วยเหลือจะจดจำเราและต้องการส่งต่อความดีนั้น
+      <br><br>
+      เริ่มจากง่ายๆ: อาสาสมัครในชุมชน แบ่งปันความรู้โดยไม่คิดเงิน ช่วยเพื่อนร่วมงานโดยที่ไม่มีใครเห็น ทุกการกระทำเหล่านี้สร้างสิ่งที่ Sharma เรียกว่า <em>"Legacy ที่มีชีวิต"</em>
+    </div>
+    <div class="lesson-action">→ อาสาสมัครทำอะไรสักอย่างในชุมชนหรือองค์กรการกุศลในเดือนนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 56 · Be a Gift to the World</div>
+    <div class="lesson-title">จงเป็นของขวัญให้โลก — ไม่ใช่โดยการทำสิ่งใหญ่โต แต่โดยการทำสิ่งเล็กๆ อย่างยิ่งใหญ่</div>
+    <div class="lesson-body">
+      Mother Teresa กล่าวว่า <em>"ไม่ใช่ทุกคนที่สามารถทำสิ่งยิ่งใหญ่ได้ แต่เราทุกคนสามารถทำสิ่งเล็กๆ ด้วยความรักอันยิ่งใหญ่"</em> Sharma ใช้คำพูดนี้เพื่อบอกว่า <strong>มรดกไม่ได้สร้างจากการทำสิ่งที่โด่งดังหรือเป็นที่รู้จักทั่วโลก</strong>
+      <br><br>
+      ครูที่ทำให้นักเรียนคนหนึ่งเชื่อในตัวเอง พ่อแม่ที่ปลูกฝังค่านิยมดีในลูก หมอที่รักษาคนไข้ด้วยความเมตตา — ล้วนสร้างมรดกที่ยิ่งใหญ่ แม้ชื่อของพวกเขาอาจไม่ปรากฏในประวัติศาสตร์
+    </div>
+    <div class="lesson-action">→ ถามตัวเองทุกเย็น: "วันนี้ฉันได้เป็นของขวัญให้กับใครบ้าง ในทางเล็กๆ ก็ได้?"</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 57 · Give to Those Who Have Nothing</div>
+    <div class="lesson-title">ให้กับคนที่ไม่มีอะไร — เพราะประสบการณ์นี้จะเปลี่ยนวิธีที่เราเห็นความมั่งคั่งและชีวิตของเราเอง</div>
+    <div class="lesson-body">
+      Sharma บอกว่าหนึ่งในประสบการณ์ที่เปลี่ยนมุมมองชีวิตได้มากที่สุดคือ <strong>การใช้เวลาอยู่กับคนที่มีน้อยกว่าเราอย่างมาก</strong> ไม่ใช่เพื่อรู้สึกดีกับตัวเอง แต่เพราะมันสอนเราว่าความสุขที่แท้จริงไม่ขึ้นอยู่กับสิ่งที่เรามี
+      <br><br>
+      คนที่เคยทำงานอาสาสมัครในพื้นที่ยากจนมักรายงานว่า ประสบการณ์นั้นทำให้ "กำไร" ที่พวกเขาได้รับมากกว่าที่ให้ไป — เพราะมันสอนเรื่อง gratitude, resilience และความเป็นมนุษย์ในแบบที่ไม่มีห้องเรียนใดสอนได้
+    </div>
+    <div class="lesson-action">→ หาองค์กรการกุศลหนึ่งแห่งที่สอดคล้องกับค่านิยมของเรา แล้วสนับสนุนด้วยเวลาหรือทรัพยากรในเดือนนี้</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 58 · Create Unforgettable Moments</div>
+    <div class="lesson-title">สร้างช่วงเวลาที่ไม่มีวันลืม — เพราะคนจำความรู้สึก ไม่ใช่รายละเอียด</div>
+    <div class="lesson-body">
+      Maya Angelou กล่าวว่า <em>"คนจะลืมสิ่งที่คุณพูด คนจะลืมสิ่งที่คุณทำ แต่คนไม่มีวันลืมความรู้สึกที่คุณมอบให้พวกเขา"</em> Sharma ใช้คำพูดนี้บ่อยมากเพราะมันสรุปเรื่องมรดกได้อย่างสมบูรณ์
+      <br><br>
+      <strong>สร้างช่วงเวลาพิเศษ</strong> — วันเกิดที่ไม่ลืม การพูดคุยที่ลึกในคืนที่ไม่มีแผน การ surprise ที่บอกว่าเราคิดถึง — ช่วงเวลาเหล่านี้คือสิ่งที่คนจะจำเราด้วยตลอดชีวิต
+    </div>
+    <div class="lesson-action">→ วางแผนสร้างช่วงเวลาพิเศษให้กับคนที่รักในเดือนนี้ ไม่ต้องแพง แค่ต้องตั้งใจจริง</div>
+  </div>
+
+  <div class="lesson-card">
+    <div class="lesson-num">บทเรียนที่ 59 · Live Fully So You Can Die Happy</div>
+    <div class="lesson-title">ใช้ชีวิตอย่างเต็มที่ เพื่อที่จะได้จากไปด้วยความยินดี</div>
+    <div class="lesson-body">
+      บทเรียนสุดท้ายและสำคัญที่สุดของหนังสือ Sharma บอกว่า <strong>ความตายไม่ใช่ศัตรู — ความตายคือครูที่สอนเราให้รู้คุณค่าของชีวิต</strong> คนที่กลัวตายมากที่สุดมักเป็นคนที่รู้สึกว่ายังไม่ได้ใช้ชีวิตอย่างเต็มที่
+      <br><br>
+      การใช้ชีวิตอย่างเต็มที่ไม่ได้แปลว่าต้องทำสิ่งยิ่งใหญ่ตลอดเวลา — มันแปลว่า <em>อยู่กับสิ่งที่สำคัญจริงๆ ทุกวัน</em> รัก ให้ เติบโต และมีส่วนสร้างโลกที่ดีขึ้นเล็กน้อยจากวันที่เราเกิดมา
+    </div>
+    <div class="lesson-action">→ ทบทวน Mission Statement ของเราวันนี้ แล้วถามว่า "ชีวิตตอนนี้กำลังพาไปสู่ชีวิตที่ต้องการหรือเปล่า?"</div>
+  </div>
+
+  <div class="author-voice">
+    <div class="av-avatar">RS</div>
+    <div>
+      <div class="av-meta">Robin Sharma — บทสรุปสุดท้ายของหนังสือ</div>
+      <p class="av-text">"When you were born, you cried and the world rejoiced. Live your life so that when you die, the world cries and you rejoice."
+        <span class="av-text-th">เมื่อเราเกิดมา เราร้องไห้แต่โลกยินดี — จงใช้ชีวิตให้ดีพอที่เมื่อเราจากไป โลกจะร้องไห้ แต่เราจะยินดีในสิ่งที่ได้ทำ</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ APPLICATIONS ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">08</div>
+  <div class="ch-label">แผนปฏิบัติ / Action Plan</div>
+  <div class="ch-title">
+    จากหน้ากระดาษสู่การเปลี่ยนแปลงจริง
+    <em>Practical Application — ความรู้ที่ไม่ถูกนำไปใช้คือแค่ข้อมูลที่ไม่สร้างคุณค่า</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">แผนปฏิบัติ</div>
+  <h1>เริ่มต้นวันนี้ ไม่ใช่ "สักวัน"</h1>
+
+  <p>Sharma บอกว่าคนส่วนใหญ่อ่านหนังสือดีๆ รู้สึกดีชั่วครู่ แล้ววางลง แล้วชีวิตก็เหมือนเดิม สิ่งที่แตกต่างคนที่เปลี่ยนชีวิตได้จริงออกจากคนที่ไม่เปลี่ยน คือ <strong>การเริ่มทำอะไรบางอย่างทันที แม้จะเล็กที่สุด</strong></p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>สัปดาห์แรก — ก้าวเล็กๆ ที่ทรงพลัง</h3>
+      <p>ทำสิ่งเหล่านี้ในสัปดาห์แรก ไม่ต้องทำทั้งหมดพร้อมกัน เลือก 3-5 อย่างที่ใจดึงดูดมากที่สุด</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">จุดมุ่งหมาย</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">เขียนตอบคำถาม: "ถ้าเงินและเวลาไม่ใช่ปัญหา ฉันจะทำอะไร?"<div class="cl-note">คำตอบนี้คือเบาะแสของ Calling ของเรา</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียน Personal Mission Statement ฉบับแรก<div class="cl-note">ไม่ต้องสมบูรณ์แบบ แค่จริงใจ ปรับได้ภายหลัง</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ทำ "Living Funeral Exercise" — จินตนาการงานศพของตัวเองและเขียนว่าอยากให้คนพูดถึงอะไร<div class="cl-note">แบบฝึกหัดที่โหดและทรงพลังที่สุดในหนังสือ</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ความสัมพันธ์</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">โทรหาหรือส่งข้อความบอกคนที่รักว่าเขาสำคัญแค่ไหน<div class="cl-note">ทำวันนี้เลย อย่ารอโอกาสพิเศษ</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียนการ์ดขอบคุณถึงคนที่ควรขอบคุณแต่ยังไม่เคยทำ<div class="cl-note">ส่งออกไปจริงๆ ไม่ใช่แค่คิดในหัว</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ทำความดีเล็กๆ กับคนแปลกหน้า 7 วันติดต่อกัน<div class="cl-note">ไม่ต้องใหญ่โต แค่ตั้งใจและจริงใจ</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">นิสัยและกิจวัตร</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ตื่นเช้าขึ้น 30 นาทีและใช้เวลานั้นกับสิ่งที่มีความหมาย<div class="cl-note">ออกกำลังกาย, อ่าน, เขียนบันทึก — ไม่ใช่เลื่อนโซเชียล</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียนบันทึก 3 สิ่งที่ขอบคุณทุกคืนก่อนนอน<div class="cl-note">ง่ายและผลลัพธ์พิสูจน์แล้วทางวิทยาศาสตร์</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เริ่มอ่านหนังสือดีๆ อย่างน้อย 15 นาทีต่อวัน<div class="cl-note">เลือกหนังสือที่เกี่ยวกับสิ่งที่อยากพัฒนา</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>30 วัน — สร้างนิสัยที่เปลี่ยนชีวิต</h3>
+      <p>หลังจาก 30 วันของสัปดาห์แรก เพิ่มสิ่งเหล่านี้เข้าไป</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">การเติบโตส่วนตัว</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ทำ Morning Ritual 60 นาที ทุกวันโดยไม่ขาด<div class="cl-note">ออกกำลังกาย 20 นาที + สมาธิ/เขียน 20 นาที + อ่าน 20 นาที</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">หา mentor หนึ่งคนที่เคารพและนัดพูดคุย<div class="cl-note">อย่าเดินทางคนเดียว</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ลงทะเบียนเรียนทักษะใหม่หนึ่งอย่างที่อยากพัฒนา<div class="cl-note">หลักสูตร หนังสือ YouTube หรือ coach ส่วนตัว</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">มรดกและการให้</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">อาสาสมัครทำอะไรสักอย่างในชุมชนหรือองค์กรการกุศล<div class="cl-note">เดือนละครั้งก็พอ แต่ทำสม่ำเสมอ</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ถ่ายทอดความรู้หรือประสบการณ์ให้คนที่เรียนรู้ได้จากเรา<div class="cl-note">mentor ใครสักคน แบ่งปันความรู้ผ่าน blog หรือสอนตรงๆ</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>ตารางเปรียบเทียบ — ชีวิตก่อนและหลัง</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ด้าน</th>
+          <th>ก่อน — ชีวิตที่วิ่งตามกระแส</th>
+          <th>หลัง — ชีวิตที่ Sharma แนะนำ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-cat">ตอนเช้า</td>
+          <td>ตื่นช้า เช็คโทรศัพท์ทันที รีบไปงาน</td>
+          <td>ตื่นเช้า ออกกำลังกาย ทำสมาธิ อ่านหนังสือ</td>
+        </tr>
+        <tr>
+          <td class="col-cat">เวลาว่าง</td>
+          <td>เลื่อนโซเชียล ดูทีวีไม่มีจุดหมาย</td>
+          <td>อ่านหนังสือ เขียนบันทึก เดินในธรรมชาติ</td>
+        </tr>
+        <tr>
+          <td class="col-cat">ความสัมพันธ์</td>
+          <td>อยู่ด้วยกันแต่ไม่ได้ "อยู่" จริงๆ</td>
+          <td>เวลาคุณภาพ ฟังจริง บอกรักก่อนสายเกินไป</td>
+        </tr>
+        <tr>
+          <td class="col-cat">เมื่อเจอปัญหา</td>
+          <td>บ่น โทษคนอื่น รู้สึกเป็นเหยื่อ</td>
+          <td>ถามว่าเรียนรู้อะไร หาทางออก รับผิดชอบ</td>
+        </tr>
+        <tr>
+          <td class="col-cat">เป้าหมายชีวิต</td>
+          <td>ไม่ชัดเจน ทำตามที่คนอื่นคาดหวัง</td>
+          <td>Mission Statement ชัด ดำเนินตามค่านิยมตัวเอง</td>
+        </tr>
+        <tr>
+          <td class="col-cat">มรดก</td>
+          <td>ไม่เคยคิดถึง รอให้โด่งดังก่อน</td>
+          <td>สร้างทุกวันผ่านสิ่งเล็กๆ ที่ทำด้วยความรัก</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════ REFLECTION ══════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">09</div>
+  <div class="ch-label">ไตร่ตรอง / Reflection</div>
+  <div class="ch-title">
+    คำถามที่เปลี่ยนชีวิต
+    <em>ชีวิตที่ไม่เคยตรวจสอบตัวเองคือชีวิตที่ไม่คุ้มค่าที่จะใช้ — Socrates</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">ไตร่ตรอง</div>
+  <h1>คำถามที่ดีทำให้ชีวิตดีขึ้น — เพราะมันบังคับให้เราคิดในสิ่งที่ไม่อยากคิด</h1>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามรายสัปดาห์ — ทำทุกวันอาทิตย์เย็น</div>
+    <ol class="reflection-list">
+      <li>สัปดาห์นี้ฉันได้ทำอะไรที่เข้าใกล้ Mission Statement ของตัวเองบ้าง? และมีอะไรที่ทำให้ห่างออกไป?</li>
+      <li>ฉันได้บอกคนที่รักว่าพวกเขาสำคัญแค่ไหนในสัปดาห์นี้ไหม?</li>
+      <li>ฉันเรียนรู้อะไรในสัปดาห์นี้ที่ทำให้ฉันเป็นคนที่ดีขึ้น — ด้านความรู้ ทักษะ หรือความเป็นมนุษย์?</li>
+      <li>ฉันมีส่วนทำให้ชีวิตใครดีขึ้นบ้างในสัปดาห์นี้ แม้จะเพียงเล็กน้อย?</li>
+      <li>ฉันใช้เวลากับอะไรมากที่สุดในสัปดาห์นี้ — และนั่นตรงกับสิ่งที่ฉันบอกว่าสำคัญไหม?</li>
+      <li>มีอุปสรรคอะไรที่เจอ? ฉันรับมือกับมันอย่างไร? จะทำต่างออกไปไหมถ้าเจออีก?</li>
+      <li>ถ้าวันพรุ่งนี้เป็นวันสุดท้าย — มีอะไรที่อยากพูดหรือทำในวันนี้ที่ยังไม่ได้ทำ?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Don't live the same year 75 times and call it a life."</div>
+    <div class="bq-th">อย่าใช้ชีวิตปีเดิมซ้ำกัน 75 ครั้ง แล้วเรียกมันว่า "ชีวิต" — Robin Sharma</div>
+  </div>
+
+  <h2>📚 หนังสือเพื่อต่อยอด</h2>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h4>The Monk Who Sold His Ferrari</h4>
+      <p>Robin Sharma — ต้นกำเนิดปรัชญาของ Sharma ว่าด้วยการค้นพบความหมายที่แท้จริงของชีวิต</p>
+    </div>
+    <div class="grid-card">
+      <h4>The 5 AM Club</h4>
+      <p>Robin Sharma — ลึกมากขึ้นในเรื่องกิจวัตรเช้าและการสร้างชีวิตที่ยอดเยี่ยมผ่านวินัยรายวัน</p>
+    </div>
+    <div class="grid-card">
+      <h4>Man's Search for Meaning</h4>
+      <p>Viktor Frankl — หนึ่งในหนังสือที่ทรงพลังที่สุดเกี่ยวกับการค้นหาความหมายในสถานการณ์ที่ยากที่สุด</p>
+    </div>
+    <div class="grid-card">
+      <h4>Atomic Habits</h4>
+      <p>James Clear — วิทยาศาสตร์เบื้องหลังการสร้างนิสัยดีที่ Sharma พูดถึง — อธิบายกลไกอย่างละเอียด</p>
+    </div>
+    <div class="grid-card">
+      <h4>The Top Five Regrets of the Dying</h4>
+      <p>Bronnie Ware — พยาบาลที่ดูแลผู้ป่วยระยะสุดท้าย รวบรวมสิ่งที่คนเสียใจที่สุดก่อนตาย</p>
+    </div>
+    <div class="grid-card">
+      <h4>Ikigai</h4>
+      <p>Héctor García — ปรัชญาญี่ปุ่นว่าด้วยการค้นหา "เหตุผลที่ตื่นขึ้นมาทุกวัน" คล้ายกับ Sharma มาก</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="formula-block">
+    <div class="formula-label">สูตรชีวิตที่มีความหมาย ตาม Robin Sharma</div>
+    <div class="formula-eq">จุดมุ่งหมายชัดเจน + นิสัยดีสม่ำเสมอ + จิตใจแข็งแกร่ง + ความสัมพันธ์ที่ดี + ร่างกายที่แข็งแรง + งานที่เป็นเลิศ + การให้ = ชีวิตที่ใครจะร้องไห้เมื่อเราจากไป</div>
+    <div class="formula-note">ไม่ใช่สูตรที่ทำครั้งเดียว — แต่คือการเลือกทำทุกวัน ทีละเล็กทีละน้อย ไปจนตลอดชีวิต</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<div class="book-footer">
+  <p>สรุปฉบับสมบูรณ์ภาษาไทย · 101 บทเรียนชีวิต</p>
+  <div class="footer-line"></div>
+  <p>
+    Who Will Cry When You Die? — Robin Sharma<br>
+    Life Lessons From The Monk Who Sold His Ferrari
+  </p>
+  <div class="footer-line"></div>
+  <p style="font-size:10px; color: rgba(79,195,232,0.15);">
+    เอกสารนี้จัดทำเพื่อการศึกษาและพัฒนาตนเอง<br>
+    เนื้อหาทั้งหมดอ้างอิงจากหนังสือต้นฉบับโดย Robin Sharma
+  </p>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
