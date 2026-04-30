@@ -820,6 +820,7 @@
     const repo = "bothBook";
     const apiBase = `https://api.github.com/repos/${owner}/${repo}`;
     const contentsUrl = `${apiBase}/contents/`;
+    const jsDelivrListUrl = `https://data.jsdelivr.com/v1/package/gh/${owner}/${repo}@main/flat`;
     const STORAGE_KEY = "bothbook.read.v2";
     const FAVORITE_KEY = "bothbook.favorite.v1";
     const LAST_OPENED_KEY = "bothbook.lastOpened.v1";
@@ -1097,6 +1098,12 @@
       return response.json();
     }
 
+    async function fetchAnyJson(url) {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Fetch ${response.status}`);
+      return response.json();
+    }
+
     async function fetchText(url) {
       const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) throw new Error(`Fetch ${response.status}`);
@@ -1127,7 +1134,7 @@
         // Keep filename-derived metadata if the page cannot be fetched locally.
       }
 
-      const date = await getLatestCommitDate(file.name);
+      const date = file.source === "jsdelivr" ? "" : await getLatestCommitDate(file.name);
       const inferred = inferCategory(`${title} ${file.name}`);
 
       return {
@@ -1141,13 +1148,34 @@
       };
     }
 
+    async function loadHtmlFileList() {
+      try {
+        const files = await fetchJson(contentsUrl);
+        return files
+          .filter(file => file.type === "file")
+          .map(file => ({
+            name: file.name,
+            size: file.size || 0,
+            source: "github"
+          }));
+      } catch (githubError) {
+        const payload = await fetchAnyJson(jsDelivrListUrl);
+        return (payload.files || [])
+          .filter(file => !file.name.slice(1).includes("/"))
+          .map(file => ({
+            name: file.name.replace(/^\//, ""),
+            size: file.size || 0,
+            source: "jsdelivr"
+          }));
+      }
+    }
+
     async function loadPages() {
       renderLoading();
       try {
-        const files = await fetchJson(contentsUrl);
+        const files = await loadHtmlFileList();
         const htmlFiles = files
           .filter(file =>
-            file.type === "file" &&
             file.name.toLowerCase().endsWith(".html") &&
             file.name.toLowerCase() !== "index.html" &&
             !file.name.toLowerCase().includes("temp")
@@ -1160,7 +1188,7 @@
         );
         render();
       } catch (error) {
-        renderError("โหลดรายชื่อเอกสารอัตโนมัติไม่สำเร็จ ตรวจสอบว่า repository เป็น public และ GitHub API เข้าถึงได้");
+        renderError("โหลดรายชื่อเอกสารอัตโนมัติไม่สำเร็จ ตรวจสอบว่า repository เป็น public และลอง refresh อีกครั้ง");
       }
     }
 
