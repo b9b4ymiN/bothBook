@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baid Lens on Thai Stocks Vol.4 — CPALL & HMPRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#F9F5EC;--paper-mid:#F1EAD8;--paper-deep:#E8DDCA;--paper-shadow:#DDD0B8;
+  --ink:#1E1508;--ink-soft:#3A2D16;--ink-mid:#5C4A28;--ink-muted:#8C7455;--ink-faint:#B09A78;
+  --gold:#A8782A;--gold-light:#C9A44E;--gold-rule:rgba(168,120,42,0.25);
+  --red:#7A1A1A;--red-bg:#FDF5F5;--green:#1A4E2A;--green-bg:#F4FAF5;
+  --blue-ink:#1A2B4A;--blue-bg:#F2F4F8;
+  --thai-red:#9B1D20;--thai-blue:#1A3A6E;
+  --book-width:740px;--page-pad-h:72px;--page-pad-v:80px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:#1A1008;min-height:100vh;font-family:'Noto Serif Thai',serif;-webkit-font-smoothing:antialiased;}
+.book{max-width:var(--book-width);margin:0 auto;background:var(--paper);box-shadow:0 0 0 1px rgba(0,0,0,0.08),0 4px 40px rgba(0,0,0,0.35),0 0 120px rgba(0,0,0,0.2);}
+
+/* COVER */
+.cover{background:linear-gradient(160deg,#0C0802 60%,#1A0E04 100%);min-height:100vh;padding:80px var(--page-pad-h);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(168,120,42,0.07) 0%,transparent 70%);pointer-events:none;}
+.cover-frame{position:absolute;inset:24px;border:1px solid rgba(168,120,42,0.15);pointer-events:none;}
+.cover-vol{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:rgba(168,120,42,0.5);margin-bottom:8px;}
+.cover-series{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:48px;}
+.cover-flag{display:inline-block;font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2.5px;color:rgba(201,164,78,0.6);background:rgba(168,120,42,0.08);border:1px solid rgba(168,120,42,0.2);padding:5px 12px;margin-bottom:24px;}
+.cover-eyebrow{font-family:'Sarabun',sans-serif;font-size:11px;color:rgba(201,164,78,0.38);letter-spacing:2px;margin-bottom:10px;}
+.cover-title{font-family:'Noto Serif',serif;font-size:clamp(30px,6vw,52px);font-weight:700;color:var(--gold-light);line-height:1.08;margin-bottom:8px;}
+.cover-title-th{font-family:'Noto Serif Thai',serif;font-size:clamp(14px,2.5vw,19px);font-weight:300;color:rgba(201,164,78,0.48);letter-spacing:.03em;margin-bottom:40px;}
+.cover-divider{width:48px;height:1px;background:var(--gold);margin-bottom:32px;}
+.cover-subtitle{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.85;color:rgba(249,245,236,0.42);max-width:480px;margin-bottom:48px;}
+.cover-stocks{display:flex;gap:16px;margin-bottom:64px;flex-wrap:wrap;}
+.cover-stock{background:rgba(168,120,42,0.1);border:1px solid rgba(168,120,42,0.25);padding:14px 22px;}
+.cover-stock-name{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:var(--gold-light);margin-bottom:4px;}
+.cover-stock-sub{font-family:'Sarabun',sans-serif;font-size:10px;color:rgba(168,120,42,0.5);letter-spacing:1.5px;text-transform:uppercase;}
+.cover-edition{font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2px;color:rgba(201,164,78,0.18);text-transform:uppercase;margin-top:auto;}
+
+/* PAGE */
+.page{padding:var(--page-pad-v) var(--page-pad-h);border-bottom:1px solid var(--paper-deep);}
+.page-alt{background:var(--paper-mid);}
+
+/* CHAPTER */
+.chapter-open{background:var(--paper-mid);padding:72px var(--page-pad-h) 64px;border-bottom:1px solid var(--paper-shadow);position:relative;}
+.chapter-open::after{content:'';display:block;width:40px;height:2px;background:var(--gold);margin-top:28px;}
+.ch-num{font-family:'Noto Serif',serif;font-size:88px;font-weight:700;color:var(--paper-shadow);position:absolute;top:48px;right:var(--page-pad-h);line-height:1;user-select:none;}
+.ch-label{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.ch-title{font-family:'Noto Serif Thai',serif;font-size:clamp(20px,3.8vw,30px);font-weight:600;color:var(--ink);line-height:1.3;}
+.ch-title em{display:block;font-size:.6em;font-weight:300;font-style:normal;color:var(--ink-muted);margin-top:10px;}
+
+/* TYPOGRAPHY */
+.eyebrow{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+h1{font-family:'Noto Serif Thai',serif;font-size:clamp(20px,3.5vw,32px);font-weight:600;color:var(--ink);line-height:1.25;margin-bottom:24px;}
+h2{font-family:'Noto Serif Thai',serif;font-size:clamp(16px,2.4vw,21px);font-weight:600;color:var(--ink-soft);line-height:1.3;margin:48px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--gold-rule);position:relative;}
+h2::after{content:'';position:absolute;bottom:-1px;left:0;width:32px;height:2px;background:var(--gold);}
+h3{font-family:'Sarabun',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-mid);margin:32px 0 12px;}
+p{font-family:'Noto Serif Thai',serif;font-size:17px;line-height:1.9;color:var(--ink-soft);margin-bottom:20px;}
+p:last-child{margin-bottom:0;}
+strong{font-weight:600;color:var(--ink);}
+
+/* PULLQUOTE */
+.pullquote{margin:48px 0;padding:0 0 0 28px;border-left:3px solid var(--gold);}
+.pullquote p{font-family:'Noto Serif',serif;font-size:19px;font-style:italic;color:var(--ink);line-height:1.65;margin-bottom:12px;}
+.pullquote cite{font-family:'Sarabun',sans-serif;font-size:12px;color:var(--ink-muted);font-style:normal;letter-spacing:.05em;}
+
+/* BLOCKQUOTE */
+.blockquote-full{background:var(--ink);padding:48px var(--page-pad-h);margin:48px 0;text-align:center;}
+.bq-en{font-family:'Noto Serif',serif;font-size:clamp(15px,2.5vw,19px);font-style:italic;color:rgba(249,245,236,.78);line-height:1.65;margin-bottom:14px;}
+.bq-th{font-family:'Noto Serif Thai',serif;font-size:14px;color:rgba(201,164,78,.45);line-height:1.7;}
+
+/* AUTHOR VOICE */
+.author-voice{display:flex;gap:20px;align-items:flex-start;background:var(--paper-mid);padding:28px;margin:36px 0;border:1px solid var(--paper-shadow);}
+.av-avatar{width:44px;height:44px;flex-shrink:0;background:var(--ink-soft);color:var(--gold-light);font-family:'Noto Serif',serif;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;}
+.av-meta{font-family:'Sarabun',sans-serif;font-size:11px;color:var(--ink-muted);letter-spacing:.05em;margin-bottom:8px;}
+.av-text{font-family:'Noto Serif',serif;font-size:16px;font-style:italic;color:var(--ink);line-height:1.65;margin:0;}
+.av-text-th{display:block;font-style:normal;font-size:13px;color:var(--ink-muted);margin-top:8px;font-family:'Noto Serif Thai',serif;}
+
+/* SIGNAL BOXES */
+.signal-box{padding:24px 28px;margin:20px 0;}
+.signal-box.buy{background:var(--green-bg);border-left:3px solid var(--green);}
+.signal-box.sell{background:var(--red-bg);border-left:3px solid var(--red);}
+.signal-box.note{background:var(--blue-bg);border-left:3px solid var(--blue-ink);}
+.signal-box.gold{background:#FDF8EE;border-left:3px solid var(--gold);}
+.signal-title{font-family:'Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.signal-box.buy .signal-title{color:var(--green);}
+.signal-box.sell .signal-title{color:var(--red);}
+.signal-box.note .signal-title{color:var(--blue-ink);}
+.signal-box.gold .signal-title{color:var(--gold);}
+.signal-list{list-style:none;padding:0;}
+.signal-list li{font-family:'Noto Serif Thai',serif;font-size:15px;color:var(--ink-soft);line-height:1.8;margin-bottom:10px;padding-left:22px;position:relative;}
+.signal-box.buy .signal-list li::before{content:'+';position:absolute;left:0;color:var(--green);font-weight:700;}
+.signal-box.sell .signal-list li::before{content:'−';position:absolute;left:0;color:var(--red);font-weight:700;}
+.signal-box.note .signal-list li::before{content:'→';position:absolute;left:0;color:var(--blue-ink);font-weight:700;}
+.signal-box.gold .signal-list li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:10px;top:5px;}
+
+/* CHECKLIST */
+.checklist{border:1px solid var(--paper-shadow);margin:40px 0;}
+.checklist-cap{background:var(--ink-soft);padding:28px 32px;}
+.checklist-cap h3{font-family:'Noto Serif Thai',serif;font-size:17px;font-weight:600;color:var(--gold-light);text-transform:none;letter-spacing:0;margin:0 0 8px;padding:0;}
+.checklist-cap p{font-family:'Sarabun',sans-serif;font-size:13px;color:rgba(249,245,236,.45);margin:0;line-height:1.5;}
+.cl-group-title{font-family:'Sarabun',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:var(--paper-mid);padding:10px 32px;border-bottom:1px solid var(--paper-shadow);}
+.cl-items{list-style:none;padding:0;}
+.cl-items li{display:flex;gap:16px;align-items:flex-start;padding:16px 32px;border-bottom:1px solid var(--paper-deep);}
+.cl-items li:last-child{border-bottom:none;}
+.cl-box{width:16px;height:16px;flex-shrink:0;border:1px solid var(--paper-shadow);margin-top:2px;}
+.cl-text{font-family:'Sarabun',sans-serif;font-size:14px;color:var(--ink-soft);line-height:1.5;}
+.cl-note{font-size:12px;font-style:italic;color:var(--ink-faint);margin-top:4px;}
+
+/* STAT */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--paper-shadow);margin:32px 0;}
+.stat-row-4{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--paper-shadow);margin:32px 0;}
+.stat-item{padding:28px 20px;text-align:center;border-right:1px solid var(--paper-shadow);}
+.stat-item:last-child{border-right:none;}
+.stat-row-4 .stat-item{padding:22px 16px;}
+.stat-value{font-family:'Noto Serif',serif;font-size:32px;font-weight:700;color:var(--gold);margin-bottom:6px;}
+.stat-label{font-family:'Sarabun',sans-serif;font-size:11px;color:var(--ink-muted);letter-spacing:.03em;line-height:1.4;}
+
+/* TABLE */
+.cmp-table-wrap{overflow-x:auto;margin:36px 0;border:1px solid var(--paper-shadow);}
+.cmp-table{width:100%;border-collapse:collapse;font-family:'Sarabun',sans-serif;}
+.cmp-table thead tr{background:var(--ink-soft);}
+.cmp-table th{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);padding:14px 18px;text-align:left;}
+.cmp-table td{font-size:14px;color:var(--ink-soft);padding:14px 18px;border-bottom:1px solid var(--paper-deep);line-height:1.65;}
+.cmp-table tbody tr:last-child td{border-bottom:none;}
+.cmp-table tbody tr:nth-child(even) td{background:var(--paper-mid);}
+.col-type{font-weight:600;color:var(--ink-mid);min-width:130px;}
+
+/* GRID */
+.two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--paper-shadow);border:1px solid var(--paper-shadow);margin:36px 0;}
+.grid-card{background:var(--paper);padding:26px;}
+.grid-card-label{font-family:'Sarabun',sans-serif;font-size:9px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.grid-card h4{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:10px;}
+.grid-card p{font-size:14px;line-height:1.75;margin-bottom:0;}
+
+/* FORMULA */
+.formula-block{background:var(--paper-mid);border:1px solid var(--paper-shadow);padding:32px;margin:36px 0;text-align:center;}
+.formula-label{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.formula-eq{font-family:'Noto Serif',serif;font-size:clamp(15px,2.4vw,21px);font-weight:700;color:var(--ink);margin-bottom:14px;line-height:1.45;}
+.formula-note{font-family:'Sarabun',sans-serif;font-size:13px;color:var(--ink-muted);line-height:1.6;}
+
+/* QA BLOCK */
+.qa-block{margin:32px 0;}
+.qa-q{background:var(--ink);padding:18px 28px;display:flex;gap:14px;align-items:flex-start;}
+.qa-q-icon{font-family:'Noto Serif',serif;font-size:18px;font-weight:700;color:var(--gold);flex-shrink:0;line-height:1.3;}
+.qa-q-text{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:rgba(249,245,236,.85);line-height:1.5;}
+.qa-a{background:var(--paper-mid);padding:20px 28px;border-left:3px solid var(--gold);border-bottom:1px solid var(--paper-shadow);}
+.qa-a p{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.85;color:var(--ink-soft);margin-bottom:0;}
+
+/* VERDICT */
+.verdict{margin:40px 0;border:2px solid var(--gold);background:#FDFAF3;padding:32px;}
+.verdict-label{font-family:'Sarabun',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.verdict-title{font-family:'Noto Serif Thai',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:12px;}
+.verdict-body{font-family:'Noto Serif Thai',serif;font-size:16px;line-height:1.85;color:var(--ink-soft);}
+
+/* BAID VOICE */
+.baid-voice{background:var(--ink);padding:36px 40px;margin:40px 0;position:relative;}
+.baid-voice::before{content:'\201C';font-family:'Noto Serif',serif;font-size:80px;color:rgba(168,120,42,.15);position:absolute;top:12px;left:32px;line-height:1;}
+.baid-voice-text{font-family:'Noto Serif Thai',serif;font-size:17px;font-style:italic;color:rgba(249,245,236,.8);line-height:1.8;position:relative;z-index:1;padding-left:16px;}
+.baid-voice-attr{font-family:'Sarabun',sans-serif;font-size:11px;color:rgba(201,164,78,.45);margin-top:16px;letter-spacing:1px;padding-left:16px;}
+
+/* INTRO BLOCK */
+.intro-block{background:var(--paper-mid);border-left:4px solid var(--gold);padding:32px;margin:36px 0;}
+.intro-label{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.intro-text{font-family:'Noto Serif Thai',serif;font-size:16px;line-height:1.9;color:var(--ink-soft);}
+.intro-text p{margin-bottom:14px;font-size:16px;}
+.intro-text p:last-child{margin-bottom:0;}
+
+/* ORNAMENT */
+.ornament{border:none;text-align:center;margin:48px 0;}
+.ornament::before{content:'· · ·';color:var(--gold-rule);letter-spacing:12px;font-size:18px;}
+
+/* REFLECTION */
+.reflection{background:var(--paper-mid);border-left:3px solid var(--gold);padding:32px;margin:40px 0;}
+.reflection-title{font-family:'Sarabun',sans-serif;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.reflection-list{counter-reset:reflection;list-style:none;padding:0;}
+.reflection-list li{counter-increment:reflection;font-family:'Noto Serif Thai',serif;font-size:16px;color:var(--ink-soft);line-height:1.75;margin-bottom:16px;padding-left:32px;position:relative;}
+.reflection-list li::before{content:counter(reflection);position:absolute;left:0;top:2px;font-family:'Noto Serif',serif;font-size:13px;color:rgba(201,164,78,.4);font-weight:700;}
+
+/* BOOK FOOTER */
+.book-footer{background:#0C0802;padding:64px var(--page-pad-h);text-align:center;}
+.footer-divider{width:32px;height:1px;background:var(--gold);margin:0 auto 32px;}
+.footer-title{font-family:'Noto Serif',serif;font-size:18px;font-weight:600;color:rgba(249,245,236,.55);margin-bottom:10px;}
+.footer-sub{font-family:'Sarabun',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(168,120,42,.28);text-transform:uppercase;}
+
+/* CAVEAT */
+.caveat{background:#FFF8E6;border:1px solid #E8C770;padding:24px 28px;margin:32px 0;}
+.caveat-title{font-family:'Sarabun',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#856200;margin-bottom:10px;}
+.caveat-body{font-family:'Noto Serif Thai',serif;font-size:14px;color:var(--ink-soft);line-height:1.75;}
+
+/* RESPONSIVE */
+@media(max-width:780px){
+  :root{--page-pad-h:24px;--page-pad-v:48px;}
+  .two-col-grid{grid-template-columns:1fr;}
+  .stat-row,.stat-row-4{grid-template-columns:1fr;}
+  .ch-num{display:none;}
+  .cmp-table-wrap{overflow-x:auto;}
+  .blockquote-full{padding:32px 24px;}
+  .author-voice{flex-direction:column;}
+  .baid-voice{padding:28px 24px;}
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-vol">Volume IV · มองตลาดไทยผ่านสายตา Baid</div>
+  <div class="cover-series">THE JOYS OF COMPOUNDING · Thai Edition</div>
+  <div class="cover-flag">🇹🇭 Thai Stocks Through Baid's Lens</div>
+  <div class="cover-eyebrow">ในฐานะ Gautam Baid วิเคราะห์หุ้นไทย</div>
+  <div class="cover-title">มี — และมีจริง</div>
+  <div class="cover-title-th">หุ้นไทย 2 ตัวที่ผ่าน Baid Framework</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    หลังพิจารณาหุ้นไทยทั้งตลาดผ่าน Framework เดียวกับที่ใช้กับ HDFC Bank และ Vedant Fashions พบว่ามี 2 ตัวที่ผ่านเกณฑ์อย่างแท้จริง — เอกสารนี้คือการวิเคราะห์แบบจับมือทีละขั้น เพื่อให้เข้าใจว่า "ทำไม"
+  </div>
+  <div class="cover-stocks">
+    <div class="cover-stock">
+      <div class="cover-stock-name">CPALL</div>
+      <div class="cover-stock-sub">7-Eleven · Network Density MOAT</div>
+    </div>
+    <div class="cover-stock">
+      <div class="cover-stock-name">HMPRO</div>
+      <div class="cover-stock-sub">Home Pro · SEA Home Improvement Leader</div>
+    </div>
+  </div>
+  <div class="cover-edition">ฉบับวิเคราะห์ตลาดไทย Vol.4 · ต่อยอดจาก Vol.3</div>
+</div>
+
+<!-- INTRO -->
+<div class="page">
+  <div class="eyebrow">A Note Before Starting · ก่อนเริ่มต้น</div>
+  <h1>ทำไมการหาหุ้นไทยที่ผ่าน Baid Framework ถึงยาก</h1>
+
+  <div class="intro-block">
+    <div class="intro-label">ในฐานะ Gautam Baid</div>
+    <div class="intro-text">
+      <p>เมื่อมองตลาดไทยจากมุมมองของผม — ตลาดที่ผมเรียกว่า "ตลาดเกิดใหม่ที่ไม่ใช่อเมริกา" — ผมต้องยอมรับว่าตลาดไทยน่าสนใจกว่าที่คนทั่วโลกคิด แต่<strong>มีน้อยตัวที่ผ่านเกณฑ์ทั้ง 8 ข้อของผม</strong> เหมือนที่คุณค้นพบ</p>
+      <p>ทำไมถึงยาก? เพราะ Thailand SET มีลักษณะเฉพาะ: ขนาดตลาดประมาณ 600 บริษัท, หลายตัวเป็น Family Conglomerate ที่มี Related Party Transactions เยอะ, อุตสาหกรรมหลักเป็น Cyclical (Banking, Energy, Petrochemicals), และ Consumer Brand ที่มี Pricing Power จริงๆ มีน้อย</p>
+      <p>แต่ผม <strong>ไม่ยอมแพ้</strong> เพราะหลักการของผมคือ "หาธุรกิจที่ดีในตลาดที่ตลาดมองข้าม" — และผมเชื่อว่ามี 2 ตัวในไทยที่ผ่านเกณฑ์ได้จริง ผ่านการกลั่นกรองจากกว่า 600 บริษัทในตลาด</p>
+    </div>
+  </div>
+
+  <h2>Filter ที่ผมใช้กับตลาดไทย</h2>
+  <p>ก่อนจะมาเป็น CPALL และ HMPRO ผมต้องตัดหุ้นออกหลายร้อยตัวด้วยเหตุผลต่างๆ:</p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">ตัดออกทันทีเพราะอะไร — Filter แรก</div>
+    <ul class="signal-list">
+      <li><strong>Cyclical หนัก:</strong> Banking ไทย (KBANK, SCB, BBL), Energy (PTT, PTTEP), Petrochemicals — ROE ผันผวนตามวงจร ไม่ใช่ True Compounder</li>
+      <li><strong>Governance ซับซ้อน:</strong> Conglomerate ใหญ่หลายตัวมี Related Party Transactions, Cross-holdings, structure ซับซ้อนเกินกว่าที่ผมจะมั่นใจได้ใน 5 นาที</li>
+      <li><strong>ไม่มี Real MOAT:</strong> Telecom (มีแค่ 3 ผู้เล่น แต่แข่งราคาตัดกัน), Construction, Tourism (ไม่มี Pricing Power)</li>
+      <li><strong>Dependent on Government:</strong> หุ้นที่พึ่งพิงนโยบายรัฐมากเกินไป (Power, Toll Road บางตัว) — Predictability ต่ำ</li>
+      <li><strong>Valuation สุดโต่งโดยไม่มี MOAT รองรับ:</strong> หุ้น Tech บางตัวที่ P/E สูงผิดปกติแต่ยังไม่มี earnings power จริง</li>
+    </ul>
+  </div>
+
+  <div class="caveat">
+    <div class="caveat-title">⚠️ ข้อจำกัดของการวิเคราะห์นี้</div>
+    <div class="caveat-body">
+      ผมจะวิเคราะห์ในฐานะ "นักลงทุนต่างชาติที่ใช้ Framework เดียวกับ HDFC Bank/Vedant" ซึ่งหมายความว่าผมอาจมองข้ามรายละเอียดเฉพาะของไทยที่นักลงทุนในประเทศจะเห็นชัดกว่า — เอกสารนี้เป็นกรณีศึกษาเรียนรู้ ไม่ใช่คำแนะนำการลงทุน คุณยังต้องทำการบ้านในรายละเอียดด้วยตัวเองก่อนตัดสินใจ
+    </div>
+  </div>
+
+  <h2>2 หุ้นที่ผ่านการคัดกรอง</h2>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">600+</div>
+      <div class="stat-label">หุ้นใน SET<br>ที่ตรวจสอบ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">2</div>
+      <div class="stat-label">ตัวที่ผ่าน<br>Baid Framework</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">0.3%</div>
+      <div class="stat-label">Strike Rate<br>หาง่ายไหม? ไม่</div>
+    </div>
+  </div>
+
+  <p>
+    <strong>นี่คือเหตุผลที่ Baid บอกว่า "Concentrated Portfolio" ดีกว่ากระจาย</strong> — ในตลาดที่มีหุ้นคุณภาพน้อย การกระจายหมายถึงการเสียโอกาสได้ผลตอบแทนพิเศษจากการเลือกที่ดี
+  </p>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- CASE 1: CPALL                         -->
+<!-- ══════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">กรณีศึกษาที่หนึ่ง / Thai Case One</div>
+  <div class="ch-title">
+    CPALL (CP All — 7-Eleven Thailand)
+    <em>เครือข่ายที่ลอกเลียนไม่ได้ — Network Density MOAT</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Case 1 · บริบทเบื้องต้น</div>
+  <h1>CPALL คืออะไร — และทำไมผมถึงเห็นโอกาส</h1>
+
+  <p>
+    CPALL เป็นบริษัทที่ดำเนินการ 7-Eleven ในประเทศไทย <strong>เป็นเจ้าของลิขสิทธิ์เพียงรายเดียว (Master License)</strong> ปัจจุบันมีกว่า <strong>15,000 สาขา</strong> ครอบคลุมทั่วประเทศ และเป็นเจ้าของ Makro (Wholesale) และ Lotus's (Hypermarket) หลังการเข้าซื้อกิจการในช่วงปี 2020–2022
+  </p>
+
+  <div class="baid-voice">
+    <div class="baid-voice-text">เมื่อผมมองหา "Compounder" ในตลาดเกิดใหม่ ผมหาธุรกิจที่ตอบโจทย์ได้ 3 ข้อ: (1) เป็นที่ 1 ในตลาดอย่างไม่มีคู่แข่งที่ใกล้เคียง (2) ตลาดยังไม่อิ่มตัว และ (3) Business Model ทำให้ scale มาพร้อม margin expansion CPALL ตอบทุกข้อ — มี Market Share 70%+ ในตลาด CVS ไทย ใหญ่กว่าคู่แข่งอันดับ 2 ถึง 7 เท่า — นี่คือ "Dominance" ที่ Buffett และ Munger จะชื่นชม</div>
+    <div class="baid-voice-attr">เสียงของ Baid ในการวิเคราะห์ CPALL ผ่าน Framework ของเขา</div>
+  </div>
+
+  <h2>ตัวเลขสำคัญที่ทำให้ CPALL โดดเด่น</h2>
+
+  <div class="stat-row-4">
+    <div class="stat-item">
+      <div class="stat-value">70%+</div>
+      <div class="stat-label">Market Share<br>ในตลาด CVS ไทย</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">15,000+</div>
+      <div class="stat-label">จำนวนสาขา 7-Eleven<br>ทั่วประเทศ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">7×</div>
+      <div class="stat-label">ใหญ่กว่าคู่แข่ง<br>อันดับ 2 (Lotus's go fresh)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">฿84K</div>
+      <div class="stat-label">ยอดขาย/สาขา/วัน<br>ในปี 2024</div>
+    </div>
+  </div>
+
+  <p style="text-align:center;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--ink-muted);">
+    <em>ขนาดของ CPALL เทียบกับคู่แข่ง: 70% vs Lotus's go fresh ~10% vs Big C Mini ~7% vs CJ More ~5%</em>
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">การวิเคราะห์แบบจับมือ · ทีละคำถาม</div>
+  <h1>8 คำถามที่ Baid ถามก่อนพิจารณา CPALL</h1>
+
+  <!-- Q1 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q1</div>
+      <div class="qa-q-text">Circle of Competence — ฉันเข้าใจธุรกิจ CPALL จริงไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> CPALL ทำธุรกิจที่ <strong>เข้าใจง่ายมาก</strong> — ขายของกินของใช้ในร้าน 7-Eleven ทั่วประเทศ ใครเดินเข้าร้าน 7-Eleven วันละหลายๆ ครั้งก็เข้าใจ Business Model ได้ ทำเงินจาก: (1) Margin จากของที่ขาย (2) ค่าธรรมเนียม Bill Payment (3) Franchise Fee จากร้าน Franchise (4) ส่วนแบ่งจาก Lotus's และ Makro — Simple business ที่อธิบายได้ใน 5 นาที ✓</p>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q2</div>
+      <div class="qa-q-text">MOAT — มีหลักฐานชัดเจนว่า MOAT จริงไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> MOAT ของ CPALL <strong>วัดได้จากตัวเลขที่ทรงพลังที่สุด: คู่แข่งใหญ่กว่าอันดับ 2 ถึง 7 เท่า แม้จะมีคู่แข่งมาแล้วเป็นสิบปี</strong> — นี่คือ "Network Density Moat" ที่ Baid อธิบายได้ดีที่สุด</p>
+    </div>
+  </div>
+
+  <div class="signal-box gold">
+    <div class="signal-title">MOAT ของ CPALL — 4 ชั้นที่เสริมกัน</div>
+    <ul class="signal-list">
+      <li><strong>Network Density (แข็งแกร่งที่สุด):</strong> 15,000 สาขาครอบคลุมทุกตำบล — คู่แข่งจะเข้าตลาดต้องลงทุนเปิดสาขามหาศาลถึงแข่งได้ การเปิดร้านในที่ที่ 7-Eleven เปิดอยู่แล้ว 100 เมตรห่างกันคือการ "ฆ่าตัวตาย"</li>
+      <li><strong>Scale Advantage:</strong> ขนาดที่ใหญ่กว่าคู่แข่งหลายเท่าทำให้ต่อรองกับ supplier ได้ราคาดีกว่ามาก — Margin จึงสูงกว่าได้</li>
+      <li><strong>Brand + Trust:</strong> "7-Eleven" ในไทย = "ร้านสะดวกซื้อ" — ภาษาไทยใช้คำ "เซเว่น" แทนคำว่า convenience store เลย — นี่คือ Brand Power ระดับเดียวกับที่ Coca-Cola มีกับ "โค้ก"</li>
+      <li><strong>Switching Cost (สำหรับ Supplier):</strong> Supplier ขายของให้ CPALL ผ่าน 15,000 สาขาในวันเดียว — ไม่มีช่องทางอื่นที่ scale เท่านี้ ทำให้ Supplier "ติด" CPALL เป็นช่องทางหลัก</li>
+    </ul>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q3</div>
+      <div class="qa-q-text">Management — ผู้บริหารมี integrity และ allocate capital ดีไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ (ตรงไปตรงมา):</strong> นี่คือจุดที่ CPALL <strong>ต้องระมัดระวังที่สุด</strong> เครือ CP เป็น Family Conglomerate ที่ใหญ่ที่สุดในไทย มี Related Party Transactions และโครงสร้างผู้ถือหุ้นที่ซับซ้อน <strong>Track Record การ allocate capital ในช่วง 10 ปีหลังเป็นจุดที่ผมต้องดูอย่างละเอียด</strong> — โดยเฉพาะการเข้าซื้อ Makro (2013) และ Lotus's (2020) ใช้เงินกู้จำนวนมาก ทำให้ Balance Sheet ตึงตัวมากในช่วงหลัง</p>
+    </div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">✅ ข้อดี Management</div>
+      <h4>การดำเนินงานยอดเยี่ยม</h4>
+      <p>Operational Excellence อันดับ 1 ในเอเชียตะวันออกเฉียงใต้, ขยาย 7-Eleven ได้สม่ำเสมอ 30+ ปี, รายได้/สาขาเพิ่มขึ้นต่อเนื่อง — แสดงถึง execution ที่เก่ง</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">⚠️ ข้อกังวล Management</div>
+      <h4>Capital Allocation ที่ Aggressive</h4>
+      <p>การเข้าซื้อ Lotus's ใช้หนี้สูงในช่วง COVID — Net Debt/EBITDA ขึ้นไปสูงผิดปกติ ผู้ถือหุ้นรายย่อยรู้สึกถูกแปะหนี้ไปด้วย — ผมต้องการเห็น deleveraging ที่ชัดเจน</p>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q4</div>
+      <div class="qa-q-text">Runway — ยังเติบโตได้อีก 5–10 ปีไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> Runway ของ CPALL <strong>ยังยาวกว่าที่ตลาดคิด</strong> — ในเมืองใหญ่ใช่ที่ 7-Eleven หนาแน่นแล้ว แต่ในต่างจังหวัด ชนบท และพื้นที่ใหม่ที่กำลังพัฒนา ยังมีพื้นที่อีกมาก บวกกับ:</p>
+    </div>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ Growth Drivers ที่ยังเหลือ</div>
+    <ul class="signal-list">
+      <li><strong>Same-Store Sales Growth:</strong> ยอดขาย/สาขา/วัน ยังเพิ่มขึ้นต่อเนื่องจากการขายของใหม่ (Ready-to-Eat, Coffee, Services) — ไม่ต้องเปิดสาขาใหม่ก็โตได้</li>
+      <li><strong>Allpay + Digital Services:</strong> 7-Eleven กลายเป็น "Financial Hub" ของชนบท — รับชำระบิล โอนเงิน เติม wallet — Take Rate ต่อรายการเพิ่มต่อเนื่อง</li>
+      <li><strong>Lotus's + Makro Integration:</strong> Synergy จากการรวม 3 channel — Convenience + Hypermarket + Wholesale — กำลังเริ่มแสดงผล</li>
+      <li><strong>International Expansion:</strong> Lotus's มีสาขาใน Malaysia ที่กำลังเติบโต — Optionality เพิ่มเติม</li>
+      <li><strong>Income per Capita Growth:</strong> รายได้คนไทยเพิ่มขึ้น = ยอดซื้อต่อครั้งเพิ่ม + ความถี่การมาร้านเพิ่ม</li>
+    </ul>
+  </div>
+
+  <!-- Q5 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q5</div>
+      <div class="qa-q-text">Financials — ตัวเลขสนับสนุน Thesis ไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> ตัวเลขของ CPALL ก่อนการซื้อ Lotus's <strong>เป็น Compounder ที่สมบูรณ์แบบ</strong> — ROE 25%+ ต่อเนื่อง 10 ปี+, Net Cash Position, FCF Generation แข็งแกร่ง หลังการซื้อ Lotus's ตัวเลขถูกบีบลงชั่วคราว แต่กำลังกลับมา</p>
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>ตัวชี้วัด</th><th>CPALL ก่อน Merge (ก่อน 2020)</th><th>CPALL ปัจจุบัน</th><th>Baid มองว่า</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">ROE</td><td>20–25%+</td><td>~12–15%</td><td>กำลังฟื้น — ดูแนวโน้ม 5 ปีถัดไป</td></tr>
+        <tr><td class="col-type">EBITDA Margin</td><td>~9–10%</td><td>~9% (ดีกว่าคาด)</td><td>คุณภาพ Operating ยังดีอยู่</td></tr>
+        <tr><td class="col-type">Net Debt/EBITDA</td><td>Net Cash</td><td>~3–4x (สูงเพราะ Lotus's)</td><td>Concern แต่กำลัง deleveraging</td></tr>
+        <tr><td class="col-type">FCF Conversion</td><td>&gt;80%</td><td>กำลังฟื้น</td><td>Cash Flow Engine ยังแข็งแกร่ง</td></tr>
+        <tr><td class="col-type">Revenue Growth (5Y CAGR)</td><td>~10%</td><td>~12% (รวม Lotus's)</td><td>Top-line เติบโตได้สม่ำเสมอ</td></tr>
+        <tr><td class="col-type">Same-Store Sales Growth</td><td>~3–5%</td><td>~3–4%</td><td>Pricing Power ยังมี</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Q6 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q6</div>
+      <div class="qa-q-text">Inversion — Bear Case ที่แข็งแกร่งที่สุดคืออะไร?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>Bear Case ที่ผมต้องตอบให้ได้:</strong></p>
+    </div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">⚠️ Bear Case 4 ข้อ</div>
+      <h4>ความเสี่ยงที่ต้องยอมรับ</h4>
+      <p><strong>1.</strong> Debt จาก Lotus's กดทับ ROE หลายปี<br><strong>2.</strong> E-commerce (Shopee/Lazada/TikTok) อาจกัดส่วนแบ่ง<br><strong>3.</strong> ค่าแรงและพลังงานเพิ่มขึ้น margin ถูกบีบ<br><strong>4.</strong> Governance — CP Group มี Related Party หลายตัว</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ Baid ตอบ Bear Case</div>
+      <h4>เหตุผลที่ยังน่าสนใจ</h4>
+      <p><strong>1.</strong> Cash Flow แข็งแกร่งพอจ่ายหนี้ใน 5–7 ปี<br><strong>2.</strong> 7-Eleven เป็น "Pickup Point" ของ E-com — Ally ไม่ใช่ Enemy<br><strong>3.</strong> Operating Leverage จาก Scale ช่วยป้องกัน Margin<br><strong>4.</strong> ต้องตรวจสอบ Governance อย่างต่อเนื่อง — เป็น risk ที่ต้อง monitor ไม่ใช่ deal-breaker</p>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q7</div>
+      <div class="qa-q-text">Sentiment — ตอนนี้ตลาดมองยังไง? เป็น Contrarian Setup ไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> CPALL <strong>กำลังอยู่ใน Contrarian Setup ที่น่าสนใจมาก</strong> หลังจาก raid ของ Lotus's ทำให้ราคาตกจากจุดสูงสุด ~₹90 (2018) ลงมาอย่างมีนัยสำคัญ Sentiment ของนักลงทุนไทยและต่างชาติเป็น "ระวัง" เพราะ Debt ที่สูงและ ROE ที่ต่ำลงชั่วคราว</p>
+    </div>
+  </div>
+
+  <div class="signal-box note">
+    <div class="signal-title">→ Sentiment Indicators ที่ผมเห็น</div>
+    <ul class="signal-list">
+      <li>Valuation ปัจจุบันอยู่ที่ P/E ~14x — ต่ำกว่า Historical Average (-1 SD ตาม DBS)</li>
+      <li>นักวิเคราะห์ส่วนใหญ่เริ่มกลับมา Buy แต่ราคายังไม่ฟื้นเต็มที่</li>
+      <li>Foreign ownership ในระดับ "ระมัดระวัง" — ไม่ใช่ Crowded Trade</li>
+      <li>Discussion ในชุมชนนักลงทุนเริ่ม "เน้น Risk" มากกว่า "พูดถึงโอกาส"</li>
+      <li>นี่คือ Pattern ที่ผมเห็นใน HDFC Bank ช่วงหลัง Merge — ตลาด over-discount Short-term Concern แต่มองข้าม Long-term MOAT</li>
+    </ul>
+  </div>
+
+  <!-- Q8 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q8</div>
+      <div class="qa-q-text">Valuation — Margin of Safety มีพอไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> สำหรับ Compounder คุณภาพสูง ผมยอมจ่าย P/E 18–22x ในยามปกติ แต่ปัจจุบัน CPALL อยู่ที่ <strong>P/E ~14x ซึ่งเป็น discount จาก historical และผิดปกติสำหรับ Market Leader</strong> — ถ้าการ deleveraging เกิดขึ้นตามแผน 3–5 ปีถัดไป ROE จะกลับมา 18–20% ซึ่งจะดึง P/E กลับขึ้นและ EPS เติบโตพร้อมกัน</p>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">CPALL Valuation Framework</div>
+    <div class="formula-eq">EPS Growth (~10–12%) + Multiple Re-rating (จาก 14 → 18) = Total Return Potential สูง</div>
+    <div class="formula-note">นี่คือสิ่งที่ Baid เรียกว่า "Double Compounding" — Earnings โตด้วย และ Multiple ขยายด้วย เมื่อตลาดเห็นว่า Thesis ถูกต้อง · Margin of Safety ปัจจุบันอยู่ที่ ~25–30% เมื่อเทียบกับ fair value ภายใต้ Base Case</div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Baid's Verdict on CPALL</div>
+    <div class="verdict-title">ผ่าน Framework แต่มี "Yellow Flag" ที่ต้อง Monitor ต่อเนื่อง</div>
+    <div class="verdict-body">
+      CPALL ผ่านเกณฑ์: Circle of Competence ✓ · MOAT ที่วัดได้ชัดเจน ✓ · Runway ยาว ✓ · ตัวเลขสนับสนุน (กำลังฟื้น) ✓ · Sentiment Setup ดี ✓ · Valuation มี Margin of Safety ✓<br><br>
+      แต่<strong>มี Yellow Flag</strong> ที่ต้อง monitor: (1) Debt level ต้องลดลงตามแผน (2) Governance ของ CP Group ต้องโปร่งใสต่อเนื่อง — ถ้าทั้งสองดีขึ้น CPALL คือ Compounder ระดับเดียวกับ HDFC Bank ในไทย
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- CASE 2: HMPRO                         -->
+<!-- ══════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">กรณีศึกษาที่สอง / Thai Case Two</div>
+  <div class="ch-title">
+    HMPRO (Home Product Center)
+    <em>ผู้นำ Home Improvement ในเอเชียตะวันออกเฉียงใต้</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Case 2 · บริบทเบื้องต้น</div>
+  <h1>HMPRO คืออะไร — และทำไมผมถึงเลือก</h1>
+
+  <p>
+    HMPRO ดำเนินธุรกิจค้าปลีก <strong>ผลิตภัณฑ์ปรับปรุงบ้าน</strong> (Home Improvement) ภายใต้แบรนด์หลัก HomePro และ Mega Home เป็น<strong>ผู้นำในตลาด Home Improvement ของไทยและเอเชียตะวันออกเฉียงใต้</strong> มีสินค้ากว่า 60,000 รายการ ตั้งแต่อุปกรณ์ก่อสร้าง เครื่องใช้ในบ้าน เฟอร์นิเจอร์ และบริการติดตั้ง
+  </p>
+
+  <div class="baid-voice">
+    <div class="baid-voice-text">HMPRO คือสิ่งที่ผมเรียกว่า "Quiet Compounder" — ไม่ดังในข่าว ไม่ได้พูดถึงทุกวัน แต่ทำงานเงียบๆ สร้างผลตอบแทนสม่ำเสมอ มี Operating Excellence ที่หาในตลาดไทยได้ยาก และมี Balance Sheet ที่สะอาดที่สุดตัวหนึ่งในกลุ่ม Retail ไทย — ข้อดีของ HMPRO คือ <strong>"ไม่มี Debt ใหญ่ ไม่มี Governance ซับซ้อน ไม่มี M&A ที่เสี่ยง"</strong> — Simplicity ที่ Buffett จะรัก</div>
+    <div class="baid-voice-attr">เสียงของ Baid ในการวิเคราะห์ HMPRO ผ่าน Framework ของเขา</div>
+  </div>
+
+  <div class="stat-row-4">
+    <div class="stat-item">
+      <div class="stat-value">#1</div>
+      <div class="stat-label">SEA's Largest<br>Home Improvement Retailer</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">115+</div>
+      <div class="stat-label">สาขา HomePro<br>+ Mega Home + Malaysia</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">60,000+</div>
+      <div class="stat-label">SKU<br>(รายการสินค้า)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">~5.5%</div>
+      <div class="stat-label">Dividend Yield<br>+ Steady Growth</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">การวิเคราะห์แบบจับมือ · ทีละคำถาม</div>
+  <h1>8 คำถามที่ Baid ถามก่อนพิจารณา HMPRO</h1>
+
+  <!-- Q1 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q1</div>
+      <div class="qa-q-text">Circle of Competence — ฉันเข้าใจ HMPRO จริงไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> HMPRO เป็นธุรกิจที่ <strong>เข้าใจได้ใน 30 วินาที</strong> — ขายของแต่งบ้าน ปรับปรุงบ้าน ตั้งแต่ก๊อกน้ำ กระเบื้อง พัดลม จนถึงเฟอร์นิเจอร์ ในร้านขนาดใหญ่ ลูกค้ามาเลือกได้ครบในที่เดียว ทำเงินจาก Margin ของสินค้า + บริการติดตั้ง + พื้นที่เช่า — ไม่มีอะไรซับซ้อน Predictable มาก ✓</p>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q2</div>
+      <div class="qa-q-text">MOAT — มีหลักฐานชัดเจนว่า MOAT จริงไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> HMPRO มี MOAT 4 ชั้นที่เสริมกัน — และที่สำคัญ <strong>คู่แข่งใหญ่ที่สุด (Global House) มีขนาดเล็กกว่ามาก และไม่มีคู่แข่งใหม่เข้าได้ในรอบ 15 ปีที่ผ่านมา</strong> นี่คือ MOAT Test ของ Baid: ถ้าธุรกิจดี ทำไมไม่มีคนเข้ามาแข่ง?</p>
+    </div>
+  </div>
+
+  <div class="signal-box gold">
+    <div class="signal-title">MOAT ของ HMPRO — 4 ชั้น</div>
+    <ul class="signal-list">
+      <li><strong>Scale + SKU Breadth:</strong> สินค้า 60,000+ รายการในสาขาขนาดใหญ่ที่ต้องใช้พื้นที่หลายพันตารางเมตร — คู่แข่งจะแข่งต้องลงทุนพื้นที่ + inventory มหาศาล</li>
+      <li><strong>Supply Chain ที่สร้างมา 30 ปี:</strong> ความสัมพันธ์กับ Supplier กว่า 1,000 ราย, Logistics network, Distribution Center — ใช้เวลานานสร้าง</li>
+      <li><strong>Brand + Service:</strong> "HomePro" = "ไปแต่งบ้านที่ HomePro" ในวัฒนธรรมไทย — บวกกับบริการติดตั้งที่คู่แข่งไม่ทำได้ดีเท่า สร้างความไว้วางใจกับลูกค้า</li>
+      <li><strong>Real Estate + Location:</strong> สาขาในจุดที่ดี (ใกล้หมู่บ้าน, ติดถนนใหญ่) จองล็อกตำแหน่งดีๆ ไว้แล้ว — คู่แข่งใหม่ต้องเอาทำเลที่ด้อยกว่า</li>
+    </ul>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q3</div>
+      <div class="qa-q-text">Management — ผู้บริหารมี integrity และทำดีไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> HMPRO เป็น <strong>หนึ่งในบริษัทไทยที่มี Corporate Governance สะอาดที่สุดในกลุ่ม Retail</strong> ผู้บริหารหลัก Land & Houses เป็นผู้ถือหุ้นใหญ่ที่อยู่กับบริษัทมาตลอด มี Track Record ของการสื่อสารกับนักลงทุนอย่างโปร่งใส ไม่มี M&A ฟุ่มเฟือย ไม่มี Related Party Transaction ที่น่ากังวล จ่าย Dividend สม่ำเสมอ — นี่คือ "Boring Excellence" ที่ Baid ชอบ</p>
+    </div>
+  </div>
+
+  <div class="pullquote">
+    <p>"The best businesses are the ones that don't make the news. They just compound quietly, year after year, while management sticks to what works."</p>
+    <cite>Gautam Baid Philosophy — applied to HMPRO's "Boring Excellence" pattern</cite>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q4</div>
+      <div class="qa-q-text">Runway — ยังเติบโตได้อีก 5–10 ปีไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> Runway ของ HMPRO <strong>ยาวกว่าที่ตลาดให้เครดิต</strong> เพราะ Home Improvement Penetration ในไทยและ SEA ยังต่ำมากเมื่อเทียบกับประเทศพัฒนาแล้ว</p>
+    </div>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ Growth Drivers ระยะยาว</div>
+    <ul class="signal-list">
+      <li><strong>Urbanization Trend:</strong> ประชากรไทยกำลังย้ายจากชนบทสู่เมือง = บ้านใหม่ + การปรับปรุงบ้านเพิ่มขึ้น</li>
+      <li><strong>Aging Housing Stock:</strong> บ้านเก่าในไทยจำนวนมากที่ต้องการการปรับปรุง — Replacement Cycle ใหญ่</li>
+      <li><strong>Income Growth:</strong> รายได้คนไทยเพิ่ม = ใช้จ่ายเรื่องบ้านมากขึ้น (ไม่ใช่แค่ที่อยู่อาศัยแต่เป็น "Lifestyle")</li>
+      <li><strong>Malaysia Expansion:</strong> Malaysia operations ยังเล็กแต่กำลังโต — Optionality ที่ตลาดยังไม่ให้ราคา</li>
+      <li><strong>Mega Home Format:</strong> Format ใหญ่กว่าสำหรับช่างและ B2B — ตลาด Wholesale ที่ยังเติบโต</li>
+      <li><strong>Online + Offline Integration:</strong> HMPRO Online + ส่งของถึงบ้าน + ติดตั้ง — สร้าง Ecosystem ที่ครบวงจร</li>
+    </ul>
+  </div>
+
+  <!-- Q5 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q5</div>
+      <div class="qa-q-text">Financials — ตัวเลขสนับสนุน Thesis ไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> ตัวเลขของ HMPRO เป็น <strong>"คลาสสิก Quality Compounder"</strong> — ROE/ROCE สูงต่อเนื่อง, FCF Conversion ดี, Net Cash Position, Dividend Payout สูง ซึ่งทั้งหมดสะท้อนคุณภาพธุรกิจ</p>
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>ตัวชี้วัด</th><th>HMPRO</th><th>Retail ไทยทั่วไป</th><th>Baid มองว่า</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">ROE (5-Year Average)</td><td>~22–25%</td><td>10–15%</td><td>True Quality Compounder</td></tr>
+        <tr><td class="col-type">ROCE</td><td>~18–22%</td><td>8–12%</td><td>Capital Efficiency ระดับสูง</td></tr>
+        <tr><td class="col-type">Gross Margin</td><td>~26–27%</td><td>15–20%</td><td>Pricing Power + Private Label</td></tr>
+        <tr><td class="col-type">Net Debt</td><td>Minimal — Net Cash Position</td><td>มีหนี้</td><td>Financial Fortress</td></tr>
+        <tr><td class="col-type">FCF/Net Profit</td><td>&gt;90%</td><td>50–70%</td><td>กำไรบัญชี = กำไรจริง</td></tr>
+        <tr><td class="col-type">Dividend Payout</td><td>~75–85%</td><td>40–60%</td><td>ผู้บริหาร respect ผู้ถือหุ้น</td></tr>
+        <tr><td class="col-type">Same-Store Sales Growth</td><td>~3–5%</td><td>1–3%</td><td>Pricing Power ยังมี</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Q6 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q6</div>
+      <div class="qa-q-text">Inversion — Bear Case ที่แข็งแกร่งที่สุดคืออะไร?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>Bear Case ที่ผมต้องตอบ:</strong></p>
+    </div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-label">⚠️ Bear Case 4 ข้อ</div>
+      <h4>ความเสี่ยงที่ต้องยอมรับ</h4>
+      <p><strong>1.</strong> เศรษฐกิจไทยซบเซา = คนชะลอแต่งบ้าน<br><strong>2.</strong> ราคาอสังหา + ดอกเบี้ยสูง = บ้านใหม่ขายช้า<br><strong>3.</strong> E-commerce อาจกัด margin<br><strong>4.</strong> Format ใหญ่อาจไม่ work ในรุ่น Gen Z ที่ชอบ online</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✅ Baid ตอบ Bear Case</div>
+      <h4>เหตุผลที่ยังน่าสนใจ</h4>
+      <p><strong>1.</strong> Replacement Demand (ไม่ใช่บ้านใหม่) เป็นแรงขับหลัก<br><strong>2.</strong> Same-Store Growth พิสูจน์ว่ามาจาก Existing Customer<br><strong>3.</strong> สินค้า Home Improvement ต้อง "ดู+สัมผัส" ก่อนซื้อ — ไม่ใช่ E-com Native<br><strong>4.</strong> HMPRO มี Online Presence ที่ดี + บริการติดตั้งที่ E-com ไม่มี</p>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q7</div>
+      <div class="qa-q-text">Sentiment — ตอนนี้ตลาดมองยังไง?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> นี่คือ <strong>"Forgotten Stock"</strong> ที่ Baid ชอบ — ราคาตกลงมาในช่วง 2024–2025 จากความกังวลเรื่องเศรษฐกิจไทยและกำลังซื้อ ทำให้ Valuation อยู่ในระดับน่าสนใจที่สุดในหลายปี ขณะที่ Fundamentals ยังแข็งแรงเหมือนเดิม</p>
+    </div>
+  </div>
+
+  <div class="signal-box note">
+    <div class="signal-title">→ Sentiment ปัจจุบันบอกอะไร</div>
+    <ul class="signal-list">
+      <li>ราคาหุ้นปรับตัวลงมาในรอบ 1 ปี — ตลาดกังวลเรื่อง consumption แต่ไม่ใช่ MOAT พัง</li>
+      <li>Dividend Yield ขึ้นไปที่ ~5.5% — สัญญาณว่าราคาต่ำเทียบกับ cash flow</li>
+      <li>นักวิเคราะห์ยังคง Buy แต่ราคาเป้าลดลงตาม short-term concern</li>
+      <li>Foreign ownership ลดลง — แต่ Local Long-only Funds ยังถือ</li>
+      <li>Insider Buying — ผู้บริหารบางท่านซื้อหุ้นเพิ่มในช่วงราคาตก (Signal ที่แข็งแกร่ง)</li>
+    </ul>
+  </div>
+
+  <!-- Q8 -->
+  <div class="qa-block">
+    <div class="qa-q">
+      <div class="qa-q-icon">Q8</div>
+      <div class="qa-q-text">Valuation — Margin of Safety มีพอไหม?</div>
+    </div>
+    <div class="qa-a">
+      <p><strong>คำตอบ:</strong> HMPRO เป็น Quality Compounder ที่ผมยอมจ่าย P/E 18–25x ในยามปกติ ปัจจุบันอยู่ที่ระดับน่าสนใจ บวกกับ Dividend Yield ~5.5% ทำให้ <strong>Total Return Math ดูดีมาก</strong> แม้ Multiple ไม่ขยาย</p>
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">HMPRO Total Return Math</div>
+    <div class="formula-eq">EPS Growth (~8–10%) + Dividend Yield (~5.5%) = Total Return ~13–15% ต่อปี</div>
+    <div class="formula-note">ถ้า Multiple Re-rate กลับมาที่ Historical Average + การฟื้นของเศรษฐกิจไทย → Total Return อาจสูงกว่านี้มาก<br>นี่คือ Compounding ที่ Baid อธิบายว่า "ช้าๆ แต่มั่นใจ" — เหมาะสำหรับ Core Position ระยะยาว</div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-label">Baid's Verdict on HMPRO</div>
+    <div class="verdict-title">"Quiet Compounder" ที่ผ่านทุกเกณฑ์อย่างสะอาด</div>
+    <div class="verdict-body">
+      HMPRO ผ่าน Framework <strong>"แบบที่หาในไทยได้ยาก"</strong>: Simple Business ✓ · MOAT ที่ชัดเจน ✓ · Management สะอาด ✓ · Runway ยาว ✓ · ตัวเลขสมบูรณ์แบบ (ROE 22%, Net Cash, FCF Conversion 90%+) ✓ · Sentiment เป็น Contrarian Setup ✓ · Valuation มี Margin of Safety + Dividend Yield สูง ✓<br><br>
+      ถ้า CPALL คือ "HDFC Bank ของไทย" — HMPRO คือ "Vedant Fashions ของไทย" ในแง่ของ <strong>Quality + Predictability + Boring Excellence</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- COMPARISON & LESSONS                  -->
+<!-- ══════════════════════════════════════ -->
+
+<div class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">บทสรุป · Key Lessons</div>
+  <div class="ch-title">
+    บทเรียนสำคัญ
+    <em>ทำไมแค่ 2 ตัว ทำไมตัวพวกนี้ และนำไปใช้ต่อยังไง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Pattern Recognition · เห็น Pattern เดียวกันไหม</div>
+  <h1>เปรียบเทียบ 4 หุ้นที่ผ่าน Baid Framework</h1>
+
+  <p>
+    ลองเปรียบเทียบ HDFC Bank, Vedant Fashions, CPALL, และ HMPRO — เราจะเห็น <strong>Pattern เดียวกัน</strong> ที่บอกว่าหุ้นเหล่านี้คือ True Compounder ที่ Baid มองหา
+  </p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>มิติ</th><th>HDFC Bank</th><th>Vedant Fashions</th><th>CPALL</th><th>HMPRO</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">ประเทศ</td><td>India</td><td>India</td><td>Thailand</td><td>Thailand</td></tr>
+        <tr><td class="col-type">ประเภท MOAT</td><td>Culture + Brand</td><td>Brand + No Discount</td><td>Network Density</td><td>Scale + Service</td></tr>
+        <tr><td class="col-type">Market Position</td><td>#1 Private Bank</td><td>#1 Wedding Wear</td><td>#1 CVS (70% share)</td><td>#1 Home Improvement SEA</td></tr>
+        <tr><td class="col-type">ROE Range</td><td>18–22%</td><td>~30%+ (Brand)</td><td>20–25% (pre-merge)</td><td>22–25%</td></tr>
+        <tr><td class="col-type">Runway Driver</td><td>Credit/GDP ต่ำ</td><td>Organized Retail 15%</td><td>Provincial + Services</td><td>Penetration ต่ำ + Replacement</td></tr>
+        <tr><td class="col-type">Valuation Method</td><td>P/B vs ROE/COE</td><td>EV/EBITDA Premium</td><td>P/E + Cash Flow</td><td>P/E + Dividend Yield</td></tr>
+        <tr><td class="col-type">Common Thread</td><td colspan="4" style="text-align:center;font-weight:600;color:var(--gold);">Simple Business + Real MOAT + Honest Management + Long Runway</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Patterns repeat across markets — but only for those willing to look. The same framework that finds HDFC Bank in India will find CPALL in Thailand, if you ask the right questions."</div>
+    <div class="bq-th">รูปแบบเดิมเกิดขึ้นซ้ำในหลายตลาด — แต่เฉพาะคนที่ยอมมองหา · Framework เดียวกับที่หา HDFC Bank ในอินเดีย จะหา CPALL ในไทยได้ ถ้าถามคำถามที่ถูกต้อง</div>
+  </div>
+
+  <h2>ทำไมไทยถึงมีน้อย? — Reflection ที่ตรงไปตรงมา</h2>
+
+  <p>
+    ผมต้องยอมรับว่า <strong>ตลาดไทยมี True Compounder น้อยกว่าอินเดีย</strong> เหตุผลหลัก:
+  </p>
+
+  <div class="signal-box note">
+    <div class="signal-title">→ ทำไมไทยมี Compounder น้อยกว่า</div>
+    <ul class="signal-list">
+      <li><strong>ขนาดตลาดเล็กกว่า:</strong> 600 บริษัทใน SET vs 4,000+ ใน India = ทางเลือกน้อยกว่า</li>
+      <li><strong>โครงสร้างเศรษฐกิจ:</strong> ไทยพึ่ง Tourism + Export มาก = Cyclical มาก หา Domestic Compounder ที่ Stable ได้ยาก</li>
+      <li><strong>Penetration อิ่มในหลายอุตสาหกรรม:</strong> Telecom 100%+, Banking ค่อนข้างอิ่ม — Runway สั้นกว่าอินเดีย</li>
+      <li><strong>Conglomerate Structure:</strong> Family Business เยอะ = Governance complexity สูงกว่าตลาดอื่น</li>
+      <li><strong>Demographic Headwind:</strong> Aging Society = Domestic Consumption Growth ช้าลงในระยะยาว</li>
+    </ul>
+  </div>
+
+  <p>
+    <strong>แต่นี่ไม่ใช่เหตุผลที่จะไม่ลงทุนในไทย</strong> — มันคือเหตุผลที่ต้อง <strong>Selective มากขึ้น</strong> และทำการบ้านลึกกว่าตลาดที่ทางเลือกเยอะ ในตลาดที่หาของยาก คนที่หาเจอจะได้ผลตอบแทนสูงกว่าตลาดที่ของหาง่าย — เพราะการแข่งขันต่ำกว่า
+  </p>
+
+  <h2>3 บทเรียนสุดท้ายจากการวิเคราะห์ตลาดไทย</h2>
+
+  <h3>บทเรียนที่ 1 — Framework สำคัญกว่าตลาด</h3>
+  <p>
+    การที่หาหุ้นไทยที่ผ่านเกณฑ์ได้แค่ 2 ตัว <strong>ไม่ใช่ความผิดของตลาด แต่คือสัญญาณว่า Framework ทำงานได้</strong> — Framework ที่ปล่อยให้ทุกหุ้นผ่านคือ Framework ที่ไม่ดี การมีเกณฑ์เข้มงวดคือสิ่งที่ป้องกัน Value Trap
+  </p>
+
+  <h3>บทเรียนที่ 2 — Concentrated Portfolio + Patience</h3>
+  <p>
+    ในตลาดที่หา Quality ได้น้อย <strong>การถือ 5–10 ตัวที่รู้จักดีจริงๆ ดีกว่ากระจาย 30 ตัวที่ไม่ได้พิเศษ</strong> CPALL และ HMPRO อาจเป็น 30–50% ของ Portfolio ที่ลงทุนในตลาดไทยได้เลย ถ้าราคาเหมาะสม
+  </p>
+
+  <h3>บทเรียนที่ 3 — เวลาและสถานการณ์ตลาดสร้างโอกาส</h3>
+  <p>
+    ทั้ง CPALL (กังวล Debt) และ HMPRO (กังวลเศรษฐกิจ) มี Sentiment ในเชิงลบที่ทำให้ราคาอยู่ในระดับน่าสนใจ — นี่คือ Contrarian Setup ที่ Baid สอนใน Vol.2 ตลาดให้ราคาที่ดีเฉพาะตอนคนกลัว
+  </p>
+
+  <hr class="ornament">
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Action Plan — สิ่งที่ทำได้ต่อจากนี้</h3>
+      <p>วิธีนำการวิเคราะห์นี้ไปใช้ต่อด้วยตัวเอง</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 1 — Verify ด้วยตัวเอง</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">อ่าน Annual Report 5 ปีย้อนหลังของ CPALL และ HMPRO<div class="cl-note">ดูว่าสิ่งที่ผู้บริหารพูดเมื่อ 5 ปีก่อนเกิดขึ้นจริงไหม</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ตรวจสอบตัวเลข ROE/ROCE/Net Debt ใน SET หรือ Source ที่เชื่อถือได้<div class="cl-note">ดู Pattern 10 ปีย้อนหลัง ไม่ใช่แค่ปีเดียว</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เดินเข้า 7-Eleven และ HomePro บ่อยๆ — สังเกตคนเข้าออก สังเกตของในตะกร้า<div class="cl-note">นี่คือ "Scuttlebutt Research" แบบ Fisher ที่ Baid ใช้เป็นประจำ</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 2 — Build Investment Thesis</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">เขียน Thesis ของแต่ละตัวใน 1 หน้ากระดาษ ด้วยคำของตัวเอง<div class="cl-note">ถ้าเขียนไม่ได้ใน 1 หน้า แสดงว่ายังไม่เข้าใจพอ</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียน Bear Case ที่แข็งแกร่งที่สุดสำหรับแต่ละตัว<div class="cl-note">ถ้าหา Bear Case ไม่ได้ — อาจติด Confirmation Bias</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">กำหนด Buy Price + Position Size ที่เหมาะสมก่อนเข้าตลาด<div class="cl-note">อย่ารีบซื้อ รอ Margin of Safety ที่เหมาะสม</div></div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 3 — Continuous Monitoring</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">ติดตาม Quarterly Result และฟัง Earnings Call ของแต่ละตัว<div class="cl-note">ดูว่า Thesis ยังถูกต้องไหม</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เขียน "Exit Thesis" — เมื่ออะไรเปลี่ยน เราจะขาย<div class="cl-note">ขายเมื่อ Fundamentals เปลี่ยน ไม่ใช่เมื่อราคาลง</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text">หา Stock อื่นในไทยที่อาจผ่าน Framework — ทำเหมือน Baid ทำใน India<div class="cl-note">มองหุ้นทั้งหมดผ่านเกณฑ์เดียวกันเสมอ</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสุดท้าย — สำหรับคนที่อ่านครบทั้ง 4 เล่ม</div>
+    <ol class="reflection-list">
+      <li>หลังจากเห็น Pattern ที่ซ้ำกันใน HDFC Bank, Vedant, CPALL, HMPRO — เราพอจะระบุ "Pattern" ที่นำไปใช้กับหุ้นอื่นได้ไหม?</li>
+      <li>ในไทยมีหุ้นอีกตัวไหนที่อาจผ่าน Framework ที่เรายังไม่ได้พิจารณา? (ลองคิดหา 1–2 ตัวด้วยตัวเอง)</li>
+      <li>เราเห็นด้วยกับการวิเคราะห์ของ "Baid" ในเอกสารนี้หรือไม่ — ถ้าไม่เห็นด้วยจุดไหน แสดงว่าเราอาจมี edge ในจุดนั้น</li>
+      <li>ถ้าต้องเลือกแค่ 1 ตัวจาก CPALL และ HMPRO ในพอร์ตของตัวเอง จะเลือกตัวไหน — และเหตุผลอะไร?</li>
+      <li>ตลาดไทยมีลักษณะเฉพาะอะไรที่ Baid (ในฐานะ Outsider) อาจมองข้าม แต่นักลงทุนไทยจะเห็นชัด?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="baid-voice">
+    <div class="baid-voice-text">การลงทุนในตลาดเกิดใหม่ไม่ใช่เรื่องของการหาตลาดที่ "ดีที่สุด" — แต่เป็นเรื่องของการหา <strong>"ธุรกิจที่ดีที่สุดในตลาดที่เรารู้จัก"</strong> นักลงทุนไทยที่อ่านงานของผมและเอกสารทั้ง 4 เล่มนี้ มี <strong>edge ที่ผมไม่มี</strong>: คุณรู้จักประเทศ ภาษา วัฒนธรรม และพฤติกรรมผู้บริโภคไทยดีกว่าผม 100 เท่า ใช้ edge นั้นให้เต็มที่ — Framework ของผมเป็นแค่กรอบ ความรู้ของคุณคือเนื้อหา</div>
+    <div class="baid-voice-attr">Closing Words from Baid · ในฐานะ "ครู" ที่ส่งต่อ Framework</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="book-footer">
+  <div class="footer-divider"></div>
+  <div class="footer-title">Baid Lens on Thai Stocks · Volume IV</div>
+  <div class="footer-sub">CPALL + HMPRO · 2 หุ้นไทยที่ผ่าน Baid Framework · ฉบับสมบูรณ์</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>

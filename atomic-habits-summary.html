@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atomic Habits — สรุปฉบับสมบูรณ์ โดย James Clear</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168,120,42,0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #2A1F0E;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  color: var(--ink-soft);
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 40px rgba(0,0,0,0.35), 0 0 120px rgba(0,0,0,0.2);
+}
+
+/* ── COVER ── */
+.cover {
+  background: #120D04;
+  min-height: 100vh;
+  padding: 80px var(--page-pad-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute; inset: 20px;
+  border: 1px solid rgba(168,120,42,0.2);
+  pointer-events: none;
+}
+.cover-frame::before {
+  content: '';
+  position: absolute; inset: 6px;
+  border: 1px solid rgba(168,120,42,0.08);
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(201,164,78,0.5);
+  margin-bottom: 48px;
+}
+.cover-author-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(201,164,78,0.4);
+  margin-bottom: 8px;
+}
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(52px, 11vw, 88px);
+  font-weight: 700; line-height: 1.0;
+  color: var(--gold-light);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(18px, 4vw, 26px);
+  font-weight: 400; line-height: 1.6;
+  color: rgba(249,245,236,0.55);
+  margin-bottom: 36px;
+}
+.cover-divider {
+  width: 48px; height: 1px;
+  background: var(--gold);
+  margin-bottom: 32px;
+}
+.cover-subtitle {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; font-weight: 300;
+  line-height: 1.8;
+  color: rgba(249,245,236,0.35);
+  max-width: 420px;
+  margin-bottom: 48px;
+}
+.cover-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 60px; }
+.cover-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(168,120,42,0.6);
+  border: 1px solid rgba(168,120,42,0.2);
+  padding: 5px 12px;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 400;
+  color: rgba(201,164,78,0.3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: auto;
+}
+
+/* ── PAGE ── */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-deep);
+}
+
+/* ── CHAPTER OPEN ── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 40px; height: 2px;
+  background: var(--gold);
+  margin-top: 28px;
+}
+.ch-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 72px; font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute; top: 48px; right: var(--page-pad-h);
+  line-height: 1;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 600; line-height: 1.35;
+  color: var(--ink);
+}
+.ch-title em {
+  display: block;
+  font-style: normal;
+  font-size: 0.62em;
+  font-weight: 400;
+  color: var(--ink-muted);
+  margin-top: 8px;
+}
+
+/* ── TYPOGRAPHY ── */
+h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 600; line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(17px, 3vw, 21px);
+  font-weight: 600; line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 48px 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-rule);
+  position: relative;
+}
+h2::after {
+  content: ''; position: absolute; bottom: -1px; left: 0;
+  width: 32px; height: 2px; background: var(--gold);
+}
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink-mid);
+  margin: 32px 0 12px;
+}
+p {
+  font-size: 17px; line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 600; color: var(--ink); }
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+/* ── PULL QUOTE ── */
+.pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--gold);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px; font-style: italic;
+  color: var(--ink); line-height: 1.65;
+  margin-bottom: 12px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; font-style: normal;
+  color: var(--ink-muted); letter-spacing: 0.5px;
+}
+
+/* ── BLOCKQUOTE FULL ── */
+.blockquote-full {
+  background: var(--ink);
+  padding: 40px 48px; margin: 48px 0; text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(15px, 3vw, 19px);
+  font-style: italic; line-height: 1.6;
+  color: rgba(249,245,236,0.75);
+  margin-bottom: 12px;
+}
+.bq-th {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; line-height: 1.7;
+  color: rgba(201,164,78,0.5);
+}
+
+/* ── CHECKLIST ── */
+.checklist {
+  border: 1px solid var(--paper-shadow);
+  margin: 40px 0;
+  overflow: hidden;
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 20px 24px;
+}
+.checklist-cap h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold-light);
+  margin: 0 0 4px;
+}
+.checklist-cap p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; color: rgba(249,245,236,0.45);
+  margin: 0; line-height: 1.5;
+}
+.cl-group { border-top: 1px solid var(--paper-deep); }
+.cl-group-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+  background: var(--paper-mid);
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items { list-style: none; }
+.cl-items li {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  flex-shrink: 0;
+  width: 16px; height: 16px;
+  border: 1px solid var(--paper-shadow);
+  margin-top: 2px;
+  background: var(--paper);
+}
+.cl-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.6;
+}
+.cl-note {
+  font-size: 12px; font-style: italic;
+  color: var(--ink-faint); margin-top: 3px;
+}
+
+/* ── SIGNAL BOXES ── */
+.signal-box {
+  padding: 20px 24px; margin: 16px 0;
+  border-radius: 0;
+}
+.signal-box.buy {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.signal-box.sell {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+}
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink-mid);
+  margin-bottom: 10px;
+}
+.signal-list { list-style: none; }
+.signal-list li {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.7; padding: 3px 0;
+  padding-left: 18px; position: relative;
+}
+.signal-box.buy .signal-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.signal-box.sell .signal-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+/* ── TWO COL GRID ── */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.grid-card { background: var(--paper); padding: 22px; }
+.grid-card h3 { margin-top: 0; }
+.grid-card p { font-size: 14px; line-height: 1.7; margin-bottom: 0; }
+
+/* ── FORMULA BLOCK ── */
+.formula-block {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-left: 3px solid var(--gold);
+  padding: 24px 28px; margin: 32px 0;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: 20px; font-weight: 600;
+  color: var(--ink); margin-bottom: 10px;
+  line-height: 1.4;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; color: var(--ink-muted); line-height: 1.6;
+}
+
+/* ── STAT ROW ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.stat-item {
+  padding: 24px 20px; text-align: center;
+  border-right: 1px solid var(--paper-shadow);
+}
+.stat-item:last-child { border-right: none; }
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 36px; font-weight: 600;
+  color: var(--gold); line-height: 1.1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; color: var(--ink-muted); line-height: 1.5;
+}
+
+/* ── REFLECTION ── */
+.reflection {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 28px 32px; margin: 40px 0;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px;
+}
+.reflection-list {
+  list-style: none;
+  counter-reset: reflect-counter;
+}
+.reflection-list li {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.7; padding: 8px 0 8px 32px;
+  border-bottom: 1px solid var(--paper-deep);
+  position: relative;
+  counter-increment: reflect-counter;
+}
+.reflection-list li:last-child { border-bottom: none; }
+.reflection-list li::before {
+  content: counter(reflect-counter);
+  position: absolute; left: 0;
+  font-family: 'Noto Serif', serif;
+  font-size: 18px; font-weight: 600;
+  color: rgba(201,164,78,0.4);
+  line-height: 1.3;
+}
+
+/* ── ORNAMENT ── */
+hr.ornament {
+  border: none; text-align: center; margin: 48px 0;
+}
+hr.ornament::before {
+  content: '· · ·'; color: var(--gold-rule); letter-spacing: 12px; font-size: 14px;
+}
+
+/* ── AUTHOR VOICE ── */
+.author-voice {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 20px 24px; margin: 32px 0;
+}
+.av-avatar {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  background: var(--ink-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif', serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--gold-light);
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: var(--ink-muted);
+  margin-bottom: 6px; letter-spacing: 0.5px;
+}
+.av-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.7; margin: 0;
+  font-style: italic;
+}
+.av-text-th {
+  display: block; font-style: normal;
+  font-size: 13px; color: var(--ink-faint); margin-top: 4px;
+}
+
+/* ── TOC ── */
+.toc-list { list-style: none; margin: 24px 0; }
+.toc-list li {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--paper-shadow);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-ch {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; color: var(--gold);
+  margin-right: 12px; font-weight: 600;
+  letter-spacing: 1px;
+}
+.toc-dots { flex: 1; border-bottom: 1px dotted var(--paper-shadow); margin: 0 10px; }
+.toc-page { font-size: 12px; color: var(--ink-faint); }
+
+/* ── INTRO BLOCK ── */
+.intro-block {
+  background: var(--paper-mid);
+  border-top: 2px solid var(--gold);
+  padding: 28px 32px; margin-bottom: 40px;
+}
+.intro-block p {
+  font-size: 16px; line-height: 1.85;
+  color: var(--ink-soft); margin-bottom: 0;
+}
+
+/* ── CMP TABLE ── */
+.cmp-table-wrap { overflow-x: auto; margin: 32px 0; }
+.cmp-table { width: 100%; border-collapse: collapse; }
+.cmp-table th {
+  background: var(--ink-soft); color: var(--gold-light);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 12px 16px; text-align: left;
+}
+.cmp-table td {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+  padding: 12px 16px; line-height: 1.6;
+  border-bottom: 1px solid var(--paper-deep);
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+.col-type { font-weight: 600; color: var(--ink-mid); }
+
+/* ── FOOTER ── */
+.book-footer {
+  background: #120D04;
+  padding: 48px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; color: rgba(201,164,78,0.3);
+  letter-spacing: 1px; margin-bottom: 8px;
+}
+
+/* ── HABIT LOOP VISUAL ── */
+.habit-loop {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin: 36px 0; flex-wrap: wrap;
+}
+.loop-item {
+  text-align: center;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 18px 20px; min-width: 110px;
+}
+.loop-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 11px; color: var(--gold);
+  display: block; margin-bottom: 4px;
+}
+.loop-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--ink); display: block; margin-bottom: 4px;
+}
+.loop-en {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: var(--ink-faint);
+}
+.loop-arrow {
+  font-size: 18px; color: var(--gold);
+  padding: 0 6px; font-weight: 300;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 24px; --page-pad-v: 48px; }
+  .two-col-grid { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .ch-num { display: none; }
+  .cmp-table-wrap { overflow-x: auto; }
+  .blockquote-full { padding: 32px 24px; }
+  .habit-loop { flex-direction: column; }
+  .loop-arrow { transform: rotate(90deg); }
+  .cover-title-en { font-size: 52px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  COVER                                             -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">สรุปฉบับสมบูรณ์ · Complete Summary</div>
+  <div class="cover-author-label">หนังสือโดย / By</div>
+  <div class="cover-title-en">ATOMIC<br>HABITS</div>
+  <div class="cover-title-th">การเปลี่ยนแปลงเล็กน้อย<br>สร้างผลลัพธ์ที่น่าทึ่ง</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">
+    James Clear ผู้เขียนระดับ New York Times Bestseller นำเสนอระบบที่พิสูจน์แล้วว่าได้ผล สำหรับการสร้างนิสัยดีและทำลายนิสัยเลว ผ่านการปรับปรุงเพียง 1% ทุกวัน
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">พัฒนาตัวเอง</div>
+    <div class="cover-tag">จิตวิทยาพฤติกรรม</div>
+    <div class="cover-tag">ประสิทธิภาพ</div>
+    <div class="cover-tag">สรุปทุกบท</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ · ภาษาไทย · ทุกบท</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  สารบัญ                                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="page">
+  <div class="eyebrow">Contents</div>
+  <h1>สารบัญ</h1>
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">4</div>
+      <div class="stat-label">กฎสำคัญ<br>ของนิสัย</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">20+</div>
+      <div class="stat-label">บท<br>ทั้งหมด</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1%</div>
+      <div class="stat-label">การปรับปรุง<br>ที่เปลี่ยนชีวิต</div>
+    </div>
+  </div>
+  <ul class="toc-list">
+    <li><span><span class="toc-ch">บทนำ</span> แก่นแท้ของ Atomic Habits</span><span class="toc-dots"></span></li>
+    <li><span><span class="toc-ch">ภาค 1</span> พื้นฐาน — ทำไมนิสัยเล็กๆ ถึงมีพลังมหาศาล</span><span class="toc-dots"></span></li>
+    <li><span><span class="toc-ch">ภาค 2</span> กฎที่ 1 — ทำให้ชัดเจน (Make It Obvious)</span><span class="toc-dots"></span></li>
+    <li><span><span class="toc-ch">ภาค 3</span> กฎที่ 2 — ทำให้น่าดึงดูด (Make It Attractive)</span><span class="toc-dots"></span></li>
+    <li><span><span class="toc-ch">ภาค 4</span> กฎที่ 3 — ทำให้ง่าย (Make It Easy)</span><span class="toc-dots"></span></li>
+    <li><span><span class="toc-ch">ภาค 5</span> กฎที่ 4 — ทำให้น่าพึงพอใจ (Make It Satisfying)</span><span class="toc-dots"></span></li>
+    <li><span><span class="toc-ch">ส่วนสรุป</span> กลยุทธ์ขั้นสูง + การนำไปใช้จริง</span><span class="toc-dots"></span></li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  EXECUTIVE SUMMARY                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">00</div>
+  <div class="ch-label">Executive Summary</div>
+  <div class="ch-title">บทสรุปภาพรวม<em>ทำไมหนังสือเล่มนี้ถึงเปลี่ยนชีวิตคนนับล้าน</em></div>
+</div>
+<div class="page">
+  <div class="intro-block">
+    <p>Atomic Habits คือหนังสือที่ตอบคำถามว่า <strong>ทำไมเราถึงรู้ว่าต้องทำอะไร แต่ก็ยังทำไม่ได้?</strong> James Clear ไม่ได้สอนให้เราตั้งเป้าหมายใหม่ แต่สอนให้เรา <strong>สร้างระบบ</strong> ที่ทำให้พฤติกรรมดีเกิดขึ้นอัตโนมัติ — โดยไม่ต้องพึ่งแรงจูงใจหรือความตั้งใจ</p>
+  </div>
+
+  <p>หัวใจของหนังสือคือแนวคิดที่ว่า <strong>การปรับปรุง 1% ทุกวัน</strong> ดูเล็กน้อยในตอนแรก แต่เมื่อเวลาผ่านไป 1 ปี เราจะดีขึ้นถึง 37 เท่า ในทางกลับกัน ถ้าเราแย่ลง 1% ทุกวัน เราจะเหลือเพียง 3% ของตัวเองในหนึ่งปี นี่คือพลังของการสะสมทบต้น (compound effect) ที่ใช้ได้กับพฤติกรรมเช่นเดียวกับการลงทุน</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"You do not rise to the level of your goals. You fall to the level of your systems."</div>
+    <div class="bq-th">เราไม่ได้ขึ้นไปถึงระดับของเป้าหมาย เราตกลงมาสู่ระดับของระบบที่เรามี</div>
+  </div>
+
+  <p>James Clear เสนอ <strong>4 กฎสำคัญ</strong> ในการสร้างนิสัย ซึ่งอิงมาจาก "วงจรนิสัย" (Habit Loop) ที่ประกอบด้วย สัญญาณ (Cue) → ความอยาก (Craving) → การตอบสนอง (Response) → รางวัล (Reward) กฎทั้ง 4 ข้อคือ ทำให้ชัดเจน ทำให้น่าดึงดูด ทำให้ง่าย และทำให้น่าพึงพอใจ</p>
+
+  <p>สิ่งที่ทำให้หนังสือเล่มนี้พิเศษคือ <strong>การเปลี่ยนจุดเน้นจาก "เป้าหมาย" มาที่ "ตัวตน"</strong> แทนที่จะพูดว่า "ฉันจะออกกำลังกายให้ได้ 30 นาทีทุกวัน" ให้เปลี่ยนเป็น "ฉันเป็นคนที่รักการดูแลสุขภาพ" เมื่อตัวตนเปลี่ยน พฤติกรรมก็เปลี่ยนตาม</p>
+
+  <hr class="ornament">
+
+  <h2>สิ่งที่เราจะได้จากหนังสือเล่มนี้</h2>
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h3>🎯 ด้านความเข้าใจ</h3>
+      <p>เข้าใจว่านิสัยทำงานอย่างไรในสมอง และทำไมแรงจูงใจไม่เพียงพอในระยะยาว</p>
+    </div>
+    <div class="grid-card">
+      <h3>🛠 ด้านการปฏิบัติ</h3>
+      <p>มีเครื่องมือที่ใช้ได้จริงในการสร้างนิสัยใหม่และหยุดนิสัยเลวทันที</p>
+    </div>
+    <div class="grid-card">
+      <h3>🧠 ด้าน Mindset</h3>
+      <p>เปลี่ยนวิธีคิดเรื่องตัวตน จากสิ่งที่ถูกกำหนดตายตัวเป็นสิ่งที่เลือกได้ทุกวัน</p>
+    </div>
+    <div class="grid-card">
+      <h3>⚡ ด้านผลลัพธ์</h3>
+      <p>เห็นผลจากการเปลี่ยนแปลงเล็กๆ ที่สะสมกลายเป็นการเปลี่ยนแปลงชีวิตในระยะยาว</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  ภาค 1: พื้นฐาน                                   -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">ภาคที่ 1 · The Fundamentals</div>
+  <div class="ch-title">พื้นฐาน<em>ทำไมการเปลี่ยนแปลงเล็กๆ ถึงสร้างผลลัพธ์มหาศาล</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 1</div>
+  <h2>พลังทบต้นของนิสัย — เล็กแค่ไหนก็สำคัญ</h2>
+  <p>เราคิดว่าความสำเร็จต้องมาจากการกระทำครั้งใหญ่ แต่ความจริงคือ <strong>ผลลัพธ์มหาศาลมักมาจากการปรับปรุงเล็กๆ ที่สะสมทบกันเรื่อยๆ</strong> เหมือนกับดอกเบี้ยทบต้นในการลงทุน แต่นี่คือดอกเบี้ยทบต้นของพฤติกรรม</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สมการพลังทบต้น</div>
+    <div class="formula-eq">ดีขึ้น 1% ทุกวัน × 365 วัน = ดีขึ้น 37 เท่า</div>
+    <div class="formula-note">แย่ลง 1% ทุกวัน × 365 วัน = เหลือแค่ 3% ของตัวเอง — นี่คือเหตุผลว่าทำไมนิสัยเลวถึงอันตราย</div>
+  </div>
+
+  <p>แต่ทำไมเราถึงไม่รู้สึกว่าตัวเองดีขึ้น? เพราะ <strong>ผลของนิสัยดีมักล่าช้า</strong> เหมือนน้ำแข็งที่เราเพิ่มอุณหภูมิทีละ 1 องศา ผ่านไป 20 องศา น้ำแข็งก็ยังไม่ละลาย แต่พอถึง 0 องศา มันละลายทันที การเปลี่ยนแปลงที่สะสมมาตลอดเวลาแสดงผลพร้อมกันในจุดนั้น James Clear เรียกจุดนี้ว่า <strong>"Plateau of Latent Potential"</strong> หรือ "ช่วงที่ดูเหมือนไม่มีอะไรเปลี่ยน"</p>
+
+  <div class="pullquote">
+    <p>"คนส่วนใหญ่เลิกพยายามเพราะพวกเขาไม่เห็นผล — แต่ความจริงคือผลกำลังสะสมอยู่เงียบๆ ใต้พื้นผิว รอวันที่มันจะแตกออกมา"</p>
+    <cite>James Clear — Atomic Habits</cite>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 2</div>
+  <h2>ลืมเป้าหมาย — สร้างระบบแทน</h2>
+  <p>ทุกคนมีเป้าหมายเหมือนกัน นักกีฬาทุกทีมต้องการชนะ แต่ทำไมมีเพียงบางทีมที่ชนะ? ความแตกต่างไม่ได้อยู่ที่เป้าหมาย แต่อยู่ที่ <strong>ระบบ</strong> ที่ใช้ในการบรรลุเป้าหมาย</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>ด้าน</th><th>❌ คนที่โฟกัสเป้าหมาย</th><th>✅ คนที่โฟกัสระบบ</th></tr></thead>
+      <tbody>
+        <tr><td class="col-type">ความสุข</td><td>มีความสุขแค่ตอนบรรลุเป้า</td><td>มีความสุขตลอดกระบวนการ</td></tr>
+        <tr><td class="col-type">ความยั่งยืน</td><td>พอถึงเป้าก็หยุด ย้อนกลับไปเดิม</td><td>ระบบดีทำให้ผลลัพธ์ยั่งยืน</td></tr>
+        <tr><td class="col-type">แรงจูงใจ</td><td>ขึ้นลงตามว่าใกล้เป้าหรือไม่</td><td>สม่ำเสมอ ไม่ขึ้นกับผล</td></tr>
+        <tr><td class="col-type">ตัวอย่าง</td><td>"ฉันจะลดน้ำหนัก 5 กก."</td><td>"ฉันออกกำลังกายทุกเย็น"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>เป้าหมายมีปัญหา 4 ข้อ: (1) คนที่ชนะและแพ้ต่างก็มีเป้าหมายเหมือนกัน (2) การบรรลุเป้าหมายให้ความสุขเพียงชั่วคราว (3) เป้าหมายขัดกับชีวิตปัจจุบัน เพราะบังคับให้เราคิดว่า "ตอนนี้ฉันยังไม่โอเค" (4) เป้าหมายมักไม่ยั่งยืนหลังจากบรรลุแล้ว</p>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 3</div>
+  <h2>วิธีสร้างนิสัยที่ดีที่สุด — เปลี่ยน "ตัวตน"</h2>
+  <p>การเปลี่ยนพฤติกรรมมี <strong>3 ระดับ</strong> เหมือนหัวหอม:</p>
+
+  <div class="formula-block">
+    <div class="formula-label">3 ระดับของการเปลี่ยนแปลง</div>
+    <div class="formula-eq">ผลลัพธ์ → กระบวนการ → ตัวตน (จากนอกสู่ใน)</div>
+    <div class="formula-note">คนส่วนใหญ่เปลี่ยนจากนอกเข้าใน (ผลลัพธ์ก่อน) แต่การเปลี่ยนที่ยั่งยืนต้องเปลี่ยนจากในออกนอก (ตัวตนก่อน)</div>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ การเปลี่ยนจากตัวตน (Identity-Based Habits)</div>
+    <ul class="signal-list">
+      <li>ถามตัวเองว่า "คนแบบไหนที่ฉันอยากเป็น?" ไม่ใช่ "ฉันอยากได้ผลลัพธ์อะไร?"</li>
+      <li>แต่ละครั้งที่ทำนิสัย = การโหวตให้กับตัวตนที่อยากเป็น</li>
+      <li>"ฉันไม่สูบบุหรี่" แทน "ฉันพยายามเลิกบุหรี่"</li>
+      <li>ตัวตนเปลี่ยน → พฤติกรรมเปลี่ยนตาม → ผลลัพธ์ตามมาเอง</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">❌ การเปลี่ยนจากผลลัพธ์ (Outcome-Based Habits)</div>
+    <ul class="signal-list">
+      <li>โฟกัสที่ "อยากได้ผลลัพธ์อะไร" ไม่ใช่ว่าอยากเป็นคนแบบไหน</li>
+      <li>เมื่อบรรลุเป้าหมายแล้ว แรงจูงใจก็หมด</li>
+      <li>มักย้อนกลับไปพฤติกรรมเดิมหลังหยุดพยายาม</li>
+    </ul>
+  </div>
+
+  <div class="author-voice">
+    <div class="av-avatar">JC</div>
+    <div>
+      <div class="av-meta">James Clear — Atomic Habits</div>
+      <p class="av-text">"Every action you take is a vote for the type of person you wish to become."
+        <span class="av-text-th">ทุกครั้งที่เราลงมือทำ คือการโหวตให้กับตัวตนที่เราอยากจะเป็น</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  วงจรนิสัย                                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">พื้นฐาน · Habit Loop</div>
+  <div class="ch-title">วงจรนิสัย<em>วิธีที่สมองสร้างและรักษานิสัยทุกอย่าง</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 4–5</div>
+  <h2>วงจรนิสัย 4 ขั้น — กลไกของสมอง</h2>
+  <p>James Clear อธิบายว่านิสัยทุกอย่าง ทั้งดีและเลว ทำงานผ่านวงจรเดียวกัน เรียกว่า <strong>Habit Loop</strong> ประกอบด้วย 4 ขั้นตอน:</p>
+
+  <div class="habit-loop">
+    <div class="loop-item">
+      <span class="loop-num">01</span>
+      <span class="loop-name">สัญญาณ</span>
+      <span class="loop-en">Cue</span>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item">
+      <span class="loop-num">02</span>
+      <span class="loop-name">ความอยาก</span>
+      <span class="loop-en">Craving</span>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item">
+      <span class="loop-num">03</span>
+      <span class="loop-name">การตอบสนอง</span>
+      <span class="loop-en">Response</span>
+    </div>
+    <div class="loop-arrow">→</div>
+    <div class="loop-item">
+      <span class="loop-num">04</span>
+      <span class="loop-name">รางวัล</span>
+      <span class="loop-en">Reward</span>
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>ขั้นตอน</th><th>ความหมาย</th><th>ตัวอย่าง (นิสัยดี)</th><th>ตัวอย่าง (นิสัยเลว)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-type">สัญญาณ (Cue)</td>
+          <td>สิ่งกระตุ้นที่ทำให้สมองเริ่มวงจร</td>
+          <td>เห็นรองเท้าวิ่งวางอยู่</td>
+          <td>เห็นโทรศัพท์อยู่ข้างๆ</td>
+        </tr>
+        <tr>
+          <td class="col-type">ความอยาก (Craving)</td>
+          <td>แรงผลักดันให้เปลี่ยนสภาวะ</td>
+          <td>อยากรู้สึกมีพลังงาน</td>
+          <td>อยากหายเบื่อ/อยากผ่อนคลาย</td>
+        </tr>
+        <tr>
+          <td class="col-type">การตอบสนอง (Response)</td>
+          <td>นิสัยที่ทำจริง</td>
+          <td>ออกไปวิ่ง</td>
+          <td>เลื่อน Social Media</td>
+        </tr>
+        <tr>
+          <td class="col-type">รางวัล (Reward)</td>
+          <td>ผลลัพธ์ที่ตอบสนองความอยาก</td>
+          <td>รู้สึกดี มีพลัง</td>
+          <td>รู้สึกผ่อนคลายชั่วคราว</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>สิ่งสำคัญคือ <strong>เราไม่ได้อยากทำนิสัยตรงๆ เราอยากสภาวะที่นิสัยนั้นให้</strong> คนที่กินขนมหวานไม่ได้อยากน้ำตาล แต่อยากความรู้สึกผ่อนคลาย เมื่อเข้าใจตรงนี้ เราสามารถสร้างนิสัยใหม่ที่ให้สภาวะเดียวกันแต่ดีกว่าได้</p>
+
+  <h2>4 กฎในการสร้างและทำลายนิสัย</h2>
+  <p>วงจรนิสัย 4 ขั้นตอนนำไปสู่ <strong>4 กฎสำคัญ</strong> ที่ James Clear นำเสนอ:</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>ขั้นตอน</th><th>สร้างนิสัยดี</th><th>ทำลายนิสัยเลว</th></tr></thead>
+      <tbody>
+        <tr><td class="col-type">สัญญาณ</td><td>ทำให้ชัดเจน (Make it Obvious)</td><td>ทำให้มองไม่เห็น (Make it Invisible)</td></tr>
+        <tr><td class="col-type">ความอยาก</td><td>ทำให้น่าดึงดูด (Make it Attractive)</td><td>ทำให้ไม่น่าสนใจ (Make it Unattractive)</td></tr>
+        <tr><td class="col-type">การตอบสนอง</td><td>ทำให้ง่าย (Make it Easy)</td><td>ทำให้ยาก (Make it Difficult)</td></tr>
+        <tr><td class="col-type">รางวัล</td><td>ทำให้น่าพึงพอใจ (Make it Satisfying)</td><td>ทำให้ไม่น่าพึงพอใจ (Make it Unsatisfying)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  กฎที่ 1: Make It Obvious                         -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">กฎที่ 1 · The 1st Law</div>
+  <div class="ch-title">ทำให้ชัดเจน<em>Make It Obvious — สัญญาณที่มองเห็นได้คือจุดเริ่มต้นของนิสัย</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 6</div>
+  <h2>สมองรับรู้โดยไม่รู้ตัว — ก้าวแรกคือการตระหนักรู้</h2>
+  <p>นิสัยหลายอย่างของเราเกิดขึ้นโดยไม่รู้สึกตัว เราหยิบโทรศัพท์ดูโดยไม่คิด กินของว่างโดยไม่หิว เหล่านี้คือสัญญาณที่สมองตอบสนองโดยอัตโนมัติ เครื่องมือแรกที่ James Clear แนะนำคือ <strong>"Habit Scorecard"</strong></p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Habit Scorecard — บัตรตรวจสอบนิสัย</h3>
+      <p>เขียนรายการนิสัยทั้งหมดที่ทำในแต่ละวัน แล้วให้คะแนน</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">วิธีใช้</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เขียนทุกสิ่งที่ทำตั้งแต่ตื่นนอนถึงเข้านอน
+            <div class="cl-note">เช่น: ตื่นนอน, ดูโทรศัพท์, แปรงฟัน, กินกาแฟ, เปิด YouTube...</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ให้คะแนนแต่ละนิสัยเป็น + (ดี), − (เลว), = (กลางๆ)
+            <div class="cl-note">ไม่มีการตัดสินผิดถูก แค่ตระหนักรู้ว่ากำลังทำอะไรอยู่</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">สังเกตว่านิสัยไหนเป็น "นิสัยซ่อน" ที่ไม่เคยรู้ตัวว่าทำ
+            <div class="cl-note">การรู้ตัวคือก้าวแรกของการเปลี่ยนแปลง</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 7</div>
+  <h2>เคล็ดลับที่ดีที่สุดในการสร้างนิสัยใหม่ — ระบุเวลาและสถานที่</h2>
+  <p>การวิจัยพบว่า <strong>คนที่ระบุเวลาและสถานที่ชัดเจน ทำนิสัยได้สำเร็จมากกว่าถึง 2–3 เท่า</strong> เมื่อเทียบกับคนที่บอกแค่ว่า "จะพยายามทำ" เทคนิคนี้เรียกว่า <strong>"Implementation Intention"</strong> หรือ "แผนการณ์ที่ชัดเจน"</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตร Implementation Intention</div>
+    <div class="formula-eq">ฉันจะ [ทำอะไร] เวลา [เวลาไหน] ที่ [สถานที่ไหน]</div>
+    <div class="formula-note">ตัวอย่าง: "ฉันจะออกกำลังกาย 30 นาที เวลา 07.00 น. ที่สวนข้างบ้าน"</div>
+  </div>
+
+  <p>เหตุผลที่วิธีนี้ได้ผลคือสมองจะเชื่อมโยงสัญญาณ (เวลา + สถานที่) กับพฤติกรรม ทำให้เมื่อถึงเวลานั้น สมองเริ่มเตรียมพร้อมโดยอัตโนมัติ ไม่ต้องใช้เจตนารมณ์มาก</p>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 7 (ต่อ)</div>
+  <h2>ต่อนิสัยเก่ากับนิสัยใหม่ — Habit Stacking</h2>
+  <p><strong>Habit Stacking</strong> คือการ "เกาะ" นิสัยใหม่ไปกับนิสัยเก่าที่ทำอยู่แล้ว วิธีนี้ใช้สัญญาณที่มีอยู่แล้วในชีวิตเป็นตัวกระตุ้นนิสัยใหม่</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตร Habit Stacking</div>
+    <div class="formula-eq">หลังจาก [นิสัยเก่า] ฉันจะ [นิสัยใหม่]</div>
+    <div class="formula-note">ตัวอย่าง: "หลังจากกรอกกาแฟเสร็จ ฉันจะเขียน To-do list 3 ข้อ"</div>
+  </div>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h3>ตัวอย่างใช้งานจริง</h3>
+      <p>หลังแปรงฟัน → ทำ Meditation 2 นาที<br>หลังกินข้าวเที่ยง → เดิน 10 นาที<br>หลังนอนลงบนเตียง → อ่านหนังสือ 1 หน้า</p>
+    </div>
+    <div class="grid-card">
+      <h3>ทำไมถึงได้ผล</h3>
+      <p>นิสัยเก่ากลายเป็น "สัญญาณ" ที่แข็งแกร่ง ไม่ต้องจำ ไม่ต้องตัดสินใจใหม่ทุกวัน เพราะมันถูกโยงไว้กับสิ่งที่ทำอยู่แล้ว</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 8</div>
+  <h2>แรงจูงใจถูกกำหนดโดยสภาพแวดล้อม</h2>
+  <p>นักจิตวิทยา Kurt Lewin กล่าวว่าพฤติกรรมคือฟังก์ชันของบุคคลและสภาพแวดล้อม James Clear นำแนวคิดนี้มาประยุกต์ว่า <strong>สิ่งที่เราเห็นบ่อยๆ คือสิ่งที่เราทำบ่อยๆ</strong></p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ ออกแบบสภาพแวดล้อมให้นิสัยดีเกิดได้ง่าย</div>
+    <ul class="signal-list">
+      <li>วางหนังสือบนหมอน — เห็นแล้วอยากอ่านก่อนนอน</li>
+      <li>เตรียมอุปกรณ์ออกกำลังกายไว้ตรงหน้า — ลดขั้นตอน</li>
+      <li>วางผลไม้ในที่ที่เห็นได้ชัด ไม่ใช่แค่ในตู้เย็น</li>
+      <li>ตั้งโทรศัพท์ไว้ในห้องอื่น เพื่อลดการเล่นก่อนนอน</li>
+    </ul>
+  </div>
+
+  <p>หลักการง่ายๆ คือ <strong>"หนึ่งพื้นที่ หนึ่งการใช้งาน"</strong> โต๊ะทำงานสำหรับทำงานเท่านั้น เตียงสำหรับนอนเท่านั้น เมื่อสมองเชื่อมพื้นที่กับกิจกรรม การทำนิสัยนั้นในพื้นที่นั้นจะง่ายขึ้นมาก</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  กฎที่ 2: Make It Attractive                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">กฎที่ 2 · The 2nd Law</div>
+  <div class="ch-title">ทำให้น่าดึงดูด<em>Make It Attractive — ยิ่งน่าดึงดูดเท่าไร ยิ่งทำง่ายเท่านั้น</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 9</div>
+  <h2>Dopamine ไม่ได้มาจากความสุข แต่มาจาก "ความคาดหวัง"</h2>
+  <p>นักประสาทวิทยาพบว่า <strong>Dopamine (สารที่ทำให้รู้สึกดีในสมอง) หลั่งออกมามากที่สุดในช่วงที่คาดว่าจะได้รับรางวัล ไม่ใช่ตอนที่ได้รับจริงๆ</strong> นี่คือเหตุผลว่าทำไมการเลื่อน Instagram ถึงน่าดึงดูด เพราะทุกครั้งที่เลื่อน เราคาดว่าจะมีอะไรใหม่ที่ดีอยู่เสมอ</p>
+
+  <div class="pullquote">
+    <p>"ความอยากคือเครื่องยนต์ของนิสัย ถ้าสมองไม่คาดหวังว่าจะได้อะไรดีๆ มันจะไม่สั่งให้ทำ"</p>
+    <cite>James Clear — Atomic Habits</cite>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 9 (ต่อ)</div>
+  <h2>Temptation Bundling — รวมนิสัยที่ต้องทำกับสิ่งที่อยากทำ</h2>
+  <p><strong>Temptation Bundling</strong> คือการจับคู่สิ่งที่เราต้องทำ (แต่ไม่อยาก) กับสิ่งที่เราอยากทำ (แต่ไม่ควรทำบ่อย) เพื่อสร้างแรงจูงใจให้ทำนิสัยดี</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตร Temptation Bundling</div>
+    <div class="formula-eq">ฉันจะ [นิสัยที่ต้องการ] แล้วจึง [นิสัยที่อยากทำ]</div>
+    <div class="formula-note">ตัวอย่าง: "ฉันจะออกกำลังกาย แล้วจึงดู Netflix ได้ 1 ชั่วโมง" / "ฉันจะทำบัญชีเดือน แล้วจึงสั่งอาหารโปรดได้"</div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 10</div>
+  <h2>พลังของสังคม — เราทำตามคนรอบข้างโดยไม่รู้ตัว</h2>
+  <p>มนุษย์เป็นสัตว์สังคมที่วิวัฒนาการมาให้เลียนแบบและได้รับการยอมรับจากกลุ่ม สมองของเราถูกตั้งโปรแกรมให้ทำตามคนในกลุ่ม 3 ประเภทโดยเฉพาะ:</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h3>1. คนใกล้ชิด</h3>
+      <p>เรามักรับนิสัยของคนที่อยู่ใกล้เราที่สุด ถ้าเพื่อนสนิทออกกำลังกาย โอกาสที่เราจะออกกำลังกายสูงขึ้นมาก</p>
+    </div>
+    <div class="grid-card">
+      <h3>2. คนส่วนใหญ่</h3>
+      <p>เราอยากทำตามสิ่งที่คนส่วนใหญ่ทำ เพราะนั่นรู้สึกปลอดภัยและถูกต้อง เข้ากลุ่มที่ทำนิสัยที่อยากสร้าง</p>
+    </div>
+    <div class="grid-card">
+      <h3>3. คนที่มีอิทธิพล</h3>
+      <p>เราเลียนแบบคนที่มีอำนาจ ชื่อเสียง หรือที่เราชื่นชม หา mentor หรือ role model ที่มีนิสัยที่ต้องการ</p>
+    </div>
+    <div class="grid-card">
+      <h3>กลยุทธ์ที่ได้ผลที่สุด</h3>
+      <p>เข้าร่วมกลุ่มที่นิสัยที่ต้องการคือ "พฤติกรรมปกติ" ของกลุ่มนั้น เช่น ชมรมวิ่ง, หนังสือ club, กลุ่มนักลงทุน</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 11</div>
+  <h2>เปลี่ยน "ต้องทำ" เป็น "อยากทำ" — Reframe ความคิด</h2>
+  <p>James Clear เสนอว่าเราสามารถเปลี่ยนความรู้สึกที่มีต่อนิสัยได้โดยการเปลี่ยนวิธีคิดเกี่ยวกับมัน</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>❌ ความคิดเดิม (ภาระ)</th><th>✅ ความคิดใหม่ (โอกาส)</th></tr></thead>
+      <tbody>
+        <tr><td>"ฉัน ต้อง ออกกำลังกาย"</td><td>"ฉัน ได้ ฝึกร่างกายที่ทำงานได้ปกติ"</td></tr>
+        <tr><td>"ฉัน ต้อง ประหยัดเงิน"</td><td>"ฉัน ได้ สร้างอิสรภาพทางการเงิน"</td></tr>
+        <tr><td>"ฉัน ต้อง ตื่นเช้า"</td><td>"ฉัน ได้ เวลาเงียบๆ เป็นของตัวเอง"</td></tr>
+        <tr><td>"ฉัน ต้อง ทำสิ่งที่ยาก"</td><td>"ฉัน ได้ โอกาสพัฒนาตัวเอง"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>วิธีง่ายๆ ที่ James Clear แนะนำคือ <strong>สร้าง "พิธีกรรม" ก่อนทำนิสัย</strong> เช่น ก่อนนั่ง Meditation ให้ชงชาก่อนทุกครั้ง เมื่อสมองเชื่อมโยงพิธีกรรมกับสภาวะที่ดี พิธีกรรมนั้นจะกลายเป็น "สัญญาณ" ที่ทำให้เริ่มนิสัยได้ง่ายขึ้น</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  กฎที่ 3: Make It Easy                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">กฎที่ 3 · The 3rd Law</div>
+  <div class="ch-title">ทำให้ง่าย<em>Make It Easy — ลดแรงต้านจนแทบไม่มีเหตุผลที่จะไม่ทำ</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 12</div>
+  <h2>กฎ "ความพยายามน้อยที่สุด" ของสมอง</h2>
+  <p>สมองมนุษย์ถูกออกแบบมาให้ "ประหยัดพลังงาน" ตลอดเวลา เมื่อต้องเลือกระหว่างสองทางที่ได้ผลลัพธ์ใกล้เคียงกัน สมองจะเลือกทางที่ใช้แรงน้อยกว่าเสมอ นี่คือเหตุผลที่ <strong>การออกแบบสภาพแวดล้อมให้นิสัยดีทำได้ง่ายที่สุดคือกุญแจสำคัญ</strong></p>
+
+  <p>James Clear ใช้แนวคิด <strong>"Friction" (แรงเสียดทาน)</strong> เพื่ออธิบายว่า ยิ่งมีขั้นตอนระหว่างเรากับนิสัยมาก เราก็จะทำน้อยลง ยิ่งไม่มีขั้นตอน เราก็จะทำมากขึ้น</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h3>ลด Friction สำหรับนิสัยดี</h3>
+      <p>วางอุปกรณ์ออกกำลังกายไว้หน้าประตู, เตรียมอาหารเช้าไว้คืนก่อน, ติดตั้ง app ที่ช่วยทำงานไว้หน้าจอ</p>
+    </div>
+    <div class="grid-card">
+      <h3>เพิ่ม Friction สำหรับนิสัยเลว</h3>
+      <p>ลบ app เกมออกจากโทรศัพท์, วาง TV remote ไว้ในลิ้นชักอีกห้อง, ถอด credit card ออกจากกระเป๋า</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 13</div>
+  <h2>ความสม่ำเสมอสำคัญกว่าความสมบูรณ์แบบ</h2>
+  <p>คำถามที่หลายคนถาม: "ต้องทำนิสัยนานแค่ไหนจึงจะติด?" คำตอบไม่ใช่ "21 วัน" ตามที่เชื่อกัน การวิจัยจริงพบว่าใช้เวลา <strong>18–254 วัน</strong> ขึ้นอยู่กับคนและนิสัย แต่สิ่งที่สำคัญกว่าระยะเวลาคือ <strong>จำนวนครั้งที่ทำ</strong></p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Each habit you perform is a vote for the identity you want to claim. It's not about perfect performance — it's about showing up."</div>
+    <div class="bq-th">แต่ละนิสัยที่ทำ คือการโหวตให้กับตัวตนที่อยากเป็น ไม่ใช่เรื่องความสมบูรณ์แบบ แต่คือการลงมือทำ</div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 13 (ต่อ)</div>
+  <h2>กฎ "2 นาที" — เริ่มนิสัยที่รู้สึกเล็กจนไม่มีเหตุผลที่จะปฏิเสธ</h2>
+  <p>เทคนิคที่ทรงพลังที่สุดในการเริ่มนิสัยใหม่คือ <strong>กฎ 2 นาที</strong> — ลดนิสัยที่ต้องการสร้างให้เล็กที่สุดจนทำได้ใน 2 นาที</p>
+
+  <div class="formula-block">
+    <div class="formula-label">กฎ 2 นาที (Two-Minute Rule)</div>
+    <div class="formula-eq">"อ่านหนังสือทุกคืน" → "อ่าน 1 หน้าก่อนนอน"</div>
+    <div class="formula-note">เป้าหมายไม่ใช่ทำแค่ 2 นาที แต่คือการ "เริ่ม" ให้ได้ เพราะเมื่อเริ่มแล้ว การต่อไปมักเกิดขึ้นเอง</div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>นิสัยต้องการ</th><th>เวอร์ชัน 2 นาที</th></tr></thead>
+      <tbody>
+        <tr><td>ออกกำลังกาย 1 ชั่วโมง</td><td>ใส่ชุดออกกำลังกายแล้วออกไปข้างนอก</td></tr>
+        <tr><td>เขียน journal ทุกวัน</td><td>เปิดสมุดแล้วเขียน 1 ประโยค</td></tr>
+        <tr><td>ฝึกภาษาทุกวัน</td><td>เปิด app ภาษาแล้วทำ 1 บทเรียน</td></tr>
+        <tr><td>นั่ง Meditation 20 นาที</td><td>นั่งหลับตาและหายใจลึก 2 ครั้ง</td></tr>
+        <tr><td>กินอาหารสุขภาพ</td><td>เตรียมผักหนึ่งชิ้นใส่จาน</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>หลักการคือ <strong>Standardize Before Optimize</strong> หรือ "ทำให้สม่ำเสมอก่อน แล้วค่อยปรับปรุงทีหลัง" อย่าพยายามทำให้สมบูรณ์แบบตั้งแต่ต้น เพราะนั่นทำให้ไม่เริ่ม</p>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 14</div>
+  <h2>ทำให้นิสัยดีกลายเป็นอัตโนมัติ — Commitment Device</h2>
+  <p><strong>Commitment Device</strong> (อุปกรณ์ผูกพัน) คือการตัดสินใจในอดีตที่ควบคุมพฤติกรรมในอนาคต เพื่อไม่ให้ตัวเองในอนาคตสามารถถอยกลับจากการตัดสินใจได้ง่าย</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ ตัวอย่าง Commitment Device</div>
+    <ul class="signal-list">
+      <li>ลงทะเบียนคลาสออกกำลังกายล่วงหน้าจ่ายเงินแล้ว — เสียเงินถ้าไม่ไป</li>
+      <li>บอกเพื่อนว่าจะทำอะไร — สร้าง social accountability</li>
+      <li>ตั้งการโอนเงินออมอัตโนมัติ — ไม่ต้องตัดสินใจทุกเดือน</li>
+      <li>ให้คนอื่นถือรีโมท TV ไว้ — ทำให้เข้าถึงได้ยากขึ้น</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  กฎที่ 4: Make It Satisfying                      -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">กฎที่ 4 · The 4th Law</div>
+  <div class="ch-title">ทำให้น่าพึงพอใจ<em>Make It Satisfying — รางวัลทันทีคือสิ่งที่สมองต้องการ</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 15</div>
+  <h2>ปัญหาของรางวัลที่ล่าช้า — สมองให้น้ำหนักปัจจุบันมากกว่าอนาคต</h2>
+  <p>นิสัยดีส่วนใหญ่มีรางวัลที่ล่าช้า เช่น ออกกำลังกายวันนี้ สุขภาพดีในอีก 10 ปี แต่นิสัยเลวให้รางวัลทันที เช่น กินขนมหวาน รู้สึกดีตอนนี้เลย <strong>สมองถูกวิวัฒนาการมาให้ให้คุณค่ากับสิ่งที่อยู่ตรงหน้ามากกว่าสิ่งที่อยู่ไกลๆ</strong></p>
+
+  <div class="formula-block">
+    <div class="formula-label">แก้ปัญหา: เพิ่มรางวัลทันทีให้นิสัยดี</div>
+    <div class="formula-eq">รางวัลทันที + รางวัลระยะยาว = นิสัยที่ยั่งยืน</div>
+    <div class="formula-note">ตัวอย่าง: ทุกครั้งที่ออกกำลังกาย โอนเงิน 50 บาทเข้า "กองทุนเที่ยว" — ได้รางวัลทันที (เงินออม) และรางวัลระยะยาว (สุขภาพ)</div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 16</div>
+  <h2>Habit Tracker — วิธีที่ง่ายที่สุดในการรักษานิสัย</h2>
+  <p><strong>Habit Tracker</strong> คือการบันทึกว่าเราทำนิสัยหรือไม่ในแต่ละวัน ดูเหมือนง่าย แต่งานวิจัยพบว่ามีประสิทธิภาพสูงมาก เพราะให้ประโยชน์ 3 อย่างพร้อมกัน</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h3>1. ทำให้มองเห็นได้ (Obvious)</h3>
+      <p>เห็นว่าตัวเองทำหรือไม่ทำ ไม่ได้คาดเดา สร้างหลักฐานที่จับต้องได้ว่าเราเป็นคนแบบไหน</p>
+    </div>
+    <div class="grid-card">
+      <h3>2. ทำให้น่าดึงดูด (Attractive)</h3>
+      <p>เส้นที่ต่อกันไปเรื่อยๆ ใน calendar สร้างแรงจูงใจให้ไม่อยากทำลาย streak</p>
+    </div>
+    <div class="grid-card">
+      <h3>3. ให้รางวัลทันที (Satisfying)</h3>
+      <p>การขีดเส้นหรือกาช่องให้ความรู้สึกสำเร็จทันที แม้นิสัยนั้นยังไม่เห็นผลระยะยาว</p>
+    </div>
+    <div class="grid-card">
+      <h3>กฎสำคัญของ Habit Tracker</h3>
+      <p>บันทึกทันทีหลังทำนิสัย ไม่ใช่ย้อนหลัง และอย่าทำลาย streak สองวันติดกัน</p>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Never miss twice. Missing once is an accident. Missing twice is the start of a new habit."</div>
+    <div class="bq-th">อย่าพลาดสองครั้งติดกัน พลาดครั้งเดียวคือเรื่องบังเอิญ พลาดสองครั้งคือการเริ่มนิสัยใหม่ (ที่ไม่ดี)</div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 17</div>
+  <h2>Accountability Partner — ทำให้การไม่ทำมีต้นทุน</h2>
+  <p>เมื่อการไม่ทำนิสัยมีต้นทุนทันที เราจะทำมันมากขึ้น <strong>Accountability Partner</strong> คือคนที่เราสัญญาว่าจะทำนิสัยด้วย และต้องรายงานผลให้รู้</p>
+
+  <p>รูปแบบที่ได้ผลดีที่สุดคือ <strong>"Habit Contract"</strong> หรือสัญญานิสัย ซึ่งเขียนชัดเจนว่าจะทำอะไร ความถี่เท่าไร และบทลงโทษคืออะไรถ้าไม่ทำ มีพยานเซ็นชื่อรับรู้ด้วย</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  กลยุทธ์ขั้นสูง                                   -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">กลยุทธ์ขั้นสูง · Advanced Tactics</div>
+  <div class="ch-title">รู้จักตัวเองและเลือกนิสัยที่ใช่<em>พันธุกรรม บุคลิกภาพ และ Zone of Optimal Challenge</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">บทที่ 18</div>
+  <h2>เลือกนิสัยที่เหมาะกับ "ธรรมชาติ" ของตัวเอง</h2>
+  <p>James Clear อ้างอิงงานวิจัยด้านจิตวิทยาว่า <strong>พันธุกรรมมีอิทธิพลต่อบุคลิกภาพและความถนัดของเราอย่างมีนัยสำคัญ</strong> นี่ไม่ได้หมายความว่าเราถูกกำหนดตายตัว แต่หมายความว่าบางนิสัยจะ "ง่ายและสนุก" กว่าสำหรับเรามากกว่าคนอื่น</p>
+
+  <p>แนวคิด Big 5 บุคลิกภาพ (Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism) ชี้ให้เห็นว่า ถ้าเราเป็นคน Extrovert การสร้างนิสัยผ่านกิจกรรมกลุ่มจะง่ายกว่า ถ้าเป็น Introvert การทำคนเดียวจะง่ายกว่า</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">✅ คำถามเพื่อหานิสัยที่ใช่สำหรับตัวเอง</div>
+    <ul class="signal-list">
+      <li>อะไรที่รู้สึกสนุกสำหรับเรา แต่รู้สึกเป็นงานสำหรับคนอื่น?</li>
+      <li>อะไรที่เราทำได้ดีโดยไม่ต้องพยายามมาก?</li>
+      <li>อะไรที่ทำแล้วรู้สึกว่าเวลาผ่านไปเร็ว ไม่รู้สึกว่านานเลย?</li>
+      <li>อะไรที่ทำแล้วรู้สึกมีพลัง ไม่ใช่หมดพลัง?</li>
+    </ul>
+  </div>
+
+  <p>หลักการง่ายๆ: <strong>อย่าพยายามสู้กับธรรมชาติของตัวเอง จงใช้มัน</strong> เราไม่ต้องสร้างนิสัยเดียวกันกับคนที่ประสบความสำเร็จ เราต้องหานิสัยที่ใช่สำหรับ "เรา"</p>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 19</div>
+  <h2>Goldilocks Rule — ทำให้ยากพอดีให้สมองสนใจ</h2>
+  <p>สมองมนุษย์มีแรงจูงใจสูงสุดเมื่องานที่ทำอยู่ที่ <strong>"ขอบของความสามารถ"</strong> ไม่ง่ายเกินไปจนน่าเบื่อ และไม่ยากเกินไปจนท้อแท้ James Clear เรียกว่า <strong>Goldilocks Rule</strong> (กฎพอดีพอเหมาะ — มาจากนิทาน Goldilocks ที่ต้องการอะไรก็ไม่มากไม่น้อยเกินไป)</p>
+
+  <div class="formula-block">
+    <div class="formula-label">ระดับความยากที่เหมาะสม</div>
+    <div class="formula-eq">งานควรยากกว่าระดับปัจจุบันประมาณ 4%</div>
+    <div class="formula-note">ยากพอที่ต้องพยายาม แต่ไม่ยากจนท้อแท้ — นี่คือจุดที่สมองหลั่ง Dopamine สูงสุด เรียกว่า "Flow State"</div>
+  </div>
+
+  <p>ปัญหาคือเมื่อนิสัยหนึ่งทำซ้ำๆ มันเริ่มรู้สึกน่าเบื่อ นี่คือจุดที่คนส่วนใหญ่เลิก <strong>แต่ความแตกต่างระหว่างมืออาชีพและมือสมัครเล่นไม่ใช่ความสามารถ แต่คือการที่มืออาชีพยังคงทำต่อไปแม้รู้สึกน่าเบื่อ</strong></p>
+
+  <hr class="ornament">
+
+  <div class="eyebrow">บทที่ 20</div>
+  <h2>ข้อเสียของนิสัย — ระวังการยึดติดกับ "ตัวตน" มากเกินไป</h2>
+  <p>นิสัยที่ดีช่วยให้เราไม่ต้องคิดในสิ่งที่ทำซ้ำๆ แต่ก็มีข้อเสียคือ <strong>เมื่อทำอัตโนมัติแล้ว เราหยุดสังเกตว่ากำลังทำอะไรอยู่</strong> และอาจไม่ปรับปรุงต่อ</p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตรความก้าวหน้าที่ยั่งยืน</div>
+    <div class="formula-eq">นิสัย + การทบทวนอย่างสม่ำเสมอ = การปรับปรุงอย่างต่อเนื่อง</div>
+    <div class="formula-note">James Clear ทำ Annual Review ทุกปีและ Integrity Report ทุก 6 เดือน เพื่อตรวจสอบว่ายังเดินไปในทิศทางที่ถูกต้องหรือเปล่า</div>
+  </div>
+
+  <p>อันตรายที่ใหญ่ที่สุดคือการยึดติดกับ "ตัวตน" มากเกินไป เช่น "ฉันเป็นนักวิ่ง" ถ้าวันหนึ่งวิ่งไม่ได้ก็รู้สึกเหมือนล้มเหลวทั้งหมด James Clear แนะนำว่าควรยึดตัวตนไว้กับ <strong>คุณค่าและหลักการ</strong> ไม่ใช่กิจกรรมเฉพาะ เช่น "ฉันเป็นคนที่ให้คุณค่ากับสุขภาพ" แทน "ฉันเป็นนักวิ่ง"</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  สรุปและการนำไปใช้จริง                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">08</div>
+  <div class="ch-label">บทสรุป · Final Summary</div>
+  <div class="ch-title">นำไปใช้จริงในชีวิต<em>จาก 4 กฎ สู่การปฏิบัติที่เปลี่ยนชีวิต</em></div>
+</div>
+<div class="page">
+  <div class="eyebrow">สรุปภาพรวม</div>
+  <h2>Mind Map สำคัญ — ทุกแนวคิดในหน้าเดียว</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>กฎ</th><th>สร้างนิสัยดี</th><th>ทำลายนิสัยเลว</th><th>เครื่องมือหลัก</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-type">กฎที่ 1<br>สัญญาณ</td>
+          <td>ทำให้ชัดเจน<br>(Make it Obvious)</td>
+          <td>ทำให้มองไม่เห็น<br>(Make it Invisible)</td>
+          <td>Habit Scorecard,<br>Implementation Intention,<br>Habit Stacking</td>
+        </tr>
+        <tr>
+          <td class="col-type">กฎที่ 2<br>ความอยาก</td>
+          <td>ทำให้น่าดึงดูด<br>(Make it Attractive)</td>
+          <td>ทำให้ไม่น่าสนใจ<br>(Make it Unattractive)</td>
+          <td>Temptation Bundling,<br>สังคม, Reframing</td>
+        </tr>
+        <tr>
+          <td class="col-type">กฎที่ 3<br>การตอบสนอง</td>
+          <td>ทำให้ง่าย<br>(Make it Easy)</td>
+          <td>ทำให้ยาก<br>(Make it Difficult)</td>
+          <td>Reduce Friction,<br>Two-Minute Rule,<br>Commitment Device</td>
+        </tr>
+        <tr>
+          <td class="col-type">กฎที่ 4<br>รางวัล</td>
+          <td>ทำให้น่าพึงพอใจ<br>(Make it Satisfying)</td>
+          <td>ทำให้ไม่น่าพึงพอใจ<br>(Make it Unsatisfying)</td>
+          <td>Habit Tracker,<br>Accountability Partner,<br>Habit Contract</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>แผนปฏิบัติ 30 วัน — เริ่มจากศูนย์</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>สัปดาห์ที่ 1 — รู้จักตัวเอง</h3>
+      <p>ก่อนสร้างนิสัยใหม่ ต้องรู้ว่าตอนนี้เป็นอย่างไร</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">วันที่ 1–7</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ทำ Habit Scorecard
+            <div class="cl-note">เขียนทุกอย่างที่ทำในหนึ่งวัน ให้คะแนน +/−/= สังเกตโดยไม่ตัดสิน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ระบุ 1 นิสัยดีที่ต้องการสร้าง และ 1 นิสัยเลวที่ต้องการหยุด
+            <div class="cl-note">เลือกน้อยๆ ก่อน เพราะการโฟกัสสิ่งเดียวได้ผลดีกว่าสิบอย่างพร้อมกัน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ถามตัวเองว่า "คนแบบไหนที่ฉันอยากเป็น?"
+            <div class="cl-note">เขียนคำตอบลงกระดาษ และโยงนิสัยที่เลือกกับตัวตนนั้น</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>สัปดาห์ที่ 2 — ออกแบบระบบ</h3>
+      <p>ใช้ 4 กฎในการออกแบบนิสัยให้ทำได้จริง</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">วันที่ 8–14</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เขียน Implementation Intention ให้ชัดเจน
+            <div class="cl-note">"ฉันจะ [ทำอะไร] เวลา [เวลาไหน] ที่ [ที่ไหน]"</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ออกแบบสภาพแวดล้อมให้นิสัยดีทำได้ง่าย
+            <div class="cl-note">จัดพื้นที่ วางสิ่งของ ลด Friction ให้มากที่สุด</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ลดนิสัยที่ต้องการหยุดให้ทำได้ยากขึ้น
+            <div class="cl-note">เพิ่ม Friction เช่น ลบ app, วางของไว้ไกล, ทำให้เข้าถึงยาก</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เริ่มทำนิสัยใหม่ด้วย "กฎ 2 นาที"
+            <div class="cl-note">เล็กที่สุดจนรู้สึกว่าไม่มีเหตุผลที่จะไม่ทำ</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>สัปดาห์ที่ 3–4 — สร้างระบบติดตาม</h3>
+      <p>ใช้ Habit Tracker และสร้าง accountability</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">วันที่ 15–30</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">เริ่ม Habit Tracker
+            <div class="cl-note">แบบง่ายที่สุด: ปฏิทินแล้วขีดเส้นในวันที่ทำสำเร็จ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">บอกคนหนึ่งคนที่เชื่อใจว่ากำลังทำอะไร
+            <div class="cl-note">รายงานผลทุกสัปดาห์ สร้าง social accountability</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ถ้าพลาด อย่าพลาดสองวันติดกัน
+            <div class="cl-note">"Never miss twice" — กลับมาทำวันถัดไปทันที</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ทบทวนและปรับปรุงทุก 2 สัปดาห์
+            <div class="cl-note">อะไรได้ผล? อะไรยังไม่ได้ผล? ปรับระบบ ไม่ใช่โทษตัวเอง</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>คำถามสำหรับไตร่ตรองตัวเอง</h2>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection Questions</div>
+    <ol class="reflection-list">
+      <li>นิสัยของเราในปัจจุบันกำลัง "โหวต" ให้กับตัวตนแบบไหน? ตรงกับที่อยากเป็นหรือเปล่า?</li>
+      <li>มีนิสัยอะไรในชีวิตที่ "รู้ว่าควรทำ" แต่ยังไม่เริ่ม? อะไรคือ Friction ที่ขวางอยู่?</li>
+      <li>สภาพแวดล้อมรอบตัวเราตอนนี้ส่งเสริมนิสัยดีหรือนิสัยเลวมากกว่า?</li>
+      <li>ถ้าต้องออกแบบชีวิตใหม่โดยไม่พึ่งแรงจูงใจเลย เราจะออกแบบอย่างไร?</li>
+      <li>นิสัยอะไรที่ถ้าสร้างได้ จะส่งผลให้นิสัยอื่นๆ ดีขึ้นตามมาอัตโนมัติ (Keystone Habit)?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>One-Liners ที่น่าจดจำที่สุด</h2>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"You do not rise to the level of your goals. You fall to the level of your systems."</div>
+    <div class="bq-th">เราไม่ได้ขึ้นไปถึงระดับของเป้าหมาย เราตกลงมาสู่ระดับของระบบที่เรามี</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Every action you take is a vote for the type of person you wish to become."</div>
+    <div class="bq-th">ทุกครั้งที่ลงมือทำ คือการโหวตให้กับตัวตนที่อยากจะเป็น</div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>หนังสือและแหล่งเรียนรู้ต่อยอด</h2>
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <h3>📚 หนังสือที่เกี่ยวข้อง</h3>
+      <p><strong>The Power of Habit</strong> — Charles Duhigg<br><strong>Thinking, Fast and Slow</strong> — Daniel Kahneman<br><strong>Tiny Habits</strong> — BJ Fogg<br><strong>Deep Work</strong> — Cal Newport</p>
+    </div>
+    <div class="grid-card">
+      <h3>🌐 แหล่งเรียนรู้เพิ่มเติม</h3>
+      <p><strong>jamesclear.com</strong> — Newsletter และบทความของ James Clear<br><strong>3-2-1 Newsletter</strong> — สรุป 3 ideas, 2 quotes, 1 question ทุกสัปดาห์<br><strong>Habit apps:</strong> Streaks, Habitica, Loop Habit Tracker</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  FOOTER                                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="book-footer">
+  <p>ATOMIC HABITS — James Clear</p>
+  <p>สรุปฉบับสมบูรณ์ ครบทุกบท · ภาษาไทย</p>
+  <p style="margin-top:16px; font-size:10px; opacity:0.4;">Tiny Changes, Remarkable Results</p>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>

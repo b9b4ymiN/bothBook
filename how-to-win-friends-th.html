@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Win Friends & Influence People — Dale Carnegie</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:        #F9F5EC;
+  --paper-mid:    #F1EAD8;
+  --paper-deep:   #E8DDCA;
+  --paper-shadow: #DDD0B8;
+  --ink:          #1E1508;
+  --ink-soft:     #3A2D16;
+  --ink-mid:      #5C4A28;
+  --ink-muted:    #8C7455;
+  --ink-faint:    #B09A78;
+  --gold:         #A8782A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168,120,42,0.25);
+  --red:          #7A1A1A;
+  --red-bg:       #FDF5F5;
+  --green:        #1A4E2A;
+  --green-bg:     #F4FAF5;
+  --blue-ink:     #1A2B4A;
+  --teal:         #1A4A4A;
+  --teal-bg:      #F4FAF9;
+  --purple:       #3A1A5C;
+  --purple-bg:    #F8F4FC;
+  --book-width:   740px;
+  --page-pad-h:   72px;
+  --page-pad-v:   80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #1C1408;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08), 0 4px 40px rgba(0,0,0,0.35), 0 0 120px rgba(0,0,0,0.2);
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: #0D0802;
+  min-height: 100vh;
+  padding: 80px var(--page-pad-h);
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.cover-frame {
+  position: absolute; inset: 24px;
+  border: 1px solid rgba(168,120,42,0.2);
+  pointer-events: none;
+}
+.cover-frame::before {
+  content: '';
+  position: absolute; inset: 6px;
+  border: 1px solid rgba(168,120,42,0.08);
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(168,120,42,0.5);
+  margin-bottom: 48px;
+}
+.cover-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 500;
+  color: rgba(201,164,78,0.5);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(32px, 6vw, 54px);
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 400;
+  color: rgba(201,164,78,0.55);
+  line-height: 1.4;
+  margin-bottom: 40px;
+}
+.cover-divider {
+  width: 64px; height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin-bottom: 32px;
+}
+.cover-author {
+  font-family: 'Noto Serif', serif;
+  font-size: 20px; font-weight: 600;
+  color: rgba(201,164,78,0.8);
+  margin-bottom: 8px;
+}
+.cover-author-sub {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: rgba(140,116,85,0.6);
+  margin-bottom: 48px;
+}
+.cover-desc {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.9;
+  color: rgba(180,155,110,0.6);
+  max-width: 480px;
+  margin-bottom: 56px;
+}
+.cover-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 56px;
+}
+.cover-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(168,120,42,0.6);
+  border: 1px solid rgba(168,120,42,0.2);
+  padding: 5px 12px;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; letter-spacing: 3px;
+  color: rgba(140,116,85,0.4);
+  text-transform: uppercase;
+  position: absolute; bottom: 40px; left: var(--page-pad-h);
+}
+
+/* ─── CHAPTER OPEN ─── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 64px var(--page-pad-h) 56px;
+  border-bottom: 1px solid var(--paper-shadow);
+  border-top: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 40px; height: 2px;
+  background: var(--gold);
+  margin-top: 24px;
+}
+.ch-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 80px; font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute; top: 40px; right: var(--page-pad-h);
+  line-height: 1;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.ch-title em {
+  display: block;
+  font-size: 0.65em; font-weight: 400; font-style: normal;
+  color: var(--ink-muted);
+  margin-top: 8px;
+  font-family: 'Sarabun', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* chapter open color variants */
+.chapter-open.c-warm { background: #F5EDE0; }
+.chapter-open.c-cool { background: #E8EDF5; }
+.chapter-open.c-teal { background: #E5F0EF; }
+.chapter-open.c-purple { background: #EDE8F5; }
+.chapter-open.c-green { background: #E8F0E8; }
+.chapter-open.c-red { background: #F5E8E8; }
+.chapter-open.c-blue { background: #E8EEF5; }
+
+/* ─── PAGE ─── */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+}
+.page + .page { padding-top: 0; }
+
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 28px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(17px, 2.5vw, 22px);
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.35;
+  margin: 48px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold-rule);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 0;
+  width: 32px; height: 2px;
+  background: var(--gold);
+}
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--ink-mid);
+  margin: 32px 0 12px;
+}
+p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px; line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 600; color: var(--ink); }
+
+/* ─── PULLQUOTE ─── */
+.pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--gold);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px; font-style: italic;
+  color: var(--ink); line-height: 1.65;
+  margin-bottom: 8px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* ─── BLOCKQUOTE FULL ─── */
+.blockquote-full {
+  background: var(--ink);
+  padding: 40px var(--page-pad-h);
+  margin: 48px 0;
+  text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(15px, 2.5vw, 19px);
+  font-style: italic;
+  color: rgba(249,245,236,0.75);
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: rgba(201,164,78,0.5);
+  line-height: 1.7;
+}
+
+/* ─── SIGNAL BOX ─── */
+.signal-box {
+  padding: 20px 24px;
+  margin: 20px 0;
+}
+.signal-box.do { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.dont { background: var(--red-bg); border-left: 3px solid var(--red); }
+.signal-box.note { background: var(--teal-bg); border-left: 3px solid var(--teal); }
+.signal-box.insight { background: var(--purple-bg); border-left: 3px solid var(--purple); }
+.signal-box.warm { background: #FDF8F0; border-left: 3px solid var(--gold); }
+
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.signal-box.do .signal-title { color: var(--green); }
+.signal-box.dont .signal-title { color: var(--red); }
+.signal-box.note .signal-title { color: var(--teal); }
+.signal-box.insight .signal-title { color: var(--purple); }
+.signal-box.warm .signal-title { color: var(--gold); }
+
+.signal-list {
+  list-style: none;
+  padding: 0;
+}
+.signal-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 5px 0 5px 20px;
+  position: relative;
+}
+.signal-box.do .signal-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.signal-box.dont .signal-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+.signal-box.note .signal-list li::before, 
+.signal-box.insight .signal-list li::before,
+.signal-box.warm .signal-list li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-weight: 700; font-size: 18px; top: 2px; }
+
+.signal-box p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.8;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ─── DO/DONT GRID ─── */
+.do-dont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.do-dont > div { background: var(--paper); padding: 24px; }
+.do-dont-head {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.do-dont .do-col .do-dont-head { color: var(--green); }
+.do-dont .dont-col .do-dont-head { color: var(--red); }
+.do-dont ul { list-style: none; padding: 0; }
+.do-dont ul li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 5px 0 5px 18px;
+  position: relative;
+}
+.do-dont .do-col li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 11px; top: 7px; }
+.do-dont .dont-col li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-size: 10px; top: 7px; }
+
+/* ─── PRINCIPLE CARD ─── */
+.principle-card {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-top: 3px solid var(--gold);
+  padding: 28px 28px 24px;
+  margin: 24px 0;
+}
+.principle-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.principle-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+.principle-en {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px; font-style: italic;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+}
+.principle-body {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.85;
+  color: var(--ink-soft);
+}
+.principle-tip {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; line-height: 1.7;
+  color: var(--ink-mid);
+  background: rgba(168,120,42,0.07);
+  padding: 10px 14px;
+  margin-top: 14px;
+  border-left: 2px solid rgba(168,120,42,0.3);
+}
+
+/* color variants for principle cards */
+.principle-card.c-green { border-top-color: var(--green); }
+.principle-card.c-green .principle-num { color: var(--green); }
+.principle-card.c-teal { border-top-color: var(--teal); }
+.principle-card.c-teal .principle-num { color: var(--teal); }
+.principle-card.c-purple { border-top-color: var(--purple); }
+.principle-card.c-purple .principle-num { color: var(--purple); }
+.principle-card.c-red { border-top-color: var(--red); }
+.principle-card.c-red .principle-num { color: var(--red); }
+.principle-card.c-blue { border-top-color: var(--blue-ink); }
+.principle-card.c-blue .principle-num { color: var(--blue-ink); }
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--paper-shadow);
+  gap: 1px;
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.stat-item {
+  background: var(--paper);
+  padding: 24px 20px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+/* ─── REFLECTION ─── */
+.reflection {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 28px;
+  margin: 40px 0;
+  counter-reset: reflection-counter;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.reflection-list {
+  list-style: none;
+  padding: 0;
+}
+.reflection-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.8;
+  color: var(--ink-soft);
+  padding: 8px 0 8px 36px;
+  position: relative;
+  counter-increment: reflection-counter;
+}
+.reflection-list li::before {
+  content: counter(reflection-counter, decimal-leading-zero);
+  position: absolute; left: 0;
+  font-family: 'Noto Serif', serif;
+  font-size: 13px; font-weight: 600;
+  color: rgba(168,120,42,0.4);
+  top: 8px;
+}
+
+/* ─── TOC ─── */
+.toc-list { list-style: none; padding: 0; }
+.toc-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.toc-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; font-weight: 500;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  flex: 1;
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--paper-shadow);
+  margin: 0 12px 4px;
+  min-width: 20px;
+}
+.toc-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+/* ─── AUTHOR VOICE ─── */
+.author-voice {
+  display: flex;
+  gap: 20px;
+  background: var(--paper-mid);
+  padding: 24px;
+  margin: 32px 0;
+  border: 1px solid var(--paper-deep);
+}
+.av-avatar {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  background: var(--ink-soft);
+  color: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif', serif;
+  font-size: 14px; font-weight: 600;
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.av-text {
+  font-family: 'Noto Serif', serif;
+  font-size: 15px; font-style: italic;
+  line-height: 1.7; color: var(--ink-soft);
+  margin: 0;
+}
+.av-text-th {
+  display: block;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; font-style: normal;
+  color: var(--ink-muted);
+  margin-top: 6px;
+}
+
+/* ─── FORMULA ─── */
+.formula-block {
+  background: var(--ink);
+  padding: 28px 32px;
+  margin: 32px 0;
+  text-align: center;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(201,164,78,0.5);
+  margin-bottom: 12px;
+}
+.formula-eq {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 600;
+  color: var(--gold-light);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: rgba(140,116,85,0.6);
+  line-height: 1.6;
+}
+
+/* ─── ORNAMENT ─── */
+hr.ornament {
+  border: none;
+  text-align: center;
+  margin: 40px 0;
+}
+hr.ornament::before {
+  content: '· · ·';
+  color: rgba(168,120,42,0.35);
+  letter-spacing: 12px;
+  font-size: 14px;
+}
+
+/* ─── INTRO BOX ─── */
+.intro-box {
+  background: var(--ink-soft);
+  padding: 36px 40px;
+  margin-bottom: 48px;
+}
+.intro-box p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; line-height: 1.9;
+  color: rgba(249,245,236,0.7);
+  margin-bottom: 0;
+}
+.intro-box strong { color: var(--gold-light); }
+
+/* ─── FOOTER ─── */
+.book-footer {
+  background: #0D0802;
+  padding: 48px var(--page-pad-h);
+  text-align: center;
+}
+.footer-title {
+  font-family: 'Noto Serif', serif;
+  font-size: 14px; font-weight: 600;
+  color: rgba(201,164,78,0.4);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.footer-sub {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: rgba(140,116,85,0.3);
+  letter-spacing: 3px; text-transform: uppercase;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 780px) {
+  :root {
+    --page-pad-h: 24px;
+    --page-pad-v: 48px;
+  }
+  .ch-num { display: none; }
+  .do-dont { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 32px 24px; }
+  .author-voice { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ══════════════════ COVER ══════════════════ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">The Carnegie Library · Timeless Wisdom</div>
+  <div class="cover-eyebrow">สรุปฉบับสมบูรณ์ · ตกผลึกโดย Dale Carnegie</div>
+  <div class="cover-title-en">How to Win Friends<br>&amp; Influence People</div>
+  <div class="cover-title-th">วิธีชนะมิตรและจูงใจคน</div>
+  <div class="cover-divider"></div>
+  <div class="cover-author">Dale Carnegie</div>
+  <div class="cover-author-sub">นักพูด · นักเขียน · ผู้บุกเบิกศาสตร์การพัฒนาตัวเอง</div>
+  <div class="cover-desc">
+    หนังสือที่เปลี่ยนชีวิตผู้คนกว่า 50 ล้านคนทั่วโลก ตั้งแต่ปี 1936 ถึงปัจจุบัน — สกัดสาระทุกบท ทุกหลักการ พร้อมวิธีนำไปใช้ในชีวิตจริง
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">Human Relations</div>
+    <div class="cover-tag">Communication</div>
+    <div class="cover-tag">Leadership</div>
+    <div class="cover-tag">Psychology</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ · สรุปเชิงลึกทุกบท · ภาษาไทย</div>
+</div>
+
+<!-- ══════════════════ TOC ══════════════════ -->
+<div class="page">
+  <div class="eyebrow">สารบัญ</div>
+  <h1>เนื้อหาในเล่มนี้</h1>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">4</div>
+      <div class="stat-label">ภาคหลัก</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">30</div>
+      <div class="stat-label">หลักการสำคัญ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">87</div>
+      <div class="stat-label">ปีแห่งการพิสูจน์</div>
+    </div>
+  </div>
+
+  <ul class="toc-list">
+    <li class="toc-item">
+      <div>
+        <div class="toc-label">บทนำ</div>
+        <div class="toc-title">ปรัชญาพื้นฐาน — เข้าใจธรรมชาติมนุษย์</div>
+      </div>
+      <div class="toc-dots"></div>
+      <div class="toc-num">I</div>
+    </li>
+    <li class="toc-item">
+      <div>
+        <div class="toc-label">ภาคที่ 1</div>
+        <div class="toc-title">เทคนิคพื้นฐานในการจัดการกับผู้คน — 3 หลักการ</div>
+      </div>
+      <div class="toc-dots"></div>
+      <div class="toc-num">II</div>
+    </li>
+    <li class="toc-item">
+      <div>
+        <div class="toc-label">ภาคที่ 2</div>
+        <div class="toc-title">วิธีทำให้คนชอบคุณ — 6 หลักการ</div>
+      </div>
+      <div class="toc-dots"></div>
+      <div class="toc-num">III</div>
+    </li>
+    <li class="toc-item">
+      <div>
+        <div class="toc-label">ภาคที่ 3</div>
+        <div class="toc-title">วิธีจูงใจคนให้คิดตามแนวทางของคุณ — 12 หลักการ</div>
+      </div>
+      <div class="toc-dots"></div>
+      <div class="toc-num">IV</div>
+    </li>
+    <li class="toc-item">
+      <div>
+        <div class="toc-label">ภาคที่ 4</div>
+        <div class="toc-title">ผู้นำที่ดี — วิธีเปลี่ยนแปลงคนโดยไม่ทำให้เจ็บปวด — 9 หลักการ</div>
+      </div>
+      <div class="toc-dots"></div>
+      <div class="toc-num">V</div>
+    </li>
+  </ul>
+</div>
+
+<!-- ══════════════════ INTRO ══════════════════ -->
+<div class="chapter-open c-warm">
+  <div class="ch-num">00</div>
+  <div class="ch-label">บทนำ / Preface</div>
+  <div class="ch-title">
+    ปรัชญาพื้นฐาน
+    <em>เข้าใจธรรมชาติมนุษย์ก่อน ทุกอย่างจะง่ายขึ้น</em>
+  </div>
+</div>
+<div class="page">
+  <div class="intro-box">
+    <p>หนังสือเล่มนี้ไม่ได้สอนให้คุณ <strong>แกล้งทำ</strong>เป็นคนดี แต่สอนให้คุณ<strong>เข้าใจ</strong>ว่ามนุษย์ทุกคนต้องการอะไร และ<strong>ตอบสนอง</strong>สิ่งนั้นด้วยความจริงใจ นั่นคือรากฐานของทุกสิ่งที่ Carnegie สอน</p>
+  </div>
+
+  <h2>ทำไมถึงต้องเรียนรู้เรื่องคน?</h2>
+  <p>Carnegie เริ่มต้นด้วยคำถามง่ายๆ: อะไรคือทักษะที่สำคัญที่สุดในชีวิต? คำตอบของเขาชัดเจนมาก — <strong>ทักษะการเข้ากับผู้คน</strong> มีผลต่อความสำเร็จถึง 85% ส่วนความรู้และทักษะทางเทคนิคมีผลเพียง 15% เท่านั้น</p>
+  <p>เขาศึกษาชีวประวัติของคนที่ประสบความสำเร็จในประวัติศาสตร์ ตั้งแต่ Lincoln, Roosevelt, Rockefeller ไปจนถึงนักธุรกิจร่วมสมัย พบว่าสิ่งที่พวกเขามีร่วมกันไม่ใช่ไอคิวสูง แต่คือ<strong>ความสามารถในการทำให้คนอื่นรู้สึกดีและอยากร่วมมือ</strong></p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"When dealing with people, remember you are not dealing with creatures of logic, but with creatures of emotion."</div>
+    <div class="bq-th">เมื่อคุณรับมือกับผู้คน จงจำไว้ว่าคุณไม่ได้รับมือกับสิ่งมีชีวิตที่ใช้ตรรกะ แต่กับสิ่งมีชีวิตที่ขับเคลื่อนด้วยอารมณ์</div>
+  </div>
+
+  <h2>ความต้องการพื้นฐานของมนุษย์ทุกคน</h2>
+  <p>นักจิตวิทยา John Dewey บอกว่าสิ่งที่มนุษย์ต้องการมากที่สุดคือ <strong>"ความรู้สึกสำคัญ"</strong> (the desire to be important) Carnegie เห็นด้วยและบอกว่า นี่คือแรงขับเคลื่อนที่ทรงพลังที่สุดในธรรมชาติมนุษย์</p>
+  <p>เราทุกคนต้องการรู้สึกว่าตัวเองมีคุณค่า มีความสำคัญ ถูกมองเห็น และได้รับการยอมรับ — คนที่เข้าใจและตอบสนองสิ่งนี้ได้ คือคนที่จะ "ชนะใจ" ทุกคนได้</p>
+
+  <div class="signal-box insight">
+    <div class="signal-title">หัวใจของหนังสือทั้งเล่ม</div>
+    <p>Carnegie ไม่ได้สอนกลเม็ด แต่สอน<strong>ทัศนคติ</strong> — เปลี่ยนจากการมองว่า "ฉันจะได้อะไร?" มาเป็น "ฉันจะช่วยให้เขารู้สึกดีได้อย่างไร?" เมื่อคุณเปลี่ยนทัศนคติได้ เทคนิคทุกอย่างในเล่มนี้จะกลายเป็นธรรมชาติของคุณเอง</p>
+  </div>
+</div>
+
+<!-- ══════════════════ PART 1 ══════════════════ -->
+<div class="chapter-open c-cool">
+  <div class="ch-num">01</div>
+  <div class="ch-label">ภาคที่หนึ่ง / Part One</div>
+  <div class="ch-title">
+    เทคนิคพื้นฐานในการจัดการกับผู้คน
+    <em>Fundamental Techniques in Handling People</em>
+  </div>
+</div>
+<div class="page">
+  <p>ภาคแรกนี้คือรากฐานทั้งหมด Carnegie วางหลักการ 3 ข้อที่ต้องเข้าใจก่อน ก่อนที่จะเรียนทักษะอื่นๆ ทั้งหมด</p>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 01</div>
+    <div class="principle-title">อย่าวิจารณ์ ตำหนิ หรือบ่น</div>
+    <div class="principle-en">Don't criticize, condemn, or complain.</div>
+    <div class="principle-body">
+      ผู้คนไม่เคยโทษตัวเองสำหรับความผิดพลาดของตนเอง แม้แต่อาชญากรที่ทำผิดร้ายแรงที่สุด ก็ยังมองว่าตัวเองถูกและสังคมผิด การวิจารณ์คนอื่นไม่ได้สร้างการเปลี่ยนแปลงที่ยั่งยืน มันแค่สร้างความขุ่นเคืองและความต้องการที่จะ "แก้ตัว"
+      <br><br>
+      Abraham Lincoln เรียนรู้บทเรียนนี้อย่างเจ็บปวด เขาเคยเขียนจดหมายเสียดสีคนอื่นสาธารณะ จนถูกท้าดวล หลังจากนั้นเขาไม่เคยวิจารณ์ใครอีกเลย และนั่นคือส่วนหนึ่งที่ทำให้เขากลายเป็นประธานาธิบดีที่ยิ่งใหญ่ที่สุด
+    </div>
+    <div class="principle-tip">
+      <strong>ลองทำ:</strong> ครั้งต่อไปที่คุณอยากวิจารณ์ใคร ให้ถามตัวเองก่อนว่า "เขาน่าจะมีเหตุผลของตัวเองอะไรบางอย่างที่ทำแบบนี้" การหยุดและพยายามเข้าใจ มักจะดีกว่าการวิจารณ์เสมอ
+    </div>
+  </div>
+
+  <div class="pullquote">
+    <p>"Any fool can criticize, condemn, and complain — and most fools do. But it takes character and self-control to be understanding and forgiving."</p>
+    <cite>Dale Carnegie</cite>
+  </div>
+
+  <div class="principle-card c-green">
+    <div class="principle-num">หลักการที่ 02</div>
+    <div class="principle-title">ให้การชื่นชมอย่างจริงใจและจริงจัง</div>
+    <div class="principle-en">Give honest and sincere appreciation.</div>
+    <div class="principle-body">
+      ความแตกต่างระหว่าง <strong>การชื่นชม (appreciation)</strong> กับ <strong>การประจบ (flattery)</strong> คือความจริงใจ การประจบคือการพูดในสิ่งที่อีกฝ่ายอยากได้ยิน แต่การชื่นชมคือการมองหาสิ่งดีที่แท้จริงในคนนั้นและพูดออกมา
+      <br><br>
+      Charles Schwab นักอุตสาหกรรมชื่อดัง กล่าวว่าความสามารถที่ยิ่งใหญ่ที่สุดของเขาคือ "ความสามารถในการปลุกความกระตือรือร้นของคน" และวิธีที่ดีที่สุดคือ <strong>การชื่นชมและให้กำลังใจอย่างจริงใจ</strong> ไม่ใช่การวิจารณ์และตำหนิ
+    </div>
+    <div class="principle-tip">
+      <strong>ลองทำ:</strong> วันนี้ลองสังเกตหาสิ่งดีในคนรอบข้างสักหนึ่งคน และบอกเขาตรงๆ ว่าคุณเห็นสิ่งนั้น — ด้วยความจริงใจ ไม่ใช่เพื่อหวังอะไรตอบแทน
+    </div>
+  </div>
+
+  <div class="principle-card c-teal">
+    <div class="principle-num">หลักการที่ 03</div>
+    <div class="principle-title">จุดไฟความต้องการในใจคนอื่น</div>
+    <div class="principle-en">Arouse in the other person an eager want.</div>
+    <div class="principle-body">
+      Carnegie ใช้คำพูดของ Harry Overstreet: "การกระทำเกิดจากสิ่งที่เราต้องการ" วิธีเดียวที่จะให้คนทำในสิ่งที่คุณต้องการ คือทำให้เขา<strong>อยากทำ</strong>สิ่งนั้น ไม่ใช่บังคับหรือขอร้อง
+      <br><br>
+      ตัวอย่างคลาสสิก: ถ้าคุณอยากให้ลูกหยุดสูบบุหรี่ อย่าบอกว่ามันเป็นเรื่องผิด แต่ลองพูดถึงเรื่องที่ลูกสนใจ เช่น "นักกีฬาที่ดีไม่สูบบุหรี่" หรือ "คนที่แข็งแรงจะมีชีวิตที่สนุกกว่า" — ทำให้เขาอยากเลิกเอง
+    </div>
+    <div class="principle-tip">
+      <strong>หัวใจ:</strong> ก่อนจะขอให้ใครทำอะไร ถามตัวเองว่า "เขาจะได้ประโยชน์อะไรจากสิ่งนี้?" แล้วพูดจากมุมนั้น ไม่ใช่จากมุมที่<em>คุณ</em>ต้องการ
+    </div>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตรทอง ภาค 1</div>
+    <div class="formula-eq">อย่าวิจารณ์ + ชื่นชมจริงใจ + จุดไฟความต้องการ = คนอยากร่วมมือกับคุณ</div>
+    <div class="formula-note">ทั้งสามข้อนี้ไม่ใช่กลยุทธ์ แต่คือทัศนคติที่ต้องฝึกจนเป็นนิสัย</div>
+  </div>
+</div>
+
+<!-- ══════════════════ PART 2 ══════════════════ -->
+<div class="chapter-open c-teal">
+  <div class="ch-num">02</div>
+  <div class="ch-label">ภาคที่สอง / Part Two</div>
+  <div class="ch-title">
+    วิธีทำให้คนชอบคุณ
+    <em>Six Ways to Make People Like You</em>
+  </div>
+</div>
+<div class="page">
+  <div class="intro-box">
+    <p>Carnegie สอนว่าก่อนที่คุณจะ "อิทธิพล" ใครได้ คุณต้องทำให้เขา<strong>ชอบคุณก่อน</strong> และการทำให้คนชอบไม่ใช่เรื่องของโชค แต่มีหลักการที่ชัดเจน 6 ข้อ</p>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 04</div>
+    <div class="principle-title">สนใจคนอื่นอย่างจริงจัง</div>
+    <div class="principle-en">Become genuinely interested in other people.</div>
+    <div class="principle-body">
+      คุณสามารถสร้างมิตรภาพมากกว่าในสองเดือน ด้วยการสนใจในคนอื่น มากกว่าที่คุณจะทำได้ในสองปีโดยพยายามให้คนอื่นสนใจคุณ
+      <br><br>
+      Sigmund Freud มีทักษะการฟังที่น่าทึ่งมาก คนที่ได้คุยกับเขาบอกว่ารู้สึกว่า Freud สนใจในตัวเขาอย่างแท้จริง นั่นทำให้เขาไว้วางใจและเปิดใจ ความสนใจที่แท้จริงเปิดประตูทุกบาน
+    </div>
+    <div class="principle-tip">
+      <strong>ทดสอบง่ายๆ:</strong> ครั้งต่อไปที่คุณเจอใคร ลองถามตัวเองว่า "อะไรที่น่าสนใจในคนคนนี้?" แทนที่จะคิดว่า "ฉันจะพูดอะไรดี?"
+    </div>
+  </div>
+
+  <div class="principle-card c-green">
+    <div class="principle-num">หลักการที่ 05</div>
+    <div class="principle-title">ยิ้ม</div>
+    <div class="principle-en">Smile.</div>
+    <div class="principle-body">
+      Carnegie ใช้บทนี้ทั้งบทเพื่อพูดถึงรอยยิ้มหนึ่งรอยยิ้ม เพราะมันทรงพลังมาก ผู้จัดการฝ่ายบุคคลของร้านค้าใหญ่กล่าวว่า เขาจะไม่จ้างพนักงานขายที่ไม่ยิ้ม มากกว่าคนที่มีดีกรีแต่ไม่มีรอยยิ้ม
+      <br><br>
+      แต่รอยยิ้มต้องเป็นรอยยิ้มที่<strong>จริงใจ</strong> ไม่ใช่รอยยิ้มแบบถ่ายโฆษณา ฝึกยิ้มได้แม้แต่ทางโทรศัพท์ เพราะคนอีกฝ่ายจะรู้สึกได้ถึงความอบอุ่นในน้ำเสียงของคุณ
+    </div>
+    <div class="principle-tip">
+      <strong>Carnegie บอกว่า:</strong> ถ้าคุณไม่มีความสุขพอที่จะยิ้ม ให้ยิ้มก่อน แล้วความสุขมักจะตามมาเอง การยิ้มส่งสัญญาณกลับไปยังสมองว่า "ทุกอย่างโอเค"
+    </div>
+  </div>
+
+  <div class="principle-card c-purple">
+    <div class="principle-num">หลักการที่ 06</div>
+    <div class="principle-title">จำชื่อคนอื่นให้ได้ และใช้มันบ่อยๆ</div>
+    <div class="principle-en">Remember that a person's name is the sweetest and most important sound in any language.</div>
+    <div class="principle-body">
+      Andrew Carnegie (ไม่ใช่ Dale) รู้จักคนงานหลายพันคนโดยใช้ชื่อ Napoleon Bonaparte จำชื่อเจ้าหน้าที่ทุกคนในกองทัพของเขาได้ นั่นคือแหล่งที่มาของพลังอำนาจส่วนหนึ่งของพวกเขา
+      <br><br>
+      ชื่อของคนเป็นเสียงที่หวานที่สุดสำหรับหูของเขา การเรียกชื่อคนอย่างถูกต้องแสดงว่าคุณให้ความสำคัญกับเขาในฐานะปัจเจกบุคคล ไม่ใช่แค่ "ใครสักคน"
+    </div>
+    <div class="principle-tip">
+      <strong>เทคนิค:</strong> เมื่อแนะนำตัว ทวนชื่อเขาซ้ำทันที "ยินดีที่รู้จัก คุณสมชาย" ถ้าชื่อยาก ขอให้สะกดให้ฟัง ความพยายามนั้นเองที่แสดงถึงความใส่ใจ
+    </div>
+  </div>
+
+  <div class="principle-card c-teal">
+    <div class="principle-num">หลักการที่ 07</div>
+    <div class="principle-title">เป็นนักฟังที่ดี กระตุ้นให้อีกฝ่ายพูดถึงตัวเอง</div>
+    <div class="principle-en">Be a good listener. Encourage others to talk about themselves.</div>
+    <div class="principle-body">
+      Isaac F. Marcosson นักสัมภาษณ์ชื่อดัง กล่าวว่าคนส่วนใหญ่ล้มเหลวในการสร้างความประทับใจ เพราะพวกเขาไม่ฟัง — พวกเขากำลังรอให้ถึงตาตัวเองพูดอยู่ตลอด
+      <br><br>
+      นักฟังที่ดีไม่ได้แค่ <em>เงียบ</em> แต่ต้องแสดงให้อีกฝ่ายรู้ว่าคุณกำลัง <em>ฟังและสนใจ</em> อย่างจริงจัง พยักหน้า ถามคำถามต่อยอด มองตาเขา สิ่งเหล่านี้บอกว่า "ฉันเห็นคุณ และสิ่งที่คุณพูดมีความหมาย"
+    </div>
+    <div class="principle-tip">
+      <strong>ความจริงที่น่าแปลกใจ:</strong> คนที่พูดน้อยที่สุดในบทสนทนา แต่ฟังอย่างตั้งใจ มักจะถูกจดจำว่าเป็น "นักสนทนาที่ยอดเยี่ยม"
+    </div>
+  </div>
+
+  <div class="principle-card c-red">
+    <div class="principle-num">หลักการที่ 08</div>
+    <div class="principle-title">พูดถึงสิ่งที่อีกฝ่ายสนใจ</div>
+    <div class="principle-en">Talk in terms of the other person's interests.</div>
+    <div class="principle-body">
+      Theodore Roosevelt ทุกครั้งที่มีผู้เข้าพบ เขาจะนั่งอ่านเรื่องที่แขกคนนั้นสนใจในคืนก่อน เขารู้ว่าหนทางตรงไปยังใจคนคือการพูดถึงสิ่งที่เขาให้คุณค่า
+      <br><br>
+      Henry Ford กล่าวว่า "ถ้าจะมีความลับของความสำเร็จอยู่สิ่งหนึ่ง นั่นคือความสามารถในการมองจากมุมมองของอีกฝ่าย และมองสิ่งต่างๆ จากมุมของเขา รวมถึงมุมของคุณ"
+    </div>
+    <div class="principle-tip">
+      <strong>ก่อนพบใคร:</strong> ลองค้นหาว่าเขาสนใจอะไร งานอดิเรกคืออะไร ลูกๆ เป็นอย่างไร แล้วเริ่มบทสนทนาจากนั้น ไม่ใช่จากธุรกิจที่คุณต้องการ
+    </div>
+  </div>
+
+  <div class="principle-card c-blue">
+    <div class="principle-num">หลักการที่ 09</div>
+    <div class="principle-title">ทำให้อีกฝ่ายรู้สึกสำคัญ — และทำด้วยความจริงใจ</div>
+    <div class="principle-en">Make the other person feel important — and do it sincerely.</div>
+    <div class="principle-body">
+      นี่คือหลักการสุดท้ายและสำคัญที่สุดในภาคนี้ ทุกคนที่คุณพบต้องการรู้สึกว่าตัวเองสำคัญกว่าคุณในบางด้าน — ให้เขารู้สิ่งนั้น
+      <br><br>
+      Ralph Waldo Emerson กล่าวว่า "ทุกคนที่ฉันพบมีบางอย่างที่เหนือกว่าฉัน และฉันเรียนรู้จากสิ่งนั้น" เมื่อคุณมองคนอื่นด้วยทัศนคตินี้ มันจะปรากฏออกมาในทุกคำพูดและท่าทางของคุณ
+    </div>
+    <div class="principle-tip">
+      <strong>คำถามมหัศจรรย์:</strong> ถามตัวเองก่อนทุกการสนทนาว่า "อะไรในตัวเขาที่ฉันสามารถชื่นชมได้จริงๆ?" คำตอบจะเปลี่ยนวิธีที่คุณมองและพูดกับเขาทั้งหมด
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="signal-box do">
+    <div class="signal-title">สิ่งที่คนชอบจะทำ</div>
+    <ul class="signal-list">
+      <li>ถามเรื่องที่คนอื่นสนใจและฟังอย่างตั้งใจ</li>
+      <li>จำรายละเอียดเล็กๆ น้อยๆ เช่น วันเกิด ชื่อลูก งานอดิเรก</li>
+      <li>ยิ้มและแสดงความอบอุ่นเมื่อพบ</li>
+      <li>ให้เกียรติและยกย่องในสิ่งที่เขาทำได้ดีจริงๆ</li>
+    </ul>
+  </div>
+  <div class="signal-box dont">
+    <div class="signal-title">สิ่งที่ทำให้คนไม่ชอบ</div>
+    <ul class="signal-list">
+      <li>พูดแต่เรื่องตัวเองตลอดเวลา</li>
+      <li>ลืมชื่อคนที่เพิ่งแนะนำตัว</li>
+      <li>ใช้โทรศัพท์ระหว่างพูดคุย</li>
+      <li>แย่งพูดหรือตัดจบประโยคคนอื่น</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════ PART 3 ══════════════════ -->
+<div class="chapter-open c-purple">
+  <div class="ch-num">03</div>
+  <div class="ch-label">ภาคที่สาม / Part Three</div>
+  <div class="ch-title">
+    วิธีจูงใจคนให้คิดตามแนวทางของคุณ
+    <em>How to Win People to Your Way of Thinking</em>
+  </div>
+</div>
+<div class="page">
+  <div class="intro-box">
+    <p>ภาคนี้เกี่ยวกับ<strong>การโน้มน้าวและการโต้แย้ง</strong> Carnegie เตือนว่า "คุณไม่มีทางชนะการโต้เถียงได้" เพราะถ้าคุณชนะ คุณก็แพ้ในเวลาเดียวกัน — คุณทำให้อีกฝ่ายรู้สึกด้อยและเจ็บปวด นั่นไม่ใช่ชัยชนะที่แท้จริง</p>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 10</div>
+    <div class="principle-title">วิธีเดียวที่จะชนะการโต้เถียงคืออย่าโต้เถียง</div>
+    <div class="principle-en">The only way to get the best of an argument is to avoid it.</div>
+    <div class="principle-body">
+      คุณสามารถพิสูจน์ว่าคนอื่นผิดได้ด้วยตรรกะและข้อเท็จจริง แต่นั่นจะไม่ได้ผล เพราะคุณทำร้ายความภาคภูมิใจของเขา เขาจะโกรธและต่อต้านคุณ ไม่ว่าคุณจะ "ถูก" แค่ไหนก็ตาม
+      <br><br>
+      Benjamin Franklin กล่าวว่า "ถ้าคุณโต้แย้ง หาเรื่อง และหักล้างคนอื่น คุณอาจได้รับชัยชนะบางครั้ง แต่มันจะเป็นชัยชนะที่ว่างเปล่า เพราะคุณจะไม่มีวันได้รับความปรารถนาดีของอีกฝ่ายอีก"
+    </div>
+    <div class="principle-tip">
+      <strong>เมื่อถูกโจมตี:</strong> แทนที่จะโต้ตอบทันที ลองพูดว่า "นั่นเป็นมุมมองที่น่าสนใจ ฉันจะลองคิดดูนะ" แล้วค่อยๆ หาจุดร่วม
+    </div>
+  </div>
+
+  <div class="principle-card c-green">
+    <div class="principle-num">หลักการที่ 11</div>
+    <div class="principle-title">เคารพความคิดเห็นของอีกฝ่าย อย่าบอกว่าเขาผิด</div>
+    <div class="principle-en">Show respect for the other person's opinions. Never say "You're wrong."</div>
+    <div class="principle-body">
+      เมื่อคุณบอกว่าคนอื่นผิด คุณกำลังบอกว่าคุณฉลาดกว่าเขา นั่นทำให้เขาต้องการต่อสู้กลับ ไม่ใช่เปลี่ยนใจ
+      <br><br>
+      ลองใช้วิธีของ Galileo แทน เขาไม่เคยบอกว่าคนอื่นผิดโดยตรง แต่จะพูดว่า "ฉันอาจจะเข้าใจผิดก็ได้ มาดูข้อเท็จจริงด้วยกันนะ" วิธีนี้ทำให้อีกฝ่ายเปิดใจรับข้อมูลใหม่
+    </div>
+    <div class="principle-tip">
+      <strong>วลีมหัศจรรย์:</strong> "ฉันเห็นด้วยกับคุณในหลายๆ จุด แต่มีบางอย่างที่ฉันอยากลองพิจารณาด้วยกัน..."
+    </div>
+  </div>
+
+  <div class="principle-card c-teal">
+    <div class="principle-num">หลักการที่ 12</div>
+    <div class="principle-title">ถ้าคุณผิด ยอมรับอย่างรวดเร็วและกล้าหาญ</div>
+    <div class="principle-en">If you are wrong, admit it quickly and emphatically.</div>
+    <div class="principle-body">
+      Carnegie เล่าเรื่องสุนัขของเขาที่วิ่งในสวนสาธารณะโดยไม่มีสายจูง เมื่อตำรวจตำหนิ เขายอมรับทันทีอย่างสำนึกผิดจริงๆ ผลคือตำรวจเห็นใจและปล่อยไป
+      <br><br>
+      การยอมรับผิดก่อนที่อีกฝ่ายจะโจมตี ทำให้เขาหมดอาวุธ ไม่มีอะไรให้โจมตีต่อ และมักจะทำให้เขาปกป้องคุณแทน
+    </div>
+    <div class="principle-tip">
+      <strong>หลักการ:</strong> "โต้เถียงด้วยตัวเองก่อนที่คนอื่นจะโต้เถียงกับคุณ" — เมื่อคุณยอมรับความผิดพลาดของตัวเอง มันกลายเป็นจุดแข็ง ไม่ใช่จุดอ่อน
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"A man convinced against his will is of the same opinion still."</div>
+    <div class="bq-th">คนที่ถูกบังคับให้เชื่อ ก็ยังคงมีความเชื่อเดิมอยู่ในใจ — การโน้มน้าวที่แท้จริงต้องมาจากภายใน</div>
+  </div>
+
+  <div class="principle-card c-purple">
+    <div class="principle-num">หลักการที่ 13</div>
+    <div class="principle-title">เริ่มต้นด้วยความเป็นมิตรและอบอุ่น</div>
+    <div class="principle-en">Begin in a friendly way.</div>
+    <div class="principle-body">
+      Aesop เล่าเรื่องลมเหนือและดวงอาทิตย์แข่งกันทำให้ชายคนหนึ่งถอดเสื้อ ลมเหนือพัดแรงแค่ไหน ชายก็แค่กอดเสื้อแน่นขึ้น แต่เมื่อดวงอาทิตย์ส่องแสงอุ่น ชายถอดเสื้อเองโดยไม่ต้องบังคับ
+      <br><br>
+      Woodrow Wilson กล่าวว่า "ถ้าคุณมาหาฉันด้วยกำปั้น ฉันก็จะพับกำปั้นกลับ แต่ถ้าคุณมาบอกว่า 'มาแก้ปัญหาร่วมกันนะ' เราจะพบว่าจริงๆ แล้วเราไม่ได้แตกต่างกันมาก"
+    </div>
+    <div class="principle-tip">
+      <strong>กฎ:</strong> ยิ่งเรื่องยาก ยิ่งต้องเริ่มด้วยความอบอุ่น อย่าเริ่มด้วยข้อพิพาท เริ่มด้วยจุดร่วม
+    </div>
+  </div>
+
+  <div class="principle-card c-blue">
+    <div class="principle-num">หลักการที่ 14</div>
+    <div class="principle-title">ทำให้อีกฝ่ายพูดว่า "ใช่ ใช่" ตั้งแต่แรก</div>
+    <div class="principle-en">Get the other person saying "yes, yes" immediately.</div>
+    <div class="principle-body">
+      Socrates สร้างชื่อเสียงในกรุงเอเธนส์ด้วยวิธีนี้ เขาไม่เคยบอกคนตรงๆ ว่าเขาผิด แต่ถามคำถามที่อีกฝ่ายต้องตอบว่า "ใช่" ทีละขั้น จนพวกเขาพบว่าตัวเองเห็นด้วยกับข้อสรุปที่พวกเขาอาจจะคัดค้านในตอนแรก
+      <br><br>
+      ทุกครั้งที่คนพูดว่า "ไม่" ความภูมิใจของเขาต้องการรักษาความสม่ำเสมอ เขาจะต้องค้ำยันคำปฏิเสธนั้นต่อไป แต่ถ้าเขาพูด "ใช่" หลายครั้ง เขาจะโน้มเอียงมาในทิศทางของคุณ
+    </div>
+    <div class="principle-tip">
+      <strong>เทคนิค:</strong> เริ่มบทสนทนาด้วยคำถามที่คุณรู้ว่าเขาจะตอบว่าใช่ "คุณก็อยากให้ธุรกิจเติบโตใช่ไหม?" "คุณให้ความสำคัญกับคุณภาพใช่ไหม?" แล้วค่อยนำเข้าสู่ประเด็นหลัก
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 15</div>
+    <div class="principle-title">ให้อีกฝ่ายได้พูดมากกว่าคุณ</div>
+    <div class="principle-en">Let the other person do a great deal of the talking.</div>
+    <div class="principle-body">
+      La Rochefoucauld กล่าวว่า "ถ้าคุณต้องการมีศัตรู ก็จงเหนือกว่าเพื่อนของคุณ แต่ถ้าคุณต้องการมีมิตรที่ดี จงให้เพื่อนของคุณเหนือกว่าคุณ"
+      <br><br>
+      ให้อีกฝ่ายได้อธิบายความคิดของเขาจนจบ แม้คุณจะไม่เห็นด้วย อย่าขัดจังหวะ คนที่พูดมากกว่ามักจะรู้สึกพอใจมากกว่า แม้คุณจะไม่ได้ตกลงกัน
+    </div>
+    <div class="principle-tip">
+      <strong>ข้อเท็จจริง:</strong> นักขายที่ประสบความสำเร็จพูดเพียง 30% ของการสนทนา ที่เหลือเป็นการฟังและถามคำถาม
+    </div>
+  </div>
+
+  <div class="principle-card c-green">
+    <div class="principle-num">หลักการที่ 16</div>
+    <div class="principle-title">ให้อีกฝ่ายรู้สึกว่าความคิดนั้นเป็นของเขาเอง</div>
+    <div class="principle-en">Let the other person feel that the idea is his or hers.</div>
+    <div class="principle-body">
+      ไม่มีใครชอบถูกบอกว่าต้องทำอะไร แต่ทุกคนชอบทำในสิ่งที่ตัวเองตัดสินใจ Lao Tzu กล่าวว่า "เหตุผลที่แม่น้ำและทะเลได้รับการยกย่องจากเนินเขาและลำธาร เพราะมันอยู่ต่ำกว่า"
+      <br><br>
+      เมื่อคุณแนะนำความคิด ลองเสนอในรูปแบบคำถามแทน "คุณคิดว่าเป็นไปได้ไหมถ้า...?" หรือ "จะเป็นอย่างไรถ้าเราลอง...?" แทนที่จะสั่ง ปล่อยให้เขาเป็นคนสรุปความคิดนั้น
+    </div>
+    <div class="principle-tip">
+      <strong>ผลลัพธ์:</strong> เมื่อคนรู้สึกว่าความคิดนั้นเป็นของเขา เขาจะทุ่มเทกับมันมากกว่ากรณีที่ถูกสั่งให้ทำหลายเท่า
+    </div>
+  </div>
+
+  <div class="principle-card c-teal">
+    <div class="principle-num">หลักการที่ 17</div>
+    <div class="principle-title">พยายามมองสิ่งต่างๆ จากมุมมองของอีกฝ่ายอย่างซื่อสัตย์</div>
+    <div class="principle-en">Try honestly to see things from the other person's point of view.</div>
+    <div class="principle-body">
+      Gerald Nierenberg กล่าวว่า "ในการเจรจา ความร่วมมือจะเกิดขึ้นเมื่อทั้งสองฝ่ายได้รับสิ่งที่ต้องการ" หัวใจของการเจรจาคือการเข้าใจว่าอีกฝ่ายต้องการอะไร และหาทางที่เขาจะได้มันในขณะที่คุณก็ได้สิ่งที่คุณต้องการด้วย
+      <br><br>
+      ลองนั่งในเก้าอี้ของเขาสักพัก ถามตัวเองว่า "ถ้าฉันเป็นเขา ฉันจะรู้สึกอย่างไร? ทำไมถึงมองแบบนี้?" คำตอบมักจะเปลี่ยนวิธีที่คุณพูดถึงเรื่องนั้นโดยสิ้นเชิง
+    </div>
+    <div class="principle-tip">
+      <strong>วลีทรงพลัง:</strong> "ฉันไม่โทษคุณเลยที่รู้สึกแบบนี้ ถ้าฉันอยู่ในสถานการณ์ของคุณ ฉันก็คงรู้สึกเหมือนกัน" — สี่คำนี้จะหยุดการโต้เถียงได้เกือบทุกครั้ง
+    </div>
+  </div>
+
+  <div class="principle-card c-red">
+    <div class="principle-num">หลักการที่ 18</div>
+    <div class="principle-title">เห็นอกเห็นใจความคิดและความปรารถนาของอีกฝ่าย</div>
+    <div class="principle-en">Be sympathetic with the other person's ideas and desires.</div>
+    <div class="principle-body">
+      ส่วนใหญ่ของคนรอบข้างคุณกำลังต้องการความเห็นอกเห็นใจ ให้มันกับพวกเขา และพวกเขาจะรักคุณ
+      <br><br>
+      Dr. Arthur I. Gates เขียนในหนังสือจิตวิทยาการศึกษาว่า "มนุษย์ปรารถนาความเห็นอกเห็นใจอย่างสุดซึ้ง เด็กแสดงการบาดเจ็บออกมาอย่างกระตือรือร้น แม้แต่ผู้ใหญ่ก็ชอบอวดแผลเป็น เล่าเรื่องอุบัติเหตุ ความเจ็บป่วย และโศกนาฏกรรม" นี่คือธรรมชาติมนุษย์
+    </div>
+    <div class="principle-tip">
+      <strong>ฝึกพูดว่า:</strong> "ฉันเข้าใจว่าคุณรู้สึกอย่างนั้น" หรือ "นั่นต้องยากมากเลย" ก่อนที่จะเข้าสู่ประเด็น มันสร้างสะพานเชื่อมใจ
+    </div>
+  </div>
+
+  <div class="principle-card c-blue">
+    <div class="principle-num">หลักการที่ 19</div>
+    <div class="principle-title">อุทธรณ์ต่อความคิดอันสูงส่งของอีกฝ่าย</div>
+    <div class="principle-en">Appeal to the nobler motives.</div>
+    <div class="principle-body">
+      J.P. Morgan สังเกตว่าคนมักจะมีเหตุผลสองอย่างสำหรับการกระทำ — เหตุผลที่ฟังดูดี และเหตุผลที่แท้จริง เมื่อคุณอุทธรณ์ต่อ "เหตุผลที่สูงส่ง" คุณกำลังดึงเอาคุณธรรมที่ดีที่สุดของคนออกมา
+      <br><br>
+      ตัวอย่าง: แทนที่จะบอกพนักงานว่า "ทำเพราะฉันบอกให้ทำ" ลองพูดว่า "ฉันรู้ว่าคุณเป็นคนที่ให้ความสำคัญกับความซื่อสัตย์ นั่นเป็นเหตุผลที่ฉันอยากให้คุณรับผิดชอบเรื่องนี้"
+    </div>
+    <div class="principle-tip">
+      <strong>กุญแจ:</strong> คนทุกคนต้องการมองตัวเองว่าเป็นคนดี มีอุดมการณ์ เมื่อคุณพูดถึงเขาในแง่นั้น เขามักจะพยายามเป็นคนแบบนั้นจริงๆ
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 20</div>
+    <div class="principle-title">ทำให้ความคิดของคุณมีชีวิตชีวาและน่าสนใจ</div>
+    <div class="principle-en">Dramatize your ideas.</div>
+    <div class="principle-body">
+      ยุคนี้เป็นยุคแห่งการแสดงออก เพียงแค่บอกความจริงไม่พอ ต้องทำให้มันน่าตื่นเต้น มีชีวิต และน่าสนใจ
+      <br><br>
+      ร้านขายยาแห่งหนึ่งในนิวยอร์กเพิ่มยอดขายได้ด้วยการวางป้ายที่น่าสนใจแทนป้ายธรรมดา ตัวแทนขายที่เก่งๆ มักจะเตรียมการสาธิตหรือตัวอย่างที่ทำให้คนเห็นภาพ แทนที่จะพูดเฉยๆ
+    </div>
+    <div class="principle-tip">
+      <strong>เปรียบเทียบ:</strong> แทนที่จะพูดว่า "เราประหยัดเงินได้มาก" ลองพูดว่า "ราคาที่ประหยัดได้เท่ากับรถยนต์หนึ่งคันทุกปี" ภาพในใจทรงพลังกว่าตัวเลข
+    </div>
+  </div>
+
+  <div class="principle-card c-green">
+    <div class="principle-num">หลักการที่ 21</div>
+    <div class="principle-title">ท้าทายด้วยการแข่งขัน</div>
+    <div class="principle-en">Throw down a challenge.</div>
+    <div class="principle-body">
+      Charles Schwab มีโรงงานผลิตที่ผลผลิตต่ำ ผู้จัดการไม่สามารถแก้ปัญหาได้ Schwab เดินเข้าไปในโรงงานช่วงกลางคืน ถามพนักงานว่ากะกลางวันผลิตได้เท่าไหร่ แล้วเขียนตัวเลขบนพื้น "6" เช้าวันรุ่งขึ้น กะกลางวันมาเห็น ลบออก เขียน "7" แทน และเกมก็เริ่มขึ้น — ยอดผลิตพุ่งสูงขึ้นทันที
+      <br><br>
+      มนุษย์รักความท้าทาย รักการพิสูจน์ตัวเอง ให้โอกาสนั้นกับพวกเขา
+    </div>
+    <div class="principle-tip">
+      <strong>หัวใจ:</strong> คนไม่ได้ทำงานหนักเพราะเงินเสมอไป แต่เพราะ<em>ความท้าทาย ความภูมิใจ และการได้แสดงความสามารถ</em>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PART 4 ══════════════════ -->
+<div class="chapter-open c-green">
+  <div class="ch-num">04</div>
+  <div class="ch-label">ภาคที่สี่ / Part Four</div>
+  <div class="ch-title">
+    ผู้นำที่ดี — วิธีเปลี่ยนแปลงคนโดยไม่ทำให้เจ็บปวด
+    <em>Be a Leader: How to Change People Without Giving Offense</em>
+  </div>
+</div>
+<div class="page">
+  <div class="intro-box">
+    <p>ภาคนี้คือ Carnegie ในฐานะ<strong>ครูและผู้นำ</strong> เขาสอนวิธีวิจารณ์ สอน และเปลี่ยนแปลงพฤติกรรมคนโดยไม่สร้างความเจ็บปวดหรือความขุ่นเคือง — เพราะมันเป็นทักษะที่สำคัญที่สุดสำหรับผู้นำทุกคน</p>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 22</div>
+    <div class="principle-title">เริ่มด้วยการชื่นชม แล้วค่อยวิจารณ์</div>
+    <div class="principle-en">Begin with praise and honest appreciation.</div>
+    <div class="principle-body">
+      การวิจารณ์หลังจากการชื่นชม เหมือนกับหมอฟันที่ฉีดยาชาก่อนถอนฟัน — มันยังเจ็บอยู่ แต่เจ็บน้อยกว่ามาก
+      <br><br>
+      McKinley ใช้วิธีนี้ตลอดชีวิตทางการเมือง เขาเริ่มทุกการสนทนายากด้วยการหาสิ่งดีในคนนั้นก่อน Lincoln เริ่มจดหมายยากๆ ด้วยคำชมก่อนทุกครั้ง
+    </div>
+    <div class="principle-tip">
+      <strong>โครงสร้าง:</strong> ชม → วิจารณ์ → ชม (sandwich technique) ทำให้วิจารณ์ที่กลางถูกรับด้วยใจที่เปิดกว่ามาก
+    </div>
+  </div>
+
+  <div class="principle-card c-teal">
+    <div class="principle-num">หลักการที่ 23</div>
+    <div class="principle-title">วิจารณ์ความผิดพลาดโดยอ้อม</div>
+    <div class="principle-en">Call attention to people's mistakes indirectly.</div>
+    <div class="principle-body">
+      Charles Schwab แทนที่จะบอกพนักงานว่าทำผิด เขาจะพูดอย่างนี้: "ผมดีใจที่ดูงานตรงนี้นะ ผมคิดว่านี่เป็นงานที่ดีมาก แต่ผมสงสัยนะ ว่าถ้าลองทำแบบนี้ดูบ้างจะเป็นยังไง..."
+      <br><br>
+      คำว่า "แต่" มักจะลบล้างทุกอย่างที่พูดไปก่อนหน้า ลองเปลี่ยนเป็น "และ" หรือ "ฉันก็เคยทำแบบนั้น แต่พบว่า..." — มันสร้างความรู้สึกต่างกันโดยสิ้นเชิง
+    </div>
+    <div class="principle-tip">
+      <strong>เทคนิค:</strong> แทนที่จะพูดว่า "คุณทำผิด" ลองพูดว่า "ฉันสังเกตว่าในกรณีแบบนี้ วิธีที่มักได้ผลดีกว่าคือ..."
+    </div>
+  </div>
+
+  <div class="principle-card c-purple">
+    <div class="principle-num">หลักการที่ 24</div>
+    <div class="principle-title">พูดถึงความผิดพลาดของตัวเองก่อน แล้วค่อยวิจารณ์คนอื่น</div>
+    <div class="principle-en">Talk about your own mistakes before criticizing the other person.</div>
+    <div class="principle-body">
+      Carnegie เล่าเรื่องหลานสาวที่ทำผิดพลาด แทนที่จะตำหนิตรงๆ เขาบอกว่า "เมื่อก่อนฉันก็เคยทำผิดพลาดแบบเดียวกันเลย จริงๆ แล้วฉันคิดว่ามันอาจจะยิ่งแย่กว่าอีก..."
+      <br><br>
+      การยอมรับความไม่สมบูรณ์แบบของตัวเองก่อน ทำให้คำวิจารณ์ที่ตามมารู้สึกเหมือนคำแนะนำจากเพื่อน ไม่ใช่การตัดสินจากศาล
+    </div>
+    <div class="principle-tip">
+      <strong>เปิดใจ:</strong> "ฉันก็ไม่ได้สมบูรณ์แบบ ฉันก็เคยผิดพลาดแบบนี้มาก่อน ต่อไปนี้ถ้าเราลองทำแบบนี้ดูนะ..."
+    </div>
+  </div>
+
+  <div class="principle-card c-red">
+    <div class="principle-num">หลักการที่ 25</div>
+    <div class="principle-title">ถามแทนสั่ง</div>
+    <div class="principle-en">Ask questions instead of giving direct orders.</div>
+    <div class="principle-body">
+      Owen D. Young กล่าวว่า เขาไม่เคยสั่งคนเลย เขาแค่แนะนำ "คุณคิดว่าวิธีนี้จะได้ผลไหม?" "คุณคิดว่าเราจะทำแบบนั้นได้ไหม?" การถามช่วยให้อีกฝ่ายเรียนรู้จากกระบวนการคิด ไม่ใช่แค่ทำตามคำสั่ง
+      <br><br>
+      การสั่งทำให้คนรู้สึกต่ำกว่า แต่การถามทำให้พวกเขารู้สึกมีส่วนร่วมในการตัดสินใจ ผลลัพธ์คือพวกเขาทุ่มเทมากกว่า
+    </div>
+    <div class="principle-tip">
+      <strong>เปลี่ยน:</strong> "ทำแบบนี้" → "คุณคิดว่าถ้าเราลองทำแบบนี้จะเป็นอย่างไร?" ประโยคต่างกัน แต่ผลลัพธ์ต่างกันอย่างสิ้นเชิง
+    </div>
+  </div>
+
+  <div class="principle-card">
+    <div class="principle-num">หลักการที่ 26</div>
+    <div class="principle-title">ให้เกียรติและอนุญาตให้อีกฝ่ายรักษาหน้า</div>
+    <div class="principle-en">Let the other person save face.</div>
+    <div class="principle-body">
+      Antoine de Saint-Exupery เขียนว่า "ฉันไม่มีสิทธิ์พูดหรือทำสิ่งใดที่ทำให้คนอื่นด้อยลงในสายตาของตัวเอง" นี่คือหนึ่งในสิ่งสำคัญที่สุดในการปฏิสัมพันธ์กับคน
+      <br><br>
+      เมื่อต้องไล่คนออกหรือแก้ไขงาน วิธีที่ Carnegie แนะนำคือให้หาทางที่คนนั้น "ออกอย่างมีเกียรติ" ได้ เช่น บอกว่าตำแหน่งถูกยุบแทนที่จะบอกว่าถูกไล่ออก หรือให้เวลาเขาค้นหาตำแหน่งใหม่ก่อน
+    </div>
+    <div class="principle-tip">
+      <strong>ทำไมสำคัญ:</strong> คนที่ถูกทำให้เสียหน้าจะไม่มีวันลืม และมักจะกลายเป็นศัตรูตลอดชีวิต คนที่ได้รับเกียรติแม้ในยามที่ผิดพลาด มักจะกลายเป็นผู้สนับสนุนที่ดีที่สุด
+    </div>
+  </div>
+
+  <div class="principle-card c-green">
+    <div class="principle-num">หลักการที่ 27</div>
+    <div class="principle-title">ชมทุกความก้าวหน้าแม้เพียงเล็กน้อย</div>
+    <div class="principle-en">Praise the slightest improvement and praise every improvement.</div>
+    <div class="principle-body">
+      B.F. Skinner พิสูจน์ว่าการชื่นชมทำให้สัตว์และมนุษย์เรียนรู้ได้เร็วกว่าการลงโทษมาก เมื่อ Jeb Stuart เข้ารับตำแหน่งผู้บัญชาการที่โรงเรียนทหาร เขาเริ่มด้วยการชมทหารทุกคนที่ทำได้ดีทันที ผลคือวินัยและกำลังใจเพิ่มขึ้นอย่างน่าทึ่ง
+      <br><br>
+      อย่ารอให้คนทำ "สมบูรณ์แบบ" ถึงจะชม ชมทุกขั้นตอนของความก้าวหน้า นั่นคือเชื้อเพลิงของแรงจูงใจ
+    </div>
+    <div class="principle-tip">
+      <strong>หลักการฝึกสัตว์ → ฝึกคน:</strong> ให้รางวัลทันทีที่เห็นพฤติกรรมที่ต้องการ ไม่ใช่รอให้ครบถ้วนสมบูรณ์
+    </div>
+  </div>
+
+  <div class="principle-card c-teal">
+    <div class="principle-num">หลักการที่ 28</div>
+    <div class="principle-title">สร้างชื่อเสียงที่ดีให้กับคน ทำให้เขาอยากเป็นแบบนั้น</div>
+    <div class="principle-en">Give the other person a fine reputation to live up to.</div>
+    <div class="principle-body">
+      ถ้าคุณอยากปรับปรุงบางคน ปฏิบัติต่อเขาราวกับว่าเขาเป็นคนดีอยู่แล้วในด้านที่คุณต้องการ Pygmalion ในตำนานกรีกแกะสลักหญิงสาวจากหินอ่อนจนเธอมีชีวิตขึ้นมา เพราะความเชื่อและความรัก
+      <br><br>
+      Carnegie เล่าถึงคนงานที่ถูกเรียกว่า "คนทำงานหนักและซื่อสัตย์" โดยผู้จัดการคนใหม่ แม้ว่าคนอื่นๆ บอกว่าเขาขี้เกียจ — ชายคนนั้นเปลี่ยนพฤติกรรมทันทีเพื่อรักษาชื่อเสียงนั้น
+    </div>
+    <div class="principle-tip">
+      <strong>ลองพูดว่า:</strong> "ฉันรู้จักคุณในฐานะคนที่ตรงไปตรงมา ดังนั้นฉันจึงอยากให้คุณรับเรื่องนี้" — นั่นสร้างภาระผูกพันที่ดี
+    </div>
+  </div>
+
+  <div class="principle-card c-blue">
+    <div class="principle-num">หลักการที่ 29</div>
+    <div class="principle-title">ทำให้ความผิดพลาดดูแก้ไขได้ง่าย</div>
+    <div class="principle-en">Use encouragement. Make the fault seem easy to correct.</div>
+    <div class="principle-body">
+      ครูสอนเปียโนชื่อดัง Harvey Lovell บอกกับนักเรียนที่เล่นโน้ตผิดว่า "คุณมีจังหวะที่ดีมาก โน้ตตรงนี้แค่ฝึกซ้ำอีกหน่อยก็จะสมบูรณ์แบบแล้ว" — นักเรียนฝึกด้วยความกระตือรือร้นทันที
+      <br><br>
+      เมื่อคุณบอกว่าสิ่งที่ต้องแก้ไขนั้น "ยากมาก" หรือ "เป็นข้อบกพร่องใหญ่" คนมักจะท้อแท้และยอมแพ้ แต่เมื่อคุณบอกว่า "นิดเดียวเอง เดี๋ยวก็ได้เลย" — พวกเขาจะพยายาม
+    </div>
+    <div class="principle-tip">
+      <strong>เปลี่ยนคำพูด:</strong> "นี่มันยากมาก" → "ถ้าแค่ปรับตรงนี้นิดหน่อย มันจะดีขึ้นมากเลย"
+    </div>
+  </div>
+
+  <div class="principle-card c-red">
+    <div class="principle-num">หลักการที่ 30</div>
+    <div class="principle-title">ทำให้คนอยากทำในสิ่งที่คุณเสนอ</div>
+    <div class="principle-en">Make the other person happy about doing the thing you suggest.</div>
+    <div class="principle-body">
+      นี่คือหลักการสุดท้ายและเชื่อมโยงทุกอย่างเข้าด้วยกัน เมื่อ Napoleon สร้าง "Legion of Honor" เขาแจกเหรียญตราให้ทหาร 1,500 นาย เลื่อนตำแหน่งนายพล 18 คน และเรียกกองทัพของเขาว่า "กองทัพยิ่งใหญ่" บางคนวิจารณ์ว่าเป็นของเล่นสำหรับผู้ใหญ่ Napoleon ตอบว่า "มนุษย์ถูกปกครองด้วยของเล่น"
+      <br><br>
+      Carnegie สรุปด้วย 9 วิธีที่ทำให้คนอยากทำตามโดยไม่รู้สึกว่าถูกบังคับ ทั้งหมดอยู่ในหลักการ 30 ข้อที่ผ่านมา — แต่สิ่งสำคัญที่สุดคือ<strong>ความจริงใจ</strong>
+    </div>
+    <div class="principle-tip">
+      <strong>สรุปสูตรทอง:</strong> ทำให้เขารู้สึกว่าสิ่งที่คุณต้องการให้เขาทำนั้น จริงๆ แล้วเป็น<em>สิ่งที่เขาต้องการทำด้วยตัวเองอยู่แล้ว</em>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="do-dont">
+    <div class="do-col">
+      <div class="do-dont-head">✓ ผู้นำที่ดีทำ</div>
+      <ul>
+        <li>เริ่มด้วยการชื่นชมก่อนวิจารณ์</li>
+        <li>ถามแทนสั่ง</li>
+        <li>ยอมรับความผิดพลาดของตัวเองก่อน</li>
+        <li>ชมความก้าวหน้าทุกขั้น</li>
+        <li>ให้เกียรติและรักษาหน้าของคนอื่น</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="do-dont-head">✕ ผู้นำที่แย่ทำ</div>
+      <ul>
+        <li>วิจารณ์ตรงๆ ต่อหน้าคนอื่น</li>
+        <li>สั่งโดยไม่อธิบายเหตุผล</li>
+        <li>รอให้สมบูรณ์แบบก่อนจะชม</li>
+        <li>ทำให้คนอับอายต่อหน้าสาธารณะ</li>
+        <li>เครดิตผลงานทีมเป็นของตัวเอง</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ SUMMARY ══════════════════ -->
+<div class="chapter-open" style="background: #1C1408;">
+  <div class="ch-num" style="color: rgba(201,164,78,0.1);">∞</div>
+  <div class="ch-label" style="color: var(--gold);">บทสรุป / Epilogue</div>
+  <div class="ch-title" style="color: var(--gold-light);">
+    ตกผลึกสุดท้าย
+    <em style="color: rgba(201,164,78,0.4);">สิ่งที่ Carnegie ต้องการให้คุณจำ</em>
+  </div>
+</div>
+<div class="page">
+  <div class="blockquote-full">
+    <div class="bq-en">"You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you."</div>
+    <div class="bq-th">คุณสามารถสร้างมิตรภาพในสองเดือนด้วยการสนใจในคนอื่น มากกว่าที่คุณจะทำได้ในสองปีโดยพยายามให้คนอื่นสนใจคุณ</div>
+  </div>
+
+  <h2>30 หลักการ — สรุปในหนึ่งหน้า</h2>
+
+  <div class="signal-box warm">
+    <div class="signal-title">ภาค 1 — รากฐาน (หลักการ 1–3)</div>
+    <ul class="signal-list">
+      <li><strong>อย่าวิจารณ์ ตำหนิ หรือบ่น</strong> — มันไม่เคยได้ผลและสร้างแค่ความขุ่นเคือง</li>
+      <li><strong>ชื่นชมอย่างจริงใจ</strong> — หาสิ่งดีในทุกคนและพูดมันออกมา</li>
+      <li><strong>จุดไฟความต้องการ</strong> — ทำให้เขาอยากทำในสิ่งที่คุณต้องการ</li>
+    </ul>
+  </div>
+
+  <div class="signal-box note">
+    <div class="signal-title">ภาค 2 — ทำให้คนชอบคุณ (หลักการ 4–9)</div>
+    <ul class="signal-list">
+      <li><strong>สนใจคนอื่นจริงๆ</strong> · <strong>ยิ้ม</strong> · <strong>จำชื่อให้ได้</strong></li>
+      <li><strong>ฟังอย่างตั้งใจ</strong> · <strong>พูดถึงสิ่งที่เขาสนใจ</strong></li>
+      <li><strong>ทำให้เขารู้สึกสำคัญ</strong> — ด้วยความจริงใจเสมอ</li>
+    </ul>
+  </div>
+
+  <div class="signal-box insight">
+    <div class="signal-title">ภาค 3 — โน้มน้าวใจคน (หลักการ 10–21)</div>
+    <ul class="signal-list">
+      <li>อย่าโต้เถียง · อย่าบอกว่าเขาผิดตรงๆ · ยอมรับผิดเมื่อผิด</li>
+      <li>เริ่มด้วยความเป็นมิตร · ทำให้เขาพูดว่าใช่ · ให้เขาพูดมากกว่า</li>
+      <li>ให้เขารู้สึกว่าความคิดเป็นของเขา · เห็นอกเห็นใจ · อุทธรณ์ต่อความดี</li>
+      <li>ทำให้ความคิดน่าตื่นเต้น · ท้าทายด้วยการแข่งขัน</li>
+    </ul>
+  </div>
+
+  <div class="signal-box do">
+    <div class="signal-title">ภาค 4 — เปลี่ยนแปลงคนโดยไม่ทำให้เจ็บ (หลักการ 22–30)</div>
+    <ul class="signal-list">
+      <li>ชมก่อนวิจารณ์ · วิจารณ์โดยอ้อม · พูดถึงความผิดของตัวเองก่อน</li>
+      <li>ถามแทนสั่ง · ให้รักษาหน้า · ชมทุกความก้าวหน้า</li>
+      <li>สร้างชื่อเสียงดีให้เขา · ทำให้ดูแก้ไขง่าย · ทำให้เขาอยากทำเอง</li>
+    </ul>
+  </div>
+
+  <h2>สิ่งที่ Carnegie ต้องการให้คุณจำมากที่สุด</h2>
+
+  <div class="author-voice">
+    <div class="av-avatar">DC</div>
+    <div>
+      <div class="av-meta">Dale Carnegie — How to Win Friends & Influence People</div>
+      <p class="av-text">"The rare individual who unselfishly tries to serve others has an enormous advantage."
+        <span class="av-text-th">คนที่ไม่เห็นแก่ตัวและพยายามรับใช้ผู้อื่นอย่างแท้จริง มีข้อได้เปรียบอันมหาศาล — ทั้งในชีวิตส่วนตัวและธุรกิจ นั่นคือสาระสำคัญทั้งหมดของหนังสือเล่มนี้</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามเพื่อนำไปใช้ในชีวิตจริง</div>
+    <ol class="reflection-list">
+      <li>วันนี้ฉันวิจารณ์ใครไปบ้าง? และผลที่ได้คืออะไร?</li>
+      <li>ครั้งล่าสุดที่ฉันชื่นชมใครอย่างจริงใจคือเมื่อไหร่?</li>
+      <li>ในการสนทนาครั้งล่าสุด ฉันพูดหรือฟังมากกว่ากัน?</li>
+      <li>มีใครในชีวิตฉันที่ฉันยังไม่เคยบอกว่าเขาสำคัญแค่ไหนบ้าง?</li>
+      <li>ครั้งต่อไปที่ฉันต้องวิจารณ์ใคร ฉันจะเริ่มด้วยอะไรดี?</li>
+      <li>มีใครที่ฉันต้องการเปลี่ยนแปลงพฤติกรรม? ฉันจะใช้หลักการไหน?</li>
+    </ol>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตรสุดท้ายของ Carnegie</div>
+    <div class="formula-eq">
+      เข้าใจธรรมชาติมนุษย์ + ให้ความรู้สึกสำคัญ + ความจริงใจ<br>
+      = ชนะใจทุกคน
+    </div>
+    <div class="formula-note">ไม่มีกลเม็ด ไม่มีลูกเล่น มีแค่ความเข้าใจและความจริงใจ — นั่นคือสิ่งที่ Carnegie สอนมา 87 ปี</div>
+  </div>
+</div>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<div class="book-footer">
+  <div class="footer-title">How to Win Friends &amp; Influence People</div>
+  <div class="footer-sub">Dale Carnegie · 1936 · ฉบับสรุปสมบูรณ์ · ภาษาไทย</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
