@@ -243,6 +243,44 @@
       line-height: 1.35;
     }
 
+    .progress-card {
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px;
+      background: rgba(255, 252, 244, .58);
+    }
+
+    .progress-copy {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: var(--ink-soft);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .progress-copy span:last-child {
+      color: var(--sage-deep);
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(64, 90, 53, .13);
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--sage-deep), var(--gold));
+      transition: width .28s ease;
+    }
+
     .panel {
       position: sticky;
       top: 0;
@@ -317,6 +355,53 @@
       color: #fffaf0;
       border-color: var(--sage-deep);
       background: var(--sage-deep);
+    }
+
+    .sort-select {
+      width: 100%;
+      min-height: 44px;
+      margin-top: 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      padding: 10px 12px;
+      color: var(--sage-deep);
+      background: rgba(255, 252, 244, .86);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      outline: none;
+    }
+
+    .quick-section {
+      margin: 18px 0 10px;
+    }
+
+    .quick-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .quick-card {
+      display: grid;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
+      text-decoration: none;
+      background: rgba(255, 252, 244, .68);
+      box-shadow: 0 12px 34px rgba(50, 54, 36, .08);
+    }
+
+    .quick-card strong {
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .quick-card span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
     }
 
     .section-head {
@@ -487,6 +572,34 @@
       font-size: 12px;
     }
 
+    .favorite-toggle {
+      position: relative;
+      z-index: 4;
+      width: 36px;
+      height: 36px;
+      flex: none;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--clay);
+      background: rgba(255, 252, 244, .78);
+      font: inherit;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .favorite-toggle[aria-pressed="true"] {
+      color: #fffaf0;
+      border-color: var(--clay);
+      background: var(--clay);
+    }
+
+    .card-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .book-title {
       margin: 2px 0 0;
       font-size: clamp(20px, 5.5vw, 30px);
@@ -558,12 +671,16 @@
       .stat strong { font-size: 30px; }
       .panel {
         display: grid;
-        grid-template-columns: minmax(300px, 1fr) auto;
+        grid-template-columns: minmax(300px, 1fr) auto 190px;
         align-items: center;
         gap: 12px;
         margin-top: 20px;
       }
       .filters { padding: 0; }
+      .sort-select { margin-top: 0; }
+      .quick-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
       .library {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 18px;
@@ -636,6 +753,15 @@
             <span>อัปเดตล่าสุด</span>
           </div>
         </div>
+        <div class="progress-card" aria-label="Reading progress">
+          <div class="progress-copy">
+            <span id="progressLabel">อ่านแล้ว 0 / 0</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
       </section>
     </div>
   </header>
@@ -652,13 +778,31 @@
         <button class="filter" type="button" data-filter="investment">Investment</button>
         <button class="filter" type="button" data-filter="self-growth">Self-growth</button>
         <button class="filter" type="button" data-filter="playbook">Playbook</button>
+        <button class="filter" type="button" data-filter="favorite">บันทึกไว้</button>
       </div>
+      <select class="sort-select" id="sortSelect" aria-label="เรียงเอกสาร">
+        <option value="newest">ใหม่สุดก่อน</option>
+        <option value="oldest">เก่าสุดก่อน</option>
+        <option value="title">ชื่อ A-Z</option>
+        <option value="unread">ยังไม่อ่านก่อน</option>
+        <option value="favorite">บันทึกไว้ก่อน</option>
+      </select>
+    </section>
+
+    <section class="quick-section" id="quickSection" aria-label="Quick access">
+      <div class="section-head">
+        <div>
+          <h2>หยิบอ่านต่อ</h2>
+          <p>เอกสารล่าสุดและรายการที่คุณเพิ่งเปิดอ่าน</p>
+        </div>
+      </div>
+      <div class="quick-grid" id="quickGrid"></div>
     </section>
 
     <div class="section-head">
       <div>
         <h2>เอกสารล่าสุด</h2>
-        <p>เรียงจากใหม่ไปเก่า กดเครื่องหมายอ่านแล้วเพื่อเก็บ progress ส่วนตัว</p>
+        <p>ค้นหา กรอง และเลือกเรียงเอกสารได้ กดอ่านแล้วเพื่อเก็บ progress ส่วนตัว</p>
       </div>
       <div class="count" id="resultCount">0 รายการ</div>
     </div>
@@ -677,6 +821,8 @@
     const apiBase = `https://api.github.com/repos/${owner}/${repo}`;
     const contentsUrl = `${apiBase}/contents/`;
     const STORAGE_KEY = "bothbook.read.v2";
+    const FAVORITE_KEY = "bothbook.favorite.v1";
+    const LAST_OPENED_KEY = "bothbook.lastOpened.v1";
 
     const booksEl = document.getElementById("books");
     const searchEl = document.getElementById("search");
@@ -685,16 +831,27 @@
     const totalStatEl = document.getElementById("totalStat");
     const readStatEl = document.getElementById("readStat");
     const latestStatEl = document.getElementById("latestStat");
+    const progressLabelEl = document.getElementById("progressLabel");
+    const progressPercentEl = document.getElementById("progressPercent");
+    const progressBarEl = document.getElementById("progressBar");
+    const quickGridEl = document.getElementById("quickGrid");
+    const sortSelectEl = document.getElementById("sortSelect");
     const continueBtn = document.getElementById("continueBtn");
     const filters = [...document.querySelectorAll(".filter")];
 
     let documents = [];
     let activeFilter = "all";
     let readSet = loadReadState();
+    let favoriteSet = loadSet(FAVORITE_KEY);
+    let lastOpened = loadLastOpened();
 
     function loadReadState() {
+      return loadSet(STORAGE_KEY);
+    }
+
+    function loadSet(key) {
       try {
-        return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"));
+        return new Set(JSON.parse(localStorage.getItem(key) || "[]"));
       } catch (error) {
         return new Set();
       }
@@ -702,6 +859,27 @@
 
     function saveReadState() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...readSet]));
+    }
+
+    function saveFavoriteState() {
+      localStorage.setItem(FAVORITE_KEY, JSON.stringify([...favoriteSet]));
+    }
+
+    function loadLastOpened() {
+      try {
+        return JSON.parse(localStorage.getItem(LAST_OPENED_KEY) || "null");
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveLastOpened(doc) {
+      lastOpened = {
+        name: doc.name,
+        title: doc.title,
+        date: new Date().toISOString()
+      };
+      localStorage.setItem(LAST_OPENED_KEY, JSON.stringify(lastOpened));
     }
 
     function escapeHtml(value) {
@@ -757,25 +935,98 @@
     function matchesFilter(doc) {
       if (activeFilter === "read") return readSet.has(doc.name);
       if (activeFilter === "unread") return !readSet.has(doc.name);
+      if (activeFilter === "favorite") return favoriteSet.has(doc.name);
       if (activeFilter === "all") return true;
       return doc.category === activeFilter;
     }
 
     function getVisibleDocs() {
       const keyword = searchEl.value.trim().toLowerCase();
-      return documents.filter(doc => {
+      return sortDocs(documents.filter(doc => {
         const text = `${doc.title} ${doc.name} ${doc.label} ${doc.description}`.toLowerCase();
         return matchesFilter(doc) && (!keyword || text.includes(keyword));
-      });
+      }));
+    }
+
+    function sortDocs(items) {
+      const sorted = [...items];
+      const mode = sortSelectEl.value;
+
+      if (mode === "oldest") {
+        return sorted.sort((a, b) => (a.date || "").localeCompare(b.date || "") || a.title.localeCompare(b.title, "th"));
+      }
+      if (mode === "title") {
+        return sorted.sort((a, b) => a.title.localeCompare(b.title, "th"));
+      }
+      if (mode === "unread") {
+        return sorted.sort((a, b) =>
+          Number(readSet.has(a.name)) - Number(readSet.has(b.name)) ||
+          (b.date || "").localeCompare(a.date || "") ||
+          a.title.localeCompare(b.title, "th")
+        );
+      }
+      if (mode === "favorite") {
+        return sorted.sort((a, b) =>
+          Number(favoriteSet.has(b.name)) - Number(favoriteSet.has(a.name)) ||
+          (b.date || "").localeCompare(a.date || "") ||
+          a.title.localeCompare(b.title, "th")
+        );
+      }
+
+      return sorted.sort((a, b) => (b.date || "").localeCompare(a.date || "") || a.title.localeCompare(b.title, "th"));
     }
 
     function updateStats() {
+      const readCount = [...readSet].filter(name => documents.some(doc => doc.name === name)).length;
+      const percent = documents.length ? Math.round((readCount / documents.length) * 100) : 0;
+
       totalStatEl.textContent = documents.length;
-      readStatEl.textContent = [...readSet].filter(name => documents.some(doc => doc.name === name)).length;
+      readStatEl.textContent = readCount;
       latestStatEl.textContent = latestDate() ? formatDate(latestDate()).replace("พ.ศ. ", "") : "-";
+      progressLabelEl.textContent = `อ่านแล้ว ${readCount} / ${documents.length}`;
+      progressPercentEl.textContent = `${percent}%`;
+      progressBarEl.style.width = `${percent}%`;
+    }
+
+    function renderQuickAccess() {
+      const cards = [];
+      const lastDoc = lastOpened ? documents.find(doc => doc.name === lastOpened.name) : null;
+      const latestUnread = documents.find(doc => !readSet.has(doc.name));
+
+      if (lastDoc) {
+        cards.push({
+          href: lastDoc.name,
+          eyebrow: "อ่านล่าสุด",
+          title: lastDoc.title
+        });
+      }
+      if (latestUnread && latestUnread.name !== lastDoc?.name) {
+        cards.push({
+          href: latestUnread.name,
+          eyebrow: "ยังไม่ได้อ่าน",
+          title: latestUnread.title
+        });
+      }
+
+      documents
+        .filter(doc => isNew(doc.date) && !cards.some(card => card.href === doc.name))
+        .slice(0, 3 - cards.length)
+        .forEach(doc => cards.push({
+          href: doc.name,
+          eyebrow: "เพิ่มล่าสุด",
+          title: doc.title
+        }));
+
+      quickGridEl.innerHTML = cards.map(card => `
+        <a class="quick-card" href="./${encodeURI(card.href)}" data-open="${escapeHtml(card.href)}">
+          <span>${escapeHtml(card.eyebrow)}</span>
+          <strong>${escapeHtml(card.title)}</strong>
+        </a>
+      `).join("");
     }
 
     function renderLoading() {
+      quickGridEl.innerHTML = "";
       booksEl.innerHTML = `
         <article class="book-card">
           <div class="book-meta">
@@ -792,6 +1043,7 @@
 
     function renderError(message) {
       booksEl.innerHTML = "";
+      quickGridEl.innerHTML = "";
       emptyStateEl.style.display = "block";
       emptyStateEl.textContent = message;
       resultCountEl.textContent = "0 รายการ";
@@ -802,6 +1054,7 @@
       const visibleDocs = getVisibleDocs();
       booksEl.innerHTML = visibleDocs.map((doc, index) => {
         const read = readSet.has(doc.name);
+        const favorite = favoriteSet.has(doc.name);
         return `
           <article class="book-card ${read ? "read" : ""}" style="--i:${index}" data-name="${escapeHtml(doc.name)}">
             <div class="book-top">
@@ -811,12 +1064,15 @@
                 <span class="pill">${readingMinutes(doc.size)} นาที</span>
                 ${isNew(doc.date) ? '<span class="pill new">ล่าสุด</span>' : ''}
               </div>
-              <button class="read-toggle" type="button" aria-pressed="${read}" data-read="${escapeHtml(doc.name)}" aria-label="${read ? "ยกเลิกอ่านแล้ว" : "ทำเครื่องหมายว่าอ่านแล้ว"}">
-                <span class="box" aria-hidden="true"></span>
-                <span>${read ? "อ่านแล้ว" : "ยังไม่อ่าน"}</span>
-              </button>
+              <div class="card-actions">
+                <button class="favorite-toggle" type="button" aria-pressed="${favorite}" data-favorite="${escapeHtml(doc.name)}" aria-label="${favorite ? "ยกเลิกบันทึกไว้" : "บันทึกไว้อ่านซ้ำ"}">${favorite ? "★" : "☆"}</button>
+                <button class="read-toggle" type="button" aria-pressed="${read}" data-read="${escapeHtml(doc.name)}" aria-label="${read ? "ยกเลิกอ่านแล้ว" : "ทำเครื่องหมายว่าอ่านแล้ว"}">
+                  <span class="box" aria-hidden="true"></span>
+                  <span>${read ? "อ่านแล้ว" : "ยังไม่อ่าน"}</span>
+                </button>
+              </div>
             </div>
-            <a class="book-link" href="./${encodeURI(doc.name)}">
+            <a class="book-link" href="./${encodeURI(doc.name)}" data-open="${escapeHtml(doc.name)}">
               <h3 class="book-title">${escapeHtml(doc.title)}</h3>
               <p class="book-desc">${escapeHtml(doc.description)}</p>
               <div class="book-footer">
@@ -832,6 +1088,7 @@
       emptyStateEl.style.display = visibleDocs.length ? "none" : "block";
       emptyStateEl.textContent = "ไม่พบเอกสารที่ตรงกับเงื่อนไข ลองค้นหาด้วยคำอื่นหรือเปลี่ยนตัวกรอง";
       updateStats();
+      renderQuickAccess();
     }
 
     async function fetchJson(url) {
@@ -908,23 +1165,51 @@
     }
 
     booksEl.addEventListener("click", event => {
-      const button = event.target.closest("[data-read]");
+      const readButton = event.target.closest("[data-read]");
+      const favoriteButton = event.target.closest("[data-favorite]");
+      const openLink = event.target.closest("[data-open]");
+
+      if (openLink) {
+        const doc = documents.find(item => item.name === openLink.dataset.open);
+        if (doc) saveLastOpened(doc);
+        return;
+      }
+
+      const button = readButton || favoriteButton;
       if (!button) return;
 
       event.preventDefault();
       event.stopPropagation();
 
-      const name = button.dataset.read;
-      if (readSet.has(name)) {
-        readSet.delete(name);
+      if (readButton) {
+        const name = readButton.dataset.read;
+        if (readSet.has(name)) {
+          readSet.delete(name);
+        } else {
+          readSet.add(name);
+        }
+        saveReadState();
       } else {
-        readSet.add(name);
+        const name = favoriteButton.dataset.favorite;
+        if (favoriteSet.has(name)) {
+          favoriteSet.delete(name);
+        } else {
+          favoriteSet.add(name);
+        }
+        saveFavoriteState();
       }
-      saveReadState();
       render();
     });
 
+    quickGridEl.addEventListener("click", event => {
+      const openLink = event.target.closest("[data-open]");
+      if (!openLink) return;
+      const doc = documents.find(item => item.name === openLink.dataset.open);
+      if (doc) saveLastOpened(doc);
+    });
+
     searchEl.addEventListener("input", render);
+    sortSelectEl.addEventListener("change", render);
 
     filters.forEach(button => {
       button.addEventListener("click", () => {
