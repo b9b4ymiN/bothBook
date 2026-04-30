@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margin of Safety — Seth Klarman</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   COLOR SYSTEM — Ink on Paper only
+   ไม่มีทอง, เขียว, น้ำเงิน, ม่วง, แดง
+   ═══════════════════════════════════════════ */
+:root {
+  /* Paper */
+  --paper:         #F8F4EC;
+  --paper-mid:     #EFE8D8;
+  --paper-deep:    #E5DAC5;
+  --paper-shadow:  #D6C9B0;
+
+  /* Ink */
+  --ink:           #181008;
+  --ink-soft:      #2E2412;
+  --ink-mid:       #503E22;
+  --ink-muted:     #7A6448;
+  --ink-faint:     #A8906C;
+
+  /* Charcoal accent — ไม่ใช่ทอง ไม่ใช่สีใดที่ห้าม */
+  --char:          #241C0C;
+  --char-soft:     #3C3018;
+  --char-rule:     rgba(36, 28, 12, 0.16);
+
+  /* Positive / Negative — ใช้ contrast เข้ม/อ่อน ไม่ใช้สี */
+  --pos-bg:        #F2EEE4;
+  --pos-border:    #2E2412;
+  --neg-bg:        #E8E0CC;
+  --neg-border:    #181008;
+
+  /* Layout */
+  --book-width: 740px;
+  --ph: 72px;
+  --pv: 80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #120E06;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 8px 60px rgba(0,0,0,0.5);
+}
+
+/* ─── COVER ─── */
+.cover {
+  background: #0E0A04;
+  min-height: 100vh;
+  padding: 64px var(--ph) 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.015) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.015) 60px);
+  pointer-events: none;
+}
+.cover-frame {
+  position: absolute;
+  inset: 22px;
+  border: 1px solid rgba(255,255,255,0.07);
+  pointer-events: none;
+}
+.cover-frame::before {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 22px; height: 22px;
+  border-top: 2px solid rgba(255,255,255,0.2);
+  border-left: 2px solid rgba(255,255,255,0.2);
+}
+.cover-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; right: -1px;
+  width: 22px; height: 22px;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
+  border-right: 2px solid rgba(255,255,255,0.2);
+}
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 48px;
+}
+.cover-by {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 14px;
+}
+.cover-title-en {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(46px, 9vw, 82px);
+  font-weight: 700;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 6px;
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(14px, 2.5vw, 19px);
+  font-weight: 300;
+  color: rgba(255,255,255,0.28);
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+.cover-rule {
+  width: 40px; height: 1px;
+  background: rgba(255,255,255,0.25);
+  margin-bottom: 32px;
+}
+.cover-sub {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.38);
+  line-height: 1.9;
+  max-width: 360px;
+  margin-bottom: 56px;
+}
+.cover-tags {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 72px;
+}
+.cover-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.22);
+  padding: 5px 12px;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.12);
+  margin-top: auto;
+}
+
+/* ─── CHAPTER OPEN ─── */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 72px var(--ph) 60px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 36px; height: 2px;
+  background: var(--char);
+  margin-top: 28px;
+}
+.ch-num {
+  font-family: 'Noto Serif', serif;
+  font-size: 90px; font-weight: 700;
+  color: var(--paper-shadow);
+  position: absolute;
+  top: 38px; right: var(--ph);
+  line-height: 1;
+  user-select: none;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 20px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(21px, 3.5vw, 30px);
+  font-weight: 600; color: var(--ink);
+  line-height: 1.35;
+}
+.ch-title em {
+  display: block;
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: 0.6em;
+  color: var(--ink-muted);
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+/* ─── PAGE ─── */
+.page {
+  padding: var(--pv) var(--ph);
+  border-bottom: 1px solid var(--paper-deep);
+}
+
+/* ─── TYPOGRAPHY ─── */
+h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(22px, 3.5vw, 32px);
+  font-weight: 600; color: var(--ink);
+  line-height: 1.3; margin-bottom: 22px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(16px, 2.2vw, 20px);
+  font-weight: 600; color: var(--ink-soft);
+  line-height: 1.4;
+  margin: 52px 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--char-rule);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 28px; height: 2px;
+  background: var(--char-soft);
+}
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--ink-mid);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin: 36px 0 12px;
+}
+p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px; font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.95; margin-bottom: 20px;
+}
+strong { font-weight: 700; color: var(--ink); }
+em { font-style: italic; }
+
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 14px;
+}
+
+/* ─── INTRO BLOCK ─── */
+.intro-block {
+  background: var(--paper-mid);
+  border-left: 3px solid var(--char);
+  padding: 26px 30px;
+  margin-bottom: 40px;
+}
+.intro-block p {
+  font-size: 16px; color: var(--ink-soft);
+  margin: 0; line-height: 1.88;
+}
+
+/* ─── PULL QUOTE ─── */
+.pullquote {
+  margin: 52px 0;
+  padding: 0 0 0 26px;
+  border-left: 3px solid var(--char-soft);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 18px; font-style: italic;
+  color: var(--ink); line-height: 1.65;
+  margin-bottom: 10px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 1px;
+}
+.pullquote-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; font-style: normal;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+/* ─── BLOCKQUOTE FULL ─── */
+.bq-full {
+  background: var(--ink);
+  padding: 44px 52px;
+  margin: 52px 0;
+  text-align: center;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.4vw, 19px);
+  color: rgba(248,244,236,0.78);
+  line-height: 1.65; margin-bottom: 14px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: rgba(248,244,236,0.32);
+  line-height: 1.7;
+}
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  border: 1px solid var(--paper-shadow);
+  background: var(--paper-shadow);
+  gap: 1px; margin: 40px 0;
+}
+.stat-item {
+  background: var(--paper);
+  padding: 28px 18px; text-align: center;
+}
+.stat-value {
+  font-family: 'Noto Serif', serif;
+  font-size: 34px; font-weight: 700;
+  color: var(--ink); line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ─── COMPARISON TABLE ─── */
+.cmp-wrap {
+  overflow-x: auto; margin: 36px 0;
+  border: 1px solid var(--paper-shadow);
+}
+.cmp-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Sarabun', sans-serif; font-size: 13px;
+}
+.cmp-table thead tr { background: var(--ink-soft); }
+.cmp-table th {
+  padding: 14px 18px; text-align: left;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(248,244,236,0.7);
+  font-weight: 500;
+}
+.cmp-table td {
+  padding: 14px 18px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  border-bottom: 1px solid var(--paper-deep);
+  vertical-align: top;
+}
+.cmp-table tbody tr:last-child td { border-bottom: none; }
+.cmp-table .col-label {
+  font-weight: 600; color: var(--ink);
+  white-space: nowrap;
+  background: var(--paper-mid);
+}
+.cmp-table .neg { font-style: italic; color: var(--ink-mid); }
+.cmp-table .pos { font-weight: 600; color: var(--ink); }
+.cmp-table tbody tr:nth-child(even) td:not(.col-label) { background: var(--paper-mid); }
+
+/* ─── TWO COL GRID ─── */
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.grid-card {
+  background: var(--paper);
+  padding: 24px 26px;
+}
+.grid-card-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 12px;
+}
+.grid-card p { font-size: 14px; line-height: 1.75; margin: 0; }
+
+/* ─── SIGNAL BOXES — ใช้ contrast ไม่ใช้สี ─── */
+.signal-box {
+  padding: 22px 28px;
+  margin: 14px 0;
+}
+.signal-box.good {
+  background: var(--pos-bg);
+  border-left: 3px solid var(--pos-border);
+}
+.signal-box.bad {
+  background: var(--neg-bg);
+  border-left: 3px solid var(--neg-border);
+  border-left-style: dashed;
+}
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--ink-mid); margin-bottom: 14px;
+}
+.signal-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.signal-list li {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13.5px; color: var(--ink-soft);
+  line-height: 1.55;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.signal-box.good .signal-list li::before { content: '◆'; font-size: 8px; color: var(--ink-mid); flex-shrink:0; margin-top:4px; }
+.signal-box.bad  .signal-list li::before { content: '◇'; font-size: 8px; color: var(--ink-muted); flex-shrink:0; margin-top:4px; }
+
+/* ─── CHECKLIST ─── */
+.checklist {
+  border: 1px solid var(--paper-shadow);
+  margin: 40px 0; overflow: hidden;
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 22px 28px;
+}
+.checklist-cap h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(248,244,236,0.7);
+  margin: 0 0 6px;
+}
+.checklist-cap p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; color: rgba(248,244,236,0.3);
+  margin: 0; line-height: 1.5;
+}
+.cl-group { padding: 0 28px; }
+.cl-group-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink-mid);
+  background: var(--paper-mid);
+  margin: 0 -28px; padding: 10px 28px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items { list-style: none; }
+.cl-items li {
+  display: flex; gap: 16px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--paper-deep);
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--paper-shadow);
+  flex-shrink: 0; margin-top: 2px;
+}
+.cl-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.55;
+}
+.cl-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; font-style: italic;
+  color: var(--ink-faint); margin-top: 5px;
+}
+
+/* ─── FORMULA BLOCK ─── */
+.formula-block {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-top: 2px solid var(--char);
+  padding: 28px 32px;
+  margin: 32px 0; text-align: center;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 16px;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: 20px; color: var(--ink);
+  font-weight: 600; margin-bottom: 14px;
+  line-height: 1.5;
+}
+.formula-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; color: var(--ink-muted);
+  line-height: 1.7;
+}
+
+/* ─── EXAMPLE BOX ─── */
+.example-box {
+  background: var(--paper-deep);
+  border: 1px solid var(--paper-shadow);
+  padding: 26px 30px;
+  margin: 28px 0;
+}
+.example-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 14px;
+}
+.example-box p { font-size: 14.5px; margin-bottom: 10px; line-height: 1.75; }
+.example-box p:last-child { margin-bottom: 0; }
+
+/* ─── NOTE BOX — คำอธิบายศัพท์ ─── */
+.note-box {
+  background: var(--paper-mid);
+  border-left: 2px solid var(--ink-muted);
+  padding: 20px 26px;
+  margin: 24px 0;
+}
+.note-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 10px;
+}
+.note-box p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13.5px; color: var(--ink-mid);
+  line-height: 1.7; margin: 0;
+}
+
+/* ─── REFLECTION ─── */
+.reflection {
+  background: var(--paper-mid);
+  border-top: 2px solid var(--char);
+  padding: 32px;
+  margin: 48px 0 0;
+  counter-reset: rfl;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 22px;
+}
+.reflection-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+.reflection-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; color: var(--ink-soft);
+  line-height: 1.75;
+  display: flex; gap: 18px;
+  counter-increment: rfl;
+}
+.reflection-list li::before {
+  content: counter(rfl);
+  font-family: 'Noto Serif', serif;
+  font-size: 22px; font-weight: 700;
+  color: rgba(36,28,12,0.18);
+  flex-shrink: 0; line-height: 1; margin-top: 3px;
+}
+
+/* ─── AUTHOR VOICE ─── */
+.author-voice {
+  display: flex; gap: 18px;
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 22px; margin: 32px 0;
+  align-items: flex-start;
+}
+.av-avatar {
+  width: 42px; height: 42px;
+  background: var(--ink-soft);
+  color: rgba(248,244,236,0.7);
+  font-family: 'Noto Serif', serif;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.av-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 8px;
+}
+.av-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; color: var(--ink-soft);
+  line-height: 1.8; margin: 0; font-style: italic;
+}
+.av-th {
+  display: block; font-size: 13px;
+  color: var(--ink-faint); margin-top: 6px; font-style: normal;
+}
+
+/* ─── ORNAMENT ─── */
+hr.orn {
+  border: none; text-align: center; margin: 52px 0;
+}
+hr.orn::before {
+  content: '· · ·';
+  color: var(--char-rule);
+  letter-spacing: 12px; font-size: 14px;
+}
+
+/* ─── TOC ─── */
+.toc-list { list-style: none; margin-top: 24px; }
+.toc-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--paper-deep);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; color: var(--ink-soft); gap: 16px;
+}
+.toc-list li:last-child { border-bottom: none; }
+.toc-ch { font-size: 9px; color: var(--ink-muted); letter-spacing: 2px; flex-shrink: 0; }
+
+/* ─── FOOTER ─── */
+.book-footer {
+  background: #0E0A04;
+  padding: 48px var(--ph);
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-title {
+  font-family: 'Noto Serif', serif;
+  font-style: italic; font-size: 18px;
+  color: rgba(255,255,255,0.22); margin-bottom: 10px;
+}
+.footer-sub {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.1);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 780px) {
+  :root { --ph: 22px; --pv: 48px; }
+  .two-col { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .ch-num { display: none; }
+  .cmp-wrap { overflow-x: auto; }
+  .bq-full { padding: 32px 22px; }
+  .author-voice { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ══════════════════════════════════════
+     COVER
+══════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">Investment Philosophy Series · ปรัชญาการลงทุน</div>
+  <div class="cover-by">ปรัชญาของ / The Philosophy of Seth A. Klarman</div>
+  <div class="cover-title-en">Margin<br>of Safety</div>
+  <div class="cover-title-th">ระยะห่างแห่งความปลอดภัย</div>
+  <div class="cover-rule"></div>
+  <div class="cover-sub">
+    บทสรุปและแก่นแท้ของปรัชญาการลงทุน ที่เขียนขึ้นเพื่อให้ทุกคนคิดและลงทุนแบบ Seth Klarman — ผู้บริหาร Baupost Group กองทุน Value Investing ที่มีผลตอบแทนยอดเยี่ยมต่อเนื่องยาวนานกว่า 30 ปี
+  </div>
+  <div class="cover-tags">
+    <div class="cover-tag">Value Investing</div>
+    <div class="cover-tag">Risk First</div>
+    <div class="cover-tag">Capital Preservation</div>
+    <div class="cover-tag">Deep Analysis</div>
+    <div class="cover-tag">Contrarian Thinking</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ ภาษาไทย · Baupost Group · 1991</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     สารบัญ
+══════════════════════════════════════ -->
+<div class="page">
+  <div class="eyebrow">สารบัญ / Table of Contents</div>
+  <h1>เอกสารนี้สอนอะไร และอ่านอย่างไรให้ได้ประโยชน์สูงสุด</h1>
+
+  <p>เอกสารนี้ไม่ใช่สรุปหนังสือทั่วไป แต่เป็นการ <strong>ตกผลึกปรัชญาทั้งหมด</strong> ของ Seth Klarman ออกมาเป็นระบบความคิดที่ผู้อ่านสามารถนำไปใช้ได้จริง ทุกบทจะอธิบายทั้ง "ทำไม" และ "ทำอย่างไร" พร้อมตัวอย่างที่จับต้องได้ และคำอธิบายศัพท์เทคนิคทุกคำที่อาจทำให้สับสน</p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">7</div>
+      <div class="stat-label">บทหลัก ครอบคลุมปรัชญาทั้งหมด</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">30+</div>
+      <div class="stat-label">ปีที่ Baupost เอาชนะตลาด</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">1991</div>
+      <div class="stat-label">ปีตีพิมพ์ ปัจจุบัน ราคา $4,000+</div>
+    </div>
+  </div>
+
+  <ul class="toc-list">
+    <li><span>บทที่ 01 — พื้นฐานความคิด: เราคือใคร และตลาดคืออะไร</span><span class="toc-ch">Ch. 01</span></li>
+    <li><span>บทที่ 02 — Wall Street: ระบบที่สร้างมาเพื่อตัวเอง</span><span class="toc-ch">Ch. 02</span></li>
+    <li><span>บทที่ 03 — มูลค่าที่แท้จริง คืออะไร และวิธีหา</span><span class="toc-ch">Ch. 03</span></li>
+    <li><span>บทที่ 04 — Margin of Safety แก่นแท้ทุกอย่างอยู่ที่นี่</span><span class="toc-ch">Ch. 04</span></li>
+    <li><span>บทที่ 05 — ความเสี่ยงคืออะไร และบริหารอย่างไรแบบ Klarman</span><span class="toc-ch">Ch. 05</span></li>
+    <li><span>บทที่ 06 — กระบวนการค้นหาและวิเคราะห์ โอกาสอยู่ตรงไหน</span><span class="toc-ch">Ch. 06</span></li>
+    <li><span>บทที่ 07 — การประยุกต์ใช้จริง ตั้งแต่วันแรก</span><span class="toc-ch">Ch. 07</span></li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 1
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง / Chapter One</div>
+  <div class="ch-title">
+    พื้นฐานความคิด
+    <em>นักลงทุน vs นักเก็งกำไร — และทำไมตลาดถึงมักคิดผิด</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>ก่อนจะพูดถึงสูตรหรือวิธีการใดๆ Klarman เริ่มจากคำถามพื้นฐานที่สุด: <strong>"คุณรู้จริงๆ ไหมว่าตัวเองกำลังทำอะไรอยู่?"</strong> เพราะความเข้าใจผิดในจุดนี้คือสาเหตุของความล้มเหลวส่วนใหญ่ ไม่ใช่การขาดข้อมูลหรือเทคนิค</p>
+  </div>
+
+  <h2>ความแตกต่างที่เปลี่ยนทุกอย่าง: นักลงทุน กับ นักเก็งกำไร</h2>
+  <p>คนส่วนใหญ่เรียกตัวเองว่า "นักลงทุน" แต่ถ้าดูจากพฤติกรรม หลายคนคือ <strong>นักเก็งกำไร (Speculator)</strong> โดยไม่รู้ตัว สองคำนี้ต่างกันอย่างสิ้นเชิงในแง่วิธีคิด ไม่ใช่แค่ระยะเวลา</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 นิยาม</div>
+    <p><strong>นักลงทุน (Investor)</strong> คือคนที่ซื้อส่วนหนึ่งของธุรกิจ เพราะเชื่อว่ามูลค่าที่ได้รับมากกว่าราคาที่จ่าย และพร้อมรอให้ตลาดรับรู้มูลค่านั้น<br><br>
+    <strong>นักเก็งกำไร (Speculator)</strong> คือคนที่ซื้อสินทรัพย์ เพราะคาดว่าจะขายต่อในราคาสูงกว่าให้คนอื่น โดยไม่จำเป็นต้องวิเคราะห์ว่าธุรกิจมีมูลค่าเท่าไหร่</p>
+  </div>
+
+  <div class="cmp-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>มิติ</th>
+          <th>นักเก็งกำไร</th>
+          <th>นักลงทุนแบบ Klarman</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-label">แรงจูงใจซื้อ</td>
+          <td class="neg">ราคากำลังขึ้น / คนอื่นซื้อด้วย</td>
+          <td class="pos">มูลค่าธุรกิจสูงกว่าราคาที่จ่าย</td>
+        </tr>
+        <tr>
+          <td class="col-label">คำถามหลัก</td>
+          <td class="neg">"ราคาจะขึ้นไหม?"</td>
+          <td class="pos">"ธุรกิจนี้มีมูลค่าเท่าไหร่?"</td>
+        </tr>
+        <tr>
+          <td class="col-label">ขอบเขตเวลา</td>
+          <td class="neg">วัน / สัปดาห์ / เดือน</td>
+          <td class="pos">3–7 ปี หรือนานกว่านั้น</td>
+        </tr>
+        <tr>
+          <td class="col-label">มุมมองต่อราคาลง</td>
+          <td class="neg">ตื่นตระหนก รีบขาย</td>
+          <td class="pos">ประเมินใหม่ อาจซื้อเพิ่ม</td>
+        </tr>
+        <tr>
+          <td class="col-label">ความสำเร็จวัดจาก</td>
+          <td class="neg">ราคาหุ้นที่เปลี่ยนในระยะสั้น</td>
+          <td class="pos">มูลค่าธุรกิจที่สร้างขึ้นจริง</td>
+        </tr>
+        <tr>
+          <td class="col-label">กลัวที่สุด</td>
+          <td class="neg">พลาดโอกาสที่ราคาขึ้น</td>
+          <td class="pos">สูญเสียเงินต้นถาวร</td>
+        </tr>
+        <tr>
+          <td class="col-label">แหล่งข้อมูลหลัก</td>
+          <td class="neg">ข่าว, กราฟ, เพื่อนบอกต่อ</td>
+          <td class="pos">งบการเงิน, รายงานประจำปี, การวิเคราะห์ธุรกิจ</td>
+        </tr>
+        <tr>
+          <td class="col-label">ความอดทน</td>
+          <td class="neg">ต่ำ — ต้องเห็นผลเร็ว</td>
+          <td class="pos">สูงมาก — รอได้นาน</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Mr. Market — ตลาดในฐานะ "คนบ้าที่มีข้อเสนอ"</h2>
+  <p>Benjamin Graham ครูของ Warren Buffett และ Seth Klarman เปรียบตลาดหุ้นเป็น "Mr. Market" — เพื่อนบ้านที่ทุกวันเดินมาเสนอราคาซื้อขายหุ้นให้เรา บางวัน Mr. Market มาในอารมณ์ดี เสนอราคาสูงมากเพราะตื่นเต้นกับอนาคต บางวัน Mr. Market กลัวทุกอย่าง เสนอราคาต่ำแบบสิ้นหวัง</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 เข้าใจ Mr. Market</div>
+    <p>สิ่งที่สำคัญคือ <strong>เราไม่ต้องตอบรับทุกข้อเสนอของ Mr. Market</strong> เราสามารถเพิกเฉยได้เสมอ Mr. Market จะกลับมาพรุ่งนี้พร้อมราคาใหม่ บทบาทของนักลงทุนที่ดีคือ ซื้อเมื่อ Mr. Market เสนอราคาต่ำเกินจริง (เพราะกลัว) และขายหรือรอเมื่อเขาเสนอราคาสูงเกินจริง (เพราะโลภ)</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">ตัวอย่างที่จับต้องได้</div>
+    <p>ช่วง COVID-19 ต้นปี 2020 Mr. Market ตื่นตระหนกและเสนอซื้อหุ้นบริษัทดีๆ หลายแห่งในราคาที่ลดลง 40–60% ภายในเวลาสั้นๆ — ธุรกิจที่ยังมีรายได้ ยังแข็งแกร่ง แต่ราคาสะท้อนความกลัว ไม่ใช่ความเป็นจริง</p>
+    <p>นักเก็งกำไร: ตื่นตระหนกตามและขายออก<br>
+    นักลงทุนแบบ Klarman: ยิ้มและซื้อเพิ่ม เพราะ Mr. Market เสนอราคาต่ำกว่ามูลค่าจริงมาก</p>
+    <p>ผลลัพธ์: ภายใน 12 เดือน ตลาดฟื้นตัวและหุ้นที่ซื้อในช่วง panic กลับมาสูงกว่าเดิม</p>
+  </div>
+
+  <h2>ทำไมตลาดถึงมักคิดผิดในระยะสั้น?</h2>
+  <p>Klarman อธิบายว่าตลาดในระยะสั้นคือ <strong>"เครื่องลงคะแนนอารมณ์"</strong> — ราคาหุ้นสะท้อนความรู้สึกของนักลงทุนหลายล้านคน ไม่ใช่มูลค่าของธุรกิจ แต่ในระยะยาว ตลาดคือ <strong>"เครื่องชั่งน้ำหนักมูลค่า"</strong> — ความจริงจะปรากฏออกมาเสมอ นักลงทุนที่ดีคือคนที่รู้จักแยกสองสิ่งนี้ออกจากกัน และใช้ประโยชน์จากช่วงที่ทั้งสองไม่สอดคล้องกัน</p>
+
+  <div class="pullquote">
+    <p>"In the short run, the market is a voting machine. In the long run, it is a weighing machine."</p>
+    <cite>Benjamin Graham — ครูของ Klarman</cite>
+    <p class="pullquote-th">ในระยะสั้น ตลาดคือเครื่องลงคะแนนความรู้สึก — ในระยะยาว ตลาดคือเครื่องชั่งน้ำหนักมูลค่าจริง</p>
+  </div>
+
+  <h2>ข้อผิดพลาดที่พบบ่อยที่สุด: การตามฝูง</h2>
+  <p>Klarman เรียกปรากฏการณ์นี้ว่า <strong>Herding Behavior</strong> — สัญชาตญาณตามฝูงที่ฝังอยู่ในมนุษย์ทุกคน ในยุคโบราณ การทำตามฝูงคือการอยู่รอด แต่ในตลาดหุ้น การทำตามฝูงมักหมายถึงการซื้อแพงและขายถูก เพราะตอนที่ทุกคนตื่นเต้นซื้อ ราคามักสูงกว่ามูลค่าจริงแล้ว และตอนที่ทุกคนตื่นตระหนกขาย ราคามักต่ำกว่ามูลค่าจริงมาก</p>
+
+  <div class="bq-full">
+    <div class="bq-en">"The most dangerous words in investing are 'this time it's different.'"</div>
+    <div class="bq-th">ประโยคที่อันตรายที่สุดในการลงทุน คือ "ครั้งนี้แตกต่างออกไป" — มักถูกใช้เพื่อพิสูจน์ว่าราคาสูงเกินจริงนั้นสมเหตุสมผล</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 2
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง / Chapter Two</div>
+  <div class="ch-title">
+    Wall Street: ระบบที่สร้างมาเพื่อตัวเอง
+    <em>ทำไมคนส่วนใหญ่ที่ลงทุนผ่านกองทุนจึงแพ้ตลาดในระยะยาว</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>Klarman ใช้บทนี้เปิดเผยความจริงที่ไม่มีใครในอุตสาหกรรมอยากบอก — <strong>ระบบการเงินส่วนใหญ่ถูกออกแบบเพื่อสร้างรายได้ให้คนในระบบ ไม่ใช่เพื่อผลประโยชน์ของผู้ลงทุน</strong> การเข้าใจเรื่องนี้ไม่ใช่การมองโลกในแง่ร้าย แต่คือการป้องกันตัวเองขั้นพื้นฐาน</p>
+  </div>
+
+  <h2>ทำไมผู้จัดการกองทุนถึงมักทำตามตลาด ไม่ใช่เอาชนะตลาด?</h2>
+  <p>กองทุนส่วนใหญ่ถูกวัดผลทุกไตรมาสหรือทุกปี เมื่อผู้จัดการกองทุนรู้ว่าตัวเองจะถูกเปรียบเทียบกับดัชนีตลาดทุก 3 เดือน เขาจะเผชิญกับ <strong>ความขัดแย้งระหว่างผลประโยชน์ส่วนตัวกับผลประโยชน์ของนักลงทุน</strong></p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 ดัชนีตลาด (Market Index) คืออะไร</div>
+    <p>ดัชนีตลาดเช่น SET50 (ไทย) หรือ S&P 500 (สหรัฐ) คือตัวเลขที่แสดงผลตอบแทนเฉลี่ยของหุ้นกลุ่มหนึ่ง ผู้จัดการกองทุนถูกวัดว่า "ทำได้ดีกว่าหรือแย่กว่าดัชนี?" ซึ่งสร้างแรงกดดันให้ถือหุ้นคล้ายดัชนี เพื่อไม่ให้แตกต่างมากเกินไป</p>
+  </div>
+
+  <p>ถ้าผู้จัดการกองทุนซื้อหุ้นที่แตกต่างจากตลาดและผิด — เขาถูกไล่ออก<br>
+  ถ้าเขาซื้อหุ้นเหมือนตลาดและผิด — เขาบอกได้ว่า "ตลาดก็แย่เหมือนกัน" และรอดชีวิตในอาชีพ</p>
+
+  <p>ผลลัพธ์คือ <strong>ผู้จัดการกองทุนมีแรงจูงใจที่จะทำตามตลาดมากกว่าคิดต่าง</strong> ซึ่งทำให้พวกเขาแทบไม่มีทางเอาชนะตลาดได้ในระยะยาว</p>
+
+  <div class="example-box">
+    <div class="example-label">ตัวอย่างที่ชัดเจน</div>
+    <p><strong>ปี 2021:</strong> หุ้นเทคโนโลยีสหรัฐมี P/E (ราคาต่อกำไร) สูงมากผิดปกติ หลายตัวไม่มีกำไรเลย ผู้จัดการกองทุนที่วิเคราะห์เป็นรู้ว่าแพงเกินไป แต่ถ้าไม่ซื้อและตลาดยังขึ้นต่อ กองทุนจะ "ตามไม่ทัน" และลูกค้าจะถอนเงินออก</p>
+    <p>ดังนั้นหลายคนจึงซื้อทั้งที่รู้ว่าแพง — เพราะความเสี่ยงต่ออาชีพสำคัญกว่าความเสี่ยงต่อเงินลูกค้า</p>
+  </div>
+
+  <h2>ปัญหาของนายหน้าและนักวิเคราะห์</h2>
+  <p>นายหน้าหุ้น (Broker) ได้รับค่าคอมมิชชั่นจากการซื้อขาย ดังนั้นยิ่งคุณซื้อขายบ่อย เขายิ่งได้เงิน ไม่มีใครในระบบที่ได้เงินจากการบอกให้คุณ <strong>"นั่งเฉยๆ และถือต่อไป"</strong></p>
+
+  <p>นักวิเคราะห์หุ้น (Analyst) ส่วนใหญ่ทำงานให้บริษัทที่มีความสัมพันธ์ทางธุรกิจกับบริษัทที่วิเคราะห์ มีงานวิจัยพบว่า <strong>คำแนะนำ "ซื้อ" มีมากกว่าคำแนะนำ "ขาย" ถึง 10 เท่า</strong> ทั้งที่เป็นไปไม่ได้ที่หุ้นทุกตัวจะน่าซื้อในเวลาเดียวกัน</p>
+
+  <div class="two-col">
+    <div class="grid-card">
+      <div class="grid-card-label">ข้อได้เปรียบของนักลงทุนรายย่อย</div>
+      <p><strong>ไม่ถูกวัดผลรายไตรมาส</strong> — อดทนถือหุ้นดีได้นานโดยไม่โดนไล่ออก</p>
+      <p style="margin-top:12px"><strong>ซื้อหุ้นเล็กได้</strong> — กองทุนใหญ่ไม่สามารถซื้อหุ้นตลาดเล็กในปริมาณที่มีนัยสำคัญได้</p>
+      <p style="margin-top:12px"><strong>ถือ cash ได้ 100%</strong> — โดยไม่มีแรงกดดันจากลูกค้าหรือคณะกรรมการ</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">กับดักที่ต้องหลีกเลี่ยง</div>
+      <p><strong>เชื่อ Analyst ทั้งหมด</strong> — พวกเขามีผลประโยชน์ที่อาจขัดกับเรา ใช้เป็นข้อมูลเริ่มต้น ไม่ใช่คำตัดสินใจ</p>
+      <p style="margin-top:12px"><strong>วัดผลตัวเองสั้นเกินไป</strong> — เดือนหรือปีเดียวไม่มีความหมาย ต้องดูอย่างน้อย 3–5 ปี</p>
+      <p style="margin-top:12px"><strong>ซื้อกองทุนเพราะผลตอบแทนปีที่แล้วดี</strong> — performance ที่ผ่านมาไม่ใช่การรับประกันอนาคต</p>
+    </div>
+  </div>
+
+  <div class="author-voice">
+    <div class="av-avatar">SK</div>
+    <div>
+      <div class="av-meta">Seth Klarman — Margin of Safety</div>
+      <p class="av-text">"Wall Street's goal is to maximize fees, not your returns. The two are often in direct conflict."
+        <span class="av-th">เป้าหมายของ Wall Street คือการเพิ่มค่าธรรมเนียม ไม่ใช่ผลตอบแทนของคุณ สองสิ่งนี้มักขัดแย้งกันโดยตรง</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 3
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม / Chapter Three</div>
+  <div class="ch-title">
+    มูลค่าที่แท้จริง คืออะไร?
+    <em>Intrinsic Value — รากฐานของการตัดสินใจทุกอย่าง</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p><strong>Intrinsic Value (มูลค่าที่แท้จริง)</strong> คือมูลค่าที่ธุรกิจควรมีโดยพิจารณาจากความสามารถในการสร้างเงินสดในอนาคต — ไม่ใช่ราคาที่ตลาดบอก ไม่ใช่ราคาที่คนอื่นจะซื้อต่อ แต่คือความเป็นจริงของธุรกิจนั้น ถ้าไม่รู้ว่าสิ่งที่ซื้อมีมูลค่าเท่าไหร่ เราก็แค่กำลังพนัน ไม่ใช่ลงทุน</p>
+  </div>
+
+  <h2>ทำไมราคาในตลาดมักไม่เท่ากับมูลค่าที่แท้จริง?</h2>
+  <p>ราคาหุ้นในตลาดเกิดจากการต่อรองระหว่างคนนับล้านที่มีข้อมูล แรงจูงใจ และอารมณ์ที่แตกต่างกัน บางคนต้องขายเพราะขาดสภาพคล่อง (ต้องการเงินด่วน) บางคนซื้อเพราะ momentum บางคนขายเพราะกลัวข่าว สิ่งเหล่านี้ทำให้ราคาในตลาดแกว่งขึ้นลงมากกว่ามูลค่าจริงเสมอ</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 สภาพคล่อง (Liquidity) คืออะไร</div>
+    <p>ความสามารถในการเปลี่ยนสินทรัพย์เป็นเงินสดได้รวดเร็ว ถ้าคนถือหุ้นต้องการเงินสดเร่งด่วน เขาอาจขายในราคาต่ำกว่ามูลค่าจริงเพื่อให้ขายได้ทันที — นี่คือโอกาสของนักลงทุนที่มี cash พร้อมอยู่</p>
+  </div>
+
+  <h2>สามวิธีหา Intrinsic Value แบบ Klarman</h2>
+  <p>Klarman ใช้สามวิธีประกอบกัน และพยายามให้ผลลัพธ์ทั้งสามสอดคล้องกัน ถ้าวิธีหนึ่งบอกว่าถูก แต่อีกสองวิธีบอกว่าไม่ได้ถูกเลย แสดงว่าต้องกลับไปตรวจสอบใหม่</p>
+
+  <h3>วิธีที่ 1 — Net Present Value of Cash Flows (NPV) มูลค่าปัจจุบันของกระแสเงินสด</h3>
+
+  <div class="note-box">
+    <div class="note-label">🔍 NPV คืออะไร ทำไมต้อง "คิดลด" กลับมา?</div>
+    <p>เงิน 100 บาทที่ได้วันนี้ มีค่ามากกว่าเงิน 100 บาทที่ได้ในอีก 5 ปี เพราะเงินวันนี้สามารถนำไปลงทุนต่อได้ NPV คือการนำเงินที่คาดว่าจะได้ในอนาคต มา "คิดลด" (Discount) กลับมาเป็นมูลค่าวันนี้ โดยใช้ <strong>อัตราคิดลด (Discount Rate)</strong> ซึ่งสะท้อนความเสี่ยงและต้นทุนโอกาส<br><br>
+    <strong>ตัวอย่าง:</strong> ถ้า Discount Rate = 10% ต่อปี เงิน 110 บาทที่จะได้ในปีหน้า มี NPV = 100 บาทวันนี้</p>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตร NPV แบบเข้าใจง่าย</div>
+    <div class="formula-eq">NPV = เงินสดปีที่ 1 ÷ (1+r) + เงินสดปีที่ 2 ÷ (1+r)² + ...</div>
+    <div class="formula-note">r = อัตราคิดลด (Discount Rate)<br>Klarman ใช้ r สูงกว่าดอกเบี้ยพันธบัตรรัฐบาลมาก เพื่อรวมความเสี่ยงของธุรกิจ<br>โดยทั่วไปใช้ 10–15% สำหรับธุรกิจที่เข้าใจได้และมีความเสี่ยงปานกลาง</div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">ตัวอย่างการคิด NPV แบบง่าย</div>
+    <p>บริษัท A ผลิตเครื่องดื่ม สร้าง Free Cash Flow (เงินสดอิสระหลังหักต้นทุนทุกอย่าง) ได้ปีละ 10 ล้านบาท และคาดว่าจะเติบโต 5% ต่อปีตลอดไป ถ้าใช้ Discount Rate 10%:</p>
+    <p><strong>มูลค่า ≈ 10 ล้าน ÷ (10% − 5%) = 10 ล้าน ÷ 5% = 200 ล้านบาท</strong></p>
+    <p>ถ้าตลาดซื้อขายบริษัท A อยู่ที่ 120 ล้านบาท หมายความว่ามี <strong>ส่วนเผื่อความปลอดภัย 40%</strong> — น่าสนใจมาก</p>
+  </div>
+
+  <div class="note-box">
+    <div class="note-label">🔍 Free Cash Flow คืออะไร ต่างจากกำไรอย่างไร?</div>
+    <p><strong>กำไร (Net Income)</strong> คือตัวเลขในงบกำไรขาดทุน ซึ่งสามารถปรับแต่งได้ผ่านนโยบายบัญชีต่างๆ เช่น การตัดค่าเสื่อมราคา การรับรู้รายได้<br><br>
+    <strong>Free Cash Flow (FCF)</strong> = เงินสดจากการดำเนินงาน − เงินลงทุนในสินทรัพย์ถาวร<br><br>
+    FCF คือเงินสดจริงที่ธุรกิจสร้างได้ หลังหักทุกอย่างแล้ว และเป็นสิ่งที่โกหกได้ยากกว่า Klarman เน้นดู FCF มากกว่ากำไรทางบัญชีเสมอ</p>
+  </div>
+
+  <h3>วิธีที่ 2 — Liquidation Value มูลค่าหากขายสินทรัพย์ทุกอย่าง</h3>
+  <p>สมมุติว่าบริษัทหยุดดำเนินงานวันนี้ แล้วขายสินทรัพย์ทุกอย่าง (โรงงาน, ที่ดิน, สินค้าคงคลัง, เครื่องจักร) ชำระหนี้ทั้งหมด เงินที่เหลือต่อหุ้นคือ Liquidation Value นี่คือ <strong>ราคาพื้นต่ำสุด (Floor Price)</strong> ที่หุ้นควรมีมูลค่าอยู่</p>
+
+  <div class="example-box">
+    <div class="example-label">ทำไม Liquidation Value จึงสำคัญ?</div>
+    <p>ถ้าหุ้นซื้อขายต่ำกว่า Liquidation Value หมายความว่าตลาดกำลังมองว่าธุรกิจมีมูลค่าน้อยกว่าศูนย์ (ราคา &lt; มูลค่าสินทรัพย์สุทธิ) ซึ่งแทบไม่สมเหตุสมผลเลย ยกเว้นธุรกิจนั้นมีปัญหาซ่อนอยู่ Klarman ชอบมองหาหุ้นประเภทนี้เพราะมักมี downside จำกัดมาก</p>
+  </div>
+
+  <h3>วิธีที่ 3 — Comparable Transaction Value ราคาที่ผู้ซื้อจะจ่ายหากซื้อทั้งบริษัท</h3>
+  <p>ดูว่าในอุตสาหกรรมเดียวกัน การซื้อกิจการ (Merger & Acquisition) เกิดขึ้นในราคาเท่าไหร่เมื่อเทียบกับกำไรหรือยอดขาย แล้วใช้เป็นตัวเปรียบเทียบ ถ้าบริษัทที่คล้ายกันถูกซื้อในราคา 10 เท่าของกำไร แต่บริษัทที่เราดูอยู่ราคาเพียง 5 เท่า — อาจมีโอกาสที่น่าสนใจ</p>
+
+  <hr class="orn">
+
+  <h2>ความจริงที่หลายคนไม่อยากยอมรับ: Intrinsic Value คือช่วง ไม่ใช่จุดเดียว</h2>
+  <p>Klarman เน้นย้ำว่า <strong>ไม่มีใครรู้ Intrinsic Value ที่แน่นอน</strong> มันคือการประมาณค่าที่ดีที่สุดของเรา ไม่ใช่ความจริงสัมบูรณ์ ดังนั้นนักลงทุนที่บอกว่า "หุ้นนี้มีมูลค่าพอดี 47.35 บาท" กำลังโกหกตัวเองหรือไม่เข้าใจธรรมชาติของการประเมินมูลค่า</p>
+
+  <p>การยอมรับความไม่แน่นอนนี้คือเหตุผลที่เราต้องการ <strong>Margin of Safety</strong> — เพราะแม้การคำนวณของเราผิดพลาด 20-30% เราก็ยังไม่ขาดทุน</p>
+
+  <div class="bq-full">
+    <div class="bq-en">"The secret of investing is to figure out the value of something — and then pay a lot less."</div>
+    <div class="bq-th">ความลับของการลงทุน คือการหามูลค่าของบางสิ่ง — แล้วจ่ายน้อยกว่ามูลค่านั้นมากๆ</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 4
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ / Chapter Four</div>
+  <div class="ch-title">
+    Margin of Safety
+    <em>แก่นแท้ทุกอย่างอยู่ที่นี่ — The Core of Everything</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p><strong>Margin of Safety (MoS) = ระยะห่างแห่งความปลอดภัย</strong> คือช่องว่างระหว่างราคาที่เราจ่าย กับมูลค่าที่แท้จริงของสิ่งที่ซื้อ ยิ่งช่องว่างนี้กว้างมาก โอกาสขาดทุนยิ่งน้อย โอกาสกำไรยิ่งมาก นี่ไม่ใช่แค่หลักการ — มันคือ <strong>ระบบป้องกันตัวเองจากความผิดพลาดของเราเอง</strong></p>
+  </div>
+
+  <h2>ทำไมต้องมี Margin of Safety? เพราะเราผิดพลาดได้เสมอ</h2>
+  <p>Klarman ซื่อสัตย์มากในจุดนี้ — แม้แต่นักลงทุนที่ดีที่สุดก็ประเมินมูลค่าผิดพลาดได้ ธุรกิจที่ดีก็เจอวิกฤตได้ ข้อมูลที่เราอ่านอาจไม่ครบถ้วน สภาพแวดล้อมทางธุรกิจเปลี่ยนได้โดยไม่คาดคิด ดังนั้น <strong>MoS คือหลักประกันว่าแม้เราผิดพลาด เราก็ยังไม่สูญเสียมาก</strong></p>
+
+  <div class="example-box">
+    <div class="example-label">เปรียบเทียบ: วิศวกรออกแบบสะพาน</div>
+    <p>ถ้าสะพานต้องรับน้ำหนักได้ 10 ตัน วิศวกรดีจะออกแบบให้รับได้ 20–30 ตัน เพื่อรองรับ: ความผิดพลาดในการคำนวณ, วัสดุที่อาจไม่สมบูรณ์, การใช้งานที่ไม่คาดคิด, และเวลาที่ผ่านไปทำให้วัสดุเสื่อมสภาพ</p>
+    <p>Klarman ใช้หลักเดียวกันนี้กับการลงทุน — ส่วนเผื่อความปลอดภัยไม่ใช่ความขี้กลัว แต่คือ <strong>ความฉลาดทางวิศวกรรม</strong></p>
+  </div>
+
+  <div class="formula-block">
+    <div class="formula-label">คำนวณ Margin of Safety</div>
+    <div class="formula-eq">MoS (%) = (Intrinsic Value − ราคาตลาด) ÷ Intrinsic Value × 100</div>
+    <div class="formula-note">ตัวอย่าง: หุ้น A มี IV = 100 บาท, ราคาตลาด = 65 บาท<br>MoS = (100−65) ÷ 100 × 100 = <strong>35%</strong><br><br>Klarman มักต้องการ MoS ขั้นต่ำ 30–50% ก่อนลงทุน</div>
+  </div>
+
+  <h2>ทำไม MoS ที่ต้องการไม่เท่ากันในทุกสถานการณ์?</h2>
+  <p>ความไม่แน่นอนของธุรกิจต่างกัน ธุรกิจที่คาดเดาได้ยาก ต้องการ MoS มากกว่า เพราะโอกาสที่เราจะประเมินมูลค่าผิดมีมากกว่า</p>
+
+  <div class="cmp-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ประเภทธุรกิจ</th>
+          <th>MoS ขั้นต่ำที่ควรต้องการ</th>
+          <th>เหตุผลหลัก</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-label">สาธารณูปโภค / ประกันภัยที่เข้าใจง่าย</td>
+          <td>20–25%</td>
+          <td>รายได้คาดเดาได้สูง, กฎระเบียบชัดเจน, ความเสี่ยงต่ำ</td>
+        </tr>
+        <tr>
+          <td class="col-label">สินค้าอุปโภคบริโภค (FMCG)</td>
+          <td>25–35%</td>
+          <td>แบรนด์แข็งแกร่ง ความต้องการสม่ำเสมอ แต่มีการแข่งขัน</td>
+        </tr>
+        <tr>
+          <td class="col-label">อุตสาหกรรมทั่วไป (วัฏจักร)</td>
+          <td>35–45%</td>
+          <td>รายได้ขึ้นลงตามเศรษฐกิจ การประเมินยากกว่า</td>
+        </tr>
+        <tr>
+          <td class="col-label">บริษัทที่กำลังฟื้นตัวจากวิกฤต</td>
+          <td>45–55%</td>
+          <td>ความไม่แน่นอนสูง อาจฟื้นหรืออาจแย่ลงก็ได้</td>
+        </tr>
+        <tr>
+          <td class="col-label">บริษัทที่มีหนี้สูง (Leverage สูง)</td>
+          <td>50%+</td>
+          <td>ความเสี่ยงล้มละลายมีอยู่ ต้องมี buffer มาก</td>
+        </tr>
+        <tr>
+          <td class="col-label">ธุรกิจที่คาดเดาไม่ได้ / Start-up</td>
+          <td>ไม่เหมาะกับ Value Investing</td>
+          <td>ไม่มี Intrinsic Value ที่ประเมินได้น่าเชื่อถือ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <div class="note-label">🔍 Leverage คืออะไร</div>
+    <p>Leverage หรือ "การใช้หนี้เพื่อขยายกำไร" — เหมือนการกู้เงินมาลงทุน ถ้าผลลัพธ์ดี กำไรถูกขยายขึ้น แต่ถ้าผลลัพธ์แย่ ขาดทุนก็ถูกขยายขึ้นด้วย และอาจถึงขั้นล้มละลาย ธุรกิจที่มีหนี้สูงมากกว่ากำไรหลายเท่า จึงต้องการ MoS สูงเพื่อรองรับความเสี่ยงนี้</p>
+  </div>
+
+  <h2>กับดักสำคัญ: Value Trap vs Margin of Safety จริง</h2>
+  <p>นักลงทุนมือใหม่มักสับสนว่าหุ้นที่ "ดูถูก" ทุกตัวคือโอกาส แต่บางตัวถูกเพราะสมเหตุสมผล Klarman เรียกสิ่งนี้ว่า <strong>Value Trap</strong> — กับดักมูลค่า</p>
+
+  <div class="two-col">
+    <div class="grid-card">
+      <div class="grid-card-label">✓ Margin of Safety จริง</div>
+      <p>ธุรกิจมีความได้เปรียบที่ยั่งยืน (Moat) มีกระแสเงินสดดี แต่ตลาดกลัวชั่วคราว เช่น วิกฤตเศรษฐกิจทำให้ทุกหุ้นลงพร้อมกัน หรือข่าวร้ายชั่วคราวทำให้ราคาลงเกินจริง<br><br><strong>ธุรกิจยังดี แต่ราคาต่ำกว่ามูลค่า</strong></p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">✗ Value Trap</div>
+      <p>หุ้นถูกเพราะธุรกิจกำลังพังลงจริงๆ ราคาสะท้อนความจริง ไม่ใช่ความกลัว เช่น ร้านเช่าวิดีโอในยุค streaming, หนังสือพิมพ์ที่เสียผู้อ่านให้ online, ธุรกิจที่คู่แข่งใหม่กำลังกินส่วนแบ่ง<br><br><strong>ธุรกิจกำลังแย่ลงจริงๆ ราคาสมเหตุสมผลแล้ว</strong></p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">วิธีแยก Value Trap ออกจาก Opportunity จริง</div>
+    <p><strong>ถาม 3 คำถามนี้:</strong></p>
+    <p>1. <strong>"อีก 5 ปี ธุรกิจนี้จะยังมีอยู่ไหม?"</strong> ถ้าไม่มั่นใจ ผ่านไปก่อน</p>
+    <p>2. <strong>"เหตุผลที่ราคาลงมาจากอะไร?"</strong> ถ้ามาจากปัญหาชั่วคราว (ข่าวร้ายระยะสั้น, วิกฤตตลาดทั่วไป) = โอกาส แต่ถ้ามาจากปัญหาโครงสร้าง (อุตสาหกรรมกำลังหายไป, คู่แข่งใหม่ที่แข็งแกร่งกว่า) = Value Trap</p>
+    <p>3. <strong>"กระแสเงินสดอิสระยังเป็นบวกไหม?"</strong> ถ้า FCF ติดลบหลายปีติดต่อกัน ธุรกิจกำลังกินตัวเอง ไม่ใช่โอกาส</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 5
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า / Chapter Five</div>
+  <div class="ch-title">
+    ความเสี่ยง คืออะไร?
+    <em>Risk — มุมมองที่ต่างออกไปจากที่โรงเรียนสอน</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>นี่คือบทที่ Klarman เถียงกับทฤษฎีการเงินกระแสหลักมากที่สุด เพราะโรงเรียนธุรกิจและตำราการเงินส่วนใหญ่นิยาม "ความเสี่ยง" ว่าคือ <strong>ความผันผวนของราคา (Volatility)</strong> แต่ Klarman บอกว่านั่นผิดโดยสิ้นเชิง ความเสี่ยงที่แท้จริงคือ <strong>โอกาสที่จะสูญเสียเงินต้นถาวร</strong></p>
+  </div>
+
+  <h2>ทำไมความผันผวน ≠ ความเสี่ยง</h2>
+  <p>ทฤษฎีการเงินสมัยใหม่วัดความเสี่ยงด้วย <strong>Beta</strong> ซึ่งบอกว่าหุ้นตัวนี้แกว่งมากหรือน้อยเทียบกับตลาด ตรรกะคือถ้าหุ้นแกว่งมาก = เสี่ยงมาก Klarman ปฏิเสธตรรกะนี้อย่างสิ้นเชิง</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 Beta คืออะไร และทำไม Klarman ไม่ใช้</div>
+    <p>Beta = ตัวเลขที่วัดว่าหุ้นตัวนี้ขึ้นลงมากหรือน้อยเทียบกับตลาดโดยรวม Beta &gt; 1 หมายถึงแกว่งมากกว่าตลาด, Beta &lt; 1 หมายถึงแกว่งน้อยกว่า<br><br>
+    <strong>ปัญหาคือ:</strong> ถ้าบริษัทดีมากแต่ตลาดไม่รู้จัก ราคาอาจลงชั่วคราวมาก = Beta สูง = "เสี่ยงสูง" ตามทฤษฎี แต่ความจริงคือนี่คือโอกาสซื้อในราคาถูก ไม่ใช่ความเสี่ยง</p>
+  </div>
+
+  <div class="example-box">
+    <div class="example-label">ตัวอย่างที่ชัดเจน</div>
+    <p>ปี 2020 หุ้นบริษัท A (ธุรกิจดี มีกำไร) ลดลงจาก 100 บาท เป็น 60 บาท ใน 1 เดือน เพราะ COVID panic</p>
+    <p>ตามทฤษฎี: Beta สูง = ความเสี่ยงสูง = ไม่ควรซื้อ<br>
+    ตาม Klarman: มูลค่าจริงของบริษัทยังอยู่ที่ 100 บาท ราคาที่ลงคือโอกาส ไม่ใช่ความเสี่ยง</p>
+    <p>ถ้าเราวิเคราะห์ถูกและธุรกิจยังดีอยู่ — ราคาที่ลงลงมาทำให้ <strong>ความเสี่ยงที่แท้จริงน้อยลง</strong> ไม่ใช่มากขึ้น</p>
+  </div>
+
+  <h2>ความเสี่ยงที่ Klarman ให้ความสำคัญจริงๆ</h2>
+
+  <div class="signal-box good">
+    <div class="signal-title">ความเสี่ยงที่สำคัญน้อยกว่าที่คิด (ถ้ามี MoS)</div>
+    <ul class="signal-list">
+      <li>ราคาหุ้นที่ผันผวนในระยะสั้น — ถ้าธุรกิจยังดี นี่คือโอกาส ไม่ใช่ความเสี่ยง</li>
+      <li>ตลาดโดยรวมปรับตัวลง — ถ้าเราซื้อถูก การลงชั่วคราวไม่ทำให้ขาดทุนถาวร</li>
+      <li>ข่าวร้ายชั่วคราว — ธุรกิจดีมักฟื้นตัวเสมอหลังวิกฤตชั่วคราว</li>
+    </ul>
+  </div>
+
+  <div class="signal-box bad">
+    <div class="signal-title">ความเสี่ยงที่ต้องระวังจริงๆ</div>
+    <ul class="signal-list">
+      <li>การสูญเสียเงินต้นถาวร — ธุรกิจล้มละลาย, อุตสาหกรรมหายไป, ฉ้อโกง</li>
+      <li>การประเมิน Intrinsic Value ผิดอย่างมีนัยสำคัญ — จึงต้องมี MoS รองรับ</li>
+      <li>ความเสี่ยงด้านสภาพคล่อง — ต้องขายตอนราคาต่ำเพราะขาดเงินสด</li>
+      <li>ความเสี่ยงด้านความสม่ำเสมอ — ใจไม่แน่วแน่ ตัดสินใจผิดเวลา panic ของตลาด</li>
+    </ul>
+  </div>
+
+  <h2>หลักการ "Capital Preservation First" — รักษาเงินต้นก่อนเสมอ</h2>
+  <p>Klarman ใช้กฎข้อหนึ่งของ Warren Buffett เป็นหัวใจของปรัชญา:</p>
+
+  <div class="bq-full">
+    <div class="bq-en">"Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1."</div>
+    <div class="bq-th">กฎข้อที่ 1: อย่าสูญเสียเงิน กฎข้อที่ 2: อย่าลืมกฎข้อที่ 1<br>— Warren Buffett ซึ่ง Klarman เห็นด้วยอย่างสมบูรณ์</div>
+  </div>
+
+  <p>ทำไมถึงสำคัญขนาดนี้? เพราะการขาดทุนทางคณิตศาสตร์ไม่สมมาตร:</p>
+
+  <div class="formula-block">
+    <div class="formula-label">คณิตศาสตร์ที่หลายคนมองข้าม</div>
+    <div class="formula-eq">ขาดทุน 50% → ต้องกำไร 100% เพื่อกลับคืน</div>
+    <div class="formula-note">ถ้าเงิน 100 บาท ขาดทุน 50% เหลือ 50 บาท<br>ต้องกำไร 100% (จาก 50 บาท เป็น 100 บาท) เพื่อกลับสู่จุดเดิม<br><br>นี่คือเหตุผลที่ <strong>"อย่าขาดทุน"</strong> สำคัญกว่า <strong>"กำไรให้ได้มากที่สุด"</strong></div>
+  </div>
+
+  <h2>บทบาทของ Cash ในการบริหารความเสี่ยง</h2>
+  <p>สิ่งที่แยก Klarman จากผู้จัดการกองทุนทั่วไปมากที่สุดคือความเต็มใจที่จะ <strong>ถือ cash ในสัดส่วนสูงมากเมื่อไม่มีโอกาสที่ดีพอ</strong> บางช่วง Baupost ถือ cash ถึง 30–50% ของพอร์ต และโดนวิจารณ์มาก แต่ Klarman มองว่า:</p>
+
+  <div class="two-col">
+    <div class="grid-card">
+      <div class="grid-card-label">Cash ในมุมมองทั่วไป</div>
+      <p>การถือ cash มากคือการเสียโอกาส เพราะเงินสดไม่สร้างผลตอบแทน ผู้จัดการกองทุนที่ดีควรลงทุนเงินทั้งหมดตลอดเวลา</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">Cash ในมุมมอง Klarman</div>
+      <p>Cash ไม่ใช่ภาระ — cash คืออาวุธ เมื่อตลาดพังและทุกคนต้องขาย คนที่มี cash คือคนที่ซื้อได้ในราคาถูกที่สุด การรอไม่ใช่ความล้มเหลว แต่คือวินัย</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 6
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก / Chapter Six</div>
+  <div class="ch-title">
+    กระบวนการค้นหาโอกาส
+    <em>Where to Look — และวิธีวิเคราะห์เมื่อเจอแล้ว</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>Klarman ไม่รอให้ตลาดบอกว่าอะไรดี เพราะถ้าทุกคนรู้แล้ว ราคาก็สะท้อนไปหมดแล้ว ไม่มี MoS เหลือ เขามองหาโอกาสใน <strong>"ที่ที่คนอื่นไม่อยากมอง"</strong> — สถานการณ์ที่สร้างแรงกดดันให้ขาย โดยไม่คำนึงถึงมูลค่าจริง</p>
+  </div>
+
+  <h2>5 สถานการณ์ที่มักสร้าง Margin of Safety</h2>
+
+  <h3>1. Spinoffs — บริษัทลูกที่แยกออกมา</h3>
+  <p>เมื่อบริษัทแม่แยกหน่วยธุรกิจออกมาเป็นบริษัทอิสระ นักลงทุนสถาบันในบริษัทแม่มักได้รับหุ้นบริษัทลูกโดยอัตโนมัติ และส่วนใหญ่ <strong>ขายออกทันทีโดยไม่ศึกษา</strong> เพราะนโยบายกองทุน, ขนาดที่เล็กเกินไป, หรือแค่ไม่ต้องการ</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 Spinoff คืออะไร</div>
+    <p>การที่บริษัทแยกส่วนหนึ่งออกมาเป็นบริษัทใหม่อิสระ แล้วแจกหุ้นให้ผู้ถือหุ้นเดิม เช่น ถ้าธนาคาร A แยกธุรกิจประกันภัยออกมาเป็นบริษัท B อิสระ ผู้ถือหุ้นธนาคาร A จะได้รับหุ้นบริษัท B โดยอัตโนมัติ</p>
+  </div>
+
+  <p>ผลคือ Spinoffs มักถูก <strong>ดัมป์ราคาในช่วงแรก</strong> แม้ธุรกิจจะดีก็ตาม สร้าง MoS ที่น่าสนใจสำหรับคนที่ศึกษาจริงจัง</p>
+
+  <h3>2. Distressed Securities — หลักทรัพย์ของบริษัทที่มีปัญหา</h3>
+
+  <div class="note-box">
+    <div class="note-label">🔍 Distressed Securities คืออะไร</div>
+    <p>หุ้นหรือหนี้ (ตราสารหนี้/พันธบัตร) ของบริษัทที่กำลังประสบปัญหาทางการเงินอย่างหนัก เช่น กำลังจะผิดนัดชำระหนี้ กำลังยื่นขอพิทักษ์ทรัพย์ หรือกำลังปรับโครงสร้างหนี้ ราคามักลดลงมากเพราะนักลงทุนส่วนใหญ่ตื่นตระหนกและต้องการขายออก</p>
+  </div>
+
+  <p>Baupost เชี่ยวชาญมากในด้านนี้ เพราะต้องการความสามารถในการวิเคราะห์ที่ซับซ้อนกว่ามาก ทำให้คนเข้าน้อย และ MoS มักสูงกว่า แต่ต้องระวังว่าบางบริษัทล้มจริงๆ ดังนั้นการวิเคราะห์ต้องละเอียดมากกว่าปกติ</p>
+
+  <h3>3. Market Panic — ความตื่นตระหนกของตลาด</h3>
+  <p>วิกฤตตลาดทุกครั้งทำให้หุ้นดีและหุ้นห่วยลงพร้อมกัน นักลงทุนที่มี cash สำรองและมีวินัยพอที่จะ <strong>ซื้อเมื่อทุกคนกลัว</strong> มักได้ผลตอบแทนดีที่สุดในระยะยาว</p>
+
+  <div class="example-box">
+    <div class="example-label">วิกฤตในอดีตที่สร้าง MoS ชั่วคราว</div>
+    <p>วิกฤตต้มยำกุ้ง 1997, วิกฤตแฮมเบอร์เกอร์ 2008, COVID-19 2020 — ทุกครั้ง บริษัทดีๆ หลายแห่งราคาลงมาอยู่ที่ระดับที่ต่ำกว่า Intrinsic Value อย่างชัดเจน นักลงทุนที่ซื้อในช่วงนั้นและรอนานพอได้รับผลตอบแทนที่ดีเยี่ยม</p>
+    <p><strong>บทเรียนสำคัญ:</strong> ต้องมี cash พร้อมอยู่ก่อน ไม่ใช่รอจนตลาดวิกฤตแล้วค่อยหาเงิน</p>
+  </div>
+
+  <h3>4. Out-of-Favor Industries — อุตสาหกรรมที่ตลาดไม่ชอบชั่วคราว</h3>
+  <p>บางครั้งทั้งอุตสาหกรรมถูกตลาดทอดทิ้ง เพราะข่าวร้ายหรือแนวโน้มระยะสั้นที่แย่ ทำให้หุ้นดีในอุตสาหกรรมนั้นถูกทิ้งไปพร้อมกัน Klarman มองหาโอกาสในลักษณะนี้เสมอ</p>
+
+  <h3>5. Complex Situations — สถานการณ์ที่ซับซ้อนจนคนส่วนใหญ่ไม่อยากวิเคราะห์</h3>
+  <p>การควบรวมกิจการที่ซับซ้อน, การปรับโครงสร้างบริษัท, การเปลี่ยนผู้บริหาร — สถานการณ์เหล่านี้มักทำให้นักลงทุนส่วนใหญ่ผ่านไป เพราะต้องใช้เวลาวิเคราะห์มาก Klarman ใช้ความขยันเป็นข้อได้เปรียบ</p>
+
+  <hr class="orn">
+
+  <h2>Checklist การวิเคราะห์ก่อนลงทุน</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Pre-Investment Checklist — Klarman Style</h3>
+      <p>ตอบทุกคำถามด้วยหลักฐาน ไม่ใช่ความรู้สึก ถ้าตอบไม่ได้ อย่าลงทุน</p>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 1 — เข้าใจธุรกิจ (ถ้าผ่านไม่ได้ หยุดตรงนี้)</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">อธิบายได้ว่าบริษัทนี้ทำเงินได้อย่างไร ใน 3 ประโยค
+            <div class="cl-note">ถ้าอธิบายไม่ได้ชัดเจน นั่นหมายถึงยังไม่เข้าใจพอที่จะลงทุน — ไม่ใช่เรื่องน่าอาย แต่เป็นสัญญาณให้ศึกษาต่อหรือผ่านไป</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">รู้ว่าใครคือลูกค้าหลัก และทำไมลูกค้าถึงต้องซื้อจากบริษัทนี้ ไม่ใช่คู่แข่ง
+            <div class="cl-note">นี่คือ Competitive Advantage — ถ้าตอบไม่ได้ ธุรกิจอาจไม่มีความได้เปรียบที่ยั่งยืน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">รู้ว่าคู่แข่งหลักคือใคร และทำไมบริษัทนี้ยังอยู่รอดได้ท่ามกลางคู่แข่ง
+            <div class="cl-note">ถ้าทุกคนทำได้เหมือนกัน — ไม่มี Moat และกำไรจะถูกกัดกร่อนเรื่อยๆ</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 2 — วิเคราะห์การเงิน</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">Free Cash Flow (FCF) เป็นบวกสม่ำเสมออย่างน้อย 3–5 ปีที่ผ่านมา
+            <div class="cl-note">FCF = เงินสดจากการดำเนินงาน − รายจ่ายลงทุน ดูได้จากงบกระแสเงินสด ไม่ใช่งบกำไรขาดทุน</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">หนี้สินอยู่ในระดับที่ FCF ปัจจุบันสามารถชำระได้ภายใน 3–5 ปี
+            <div class="cl-note">ดูจาก Debt/EBITDA (หนี้หารด้วยกำไรก่อนดอกเบี้ย ภาษี และค่าเสื่อมราคา) ถ้าสูงกว่า 4–5 เท่า ถือว่าเสี่ยงสูง</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">Return on Equity (ROE) สม่ำเสมอและสูงกว่าอุตสาหกรรมเฉลี่ย
+            <div class="cl-note">ROE = กำไรสุทธิ ÷ ส่วนของผู้ถือหุ้น บอกว่าผู้บริหารใช้เงินของผู้ถือหุ้นได้ดีแค่ไหน ROE สูงสม่ำเสมอ = มี Competitive Advantage จริง</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ไม่มีรายการผิดปกติในงบการเงินที่อธิบายไม่ได้
+            <div class="cl-note">เช่น รายได้เพิ่มขึ้นเร็วมากแต่เงินสดรับลดลง, ลูกหนี้เพิ่มขึ้นเร็วกว่ายอดขาย, สินค้าคงคลังเพิ่มขึ้นผิดปกติ — สัญญาณเหล่านี้อาจบ่งบอกการปรับแต่งตัวเลข</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 3 — ประเมินมูลค่าและ MoS</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ประมาณ Intrinsic Value ด้วยอย่างน้อยสองวิธีที่แตกต่างกัน
+            <div class="cl-note">ถ้าทั้งสองวิธีให้ผลใกล้เคียงกัน ความมั่นใจสูงขึ้น ถ้าต่างกันมาก ต้องหาเหตุผลว่าทำไม</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ราคาตลาดต่ำกว่า Intrinsic Value อย่างน้อย 30% (ปรับตามระดับความเสี่ยงธุรกิจ)
+            <div class="cl-note">ถ้า MoS น้อยกว่า 30% อาจซื้อได้แต่ต้องมั่นใจในการวิเคราะห์มากขึ้น ถ้าน้อยกว่า 20% ความเสี่ยงเริ่มไม่คุ้ม</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">คิด "กรณีเลวร้ายที่สุด (Worst Case)" ไว้แล้ว และยังรับได้
+            <div class="cl-note">ถ้าทุกอย่างผิดพลาด — เศรษฐกิจแย่, ธุรกิจแย่กว่าคาด, ตลาดลงต่อ — เราเสียมากสุดเท่าไหร่? ถ้ารับไม่ได้ ลดขนาดการลงทุน</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">ขั้นที่ 4 — ผู้บริหารและ Catalyst</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">ผู้บริหารมีประวัติการจัดสรรทุนที่ดี ซื่อสัตย์ต่อผู้ถือหุ้น
+            <div class="cl-note">ดูจาก: ประวัติ M&A (ซื้อกิจการราคาสมเหตุสมผลไหม?), การซื้อหุ้นตัวเอง (Insider Buying), จดหมายถึงผู้ถือหุ้น (ซื่อสัตย์หรือ PR เกินจริง?)</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text">มีเหตุผลชัดเจนว่าทำไมราคาถึงต่ำกว่ามูลค่า (Catalyst ที่จะเปลี่ยนแปลง)
+            <div class="cl-note">Catalyst คือเหตุการณ์ที่จะช่วยให้ตลาดรับรู้มูลค่าจริง เช่น: ผลประกอบการดีขึ้น, spinoff, buyback, เปลี่ยนผู้บริหาร, takeover offer ถ้าไม่มี Catalyst เลย การรอให้ราคาขึ้นอาจนาน มาก</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>การบริหารพอร์ต — กระจายแบบ Klarman</h2>
+  <p>Klarman ไม่เชื่อในการกระจายแบบสุ่ม (100 ตัว) แต่ก็ไม่ทุ่มทั้งหมดในตัวเดียว เขาถือประมาณ <strong>10–30 ตัว</strong> ที่วิเคราะห์มาอย่างดี และแต่ละตัวมีเหตุผลชัดเจน ไม่ใช่แค่ "กระจายความเสี่ยง"</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 Concentration vs Diversification — จุดสมดุล</div>
+    <p>กระจายมากเกินไป (100+ ตัว) → ผลตอบแทนกลายเป็นค่าเฉลี่ยตลาด ไม่มีทางชนะตลาดได้<br>กระจายน้อยเกินไป (1–3 ตัว) → ถ้าวิเคราะห์ผิด ความเสียหายรุนแรงมาก<br><br>
+    จุดสมดุลของ Klarman: 10–30 ตัวที่รู้จักดีมาก ดีกว่า 100 ตัวที่รู้จักผิวเผิน</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CHAPTER 7
+══════════════════════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่เจ็ด / Chapter Seven</div>
+  <div class="ch-title">
+    การประยุกต์ใช้ในชีวิตจริง
+    <em>From Theory to Practice — เริ่มได้เลยตั้งแต่วันนี้</em>
+  </div>
+</div>
+
+<div class="page">
+  <div class="intro-block">
+    <p>บทนี้คือการแปลงทุกหลักการให้เป็น <strong>ขั้นตอนที่ทำได้จริง</strong> เรียงตามความยากและความลึกของการนำไปใช้ ไม่จำเป็นต้องเริ่มทุกอย่างพร้อมกัน แต่ให้เริ่มจากข้อที่ทำได้ก่อน แล้วค่อยๆ พัฒนาไปสู่ขั้นต่อไป</p>
+  </div>
+
+  <h2>ระดับที่ 1: Mindset Shift — เปลี่ยนวิธีคิดก่อนทุกอย่าง</h2>
+
+  <h3>1.1 หยุดดูราคาหุ้นรายวัน เริ่มดูธุรกิจรายปี</h3>
+  <p>นิสัยที่ทำลายนักลงทุนมากที่สุดคือการดูพอร์ตทุกวัน เพราะมันสร้างอารมณ์ที่นำไปสู่การตัดสินใจผิด ลองทดลองดูพอร์ตเดือนละครั้ง แล้วแทนที่ด้วยการ <strong>อ่านรายงานประจำปีของบริษัทที่ถืออยู่</strong> อย่างน้อยไตรมาสละครั้ง</p>
+
+  <h3>1.2 สร้างนิสัย "คิด Downside ก่อน Upside"</h3>
+  <p>ก่อนลงทุนทุกครั้ง ให้เขียนตอบคำถามนี้ก่อน: <strong>"ถ้าทุกอย่างที่ฉันคิดผิดหมด ฉันจะเสียได้มากสุดเท่าไหร่?"</strong> ถ้าตอบไม่ได้ หรือตอบแล้วรับไม่ได้ — อย่าลงทุน</p>
+
+  <h3>1.3 เรียนรู้ที่จะบอกว่า "ไม่รู้" และ "ผ่าน"</h3>
+  <p>Klarman ย้ำว่าการผ่านโอกาสที่ตัวเองไม่เข้าใจคือ <strong>สัญญาณของนักลงทุนที่ฉลาด</strong> ไม่ใช่ความอ่อนแอ ถ้าวิเคราะห์แล้วยังไม่มั่นใจ การผ่านไปรอโอกาสที่ดีกว่าคือการตัดสินใจที่ถูกต้อง</p>
+
+  <div class="example-box">
+    <div class="example-label">ตัวอย่างจริง: คำว่า "ผ่าน" ที่ช่วยชีวิตพอร์ตได้</div>
+    <p>ปี 2000 ช่วง dot-com boom นักลงทุนทุกคนกำลังซื้อหุ้น internet ด้วยความตื่นเต้น Klarman ไม่เข้าใจว่าบริษัทที่ยังไม่มีกำไรจะสร้างมูลค่าอย่างไร เขาจึงผ่าน และโดนวิจารณ์ว่า "ล้าสมัย" — จนกระทั่ง bubble แตกในปี 2001 หุ้น internet ลงไป 80–95%</p>
+    <p>บทเรียน: การที่ Klarman บอก "ไม่รู้" และ "ผ่าน" ช่วยรักษาเงินต้นไว้ได้อย่างสมบูรณ์</p>
+  </div>
+
+  <h2>ระดับที่ 2: การสร้างระบบวิเคราะห์เบื้องต้น</h2>
+
+  <h3>2.1 เรียนรู้อ่านงบการเงิน 3 ส่วน</h3>
+  <p>ไม่ต้องเป็นนักบัญชี แต่ต้องเข้าใจพื้นฐาน:</p>
+
+  <div class="cmp-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>งบการเงิน</th><th>บอกอะไร</th><th>Klarman ให้ความสำคัญแค่ไหน</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-label">งบกำไรขาดทุน (P&L)</td>
+          <td>รายได้, ต้นทุน, กำไร ในช่วงเวลาหนึ่ง</td>
+          <td>สำคัญ แต่สามารถบิดเบือนได้ผ่านนโยบายบัญชี ใช้เป็นจุดเริ่มต้น</td>
+        </tr>
+        <tr>
+          <td class="col-label">งบดุล (Balance Sheet)</td>
+          <td>สินทรัพย์, หนี้สิน, ส่วนของผู้ถือหุ้น ณ วันที่หนึ่ง</td>
+          <td>สำคัญมาก ดูความแข็งแกร่งทางการเงิน และ Liquidation Value</td>
+        </tr>
+        <tr>
+          <td class="col-label">งบกระแสเงินสด (Cash Flow)</td>
+          <td>เงินสดที่เข้าและออกจริงๆ แบ่งเป็น 3 ประเภท</td>
+          <td>สำคัญที่สุด! บิดเบือนได้ยากที่สุด และสะท้อนความจริงของธุรกิจ</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 สร้าง "Watchlist" ของบริษัทที่ดีแต่รอราคา</h3>
+  <p>วิเคราะห์บริษัทที่คุณเข้าใจดี 10–20 บริษัท ประเมิน Intrinsic Value ของแต่ละตัว แล้วกำหนด "ราคาที่จะซื้อ" (ราคาที่มี MoS เพียงพอ) แล้ว <strong>รอ</strong> เมื่อ Mr. Market เสนอราคานั้น ก็ซื้อ ไม่ต้องรีบ ไม่ต้องซื้อทุกวัน</p>
+
+  <div class="note-box">
+    <div class="note-label">🔍 วิธีสร้าง Watchlist อย่างง่าย</div>
+    <p>1. เลือกอุตสาหกรรมที่คุณเข้าใจจากชีวิตประจำวัน (ค้าปลีก, อาหาร, ธนาคาร, รพ.)<br>
+    2. หาบริษัทชั้นนำในอุตสาหกรรมนั้น 3–5 บริษัท<br>
+    3. อ่านรายงานประจำปีย้อนหลัง 5 ปี<br>
+    4. คำนวณ FCF เฉลี่ย และประเมิน IV อย่างง่าย<br>
+    5. กำหนดราคาที่จะซื้อ (มี MoS อย่างน้อย 30%) แล้วรอ</p>
+  </div>
+
+  <h3>2.3 จดบันทึก "Investment Journal"</h3>
+  <p>ก่อนลงทุนทุกครั้ง เขียนคำตอบของคำถามเหล่านี้:</p>
+  <p>• <strong>ทำไมถึงซื้อ?</strong> (หลักฐาน ไม่ใช่ความรู้สึก)<br>
+  • <strong>Intrinsic Value คำนวณได้เท่าไหร่ และอย่างไร?</strong><br>
+  • <strong>MoS เท่าไหร่?</strong><br>
+  • <strong>อะไรที่อาจทำให้เราผิดพลาด?</strong><br>
+  • <strong>ถ้าผิดพลาด เสียมากสุดเท่าไหร่?</strong><br>
+  • <strong>อะไรที่จะทำให้ขาย?</strong> (กำหนดเงื่อนไขล่วงหน้า)</p>
+
+  <p>เมื่อเวลาผ่านไป กลับมาอ่านสิ่งที่เขียน — นี่คือครูที่ดีที่สุด เพราะจะเห็นว่าความคิดตอนนั้นถูกต้องไหม ความผิดพลาดมาจากข้อมูลหรือกระบวนการคิด</p>
+
+  <h2>ระดับที่ 3: จิตวิทยาที่ต้องพัฒนา</h2>
+
+  <h3>3.1 Contrarian Thinking — คิดต่างจากฝูงชนอย่างมีเหตุผล</h3>
+  <p>Klarman บอกว่า Contrarian ที่แท้จริงไม่ใช่คนที่ทำตรงข้ามทุกอย่างที่ตลาดทำ แต่คือคนที่ <strong>คิดอิสระจากฝูงชน และตัดสินใจจากหลักฐาน ไม่ใช่จากอารมณ์</strong> บางครั้งเราจะเห็นด้วยกับตลาด บางครั้งไม่เห็นด้วย สิ่งสำคัญคือต้องรู้ว่าเราคิดอย่างนี้เพราะอะไร</p>
+
+  <h3>3.2 อดทนกับ "ไม่ทำอะไร"</h3>
+  <p>Klarman บอกว่าหนึ่งในสิ่งที่ยากที่สุดในการลงทุนคือ <strong>การนั่งเฉยๆ เมื่อไม่มีโอกาสที่ดีพอ</strong> สัญชาตญาณมนุษย์คือต้องทำบางอย่างตลอดเวลา แต่ในการลงทุน การไม่ทำอะไรเมื่อสถานการณ์ไม่เหมาะสม คือการกระทำที่สำคัญที่สุด</p>
+
+  <div class="pullquote">
+    <p>"The ability to say 'I don't know' is one of the most underrated skills in investing."</p>
+    <cite>Seth Klarman</cite>
+    <p class="pullquote-th">ความสามารถในการบอกว่า "ฉันไม่รู้" คือทักษะที่ถูกมองข้ามมากที่สุดในการลงทุน</p>
+  </div>
+
+  <h3>3.3 แยก "ราคาตลาด" กับ "มูลค่าธุรกิจ" ออกจากกันในหัวให้ได้</h3>
+  <p>นี่คือทักษะที่สำคัญที่สุดและยากที่สุด เมื่อพอร์ตลดลง 20% สัญชาตญาณบอกให้กลัว แต่ถ้าธุรกิจที่เราถืออยู่ยังดีเหมือนเดิม ราคาที่ลงคือข่าวดี ไม่ใช่ข่าวร้าย วิธีฝึกคือการ <strong>อ่านรายงานประจำปีบ่อยๆ</strong> เพื่อเชื่อมตัวเองกับธุรกิจ ไม่ใช่กับราคาหุ้น</p>
+
+  <hr class="orn">
+
+  <h2>สรุปภาพรวม: ปรัชญา Klarman ใน 5 หลักการ</h2>
+
+  <div class="cmp-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>หลักการ</th><th>ความหมาย</th><th>การปฏิบัติ</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-label">1. Value First</td>
+          <td>ซื้อเฉพาะสิ่งที่มูลค่าจริงสูงกว่าราคา ไม่ใช่สิ่งที่ดูน่าตื่นเต้น</td>
+          <td>ประเมิน IV ก่อนดูราคาเสมอ</td>
+        </tr>
+        <tr>
+          <td class="col-label">2. Margin of Safety</td>
+          <td>ซื้อต่ำกว่ามูลค่าจริงให้มากพอ เพื่อรองรับความผิดพลาดของตัวเอง</td>
+          <td>ต้องการ MoS อย่างน้อย 30% เสมอ</td>
+        </tr>
+        <tr>
+          <td class="col-label">3. Risk = Loss Not Volatility</td>
+          <td>ความเสี่ยงคือโอกาสสูญเสียเงินต้นถาวร ไม่ใช่ราคาที่ผันผวน</td>
+          <td>คิด Downside ก่อน Upside เสมอ</td>
+        </tr>
+        <tr>
+          <td class="col-label">4. Patience is the Edge</td>
+          <td>ความอดทนรอโอกาสที่ดีจริงๆ คือข้อได้เปรียบที่ทุกคนมีแต่ไม่ยอมใช้</td>
+          <td>ถือ cash ได้สูงมาก และรอนานได้</td>
+        </tr>
+        <tr>
+          <td class="col-label">5. Process Over Outcome</td>
+          <td>ถ้ากระบวนการถูกต้อง ผลลัพธ์ที่ดีจะตามมาในระยะยาว แม้ระยะสั้นจะไม่ดีก็ตาม</td>
+          <td>วัดตัวเองด้วยกระบวนการคิด ไม่ใช่ผลตอบแทนรายปี</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bq-full">
+    <div class="bq-en">"The single most important thing you can do is to avoid permanent loss of capital. Everything else follows from that."</div>
+    <div class="bq-th">สิ่งที่สำคัญที่สุดที่เราทำได้ คือหลีกเลี่ยงการสูญเสียเงินต้นอย่างถาวร ทุกอย่างอื่นจะตามมาเอง</div>
+  </div>
+
+  <h2>แหล่งข้อมูลและการศึกษาต่อยอด</h2>
+
+  <div class="two-col">
+    <div class="grid-card">
+      <div class="grid-card-label">📚 อ่านต่อยอด — เรียงตามความสำคัญ</div>
+      <p><strong>The Intelligent Investor</strong> — Benjamin Graham<br>
+      รากฐานของ Value Investing ทุกอย่าง Klarman อ่านหลายรอบ<br><br>
+      <strong>Security Analysis</strong> — Graham &amp; Dodd<br>
+      ฉบับละเอียดสำหรับคนอยากเข้าใจลึก<br><br>
+      <strong>Letters to Berkshire Shareholders</strong> — Warren Buffett<br>
+      อ่านฟรีที่ berkshirehathaway.com ทุกปี<br><br>
+      <strong>You Can Be a Stock Market Genius</strong> — Joel Greenblatt<br>
+      เน้น Special Situations แบบ Klarman ชอบ</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-label">🔧 เครื่องมือที่มีประโยชน์</div>
+      <p><strong>SET.or.th</strong> — งบการเงินหุ้นไทยครบ ดาวน์โหลดได้ฟรี<br><br>
+      <strong>SEC EDGAR (edgar.sec.gov)</strong> — งบการเงินหุ้นสหรัฐ<br><br>
+      <strong>Macrotrends.net</strong> — ดูข้อมูลย้อนหลังของหุ้นสหรัฐได้ดี<br><br>
+      <strong>Annual Reports (รายงานประจำปี)</strong> — หาจากเว็บบริษัทโดยตรง ดีที่สุด อ่านจดหมายถึงผู้ถือหุ้นเสมอ</p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง — ใช้ตรวจสอบตัวเองก่อนลงทุน</div>
+    <ol class="reflection-list">
+      <li>หุ้นทุกตัวที่เราถืออยู่ตอนนี้ — ซื้อเพราะวิเคราะห์มูลค่า หรือเพราะอะไรอื่น? ถ้าซื้อด้วยเหตุผลอื่น ควรคิดทบทวนหรือไม่?</li>
+      <li>ถ้าตลาดหุ้นปิดทำการไป 5 ปี และเราไม่สามารถดูราคาหุ้นได้เลย — เรายังสบายใจที่จะถือหุ้นที่มีอยู่ในพอร์ตทุกตัวไหม? ถ้าไม่ — ทำไม?</li>
+      <li>ครั้งสุดท้ายที่เราบอก "ผ่าน" เพราะไม่เข้าใจธุรกิจหรือไม่มี MoS พอ คือเมื่อไหร่? ถ้านึกไม่ออก — เราอาจกำลังลงทุนโดยไม่มีวินัยพอ</li>
+      <li>เราเคยคำนวณ Intrinsic Value ของหุ้นที่ถืออยู่จริงๆ ไหม? ถ้ายัง — เราซื้อเพราะอะไร?</li>
+      <li>ถ้าตลาดลดลง 40% พรุ่งนี้ เราจะรู้สึกอย่างไร? กลัวและขาย? หรือตื่นเต้นและซื้อเพิ่ม? คำตอบบอกว่าเราเป็นนักเก็งกำไรหรือนักลงทุน</li>
+      <li>เราเคยทำ "กรณีเลวร้ายที่สุด" สำหรับการลงทุนแต่ละครั้งไหม? ถ้าทุกอย่างผิดพลาด เสียมากสุดเท่าไหร่ และเราจัดการได้ไหม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="book-footer">
+  <div class="footer-title">"Margin of Safety"</div>
+  <div class="footer-sub">Seth A. Klarman · Baupost Group · 1991 · ฉบับสรุปภาษาไทยฉบับสมบูรณ์</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
