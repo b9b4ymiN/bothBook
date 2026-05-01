@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Psychology of Money — 5 บทที่คุณต้องตกผลึก</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Paper tones — ปรับให้ตรงกับปกหนังสือ The Psychology of Money (cream/off-white) */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+
+  /* Ink tones — ดำเข้มแบบหนังสือต้นฉบับ */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+
+  /* Sage Green — สีเอกลักษณ์ของหนังสือ (แทน gold ในธีมเดิม) */
+  --sage:         #8A9D7E;
+  --sage-deep:    #5F7256;
+  --sage-light:   #A8B89C;
+  --sage-darker:  #4A5A40;
+  --sage-rule:    rgba(95, 114, 86, 0.30);
+  --sage-bg:      rgba(138, 157, 126, 0.08);
+
+  /* Semantic */
+  --red:          #7A1A1A;
+  --red-bg:       #FBF3F0;
+  --green:        #355E40;
+  --green-bg:     #F1F6EE;
+
+  /* Layout */
+  --book-width:   760px;
+  --page-pad-h:   76px;
+  --page-pad-v:   84px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  background: #1A1610;
+  color: var(--ink-soft);
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 40px 16px;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.10),
+    0 4px 40px rgba(0,0,0,0.40),
+    0 0 120px rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============ COVER ============ */
+.cover {
+  background: var(--paper);
+  min-height: 100vh;
+  padding: 60px 56px 56px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+.cover-frame {
+  position: absolute;
+  top: 16px; left: 16px; right: 16px; bottom: 16px;
+  border: 1px solid var(--paper-shadow);
+  pointer-events: none;
+}
+
+.cover-corner {
+  position: absolute;
+  width: 24px; height: 24px;
+  border: 2px solid var(--sage-deep);
+}
+.cover-corner.tl { top: 28px; left: 28px; border-right: none; border-bottom: none; }
+.cover-corner.tr { top: 28px; right: 28px; border-left: none; border-bottom: none; }
+.cover-corner.bl { bottom: 28px; left: 28px; border-right: none; border-top: none; }
+.cover-corner.br { bottom: 28px; right: 28px; border-left: none; border-top: none; }
+
+.cover-tagline {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-top: 28px;
+  margin-bottom: 60px;
+  font-weight: 500;
+}
+
+.cover-title-en {
+  font-family: 'Playfair Display', 'Noto Serif', serif;
+  font-size: clamp(48px, 9vw, 88px);
+  line-height: 0.95;
+  font-weight: 400;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.cover-title-en .word-the {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+}
+.cover-title-en .word-psychology {
+  display: block;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -1px;
+}
+.cover-title-en .word-of {
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 400;
+}
+.cover-title-en .word-money {
+  display: block;
+  font-style: italic;
+  color: var(--sage);
+  font-weight: 400;
+  letter-spacing: -2px;
+  margin-top: 4px;
+}
+
+.cover-emblem {
+  width: 110px;
+  height: 110px;
+  margin: 36px auto 32px;
+  border: 1.5px solid var(--sage-deep);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.cover-emblem::before {
+  content: '$';
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  color: var(--sage-deep);
+  font-weight: 600;
+}
+.cover-emblem::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--sage-rule);
+  border-radius: 50%;
+}
+
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.cover-subtitle-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin-bottom: 36px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.cover-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--sage-deep);
+  margin: 28px auto;
+}
+
+.cover-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+.cover-author-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 8px;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.cover-pitch {
+  margin-top: 32px;
+  padding: 16px 24px;
+  background: var(--sage-bg);
+  border-left: 2px solid var(--sage-deep);
+  border-right: 2px solid var(--sage-deep);
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-style: italic;
+  max-width: 480px;
+}
+
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  color: var(--ink-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+/* ============ TOC ============ */
+.toc-page {
+  background: var(--paper);
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+.toc-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.toc-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.toc-title em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--sage-deep);
+  font-weight: 400;
+}
+
+.toc-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: var(--ink-muted);
+  margin-bottom: 48px;
+  font-style: italic;
+}
+
+.toc-list {
+  list-style: none;
+  border-top: 1px solid var(--paper-shadow);
+}
+
+.toc-item {
+  display: flex;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  gap: 16px;
+}
+
+.toc-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--sage);
+  font-weight: 400;
+  font-style: italic;
+  min-width: 48px;
+}
+
+.toc-text-block {
+  flex: 1;
+}
+
+.toc-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  color: var(--ink);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.toc-text-en {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+.toc-page-num {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-feature-settings: "lnum";
+}
+
+/* ============ FOREWORD / LETTER ============ */
+.letter-page {
+  background: var(--paper);
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+.letter-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.letter-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(32px, 6vw, 48px);
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.letter-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  color: var(--ink-mid);
+  margin-bottom: 36px;
+  font-weight: 500;
+}
+
+.letter-body {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+.letter-body p {
+  margin-bottom: 22px;
+}
+
+.letter-body p:first-of-type::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  float: left;
+  line-height: 0.9;
+  margin-right: 8px;
+  margin-top: 6px;
+  color: var(--sage-deep);
+  font-weight: 600;
+  font-style: italic;
+}
+
+.letter-sign {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--sage-rule);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.letter-sign-th {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+/* ============ CHAPTER OPENING ============ */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 80px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--sage-deep);
+  margin-top: 32px;
+}
+
+.ch-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 140px;
+  font-weight: 400;
+  color: var(--paper-shadow);
+  position: absolute;
+  top: 28px;
+  right: var(--page-pad-h);
+  line-height: 1;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 14px;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+}
+
+.ch-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(32px, 6vw, 48px);
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.15;
+  position: relative;
+  z-index: 2;
+}
+
+.ch-title em {
+  font-family: 'Noto Serif Thai', serif;
+  display: block;
+  font-style: normal;
+  font-size: clamp(16px, 2.5vw, 20px);
+  color: var(--ink-mid);
+  font-weight: 500;
+  margin-top: 14px;
+  letter-spacing: 0.5px;
+}
+
+.ch-essence {
+  margin-top: 28px;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink-mid);
+  border-left: 2px solid var(--sage);
+  padding-left: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============ PAGE CONTENT ============ */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.page h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(26px, 4vw, 32px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+.page h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: clamp(19px, 2.5vw, 22px);
+  font-weight: 600;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--sage-rule);
+  position: relative;
+}
+
+.page h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 36px;
+  height: 2px;
+  background: var(--sage-deep);
+}
+
+.page h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sage-deep);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 32px;
+  margin-bottom: 14px;
+}
+
+.page p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+
+.page p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.page p em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--ink);
+}
+
+/* ============ PULL QUOTE ============ */
+.pullquote {
+  margin: 48px 0;
+  padding: 0 0 0 32px;
+  border-left: 3px solid var(--sage-deep);
+}
+
+.pullquote p {
+  font-family: 'Playfair Display', 'Noto Serif', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.55;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.pullquote p .th {
+  display: block;
+  font-family: 'Noto Serif Thai', serif;
+  font-style: normal;
+  font-size: 16px;
+  color: var(--ink-mid);
+  font-weight: 400;
+  margin-top: 10px;
+  line-height: 1.7;
+}
+
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ============ FULL-WIDTH BLOCKQUOTE ============ */
+.blockquote-full {
+  background: var(--ink);
+  padding: 56px 48px;
+  margin: 56px calc(-1 * var(--page-pad-h)) 0;
+  text-align: center;
+  border-top: 4px solid var(--sage-deep);
+  border-bottom: 4px solid var(--sage-deep);
+}
+
+.bq-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  color: var(--sage);
+  line-height: 0.5;
+  margin-bottom: 16px;
+  font-style: italic;
+}
+
+.bq-en {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 26px);
+  color: rgba(242, 239, 228, 0.92);
+  line-height: 1.5;
+  font-weight: 400;
+  max-width: 560px;
+  margin: 0 auto 16px;
+}
+
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  color: var(--sage-light);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.bq-attr {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  color: rgba(168, 184, 156, 0.7);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 24px;
+  font-weight: 500;
+}
+
+/* ============ KEY INSIGHT BOX ============ */
+.insight-box {
+  background: var(--sage-bg);
+  border-left: 3px solid var(--sage-deep);
+  padding: 24px 28px;
+  margin: 32px 0;
+}
+
+.insight-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.insight-box p {
+  margin-bottom: 0;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.insight-box p strong {
+  color: var(--sage-darker);
+  font-weight: 600;
+}
+
+/* ============ SIGNAL BOXES (Right way / Wrong way) ============ */
+.signal-box {
+  padding: 22px 26px;
+  margin: 24px 0;
+  position: relative;
+}
+.signal-box.right {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.signal-box.wrong {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+}
+
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.signal-box.right .signal-title { color: var(--green); }
+.signal-box.wrong .signal-title { color: var(--red); }
+
+.signal-list {
+  list-style: none;
+  padding: 0;
+}
+.signal-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 4px 0 4px 22px;
+  position: relative;
+}
+.signal-box.right .signal-list li::before {
+  content: '+';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+.signal-box.wrong .signal-list li::before {
+  content: '−';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* ============ COMPARISON TABLE ============ */
+.cmp-wrap {
+  margin: 32px 0;
+  overflow-x: auto;
+  border: 1px solid var(--paper-shadow);
+}
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  background: var(--paper);
+}
+.cmp-table th {
+  background: var(--ink-soft);
+  color: var(--sage-light);
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 2px solid var(--sage-deep);
+}
+.cmp-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--paper-shadow);
+  color: var(--ink-soft);
+  line-height: 1.6;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table .col-label {
+  font-family: 'Noto Serif Thai', serif;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper-mid);
+}
+
+/* ============ ACTION CARD ============ */
+.action-card {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  padding: 28px 32px;
+  margin: 32px 0;
+  position: relative;
+}
+.action-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--sage-deep);
+}
+
+.action-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.action-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.action-list {
+  list-style: none;
+  padding: 0;
+}
+.action-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  padding: 8px 0 8px 28px;
+  position: relative;
+  border-bottom: 1px dashed var(--paper-shadow);
+  counter-increment: action-counter;
+}
+.action-list li:last-child { border-bottom: none; }
+.action-list {
+  counter-reset: action-counter;
+}
+.action-list li::before {
+  content: counter(action-counter);
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--sage-deep);
+  font-weight: 600;
+}
+
+/* ============ STAT ROW ============ */
+.stat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.stat-item {
+  background: var(--paper);
+  padding: 22px 18px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 38px;
+  color: var(--sage-deep);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+/* ============ DIALOGUE / BEFORE-AFTER ============ */
+.dialogue {
+  margin: 28px 0;
+  border: 1px solid var(--paper-shadow);
+  background: var(--paper);
+}
+.dialogue-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+}
+.dialogue-cell {
+  background: var(--paper);
+  padding: 22px 26px;
+}
+.dialogue-cell.before { background: var(--red-bg); }
+.dialogue-cell.after { background: var(--green-bg); }
+
+.dialogue-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.dialogue-cell.before .dialogue-tag { color: var(--red); }
+.dialogue-cell.after .dialogue-tag { color: var(--green); }
+
+.dialogue-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ============ CHECKLIST ============ */
+.checklist {
+  margin: 32px 0;
+  border: 1px solid var(--paper-shadow);
+  background: var(--paper);
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 22px 28px;
+  border-bottom: 2px solid var(--sage-deep);
+}
+.checklist-cap-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.checklist-cap h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  color: var(--paper);
+  margin: 0 0 4px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.checklist-cap p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: var(--paper-deep);
+  margin: 0;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.cl-items {
+  list-style: none;
+  padding: 0;
+}
+.cl-items li {
+  display: flex;
+  gap: 14px;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items li:last-child { border-bottom: none; }
+
+.cl-box {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--sage-deep);
+  flex-shrink: 0;
+  margin-top: 6px;
+  background: var(--paper);
+}
+
+.cl-content {
+  flex: 1;
+}
+
+.cl-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.cl-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* ============ REFLECTION ============ */
+.reflection {
+  background: var(--paper-mid);
+  padding: 32px 36px;
+  margin: 36px 0;
+  border-top: 2px solid var(--sage-deep);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.reflection-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 19px;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.reflection-list {
+  list-style: none;
+  padding: 0;
+  counter-reset: reflect-counter;
+}
+.reflection-list li {
+  counter-increment: reflect-counter;
+  position: relative;
+  padding: 12px 0 12px 48px;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.reflection-list li:last-child { border-bottom: none; }
+.reflection-list li::before {
+  content: counter(reflect-counter);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--sage);
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* ============ ORNAMENT ============ */
+.ornament {
+  border: none;
+  text-align: center;
+  margin: 56px 0;
+  height: 12px;
+  position: relative;
+}
+.ornament::before {
+  content: '◆';
+  color: var(--sage);
+  font-size: 10px;
+  letter-spacing: 24px;
+  display: block;
+  padding-left: 24px;
+}
+
+/* ============ FOOTER ============ */
+.book-footer {
+  background: var(--ink);
+  padding: 56px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--sage);
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--paper-deep);
+  font-style: italic;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 20px;
+}
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--sage-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 780px) {
+  :root {
+    --page-pad-h: 28px;
+    --page-pad-v: 56px;
+  }
+  body { padding: 16px 8px; }
+  .cover { padding: 48px 28px 40px; }
+  .cover-corner.tl, .cover-corner.tr { top: 24px; }
+  .cover-corner.bl, .cover-corner.br { bottom: 24px; }
+  .cover-corner.tl, .cover-corner.bl { left: 24px; }
+  .cover-corner.tr, .cover-corner.br { right: 24px; }
+  .ch-num { font-size: 96px; right: 16px; top: 20px; }
+  .chapter-open { padding: 56px 28px 40px; }
+  .stat-row { grid-template-columns: 1fr; }
+  .dialogue-row { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 40px 24px; margin-left: -28px; margin-right: -28px; }
+  .checklist-cap, .cl-items li { padding-left: 22px; padding-right: 22px; }
+  .reflection { padding: 28px 24px; }
+  .pullquote { padding-left: 22px; }
+  .pullquote p { font-size: 19px; }
+}
+
+/* Print friendly */
+@media print {
+  body { background: white; padding: 0; }
+  .book { box-shadow: none; max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+  <!-- ============ COVER ============ -->
+  <div class="cover">
+    <div class="cover-frame"></div>
+    <div class="cover-corner tl"></div>
+    <div class="cover-corner tr"></div>
+    <div class="cover-corner bl"></div>
+    <div class="cover-corner br"></div>
+
+    <div class="cover-tagline">Personal Edition · For Both</div>
+
+    <div class="cover-title-en">
+      <span class="word-the">The</span>
+      <span class="word-psychology">Psychology</span>
+      <span class="word-of">of</span>
+      <span class="word-money">Money</span>
+    </div>
+
+    <div class="cover-emblem"></div>
+
+    <div class="cover-subtitle">5 Chapters You Must Internalize</div>
+    <div class="cover-subtitle-th">5 บทที่คุณต้องตกผลึก<br>เพื่อแก้ Optimization Paralysis</div>
+
+    <div class="cover-divider"></div>
+
+    <div class="cover-pitch">
+      "เป้าหมายไม่ใช่หาหุ้นที่ดีที่สุด<br>เป้าหมายคืออยู่ในเกมให้นานที่สุด<br>ด้วยหุ้นที่ดีพอ"
+    </div>
+
+    <div class="cover-author">Morgan Housel</div>
+    <div class="cover-author-th">— เขียนถึงคุณ Both-Thitipat โดยตรง —</div>
+
+    <div class="cover-edition">Curated · Practical · ภาษาไทย</div>
+  </div>
+
+  <!-- ============ TOC ============ -->
+  <div class="toc-page">
+    <div class="toc-eyebrow">Table of Contents · สารบัญ</div>
+    <div class="toc-title">5 บทที่ <em>เปลี่ยน</em> วิธีคุณกดซื้อ</div>
+    <div class="toc-subtitle">ที่เหลือในเล่ม คือเชิงอรรถ</div>
+
+    <ul class="toc-list">
+      <li class="toc-item">
+        <div class="toc-num">00</div>
+        <div class="toc-text-block">
+          <div class="toc-text">จดหมายถึงคุณ — นักลงทุนที่ลังเล</div>
+          <div class="toc-text-en">A Letter to the Hesitating Investor</div>
+        </div>
+      </li>
+      <li class="toc-item">
+        <div class="toc-num">01</div>
+        <div class="toc-text-block">
+          <div class="toc-text">พอร์ตที่อยู่ได้ ดีกว่าพอร์ตที่ดีบนกระดาษ</div>
+          <div class="toc-text-en">Reasonable &gt; Rational</div>
+        </div>
+      </li>
+      <li class="toc-item">
+        <div class="toc-num">02</div>
+        <div class="toc-text-block">
+          <div class="toc-text">เลือกผิดได้ ขอแค่ "อยู่ในเกม"</div>
+          <div class="toc-text-en">Tails, You Win</div>
+        </div>
+      </li>
+      <li class="toc-item">
+        <div class="toc-num">03</div>
+        <div class="toc-text-block">
+          <div class="toc-text">ที่ว่างให้ผิด คือที่ว่างให้รอด</div>
+          <div class="toc-text-en">Room for Error</div>
+        </div>
+      </li>
+      <li class="toc-item">
+        <div class="toc-num">04</div>
+        <div class="toc-text-block">
+          <div class="toc-text">รวยขึ้น vs. รวยอยู่ — คนละทักษะ</div>
+          <div class="toc-text-en">Getting Wealthy vs. Staying Wealthy</div>
+        </div>
+      </li>
+      <li class="toc-item">
+        <div class="toc-num">05</div>
+        <div class="toc-text-block">
+          <div class="toc-text">ฉลาดที่ฟังดูฉลาด — กับดักของคนวิเคราะห์เก่ง</div>
+          <div class="toc-text-en">The Seduction of Pessimism</div>
+        </div>
+      </li>
+      <li class="toc-item">
+        <div class="toc-num">⊕</div>
+        <div class="toc-text-block">
+          <div class="toc-text">บทสรุปลงมือ — Pre-Trade Ritual</div>
+          <div class="toc-text-en">Your Daily Discipline</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============ FOREWORD / LETTER ============ -->
+  <div class="letter-page">
+    <div class="letter-eyebrow">Foreword · จดหมายถึงคุณ</div>
+    <div class="letter-title">A Letter to the Hesitating Investor</div>
+    <div class="letter-title-th">เขียนถึงนักลงทุนที่ "วิเคราะห์เก่งเกินไปจนกดซื้อไม่ได้"</div>
+
+    <div class="letter-body">
+      <p>เพื่อนร่วมเส้นทาง — ผมอยากเขียนถึงคุณเป็นการส่วนตัว เพราะปัญหาที่คุณกำลังเจออยู่ ไม่ใช่ปัญหาของคน "ไม่รู้" แต่เป็นปัญหาของคน "รู้มากเกินไป" และนั่นคือสิ่งที่ผมเขียนหนังสือเล่มนี้ขึ้นมาเพื่อแก้</p>
+
+      <p>คุณไม่ได้ขาดความรู้ คุณวิเคราะห์งบการเงินได้ คุณอ่านรายงานวิจัยได้ คุณเข้าใจ valuation คุณติดตามข่าว macro คุณรู้จัก moat รู้จัก unit economics คุณรู้แม้กระทั่งว่าหุ้นตัวไหนน่าจะดี — <strong>แต่คุณกดซื้อไม่ได้</strong> เพราะมีอีกตัวที่อาจจะดีกว่า และมีอีกตัวที่อาจจะดีกว่านั้นอีก และคุณกลัวว่าถ้าซื้อตัวนี้แล้วเจอตัวที่ดีกว่าทีหลัง คุณจะรู้สึกแย่</p>
+
+      <p>นี่คือสิ่งที่ผมเรียกว่า <em>Optimization Paralysis</em> — และมันไม่ใช่ความรอบคอบ มันคือ <strong>ความกลัวที่ใส่สูทของนักวิเคราะห์</strong></p>
+
+      <p>หนังสือผมมี 20 บท แต่ผมจะไม่ขอให้คุณอ่านทั้งหมด ผมจะเลือกมาให้แค่ 5 บท ที่ถ้าคุณตกผลึกได้จริง ๆ คุณจะกดซื้อในวันพรุ่งนี้ — ไม่ใช่เพราะคุณ "มั่นใจขึ้น" แต่เพราะคุณ <em>เปลี่ยนคำถามที่ใช้</em></p>
+
+      <p>คำถามเก่าของคุณคือ <strong>"ตัวไหนดีที่สุด?"</strong> — คำถามนี้ไม่มีคำตอบ มันจะทำให้คุณค้นหาไปตลอดชีวิต</p>
+
+      <p>คำถามใหม่ของคุณคือ <strong>"ตัวไหนทำให้ฉันอยู่ในเกมต่อได้ ถ้าฉันคิดผิด?"</strong> — คำถามนี้มีคำตอบ และคำตอบนั้นทำให้คุณกดซื้อได้</p>
+
+      <p>เริ่มกันเลยครับ</p>
+
+      <div class="letter-sign">— Morgan</div>
+      <div class="letter-sign-th">มอร์แกน เฮาเซิล · ผู้เขียน The Psychology of Money</div>
+    </div>
+  </div>
+
+  <!-- ============ CHAPTER 1 ============ -->
+  <div class="chapter-open">
+    <div class="ch-num">01</div>
+    <div class="ch-label">Chapter One · บทที่หนึ่ง</div>
+    <div class="ch-title">
+      Reasonable &gt; Rational
+      <em>พอร์ตที่อยู่ได้ ดีกว่าพอร์ตที่ดีบนกระดาษ</em>
+    </div>
+    <div class="ch-essence">
+      "การเงินที่ดีในตำรา กับการเงินที่ดีในชีวิตจริง คือคนละเรื่อง — และในระยะยาว สิ่งที่ชนะคือเรื่องหลัง"
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสารหลัก</div>
+    <h1>คุณไม่ใช่ Spreadsheet</h1>
+
+    <p>นักวิชาการการเงินสมมุติว่ามนุษย์เป็นสิ่งมีชีวิตที่มีเหตุผล (rational) — เราจะคำนวณ expected return, ปรับด้วย risk, แล้วเลือกทางเลือกที่ "optimal" บนกระดาษ</p>
+
+    <p>แต่ความจริงคือ <strong>คุณไม่ได้ลงทุนบนกระดาษ คุณลงทุนในห้องนอนตอนตี 2 ตอนพอร์ตแดงอยู่ -27%</strong> และในห้องนอนตอนตี 2 นั้น สิ่งที่ optimal บนกระดาษไม่มีค่าเลย ถ้ามันทำให้คุณนอนไม่หลับและกดขายในเช้าวันรุ่งขึ้น</p>
+
+    <p>นี่คือเหตุผลที่ผมเชื่อว่า <em>"reasonable"</em> ชนะ <em>"rational"</em> เสมอ ในการลงทุนระยะยาว</p>
+
+    <div class="insight-box">
+      <div class="insight-label">หัวใจของบทนี้</div>
+      <p><strong>Rational</strong> = สิ่งที่ถูกต้องบนตำรา &nbsp;·&nbsp; <strong>Reasonable</strong> = สิ่งที่คุณทำได้จริง โดยไม่กดทำลายมันทิ้งกลางทาง — และเพราะ compounding ต้องการเวลา ไม่ใช่ความเร็ว Reasonable จึงสร้างผลตอบแทนจริงสูงกว่า Rational ในชีวิตจริงเสมอ</p>
+    </div>
+
+    <h2>หุ้นที่ "ดีที่สุด" บนกระดาษ มักไม่ใช่หุ้นที่ "ดีที่สุด" สำหรับคุณ</h2>
+
+    <p>สมมุติคุณวิเคราะห์มาเป็นเดือน คุณเจอหุ้น A — งบสวย, moat ชัด, valuation น่าสนใจ คุณคำนวณแล้วได้ expected return 18% ต่อปี ในระยะ 10 ปี</p>
+
+    <p>คุณซื้อ ผ่านไป 6 เดือน หุ้นลง -35% เพราะ macro shock — ไม่เกี่ยวกับธุรกิจ คุณอ่านงบใหม่ ทุกอย่างยังดี <strong>แต่คุณนอนไม่หลับ</strong> ตอนตี 2 คุณกดขาย</p>
+
+    <p>หุ้นนั้นภายหลังเด้งกลับ +120% ในอีก 2 ปี</p>
+
+    <p>คำถามคือ: หุ้นนี้ "ดีที่สุด" จริงไหม? บนกระดาษใช่ — ในชีวิตคุณไม่ใช่ <strong>เพราะคุณอยู่กับมันไม่ได้</strong></p>
+
+    <div class="pullquote">
+      <p>"Doing well in finance isn't necessarily about what you know. It's about how you behave."
+        <span class="th">การทำได้ดีในเรื่องเงิน ไม่ใช่เรื่องของสิ่งที่คุณรู้ — แต่คือสิ่งที่คุณทำเมื่อกระดูกในตัวคุณกำลังสั่น</span>
+      </p>
+      <cite>Morgan Housel</cite>
+    </div>
+
+    <h2>กฎข้อเดียวก่อนกดซื้อทุกครั้ง — "The -40% Test"</h2>
+
+    <p>ผมจะให้คุณกฎเดียว และผมขอให้คุณใช้กฎนี้กับ <em>ทุก ๆ การซื้อ</em> ที่คุณทำต่อจากนี้:</p>
+
+    <div class="action-card">
+      <div class="action-eyebrow">Pre-Trade Ritual</div>
+      <div class="action-title">ก่อนกดซื้อ ถามตัวเองคำเดียว</div>
+      <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--ink); line-height: 1.4; margin: 16px 0; padding: 16px 0; border-top: 1px solid var(--sage-rule); border-bottom: 1px solid var(--sage-rule); text-align: center;">"ถ้าตัวนี้ −40% พรุ่งนี้<br>ฉันยังถือได้ไหม?"</p>
+      <p style="margin-top: 16px; font-size: 14px; color: var(--ink-mid);">ถ้าตอบ "ได้" ทันที โดยไม่ลังเล → ซื้อตามแผน<br>ถ้าลังเล → <strong>ลด position size ลงครึ่งหนึ่ง</strong> แล้วถามใหม่<br>ถ้ายังลังเลอีก → ลดอีกครึ่ง จนกว่าคุณจะตอบได้ทันที</p>
+    </div>
+
+    <p>คำถามนี้ดูเรียบง่ายมาก แต่มันกำลังทำสิ่งที่ลึกซึ้ง — มันบังคับให้คุณคิดในมุม <em>"ฉันจะอยู่กับมันยังไง"</em> ก่อนคิดมุม <em>"มันจะให้กำไรเท่าไหร่"</em></p>
+
+    <p>และนี่คือการพลิกเลนส์ทั้งหมดของ Optimization Paralysis</p>
+
+    <h2>ทำไมการลด size แก้ paralysis ได้</h2>
+
+    <p>เพราะ paralysis ของคุณ ไม่ได้เกิดจาก "ไม่รู้ว่าจะซื้อตัวไหน" — มันเกิดจาก <strong>กลัวซื้อ size ใหญ่ในตัวที่ผิด</strong></p>
+
+    <p>วิธีแก้ไม่ใช่หาตัวที่ "ไม่ผิดเลย" (ไม่มีอยู่จริง) — วิธีแก้คือ <em>ลดต้นทุนของการผิด</em> ด้วยการลด size</p>
+
+    <div class="cmp-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>สถานการณ์</th>
+            <th>Optimizer (เก่า)</th>
+            <th>Reasonable (ใหม่)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">มีตัวที่อาจจะดีกว่า</td>
+            <td>รอ ค้นหาเพิ่ม ไม่ซื้อ</td>
+            <td>ซื้อ size เล็กก่อน เผื่อขยายทีหลัง</td>
+          </tr>
+          <tr>
+            <td class="col-label">ไม่แน่ใจ 100%</td>
+            <td>รอจน "แน่ใจ" (ซึ่งไม่มีวันมา)</td>
+            <td>ความไม่แน่ใจ = สัญญาณให้ลด size ไม่ใช่สัญญาณให้รอ</td>
+          </tr>
+          <tr>
+            <td class="col-label">ตลาดร่วง −30%</td>
+            <td>กดขาย เพราะ size ใหญ่เกินจะอยู่ได้</td>
+            <td>ถือต่อหรือซื้อเพิ่ม เพราะ size เล็กไม่บีบหัวใจ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-title">Reflection · นั่งคิดสัก 5 นาที</div>
+      <div class="reflection-subtitle">ก่อนผ่านไปบทถัดไป ลองตอบคำถามเหล่านี้ตรง ๆ กับตัวเอง</div>
+      <ol class="reflection-list">
+        <li>ถ้าหุ้นที่คุณอยากซื้อตอนนี้ ลง −40% ภายในสัปดาห์หน้า — คุณจะถือได้จริงไหม? เขียนคำตอบเป็นประโยค ไม่ใช่ "อืม"</li>
+        <li>ครั้งสุดท้ายที่คุณขายเพราะ "นอนไม่หลับ" — มันเกี่ยวกับธุรกิจของบริษัท หรือเกี่ยวกับ size ของคุณ?</li>
+        <li>ถ้าคุณเริ่ม position แค่ 2% ของพอร์ต แทนที่จะ 8% — คำถาม "ตัวไหนดีที่สุด" จะยังหนักใจอยู่ไหม?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============ CHAPTER 2 ============ -->
+  <div class="chapter-open">
+    <div class="ch-num">02</div>
+    <div class="ch-label">Chapter Two · บทที่สอง</div>
+    <div class="ch-title">
+      Tails, You Win
+      <em>เลือกผิดได้ ขอแค่ "อยู่ในเกม"</em>
+    </div>
+    <div class="ch-essence">
+      "ผลตอบแทนส่วนใหญ่ของชีวิต มาจากการตัดสินใจส่วนน้อย — ที่เหลือคือ noise"
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสารหลัก</div>
+    <h1>คุณไม่ต้องเลือกถูกทุกครั้ง</h1>
+
+    <p>มีงานวิจัยของ JPMorgan ที่ผมชอบมาก เขาดูหุ้นทั้งหมดใน Russell 3000 (หุ้นบริษัทใหญ่สุดของอเมริกา) ตั้งแต่ปี 1980 จนถึงปัจจุบัน <strong>40% ของหุ้นเหล่านี้ขาดทุนมหาศาล (−70% หรือมากกว่า แล้วไม่ฟื้นเลย)</strong></p>
+
+    <p>แต่ <strong>ผลตอบแทนของทั้ง index มาจากแค่ 7% ของหุ้น</strong> — กลุ่มเล็ก ๆ ที่เด้งแรงมากจนพยุงทั้งตลาดขึ้น</p>
+
+    <p>นี่คือสิ่งที่นักสถิติเรียกว่า <em>"long tail distribution"</em> — และในการลงทุน มันไม่ใช่ทฤษฎี มันคือธรรมชาติของเกม</p>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-value">40%</div>
+        <div class="stat-label">ของหุ้นใน Russell 3000<br>ขาดทุนหนักไม่ฟื้น</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">7%</div>
+        <div class="stat-label">ของหุ้น<br>สร้างผลตอบแทนทั้ง index</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">~50%</div>
+        <div class="stat-label">ที่เหลือ<br>คือ noise</div>
+      </div>
+    </div>
+
+    <p style="font-size: 13px; color: var(--ink-muted); font-style: italic; margin-top: -8px;">ตัวเลขโดยประมาณจากงานศึกษาของ JPMorgan, "Agony &amp; Ecstasy" — ใช้เพื่อให้เห็นภาพ ไม่ใช่ตัวเลข exact</p>
+
+    <h2>Amazon, Netflix, Apple — และความเข้าใจผิดของ "เลือกถูก"</h2>
+
+    <p>คุณคิดว่า Amazon เป็นหุ้นที่ดีตลอดเส้นทางใช่ไหม? <strong>ในประวัติศาสตร์ Amazon เคยลง −95% ในช่วง dot-com bust</strong> Amazon เคยเทรดต่ำกว่า IPO เป็นเวลาหลายปี ผู้ถือหุ้นที่เก่งกาจที่สุดในปี 2001 ก็ยังคิดว่า Bezos กำลังเผาเงิน</p>
+
+    <p>คนที่ <em>"เลือกถูก"</em> ใน Amazon ไม่ได้ฉลาดกว่าคนอื่น เขาแค่ <strong>"อยู่ได้"</strong> ผ่านช่วงที่หุ้น −95% โดยไม่ขายทิ้ง</p>
+
+    <p>นี่คือสิ่งที่ Optimization Paralysis ของคุณกำลังพลาดไปทั้งหมด — คุณกำลังพยายามเลือก "Amazon" ก่อนที่ Amazon จะกลายเป็น Amazon คุณกำลังพยายามเอาชนะกฎธรรมชาติของ tail distribution ซึ่งเป็นไปไม่ได้</p>
+
+    <div class="blockquote-full">
+      <div class="bq-mark">"</div>
+      <div class="bq-en">You don't need to be right every time. You need to survive long enough to be in the game when the right time comes.</div>
+      <div class="bq-th">คุณไม่ต้องเลือกถูกทุกครั้ง คุณต้องอยู่ในเกมให้นานพอ ตอนที่ครั้งที่ถูกมันมาถึง</div>
+      <div class="bq-attr">Morgan Housel · The Psychology of Money</div>
+    </div>
+
+    <h2>การจัดพอร์ตแบบ "Tails-Aware"</h2>
+
+    <p>ถ้าคุณยอมรับว่าผลตอบแทนมาจากหุ้นส่วนน้อย คุณจะเปลี่ยนวิธีคิดทั้งหมด</p>
+
+    <h3>การคาดหวังที่ถูกต้อง</h3>
+
+    <p>ถ้าคุณซื้อ 10 ตัว — นี่คือผลที่ <em>คาดได้</em> ของนักลงทุนที่ดี:</p>
+
+    <div class="signal-box right">
+      <div class="signal-title">ผลปกติของพอร์ตที่ดี (10 ตัว)</div>
+      <ul class="signal-list">
+        <li>6–7 ตัว ผลตอบแทนธรรมดา (ตาม index หรือใกล้เคียง)</li>
+        <li>2–3 ตัว ขาดทุน (บางตัวอาจขาดหนัก)</li>
+        <li>1–2 ตัว เด้งแรง 5–10×+ ในระยะยาว</li>
+        <li>ผลรวมพอร์ต = ชนะตลาด เพราะ tails พยุงทุกอย่าง</li>
+      </ul>
+    </div>
+
+    <div class="signal-box wrong">
+      <div class="signal-title">ความคาดหวังผิดของ Optimizer</div>
+      <ul class="signal-list">
+        <li>"ทุกตัวต้องเลือกถูก" → เป็นไปไม่ได้</li>
+        <li>"ห้ามขาดทุนแม้ตัวเดียว" → ทำให้ size เล็กไม่กล้า</li>
+        <li>"ต้องหา Amazon ตัวต่อไปก่อนซื้อ" → คุณจะรอตลอดชีวิต</li>
+      </ul>
+    </div>
+
+    <h2>ความหมายปฏิบัติ — กระจายแบบเข้าใจ Tails</h2>
+
+    <p>ถ้าคุณเชื่อใน tails คุณจะ:</p>
+
+    <p><strong>1. ไม่กลัวการซื้อ "ตัวรอง ๆ"</strong> — เพราะคุณรู้ว่าในพอร์ต 10 ตัว มี 6-7 ตัวที่จะธรรมดาอยู่แล้ว นั่นคือธรรมชาติ การมี "ตัวธรรมดา" ในพอร์ตคุณ ไม่ใช่ความผิดพลาด มันคือต้นทุนของการ "อยู่ในเกม"</p>
+
+    <p><strong>2. ไม่ตื่นตระหนกเมื่อบางตัวขาดทุน</strong> — เพราะคุณรู้ว่ามันเป็นส่วนหนึ่งของระบบ ตราบใดที่ไม่ทั้งพอร์ตและคุณยังถือตัวที่อาจเป็น tail ได้</p>
+
+    <p><strong>3. ขยายเวลาการถือ</strong> — เพราะ tails ต้องการเวลานานเพื่อแสดงผล Amazon ใช้เวลา 20 ปี Apple ก็เช่นกัน คุณไม่สามารถสร้าง tail event ใน 6 เดือน</p>
+
+    <div class="pullquote">
+      <p>"Tails drive everything."
+        <span class="th">หางของการกระจายข้อมูลคือสิ่งที่ขับเคลื่อนทุกอย่าง — ในการลงทุน, ในธุรกิจ, ในชีวิต — และคุณไม่สามารถมี tail ได้ ถ้าคุณไม่อยู่ในเกม</span>
+      </p>
+      <cite>Morgan Housel</cite>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-title">Reflection · ปรับ Mindset ก่อนไปต่อ</div>
+      <div class="reflection-subtitle">ถ้าคุณยอมรับ tail distribution อย่างจริงจัง อะไรจะเปลี่ยน?</div>
+      <ol class="reflection-list">
+        <li>ถ้าผมบอกว่าคุณซื้อหุ้น 5 ตัว และ 3 ตัวจะขาดทุน — คุณจะยังกดซื้อตัวแรกไหม?</li>
+        <li>คุณกำลังเลือก "ตัวเดียวที่ดีที่สุด" หรือ "พอร์ตที่ทนผ่านเวลา"?</li>
+        <li>ในพอร์ตของคุณวันนี้ ตัวไหนคือ "tail candidate" — และคุณให้เวลามันนานพอหรือยัง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============ CHAPTER 3 ============ -->
+  <div class="chapter-open">
+    <div class="ch-num">03</div>
+    <div class="ch-label">Chapter Three · บทที่สาม</div>
+    <div class="ch-title">
+      Room for Error
+      <em>ที่ว่างให้ผิด คือที่ว่างให้รอด</em>
+    </div>
+    <div class="ch-essence">
+      "Margin of safety ที่แท้จริง ไม่ใช่ตัวเลข — มันคือพื้นที่ให้คุณผิดได้โดยไม่พัง"
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสารหลัก</div>
+    <h1>คนที่วิเคราะห์เก่ง มักมีจุดอ่อนนี้</h1>
+
+    <p>ผมจะพูดสิ่งที่อาจจะดูขัดแย้ง แต่อยากให้คุณฟังจริง ๆ:</p>
+
+    <p><strong>คนที่วิเคราะห์เก่ง มักเชื่อในความสามารถของตัวเองมากเกินไป</strong> — และความเชื่อนี้ทำให้พวกเขา "เผื่อพลาด" ในแผนน้อยกว่าที่ควร เพราะลึก ๆ พวกเขาคิดว่า "ถ้าวิเคราะห์ดีพอ ก็ไม่ต้องเผื่อ"</p>
+
+    <p>คนที่ติด Optimization Paralysis เป็นอีกด้านหนึ่งของเหรียญเดียวกัน — พวกเขาวิเคราะห์ละเอียดมากจนคิดว่าต้องวิเคราะห์ "ครบทุกมุม" ก่อนซื้อ พวกเขาไม่ยอมเหลือ <em>room for error</em> เพราะพวกเขาคิดว่าถ้าวิเคราะห์ละเอียดพอ ก็ไม่ต้องเหลือที่ให้ผิด</p>
+
+    <p>แต่ความจริงในการลงทุนคือ: <strong>โลกซับซ้อนเกินกว่าที่ใครจะวิเคราะห์ครบ และอนาคตไม่เหมือนอดีต</strong> ดังนั้นไม่ว่าคุณวิเคราะห์ดีแค่ไหน คุณ <em>จะ</em> ผิดในบางครั้ง คำถามไม่ใช่ "ผิดหรือไม่" — คำถามคือ <strong>"ตอนผิด คุณยังอยู่ได้ไหม"</strong></p>
+
+    <div class="insight-box">
+      <div class="insight-label">Re-framing</div>
+      <p><strong>"การวางแผนเผื่อทุกอย่างผิด คือแผนที่ดีที่สุด"</strong> — ไม่ใช่เพราะคุณคาดว่าจะผิด แต่เพราะการเผื่อช่องว่างให้ตัวเองผิดได้ คือสิ่งที่ทำให้คุณ <em>กล้ากดซื้อ</em> ในตอนแรก</p>
+    </div>
+
+    <h2>Margin of Safety ใน 3 ระดับ — ไม่ใช่แค่ราคา</h2>
+
+    <p>เวลาคนพูดถึง margin of safety เขามักหมายถึง valuation — "ซื้อราคาต่ำกว่ามูลค่าที่แท้จริง"</p>
+
+    <p>นั่นเป็นแค่ระดับเดียว Margin of safety ที่จริง ๆ มี 3 ชั้น และ Optimization Paralysis ของคุณจะหายเมื่อคุณสร้างทั้ง 3 ชั้นนี้พร้อมกัน:</p>
+
+    <h3>ชั้นที่ 1 — Position Sizing (size ของแต่ละตัว)</h3>
+
+    <p>เริ่ม position ที่ <strong>1–2% ของพอร์ต</strong> ไม่ใช่ 5–10% ทันที</p>
+
+    <p>เหตุผลคือ: ถ้าตัวนั้นผิด 50% — คุณเสีย 0.5–1% ของพอร์ต <em>ซึ่งคุณก็ทนได้</em> และนั่นคือสิ่งที่ทำให้คุณกล้ากดซื้อ ไม่ใช่ "เลือกตัวที่ไม่ผิด" (ซึ่งไม่มี)</p>
+
+    <h3>ชั้นที่ 2 — Cash Reserve (เงินสดในพอร์ต)</h3>
+
+    <p>ถือเงินสด <strong>10–20%</strong> ของพอร์ตเสมอ — ไม่ใช่ 0%</p>
+
+    <p>คุณอาจคิดว่า "ถือเงินสดคือเสีย opportunity cost" — แต่นั่นคือมุมของ rational ในมุม reasonable เงินสด 15% ทำให้คุณ <em>กล้ากดซื้อตัวที่ลังเล</em> เพราะคุณรู้ว่าถ้าผิด คุณยังมีกระสุน</p>
+
+    <p>ในทางคณิตศาสตร์ คุณอาจเสียผลตอบแทนเฉลี่ย 0.5%/ปี — ในทางพฤติกรรม คุณอาจได้คืนมา 5%/ปี เพราะคุณไม่กลัวจนเป็นอัมพาต</p>
+
+    <h3>ชั้นที่ 3 — Mental Padding (เผื่อในใจ)</h3>
+
+    <p>ในทุก ๆ การคำนวณคุณ ลอง <strong>เผื่อ "ผิด 30%"</strong> เสมอ:</p>
+
+    <p>คุณคำนวณ fair value ได้ 100? — สมมุติว่าคุณคำนวณผิด 30% มันอาจเป็น 70 ดังนั้นซื้อตอนราคา 60 ไม่ใช่ตอน 95</p>
+
+    <p>คุณคิดว่า EPS จะโต 20%? — เผื่อว่าคุณผิด 30% มันอาจโตแค่ 14% ผลคืนยังคุ้มไหม?</p>
+
+    <div class="action-card">
+      <div class="action-eyebrow">Practical Setup · ตั้งค่าก่อนเริ่ม</div>
+      <div class="action-title">Three Layers of Safety — สร้างทันทีหลังอ่านจบบทนี้</div>
+      <ol class="action-list">
+        <li><strong>Position Size:</strong> ตัวใหม่เริ่มที่ 2% ขยายเป็น 5% หลังถือ 6 เดือน + ราคาขยับตามคาด</li>
+        <li><strong>Cash Reserve:</strong> รักษา 10–20% เป็น cash เสมอ ไม่ลงทุน 100%</li>
+        <li><strong>Mental Buffer:</strong> หาร valuation ของตัวเองด้วย 1.3 แล้วใช้ตัวเลขนั้น</li>
+      </ol>
+    </div>
+
+    <h2>เรื่องที่ผมไม่ค่อยพูดในที่สาธารณะ</h2>
+
+    <p>คนถามผมเสมอว่าเงินส่วนตัวผมลงทุนยังไง คำตอบที่ทำให้คนงงคือ: <strong>ผมถือเงินสดเยอะกว่าที่นักการเงินรับได้</strong></p>
+
+    <p>ทำไม? เพราะผมรู้จักตัวเอง — ผมไม่อยากเป็นคนที่ <em>ต้อง</em> ทำเงินทุกอณู ผมอยากเป็นคนที่ <em>นอนหลับสบาย</em> ทุกคืน เพราะนั่นทำให้ผมตัดสินใจได้ดีขึ้นในอีก 30 ปีข้างหน้า</p>
+
+    <p>ในทางกระดาษ ผม "พลาด" ผลตอบแทนหลายล้านดอลลาร์ ในทางชีวิตจริง ผม "ได้" 30 ปีของการตัดสินใจที่ดีกว่า เพราะไม่เคยถูกบีบให้ขายในจุดที่ไม่ควรขาย</p>
+
+    <p>นี่คือคำนิยามของ <em>reasonable</em> ในเล่มนี้ และนี่คือสิ่งที่ Optimization Paralysis ของคุณกำลังต่อต้านโดยไม่รู้ตัว — คุณกำลังพยายามจะ optimal ในจุดที่ reasonable คือคำตอบที่ถูกต้อง</p>
+
+    <div class="pullquote">
+      <p>"Room for error often looks like a conservative hedge. But its purpose is the opposite of conservatism — it's what allows you to take risks confidently."
+        <span class="th">การเผื่อผิดมักดูเหมือนเล่นปลอดภัย แต่เป้าหมายของมันตรงกันข้าม — มันคือสิ่งที่ทำให้คุณกล้าเสี่ยงอย่างมั่นใจ</span>
+      </p>
+      <cite>Morgan Housel</cite>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-title">Reflection · ตั้งค่าระบบของคุณเอง</div>
+      <div class="reflection-subtitle">ก่อนผ่านไปบท 4 — คุณมีทั้ง 3 ชั้นนี้แล้วหรือยัง?</div>
+      <ol class="reflection-list">
+        <li>Position size แรกของคุณตอนนี้ใหญ่แค่ไหน? เกิน 3% ไหม? ถ้าเกิน คุณเหลือพื้นที่ให้ผิดเท่าไหร่?</li>
+        <li>Cash reserve ของคุณวันนี้กี่ %? ถ้าตลาดร่วง −30% พรุ่งนี้ คุณมีเงินเข้าซื้อต่อไหม?</li>
+        <li>คุณเคยหาร valuation ของตัวเองด้วย 1.3 ไหม? หรือคุณเชื่อ 100% ว่าคำนวณถูก?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============ CHAPTER 4 ============ -->
+  <div class="chapter-open">
+    <div class="ch-num">04</div>
+    <div class="ch-label">Chapter Four · บทที่สี่</div>
+    <div class="ch-title">
+      Getting &amp; Staying Wealthy
+      <em>รวยขึ้น vs. รวยอยู่ — คนละทักษะ</em>
+    </div>
+    <div class="ch-essence">
+      "การ 'รวยขึ้น' ใช้ความกล้า — การ 'รวยอยู่' ใช้ความระมัดระวัง — Compounding ต้องการเวลา ไม่ใช่ความเร็ว"
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสารหลัก</div>
+    <h1>สองทักษะที่คนชอบสับสน</h1>
+
+    <p>มีนักลงทุนคนหนึ่งชื่อ Jesse Livermore — ในยุค 1929 เขาทำเงินได้ 100 ล้านดอลลาร์จากการ short market crash นั่นคือเงินมากกว่า 1.5 พันล้านดอลลาร์ในวันนี้</p>
+
+    <p>4 ปีหลังจากนั้น Livermore ล้มละลาย — และฆ่าตัวตายในห้องน้ำของโรงแรมไม่กี่ปีถัดมา</p>
+
+    <p>เขามีทักษะใน <em>"การรวยขึ้น"</em> — ความกล้าที่จะเดิมพันใหญ่ในจังหวะที่ถูก แต่เขาขาดทักษะ <em>"การรวยอยู่"</em> — ความระมัดระวังที่จะรักษาสิ่งที่ได้มา</p>
+
+    <p>ในทางกลับกัน Warren Buffett — ไม่ได้รวยเพราะเขาเลือกหุ้นเก่งที่สุดในประวัติศาสตร์ (มีคนเลือกหุ้นเก่งกว่า) — เขารวยเพราะ <strong>เขาไม่เคยล้มละลายและไม่เคยหยุด</strong> เขาทบดอกเบี้ยมา 80 ปี</p>
+
+    <div class="cmp-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>มิติ</th>
+            <th>Getting Wealthy</th>
+            <th>Staying Wealthy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">ทักษะหลัก</td>
+            <td>เสี่ยงเป็น, มองเห็นโอกาส, กล้าเดิมพัน</td>
+            <td>หลีกเลี่ยงพินาศ, รักษาเส้นทาง, อดทน</td>
+          </tr>
+          <tr>
+            <td class="col-label">Mindset</td>
+            <td>Optimist — โลกจะดีขึ้น</td>
+            <td>Paranoid — อะไรก็เกิดได้</td>
+          </tr>
+          <tr>
+            <td class="col-label">วัดผล</td>
+            <td>ผลตอบแทนสูงสุด</td>
+            <td>อยู่รอดในเกมระยะยาว</td>
+          </tr>
+          <tr>
+            <td class="col-label">เวลาที่ต้องใช้</td>
+            <td>ปีหรือทศวรรษ</td>
+            <td>ตลอดชีวิต</td>
+          </tr>
+          <tr>
+            <td class="col-label">ตัวอย่าง</td>
+            <td>Jesse Livermore (1929)</td>
+            <td>Warren Buffett (80 ปี)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>เคล็ดของ Buffett ที่คนเข้าใจผิด</h2>
+
+    <p>คนคิดว่า Buffett รวยเพราะเลือกหุ้นเก่ง ความจริงคือ — Buffett รวยเพราะ <strong>เขาเลือกหุ้นเก่งระดับนึง และไม่หยุดทบดอกเบี้ยมา 80 ปี</strong></p>
+
+    <p>ดูตัวเลขจริง: ความมั่งคั่งของ Buffett 99% เกิดขึ้นหลังอายุ 50 ของเขา — ก่อนหน้านั้นเขาเป็นคนรวยระดับธรรมดา <strong>อาวุธลับของเขาคือเวลา ไม่ใช่ความฉลาด</strong></p>
+
+    <p>และเวลาจะเกิดขึ้นได้ ก็ต่อเมื่อคุณ <em>ไม่ออกจากเกม</em> — ไม่ใช่เพราะคุณตัดสินใจถูกที่สุดทุกครั้ง</p>
+
+    <div class="blockquote-full">
+      <div class="bq-mark">"</div>
+      <div class="bq-en">Compounding doesn't rely on earning big returns. Returns that are merely good and sustained for the longest period of time will always win.</div>
+      <div class="bq-th">การทบดอกเบี้ยไม่ต้องการผลตอบแทนใหญ่ — ผลตอบแทนพอใช้ที่ทำได้นานที่สุด จะชนะเสมอ</div>
+      <div class="bq-attr">Morgan Housel · The Psychology of Money</div>
+    </div>
+
+    <h2>การเปลี่ยนคำถาม — สิ่งที่จะปลด Paralysis ของคุณทันที</h2>
+
+    <p>คำถามเก่าของคุณ: <em>"ตัวนี้จะให้ผลตอบแทนสูงสุดไหม?"</em></p>
+
+    <p>คำถามนี้คือคำถามของคน <em>"กำลังรวยขึ้น"</em> — มันเหมาะสำหรับคนที่ไม่มีอะไรจะเสีย ที่ต้องการ home run คนเดียวเพื่อเปลี่ยนชีวิต</p>
+
+    <p>แต่คุณไม่ใช่คนนั้น — และคุณก็รู้ตัวว่าคุณไม่ใช่ ไม่งั้นคุณก็ไม่ลังเล คนที่ <em>"กำลังรวยขึ้น"</em> ไม่ลังเล เขากดเลย เพราะการนั่งนิ่ง ๆ คือต้นทุนที่สูงกว่าการกดผิด</p>
+
+    <p>คำถามใหม่ของคุณควรเป็น: <strong>"ตัวนี้ทำให้ฉันอยู่ในเกมต่อได้ไหม ถ้าฉันคิดผิด?"</strong></p>
+
+    <p>คำถามนี้ตอบได้ — เพราะคุณรู้ตัวเอง รู้ size ที่คุณรับได้ รู้พื้นที่ที่คุณเหลือไว้ผิด และเมื่อคุณตอบได้ คุณก็กดซื้อได้</p>
+
+    <div class="dialogue">
+      <div class="dialogue-row">
+        <div class="dialogue-cell before">
+          <div class="dialogue-tag">Old Question</div>
+          <div class="dialogue-text">"ตัวนี้ดีที่สุดที่ฉันหาได้แล้วใช่ไหม? อาจมีตัวที่ดีกว่านี้... ขอวิเคราะห์อีกหน่อย..."</div>
+        </div>
+        <div class="dialogue-cell after">
+          <div class="dialogue-tag">New Question</div>
+          <div class="dialogue-text">"ตัวนี้ทำให้ฉันอยู่ในเกมต่อได้ไหม ถ้าผิด? — ใช่ → ซื้อ size 2% — ปิดคอม"</div>
+        </div>
+      </div>
+    </div>
+
+    <p>นี่ไม่ใช่ "คิดน้อยลง" — นี่คือ <strong>คิดในมิติที่ตอบได้</strong> Optimization Paralysis เกิดเพราะคุณตั้งคำถามที่ไม่มีคำตอบ คำถามใหม่นี้มีคำตอบเสมอ</p>
+
+    <h2>Survivor's Manual — กฎ 3 ข้อสำหรับ "อยู่ในเกม"</h2>
+
+    <div class="checklist">
+      <div class="checklist-cap">
+        <div class="checklist-cap-eyebrow">Operating Principles</div>
+        <h3>กฎพื้นฐานของผู้รอดในระยะยาว</h3>
+        <p>3 ข้อนี้สำคัญกว่าการเลือกหุ้นเก่ง</p>
+      </div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">ไม่มี position ใดเกิน 10% ของพอร์ต — ไม่ว่าจะมั่นใจแค่ไหน</div>
+            <div class="cl-note">เพราะความมั่นใจไม่ได้ป้องกันเหตุการณ์ที่คุณไม่ได้คาดไว้</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">ไม่ใช้ leverage (margin) ในการลงทุนระยะยาว</div>
+            <div class="cl-note">Margin บังคับให้คุณตัดสินใจตามเวลาตลาด ไม่ใช่ตามแผนของคุณ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">ค่าใช้จ่ายชีวิต ≤ 70% ของรายได้ — ส่วนที่เหลือคืออาวุธของ compounding</div>
+            <div class="cl-note">Buffett รวยเพราะมีเงินใหม่เข้ามาทบเสมอ ไม่ใช่เพราะเลือกหุ้นเก่งที่สุด</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-title">Reflection · กรองคำถามของคุณ</div>
+      <div class="reflection-subtitle">ก่อนกดซื้อครั้งต่อไป — ลองสลับคำถาม</div>
+      <ol class="reflection-list">
+        <li>3 ครั้งล่าสุดที่คุณกดไม่ลง — คุณตั้งคำถามแบบไหน? "ตัวที่ดีที่สุด" หรือ "ตัวที่อยู่ได้"?</li>
+        <li>ถ้าคุณยอมรับว่าทบดอกเบี้ยต้องการ 30 ปี ไม่ใช่ 3 ปี — คุณยังต้องเลือก "ดีที่สุด" จริงไหม?</li>
+        <li>ในพอร์ตคุณตอนนี้ มี position ไหนใหญ่เกิน 10% บ้าง? ทำไมคุณยอมให้มันใหญ่ขนาดนั้น?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============ CHAPTER 5 ============ -->
+  <div class="chapter-open">
+    <div class="ch-num">05</div>
+    <div class="ch-label">Chapter Five · บทที่ห้า</div>
+    <div class="ch-title">
+      The Seduction of Pessimism
+      <em>ฉลาดที่ฟังดูฉลาด — กับดักของคนวิเคราะห์เก่ง</em>
+    </div>
+    <div class="ch-essence">
+      "การมองโลกร้ายฟังดูฉลาดเสมอ — และนี่คือเหตุผลที่มันอันตรายที่สุด"
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสารหลัก</div>
+    <h1>ทำไมคนวิเคราะห์เก่งมักลังเลที่สุด</h1>
+
+    <p>ผมจะถามคุณตรง ๆ — ครั้งที่คุณ <em>ไม่กดซื้อ</em> เพราะ "macro ไม่ดี / รอราคาถูกกว่า / รอ confirm สัญญาณ" — คุณรู้สึกอย่างไรกับตัวเอง?</p>
+
+    <p>ผมเดาว่าคุณรู้สึก <strong>"รอบคอบ"</strong> รู้สึก <strong>"ฉลาดกว่าคนอื่น"</strong> รู้สึกว่าคุณ <strong>"ไม่หลงไปกับฝูง"</strong></p>
+
+    <p>นี่คือกับดักที่ใหญ่ที่สุดในวงการการเงิน — และมันมีชื่อ ชื่อมันคือ <em>The Seduction of Pessimism</em> — ความน่าดึงดูดของการมองโลกร้าย</p>
+
+    <h2>ทำไมการมองโลกร้ายฟังดูฉลาด</h2>
+
+    <p>มันมีเหตุผลทางจิตวิทยาอย่างน้อย 3 ข้อ ที่ pessimism ขายดีเสมอ:</p>
+
+    <h3>1. การสูญเสียเจ็บกว่ากำไร 2 เท่า</h3>
+
+    <p>งานวิจัยของ Daniel Kahneman ใน prospect theory แสดงว่า — มนุษย์รู้สึกเจ็บจาก −$100 มากกว่าความสุขจาก +$100 ราว 2 เท่า ดังนั้นเสียงที่บอก "ระวังจะเสีย!" จะดังในหัวคุณกว่าเสียงที่บอก "ระวังจะพลาดกำไร!"</p>
+
+    <h3>2. โลกร้ายฟังดูเหมือน "เห็นสิ่งที่คนอื่นไม่เห็น"</h3>
+
+    <p>คนที่บอก "หุ้นจะขึ้น" ฟังดูเหมือนตามฝูง คนที่บอก "หุ้นจะร่วง 50%" ฟังดูเหมือนนักวิเคราะห์เก่งที่เห็น iceberg ที่คนอื่นมองไม่เห็น ในวงสังคม pessimism = สถานะ</p>
+
+    <h3>3. ความผิดพลาดของ pessimist ถูกอภัย</h3>
+
+    <p>ถ้า optimist ผิด เขาคือ "คนเขลา" ถ้า pessimist ผิด เขาคือ "คนรอบคอบที่โชคไม่ดี" สังคมให้รางวัล pessimism ในเชิง social ทั้งที่ในเชิงผลลัพธ์ optimism มักชนะ</p>
+
+    <div class="insight-box">
+      <div class="insight-label">การเปิดเผยที่ทำให้เจ็บ</div>
+      <p>ทุกครั้งที่คุณ <em>"รอ"</em> เพราะรู้สึกว่ามัน "รอบคอบ" — มีโอกาสสูงที่คุณกำลัง <strong>กลัว แล้วใส่สูทของนักวิเคราะห์ให้กับความกลัวนั้น</strong></p>
+    </div>
+
+    <h2>ความจริงที่ Pessimist ไม่อยากได้ยิน</h2>
+
+    <p>ในระยะยาว <strong>ตลาดให้รางวัล optimist</strong> เพราะเศรษฐกิจโตในระยะยาว เพราะมนุษย์แก้ปัญหาได้ในระยะยาว เพราะนวัตกรรมทบเงินสะสมได้ในระยะยาว</p>
+
+    <p>S&amp;P 500 ในช่วง 100 ปีที่ผ่านมา — ผ่าน 2 สงครามโลก, Great Depression, stagflation, dot-com bust, financial crisis, COVID — และยังให้ผลตอบแทนเฉลี่ยราว 10%/ปี</p>
+
+    <p>ทุกครั้งที่ pessimist ออกมาประกาศ "จุดจบของตลาด" — ตลาดเด้งกลับ ไม่ใช่เพราะ pessimist ผิดในระยะสั้น (บางครั้งเขาถูกในระยะสั้น) แต่เพราะ <em>tail event ของ optimism</em> ใหญ่กว่าเสมอในระยะยาว</p>
+
+    <div class="pullquote">
+      <p>"Pessimism sounds smart. Optimism sounds like a sales pitch. Pessimism wins the moment. Optimism wins the decade."
+        <span class="th">การมองโลกร้ายฟังดูฉลาด การมองโลกในแง่ดีฟังดูเหมือนการขาย — ในขณะนี้ pessimism ชนะ ในทศวรรษ optimism ชนะ</span>
+      </p>
+      <cite>Morgan Housel</cite>
+    </div>
+
+    <h2>การทดสอบที่จะเปิดเผยตัวเอง</h2>
+
+    <p>ครั้งต่อไปที่คุณ <em>กลัวซื้อ</em> เพราะ:</p>
+
+    <p style="margin-left: 24px; color: var(--ink-muted); font-style: italic;">"macro ไม่ดี" / "รอ FED" / "รอ correction" / "รอ confirm trend" / "รอ valuation ถูกกว่า"</p>
+
+    <p>ผมขอให้คุณทำสิ่งหนึ่ง — <strong>เขียนเหตุผลนั้นลงกระดาษ จริง ๆ ลงกระดาษจริง ไม่ใช่คิดในใจ</strong> แล้วถาม:</p>
+
+    <div class="action-card">
+      <div class="action-eyebrow">The Mirror Test · การทดสอบกระจกเงา</div>
+      <div class="action-title">3 คำถามที่ทำให้กระจกของตัวเองสะอาด</div>
+      <ol class="action-list">
+        <li>"ถ้าได้ยินคนอื่นพูดประโยคนี้ ฉันจะคิดว่าเขารอบคอบ หรือเขากลัว?"</li>
+        <li>"ถ้าฉันใช้ตรรกะเดียวกันนี้ตลอด 5 ปีที่ผ่านมา ฉันจะกดซื้ออะไรบ้าง?" — ลิสต์มาให้หมด</li>
+        <li>"ถ้าฉัน <em>ผิด</em> ในการรอ — แปลว่าหุ้นขึ้นต่อ — ฉันยังเข้าได้ไหม หรือฉันจะรออีกครั้ง?"</li>
+      </ol>
+    </div>
+
+    <p>คำถามที่ 3 คือคำถามฆ่า — เพราะคนที่ pessimist จะตอบว่า "ฉันจะรออีกครั้ง" และนั่นคือการเปิดเผยว่าคุณไม่ได้รอ <em>เหตุผล</em> คุณกำลังรอ <em>ความรู้สึกปลอดภัย</em> ซึ่งไม่มีวันมา</p>
+
+    <h2>Optimism ที่ผมหมายถึง — ไม่ใช่การโง่ในแง่ดี</h2>
+
+    <p>เพื่อความชัดเจน — ผมไม่ได้บอกให้คุณซื้อทุกอย่างที่ขึ้น ไม่ได้บอกให้ละเลย risk ไม่ได้บอกให้ตามฝูงตาม FOMO</p>
+
+    <p>Optimism ที่ผมหมายถึง คือความเชื่อใน <strong>"ระบบ"</strong> — เชื่อว่ามนุษย์จะแก้ปัญหา เชื่อว่าธุรกิจดีจะปรับตัวได้ เชื่อว่าเศรษฐกิจจะโตในระยะยาว <em>ขณะที่ยังเตรียมพร้อมสำหรับช่วงที่ระบบนั้นเจ็บ</em></p>
+
+    <div class="cmp-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>มิติ</th>
+            <th>Pessimism (กับดัก)</th>
+            <th>Reasonable Optimism</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">ระยะสั้น</td>
+            <td>เตือน "ระวัง crash"</td>
+            <td>เตรียม cash reserve, ลด leverage</td>
+          </tr>
+          <tr>
+            <td class="col-label">ระยะยาว</td>
+            <td>"ตลาดจะพังในที่สุด"</td>
+            <td>"ระบบเศรษฐกิจจะโตในที่สุด"</td>
+          </tr>
+          <tr>
+            <td class="col-label">การกระทำ</td>
+            <td>ไม่กดซื้อ รอจังหวะ</td>
+            <td>กดซื้อ size เล็ก กระจาย ถือยาว</td>
+          </tr>
+          <tr>
+            <td class="col-label">ผลในชีวิตจริง</td>
+            <td>มี cash 90% หลายปี → พลาด tails</td>
+            <td>มี cash 15% เสมอ → อยู่ในเกม + ทน drawdown ได้</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-title">Reflection · เปิดเผยตัวเอง</div>
+      <div class="reflection-subtitle">บทนี้ขอให้คุณซื่อตรงกับตัวเอง — ไม่มีคำตอบที่ถูก มีแต่ความจริง</div>
+      <ol class="reflection-list">
+        <li>ครั้งล่าสุดที่คุณ "รอ" — สุดท้ายคุณได้กดซื้อตอนที่รอจริงไหม? หรือคุณรออีกครั้ง?</li>
+        <li>ลิสต์ 5 ตัวที่คุณ "ลังเลซื้อ" ในปีที่ผ่านมา — วันนี้ราคามันเป็นยังไง? คุณรอ "ถูกลง" หรือ "พลาดขาขึ้น"?</li>
+        <li>ถ้าให้คะแนนตัวเอง — ในการตัดสินใจ 10 ครั้งล่าสุด คุณ pessimist หรือ optimist กี่ครั้ง? และผลลัพธ์เป็นยังไง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ============ FINALE / DAILY DISCIPLINE ============ -->
+  <div class="chapter-open">
+    <div class="ch-num">⊕</div>
+    <div class="ch-label">Synthesis · บทสรุป</div>
+    <div class="ch-title">
+      Your Daily Discipline
+      <em>วินัยประจำวัน — ก่อนกดซื้อทุกครั้ง</em>
+    </div>
+    <div class="ch-essence">
+      "ความรู้ที่ไม่ได้ฝึกเป็นวินัย จะไม่อยู่กับคุณตอน 2 AM ที่ตลาดร่วง"
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Master One-Liner · ประโยคเดียวที่ต้องท่อง</div>
+    <h1>ถ้าคุณจำได้แค่ประโยคเดียว ขอให้เป็นประโยคนี้</h1>
+
+    <div class="blockquote-full">
+      <div class="bq-mark">"</div>
+      <div class="bq-en">The goal isn't to find the best stock — the goal is to stay in the game the longest with stocks that are good enough.</div>
+      <div class="bq-th">เป้าหมายไม่ใช่หาหุ้นที่ดีที่สุด<br>เป้าหมายคืออยู่ในเกมให้นานที่สุด<br>ด้วยหุ้นที่ดีพอ</div>
+      <div class="bq-attr">Master Principle · The Psychology of Money</div>
+    </div>
+
+    <p>ประโยคนี้ดูเรียบง่าย แต่ถ้าคุณตกผลึกได้ มันจะ <strong>ปลด Optimization Paralysis ของคุณในทันที</strong> — เพราะมันเปลี่ยน 2 สิ่งพร้อมกัน:</p>
+
+    <p><strong>1. เปลี่ยน "ดีที่สุด" → "ดีพอ"</strong> &nbsp;·&nbsp; "ดีที่สุด" ไม่มีคำตอบและทำให้คุณค้นหาตลอดชีวิต "ดีพอ" มีคำตอบและทำให้คุณกดซื้อได้</p>
+
+    <p><strong>2. เปลี่ยน "หาหุ้น" → "อยู่ในเกม"</strong> &nbsp;·&nbsp; "หาหุ้น" คือกิจกรรมที่ไม่จบ "อยู่ในเกม" คือสภาวะที่คุณสร้างได้วันนี้</p>
+
+    <h2>The Pre-Trade Ritual — พิธีกรรม 60 วินาที ก่อนกดซื้อ</h2>
+
+    <p>ผมขอให้คุณทำสิ่งนี้ <em>ทุกครั้ง</em> ที่คุณจะกดซื้อ ตั้งแต่วันพรุ่งนี้เป็นต้นไป — และผมขอให้คุณทำมันออกเสียง ไม่ใช่ในใจ:</p>
+
+    <div class="checklist">
+      <div class="checklist-cap">
+        <div class="checklist-cap-eyebrow">The 60-Second Ritual</div>
+        <h3>Pre-Trade Checklist</h3>
+        <p>ติดบนหน้าจอเทรดของคุณ — ทำทุกครั้งโดยไม่ข้ามแม้แต่ครั้งเดียว</p>
+      </div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">ถ้าตัวนี้ −40% พรุ่งนี้ ฉันยังถือได้ไหม?</div>
+            <div class="cl-note">ตอบทันที ไม่ลังเล — ถ้าลังเล: ลด size ครึ่ง</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">Position size แรกฉันคือ 1–2% ของพอร์ต ใช่ไหม?</div>
+            <div class="cl-note">ไม่ใช่ 5–10% ตั้งแต่ครั้งแรก เผื่อไว้ขยาย</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">หลังซื้อตัวนี้ ฉันยังมี cash ≥10% ของพอร์ตไหม?</div>
+            <div class="cl-note">ถ้าไม่ — คุณกำลังลบ buffer ของตัวเอง อย่าซื้อ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">ฉันคำนวณ valuation แล้วหารด้วย 1.3 หรือยัง?</div>
+            <div class="cl-note">เผื่อพลาด 30% เสมอ — ความมั่นใจของคุณเอนเอียงเสมอ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">คำถามที่ฉันใช้คือ "ตัวที่ดีที่สุด" หรือ "ตัวที่อยู่ได้"?</div>
+            <div class="cl-note">ถ้าคำถามแรก — กลับไปอ่านบท 4 อีกรอบ</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-content">
+            <div class="cl-text">เหตุผลที่ฉันอาจจะ "รอก่อน" — ฟังเหมือนรอบคอบ หรือฟังเหมือนกลัว?</div>
+            <div class="cl-note">เขียนลงกระดาษ ถ้าไม่กล้าให้คนอื่นอ่าน — แปลว่ากลัว</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <h2>วิธีอ่านที่ผมแนะนำต่อจากนี้</h2>
+
+    <p>หนังสือผมมี 20 บท — ผมเลือกมาให้คุณ 5 บทที่เป็นหัวใจของปัญหาคุณ บทที่เหลือไม่ใช่ไม่สำคัญ — แต่ <em>ลำดับ</em> สำคัญ</p>
+
+    <div class="action-card">
+      <div class="action-eyebrow">Reading Path · เส้นทางการอ่านของคุณ</div>
+      <div class="action-title">อ่าน 5 บทนี้ → ลงมือ → กลับมาอ่านบทที่เหลือ</div>
+      <ol class="action-list">
+        <li><strong>วันนี้:</strong> อ่านเอกสารนี้จบ เขียน 1 ประโยคต่อบทว่า "ฉันจะใช้ยังไง"</li>
+        <li><strong>พรุ่งนี้:</strong> ติด Pre-Trade Checklist บนหน้าจอเทรด — ใช้กับทุกการซื้อ</li>
+        <li><strong>ภายในสัปดาห์นี้:</strong> กดซื้อ 1 ตัวที่ลังเลอยู่ — ด้วย size 2% ของพอร์ต ทดลองความรู้สึก</li>
+        <li><strong>หลังจาก trade จริง 1 เดือน:</strong> กลับมาอ่านบทที่เหลือของหนังสือ — ตอนนี้คุณมีบริบทรองรับแล้ว ความรู้จะฝังลึกกว่าเดิม</li>
+      </ol>
+    </div>
+
+    <p style="font-style: italic; color: var(--ink-mid); border-left: 2px solid var(--sage); padding-left: 18px; margin-top: 32px;">"อย่าอ่านจบเล่มก่อนค่อยลงมือ — นั่นคือ Optimization Paralysis เวอร์ชันการอ่านหนังสือ"</p>
+
+    <h2>หนังสือที่ผมแนะนำให้อ่านต่อ</h2>
+
+    <p>ถ้าคุณอ่าน Psychology of Money จบและอยากต่อยอด — นี่คือลำดับที่ผมแนะนำเป็นการส่วนตัว:</p>
+
+    <div class="cmp-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>หนังสือ</th>
+            <th>ผู้เขียน</th>
+            <th>ทำไมต้องอ่าน</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-label">Same as Ever</td>
+            <td>Morgan Housel</td>
+            <td>เล่มต่อของผมเอง — เน้นพฤติกรรมที่ไม่เปลี่ยนของมนุษย์</td>
+          </tr>
+          <tr>
+            <td class="col-label">Thinking, Fast and Slow</td>
+            <td>Daniel Kahneman</td>
+            <td>เข้าใจทำไมคุณตัดสินใจแบบที่คุณตัดสินใจ — รากของ paralysis</td>
+          </tr>
+          <tr>
+            <td class="col-label">The Most Important Thing</td>
+            <td>Howard Marks</td>
+            <td>เข้าใจ risk เชิงลึก — ขยาย margin of safety</td>
+          </tr>
+          <tr>
+            <td class="col-label">Poor Charlie's Almanack</td>
+            <td>Charles Munger</td>
+            <td>วิธีคิดของผู้รอด — เน้น "หลีกเลี่ยงพินาศ" มากกว่า "ชนะใหญ่"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="ornament">
+
+    <h2>ข้อความสุดท้ายจากผม</h2>
+
+    <p>คุณไม่ได้ป่วยที่วิเคราะห์เก่ง — มันคือของขวัญ คุณป่วยที่ <em>ใช้ความเก่งนั้นเพื่อหลบหลีกการตัดสินใจ</em></p>
+
+    <p>การวิเคราะห์เก่งจะช่วยคุณเลือกหุ้นที่ดีกว่าคนทั่วไปได้ — แต่จะไม่ช่วยคุณเลย ถ้าคุณไม่กดซื้อ</p>
+
+    <p>การวิเคราะห์มี return ลดถอยเสมอ (diminishing returns) — ครึ่งวันแรกของการวิเคราะห์ให้ insight 80% อีกครึ่งสัปดาห์ให้ insight อีก 15% หนึ่งเดือนถัดไปให้อีก 4% ส่วนที่เหลือ 1% ของ insight ที่คุณกำลังพยายามหา <strong>ต้นทุนคือเวลาในตลาดที่คุณเสียไป</strong></p>
+
+    <p>และเวลาในตลาด คือสิ่งเดียวที่ทบดอกเบี้ยให้คุณ — ไม่ใช่ความฉลาดของคุณ</p>
+
+    <p>ดังนั้นวันนี้ — กดซื้อ size เล็ก ในตัวที่ "ดีพอ" และเริ่มต้นนับเวลาของคุณ</p>
+
+    <p style="margin-top: 32px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--ink); text-align: center; border-top: 1px solid var(--sage-rule); border-bottom: 1px solid var(--sage-rule); padding: 24px 0;">"Time in the market beats timing the market —<br>but only if you actually get in the market."</p>
+
+    <p style="text-align: center; font-style: italic; color: var(--ink-mid); margin-top: -8px;">เวลาในตลาดชนะการจับจังหวะตลาด — แต่ก็ต่อเมื่อคุณ <em>เข้าตลาด</em> เท่านั้น</p>
+
+    <div class="letter-sign" style="text-align: right; margin-top: 48px;">— Morgan</div>
+    <div class="letter-sign-th" style="text-align: right;">มอร์แกน เฮาเซิล · ถึงคุณ Both</div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="book-footer">
+    <div class="book-footer-mark">$</div>
+    <div class="book-footer-text">
+      "ความฉลาดทางการเงินที่แท้จริง<br>ไม่ใช่การรู้ว่าจะลงทุนที่ไหน<br>แต่คือการรู้ว่าจะ <em>อยู่กับการลงทุนนั้นได้อย่างไร</em>"
+    </div>
+    <div class="book-footer-author">The Psychology of Money · Personal Edition</div>
+  </div>
+
+</div><!-- .book -->
+</body>
+</html>
