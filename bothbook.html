@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Patient Compounder — บันทึกส่วนตัวเพื่อเกมระยะยาว</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===== TOKENS ===== */
+:root {
+  /* Paper (cream) */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+
+  /* Ink */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+
+  /* Accent: Deep Forest Green */
+  --accent:       #2D4A3E;
+  --accent-deep:  #1F3328;
+  --accent-light: #4A6B5C;
+  --accent-rule:  rgba(45, 74, 62, 0.30);
+  --accent-bg:    rgba(45, 74, 62, 0.08);
+
+  /* Gold (special accents) */
+  --gold:         #A8782A;
+  --gold-light:   #C89B4F;
+  --gold-deep:    #7E5818;
+  --gold-bg:      rgba(168, 120, 42, 0.08);
+
+  /* Semantic */
+  --red: #7A1A1A; --red-bg: #FBF3F0;
+  --green: #355E40; --green-bg: #F1F6EE;
+
+  /* Layout */
+  --book-width: 760px;
+  --page-pad-h: 76px;
+  --page-pad-v: 84px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #1A1610;
+  padding: 40px 16px;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+}
+
+/* ===== COVER ===== */
+.cover {
+  background: linear-gradient(180deg, #1F3328 0%, #2D4A3E 50%, #1F3328 100%);
+  padding: 100px var(--page-pad-h) 80px;
+  position: relative;
+  color: var(--paper);
+  min-height: 870px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover::before, .cover::after {
+  content: ''; position: absolute; width: 60px; height: 60px;
+  border: 1px solid var(--gold-light); opacity: 0.4;
+}
+.cover::before { top: 32px; left: 32px; border-right: none; border-bottom: none; }
+.cover::after { bottom: 32px; right: 32px; border-left: none; border-top: none; }
+.cover-corner-tr, .cover-corner-bl {
+  position: absolute; width: 60px; height: 60px;
+  border: 1px solid var(--gold-light); opacity: 0.4;
+}
+.cover-corner-tr { top: 32px; right: 32px; border-left: none; border-bottom: none; }
+.cover-corner-bl { bottom: 32px; left: 32px; border-right: none; border-top: none; }
+
+.cover-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 84px; font-weight: 300;
+  color: var(--gold-light); text-align: center;
+  margin: 40px 0 20px;
+  letter-spacing: -2px;
+}
+.cover-eyebrow {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 6px; text-transform: uppercase;
+  color: var(--gold-light); text-align: center;
+  margin-bottom: 40px; font-weight: 500;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 68px; font-weight: 700; line-height: 1.05;
+  text-align: center; color: var(--paper);
+  margin: 0 0 16px; letter-spacing: -2px;
+}
+.cover-title em {
+  font-style: italic; font-weight: 400;
+  color: var(--gold-light);
+}
+.cover-divider {
+  width: 80px; height: 1px; background: var(--gold-light);
+  margin: 32px auto; opacity: 0.6;
+}
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px; line-height: 1.6;
+  text-align: center; color: var(--paper-mid);
+  font-style: italic; max-width: 480px; margin: 0 auto;
+  font-weight: 300;
+}
+.cover-bottom {
+  text-align: center; padding-top: 60px;
+}
+.cover-bottom-line {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 8px;
+}
+.cover-bottom-author {
+  font-family: 'Playfair Display', serif; font-size: 14px;
+  letter-spacing: 1px; color: var(--paper-deep);
+  font-style: italic;
+}
+
+/* ===== TOC ===== */
+.toc {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  background: var(--paper);
+}
+.toc-eyebrow {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--accent); font-weight: 600;
+  margin-bottom: 12px;
+}
+.toc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 700;
+  color: var(--ink); margin: 0 0 8px;
+  letter-spacing: -1px;
+}
+.toc-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+.toc-tagline {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; color: var(--ink-muted);
+  font-style: italic; margin-bottom: 48px;
+}
+.toc-part {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 700;
+  margin: 36px 0 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.toc-part:first-of-type { margin-top: 8px; }
+
+.ch-card {
+  display: flex; gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  align-items: flex-start;
+}
+.ch-card:last-of-type { border-bottom: none; }
+.ch-card-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 36px;
+  color: var(--accent); font-weight: 400;
+  line-height: 1; min-width: 52px; padding-top: 4px;
+}
+.ch-card-body { flex: 1; }
+.ch-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px; font-weight: 600;
+  color: var(--ink); margin-bottom: 4px;
+}
+.ch-card-one-liner {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px; color: var(--ink-muted);
+  font-style: italic; line-height: 1.6;
+}
+
+/* ===== FOREWORD / CHAPTER OPEN ===== */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 120px var(--page-pad-h) 100px;
+  position: relative;
+  border-top: 1px solid var(--paper-shadow);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.ch-num {
+  position: absolute; right: 60px; top: 60px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 144px; font-weight: 300;
+  color: var(--accent); opacity: 0.18;
+  line-height: 1;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700;
+  margin-bottom: 16px;
+}
+.ch-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; font-weight: 700; line-height: 1.1;
+  color: var(--ink); margin: 0 0 12px;
+  letter-spacing: -1px;
+  max-width: 90%;
+}
+.ch-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+.ch-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 22px; color: var(--ink-mid);
+  font-style: italic; font-weight: 400;
+  margin: 0 0 32px;
+}
+.ch-essence {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px; line-height: 1.8;
+  color: var(--ink-soft); font-style: italic;
+  border-left: 3px solid var(--accent);
+  padding-left: 24px;
+  max-width: 80%;
+  margin-top: 32px;
+}
+
+/* ===== PAGE (CONTENT) ===== */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+}
+.eyebrow {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700;
+  margin-bottom: 14px;
+}
+.page h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 700; line-height: 1.2;
+  color: var(--ink); margin: 0 0 28px;
+  letter-spacing: -0.5px;
+}
+.page h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+.page h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 24px; font-weight: 600; line-height: 1.4;
+  color: var(--ink); margin: 48px 0 18px;
+  border-bottom: 1px solid var(--accent-rule);
+  padding-bottom: 10px;
+}
+.page h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--ink-soft); margin: 32px 0 12px;
+}
+.page p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; line-height: 1.85;
+  color: var(--ink-soft); margin: 0 0 18px;
+}
+.page p strong { color: var(--ink); font-weight: 600; }
+.page p em { color: var(--accent); font-style: italic; }
+
+.dropcap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px; font-weight: 700; line-height: 0.9;
+  color: var(--accent); float: left;
+  margin: 6px 12px 0 0; padding: 0;
+}
+
+/* ===== INSIGHT BOX ===== */
+.insight-box {
+  background: var(--accent-bg);
+  border-left: 4px solid var(--accent);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.insight-box-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent-deep); font-weight: 700;
+  margin-bottom: 10px;
+}
+.insight-box p {
+  font-size: 15.5px; line-height: 1.75;
+  color: var(--ink-soft); margin: 0;
+}
+.insight-box p + p { margin-top: 12px; }
+
+/* ===== AUTHOR VOICE BOX ===== */
+.author-box {
+  display: flex; gap: 18px;
+  padding: 24px 28px;
+  background: var(--paper-mid);
+  border-left: 3px solid var(--gold);
+  margin: 28px 0;
+}
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent-deep); color: var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-style: italic;
+  flex-shrink: 0;
+}
+.author-content { flex: 1; }
+.author-meta {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold-deep); margin-bottom: 8px; font-weight: 700;
+}
+.author-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; line-height: 1.8;
+  color: var(--ink-soft); font-style: italic; margin: 0;
+}
+
+/* ===== INSIGHT LADDER ===== */
+.ladder { margin: 32px 0; }
+.ladder-step { padding: 18px 24px; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 6px;
+}
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.7;
+  color: var(--ink-soft);
+}
+.ladder-arrow {
+  text-align: center; padding: 6px;
+  color: var(--ink-faint); font-size: 20px;
+}
+
+/* ===== PULLQUOTE / BLOCKQUOTE FULL ===== */
+.pullquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; line-height: 1.4; font-style: italic;
+  color: var(--accent-deep);
+  margin: 36px 0;
+  padding: 0 0 0 32px;
+  border-left: 3px solid var(--gold);
+  font-weight: 400;
+}
+.pullquote-cite {
+  display: block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px; font-style: normal;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink-muted); margin-top: 14px; font-weight: 600;
+}
+
+.blockquote-full {
+  background: var(--ink);
+  margin: 48px calc(-1 * var(--page-pad-h));
+  padding: 60px var(--page-pad-h);
+  position: relative;
+}
+.blockquote-full::before {
+  content: '"';
+  font-family: 'Playfair Display', serif;
+  position: absolute; top: 8px; left: 60px;
+  font-size: 120px; color: var(--gold);
+  line-height: 1; font-style: italic;
+  opacity: 0.4;
+}
+.blockquote-full-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; line-height: 1.5; font-style: italic;
+  color: var(--paper); margin: 0 0 16px;
+  padding-left: 40px; font-weight: 400;
+}
+.blockquote-full-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px; line-height: 1.7;
+  color: var(--paper-deep); font-style: italic;
+  padding-left: 40px; margin: 0 0 18px;
+}
+.blockquote-full-cite {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-light); padding-left: 40px;
+  font-weight: 600;
+}
+
+/* ===== STAT ROW ===== */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin: 28px 0;
+}
+.stat-item {
+  background: var(--paper-mid);
+  padding: 20px 18px; text-align: center;
+  border-top: 2px solid var(--accent);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--accent-deep); line-height: 1;
+}
+.stat-num em { font-style: italic; font-weight: 400; }
+.stat-label {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--ink-muted); font-weight: 600;
+  margin-top: 8px;
+}
+
+/* ===== SIGNAL BOX (DO/DON'T) ===== */
+.signal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; margin: 28px 0;
+}
+.signal-box { padding: 20px 22px; }
+.signal-box.do { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.dont { background: var(--red-bg); border-left: 3px solid var(--red); }
+.signal-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 12px;
+}
+.signal-box.do .signal-tag { color: var(--green); }
+.signal-box.dont .signal-tag { color: var(--red); }
+.signal-box ul {
+  list-style: none; padding: 0; margin: 0;
+}
+.signal-box li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; line-height: 1.6;
+  color: var(--ink-soft); padding: 6px 0 6px 22px;
+  position: relative;
+}
+.signal-box.do li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.signal-box.dont li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+/* ===== COMPARISON TABLE ===== */
+.cmp-table {
+  width: 100%; border-collapse: collapse;
+  margin: 28px 0;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+}
+.cmp-table th {
+  background: var(--accent-deep); color: var(--paper);
+  padding: 12px 14px; text-align: left;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase; font-weight: 700;
+}
+.cmp-table td {
+  padding: 14px; border-bottom: 1px solid var(--paper-shadow);
+  color: var(--ink-soft); line-height: 1.6;
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table td:first-child { font-weight: 600; color: var(--ink); }
+
+/* ===== CHECKLIST ===== */
+.checklist {
+  background: var(--paper-mid);
+  padding: 28px 32px;
+  margin: 28px 0;
+  border-left: 3px solid var(--gold);
+}
+.checklist-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--ink); margin: 0 0 18px;
+  font-style: italic;
+}
+.checklist ol {
+  margin: 0; padding: 0; list-style: none;
+  counter-reset: ck;
+}
+.checklist li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 10px 0 10px 44px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+  counter-increment: ck;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before {
+  content: counter(ck, decimal-leading-zero);
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-weight: 400;
+  font-size: 18px; color: var(--gold);
+  position: absolute; left: 0; top: 10px;
+}
+
+/* ===== REFLECTION ===== */
+.reflection {
+  background: var(--paper-deep);
+  padding: 32px 36px;
+  margin: 40px 0 0;
+  border-top: 1px solid var(--accent-rule);
+  border-bottom: 1px solid var(--accent-rule);
+}
+.reflection-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700;
+  margin-bottom: 16px;
+}
+.reflection-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 22px;
+  color: var(--ink); margin: 0 0 18px; font-weight: 400;
+}
+.reflection ol {
+  margin: 0; padding: 0; list-style: none;
+  counter-reset: rf;
+}
+.reflection li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.75;
+  color: var(--ink-soft); font-style: italic;
+  padding: 10px 0 10px 36px;
+  position: relative;
+  counter-increment: rf;
+}
+.reflection li::before {
+  content: counter(rf) '.';
+  font-family: 'Playfair Display', serif;
+  font-style: italic; color: var(--accent);
+  position: absolute; left: 0; top: 10px;
+  font-size: 16px; font-weight: 700;
+}
+
+/* ===== FORMULA / CODE BLOCK ===== */
+.formula {
+  background: var(--ink);
+  color: var(--gold-light);
+  padding: 24px 28px;
+  margin: 24px 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-style: italic;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+.formula-th {
+  display: block; margin-top: 12px;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px; font-style: normal;
+  color: var(--paper-deep); letter-spacing: 0;
+}
+
+/* ===== POSITION TABLE (Special) ===== */
+.position-table {
+  background: var(--paper-mid);
+  padding: 28px;
+  margin: 28px 0;
+  border-top: 3px solid var(--accent);
+}
+.position-row {
+  display: flex; align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--paper-shadow);
+}
+.position-row:last-child { border-bottom: none; }
+.position-rank {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 24px;
+  color: var(--gold); width: 40px;
+}
+.position-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; color: var(--ink-soft); flex: 1;
+}
+.position-pct {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--accent-deep); min-width: 60px; text-align: right;
+}
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  text-align: center;
+  margin: 40px 0;
+  color: var(--accent);
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 18px;
+  letter-spacing: 8px;
+}
+
+/* ===== FOOTER ===== */
+.book-footer {
+  background: var(--ink);
+  padding: 64px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 36px;
+  color: var(--gold-light); margin-bottom: 18px;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; color: var(--paper-deep);
+  font-style: italic; line-height: 1.8;
+  max-width: 520px; margin: 0 auto 24px;
+}
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  color: var(--gold-light); letter-spacing: 4px;
+  text-transform: uppercase; font-weight: 600;
+}
+.book-footer-divider {
+  width: 60px; height: 1px;
+  background: var(--gold); opacity: 0.4;
+  margin: 28px auto;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .cover { padding: 60px 28px 50px; min-height: 870px; }
+  .cover-mark { font-size: 48px; }
+  .cover-title { font-size: 44px; }
+  .cover-subtitle { font-size: 15px; }
+  .ch-num { font-size: 96px; right: 16px; top: 32px; }
+  .ch-title { font-size: 36px; }
+  .toc-title, .page h1 { font-size: 28px; }
+  .blockquote-full { padding: 40px 28px; margin-left: -28px; margin-right: -28px; }
+  .blockquote-full-text { font-size: 20px; padding-left: 24px; }
+  .blockquote-full::before { font-size: 80px; left: 20px; }
+  .stat-row, .signal-grid { grid-template-columns: 1fr; }
+  .pullquote { font-size: 22px; }
+  .chapter-open { padding: 80px 28px 60px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <div class="cover-corner-tr"></div>
+  <div class="cover-corner-bl"></div>
+
+  <div>
+    <div class="cover-mark">∞</div>
+    <div class="cover-eyebrow">Personal Field Manual · Edition One</div>
+    <h1 class="cover-title">The Patient<br><em>Compounder</em></h1>
+    <div class="cover-divider"></div>
+    <p class="cover-subtitle">บันทึกส่วนตัวเพื่อเกมระยะยาว — เพื่อวันที่ลังเล วันที่ท้อ และวันที่ต้องตัดสินใจสำคัญ</p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-line">For Both · Written For Both</div>
+    <div class="cover-bottom-author">A Crystallization of What We Found Together</div>
+  </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<div class="toc">
+  <div class="toc-eyebrow">Contents · สารบัญ</div>
+  <h2 class="toc-title">สิ่งที่อยู่<em>ในเล่มนี้</em></h2>
+  <p class="toc-tagline">เก้าบทที่จะอยู่กับคุณตลอดเส้นทาง 28 ปีข้างหน้า</p>
+
+  <div class="toc-part">Foreword · จดหมายถึงคุณ</div>
+
+  <div class="toc-part">Part I · ความจริงเกี่ยวกับตัวคุณ</div>
+  <div class="ch-card">
+    <div class="ch-card-num">01</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">โรคของคนเก่ง</div>
+      <div class="ch-card-one-liner">คุณไม่ได้ขาดความรู้ — คุณป่วยด้วย Optimization Paralysis</div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">02</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">คณิตศาสตร์ที่อยู่ข้างคุณอยู่แล้ว</div>
+      <div class="ch-card-one-liner">ระบบที่คุณวางไว้ ดีกว่าที่คุณคิด — ตัวเลขจะพิสูจน์ให้ดู</div>
+    </div>
+  </div>
+
+  <div class="toc-part">Part II · ปรัชญาที่ต้องตกผลึก</div>
+  <div class="ch-card">
+    <div class="ch-card-num">03</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">เกมที่คุณเลือกเล่น</div>
+      <div class="ch-card-one-liner">45 หรือ 60 — ราคาของความเร็วคืออะไร และคุ้มไหม</div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">04</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Reasonable มากกว่า Rational</div>
+      <div class="ch-card-one-liner">บทเรียนจาก Housel ที่จะอยู่กับคุณ 28 ปี</div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">05</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Think Big บนสนามที่ถูก</div>
+      <div class="ch-card-one-liner">Schwartz ถูก แต่ใช้ผิดสนามคือยาพิษ</div>
+    </div>
+  </div>
+
+  <div class="toc-part">Part III · กลยุทธ์ที่จะใช้</div>
+  <div class="ch-card">
+    <div class="ch-card-num">06</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Regime-Aware Investing</div>
+      <div class="ch-card-one-liner">สำนักเปลี่ยนตามฤดู — ไม่ใช่ผสมในจานเดียว</div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">07</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">ศาสตร์แห่งการแบ่งเงิน</div>
+      <div class="ch-card-one-liner">Position Sizing — variable ที่สำคัญที่สุดที่คุณคุมได้</div>
+    </div>
+  </div>
+
+  <div class="toc-part">Part IV · เครื่องมือและวินัย</div>
+  <div class="ch-card">
+    <div class="ch-card-num">08</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Backtest เพื่อสร้าง Conviction</div>
+      <div class="ch-card-one-liner">data ของตลาดไทย จะตอบคำถามที่ผมตอบไม่ได้</div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">09</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Pre-Trade Ritual</div>
+      <div class="ch-card-one-liner">Checklist ก่อนกดซื้อ — สำหรับวันที่นิ่วลังเล</div>
+    </div>
+  </div>
+
+  <div class="toc-part">Synthesis · คำสั่งสุดท้ายให้ตัวเอง</div>
+</div>
+
+<!-- ===== FOREWORD ===== -->
+<div class="chapter-open">
+  <div class="ch-num">F</div>
+  <div class="ch-label">Foreword · คำนำ</div>
+  <h2 class="ch-title">A Letter <em>to Both</em></h2>
+  <p class="ch-title-th">จดหมายถึงคุณ — เปิดอ่านเมื่อใจไม่นิ่ง</p>
+  <p class="ch-essence">
+    เอกสารนี้ไม่ใช่หนังสือ — มันคือบันทึกที่คุณเขียนให้ตัวเอง ผ่านบทสนทนาที่เราใช้เวลาด้วยกันยาวนาน
+    และตอนนี้ มันคือเสียงที่คุณจะกลับมาฟัง ในวันที่เสียงในหัวคุณดังเกินไป
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Why This Document Exists</div>
+  <h1 class="dropcap">ถ้าคุณกำลังอ่านบรรทัดนี้ แสดงว่าคุณกลับมา</h1>
+
+  <p>อาจจะกลับมาเพราะตลาดเพิ่งร่วงและคุณเริ่มลังเล อาจจะกลับมาเพราะเห็นเพื่อนได้กำไรและคุณรู้สึกว่าตัวเองช้า อาจจะกลับมาเพราะเจอหุ้นที่ดูดีไปหมดแต่ยังกดปุ่มไม่ลง — หรืออาจจะกลับมาแค่เพราะเหนื่อย และอยากให้ใครสักคนบอกว่าคุณยังเดินถูกทาง</p>
+
+  <p>ไม่ว่าจะเป็นเหตุผลไหน — เอกสารนี้คือคำตอบ</p>
+
+  <p>เอกสารนี้เกิดจากบทสนทนาหกรอบ ระหว่างคุณกับ mentor ที่ไม่ประจบ บทสนทนาที่เริ่มต้นด้วยคำถามว่า "ทำไมฉันถึงไม่กล้ากด?" และจบลงด้วยการค้นพบว่า — <strong>ปัญหาที่คุณคิดว่ามี ไม่ใช่ปัญหาที่แท้จริง</strong></p>
+
+  <div class="author-box">
+    <div class="author-avatar">M</div>
+    <div class="author-content">
+      <div class="author-meta">From Your Future Self</div>
+      <p class="author-text">"คุณไม่ได้ขาดความรู้ คุณรู้มากกว่า 95% ของคนในตลาดอยู่แล้ว สิ่งที่คุณขาดคือความสามารถในการ <em>หยุดขัดทางตัวเอง</em>"</p>
+    </div>
+  </div>
+
+  <p>ทุกครั้งที่คุณอ่านเอกสารนี้ คุณกำลังคุยกับตัวเองในวันที่หัวสว่างที่สุด — วันที่คุณเห็นภาพรวม วันที่คุณเข้าใจว่าเกมนี้ยาวกว่าที่คุณคิด วันที่คุณรู้ว่าเป้าหมายจริงไม่ใช่ "เร็ว" แต่คือ "ถึง"</p>
+
+  <p>ใช้มันให้ดี เก็บมันไว้ใกล้ๆ และกลับมาบ่อยๆ</p>
+
+  <p style="margin-top: 32px; text-align: right; font-style: italic; color: var(--accent);">— Crystallized from our conversations<br>เพื่อตัวคุณ ในวันที่คุณต้องการ</p>
+</div>
+
+<!-- ===== PART I ===== -->
+<!-- CHAPTER 1 -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">Part One · บทที่ 1</div>
+  <h2 class="ch-title">The Disease of <em>the Capable</em></h2>
+  <p class="ch-title-th">โรคของคนเก่ง</p>
+  <p class="ch-essence">
+    คุณกำลังป่วย — แต่ไม่ใช่ป่วยด้วยความไม่รู้ คุณป่วยด้วยโรคที่หายากกว่านั้น
+    โรคที่ถามหาเฉพาะคนที่เก่งระดับหนึ่ง โรคที่ชื่อ <em>Optimization Paralysis</em>
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Diagnosis · คำวินิจฉัย</div>
+  <h1>คุณไม่ได้กลัวขาดทุน — คุณกลัว <em>regret</em></h1>
+
+  <p class="dropcap">หมอที่ดีต้องวินิจฉัยให้ถูกก่อนจ่ายยา และนี่คือคำวินิจฉัยที่คุณต้องเชื่อ — เพราะถ้าไม่เชื่อคำนี้ ทุกอย่างที่อยู่หลังจากนี้จะไม่ทำงาน</p>
+
+  <p>คุณรู้เรื่อง Peter Lynch คุณรู้เรื่อง Damodaran คุณคำนวณ DCF, DDM, Reverse-DCF ได้คล่อง คุณเข้าใจ MOS ของ Klarman คุณรู้จัก SEPA ของ Minervini คุณเลือกหุ้นได้ถูกต้อง 30-40% ของ watchlist กลายเป็น winner</p>
+
+  <p><strong>นี่คือฝีมือ ไม่ใช่ดวง</strong></p>
+
+  <p>แต่คุณยังกดปุ่ม buy ไม่ลง — เพราะอะไร?</p>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">The Diagnosis</div>
+    <p>คุณไม่ได้กลัวว่าจะขาดทุน — เพราะคุณรู้ว่า MOS ปกป้องคุณอยู่ คุณกลัว <strong>regret</strong> — กลัวซื้อแล้วร่วง 5% มากกว่าพลาดไปแล้วขึ้น 30%</p>
+    <p>และความกลัวนี้ถูกขยายโดยความรู้ที่คุณมี — เพราะยิ่งรู้มาก ยิ่งเห็นว่ามันพังได้กี่แบบ</p>
+  </div>
+
+  <h2>Filter ทั้งสี่ที่คุณวางไว้</h2>
+
+  <p>คุณบอกผมว่าหุ้นที่คุณจะซื้อ ต้องผ่านสี่ด่าน:</p>
+
+  <p><strong>ด่านที่ 1:</strong> DCF / DDM ผ่าน — MOS 30%+<br>
+  <strong>ด่านที่ 2:</strong> Reverse-DCF ผ่าน — implied growth ดูสมเหตุสมผล<br>
+  <strong>ด่านที่ 3:</strong> Technical ผ่าน — ใกล้ SL ภายใน 5%<br>
+  <strong>ด่านที่ 4:</strong> Catalyst หรือ Story ผ่าน — มีตัวจุดให้ราคาวิ่ง</p>
+
+  <p>ฟังดูเป็นระบบที่ดีใช่ไหม? แต่ลองคิดดู — <em>ความน่าจะเป็นที่หุ้นหนึ่งตัวจะผ่านทั้งสี่ด่านพร้อมกัน เกิดได้ปีละกี่ครั้ง?</em></p>
+
+  <p>คำตอบ: น้อยมาก และเมื่อมันเกิด แปลว่าคนเก่งคนอื่นก็เห็น — ราคามันไปก่อนคุณตัดสินใจเสร็จแล้ว</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">ถ้าหา entry ที่ผ่านทั้งสี่ filter ได้ ผมจะปลอดภัยที่สุดและกำไรมากที่สุดพร้อมกัน</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">ตลาดไม่เคยยื่น perfect setup ทั้งสี่อย่างพร้อมกัน เพราะถ้ามีจริง คนอื่นเห็นและราคามันไปก่อน setup ที่ "พร้อมทุกอย่าง" คือ setup ที่สายเกินไปแล้ว</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">เลือกระบบหนึ่งระบบต่อ regime หนึ่ง — และยอมรับว่า 80% perfect คือเพียงพอ ไม่ต้องรอ 100%</div>
+    </div>
+  </div>
+
+  <h2>Paralysis ที่มีฟังก์ชัน</h2>
+
+  <p>นี่คือสิ่งที่อยากให้คุณเข้าใจ และอาจจะเจ็บนิดหน่อย:</p>
+
+  <p><strong>การไม่กดปุ่ม ไม่ใช่ขี้กลัว — มันคือกลไกป้องกันตัวเอง</strong></p>
+
+  <p>ส่วนลึกในใจคุณรู้ว่า ถ้ากดซื้อแล้วพลาด ความฝัน 13 ปี (10 ล้านที่ 45) พังทันที — เลยไม่กดดีกว่า การไม่ทำอะไร รักษาความหวังไว้โดยไม่ต้องเสี่ยง</p>
+
+  <p>นี่คือ <em>paralysis ที่มีฟังก์ชัน</em> — มันทำงานของมัน เพียงแต่งานนั้น ไม่ใช่งานที่จะพาคุณไปถึงเป้าหมาย</p>
+
+  <div class="pullquote">
+    "ความกลัวที่บีบให้คุณ paralyzed ไม่ใช่กลัวขาดทุนเงิน — เป็นกลัวสูญเสียความฝัน และเป้าหมายที่บีบเกินไป กำลังทำให้ความฝันนั้นเป็นจริงไม่ได้เลย"
+    <span class="pullquote-cite">— The Real Source of Your Hesitation</span>
+  </div>
+
+  <h2>ทางออก</h2>
+
+  <p>ทางออกของโรคนี้ไม่ใช่ความรู้เพิ่มเติม คุณไม่ต้องอ่านหนังสือเล่มไหนเพิ่มเพื่อแก้มัน คุณต้องทำสามอย่าง:</p>
+
+  <p><strong>หนึ่ง</strong> — เปลี่ยน frame ของเป้าหมาย จาก "เร็ว" เป็น "ถึง" (รายละเอียดในบทที่ 3)</p>
+
+  <p><strong>สอง</strong> — เลิกใช้ filter ทั้งสี่พร้อมกัน เลือกหนึ่งระบบต่อหนึ่ง regime (รายละเอียดในบทที่ 6)</p>
+
+  <p><strong>สาม</strong> — สร้าง pre-commitment rule ที่ตัดความลังเลออกจากสมการ (รายละเอียดในบทที่ 9)</p>
+
+  <p>เริ่มต้นด้วยการยอมรับ — คุณป่วย และคุณรู้แล้วว่าเป็นโรคอะไร นั่นคือ 50% ของการรักษา</p>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">นั่งกับสามคำถามนี้</h3>
+    <ol>
+      <li>ครั้งล่าสุดที่ผมพลาดหุ้น — ผมพลาดเพราะ filter ไหนไม่ผ่าน? ถ้ามันผ่านสามใน filter — ผมเอาด่านที่สี่ออก ผมจะสบายใจไหม?</li>
+      <li>ถ้าผมรู้แน่ๆ ว่าจะถึงเป้าที่อายุ 50 (ไม่ใช่ 45) — ผมจะกล้ากดปุ่มมากขึ้นไหมในวันนี้?</li>
+      <li>"การไม่ทำอะไร" รู้สึกปลอดภัยกว่า "ทำผิด" — แต่ทางคณิตศาสตร์ มันแย่กว่า ผมยอมรับสิ่งนี้ได้แค่ไหน?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">Part One · บทที่ 2</div>
+  <h2 class="ch-title">The Math <em>Already</em> in Your Favor</h2>
+  <p class="ch-title-th">คณิตศาสตร์ที่อยู่ข้างคุณอยู่แล้ว</p>
+  <p class="ch-essence">
+    คุณกำลังเครียดเรื่องผลตอบแทน 26% ต่อปี ทั้งที่ตัวเลขจริงบอกว่าคุณต้องการแค่ 10-12%
+    เอกสารนี้คือหลักฐาน — และอาจเป็นสิ่งสำคัญที่สุดในเล่มนี้
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Your Real Position · ตำแหน่งที่แท้จริง</div>
+  <h1>ก่อนปรับ strategy — ปรับ <em>มุมมอง</em></h1>
+
+  <p class="dropcap">คุณเริ่มบทสนทนาด้วยความรู้สึกว่าตัวเองอยู่ห่างจากเส้นชัยมาก ใจร้อน กดดัน แต่เมื่อเราเอาตัวเลขจริงทั้งหมดของคุณมาวาง — ภาพที่เห็นต่างจากที่คุณรู้สึกอย่างสิ้นเชิง</p>
+
+  <p>นี่คือสิ่งที่คุณบอกผม ตามจริง:</p>
+
+  <h2>สถานะจริงของคุณ ณ วันนี้</h2>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-num">32</div>
+      <div class="stat-label">อายุ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">~860<em>K</em></div>
+      <div class="stat-label">Investment Capital รวม</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">29<em>K</em></div>
+      <div class="stat-label">เติมพอร์ต/เดือน</div>
+    </div>
+  </div>
+
+  <p>รายได้จากงาน 60-65k/เดือน, saving rate ~45% — นี่คือตัวเลขที่ดีเยี่ยม นักการเงินส่วนตัวระดับ CFP จะบอกคุณว่าคุณอยู่ใน top 10% ของคนวัยเดียวกันทั้งในแง่วินัยการออม และโครงสร้างพอร์ต</p>
+
+  <p>คุณมีพอร์ตหุ้นหลัก, คริปโต DCA, ทอง DCA, กองทุน thematic, emergency fund 400k, และพอร์ตทดลองอีกสองอัน — <strong>นี่ไม่ใช่ภาพของคนที่จะ "ไปไม่ถึง"</strong> นี่คือภาพของคนที่กำลังจะไปถึงไกลกว่าที่ตัวเองรู้</p>
+
+  <h2>ตัวเลขที่เปลี่ยนทุกอย่าง</h2>
+
+  <p>เอาตัวเลขจริงมาคำนวณ — พอร์ตหุ้นหลัก 550k + เติม 20k/เดือน + พอร์ตอื่นๆ รวม + emergency (ไม่นับเป็นเงินลงทุน) — ที่ผลตอบแทนคงที่:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>อายุ</th><th>ที่ 8%</th><th>ที่ 10%</th><th>ที่ 12%</th><th>ที่ 15%</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>32 (ตอนนี้)</td><td>0.6M</td><td>0.6M</td><td>0.6M</td><td>0.6M</td></tr>
+      <tr><td>40</td><td>3.8M</td><td>4.2M</td><td>4.6M</td><td>5.2M</td></tr>
+      <tr><td>45</td><td>7.0M</td><td>8.2M</td><td>9.7M</td><td>12.0M</td></tr>
+      <tr><td>47</td><td>8.8M</td><td>10.3M</td><td>12.5M</td><td>16.0M</td></tr>
+      <tr><td>50</td><td>~12M</td><td>~14M</td><td>~17M</td><td>~22M</td></tr>
+      <tr><td>60 (เป้าจริง)</td><td>~25M</td><td>~32M</td><td>~42M</td><td>~60M</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">Read This Twice</div>
+    <p>เป้าหมายจริงของคุณคือ <strong>หุ้นปันผลให้รายได้ 60k/เดือน ที่อายุ 60</strong> ซึ่งต้องการพอร์ต ~9 ล้าน ที่ yield 8%</p>
+    <p>ที่ผลตอบแทน <strong>เพียง 8% ต่อปี</strong> (S&P 500 ทำได้สบาย) — คุณจะมี <strong>25 ล้านที่อายุ 60</strong> หรือเกือบ 3 เท่าของที่คุณต้องการ</p>
+    <p>คุณไม่ได้ห่างเป้าหมาย — คุณห่างจากการรู้ว่าเป้าหมายคุณอยู่ใกล้แค่ไหน</p>
+  </div>
+
+  <h2>ความเร็วที่คุณกำลังขอ — ราคาคืออะไร</h2>
+
+  <p>คุณอยากถึง 10 ล้านที่ 45 ปี ซึ่งต้องการ ~26% ต่อปี ทบต้น 13 ปี ติดต่อกัน</p>
+
+  <p>ลองเทียบ:</p>
+
+  <p>• Warren Buffett ตลอดชีวิต: ~20% ต่อปี<br>
+  • Peter Lynch ที่ Magellan (13 ปี ก่อนเลิก): ~29% ต่อปี<br>
+  • Joel Greenblatt ที่ Gotham: ~40% ต่อปี (ใช้เวลา 60+ ชม./สัปดาห์)<br>
+  • Active fund managers ที่ทำ 15%+ ต่อเนื่อง 15 ปี: <strong>น้อยกว่า 1% ของทั้งหมด</strong></p>
+
+  <p>คุณกำลังขอตัวเลขระดับ Lynch ในตลาดไทย ด้วยพอร์ต 5 แสน ทำเป็นกิจกรรมเสริม — และที่สำคัญ ขอให้สม่ำเสมอ 13 ปี</p>
+
+  <div class="pullquote">
+    "ความเสียหายไม่สมมาตรกับความสำเร็จ — ขาดทุน 50% ต้องการกำไร 100% เพื่อกลับเท่าเดิม คนที่พยายามทำตัวเลข Lynch ส่วนใหญ่ ไม่ได้แค่พลาดเป้า — พวกเขา blow up"
+    <span class="pullquote-cite">— ความจริงข้อแรกของ compounding</span>
+  </div>
+
+  <h2>ตัวเลือกที่อยู่ตรงหน้าคุณ</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr><th>เส้นทาง</th><th>ผลตอบแทนที่ต้องการ</th><th>ถึง 10M ที่อายุ</th><th>Probability of Success</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Aggressive Active</td><td>15% CAGR</td><td>~47</td><td>~5-10%</td></tr>
+        <tr><td>Quality Active</td><td>12% CAGR</td><td>~47-48</td><td>~25-30%</td></tr>
+        <tr><td>Patient Compounder</td><td>10% CAGR</td><td>~49</td><td>~50-60%</td></tr>
+        <tr><td>Index + Discipline</td><td>8% CAGR</td><td>~51</td><td>~75%+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>คำถามจริงไม่ใช่ "ทำได้ไหม" — คือ <strong>"ราคานี้คุ้มไหม"</strong></p>
+
+  <p>คุณยอมแลกความสำเร็จ 75% ที่ 51 ปี กับโอกาส 5-10% ที่ 45 ปีไหม? ถ้าตอบในใจอย่างซื่อสัตย์ — คำตอบที่ rational ไม่ควรลังเล</p>
+
+  <div class="author-box">
+    <div class="author-avatar">M</div>
+    <div class="author-content">
+      <div class="author-meta">Remember</div>
+      <p class="author-text">"คุณคือคนที่ระบบดีกว่าที่คุณคิด แต่ความใจร้อนกำลังจะกัดกินมัน หน้าที่คุณ 28 ปีข้างหน้าไม่ใช่ 'ชนะตลาด' — แต่คือ <em>ไม่ทำให้ตัวเองแพ้ระบบที่ดีอยู่แล้ว</em>"</p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">เขียนคำตอบในกระดาษ ไม่ใช่ในใจ</h3>
+    <ol>
+      <li>ถ้าผมมีพอร์ต 12 ล้านที่อายุ 47 (ไม่ใช่ 45) — ผมจะรู้สึกแพ้ไหม? ทำไม?</li>
+      <li>เป้าหมาย 45 — มันมาจากไหน? คำนวณว่าต้องใช้เท่าไหร่ถึงจะเลิกงาน? หรือมาจาก "อยากเลิกงาน"? ใครในชีวิตผมที่เคย FIRE ที่ 45?</li>
+      <li>ระหว่าง "ถึง 10 ล้านที่ 47 อย่างปลอดภัย" กับ "โอกาส 8% ที่จะถึง 10 ล้านที่ 45 + โอกาส 30% ที่จะ blow up" — ผมเลือกอันไหนถ้าตัวเลขนี้คือความจริง?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== PART II ===== -->
+<!-- CHAPTER 3 -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">Part Two · บทที่ 3</div>
+  <h2 class="ch-title">The Game <em>You Choose</em></h2>
+  <p class="ch-title-th">เกมที่คุณเลือกเล่น</p>
+  <p class="ch-essence">
+    นักลงทุนทุกคนเล่นเกมที่ต่างกัน แต่หลายคนไม่รู้ว่าตัวเองเล่นเกมอะไรอยู่
+    ก่อนเลือก strategy — เลือกเกมก่อน เพราะเกมที่ผิด ทำให้ strategy ที่ดีกลายเป็นความผิดพลาด
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Define Your Game · นิยามเกมของคุณ</div>
+  <h1>เกมที่คุณเล่นจริง คือเกมไหน?</h1>
+
+  <p class="dropcap">Howard Marks มี memo ชื่อ "What's Your Game Plan?" ที่ผมอยากให้คุณจำให้ขึ้นใจ — เพราะเกมที่คุณเลือกเล่น จะ define ทุกอย่างที่ตามมา</p>
+
+  <p>ในตลาดหุ้น มีเกมหลักๆ อยู่หลายแบบ และนักลงทุนเก่งจะเลือกเล่นเกมเดียวเป็นหลัก ไม่ใช่หลายเกมพร้อมกัน:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>เกม</th><th>เป้าหมาย</th><th>เครื่องมือ</th><th>เวลา</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Day Trading</td><td>กำไรรายวัน</td><td>Technical, Order Flow</td><td>นาที-ชั่วโมง</td></tr>
+      <tr><td>Swing Trading</td><td>คูณพอร์ตเร็ว</td><td>Momentum + SL</td><td>สัปดาห์-เดือน</td></tr>
+      <tr><td>Quality Compounding</td><td>Wealth ระยะยาว</td><td>Fundamental + Patience</td><td>5-30 ปี</td></tr>
+      <tr><td>Deep Value</td><td>Mean reversion</td><td>MOS + Contrarian</td><td>2-5 ปี</td></tr>
+      <tr><td>Indexing</td><td>Market return</td><td>DCA + Discipline</td><td>10-40 ปี</td></tr>
+    </tbody>
+  </table>
+
+  <h2>เกมที่คุณเล่นจริง — ตามหลักฐาน</h2>
+
+  <p>คุณบอกผมว่าเป้าหมายจริงคือ:</p>
+
+  <p>1. ที่อายุ 60 ปี — มีพอร์ต ~10M ที่ปั่นเป็นปันผลให้ 60k/เดือน<br>
+  2. หาทางทำตอนนี้เพื่อให้ถึงเป้าให้เร็วกว่านั้นถ้าทำได้</p>
+
+  <p>เป้าที่ 1 คือ <strong>Quality Compounding game</strong> — เกม 28 ปีข้างหน้า เกมที่ Buffett เล่น เกมที่ระบบของคุณ (saving rate 45%, diversified portfolio, long horizon) ออกแบบมาเพื่อมัน</p>
+
+  <p>เป้าที่ 2 คือ <strong>Swing Trading game</strong> — เกมคนละแบบ ที่ Minervini เล่น ใช้กล้ามเนื้อคนละชุด</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">ผมเล่น "Quality Swing" — quality fundamentals + swing timing เพื่อให้ได้ทั้งความปลอดภัยและความเร็ว</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">"Quality Swing" ที่คุณคิด คือ Frankenstein — เย็บปะ Klarman + Minervini + Lynch ที่ขัดกันเองเป็นเกมเดียว ไม่มี edge เพราะ filter ผ่านพร้อมกันยาก</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">ยอมรับว่าเกมหลักของคุณคือ Quality Compounding — แล้วเสริมด้วย Swing เป็น <em>ตัวเล็ก</em> ในพอร์ตทดลองเท่านั้น ไม่ใช่ในพอร์ตหลัก</div>
+    </div>
+  </div>
+
+  <h2>เป้าหมาย 45 vs 60 — ราคาของแต่ละเส้นทาง</h2>
+
+  <p>นี่คือสิ่งที่ใจคุณยังไม่ยอมรับ และผมจะพูดอีกครั้ง — ตรงๆ:</p>
+
+  <p><strong>เป้าหมาย 45 ไม่ใช่ deadline — มันคือความโลภที่แต่งตัวมาเป็นเป้าหมาย</strong></p>
+
+  <p>คุณบอกเองว่า "ถ้าเป็นไปได้ก็อยากเลิก 45" — มันคือความ <em>"อยาก"</em> ไม่ใช่ <em>"ต้อง"</em> deadline จริงคือ 60 และที่ 60 คุณจะมีเงินเยอะกว่าที่คุณต้องการ 3 เท่า ถ้าคุณแค่ทำให้ระบบนี้รันไปเรื่อยๆ</p>
+
+  <p>แต่คุณกำลังเสี่ยงทำให้ระบบนี้พัง เพราะพยายาม optimize 15 ปีให้กลายเป็น 13 ปี</p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"You only need to be rich once."</p>
+    <p class="blockquote-full-th">"คุณต้องการรวยแค่ครั้งเดียวในชีวิต — แต่คนส่วนใหญ่พยายามรวยหลายครั้ง และจบลงด้วยการไม่ได้รวยเลย"</p>
+    <p class="blockquote-full-cite">— Nassim Taleb · Antifragile</p>
+  </div>
+
+  <h2>กฎของเกมที่คุณเลือก</h2>
+
+  <p>เมื่อคุณยอมรับว่าเกมหลักของคุณคือ <strong>Quality Compounding</strong> เกม 28 ปี กฎจะเปลี่ยน:</p>
+
+  <div class="signal-grid">
+    <div class="signal-box do">
+      <div class="signal-tag">เกม 28 ปี · Do</div>
+      <ul>
+        <li>เลือกหุ้นที่ทนเวลาได้ 5+ ปี</li>
+        <li>ซื้อด้วย MOS แค่ 20% พอ</li>
+        <li>ปล่อยให้ winner วิ่ง — ไม่ตัดเร็ว</li>
+        <li>เติมพอร์ตสม่ำเสมอ ไม่ time market</li>
+        <li>วัดผลทุก 3-5 ปี ไม่ใช่ทุกเดือน</li>
+        <li>ยอม drawdown 30% เพราะ compounding ทำงาน</li>
+      </ul>
+    </div>
+    <div class="signal-box dont">
+      <div class="signal-tag">เกม 28 ปี · Don't</div>
+      <ul>
+        <li>หา entry ที่ perfect ทั้ง 4 ด้าน</li>
+        <li>ตัด winner เร็วเพราะ "เก็บกำไร"</li>
+        <li>ใช้ leverage หรือ margin</li>
+        <li>เปรียบเทียบพอร์ตทุกเดือน</li>
+        <li>เปลี่ยน strategy ตามกระแส</li>
+        <li>กลัว drawdown มากกว่ากลัวพลาด compounding</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>กฎเหล็กที่ขอให้จำขึ้นใจ</h2>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">The One Rule</div>
+    <p><strong>หน้าที่ 28 ปีข้างหน้าของคุณ คือไม่พังตัวเอง</strong></p>
+    <p>คุณไม่ต้องเก่งกว่าตลาด คุณไม่ต้องชนะทุกปี คุณแค่ต้อง <em>ไม่ blow up</em> และให้คณิตศาสตร์ของ compounding ทำงานของมัน</p>
+    <p>คนที่ถึงเป้าระยะยาวเสมอ คือคนที่ยอมไปช้ากว่าคนเก่งที่สุด — ไม่ใช่เพราะพวกเขาเก่งน้อยกว่า แต่เพราะพวกเขาเข้าใจว่า <strong>finishing the race คือ skill ที่หายากกว่า winning sprints</strong></p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">วันนี้ผมเล่นเกมไหน?</h3>
+    <ol>
+      <li>ในการตัดสินใจซื้อ-ขายครั้งล่าสุด — ผมตัดสินด้วยกฎของเกมไหน? เกม 28 ปี หรือเกมรายเดือน?</li>
+      <li>ถ้ามีคนถามว่า "เกมของคุณคืออะไร" ผมตอบได้ในประโยคเดียวไหม?</li>
+      <li>การกระทำของผมในเดือนที่ผ่านมา สอดคล้องกับเกมที่ผมเลือกหรือไม่?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">Part Two · บทที่ 4</div>
+  <h2 class="ch-title">Reasonable <em>Beats</em> Rational</h2>
+  <p class="ch-title-th">สมเหตุสมผลกว่ามีเหตุผล</p>
+  <p class="ch-essence">
+    Strategy ที่ดีที่สุดในกระดาษ ไม่ใช่ strategy ที่ดีที่สุดในชีวิตจริง
+    เพราะ strategy ที่ดีที่สุดในชีวิตจริง คือ strategy ที่คุณ <em>ทำตามได้</em> 28 ปี
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">From The Psychology of Money · ที่คุณเพิ่งอ่าน</div>
+  <h1>Strategy ที่คุณทำตามได้ <em>ชนะ</em> Strategy ที่ optimal</h1>
+
+  <p class="dropcap">คุณบอกผมว่าได้อ่าน <em>The Psychology of Money</em> และตกผลึกห้าบทหลัก หนึ่งในนั้นคือ "Reasonable > Rational" และเล่มนี้คือเล่มที่จะเปลี่ยนชีวิตการลงทุนของคุณ ถ้าคุณกลืนมันเข้าเลือดเนื้อ — ไม่ใช่แค่อ่านผ่านตา</p>
+
+  <p>Housel เถียงว่า — <em>Reasonable</em> (สมเหตุสมผล) ดีกว่า <em>Rational</em> (มีเหตุผลที่สุด) เพราะ:</p>
+
+  <p>• Rational strategy ที่ดีที่สุดบนกระดาษ — ต้องการคนที่เป็นเหตุเป็นผลตลอดเวลา ซึ่งไม่มีอยู่จริง<br>
+  • Reasonable strategy ที่ "ดีพอ" + ตรงนิสัย — คุณจะ stick กับมันได้ 28 ปี และเวลาคือสิ่งที่ทำให้ compounding ทำงาน</p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"A reasonable investor who loves their imperfect strategy will beat the rational investor who hates their optimal one — because they'll be in the game longer."</p>
+    <p class="blockquote-full-th">"นักลงทุนสมเหตุสมผลที่รัก strategy ที่ไม่สมบูรณ์ของตัวเอง จะชนะนักลงทุนเหตุผลที่เกลียด strategy optimal ของตัวเอง — เพราะคนแรกจะอยู่ในเกมนานกว่า"</p>
+    <p class="blockquote-full-cite">— Morgan Housel</p>
+  </div>
+
+  <h2>ห้าบทที่คุณตกผลึก — ทำให้ลึกกว่าเดิม</h2>
+
+  <h3>1. Reasonable > Rational</h3>
+  <p>คุณเข้าใจหัวบทแล้ว ขอเพิ่มข้อสำคัญ: <strong>Strategy ที่ทำให้คุณนอนไม่หลับ คือ strategy ที่คุณจะเลิกกลางทาง</strong> ไม่ว่ามันจะ optimal บนกระดาษแค่ไหน ถ้าคุณตื่นกลางคืนเช็คราคา — มันไม่ใช่ของคุณ</p>
+
+  <h3>2. Tails, You Win</h3>
+  <p>ใน 30 ปีของ Heinz Berggruen เขามีงานศิลปะที่ขายขาดทุน 99% — แต่ 1% ที่เหลือคือ Picasso, Klee, Matisse ที่ทำให้เขาเป็นคนรวย</p>
+
+  <p>ใน portfolio คุณก็เหมือนกัน: <strong>หุ้น 5 ตัวที่คุณถือยาว — 3 ตัวจะธรรมดา 1 ตัวจะแย่ 1 ตัวจะ multi-bagger</strong> และตัวสุดท้ายจะ define ผลตอบแทนทั้งพอร์ต ฉะนั้น <em>อย่าตัด winner เร็ว</em> เพราะคุณตัดสินไม่ได้ว่าตัวไหนคือ Picasso</p>
+
+  <h3>3. Room for Error</h3>
+  <p>Housel เก็บ cash 20% ของ liquid assets เสมอ — ไม่ใช่เพราะเขาคิดว่าตลาดจะ crash แต่เพราะ <em>"the most important variable in any plan is the difference between what could happen and what you need to happen"</em></p>
+
+  <p>สำหรับคุณ — emergency fund 400k คือ room for error ส่วนแรก พอร์ตทดลอง 200k เป็น room for learning การเก็บ cash 10-15% ในพอร์ตหลักคือ room for opportunity</p>
+
+  <h3>4. Getting Wealthy vs. Staying Wealthy</h3>
+  <p>นี่คือบทที่ตรงกับคุณที่สุด — Getting Wealthy ต้องการความกล้า optimism risk-taking Staying Wealthy ต้องการสิ่งตรงกันข้าม — paranoia humility ความกลัว</p>
+
+  <p><strong>คุณกำลังอยู่ในช่วง Getting Wealthy</strong> — ต้องกล้ากดปุ่ม ยอม volatility แต่ในขณะเดียวกัน <em>ต้องไม่เผลอเล่นเกมของ Staying Wealthy</em> (กลัวจน paralyzed) คุณยังไม่มีอะไรให้ stay wealthy ก่อน — ฉะนั้นกล้าก่อน ระวังทีหลัง</p>
+
+  <h3>5. The Seduction of Pessimism</h3>
+  <p>Pessimism ฟังดูฉลาดกว่า optimism เสมอ คนที่บอกว่า "ตลาดจะ crash" ฟังดูเป็นผู้ใหญ่ คนที่บอกว่า "เศรษฐกิจจะเจริญ 100 ปีข้างหน้า" ฟังดูไร้เดียงสา</p>
+
+  <p>แต่คนแรกผิดมากกว่าถูก ตลอดประวัติศาสตร์ และคนที่สองรวยจริง <strong>เลิกฟังคนที่ฟังดูฉลาดที่สุด — ฟังคนที่ถูกต้องที่สุด</strong></p>
+
+  <h2>สิ่งที่ผมอยากเพิ่มจาก Housel</h2>
+
+  <p>ในรอบสนทนาครั้งล่าสุด ผมแนะนำให้คุณเพิ่มเล่ม <em>Same as Ever</em> ของ Housel เพราะมีบท "Reasonable Optimism" ที่จะเปลี่ยน frame ของ Schwartz ในใจคุณ</p>
+
+  <div class="author-box">
+    <div class="author-avatar">H</div>
+    <div class="author-content">
+      <div class="author-meta">Morgan Housel — Same as Ever</div>
+      <p class="author-text">"Naive optimism เชื่อว่าทุกอย่างจะดี ถ้าฉันเชื่อ — มันพังในตลาด Reasonable optimism เชื่อว่าความเสียหายระยะสั้นจะเกิดขึ้นแน่ แต่ระบบที่ดีจะชนะระยะยาว — มันชนะตลาด"</p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">Strategy ของคุณ — Reasonable หรือ Rational</h3>
+    <ol>
+      <li>Strategy ปัจจุบันของผม ทำให้ผมนอนหลับสบายไหม? ถ้าไม่ — มันจะอยู่กับผม 28 ปีได้จริงหรือ?</li>
+      <li>ใน winners ของผมที่ผ่านมา — ผมตัดเร็วเกินไปกี่ตัว? "Tails You Win" บอกอะไรกับผม?</li>
+      <li>ผมเป็น Naive optimist (Schwartz extreme) หรือ Reasonable optimist (Housel)? ความต่างเห็นในการตัดสินใจของผมที่ไหน?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">Part Two · บทที่ 5</div>
+  <h2 class="ch-title">Think Big — <em>On the Right Field</em></h2>
+  <p class="ch-title-th">Think Big บนสนามที่ถูก</p>
+  <p class="ch-essence">
+    Schwartz ถูก — แต่เฉพาะในสนามที่ effort ของคุณกำหนดผล
+    ตลาดหุ้นคือสนามที่ Schwartz ใช้ไม่ได้ และความเชื่อที่มากเกินไป กลายเป็น liability
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">When Belief Helps · When Belief Hurts</div>
+  <h1>ความเชื่อช่วยคุณตอนไหน — ทำร้ายคุณตอนไหน</h1>
+
+  <p class="dropcap">คุณบอกผมว่าคุณรัก <em>The Magic of Thinking Big</em> ของ David Schwartz และเชื่อใน mantra ของเขา — "ถ้าคุณเชื่อว่าคุณทำได้ คุณก็จะทำได้"</p>
+
+  <p>ผมเห็นด้วยครึ่งหนึ่ง และต้องไม่เห็นด้วยอีกครึ่งหนึ่ง</p>
+
+  <h2>Schwartz ถูก — ในโดเมนของเขา</h2>
+
+  <p>Schwartz เขียนเรื่องอาชีพ การขาย การเป็นผู้นำ การกล้าทำสิ่งใหม่ — ในโดเมนเหล่านี้ <strong>belief สร้าง action และ action สร้างผลลัพธ์</strong> เพราะผลลัพธ์เป็นฟังก์ชันของ effort คุณ</p>
+
+  <p>คุณกล้าโทรหาลูกค้ามากขึ้น → ปิดการขายได้มากขึ้น<br>
+  คุณกล้าเสนอตัวเป็นหัวหน้าโปรเจกต์ → ได้โอกาสมากขึ้น<br>
+  คุณกล้าเรียนทักษะใหม่ → รายได้สูงขึ้น</p>
+
+  <p>นี่คือ <em>self-fulfilling prophecy</em> ในสนามที่ effort สเกลกับผล</p>
+
+  <h2>Schwartz ผิด — ในตลาดหุ้น</h2>
+
+  <p>แต่ตลาดหุ้นเป็นโดเมนที่ effort และ belief ไม่สเกลแบบเชิงเส้นกับผลลัพธ์ — และในระดับสูง belief อาจไม่สเกลเลย</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">Schwartz Mode</div>
+      <div class="ladder-text">"ถ้าผมเชื่อว่าทำ 26%/ปีได้ ผมจะทำได้" → กดดันให้ size ใหญ่ทุกไม้ ใช้ leverage ลด diversification</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">Market Reality</div>
+      <div class="ladder-text">SCB ไม่สนใจว่าคุณเชื่ออะไร PTT ไม่ทำกำไรเพิ่มเพราะคุณ visualize หนักขึ้น — ตลาดมีคณิตศาสตร์ของตัวเอง และคณิตศาสตร์นี้ลงโทษคนที่เชื่อมากเกินไป</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">Right Application</div>
+      <div class="ladder-text">Think Big ในเรื่องที่ effort คุณคุมได้ — เพิ่มรายได้ ออมมากขึ้น วินัยลงทุน 28 ปี<br>Think Realistic ในเรื่องที่ตลาดคุม — ผลตอบแทนต่อปี ความเร็วของ compounding</div>
+    </div>
+  </div>
+
+  <h2>กรณีศึกษา: Believer ที่พังในตลาด</h2>
+
+  <p>ขอแบ่งปันสามคน — ทุกคน "Think Big" ตามนิยาม Schwartz ทุกประการ:</p>
+
+  <p><strong>Bill Miller</strong> — ชนะ S&P 500 ติดต่อกัน 15 ปี เป็นสถิติ Wall Street เขา <em>เชื่อ</em> ใน thesis ของเขามาก ปี 2008 เขาเชื่อว่าหุ้นการเงินถูกเกินไป — Bear Stearns, Freddie Mac, AIG เขาเพิ่ม position ลง พอร์ตขาดทุน 55% ในปีเดียว ลูกค้าถอนเงินกว่า 90%</p>
+
+  <p><strong>Bill Ackman</strong> — เชื่อมั่นในการ short Herbalife จัด presentation 3 ชั่วโมง พิสูจน์ว่ามันคือ Ponzi เสีย 1 พันล้านเหรียญในการต่อสู้ครั้งนั้น</p>
+
+  <p><strong>Jesse Livermore</strong> — ตำนานนักเก็งกำไร เชื่อในตัวเองมาก ฆ่าตัวตายในปี 1940 หลังขาดทุนหมด</p>
+
+  <p>ทั้งสามไม่ได้ผิดเพราะขี้กลัว — พวกเขาผิดเพราะ <strong>เชื่อมากเกินกว่าที่ความจริงจะรับได้</strong></p>
+
+  <div class="pullquote">
+    "ความเชื่อในตลาดหุ้น ในระดับสูง ไม่ใช่ asset — มันคือ liability"
+    <span class="pullquote-cite">— A truth Schwartz never wrote about</span>
+  </div>
+
+  <h2>นักลงทุนเก่งจริง — Think Big เรื่องอะไร</h2>
+
+  <p>ลองสังเกต:</p>
+
+  <p>• Buffett ไม่ได้เชื่อว่า "ผมจะชนะตลาดทุกปี" — เขาเชื่อว่า <em>"ผมจะอยู่นานพอให้ compounding ทำงาน"</em><br>
+  • Munger ไม่ตั้งเป้าผลตอบแทน — เขามีกฎ <em>"ถ้ามันโง่ — อย่าทำ"</em> และทำตามกฎนั้น 60 ปี<br>
+  • Klarman ไม่ visualize ผลตอบแทน — เขา visualize <em>scenarios ที่อาจพังพอร์ต</em> และเตรียมไว้</p>
+
+  <p>นักลงทุนเก่งไม่ Think Big เรื่องผลตอบแทน — พวกเขา <strong>Think Big เรื่องเวลาและวินัย</strong> และ <strong>Think Small เรื่องการคาดการณ์ตลาด</strong></p>
+
+  <h2>Schwartz ที่ใช้ได้ของคุณ</h2>
+
+  <div class="signal-grid">
+    <div class="signal-box do">
+      <div class="signal-tag">Think BIG ในเรื่อง</div>
+      <ul>
+        <li>เรียนรู้จนเป็น top 10% ในหมู่นักลงทุน</li>
+        <li>รักษาวินัยลงทุน 28 ปีติดต่อกัน</li>
+        <li>เพิ่มรายได้จากงาน → 100k/เดือน ใน 5 ปี</li>
+        <li>FIRE ก่อน 60 (เป้าจริง 53-55)</li>
+        <li>ไม่ blow up พอร์ตในวิกฤตใดๆ</li>
+      </ul>
+    </div>
+    <div class="signal-box dont">
+      <div class="signal-tag">Think Realistic ในเรื่อง</div>
+      <ul>
+        <li>ผลตอบแทน 26%/ปี ติดต่อกัน 13 ปี</li>
+        <li>การจับ market timing</li>
+        <li>การ "รู้" ว่าหุ้นจะไป 100%</li>
+        <li>การไม่มี drawdown</li>
+        <li>การชนะทุกตำแหน่ง</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">The Sythesis</div>
+    <p>Think Big บนสนามที่ effort คุณกำหนดผล — Be Realistic บนสนามที่ตลาดกำหนดผล</p>
+    <p>ความเชื่อที่จะพาคุณถึงเป้าหมายไม่ใช่ <em>"ผมจะทำ 26%/ปี"</em> แต่คือ <strong>"ผมจะอยู่ในเกมโดยไม่พังตัวเอง 28 ปี และเพิ่มรายได้จากงานทุกปี และคณิตศาสตร์จะทำที่เหลือ"</strong></p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">Schwartz ในใจคุณ ดังเกินไปตรงไหน</h3>
+    <ol>
+      <li>การตัดสินใจล่าสุดของผม — มาจาก belief แบบ Schwartz (ผลตอบแทน) หรือ belief แบบ Buffett (เวลา/วินัย)?</li>
+      <li>ครั้งล่าสุดที่ผม "เชื่อมาก" จนเพิ่ม size หรือไม่ตัด SL — เกิดอะไรขึ้น?</li>
+      <li>ถ้าผม "Think Big" เรื่องรายได้จากงาน 100k/เดือน — มัน impact พอร์ตมากกว่าทำ 20%/ปี ในพอร์ต 5 แสนหรือไม่? คำนวณดู</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== PART III ===== -->
+<!-- CHAPTER 6 -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">Part Three · บทที่ 6</div>
+  <h2 class="ch-title">Regime-Aware <em>Investing</em></h2>
+  <p class="ch-title-th">สำนักเปลี่ยนตามฤดู ไม่ใช่ผสมในจาน</p>
+  <p class="ch-essence">
+    คุณค้นพบสิ่งที่นักลงทุนระดับโลกใช้จริง — ใช้สำนักต่างกันในตลาดต่างกัน
+    แต่มีกฎเหล็ก: ต้องมีเครื่องมือชี้ regime ที่ objective ไม่ใช่ feel
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Approach That Works · แนวทางที่ใช้ได้จริง</div>
+  <h1>คุณไม่ได้ผสม — คุณกำลัง <em>เปลี่ยนเครื่องมือตามฤดู</em></h1>
+
+  <p class="dropcap">ในรอบที่ห้าของบทสนทนา คุณอธิบายให้ผมฟังว่าคุณไม่ได้ผสมสำนักเข้าด้วยกัน แต่คุณ "พลิกแพลงตามสถานการณ์" — Bear market ใช้ Klarman, Bull market ใช้ Minervini และผมต้องบอกว่า — คุณค้นพบสิ่งที่ถูกต้อง</p>
+
+  <p>นี่คือสิ่งที่ Howard Marks เรียกว่า <em>"Knowing Where We Stand in the Cycle"</em> สิ่งที่ Ray Dalio เรียกว่า <em>"Different Engines for Different Seasons"</em> และสิ่งที่ Stan Druckenmiller ใช้สร้างผลตอบแทน 30%+ ต่อปี เป็น 30 ปี</p>
+
+  <h2>กฎเหล็กของ Regime-Aware Investing</h2>
+
+  <p>แต่มีเงื่อนไข — และมันสำคัญ:</p>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">Mandatory Rule</div>
+    <p>คุณต้องมี <strong>objective rule</strong> ที่ตัดสินว่าตอนนี้คือ regime ไหน — ไม่ใช่ feel ไม่ใช่อารมณ์ ไม่ใช่ "รู้สึกว่าตลาดจะลง"</p>
+    <p>เพราะถ้าไม่มี — คุณจะเปลี่ยนสำนักทุกครั้งที่กลัว และนั่นคือ <em>การผสมจริงๆ</em> ในรูปแบบใหม่</p>
+  </div>
+
+  <h2>Framework กำหนด Regime สำหรับตลาดไทย</h2>
+
+  <p>นี่คือสิ่งที่คุณต้องเขียนเอง ทดลองเอง ปรับเอง — แต่ผมจะเสนอจุดเริ่มต้น:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>Regime</th><th>Signal (ตัวอย่าง)</th><th>สำนัก</th><th>Cash %</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Deep Value</strong><br>(Bear/Crash)</td>
+        <td>SET PE &lt; median 10yr − 1 SD<br>SET drop &gt; 20% from peak<br>VIX/sentiment indicators panic</td>
+        <td>Klarman + Damodaran<br>Deep DCF, contrarian</td>
+        <td>10-20%<br>(ใช้เงินสดซื้อ)</td>
+      </tr>
+      <tr>
+        <td><strong>Quality Growth</strong><br>(Bull/Momentum)</td>
+        <td>SET PE &gt; median<br>SET ทำ all-time high<br>Breadth healthy (200DMA)</td>
+        <td>Minervini + O'Neil<br>VCP, breakout, RS</td>
+        <td>5-10%</td>
+      </tr>
+      <tr>
+        <td><strong>Mixed/Choppy</strong><br>(Sideways)</td>
+        <td>SET ในช่วง median<br>Trend ไม่ชัด<br>Sector rotation รุนแรง</td>
+        <td>Quality compounders<br>เลือกตัวเดี่ยว ไม่ตามตลาด</td>
+        <td>15-25%</td>
+      </tr>
+      <tr>
+        <td><strong>Defensive</strong><br>(Late cycle)</td>
+        <td>Yield curve inverted<br>SET PE &gt; median + 1 SD<br>Macro warnings</td>
+        <td>ลด exposure<br>เน้น defensive sectors</td>
+        <td>30-40%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>กฎสำคัญสามข้อสำหรับ Regime Switching</h2>
+
+  <h3>1. เปลี่ยน Regime ต้องการ Confirmation 2 จาก 3 Signal</h3>
+  <p>ไม่ใช่เห็น signal เดียวแล้วเปลี่ยน — เพราะ signal เดี่ยวมี false positive สูง ต้องเห็น 2/3 ก่อนสับ และยอม "ช้าไป 2-4 สัปดาห์" — ดีกว่าเปลี่ยนผิด</p>
+
+  <h3>2. ห้ามเปลี่ยน Regime กลางการถือ Position</h3>
+  <p>ซื้อหุ้นด้วย Klarman lens — ขายด้วย Klarman lens<br>
+  ซื้อหุ้นด้วย Minervini lens — ขายด้วย Minervini lens<br>
+  อย่าซื้อด้วย Klarman แล้วขายเพราะ Minervini บอก SL ตี — นี่คือผสม ไม่ใช่ regime switch</p>
+
+  <h3>3. กฎ position management เปลี่ยนตาม Regime</h3>
+  <p><strong>Klarman regime:</strong> Average down ได้ ถ้า MOS ยังลึก<br>
+  <strong>Minervini regime:</strong> ห้าม average down เด็ดขาด ตัด SL 7-8% เด็ดขาด</p>
+
+  <p>เป็นไปไม่ได้ที่จะใช้กฎเดียวกันในทั้งสองสำนัก — เพราะปรัชญาตรงข้ามกัน</p>
+
+  <h2>ตัวอย่างจริง — Regime ตลาดไทย 6 ปีที่ผ่านมา</h2>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>ปี</th><th>SET</th><th>Regime</th><th>เครื่องมือ</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2019</td><td>+1%</td><td>Mixed/Choppy</td><td>Quality compounders</td></tr>
+      <tr><td>2020 (Q1)</td><td>−27%</td><td>Deep Value (COVID)</td><td>Klarman/Damodaran</td></tr>
+      <tr><td>2020-21</td><td>+14%</td><td>Quality Growth (recovery)</td><td>Minervini setups</td></tr>
+      <tr><td>2022</td><td>+0.7%</td><td>Mixed/Choppy</td><td>Cash-heavy + selective</td></tr>
+      <tr><td>2023</td><td>−15%</td><td>Deep Value</td><td>Klarman lens</td></tr>
+      <tr><td>2024</td><td>~flat</td><td>Mixed/Defensive</td><td>Cash + selective quality</td></tr>
+    </tbody>
+  </table>
+
+  <p>เห็นไหม? ใน 6 ปี ตลาดไทยเปลี่ยน regime 4-5 ครั้ง <strong>การมีเครื่องมือเดียวคือการแพ้ใน 4 ใน 6 ปี</strong> และนี่คือเหตุผลที่ regime-aware approach ของคุณ ถูกหลักการ</p>
+
+  <div class="author-box">
+    <div class="author-avatar">D</div>
+    <div class="author-content">
+      <div class="author-meta">Stan Druckenmiller (paraphrase)</div>
+      <p class="author-text">"ผมไม่เคยอายที่จะเปลี่ยนความคิดเมื่อข้อเท็จจริงเปลี่ยน — ที่ผมอายคือคนที่ไม่ยอมเปลี่ยนเพราะเขาเคยพูดอย่างนั้น"</p>
+    </div>
+  </div>
+
+  <h2>การบ้านของคุณสำหรับบทนี้</h2>
+
+  <p>เขียนกฎ regime ของตัวเองลงกระดาษ เก็บไว้ที่เดียวกับเอกสารนี้ ใส่ตัวเลขที่ specific:</p>
+
+  <div class="checklist">
+    <div class="checklist-title">My Regime Rules — เขียนภายใน 1 สัปดาห์</div>
+    <ol>
+      <li>ผมจะใช้ Deep Value mode เมื่อ: SET PE ต่ำกว่า ___ และ SET ลงจาก peak มากกว่า ___%</li>
+      <li>ผมจะใช้ Quality Growth mode เมื่อ: SET เหนือ MA200 และ ___ และ ___</li>
+      <li>ผมจะ confirm regime change ด้วย ___ (เช่น "2 จาก 3 signal ปรากฏติดต่อกัน 2 สัปดาห์")</li>
+      <li>เครื่องมือที่ผมจะใช้ใน Deep Value mode: ___ (เช่น "DCF + MOS 30%, ถือ 2-5 ปี, average down ได้ถ้า MOS เพิ่ม")</li>
+      <li>เครื่องมือที่ผมจะใช้ใน Quality Growth mode: ___ (เช่น "VCP + RS rating + EPS growth &gt; 25%, ถือ 2-12 เดือน, SL 7-8% strict")</li>
+    </ol>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">ตรวจสอบ Regime Discipline ของคุณ</h3>
+    <ol>
+      <li>ตอนนี้ตลาดไทยอยู่ใน regime ไหน — ตามกฎ objective ของผม? ไม่ใช่ตามอารมณ์</li>
+      <li>ในการ trade ล่าสุด — ผมใช้เครื่องมือที่ตรงกับ regime หรือเครื่องมือที่ "อยากใช้"?</li>
+      <li>ถ้าผมเขียนกฎ regime ลงกระดาษ — ผมจะตามกฎตัวเองได้จริงไหม หรือจะหา exception ทุกครั้ง?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">Part Three · บทที่ 7</div>
+  <h2 class="ch-title">The Science <em>of Sizing</em></h2>
+  <p class="ch-title-th">ศาสตร์แห่งการแบ่งเงิน</p>
+  <p class="ch-essence">
+    Position sizing คือ variable ที่สำคัญที่สุดที่คุณคุมได้ — มากกว่า stock picking
+    เพราะ stock picking ที่ดีในขนาดที่ผิด ก็ยังพังพอร์ต และ stock picking ที่ธรรมดาในขนาดที่ถูก ก็สร้าง wealth ได้
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Position Sizing Research · งานวิจัยที่จำเป็น</div>
+  <h1>ศิลปะในการแบ่งเงิน — ใน <em>5 ตำแหน่ง</em></h1>
+
+  <p class="dropcap">คุณบอกว่าคุณอยากถือสูงสุด 5 ตำแหน่ง + เงินสด 10-15% และคำถามคือ — เปอร์เซ็นต์ไหน เป็นเท่าไหร่ต่อตัว?</p>
+
+  <p>นี่คือคำตอบจาก research และ practitioner wisdom ที่ผมรวบรวมให้:</p>
+
+  <h2>Kelly Criterion — รากฐานคณิตศาสตร์</h2>
+
+  <p>Edward Thorp พิสูจน์ว่าขนาด position ที่ optimize compounding ระยะยาวคือ:</p>
+
+  <div class="formula">
+    f* = (bp − q) / b
+    <span class="formula-th">f* = % ของพอร์ต · b = odds · p = win rate · q = loss rate</span>
+  </div>
+
+  <p>สำหรับนักลงทุน fundamental ที่มี hit rate 60% และ win/loss ratio 2:1 — Full Kelly = 40% ต่อ position ซึ่ง <strong>อันตรายมาก</strong> เพราะ Kelly assume คุณรู้ p และ b เป๊ะ ซึ่งคุณไม่รู้</p>
+
+  <p>มาตรฐานที่ professionals ใช้:</p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-num">Full</div>
+      <div class="stat-label">~40% ต่อตัว — อันตราย</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Half</div>
+      <div class="stat-label">~20% ต่อตัว — Pro</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Quarter</div>
+      <div class="stat-label">~10% ต่อตัว — Retail</div>
+    </div>
+  </div>
+
+  <h2>งานวิจัยจริงเรื่อง Concentrated Portfolios</h2>
+
+  <p><strong>Joel Greenblatt</strong> (Magic Formula, ผลตอบแทน 40%/ปี เป็น 20 ปี): <em>"Owning 8 stocks eliminates 81% of non-market risk. Owning 16 stocks eliminates 93%. Beyond 8, diversification ROI drops fast."</em></p>
+
+  <p><strong>Warren Buffett</strong> (Berkshire 1993 letter): <em>"Diversification is protection against ignorance. It makes little sense if you know what you are doing."</em> — แต่ Buffett เองถือ 8-15 ตัวใน core portfolio</p>
+
+  <p><strong>Concentrated Investing</strong> (Allen Benello, 2016) ศึกษา 8 นักลงทุนตำนาน:</p>
+
+  <p>• Lou Simpson (GEICO): 10-15 positions, 20%+/ปี เป็น 25 ปี<br>
+  • John Maynard Keynes: 5 positions ตอนปลายอาชีพ — drawdown −67% ปี 1937<br>
+  • Charlie Munger pre-Berkshire: 3 positions, drawdown −53% ปี 1973-74<br>
+  • Phil Fisher: 10-12 positions</p>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">Pattern จากงานวิจัย</div>
+    <p>Concentrated portfolio ทำผลตอบแทนสูงกว่า — แต่ <strong>drawdown ลึกกว่า 1.5-2x</strong> ของ diversified portfolio</p>
+    <p>ฉะนั้น 5 positions คือ minimum ที่ปลอดภัย — ห้ามต่ำกว่านี้ และต้อง tolerance ต่อ drawdown 35-45% ได้ ในรอบ cycle</p>
+  </div>
+
+  <h2>โครงสร้างที่ผมแนะนำสำหรับคุณ</h2>
+
+  <p>จากงานวิจัยทั้งหมด + เป้าหมายของคุณ + ขนาดพอร์ตของคุณ — นี่คือโครงสร้างที่ผมแนะนำ:</p>
+
+  <div class="position-table">
+    <div class="position-row">
+      <div class="position-rank">1</div>
+      <div class="position-name"><strong>Highest Conviction</strong><br><em>หุ้นที่คุณ research ลึกที่สุด, MOS ดีที่สุด</em></div>
+      <div class="position-pct">25%</div>
+    </div>
+    <div class="position-row">
+      <div class="position-rank">2</div>
+      <div class="position-name"><strong>High Conviction</strong><br><em>conviction รอง, valuation ดี, story ชัด</em></div>
+      <div class="position-pct">20%</div>
+    </div>
+    <div class="position-row">
+      <div class="position-rank">3</div>
+      <div class="position-name"><strong>Solid Pick</strong><br><em>ผ่านเกณฑ์เต็ม, conviction ปานกลาง</em></div>
+      <div class="position-pct">15%</div>
+    </div>
+    <div class="position-row">
+      <div class="position-rank">4</div>
+      <div class="position-name"><strong>Solid Pick</strong><br><em>ผ่านเกณฑ์, diversifying sector</em></div>
+      <div class="position-pct">15%</div>
+    </div>
+    <div class="position-row">
+      <div class="position-rank">5</div>
+      <div class="position-name"><strong>Watchlist Pick / New Idea</strong><br><em>conviction ต่ำกว่า, ทดสอบ thesis</em></div>
+      <div class="position-pct">10%</div>
+    </div>
+    <div class="position-row">
+      <div class="position-rank">∞</div>
+      <div class="position-name"><strong>Cash Buffer</strong><br><em>สำหรับ opportunity, ไม่ใช่ "wait for crash"</em></div>
+      <div class="position-pct">15%</div>
+    </div>
+  </div>
+
+  <h2>กฎเหล็กของ Position Management</h2>
+
+  <div class="signal-grid">
+    <div class="signal-box do">
+      <div class="signal-tag">กฎที่ต้องทำ</div>
+      <ul>
+        <li>5 ตำแหน่งคือ minimum — ห้ามต่ำกว่า</li>
+        <li>Max 25% ต่อตัวตอนเข้า (Kelly tail risk)</li>
+        <li>ถ้า winner วิ่งเป็น 30% — let it ride แต่ห้ามเพิ่ม</li>
+        <li>2 ตัวใน sector เดียวกัน → นับเป็น "1.5 ตัว"</li>
+        <li>Sector exposure max 30% ต่ออุตสาหกรรม</li>
+        <li>Cash 15% เป็น default — ปรับตาม regime</li>
+      </ul>
+    </div>
+    <div class="signal-box dont">
+      <div class="signal-tag">กฎที่ห้ามละเมิด</div>
+      <ul>
+        <li>ห้าม size เกิน 30% ต่อตัวเด็ดขาด</li>
+        <li>ห้ามใช้ leverage หรือ margin</li>
+        <li>ห้าม concentrate 2+ ตัวใน sector เดียว เกิน 40%</li>
+        <li>ห้าม average down ใน Minervini regime</li>
+        <li>ห้าม "เพิ่มเงินใน loser เพราะถูกลง" — เพิ่มได้ก็ต่อเมื่อ thesis แข็งแกร่งขึ้น</li>
+        <li>ห้ามถือต่ำกว่า 5 ตำแหน่ง (idiosyncratic risk สูงเกิน)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Position Sizing ตาม Regime</h2>
+
+  <p>กฎ position management ต้องเปลี่ยนตาม regime ที่คุณเลือก:</p>
+
+  <h3>Bear / Deep Value Regime (Klarman lens)</h3>
+  <p>• 4-5 positions, max 20% ต่อตัว<br>
+  • Cash 25-35% (Klarman ถือ cash เยอะตามตำรา)<br>
+  • Time horizon: 2-5 ปี<br>
+  • Average down ได้ ถ้า MOS เพิ่ม</p>
+
+  <h3>Bull / Momentum Regime (Minervini lens)</h3>
+  <p>• 4-6 positions, 20-25% ต่อตัว<br>
+  • Cash 5-10% (อยู่ใน trend)<br>
+  • Time horizon: weeks-months<br>
+  • <strong>Stop loss 7-8% เด็ดขาด</strong><br>
+  • <strong>ห้าม average down เด็ดขาด</strong> (กฎเหล็ก Minervini)</p>
+
+  <div class="pullquote">
+    "Position sizing ที่ผิด ทำให้ stock picking ที่ถูก กลายเป็นความผิดพลาด — และในขณะเดียวกัน position sizing ที่ถูก ทำให้ stock picking ที่ธรรมดา กลายเป็น wealth"
+    <span class="pullquote-cite">— The Asymmetry of Sizing</span>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">ดูพอร์ตปัจจุบันของคุณตามกฎนี้</h3>
+    <ol>
+      <li>พอร์ตหลัก 550k ของผมตอนนี้ — ถ้าใช้โครงสร้าง 25-20-15-15-10 + 15% cash หน้าตาเป็นยังไง?</li>
+      <li>มีตำแหน่งไหนที่ต้องลดเพราะ size เกิน 30%? มีตำแหน่งไหนที่ต้องเพิ่มเพราะอ่อนเกินไป?</li>
+      <li>ผม comfortable กับโครงสร้างนี้ไหม? ถ้าไม่ — ที่ใจไม่ comfortable คือเรื่อง concentration หรือ cash buffer?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== PART IV ===== -->
+<!-- CHAPTER 8 -->
+<div class="chapter-open">
+  <div class="ch-num">08</div>
+  <div class="ch-label">Part Four · บทที่ 8</div>
+  <h2 class="ch-title">Backtest <em>for Conviction</em></h2>
+  <p class="ch-title-th">Backtest เพื่อสร้างความเชื่อมั่น</p>
+  <p class="ch-essence">
+    Backtest ไม่ได้บอกคุณว่ากลยุทธ์ไหนชนะ — มันให้สิ่งสำคัญกว่า: conviction
+    ที่คุณต้องการในวันที่กดปุ่มลังเล drawdown reality ที่ทำให้คุณไม่ panic
+    และ personal fit ที่บอกว่าระบบไหนเข้ากับนิสัยคุณจริง
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">A Project Worth Doing · โปรเจกต์ที่ควรทำ</div>
+  <h1>ข้อมูล 600 ตัว 6 ปี — <em>สมบัติ</em>ที่อยู่ในมือคุณ</h1>
+
+  <p class="dropcap">คุณมีงบการเงินหุ้นไทย 600+ ตัว และราคาย้อนหลัง 6 ปี และคำถามคือ — ควรทำ backtest เปรียบเทียบกลยุทธ์ของ Klarman, Minervini, O'Neil, Damodaran ไหม?</p>
+
+  <p><strong>คำตอบ: ควรทำ — แต่ไม่ใช่เหตุผลที่คุณคิด</strong></p>
+
+  <h2>เหตุผลที่ดีที่ควรทำ</h2>
+
+  <p>คุณคงคิดว่าผลลัพธ์จะบอกว่า "Klarman ดีที่สุด" หรือ "Minervini ดีที่สุด" แล้วคุณจะใช้ตัวที่ชนะ</p>
+
+  <p>ความจริง — ผลลัพธ์ที่ได้จะให้สิ่งที่สำคัญกว่านั้นมาก:</p>
+
+  <div class="ladder">
+    <div class="ladder-step truth">
+      <div class="ladder-tag">สิ่งที่ 1</div>
+      <div class="ladder-text"><strong>Conviction</strong> — เมื่อคุณเห็นกับตาว่า "ระบบนี้เคยทำงานในตลาดที่ผมจะเทรด" คุณจะกล้ากดปุ่มเมื่อระบบบอกให้ซื้อ data-driven conviction &gt; emotional conviction เสมอ</div>
+    </div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">สิ่งที่ 2</div>
+      <div class="ladder-text"><strong>Drawdown Reality</strong> — คุณจะรู้ว่าระบบนี้เคย drawdown ลึกแค่ไหน นานแค่ไหน เพื่อเตรียมใจ ไม่ panic ตอนเจอจริง</div>
+    </div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">สิ่งที่ 3</div>
+      <div class="ladder-text"><strong>Personal Fit</strong> — คุณจะค้นพบว่าระบบที่ "ดี" บนกระดาษ คุณอาจไม่อยากใช้จริง เพราะมันไม่ตรงนิสัย และนี่คือ insight ที่ไม่มีใครสอนคุณได้นอกจากการลงมือทำเอง</div>
+    </div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">สิ่งที่ 4</div>
+      <div class="ladder-text"><strong>Regime Pattern</strong> — คุณจะเห็นว่าระบบไหนดีใน regime ไหน — ซึ่งเป็นข้อมูลที่จำเป็นสำหรับ regime-aware approach ของคุณ</div>
+    </div>
+  </div>
+
+  <h2>กับดัก 6 ข้อที่ต้องระวัง</h2>
+
+  <p>นี่คือสิ่งที่ทำให้นักลงทุน blow up — เพราะ backtest ที่ผิด สร้าง false conviction:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>กับดัก</th><th>คำอธิบาย</th><th>วิธีแก้</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Overfitting</strong></td>
+        <td>Optimize parameter จน "ระบบทำ 30%/ปี" — แต่ในอนาคตทำ −10%</td>
+        <td>Out-of-sample test, parameter ที่ general</td>
+      </tr>
+      <tr>
+        <td><strong>Survivorship Bias</strong></td>
+        <td>Test บน 600 หุ้นที่ "ยังอยู่วันนี้" → bias ผลตอบแทนขึ้น</td>
+        <td>รวมหุ้นที่ delisted ใน universe</td>
+      </tr>
+      <tr>
+        <td><strong>Look-ahead Bias</strong></td>
+        <td>ใช้งบที่ "release ในวันที่ x" แต่ตลาดรู้ภายหลัง 45 วัน</td>
+        <td>Point-in-time data, lag งบ 45 วัน</td>
+      </tr>
+      <tr>
+        <td><strong>Data Snooping</strong></td>
+        <td>Test 50 strategies ในข้อมูลเดียวกัน → 5 ดูเหมือน work เพราะ chance</td>
+        <td>จำกัด strategies ที่จะ test ก่อนเริ่ม</td>
+      </tr>
+      <tr>
+        <td><strong>Transaction Cost</strong></td>
+        <td>Backtest มัก ignore commission + slippage ในไทย 0.5-1%</td>
+        <td>คำนวณ realistic cost ทุก trade</td>
+      </tr>
+      <tr>
+        <td><strong>Insufficient Data</strong></td>
+        <td>6 ปี = 1.5 cycle อย่างมาก — ไม่พอตัดสิน strategy</td>
+        <td>ตระหนักข้อจำกัด ใช้เป็นแค่ exploration</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Methodology ที่ rigorous</h2>
+
+  <h3>Phase 1 — Setup (สำคัญสุด)</h3>
+  <p>• ใช้ point-in-time data เท่านั้น — งบใช้ได้หลัง release + 45 วัน<br>
+  • รวมหุ้น delisted ใน universe<br>
+  • Transaction cost realistic — ไทย 0.157% ต่อ side + slippage 0.5-1%<br>
+  • แบ่งข้อมูล: 4 ปีแรก = train, 2 ปีหลัง = out-of-sample (อย่าแตะ)</p>
+
+  <h3>Phase 2 — Define Strategies Precisely</h3>
+  <p><strong>Klarman/Value:</strong> P/B &lt; 1.5, P/E &lt; 15, FCF yield &gt; 5%, D/E &lt; 1, rank by simple DCF MOS, hold 24 เดือน หรือถึง fair value</p>
+
+  <p><strong>Damodaran/Story:</strong> ROIC &gt; WACC + 3%, Revenue growth 3yr &gt; 8%, rank by Reverse-DCF implied growth ต่ำกว่า industry, hold 18-24 เดือน</p>
+
+  <p><strong>Minervini/SEPA:</strong> Trend Template (8 conditions ของเขาเป๊ะ), rank by RS rating, hold 6-12 weeks เฉลี่ย, SL strict −8%</p>
+
+  <p><strong>O'Neil/CANSLIM:</strong> EPS growth quarter &gt; 25%, Annual EPS growth &gt; 25%, RS &gt; 80, hold until top signal, SL −7-8%</p>
+
+  <p><strong>Magic Formula (Greenblatt) — control:</strong> top 30 by combined Earnings Yield + ROC, hold 12 months exact, equal weight</p>
+
+  <h3>Phase 3 — Metrics ที่ต้องดู</h3>
+  <p>ไม่ใช่แค่ return — ต้องดูทั้งหมดนี้:</p>
+
+  <p>1. <strong>CAGR</strong> — ผลตอบแทนทบต้น<br>
+  2. <strong>Max Drawdown</strong> — สำคัญสุด เพราะบอกว่าคุณอยู่ในระบบได้ไหม<br>
+  3. <strong>Sharpe Ratio</strong> — return per unit of risk<br>
+  4. <strong>Sortino Ratio</strong> — เหมือน Sharpe แต่โทษเฉพาะ downside<br>
+  5. <strong>Win Rate</strong> — % trade ที่กำไร<br>
+  6. <strong>Avg Win / Avg Loss</strong> — asymmetry<br>
+  7. <strong>Max consecutive losses</strong> — เพื่อรู้ว่าต้องใจเย็นแค่ไหน<br>
+  8. <strong>Time in drawdown</strong> — สำคัญมาก: ระบบ return 20% ที่ใช้ 3 ปีกลับจาก peak จะทำให้คุณยอมแพ้ก่อน</p>
+
+  <h3>Phase 4 — Regime Analysis</h3>
+  <p>Tag ปี 2019-2024 เป็น regime — ดูว่าระบบไหนทำงานใน regime ไหน นี่คือคำตอบที่ตรงกับ thesis ของคุณที่สุด ไม่ใช่ "ระบบไหนดีที่สุดโดยรวม" แต่ <em>"ระบบไหนดีใน regime ไหน"</em></p>
+
+  <h3>Phase 5 — Out-of-sample Validation</h3>
+  <p>ใช้ 2 ปีที่ไม่เคยแตะ test ระบบที่นิ่งแล้ว ถ้าผลตอบแทน drop &gt; 30% จาก in-sample → overfitted ห้ามใช้</p>
+
+  <h2>เครื่องมือ</h2>
+
+  <p>ถ้าจะทำ ผมแนะนำ:</p>
+
+  <p>• <strong>Python:</strong> pandas, numpy, vectorbt หรือ backtrader<br>
+  • <strong>หนังสืออ้างอิง:</strong> <em>Advances in Financial Machine Learning</em> (Marcos López de Prado) — ลึกแต่สอนเรื่อง bias ทุกชนิดที่ต้องระวัง<br>
+  • <strong>ถ้าไม่เขียน code:</strong> Amibroker (เสียเงิน, มี community ไทย)<br>
+  • <strong>เริ่มจาก strategy เดียว</strong> ทำให้ถูกก่อน อย่าทำหลายตัวพร้อมกัน</p>
+
+  <h2>คำเตือนสุดท้าย</h2>
+
+  <div class="insight-box">
+    <div class="insight-box-tag">A Word of Caution</div>
+    <p>โปรเจกต์นี้จะใช้เวลา 2-3 เดือน full-time, 6 เดือน part-time — และนั่นคือ <em>ราคาที่คุณต้องจ่าย</em> เพื่อ conviction</p>
+    <p>แต่จงระลึกว่า — backtest ดีที่สุด ก็ยังเป็นแค่ <strong>การจำลองอดีต</strong> ไม่ใช่การทำนายอนาคต ผลลัพธ์ที่ได้คือ "evidence" ไม่ใช่ "guarantee"</p>
+    <p>และ — คุณไม่ต้อง backtest เสร็จก่อนถึงจะลงทุน คุณ backtest <em>ระหว่าง</em> ลงทุน ใช้พอร์ตหลักทำ Quality Compounding ตามบทที่ 3 และทดลองเขียน backtest ในเวลาว่าง อย่ารอ "ระบบ perfect" เพราะนั่นคือกับดักเดียวกับที่เราคุยกันในบทที่ 1</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">ก่อนเริ่ม Backtest Project</h3>
+    <ol>
+      <li>ผมยอมเสียเวลา 6 เดือน part-time เพื่อสร้าง conviction นี้ไหม? หรือผมต้องการ shortcut?</li>
+      <li>Skill ที่ผมขาดสำหรับ project นี้คืออะไร? (Python? statistics? data engineering?) ผมจะเรียนยังไง?</li>
+      <li>ระหว่างที่ทำ backtest — ผมจะลงทุนด้วย strategy ไหนในพอร์ตจริง? (ตอบที่นี่: ใช้ Quality Compounding ตามบทที่ 3 ห้ามรอ backtest เสร็จ)</li>
+    </ol>
+  </div>
+</div>
+
+<!-- CHAPTER 9 -->
+<div class="chapter-open">
+  <div class="ch-num">09</div>
+  <div class="ch-label">Part Four · บทที่ 9</div>
+  <h2 class="ch-title">Pre-Trade <em>Ritual</em></h2>
+  <p class="ch-title-th">พิธีกรรมก่อนกดปุ่ม</p>
+  <p class="ch-essence">
+    ความเข้าใจอย่างเดียวไม่พอ — คุณต้องการ "วินัยที่ฝัง" ให้กับตัวเอง
+    Ritual คือเครื่องมือที่ตัดความลังเลออกจากสมการ — ไม่ใช่ด้วย willpower แต่ด้วยกระบวนการ
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">From Insight to Discipline · จากเข้าใจสู่วินัย</div>
+  <h1>Ritual ที่จะเปลี่ยนตัวคุณจาก <em>"ลังเล"</em> เป็น <em>"ตามกฎ"</em></h1>
+
+  <p class="dropcap">บททั้งหมดที่ผ่านมาคือเรื่องการเข้าใจ บทนี้คือเรื่องการลงมือ และผมจะให้เครื่องมือสามอย่างที่ทำงานในระดับ behavior ไม่ใช่แค่ระดับความเข้าใจ</p>
+
+  <h2>เครื่องมือที่ 1 — Pre-Commitment Rule</h2>
+
+  <p>ก่อนเปิดตลาดทุกวัน เขียนเงื่อนไข entry ลงในไฟล์:</p>
+
+  <div class="formula">
+    "ถ้า [หุ้น X] ลงถึง [ราคา Y] ฉันจะซื้อ [จำนวน N] หุ้น"
+    <span class="formula-th">เขียนล่วงหน้า — ห้ามคิดใหม่ตอนราคาแตะ</span>
+  </div>
+
+  <p>หลักการคือ — <strong>ตัดสินใจตอนใจสงบ ลงมือตอนใจวุ่น</strong> เมื่อราคาแตะ Y ในวันถัดไป คุณแค่กดตามที่ตัวเองสั่งไว้ ห้ามคิดใหม่ ห้ามรอ ห้ามหา filter เพิ่ม</p>
+
+  <p>เพราะถ้าคิดใหม่ คุณจะรอใหม่ทุกครั้ง — และนั่นคือ paralysis ที่กลับมา</p>
+
+  <h2>เครื่องมือที่ 2 — Scaling-In (3 ไม้)</h2>
+
+  <p>เลิกซื้อก้อนเดียว — แบ่งเป็น 3 ไม้:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>ไม้</th><th>เงื่อนไข</th><th>% ของ position</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ไม้ที่ 1</td><td>เมื่อ 80% ของ filter ผ่าน (ไม่ต้องรอ 100%)</td><td>40%</td></tr>
+      <tr><td>ไม้ที่ 2</td><td>ถ้าราคาลง 5-7% และ thesis ยังเดิม</td><td>35%</td></tr>
+      <tr><td>ไม้ที่ 3</td><td>ถ้าราคาลง 10-12% และ thesis แข็งแกร่งขึ้น</td><td>25%</td></tr>
+    </tbody>
+  </table>
+
+  <p>นี่คือคำตอบทางคณิตศาสตร์ของ "อยากได้ราคาต่ำสุด" — คุณจะได้ <strong>ราคาเฉลี่ยที่ดี</strong> ทั้งที่จุดต่ำสุดที่แท้จริงไม่มีอยู่จริงในเวลาตัดสินใจ</p>
+
+  <p>หมายเหตุสำคัญ — ใช้ scaling-in <strong>เฉพาะ Klarman regime</strong> ใน Minervini regime ห้าม average down เด็ดขาด ต้องซื้อหลัง breakout เท่านั้น</p>
+
+  <h2>เครื่องมือที่ 3 — Opportunity Cost Journal</h2>
+
+  <p>บันทึก <em>ทุก opportunity ที่พลาด</em>:</p>
+
+  <p>• ราคาที่อยากซื้อ<br>
+  • ราคาที่เลือกไม่ซื้อ (และเหตุผล)<br>
+  • Filter ไหนที่ไม่ผ่าน<br>
+  • ตามดูทุก 6 เดือน — ราคาตอนนี้เท่าไหร่</p>
+
+  <p>หลังครบ 1 ปี รวมตัวเลข opportunity cost ทั้งหมด ตัวเลขรวมที่คุณได้เห็นกับตา จะทำงานในใต้สำนึกแรงกว่าหนังสือเล่มไหนๆ</p>
+
+  <p><strong>เพราะคุณจะเห็นว่า — "การไม่ซื้อ" ไม่ได้ปลอดภัย คุณแค่ไม่ได้บันทึก cost ของมัน</strong></p>
+
+  <h2>The Ultimate Pre-Trade Checklist</h2>
+
+  <div class="checklist">
+    <div class="checklist-title">ก่อนกด Buy ทุกครั้ง — ผ่านทุกข้อ</div>
+    <ol>
+      <li>ตอนนี้ตลาดอยู่ใน regime ไหน? ผมใช้สำนักที่ตรงกับ regime หรือไม่?</li>
+      <li>หุ้นนี้ผ่านเกณฑ์ของสำนักนี้กี่ %? (ถ้า ≥ 80% — ผ่าน ไม่ต้องรอ 100%)</li>
+      <li>Position size ตามโครงสร้าง 25-20-15-15-10 — ตัวนี้คือลำดับไหน?</li>
+      <li>หุ้นนี้อยู่ใน sector ที่ผม expose เกิน 30% หรือเปล่า?</li>
+      <li>ผมเขียน thesis ลงกระดาษได้ใน 3 ประโยคไหม? (ถ้าไม่ได้ → ยังไม่ shall)</li>
+      <li>ผมเขียน "เงื่อนไข exit" ไว้ก่อนซื้อหรือยัง? (SL ที่ไหน, target อะไร, hold เท่าไหร่)</li>
+      <li>ผมจะใช้ scaling-in กี่ไม้ ที่ราคาเท่าไหร่บ้าง? (เขียนลงก่อน)</li>
+      <li>ถ้าหุ้นนี้ −30% ในปีหน้า ผมจะรู้สึกยังไง? ผมยังถือต่อไหม? (ถ้า panic → size ใหญ่เกิน)</li>
+    </ol>
+  </div>
+
+  <h2>The Ultimate Anti-Paralysis Mantra</h2>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"Done is better than perfect — when 'perfect' is the trap that keeps you from done."</p>
+    <p class="blockquote-full-th">"ลงมือ ดีกว่า สมบูรณ์แบบ — เมื่อ 'สมบูรณ์แบบ' คือกับดักที่ทำให้ไม่ได้ลงมือ"</p>
+    <p class="blockquote-full-cite">— For days when the buy button feels heavy</p>
+  </div>
+
+  <p>ครั้งหน้าที่นิ้วลังเลกดปุ่ม buy — กลับมาอ่านหน้านี้ จากนั้น:</p>
+
+  <p>1. เปิด pre-trade checklist ผ่านทุกข้อ<br>
+  2. ถ้าผ่าน 8/8 → กดไม้แรก (40% ของ position)<br>
+  3. เขียนเงื่อนไขไม้ที่ 2 และ 3 ลง<br>
+  4. ปิดหน้าจอ ออกไปเดิน</p>
+
+  <p>คุณทำสำเร็จแล้ว — ไม่ใช่เพราะคุณเก่งกว่าใคร แต่เพราะคุณ <em>ไม่ได้คิดเอง</em> คุณตามกฎที่ตัวเองวางไว้ในวันที่หัวสว่าง</p>
+
+  <div class="reflection">
+    <div class="reflection-tag">Reflection · ก่อนผ่านไป</div>
+    <h3 class="reflection-title">การลงมือ ที่จะเปลี่ยนทุกอย่าง</h3>
+    <ol>
+      <li>ผมพร้อมเขียน Pre-Commitment Rule สำหรับหุ้น 1 ตัวในสัปดาห์นี้ไหม? ถ้าไม่ — ทำไม?</li>
+      <li>ในการ trade ที่ผ่านมา 5 ครั้งล่าสุด — ผมใช้ scaling-in กี่ครั้ง? ถ้าไม่ใช้ — ทำไม?</li>
+      <li>Opportunity Cost Journal — ผมจะเริ่มบันทึกตั้งแต่วันไหน? (ตอบ: <strong>วันนี้</strong>)</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== SYNTHESIS ===== -->
+<div class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">Synthesis · บทสรุป</div>
+  <h2 class="ch-title">Your <em>Final Orders</em></h2>
+  <p class="ch-title-th">คำสั่งสุดท้ายให้ตัวเอง</p>
+  <p class="ch-essence">
+    ทุกอย่างที่เรียนมา ตกผลึกใน 1 ประโยค + 7 พิธีกรรม + 1 ตารางเวลา
+    เปิดอ่านในวันที่หัวไม่นิ่ง — และทำตาม
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The One Sentence · ประโยคเดียว</div>
+  <h1>ถ้าจำได้แค่ <em>อย่างเดียว</em> — จำสิ่งนี้</h1>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"Be patient with the price, urgent with the principle. The system you built will reach you — if you stop sabotaging it."</p>
+    <p class="blockquote-full-th">"ใจเย็นกับราคา ใจร้อนกับหลักการ ระบบที่คุณวางไว้ จะพาคุณไปถึง — ถ้าคุณหยุดขัดทางตัวเอง"</p>
+    <p class="blockquote-full-cite">— Your One Truth · อ่านทุกครั้งที่ลังเล</p>
+  </div>
+
+  <p>คุณกำลังจะใช้เวลาอีก 28 ปีในตลาดหุ้น และในระหว่างทาง คุณจะเจอ:</p>
+
+  <p>• ตลาดหมีอย่างน้อย 3-4 รอบ<br>
+  • Drawdown 30%+ อย่างน้อย 5 ครั้ง<br>
+  • คนรอบตัวที่ตั้งคำถามกับ strategy คุณ<br>
+  • หุ้นเต็งของคุณที่กลายเป็น loser<br>
+  • วันที่อยากเลิก วันที่อยาก all-in วันที่อยากขายหมด</p>
+
+  <p>ในทุกวันเหล่านั้น ประโยคข้างบนคือสมอเรือ <em>ใจเย็นกับราคา</em> หมายถึง — ไม่ panic เมื่อตลาดผันผวน <em>ใจร้อนกับหลักการ</em> หมายถึง — ไม่ละเมิดกฎที่คุณวางไว้ ไม่ว่าจะมีเหตุผลแค่ไหน</p>
+
+  <h2>The Pre-Action Ritual · พิธีกรรมก่อนลงมือ</h2>
+
+  <div class="checklist">
+    <div class="checklist-title">ก่อนทุกการตัดสินใจสำคัญ — ผ่านทั้ง 7 ข้อ</div>
+    <ol>
+      <li><strong>ผมอยู่ในเกมไหน?</strong> Quality Compounding (28 ปี) หรือ Swing (เดือน)? ตัดสินใจนี้สำหรับเกมไหน?</li>
+      <li><strong>ตลาดอยู่ใน regime ไหน?</strong> Deep Value / Quality Growth / Mixed / Defensive — ตามกฎที่ผมเขียนไว้</li>
+      <li><strong>เครื่องมือที่ผมจะใช้</strong> ตรงกับ regime ที่ระบุไว้หรือไม่?</li>
+      <li><strong>Position size</strong> อยู่ในโครงสร้าง 25-20-15-15-10 + 15% cash หรือไม่?</li>
+      <li><strong>ผมเขียน thesis 3 ประโยค</strong> และ exit conditions ลงกระดาษหรือยัง?</li>
+      <li><strong>ผมใช้ scaling-in</strong> กี่ไม้ ที่ราคาอะไรบ้าง? (Klarman regime เท่านั้น)</li>
+      <li><strong>ถ้าผมพลาด</strong> — ผมยอมรับขนาดการขาดทุนได้ไหม? ผมยังถือต่อได้ไหม ที่ −30%?</li>
+    </ol>
+  </div>
+
+  <h2>The Annual Review · ทุกวันที่ 1 มกราคม</h2>
+
+  <div class="checklist">
+    <div class="checklist-title">7 คำถามประจำปี — ทำซ้ำทุกปี ตลอด 28 ปี</div>
+    <ol>
+      <li>เป้าหมาย <strong>10M ที่อายุ 60</strong> ของผม — ผม on track ไหม? (คำนวณ trajectory จริง)</li>
+      <li>Saving rate ของผมปีที่แล้ว — เท่าไหร่? เพิ่มได้ไหมในปีนี้?</li>
+      <li>รายได้จากงาน — ผมจะ Think Big เรื่องนี้ในปีนี้ยังไง?</li>
+      <li>Strategy ของผม — ผม stick กับมันไหม หรือเปลี่ยนกลางทาง? ทำไม?</li>
+      <li>Drawdown สูงสุดที่ผมเจอปีนี้ — ผม panic หรือ? บทเรียนคืออะไร?</li>
+      <li>Opportunity cost ของ trade ที่พลาดปีนี้ — รวมเป็นเท่าไหร่?</li>
+      <li>ปีหน้า ผมจะอ่านเอกสารนี้ซ้ำกี่ครั้ง? <em>(ตอบ: เมื่อไหร่ที่ใจไม่นิ่ง)</em></li>
+    </ol>
+  </div>
+
+  <h2>The Future You · ในปี 2054 (อายุ 60)</h2>
+
+  <p>ลองหลับตาแล้วเห็นภาพ — version ของคุณที่อายุ 60 ปี นั่งอยู่ในที่ที่คุณอยากอยู่ มีปันผลเข้าทุกเดือน 60-100k+ ไม่ต้องไปทำงานที่ไม่อยากทำ</p>
+
+  <p>เขาส่งจดหมายมาหาคุณวันนี้ ในจดหมายเขียนว่า:</p>
+
+  <div class="author-box">
+    <div class="author-avatar">60</div>
+    <div class="author-content">
+      <div class="author-meta">From You · Age 60</div>
+      <p class="author-text">"ขอบคุณที่ไม่ blow up พอร์ตในปี 2026 ขอบคุณที่ไม่ใช้ leverage ขอบคุณที่ยอมไปช้ากว่าเพื่อนบางคน ขอบคุณที่อ่านเอกสารนี้ซ้ำๆ ในวันที่ลังเล ขอบคุณที่เลิกพยายามรวยใน 13 ปี และยอมรวยใน 28 ปีแทน — เพราะแบบนั้น <em>ผมยังอยู่ที่นี่</em> เพื่อขอบคุณคุณ"</p>
+    </div>
+  </div>
+
+  <h2>คำสั่งสุดท้าย</h2>
+
+  <p>ปิดเอกสารนี้ไป กลับไปทำงาน เติมพอร์ตเดือนนี้เหมือนเดือนที่แล้ว ตามกฎที่คุณวางไว้</p>
+
+  <p>เปิดอ่านอีกครั้ง — เมื่อใจไม่นิ่ง</p>
+
+  <p>กลับมาบ่อยที่สุดเท่าที่ต้องการ ทุกครั้งคือการต่อสายตรงกับเสียงในวันที่หัวสว่างที่สุดของคุณ</p>
+
+  <div class="section-divider">· · ·</div>
+
+  <p style="text-align: center; font-style: italic; color: var(--accent); font-family: 'Playfair Display', serif; font-size: 22px; margin-top: 48px;">
+    Now — go play the long game.
+  </p>
+  <p style="text-align: center; font-style: italic; color: var(--ink-muted); font-family: 'Noto Serif Thai', serif; font-size: 16px; margin-top: 8px;">
+    เริ่มเล่นเกมระยะยาวได้แล้ว
+  </p>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="book-footer">
+  <div class="book-footer-mark">∞</div>
+  <div class="book-footer-divider"></div>
+  <div class="book-footer-text">"คนที่ถึงเป้าระยะยาวเสมอ — คือคนที่ยอมไปช้ากว่าคนเก่งที่สุด ไม่ใช่เพราะพวกเขาเก่งน้อยกว่า แต่เพราะพวกเขาเข้าใจว่า finishing the race คือ skill ที่หายากกว่า winning sprints"</div>
+  <div class="book-footer-author">The Patient Compounder · Personal Edition · For Both</div>
+</div>
+
+</div>
+</body>
+</html>
