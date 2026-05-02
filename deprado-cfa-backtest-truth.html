@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ความจริงของ Backtest — CFA × de Prado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent:       #1C4E8A;
+      --accent-deep:  #0D2E5C;
+      --accent-light: #4A7FC1;
+      --accent-rule:  rgba(28,78,138,0.28);
+      --accent-bg:    rgba(28,78,138,0.07);
+      --paper:        #F2EFE4;
+      --paper-mid:    #EAE5D2;
+      --paper-deep:   #DDD7BD;
+      --paper-shadow: #C8C0A0;
+      --ink:          #14110B;
+      --ink-soft:     #2A261C;
+      --ink-mid:      #46402F;
+      --ink-muted:    #7C7460;
+      --ink-faint:    #ABA48C;
+      --red:          #7A1A1A;
+      --red-bg:       #FBF3F0;
+      --green:        #355E40;
+      --green-bg:     #F1F6EE;
+      --warn:         #7A4A0A;
+      --warn-bg:      #FDF6EC;
+      --book-width:   760px;
+      --page-pad-h:   72px;
+      --page-pad-v:   80px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #080E1C;
+      padding: 40px 16px;
+      font-family: 'Noto Serif Thai', serif;
+    }
+
+    .book {
+      max-width: var(--book-width);
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.12), 0 4px 60px rgba(0,0,0,.60), 0 0 140px rgba(28,78,138,.12);
+    }
+
+    /* ─── COVER ─── */
+    .cover {
+      background: linear-gradient(160deg, #070E20 0%, #0F2040 45%, #071830 100%);
+      padding: 72px var(--page-pad-h) 80px;
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 30% 60%, rgba(28,78,138,.30) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 80% 20%, rgba(74,127,193,.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cover-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(28,78,138,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28,78,138,.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .cover-corner {
+      position: absolute;
+      width: 60px; height: 60px;
+      border-color: rgba(74,127,193,.4);
+      border-style: solid;
+    }
+    .cover-corner.tl { top: 28px; left: 28px; border-width: 1.5px 0 0 1.5px; }
+    .cover-corner.tr { top: 28px; right: 28px; border-width: 1.5px 1.5px 0 0; }
+    .cover-corner.bl { bottom: 28px; left: 28px; border-width: 0 0 1.5px 1.5px; }
+    .cover-corner.br { bottom: 28px; right: 28px; border-width: 0 1.5px 1.5px 0; }
+
+    .cover-series {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(74,127,193,.85);
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-body { position: relative; z-index: 1; }
+    .cover-edition {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(74,127,193,.70);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 46px;
+      font-weight: 800;
+      color: #EEF4FF;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+    .cover-subtitle {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 20px;
+      font-weight: 300;
+      color: rgba(200,220,255,.80);
+      line-height: 1.5;
+      margin-bottom: 32px;
+      border-left: 2px solid var(--accent-light);
+      padding-left: 18px;
+    }
+    .cover-rule { width: 56px; height: 1.5px; background: var(--accent-light); margin-bottom: 28px; opacity: 0.7; }
+    .cover-meta {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 12px;
+      color: rgba(170,195,235,.75);
+      line-height: 1.9;
+      letter-spacing: 0.5px;
+    }
+    .cover-meta strong {
+      color: rgba(200,225,255,.90);
+      font-weight: 600;
+    }
+    .cover-data {
+      display: flex;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+      padding-top: 32px;
+      border-top: 1px solid rgba(74,127,193,.20);
+    }
+    .cover-stat { text-align: center; }
+    .cover-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .cover-stat-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(170,195,235,.60);
+      font-weight: 600;
+    }
+
+    /* ─── TOC ─── */
+    .toc {
+      background: var(--paper-mid);
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-shadow);
+    }
+    .toc-eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+    .toc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .toc-subtitle {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-bottom: 36px;
+    }
+    .ch-card { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--paper-shadow); align-items: flex-start; }
+    .ch-card:last-child { border-bottom: none; }
+    .ch-card-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 34px; color: var(--accent); font-weight: 400; line-height: 1; min-width: 50px; padding-top: 2px; opacity: 0.7; }
+    .ch-card-body { flex: 1; }
+    .ch-card-title { font-family: 'Noto Serif Thai', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .ch-card-one-liner { font-family: 'Noto Serif Thai', serif; font-size: 13px; color: var(--ink-muted); font-style: italic; line-height: 1.6; margin-bottom: 10px; }
+    .ch-tag { display: inline-block; font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; background: var(--accent-bg); color: var(--accent-deep); padding: 3px 8px; margin-right: 5px; margin-bottom: 4px; font-weight: 700; border: 1px solid var(--accent-rule); }
+
+    /* ─── FOREWORD ─── */
+    .foreword-page { padding: var(--page-pad-v) var(--page-pad-h); border-bottom: 1px solid var(--paper-shadow); }
+    .eyebrow { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
+    .foreword-h { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 20px; font-style: italic; }
+    .foreword-text { font-family: 'Noto Serif Thai', serif; font-size: 16px; line-height: 2; color: var(--ink-soft); margin-bottom: 18px; }
+    .foreword-text strong { color: var(--ink); font-weight: 700; }
+
+    /* ─── CHAPTER OPEN ─── */
+    .chapter-open {
+      background: var(--paper-mid);
+      padding: 64px var(--page-pad-h) 56px;
+      border-bottom: 1px solid var(--paper-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .ch-num-bg {
+      position: absolute;
+      right: var(--page-pad-h);
+      top: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 160px;
+      font-weight: 800;
+      color: rgba(28,78,138,.06);
+      line-height: 1;
+      user-select: none;
+    }
+    .ch-label { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 18px; }
+    .ch-title { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 8px; }
+    .ch-title em { font-style: normal; color: var(--accent); }
+    .ch-title-th { font-family: 'Noto Serif Thai', serif; font-size: 22px; font-weight: 400; color: var(--ink-mid); margin-bottom: 24px; }
+    .ch-rule { width: 48px; height: 2px; background: var(--accent); margin-bottom: 20px; }
+    .ch-essence { font-family: 'Noto Serif Thai', serif; font-size: 17px; color: var(--ink-soft); font-style: italic; line-height: 1.75; max-width: 520px; }
+
+    /* ─── PAGE ─── */
+    .page { padding: var(--page-pad-v) var(--page-pad-h); border-bottom: 1px solid rgba(0,0,0,.06); }
+    .page h1 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 20px; }
+    .page h2 { font-family: 'Noto Serif Thai', serif; font-size: 20px; font-weight: 700; color: var(--ink-soft); margin: 36px 0 14px; padding-bottom: 8px; border-bottom: 1.5px solid var(--accent-rule); }
+    .page h3 { font-family: 'Noto Serif Thai', serif; font-size: 17px; font-weight: 700; color: var(--accent-deep); margin: 24px 0 10px; }
+    .page p { font-family: 'Noto Serif Thai', serif; font-size: 15.5px; line-height: 2; color: var(--ink-soft); margin-bottom: 16px; }
+    .page p strong { color: var(--ink); font-weight: 700; }
+
+    /* ─── COMPONENTS ─── */
+
+    /* Insight Box */
+    .insight-box {
+      background: var(--accent-bg);
+      border-left: 3.5px solid var(--accent);
+      padding: 22px 26px;
+      margin: 28px 0;
+    }
+    .insight-box-label { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-deep); font-weight: 700; margin-bottom: 10px; }
+    .insight-box p { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.85; color: var(--ink-soft); margin: 0; }
+    .insight-box p + p { margin-top: 10px; }
+
+    /* Warning Box */
+    .warn-box {
+      background: var(--warn-bg);
+      border-left: 3.5px solid var(--warn);
+      padding: 20px 26px;
+      margin: 24px 0;
+    }
+    .warn-box-label { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--warn); font-weight: 700; margin-bottom: 8px; }
+    .warn-box p { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.85; color: var(--ink-soft); margin: 0; }
+
+    /* Red Alert Box */
+    .red-box {
+      background: var(--red-bg);
+      border-left: 3.5px solid var(--red);
+      padding: 20px 26px;
+      margin: 24px 0;
+    }
+    .red-box-label { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 8px; }
+    .red-box p { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.85; color: var(--ink-soft); margin: 0; }
+
+    /* Green Box */
+    .green-box {
+      background: var(--green-bg);
+      border-left: 3.5px solid var(--green);
+      padding: 20px 26px;
+      margin: 24px 0;
+    }
+    .green-box-label { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); font-weight: 700; margin-bottom: 8px; }
+    .green-box p { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.85; color: var(--ink-soft); margin: 0; }
+
+    /* Blockquote full */
+    .blockquote-full {
+      background: var(--accent-deep);
+      padding: 52px var(--page-pad-h);
+      margin: 36px calc(-1 * var(--page-pad-h));
+      text-align: center;
+    }
+    .blockquote-full blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: #E8F0FF;
+      line-height: 1.65;
+      max-width: 500px;
+      margin: 0 auto 20px;
+    }
+    .blockquote-full cite {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(150,185,240,.65);
+      font-style: normal;
+      font-weight: 600;
+    }
+    .bq-th {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: rgba(180,210,255,.70);
+      font-style: normal;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* Author Box */
+    .author-box { display: flex; gap: 18px; padding: 22px 26px; background: var(--paper-mid); border-left: 3px solid var(--accent); margin: 28px 0; }
+    .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--accent-deep); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 17px; font-style: italic; flex-shrink: 0; }
+    .author-meta { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 8px; font-weight: 700; }
+    .author-text { font-family: 'Noto Serif Thai', serif; font-size: 15.5px; line-height: 1.85; color: var(--ink-soft); font-style: italic; }
+
+    /* Ladder */
+    .ladder { margin: 28px 0; border: 1px solid var(--paper-shadow); }
+    .ladder-step { padding: 18px 24px; }
+    .ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+    .ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+    .ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+    .ladder-tag { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; }
+    .ladder-step.wrong .ladder-tag { color: var(--red); }
+    .ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+    .ladder-step.action .ladder-tag { color: var(--green); }
+    .ladder-text { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+    .ladder-arrow { text-align: center; padding: 8px; color: var(--ink-faint); font-size: 18px; background: var(--paper-mid); border-left: 1px solid var(--paper-shadow); border-right: 1px solid var(--paper-shadow); }
+
+    /* Bias Card Grid */
+    .bias-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .bias-card { background: var(--paper-mid); border: 1px solid var(--paper-shadow); padding: 20px; position: relative; overflow: hidden; }
+    .bias-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+    .bias-card-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--red); margin-bottom: 8px; font-style: italic; }
+    .bias-card-th { font-family: 'Noto Serif Thai', serif; font-size: 12px; color: var(--ink-muted); margin-bottom: 10px; font-style: italic; }
+    .bias-card-desc { font-family: 'Noto Serif Thai', serif; font-size: 13.5px; line-height: 1.8; color: var(--ink-soft); margin-bottom: 10px; }
+    .bias-card-thai { font-family: 'Noto Serif Thai', serif; font-size: 12.5px; color: var(--ink-muted); line-height: 1.7; background: var(--paper-deep); padding: 8px 10px; margin-top: 6px; }
+    .bias-card-thai-label { font-family: 'Sarabun', sans-serif; font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+
+    /* Comparison Table */
+    .cmp-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-family: 'Noto Serif Thai', serif; font-size: 14px; }
+    .cmp-table th { background: var(--accent-deep); color: #EEF2FF; padding: 12px 16px; text-align: left; font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }
+    .cmp-table th:first-child { background: var(--ink-soft); }
+    .cmp-table td { padding: 12px 16px; border-bottom: 1px solid var(--paper-shadow); color: var(--ink-soft); line-height: 1.6; vertical-align: top; }
+    .cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+    .cmp-table td:first-child { font-weight: 700; color: var(--ink); background: var(--paper-mid); }
+    .cmp-table .bad { color: var(--red); font-weight: 600; }
+    .cmp-table .good { color: var(--green); font-weight: 600; }
+
+    /* Signal Box */
+    .signal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0; }
+    .signal-box { padding: 18px 20px; }
+    .signal-box.do { background: var(--green-bg); border: 1px solid rgba(53,94,64,.25); }
+    .signal-box.dont { background: var(--red-bg); border: 1px solid rgba(122,26,26,.20); }
+    .signal-label { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; margin-bottom: 10px; }
+    .signal-box.do .signal-label { color: var(--green); }
+    .signal-box.dont .signal-label { color: var(--red); }
+    .signal-list { list-style: none; padding: 0; }
+    .signal-list li { font-family: 'Noto Serif Thai', serif; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,.06); }
+    .signal-list li:last-child { border-bottom: none; }
+    .signal-list li::before { margin-right: 8px; font-size: 12px; }
+    .signal-box.do .signal-list li::before { content: '✓'; color: var(--green); }
+    .signal-box.dont .signal-list li::before { content: '✗'; color: var(--red); }
+
+    /* Stat Row */
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--paper-shadow); margin: 24px 0; }
+    .stat-box { background: var(--paper); padding: 22px 16px; text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-family: 'Noto Serif Thai', serif; font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
+
+    /* Reflection */
+    .reflection { background: var(--paper-mid); border: 1px solid var(--paper-shadow); padding: 28px 30px; margin: 32px 0; }
+    .reflection-label { font-family: 'Sarabun', sans-serif; font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 16px; }
+    .reflection ol { padding-left: 20px; }
+    .reflection ol li { font-family: 'Noto Serif Thai', serif; font-size: 14.5px; color: var(--ink-soft); line-height: 1.85; padding: 5px 0; }
+    .reflection ol li::marker { color: var(--accent); font-weight: 700; }
+
+    /* Checklist */
+    .checklist { margin: 24px 0; }
+    .checklist-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--paper-shadow); background: var(--paper); }
+    .checklist-item:first-child { border-top: 1px solid var(--paper-shadow); }
+    .check-box { width: 20px; height: 20px; border: 2px solid var(--accent-light); border-radius: 2px; flex-shrink: 0; margin-top: 3px; display: flex; align-items: center; justify-content: center; }
+    .check-num { font-family: 'Sarabun', sans-serif; font-size: 9px; color: var(--accent); font-weight: 800; }
+    .check-content { flex: 1; }
+    .check-title { font-family: 'Noto Serif Thai', serif; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .check-desc { font-family: 'Noto Serif Thai', serif; font-size: 13.5px; color: var(--ink-muted); line-height: 1.7; }
+
+    /* Red Flag List */
+    .redflag-list { margin: 20px 0; }
+    .redflag-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; margin-bottom: 8px; background: var(--red-bg); border-left: 3px solid var(--red); }
+    .redflag-icon { font-size: 16px; flex-shrink: 0; padding-top: 2px; }
+    .redflag-text { font-family: 'Noto Serif Thai', serif; font-size: 14.5px; line-height: 1.75; color: var(--ink-soft); }
+    .redflag-text strong { color: var(--red); }
+
+    /* One Liner */
+    .one-liner-box {
+      background: linear-gradient(135deg, var(--accent-deep) 0%, #0A1E3C 100%);
+      padding: 48px var(--page-pad-h);
+      text-align: center;
+      margin: 36px 0;
+    }
+    .one-liner-en { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; color: #D0E4FF; line-height: 1.5; margin-bottom: 18px; }
+    .one-liner-th { font-family: 'Noto Serif Thai', serif; font-size: 18px; color: rgba(190,215,255,.80); line-height: 1.6; }
+    .one-liner-rule { width: 40px; height: 1px; background: var(--accent-light); margin: 18px auto; opacity: 0.6; }
+
+    /* Footer */
+    .book-footer { background: var(--ink); padding: 56px var(--page-pad-h); text-align: center; }
+    .book-footer-mark { font-family: 'Playfair Display', serif; font-style: italic; font-size: 36px; color: var(--accent-light); margin-bottom: 18px; }
+    .book-footer-text { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: var(--paper-deep); font-style: italic; line-height: 1.8; max-width: 500px; margin: 0 auto 20px; }
+    .book-footer-author { font-family: 'Sarabun', sans-serif; font-size: 10px; color: var(--accent-light); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; opacity: 0.75; }
+
+    /* Responsive */
+    @media (max-width: 780px) {
+      :root { --page-pad-h: 26px; --page-pad-v: 52px; }
+      body { padding: 12px 6px; }
+      .cover { padding: 52px 26px 56px; min-height: auto; }
+      .cover-title { font-size: 32px; }
+      .cover-subtitle { font-size: 16px; }
+      .cover-data { gap: 16px; flex-wrap: wrap; }
+      .ch-num-bg { display: none; }
+      .ch-title { font-size: 28px; }
+      .bias-grid { grid-template-columns: 1fr; }
+      .signal-row { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .blockquote-full { padding: 40px 26px; margin-left: -26px; margin-right: -26px; }
+      .blockquote-full blockquote { font-size: 18px; }
+      .one-liner-box { padding: 36px 26px; }
+    }
+  </style>
+</head>
+<body>
+<div class="book">
+
+  <!-- ═══ COVER ═══ -->
+  <div class="cover">
+    <div class="cover-grid-lines"></div>
+    <div class="cover-corner tl"></div>
+    <div class="cover-corner tr"></div>
+    <div class="cover-corner bl"></div>
+    <div class="cover-corner br"></div>
+    <div class="cover-series">CFA Institute · Marcos López de Prado · Quantitative Finance Series</div>
+    <div class="cover-body">
+      <div class="cover-edition">Synthesized Edition · ตกผลึกสองมุมมอง</div>
+      <div class="cover-title">ความจริงของ<br>Backtest</div>
+      <div class="cover-subtitle">แยก Alpha จริงออกจาก Alpha ปลอม<br>ก่อนนำเงินจริงเข้าตลาด</div>
+      <div class="cover-rule"></div>
+      <div class="cover-meta">
+        จากแก่นสาระของ <strong>Quantitative Investment Analysis</strong> (CFA Institute, 4th Ed.)<br>
+        ผสมกับ <strong>Advances in Financial Machine Learning</strong> (Marcos López de Prado)<br>
+        สำหรับนักลงทุนเชิงระบบในตลาดไทย (SET) และ Forex
+      </div>
+    </div>
+    <div class="cover-data">
+      <div class="cover-stat">
+        <div class="cover-stat-num">9</div>
+        <div class="cover-stat-label">บทหลัก</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">4</div>
+        <div class="cover-stat-label">Bias อันตราย</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">$10M</div>
+        <div class="cover-stat-label">เงินสมมติในการคิด</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">∞</div>
+        <div class="cover-stat-label">ค่าของการรอด</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TOC ═══ -->
+  <div class="toc">
+    <div class="toc-eyebrow">Table of Contents · สารบัญ</div>
+    <div class="toc-title">สิ่งที่คุณจะได้เรียนรู้</div>
+    <div class="toc-subtitle">ทุกบทเขียนขึ้นด้วยมุมมองคนที่เคยเสียเงินจาก model ที่ backtest สวยงาม</div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">01</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Backtest หลอกคุณอย่างไร</div>
+        <div class="ch-card-one-liner">ทำไม backtest ที่สวยงามที่สุดมักเป็นอันตรายที่สุด</div>
+        <div><span class="ch-tag">alpha ปลอม</span><span class="ch-tag">noise vs signal</span></div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">02</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">4 Bias ที่จะทำลายพอร์ตคุณ</div>
+        <div class="ch-card-one-liner">Look-ahead, Survivorship, Data Leakage, Overfitting — ทุกอย่างทำงานลับหลัง</div>
+        <div><span class="ch-tag">look-ahead</span><span class="ch-tag">survivorship</span><span class="ch-tag">overfitting</span></div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">03</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">ตลาดไทยไม่ใช่ S&amp;P 500</div>
+        <div class="ch-card-one-liner">ความจริงที่ backtest บนตลาดไทยซ่อนอยู่ ซึ่งตลาดอเมริกาไม่มี</div>
+        <div><span class="ch-tag">SET</span><span class="ch-tag">liquidity</span><span class="ch-tag">regime change</span></div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">04</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Strategy Illusion — ยิ่งซับซ้อน ยิ่งอันตราย</div>
+        <div class="ch-card-one-liner">ทำไม simple system ที่น่าเบื่อกลับรอดได้กว่า AI ที่ฉลาด</div>
+        <div><span class="ch-tag">curve fitting</span><span class="ch-tag">parsimony</span></div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">05</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Backtest ที่น่าเชื่อถือต้องมีอะไร</div>
+        <div class="ch-card-one-liner">PIT data, walk-forward, stress test — สามขั้นที่ขาดไม่ได้</div>
+        <div><span class="ch-tag">walk-forward</span><span class="ch-tag">out-of-sample</span><span class="ch-tag">PIT data</span></div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">06</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Robustness vs Performance — เลือกอะไร</div>
+        <div class="ch-card-one-liner">Sharpe สูงไม่ใช่ชัยชนะ — มันคือสัญญาณเตือน</div>
+        <div><span class="ch-tag">sharpe ratio</span><span class="ch-tag">drawdown</span><span class="ch-tag">robustness</span></div>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">07</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Synthesis — Red Flags &amp; Deploy Mindset</div>
+        <div class="ch-card-one-liner">Checklist ก่อน deploy และวิธีรู้ว่าเมื่อไหร่ควรหยุด strategy</div>
+        <div><span class="ch-tag">deploy</span><span class="ch-tag">kill switch</span><span class="ch-tag">monitoring</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOREWORD ═══ -->
+  <div class="foreword-page">
+    <div class="eyebrow">คำนำ · Foreword</div>
+    <div class="foreword-h">จดหมายจากคนที่เคยเสียเงินจริง</div>
+    <p class="foreword-text">ถ้าคุณกำลังอ่านหนังสือนี้ คุณอาจกำลังคิดจะสร้าง trading system หรือกำลังนั่งดู backtest ที่ให้ผลตอบแทนปีละ 40% แล้วหัวใจเต้นแรง</p>
+    <p class="foreword-text"><strong>หยุดก่อน</strong> — นั่นคือจุดที่อันตรายที่สุด</p>
+    <p class="foreword-text">ผมเคยดู strategy มากกว่า 100 แบบที่ backtest "สวยมาก" แต่พังทันทีที่ใช้เงินจริง บางครั้งพังในสัปดาห์แรก บางครั้งพังในเดือนที่สาม แต่พังทุกครั้ง สิ่งที่ทำให้มันพังไม่ใช่โชคร้าย — มันคือ bias ที่ซ่อนอยู่ใน data และ model ที่เราไม่เห็น</p>
+    <p class="foreword-text">เนื้อหาที่คุณกำลังจะอ่าน ไม่ใช่ตำราวิชาการ มันคือ <strong>แผนที่กับดักที่คนส่วนใหญ่ตกซ้ำแล้วซ้ำเล่า</strong> เขียนขึ้นเพื่อให้คุณรอดก่อน แล้วค่อยทำกำไรทีหลัง</p>
+    <div class="author-box">
+      <div class="author-avatar">Q</div>
+      <div>
+        <div class="author-meta">Quant Mindset · มุมมองหลัก</div>
+        <div class="author-text">"การรอดในตลาดได้นาน 10 ปีมีค่ากว่ากำไร 100% ในปีเดียวแล้วล้างพอร์ต performance ที่ดีที่สุดคือ performance ที่เกิดขึ้นจริง ไม่ใช่ที่เห็นใน backtest"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER 1 ═══ -->
+  <div class="chapter-open">
+    <div class="ch-num-bg">01</div>
+    <div class="ch-label">บทที่ 1 · Chapter One</div>
+    <div class="ch-title">The <em>Illusion</em> of Backtesting</div>
+    <div class="ch-title-th">ภาพลวงตาของ Backtest</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">ทุก backtest คือการมองย้อนหลังด้วยสายตาที่รู้อนาคตแล้ว — มันไม่ใช่ความจริง มันคือนิยาย</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ทำไม Backtest 90% ถึงโกหกคุณ</h1>
+    <p>เมื่อเราทำ backtest เราคิดว่าเราทดสอบว่า strategy ทำงานหรือไม่ในอดีต แต่ความจริงคือเราทำสิ่งที่แตกต่างกันมาก — <strong>เราหา pattern ในข้อมูลที่ผ่านไปแล้ว แล้วหลอกตัวเองว่ามันคือสัญญาณแห่งอนาคต</strong></p>
+    <p>ปัญหาคือตลาดเงินมีสัญญาณรบกวน (noise) มหาศาล ถ้าเราดูข้อมูล 10 ปีและลอง parameter หลายร้อยแบบ เราจะพบ combination ที่ "ทำกำไรได้ในอดีต" เสมอ — ไม่ใช่เพราะมัน work แต่เพราะเราค้นหานานพอ เหมือนโยนเหรียญ 1,000 ครั้ง แล้วบอกว่า "เจอรูปแบบ" ว่าหัวออก 3 ครั้งติดกันก่อนก้อยเสมอ</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">Core Insight</div>
+      <p>Alpha จริง คือผลตอบแทนส่วนเกินที่เกิดจาก "ความได้เปรียบที่แท้จริง" ซึ่งคนอื่นยังไม่รู้หรือทำไม่ได้ ส่วน Alpha ปลอม คือผลตอบแทนที่ดูดีใน backtest แต่มาจากการค้นหา pattern ในสัญญาณรบกวน — มันจะหายไปทันทีที่ใช้เงินจริง</p>
+      <p>ถ้า strategy ของคุณมาจากการลอง parameter หลาย 100 แบบแล้วเลือกแบบที่ดีที่สุด — คุณกำลังสร้าง Alpha ปลอม</p>
+    </div>
+
+    <h2>Alpha มาจากไหน — และอะไรที่ไม่ใช่ Alpha จริง</h2>
+    <p>ให้คิดง่ายๆ ว่าผลตอบแทนใน backtest มาจาก 3 แหล่ง:</p>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--green);">~5%</div>
+        <div class="stat-label">Alpha จริง<br><small>ความได้เปรียบที่แท้จริง<br>หายากมาก</small></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--warn);">~35%</div>
+        <div class="stat-label">Beta พรางตัว<br><small>แค่รับความเสี่ยง<br>ที่ตลาดให้รางวัล</small></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--red);">~60%</div>
+        <div class="stat-label">Statistical Noise<br><small>สัญญาณรบกวน<br>ที่โมเดลจำได้ผิดๆ</small></div>
+      </div>
+    </div>
+
+    <div class="blockquote-full">
+      <blockquote>"Every backtest is a story we tell ourselves. The question is whether the market will believe the same story."</blockquote>
+      <div class="bq-th">ทุก backtest คือเรื่องเล่าที่เราสร้างขึ้นเอง คำถามคือตลาดจะเชื่อเรื่องเดียวกันนี้หรือเปล่า</div>
+      <cite>Marcos López de Prado — Advances in Financial Machine Learning</cite>
+    </div>
+
+    <h2>ความแตกต่างระหว่าง In-Sample และ Out-of-Sample</h2>
+    <p><strong>In-sample</strong> คือข้อมูลที่ใช้สร้างและปรับ strategy — เหมือนท่องจำข้อสอบ ส่วน <strong>Out-of-sample</strong> คือข้อมูลใหม่ที่โมเดลไม่เคยเห็น — เหมือนข้อสอบจริง คนส่วนใหญ่ปรับแต่ง strategy บน in-sample จนสมบูรณ์แบบ แล้วประหลาดใจเมื่อมันพังใน out-of-sample</p>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions · คำถามสำหรับคิด</div>
+      <ol>
+        <li>Strategy ของคุณผ่าน out-of-sample test แล้วหรือยัง? ถ้ายัง นั่นไม่ใช่ strategy — มันคือสมมติฐาน</li>
+        <li>คุณลอง parameter กี่แบบก่อนจะได้ผลลัพธ์ที่ดี? ยิ่งมาก ยิ่งต้องสงสัย</li>
+        <li>ถ้าลบ 5 วันที่ทำกำไรดีที่สุดออกจาก backtest — performance ยังดีอยู่ไหม?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER 2 ═══ -->
+  <div class="chapter-open">
+    <div class="ch-num-bg">02</div>
+    <div class="ch-label">บทที่ 2 · Chapter Two</div>
+    <div class="ch-title">The <em>Four</em> Hidden Killers</div>
+    <div class="ch-title-th">4 Bias ที่ฆ่าพอร์ตโดยที่คุณไม่รู้ตัว</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">Bias เหล่านี้ไม่ได้เกิดจากความตั้งใจ — มันซ่อนอยู่ใน workflow ที่คุณใช้ทุกวัน</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ศัตรูที่มองไม่เห็น ใน Data ของคุณ</h1>
+    <p>Bias ใน backtest ไม่ใช่สิ่งที่คุณตั้งใจทำ มันเป็นผลจากวิธีที่เราเก็บข้อมูล วิธีที่เราเลือกหุ้น และวิธีที่เราทดสอบ โดยไม่ระวัง เราสร้าง backtest ที่ดูดีแต่ผิดจากความเป็นจริงตั้งแต่แรก</p>
+    <p>นี่คือ 4 ตัวร้ายหลักที่ต้องรู้จัก:</p>
+
+    <div class="bias-grid">
+      <div class="bias-card">
+        <div class="bias-card-name">Look-Ahead Bias</div>
+        <div class="bias-card-th">การมองอนาคตโดยไม่รู้ตัว</div>
+        <div class="bias-card-desc">ใช้ข้อมูลที่ "ณ วันนั้นจริงๆ ยังไม่มี" ในการตัดสินใจ เช่น ตัวเลขงบการเงินที่ถูก revise หลังประกาศ หรือ closing price ที่ใช้ตัดสินใจ entry แต่ entry จริงทำได้แค่ราคา open วันถัดไป</div>
+        <div class="bias-card-thai">
+          <div class="bias-card-thai-label">ตัวอย่างในตลาดไทย</div>
+          หุ้น SET บางตัวประกาศงบวันที่ 1 แต่ตัวเลขใน database ถูก revise วันที่ 15 — ถ้าใช้ตัวเลข revision ในการ backtest จะเห็นว่า "รู้ตัวเลขที่แม่นยำก่อนคนอื่น" ซึ่งในชีวิตจริงทำไม่ได้
+        </div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-name">Survivorship Bias</div>
+        <div class="bias-card-th">ความลำเอียงจากคนรอด</div>
+        <div class="bias-card-desc">ข้อมูลใน database มีแต่บริษัทที่ "รอดมาถึงปัจจุบัน" บริษัทที่เจ๊งหรือถูก delist ออกไปแล้ว ทำให้ backtest ดูดีเกินจริง เหมือนสัมภาษณ์แค่คนที่รวยแล้วถามว่าทำอะไร โดยไม่สัมภาษณ์คนที่ล้มเหลวด้วย</div>
+        <div class="bias-card-thai">
+          <div class="bias-card-thai-label">ตัวอย่างในตลาดไทย</div>
+          SET มีหุ้นถูก delist ไปหลายร้อยตัวในรอบ 10 ปี ถ้า database ของคุณไม่มีข้อมูลหุ้นเหล่านี้ performance จะดูดีกว่าความเป็นจริงอย่างมีนัยสำคัญ
+        </div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-name">Data Leakage</div>
+        <div class="bias-card-th">ข้อมูลรั่วไหลจากอนาคตสู่อดีต</div>
+        <div class="bias-card-desc">เมื่อข้อมูลจาก "อนาคต" รั่วเข้าไปใน feature ที่ใช้ train model ทำให้ model "รู้" สิ่งที่ไม่ควรรู้ พบบ่อยมากใน machine learning — เช่น normalize data ด้วย mean ของ full dataset ก่อนแบ่ง train/test</div>
+        <div class="bias-card-thai">
+          <div class="bias-card-thai-label">กับดักพบบ่อย</div>
+          การใช้ StandardScaler fit บน dataset ทั้งหมดก่อน split — ค่า mean และ std ของ test set รั่วเข้าไปใน training ทำให้ model ฉลาดเกินจริง
+        </div>
+      </div>
+      <div class="bias-card">
+        <div class="bias-card-name">Overfitting</div>
+        <div class="bias-card-th">การจูนโมเดลเกินพอดี</div>
+        <div class="bias-card-desc">โมเดลเรียนรู้ "สัญญาณรบกวน" ของข้อมูลในอดีตแทนที่จะเรียนรู้ "รูปแบบจริง" ยิ่งพารามิเตอร์มาก หรือยิ่งลอง combination มาก ยิ่งเสี่ยง overfitting — สัญญาณคือ in-sample performance สวยงามมากแต่ out-of-sample พัง</div>
+        <div class="bias-card-thai">
+          <div class="bias-card-thai-label">กฎง่ายๆ</div>
+          ถ้า Sharpe ratio ใน in-sample สูงกว่า out-of-sample มากกว่า 2 เท่า — แสดงว่า overfit แน่นอน
+        </div>
+      </div>
+    </div>
+
+    <h2>Bias เหล่านี้แย่ขึ้นในตลาดไทยอย่างไร</h2>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">ความเชื่อเดิม</div>
+        <div class="ladder-text">ใช้ methodology เดียวกับตลาดอเมริกาได้เลย — ตลาดก็คือตลาด</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ความจริง</div>
+        <div class="ladder-text">ตลาดไทย: liquidity ต่ำ, corporate action ถี่ (หุ้นปันผล, rights issue), ข้อมูลคุณภาพต่ำกว่า, historical data มักไม่ได้ปรับ adjusted price อย่างถูกต้อง — ทุกปัจจัยนี้ขยาย bias ให้รุนแรงขึ้น</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">ลงมือทำ</div>
+        <div class="ladder-text">ต้องใช้ adjusted price เสมอ ตรวจสอบ delisted stocks ใน dataset ทดสอบกับ liquidity constraint จริง (เช่น จำกัด position size ไม่เกิน 10% ของ average daily volume)</div>
+      </div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions · คำถามสำหรับคิด</div>
+      <ol>
+        <li>Data ของคุณมีหุ้นที่ถูก delist ออกไปแล้วด้วยหรือไม่? ถ้าไม่มี ผล backtest ดีเกินจริงแน่นอน</li>
+        <li>คุณ normalize หรือ scale data อย่างไร — มีโอกาส data leakage จาก test set หรือเปล่า?</li>
+        <li>Strategy ของคุณมีกี่ parameter ที่ปรับแต่งได้? ยิ่งมาก ยิ่งต้องระวัง overfitting</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER 3 ═══ -->
+  <div class="chapter-open">
+    <div class="ch-num-bg">03</div>
+    <div class="ch-label">บทที่ 3 · Chapter Three</div>
+    <div class="ch-title">The <em>Thai</em> Reality</div>
+    <div class="ch-title-th">ความจริงของตลาดไทย ที่ตำราฝรั่งไม่บอก</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">ตลาดไทยมีกฎพิเศษของตัวเอง — ถ้าไม่เข้าใจ backtest สวยแค่ไหนก็ไม่มีความหมาย</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>SET ≠ S&amp;P 500 — และมันสำคัญมากกว่าที่คิด</h1>
+    <p>หนังสือ quant finance ส่วนใหญ่เขียนโดยคนที่ทำงานกับตลาดอเมริกา ซึ่งมี liquidity สูง data คุณภาพดี และนักลงทุนสถาบันครองตลาด แต่ตลาดไทย (SET) แตกต่างออกไปอย่างมีนัยสำคัญ ถ้าเอา methodology เดียวกันมาใช้โดยไม่ปรับ — ผลลัพธ์จะเป็นภัย</p>
+
+    <h2>4 ความเป็นจริงของตลาดไทยที่ต้องเข้าใจ</h2>
+
+    <div class="warn-box">
+      <div class="warn-box-label">⚠ ข้อจำกัดที่ 1 · Liquidity</div>
+      <p><strong>หุ้น SET ส่วนใหญ่มี liquidity ต่ำมาก</strong> — หุ้นนอก SET50 มักมี average daily volume ต่ำกว่า 10 ล้านบาท ถ้าคุณ backtest ว่า "ซื้อหุ้น X 5% ของพอร์ต" ด้วยพอร์ต 10 ล้านดอลลาร์ ($10M) — นั่นหมายถึงซื้อ 500,000 ดอลลาร์ ซึ่งอาจเกิน 50% ของ daily volume หุ้นนั้นเลย ราคาจะขยับทันที่ที่คุณเข้า — นั่นคือ market impact ที่ backtest ไม่เคยคำนวณ</p>
+    </div>
+
+    <div class="warn-box">
+      <div class="warn-box-label">⚠ ข้อจำกัดที่ 2 · Retail Dominance</div>
+      <p><strong>ตลาดไทยขับเคลื่อนโดย retail investor มากกว่า 60%</strong> ซึ่งหมายความว่าตลาดมีความผันผวนทางอารมณ์สูง momentum ทำงานได้แต่ก็กลับทิศเร็ว และราคาบางครั้งเคลื่อนโดยไม่มี fundamental รองรับ strategy ที่ใช้ได้ดีในตลาดสถาบัน อาจพังในตลาดที่ retail ครองได้</p>
+    </div>
+
+    <div class="warn-box">
+      <div class="warn-box-label">⚠ ข้อจำกัดที่ 3 · Regime Change บ่อย</div>
+      <p><strong>ประเทศไทยมีการเปลี่ยนแปลงสภาพแวดล้อม (regime) บ่อยกว่าตลาดพัฒนาแล้ว</strong> ทั้งทางการเมือง (รัฐประหาร), เศรษฐกิจ (วิกฤต 97, COVID), และนโยบาย strategy ที่ทำงานดีในช่วง 5 ปีหนึ่ง อาจพังในอีก 5 ปีถัดมา เพราะสภาพแวดล้อมเปลี่ยนไปอย่างสิ้นเชิง</p>
+    </div>
+
+    <div class="warn-box">
+      <div class="warn-box-label">⚠ ข้อจำกัดที่ 4 · ข้อมูลคุณภาพต่ำ</div>
+      <p><strong>ข้อมูล historical ของ SET มักมีปัญหา</strong> เช่น adjusted price ที่ปรับ corporate action ไม่ถูกต้อง, missing data ในช่วง trading halt, และ volume data ที่รวม odd lot จนบิดเบือน strategy ที่สร้างบน data ที่ไม่สะอาดจะมีผล backtest ที่เชื่อถือไม่ได้</p>
+    </div>
+
+    <h2>กฎ Liquidity ที่ต้องใช้เสมอ</h2>
+    <p>สำหรับพอร์ตขนาดใหญ่ในตลาดไทย ให้จำกัด position size ไว้ที่ไม่เกิน 5-10% ของ average daily volume (ADV) ของหุ้นนั้น ถ้าจะซื้อหุ้นที่มี ADV 5 ล้านบาท — position size สูงสุดของคุณคือ 250,000-500,000 บาท ไม่ใช่ล้าน</p>
+
+    <div class="one-liner-box">
+      <div class="one-liner-en">"A strategy that works on paper but can't be executed at scale is not a strategy — it's a fantasy."</div>
+      <div class="one-liner-rule"></div>
+      <div class="one-liner-th">Strategy ที่ทำงานในกระดาษแต่ execute ไม่ได้ด้วยเงินจริง — ไม่ใช่ strategy มันคือความฝัน</div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions · คำถามสำหรับคิด</div>
+      <ol>
+        <li>Backtest ของคุณคำนึงถึง market impact (การที่ราคาขยับเมื่อคุณซื้อ) แล้วหรือยัง?</li>
+        <li>Strategy ทำงานได้ดีแค่ในช่วงเวลาใด? ถ้าแบ่ง test เป็น 3 ช่วงเวลา ทุกช่วงยังดีอยู่ไหม?</li>
+        <li>ถ้า regime เปลี่ยน เช่น ดอกเบี้ยขึ้นฉับพลัน — strategy ของคุณจะเกิดอะไรขึ้น?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER 4 ═══ -->
+  <div class="chapter-open">
+    <div class="ch-num-bg">04</div>
+    <div class="ch-label">บทที่ 4 · Chapter Four</div>
+    <div class="ch-title">The <em>Complexity</em> Trap</div>
+    <div class="ch-title-th">กับดักความซับซ้อน — ยิ่งฉลาดยิ่งอันตราย</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">ตลาดไม่ให้รางวัลความฉลาด มันให้รางวัลกับคนที่ถูกต้องเสมอ ไม่ใช่คนที่ถูกต้องบางครั้งด้วยเหตุผลซับซ้อน</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ทำไม Simple System ถึงชนะ Complex AI</h1>
+    <p>มีสิ่งที่ counter-intuitive (ขัดกับสัญชาตญาณ) อย่างหนึ่งในโลก quant — <strong>ยิ่ง strategy ซับซ้อน ยิ่งมีโอกาสสูงที่มันจะ overfit</strong> และยิ่ง overfit ยิ่งพังในชีวิตจริง</p>
+    <p>นักพัฒนา strategy มักตกหลุมพราง "ยิ่งข้อมูลเยอะ ยิ่งดี" และ "โมเดลที่ซับซ้อนกว่าย่อมแม่นยำกว่า" แต่ในตลาดการเงินซึ่งมีสัญญาณรบกวนมหาศาล โมเดลซับซ้อนมักเรียนรู้ noise แทนที่จะเรียนรู้ signal</p>
+
+    <table class="cmp-table">
+      <tr>
+        <th>เกณฑ์</th>
+        <th>Strategy ซับซ้อน</th>
+        <th>Strategy เรียบง่าย</th>
+      </tr>
+      <tr>
+        <td>Backtest performance</td>
+        <td class="bad">สูงมาก (น่าสงสัย)</td>
+        <td class="good">สมเหตุสมผล</td>
+      </tr>
+      <tr>
+        <td>Out-of-sample ในตลาดจริง</td>
+        <td class="bad">พังบ่อย</td>
+        <td class="good">คงเส้นคงวากว่า</td>
+      </tr>
+      <tr>
+        <td>โอกาส overfitting</td>
+        <td class="bad">สูง</td>
+        <td class="good">ต่ำ</td>
+      </tr>
+      <tr>
+        <td>เข้าใจว่าทำไมถึง work</td>
+        <td class="bad">มักไม่รู้</td>
+        <td class="good">อธิบายได้ชัดเจน</td>
+      </tr>
+      <tr>
+        <td>ปรับตัวเมื่อ regime เปลี่ยน</td>
+        <td class="bad">ยาก</td>
+        <td class="good">ง่ายกว่า</td>
+      </tr>
+    </table>
+
+    <h2>สัญญาณว่าคุณกำลัง Curve Fitting</h2>
+    <p><strong>Curve fitting</strong> คือการปรับ parameter จนโมเดลเข้ากับข้อมูลในอดีตอย่างสมบูรณ์แบบ — เหมือนตัด suit ให้พอดีกับร่างกายเฉพาะในวันนั้น พอน้ำหนักเปลี่ยนไม่กี่กิโล ชุดก็ใส่ไม่ได้แล้ว</p>
+
+    <div class="redflag-list">
+      <div class="redflag-item">
+        <div class="redflag-icon">🚨</div>
+        <div class="redflag-text"><strong>Performance ใน in-sample สูงกว่า out-of-sample มากกว่า 2 เท่า</strong> — สัญญาณ overfitting ที่ชัดเจนที่สุด</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚨</div>
+        <div class="redflag-text"><strong>ต้องใช้พารามิเตอร์มากกว่า 5 ตัวในการ define สัญญาณ</strong> — ทุก parameter เพิ่มโอกาส overfit</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚨</div>
+        <div class="redflag-text"><strong>Strategy ทำกำไรส่วนใหญ่มาจาก trade จำนวนน้อย</strong> — ถ้า 80% ของกำไรมาจาก 10% ของ trade นั่นไม่ใช่ edge มันคือโชค</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚨</div>
+        <div class="redflag-text"><strong>เปลี่ยน parameter เล็กน้อยแล้ว performance เปลี่ยนมาก</strong> — strategy ที่ robust ควรทนต่อการเปลี่ยน parameter เล็กน้อยได้</div>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <div class="author-avatar">L</div>
+      <div>
+        <div class="author-meta">López de Prado — AFML</div>
+        <div class="author-text">"A strategy that cannot be explained to a reasonably intelligent person is probably not a strategy at all — it's an overfit model masquerading as insight." ถ้าอธิบายไม่ได้ว่าทำไม strategy ถึง work — มันอาจไม่ใช่ strategy แต่คือโมเดลที่จำข้อมูลในอดีตได้แม่นเกินไป</div>
+      </div>
+    </div>
+
+    <h2>หลักการ Parsimony — ความเรียบง่ายคือความได้เปรียบ</h2>
+    <p><strong>Parsimony</strong> หมายถึง "ใช้สิ่งที่ง่ายที่สุดที่ยังอธิบายได้" ถ้าโมเดล A มี 3 parameter และโมเดล B มี 10 parameter แต่ทั้งคู่ให้ผลลัพธ์ใกล้เคียงกัน — โมเดล A ดีกว่าเสมอ เพราะมีโอกาส overfit น้อยกว่า</p>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions · คำถามสำหรับคิด</div>
+      <ol>
+        <li>คุณสามารถอธิบาย "เหตุผลที่ strategy นี้ควรจะทำงาน" ให้คนที่ไม่รู้ quant ฟังได้ใน 2 ประโยคหรือไม่?</li>
+        <li>ถ้าเปลี่ยน parameter หลักของคุณ ±20% — performance เปลี่ยนมากแค่ไหน?</li>
+        <li>มี simple version ของ strategy นี้ไหม? ลองเปรียบเทียบดูก่อน</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER 5 ═══ -->
+  <div class="chapter-open">
+    <div class="ch-num-bg">05</div>
+    <div class="ch-label">บทที่ 5 · Chapter Five</div>
+    <div class="ch-title">A <em>Trustworthy</em> Backtest</div>
+    <div class="ch-title-th">Backtest ที่น่าเชื่อถือ — มาตรฐานขั้นต่ำที่ยอมรับไม่ได้</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">Backtest ที่ดีไม่ใช่แค่ตัวเลขสวย — มันคือกระบวนการที่โปร่งใส ทดสอบซ้ำได้ และออกแบบมาเพื่อ "หาจุดพัง" ไม่ใช่ "พิสูจน์ว่าดี"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>3 เสาหลักของ Backtest ที่เชื่อถือได้</h1>
+    <p>ถ้าจะนับรวม backtest ว่าน่าเชื่อถือ มันต้องผ่านสามด่านนี้ ขาดด่านไหนไม่ได้เลย:</p>
+
+    <h2>เสาที่ 1: PIT Data — ข้อมูล ณ เวลาจริง</h2>
+    <p><strong>PIT (Point-in-Time) Data</strong> คือข้อมูลที่บันทึกว่า "ณ วันนั้น เรารู้อะไรบ้าง" ไม่ใช่ข้อมูลที่ถูก revise ย้อนหลังในภายหลัง ตัวเลขงบการเงินหลายตัวมักถูก revise เช่น EPS ปรับจาก 1.50 บาทเป็น 1.65 บาทหลังตรวจสอบ — ถ้าใช้ตัวเลข 1.65 บาทในการ backtest ช่วงที่ประกาศ คุณกำลังโกงตัวเอง</p>
+
+    <div class="green-box">
+      <div class="green-box-label">✓ วิธีตรวจสอบ PIT Data</div>
+      <p>ถามผู้ให้บริการข้อมูลว่า "ตัวเลขนี้คือ as-reported หรือ restated?" ข้อมูล as-reported คือสิ่งที่เราต้องการ ส่วน restated คือข้อมูลที่ถูกปรับย้อนหลัง ซึ่งในชีวิตจริงเราไม่มีทางรู้ล่วงหน้าได้</p>
+    </div>
+
+    <h2>เสาที่ 2: Walk-Forward Validation — การทดสอบแบบเดินหน้า</h2>
+    <p><strong>Walk-forward test</strong> คือการทดสอบที่จำลองวิธีการใช้งานจริง — Train model ด้วยข้อมูล 3 ปีแรก ทดสอบกับ 1 ปีถัดมา แล้ว retrain ด้วยข้อมูลที่อัพเดต ทดสอบกับอีก 1 ปีถัดมา ทำซ้ำจนครบ ผลลัพธ์คือ performance บนข้อมูลที่ "โมเดลไม่เคยเห็น" ทุก step — ใกล้เคียงความจริงมากที่สุด</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">Walk-Forward vs. Simple Train/Test Split</div>
+      <p><strong>Simple split</strong> (80% train, 20% test) มีปัญหาคือ test set ถูกดูแค่ครั้งเดียว และนักพัฒนามักปรับ model จนทำงานดีกับ test set นั้นโดยรู้ตัวหรือไม่รู้ตัว นั่นก็คือ overfitting ต่อ test set</p>
+      <p><strong>Walk-forward</strong> แก้ปัญหานี้เพราะโมเดลไม่เคยรู้ล่วงหน้าว่า "test set" ในแต่ละ step คืออะไร — มันต้องทำงานกับข้อมูลอนาคตจริงๆ</p>
+    </div>
+
+    <h2>เสาที่ 3: Stress Testing — ทดสอบในสภาวะสุดโต่ง</h2>
+    <p>ถาม strategy ว่า "เกิดอะไรขึ้นถ้า..." แล้วลองเปลี่ยนสภาวะตลาดให้รุนแรงขึ้น:</p>
+
+    <div class="signal-row">
+      <div class="signal-box do">
+        <div class="signal-label">Stress Test ที่ควรทำ ✓</div>
+        <ul class="signal-list">
+          <li>ทดสอบในช่วงวิกฤต (2008, COVID 2020, วิกฤต 97)</li>
+          <li>เพิ่ม slippage สมมติ 2-3 เท่า</li>
+          <li>ลด position size ได้สูงสุด 50% จาก liquidity</li>
+          <li>ทดสอบด้วย transaction cost สูง</li>
+          <li>ลอง parameter ±30% จากค่าที่เลือก</li>
+        </ul>
+      </div>
+      <div class="signal-box dont">
+        <div class="signal-label">สิ่งที่ไม่ใช่ Stress Test ✗</div>
+        <ul class="signal-list">
+          <li>แค่ดูว่า max drawdown คือเท่าไหร่</li>
+          <li>ทดสอบในตลาดขาขึ้นอย่างเดียว</li>
+          <li>ใช้ commission ที่ต่ำกว่าความจริง</li>
+          <li>ไม่ทดสอบกับ liquidity constraint</li>
+          <li>ข้ามช่วงเวลาที่ performance แย่</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions · คำถามสำหรับคิด</div>
+      <ol>
+        <li>Data ที่คุณใช้คือ PIT หรือ restated? ถ้าไม่รู้ — นั่นคือความเสี่ยงที่ต้องตรวจสอบทันที</li>
+        <li>คุณเคย stress test strategy กับช่วงวิกฤตจริงแล้วหรือยัง? ผลเป็นอย่างไร?</li>
+        <li>ถ้า transaction cost สูงขึ้น 3 เท่า strategy ยังทำกำไรอยู่ไหม?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══ CHAPTER 6 ═══ -->
+  <div class="chapter-open">
+    <div class="ch-num-bg">06</div>
+    <div class="ch-label">บทที่ 6 · Chapter Six</div>
+    <div class="ch-title"><em>Robustness</em> Over Performance</div>
+    <div class="ch-title-th">ความทนทาน สำคัญกว่าตัวเลขสวย</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">Strategy ที่ดีที่สุดไม่ใช่ strategy ที่ให้ผลตอบแทนสูงที่สุดในอดีต แต่คือ strategy ที่ "ยังทำงานได้" ในอนาคตที่เราไม่รู้</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>Sharpe Ratio สูงไม่ใช่ข่าวดี</h1>
+    <p><strong>Sharpe Ratio</strong> คือตัวชี้วัดผลตอบแทนต่อความเสี่ยง — ยิ่งสูงยิ่งดี "ในทฤษฎี" แต่ใน backtest ถ้า Sharpe Ratio สูงผิดปกติ (เช่น 3.0+) นั่นเป็นสัญญาณเตือน ไม่ใช่เหตุผลที่จะดีใจ</p>
+    <p>เพราะ Sharpe สูงใน backtest มักมาจาก overfitting — โมเดลเรียนรู้ข้อมูลในอดีตจนแม่น แต่ข้อมูลอนาคตจะให้ผลต่างออกไป เหมือนนักเรียนที่ท่องจำข้อสอบเก่าได้ 100% แต่พอข้อสอบเปลี่ยน ทำได้แค่ 40%</p>
+
+    <h2>Robustness คืออะไร — ในโลกจริง</h2>
+    <p><strong>Robustness</strong> (ความทนทาน) หมายถึง strategy ยังทำงานได้ดีพอเมื่อสภาวะเปลี่ยนไปจากที่เคย backtest ไว้ — ไม่ว่าจะเป็นสภาวะตลาด, parameter, หรือ data quality</p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">Strategy ที่ไม่ Robust</div>
+        <div class="ladder-text">ทำกำไรดีมากในช่วง 2019-2022 แต่พังหมดใน 2023 เมื่อดอกเบี้ยขึ้น — เพราะสร้างบน regime เดียวที่ไม่ยั่งยืน</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">Strategy ที่ Robust</div>
+        <div class="ladder-text">ทำกำไรได้สม่ำเสมอ 8-12% ต่อปีในทุกสภาวะ — ไม่สูงมาก แต่คงเส้นคงวา ผ่าน stress test ได้ทุกช่วง</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">วิธีวัด Robustness</div>
+        <div class="ladder-text">เปลี่ยน parameter ±30% แล้วดูว่า performance เปลี่ยนมากแค่ไหน — ถ้าเปลี่ยนนิดเดียวแล้วพัง นั่นคือ fragile ไม่ใช่ robust</div>
+      </div>
+    </div>
+
+    <h2>Geometric Mean — วิธีวัดผลตอบแทนที่ตรงความจริง</h2>
+    <p><strong>Geometric Mean (ค่าเฉลี่ยเรขาคณิต)</strong> คือค่าเฉลี่ยที่คำนึงถึงการทบต้น ซึ่งต่างจากค่าเฉลี่ยปกติ (Arithmetic Mean) ตรงที่มันบอกผลตอบแทนจริงของเงินลงทุน</p>
+    <div class="insight-box">
+      <div class="insight-box-label">ทำไม Geometric Mean ถึงสำคัญ</div>
+      <p>สมมติปีแรกได้ +50% ปีที่สองเสีย -50% — ค่าเฉลี่ยปกติ = 0% (ดูเหมือนไม่ได้ไม่เสีย) แต่ Geometric Mean = -13.4% เพราะเงินจริงๆ หายไป: เริ่ม 100 บาท → ปีแรก 150 บาท → ปีที่สอง 75 บาท ติดลบ 25 บาท</p>
+      <p>Strategy ที่มี volatility (ความผันผวน) สูงจะมี Geometric Mean ต่ำกว่า Arithmetic Mean มาก — นั่นคือทำไม "ลด drawdown = เพิ่มผลตอบแทนจริงระยะยาว"</p>
+    </div>
+
+    <div class="blockquote-full">
+      <blockquote>"The goal of risk management is not to minimize risk. It is to ensure the portfolio survives long enough for its edge to manifest."</blockquote>
+      <div class="bq-th">เป้าหมายของการจัดการความเสี่ยงไม่ใช่การลดความเสี่ยงให้ต่ำที่สุด — แต่คือการทำให้พอร์ตรอดได้นานพอที่ความได้เปรียบของมันจะแสดงออกมา</div>
+      <cite>CFA Institute — Quantitative Investment Analysis</cite>
+    </div>
+
+    <h2>Maximum Drawdown — ตัวชี้วัดที่สำคัญกว่า Sharpe</h2>
+    <p><strong>Drawdown</strong> คือการที่พอร์ตลดลงจากจุดสูงสุด เช่น พอร์ต 1 ล้านบาทลงไปเหลือ 700,000 บาท คือ drawdown 30% ถ้า Maximum Drawdown ใน backtest สูง (เช่น 40-50%) ถามตัวเองว่า "ถ้าเกิดขึ้นจริง คุณจะยังอยู่ใน strategy ได้ไหม? หรือจะตื่นตระหนกขายออก?"</p>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions · คำถามสำหรับคิด</div>
+      <ol>
+        <li>ถ้า Sharpe Ratio ของ backtest คุณสูงกว่า 2.0 — ตั้งคำถามกับตัวเองก่อนดีใจ: มาจาก overfitting หรือ edge จริง?</li>
+        <li>Maximum Drawdown ที่คุณรับได้จริงๆ คือเท่าไหร่? ไม่ใช่ตามทฤษฎี แต่คือที่จะไม่ทำให้คุณตื่นตระหนก</li>
+        <li>Strategy คุณผ่านช่วง COVID crash 2020 ใน backtest อย่างไร? นั่นคือหนึ่งใน stress test ที่ดีที่สุด</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══ SYNTHESIS CHAPTER ═══ -->
+  <div class="chapter-open" style="background: var(--accent-deep);">
+    <div class="ch-num-bg" style="color: rgba(100,150,220,.08);">∞</div>
+    <div class="ch-label" style="color: rgba(150,185,240,.70);">Synthesis · บทสรุป</div>
+    <div class="ch-title" style="color: #E8F4FF;">Red Flags &amp;<br><em style="color: var(--accent-light);">Deploy</em> Mindset</div>
+    <div class="ch-title-th" style="color: rgba(180,210,255,.75);">Checklist ก่อน Deploy และวิธีรู้ว่าเมื่อไหร่ควรหยุด</div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence" style="color: rgba(190,220,255,.70);">ในโลกจริงไม่มีใครให้คะแนนคุณจาก backtest — ตลาดให้เงินจริงหรือเอาเงินจริงออกไป</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">Red Flags · สัญญาณอันตราย</div>
+    <h1>17 สัญญาณว่า Strategy ของคุณ "ไม่น่าเชื่อถือ"</h1>
+    <p>ก่อน deploy ให้ตรวจสอบสัญญาณเหล่านี้ทุกข้อ ถ้าพบแม้แต่ข้อเดียว — ต้องหยุดและตรวจสอบก่อน</p>
+
+    <h2>🔴 Red Flags เรื่อง Data &amp; Backtest</h2>
+    <div class="redflag-list">
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>Sharpe Ratio ใน backtest สูงกว่า 2.5</strong> — ยิ่งสูงยิ่งต้องสงสัย ในโลกจริงมีน้อยมากที่ทำได้แบบนี้ต่อเนื่อง</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>ไม่เคยทำ out-of-sample test</strong> — ถ้า backtest ทั้งหมดใช้ข้อมูล dataset เดียวกัน ผลไม่มีความหมาย</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>ไม่มีหุ้นที่ delist ออกไปใน data</strong> — survivorship bias ทำให้ผลดีเกินจริงมาก</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>ทำ trade จำนวนน้อยใน backtest (น้อยกว่า 200 ครั้ง)</strong> — sample น้อยเกินไปที่จะสรุปผลได้อย่างน่าเชื่อถือ</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>ไม่ได้คำนึงถึง transaction cost และ slippage</strong> — ในตลาดไทยที่ liquidity ต่ำ ค่าใช้จ่ายจริงสูงกว่าที่คิดมาก</div>
+      </div>
+    </div>
+
+    <h2>🔴 Red Flags เรื่อง Model &amp; Strategy</h2>
+    <div class="redflag-list">
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>อธิบายไม่ได้ว่า "ทำไม" strategy ถึงควรทำงาน</strong> — ต้องมี economic rationale ที่ชัดเจน ไม่ใช่แค่ "เพราะ backtest บอกว่าดี"</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>เปลี่ยน parameter เล็กน้อยแล้ว performance เปลี่ยนมาก</strong> — strategy ที่ดีต้องทนต่อการ perturbation (การเปลี่ยนเล็กน้อย)</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>Strategy ทำงานดีเฉพาะในช่วงเวลาเดียว</strong> — ถ้าดีแค่ในตลาดขาขึ้น หรือดีแค่ในช่วงดอกเบี้ยต่ำ นั่นไม่ใช่ edge มันคือ beta ที่พรางตัว</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>โมเดลซับซ้อนมากกว่า 10 parameters</strong> — ทุก parameter เพิ่มโอกาส overfitting คุณต้องพิสูจน์ว่าแต่ละตัวจำเป็นจริง</div>
+      </div>
+    </div>
+
+    <h2>🔴 Red Flags เรื่องตลาดไทย/Forex</h2>
+    <div class="redflag-list">
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>Position size ใหญ่กว่า 10% ของ Average Daily Volume</strong> — คุณกำลังเป็นผู้ขับเคลื่อนราคาตัวเอง ไม่ใช่แค่ follower</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>ไม่ได้ใช้ adjusted price ที่ปรับ corporate action</strong> — ราคาที่ไม่ได้ปรับ rights issue/ปันผลจะทำให้ backtest บิดเบือน</div>
+      </div>
+      <div class="redflag-item">
+        <div class="redflag-icon">🚩</div>
+        <div class="redflag-text"><strong>ไม่ได้ทดสอบในช่วง regime change</strong> — ตลาดไทยผ่านวิกฤตมาหลายครั้ง ทดสอบทุกช่วงก่อนเสมอ</div>
+      </div>
+    </div>
+
+    <div class="blockquote-full">
+      <blockquote>"If you think your strategy is too good to be true, it probably is. In 20 years of reviewing backtests, I've never seen a high Sharpe ratio survive live trading."</blockquote>
+      <div class="bq-th">ถ้าคุณคิดว่า strategy ของคุณดีเกินจริง — มันก็อาจเป็นแบบนั้นจริงๆ ในประสบการณ์ 20 ปีที่ดู backtest มา ยังไม่เคยเห็น Sharpe Ratio สูงๆ ที่รอดได้จริงในตลาดจริง</div>
+      <cite>Marcos López de Prado — AFML</cite>
+    </div>
+
+    <h2>Pre-Deploy Checklist — ทำครบก่อน deploy ทุกครั้ง</h2>
+    <p>นี่คือ Non-negotiable (สิ่งที่ต้องทำเสมอ ไม่มีข้อยกเว้น) ก่อนนำ strategy ไปใช้เงินจริง:</p>
+
+    <div class="checklist">
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">1</div></div>
+        <div class="check-content">
+          <div class="check-title">Out-of-sample test ผ่านอย่างน้อย 2 ปี</div>
+          <div class="check-desc">Performance บนข้อมูลที่โมเดลไม่เคยเห็น ต้องไม่ต่ำกว่า 50% ของ in-sample performance</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">2</div></div>
+        <div class="check-content">
+          <div class="check-title">Walk-forward validation ผ่านอย่างน้อย 5 รอบ</div>
+          <div class="check-desc">ทุก fold ต้องทำกำไรได้ ไม่ใช่แค่ average ดี — 1-2 fold พังยังรับได้ แต่ 3+ ที่พัง ให้หยุดทันที</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">3</div></div>
+        <div class="check-content">
+          <div class="check-title">ผ่าน stress test ในช่วงวิกฤต</div>
+          <div class="check-desc">ต้องทดสอบกับ COVID crash 2020, วิกฤตต้มยำกุ้ง 1997 (ถ้ามีข้อมูล), และช่วงดอกเบี้ยขาขึ้น 2022</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">4</div></div>
+        <div class="check-content">
+          <div class="check-title">คำนวณ liquidity constraint จริง</div>
+          <div class="check-desc">Position size ต้องไม่เกิน 5-10% ของ Average Daily Volume ของแต่ละหุ้น และต้องรวม market impact ใน cost estimate</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">5</div></div>
+        <div class="check-content">
+          <div class="check-title">มี "Kill Switch" ที่กำหนดล่วงหน้า</div>
+          <div class="check-desc">กำหนดล่วงหน้าว่า "ถ้า drawdown ถึง X% หรือ consecutive losses ถึง Y ครั้ง จะหยุด strategy ทันที" โดยไม่ใช้ดุลยพินิจในตอนนั้น</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">6</div></div>
+        <div class="check-content">
+          <div class="check-title">อธิบาย economic rationale ได้ใน 2 ประโยค</div>
+          <div class="check-desc">ถ้าอธิบายไม่ได้ว่า "ทำไม strategy นี้ถึงควรทำกำไรได้" — กลับไปทบทวน hypothesis ก่อน</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"><div class="check-num">7</div></div>
+        <div class="check-content">
+          <div class="check-title">เริ่มด้วย position size น้อยกว่าที่คำนวณไว้ 50%</div>
+          <div class="check-desc">ในช่วง "live trial" 3-6 เดือนแรก ใช้เงินจริงแต่ลดขนาดลงครึ่งหนึ่ง เพื่อดูว่า performance ตรงกับ backtest หรือไม่</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>ระหว่าง Deploy — ต้อง Monitor อะไร</h2>
+
+    <div class="signal-row">
+      <div class="signal-box do">
+        <div class="signal-label">Monitor สม่ำเสมอ ✓</div>
+        <ul class="signal-list">
+          <li>ติดตาม "live vs. backtest" performance ทุกสัปดาห์</li>
+          <li>วัด actual slippage vs. expected slippage</li>
+          <li>ตรวจสอบว่า signal ยังเกิดขึ้นตามที่คาด</li>
+          <li>ดู drawdown ที่สะสมอยู่เสมอ</li>
+          <li>ตรวจสอบว่า regime ของตลาดเปลี่ยนหรือไม่</li>
+        </ul>
+      </div>
+      <div class="signal-box dont">
+        <div class="signal-label">เมื่อไหร่ควร Kill Strategy ✗</div>
+        <ul class="signal-list">
+          <li>Live Sharpe ต่ำกว่า backtest Sharpe มากกว่า 50%</li>
+          <li>Drawdown ถึง kill switch ที่กำหนดไว้</li>
+          <li>Consecutive losses เกิน threshold ที่วางไว้</li>
+          <li>Regime change ชัดเจน (เช่น อัตราดอกเบี้ยพลิก)</li>
+          <li>Actual slippage สูงกว่า assumption 3 เท่า</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>One-Liner ที่ต้องจำ</h2>
+
+    <div class="one-liner-box">
+      <div class="one-liner-en">"In backtesting, you are your own worst enemy. In live trading, the market is your teacher."</div>
+      <div class="one-liner-rule"></div>
+      <div class="one-liner-th">ใน backtest ศัตรูที่น่ากลัวที่สุดคือตัวเราเอง ใน trading จริง ตลาดคือครูที่โหดที่สุด — และมันเก็บค่าเล่าเรียนเป็นเงินจริง</div>
+    </div>
+
+    <h2>หนังสือสำหรับศึกษาต่อยอด</h2>
+    <table class="cmp-table">
+      <tr>
+        <th>หนังสือ</th>
+        <th>ใช้ต่อยอดเรื่องอะไร</th>
+      </tr>
+      <tr>
+        <td>Advances in Financial Machine Learning — de Prado</td>
+        <td>Walk-forward, purging, embargoing — methodologies ป้องกัน data leakage</td>
+      </tr>
+      <tr>
+        <td>Quantitative Investment Analysis — CFA Institute</td>
+        <td>Statistical foundations, hypothesis testing, regression analysis</td>
+      </tr>
+      <tr>
+        <td>Evidence-Based Technical Analysis — Aronson</td>
+        <td>Multiple hypothesis testing, White's Reality Check</td>
+      </tr>
+      <tr>
+        <td>Trading Systems and Methods — Kaufman</td>
+        <td>System design, walk-forward testing, robustness measurement</td>
+      </tr>
+      <tr>
+        <td>The Man Who Solved the Market — Zuckerman</td>
+        <td>แรงบันดาลใจ: เห็นว่า quant system จริงๆ ต้องใช้เวลาสร้างแค่ไหน</td>
+      </tr>
+    </table>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection Questions สุดท้าย · Final Questions</div>
+      <ol>
+        <li>ถ้า backtest ของคุณผิดทั้งหมด — คุณยังรอดได้ไหม? นั่นคือขนาดของ position จริงที่ควรใช้</li>
+        <li>คุณได้กำหนด kill switch ไว้ล่วงหน้าแล้วหรือยัง? ถ้ายัง ทำตอนนี้ก่อน deploy</li>
+        <li>ถ้าต้องบอก strategy ของคุณใน 2 ประโยค พร้อมเหตุผลว่าทำไมถึงน่าจะทำงาน — คุณทำได้ไหม?</li>
+      </ol>
+    </div>
+
+    <div class="insight-box" style="margin-top: 40px; border-left-color: var(--accent-deep);">
+      <div class="insight-box-label">สรุปสุดท้าย · Final Synthesis</div>
+      <p>ตลาดการเงินเป็นเกมที่โหดมาก ไม่ใช่เพราะมันยากเกินไป แต่เพราะมันทำให้เราคิดว่าเราเข้าใจมันทั้งที่ไม่ได้เข้าใจ backtest สวยงามคือกับดักที่อันตรายที่สุด เพราะมันทำให้เรามีความมั่นใจมากกว่าที่ควรมี</p>
+      <p>หลักการที่แท้จริงคือ: <strong>สร้างระบบที่รอดก่อน แล้วค่อยเพิ่มประสิทธิภาพทีหลัง Survival is alpha. Survival is everything.</strong></p>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="book-footer">
+    <div class="book-footer-mark">∑</div>
+    <div class="book-footer-text">"The best investment strategy is the one you can execute consistently, with full understanding of its risks, without panic — even in the worst of times."</div>
+    <div class="book-footer-author">CFA Quantitative Investment Analysis × Advances in Financial Machine Learning · Personal Edition</div>
+  </div>
+
+</div>
+</body>
+</html>
