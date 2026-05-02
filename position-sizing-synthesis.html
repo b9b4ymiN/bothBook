@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แก่นการลงเงิน — Position Sizing &amp; Conviction · The Synthesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Paper tones */
+  --paper:#F2EFE4; --paper-mid:#EAE5D2; --paper-deep:#DDD7BD; --paper-shadow:#C8C0A0;
+  --ink:#14110B; --ink-soft:#2A261C; --ink-mid:#46402F; --ink-muted:#7C7460; --ink-faint:#ABA48C;
+
+  /* Accent — Deep Emerald (เชื่อม Kelly + Fortune's Formula + Concentrated) */
+  --accent:#3D6B4E; --accent-deep:#2A5038; --accent-light:#6B9078;
+  --accent-rule:rgba(61,107,78,.30); --accent-bg:rgba(61,107,78,.08);
+
+  /* Semantic */
+  --red:#7A1A1A; --red-bg:#FBF3F0;
+  --green:#355E40; --green-bg:#F1F6EE;
+  --gold:#A8782A; --gold-bg:#FBF6E8;
+
+  --book-width:780px;
+  --page-pad-h:76px; --page-pad-v:84px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{
+  background:#1A1610;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(61,107,78,.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(168,120,42,.04) 0%, transparent 50%);
+  padding:40px 16px;
+  font-family:'Noto Serif Thai',serif;
+  color:var(--ink);
+}
+
+.book{
+  max-width:var(--book-width);margin:0 auto;background:var(--paper);
+  box-shadow:0 0 0 1px rgba(0,0,0,.10),0 4px 40px rgba(0,0,0,.40),0 0 120px rgba(0,0,0,.25);
+  position:relative;overflow:hidden;
+}
+
+/* ============ COVER ============ */
+.cover{
+  background:linear-gradient(160deg, #2A5038 0%, #1F3D2A 50%, #14271C 100%);
+  color:var(--paper); padding:88px var(--page-pad-h) 96px;
+  position:relative; min-height:870px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.cover::before{
+  content:''; position:absolute; top:32px; left:32px; right:32px; bottom:32px;
+  border:1px solid rgba(242,239,228,.18); pointer-events:none;
+}
+.cover::after{
+  content:''; position:absolute; top:38px; left:38px; right:38px; bottom:38px;
+  border:1px solid rgba(242,239,228,.10); pointer-events:none;
+}
+.cover-corner{position:absolute;width:34px;height:34px;border:2px solid rgba(242,239,228,.50)}
+.cc-tl{top:50px;left:50px;border-right:none;border-bottom:none}
+.cc-tr{top:50px;right:50px;border-left:none;border-bottom:none}
+.cc-bl{bottom:50px;left:50px;border-right:none;border-top:none}
+.cc-br{bottom:50px;right:50px;border-left:none;border-top:none}
+
+.cover-tag{
+  font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(242,239,228,.75); margin-bottom:18px; font-weight:600;
+}
+.cover-title{
+  font-family:'Playfair Display',serif; font-weight:700; font-size:78px; line-height:.95;
+  letter-spacing:-2px; color:var(--paper); margin-bottom:14px;
+}
+.cover-title em{font-style:italic;color:#D8B66B;font-weight:400}
+.cover-th{
+  font-family:'Noto Serif Thai',serif; font-size:30px; font-weight:600;
+  color:rgba(242,239,228,.95); line-height:1.3; margin-bottom:30px;
+}
+.cover-rule{width:60px;height:2px;background:#D8B66B;margin-bottom:30px}
+.cover-sub{
+  font-family:'Noto Serif Thai',serif; font-size:18px; line-height:1.7;
+  color:rgba(242,239,228,.80); max-width:520px; font-weight:300;
+}
+
+.cover-meta{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-top:48px}
+.cover-authors{
+  font-family:'Sarabun',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(242,239,228,.70); font-weight:600; line-height:2;
+}
+.cover-authors span{color:#D8B66B; display:block; margin-top:4px}
+.cover-edition{
+  font-family:'Playfair Display',serif; font-style:italic; font-size:16px;
+  color:rgba(242,239,228,.65); text-align:right;
+}
+
+/* ============ PAGE BASE ============ */
+.page,.chapter-open{padding:var(--page-pad-v) var(--page-pad-h);position:relative}
+.chapter-open{background:var(--paper-mid);min-height:560px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--paper-shadow)}
+.page{background:var(--paper)}
+.page+.page{border-top:1px dashed var(--paper-shadow)}
+
+/* ============ TOC ============ */
+.toc-eyebrow{
+  font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;margin-bottom:14px;
+}
+.toc-h1{
+  font-family:'Playfair Display',serif;font-size:48px;font-weight:700;line-height:1.05;
+  color:var(--ink);margin-bottom:8px;letter-spacing:-1px;
+}
+.toc-h1-th{
+  font-family:'Noto Serif Thai',serif;font-size:22px;font-weight:600;color:var(--ink-soft);
+  margin-bottom:36px;letter-spacing:.5px;
+}
+.toc-rule{width:48px;height:2px;background:var(--accent);margin-bottom:36px}
+
+.ch-card{
+  display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--paper-shadow);align-items:flex-start;
+}
+.ch-card:last-child{border-bottom:none}
+.ch-card-num{
+  font-family:'Playfair Display',serif;font-style:italic;font-size:38px;color:var(--accent);
+  font-weight:400;line-height:1;min-width:56px;padding-top:4px;
+}
+.ch-card-body{flex:1}
+.ch-card-title{
+  font-family:'Noto Serif Thai',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:6px;
+}
+.ch-card-one-liner{
+  font-family:'Noto Serif Thai',serif;font-size:14.5px;color:var(--ink-muted);
+  font-style:italic;line-height:1.6;margin-bottom:10px;
+}
+.ch-tag{
+  display:inline-block;font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:1.2px;
+  text-transform:uppercase;background:var(--accent-bg);color:var(--accent-deep);
+  padding:3px 9px;margin-right:6px;font-weight:600;
+}
+
+/* ============ STAT ROW ============ */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:28px 0;border-top:1px solid var(--paper-shadow);border-bottom:1px solid var(--paper-shadow)}
+.stat-cell{padding:22px 18px;border-right:1px solid var(--paper-shadow);text-align:center}
+.stat-cell:last-child{border-right:none}
+.stat-num{
+  font-family:'Playfair Display',serif;font-size:36px;color:var(--accent-deep);
+  font-weight:700;line-height:1;margin-bottom:6px;
+}
+.stat-label{
+  font-family:'Sarabun',sans-serif;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--ink-muted);font-weight:600;
+}
+
+/* ============ CHAPTER OPEN ============ */
+.ch-num-bg{
+  position:absolute;top:50%;right:64px;transform:translateY(-50%);
+  font-family:'Playfair Display',serif;font-size:240px;font-weight:700;line-height:1;
+  color:rgba(61,107,78,.08);letter-spacing:-8px;pointer-events:none;
+}
+.ch-label{
+  font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:6px;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;margin-bottom:18px;
+}
+.ch-title{
+  font-family:'Playfair Display',serif;font-size:54px;font-weight:700;line-height:1.05;
+  color:var(--ink);letter-spacing:-1.5px;margin-bottom:10px;position:relative;z-index:1;
+}
+.ch-title em{font-style:italic;color:var(--accent);font-weight:400}
+.ch-title-th{
+  font-family:'Noto Serif Thai',serif;font-size:24px;font-weight:600;color:var(--ink-soft);
+  line-height:1.3;margin-bottom:28px;position:relative;z-index:1;
+}
+.ch-rule{width:48px;height:2px;background:var(--accent);margin-bottom:24px}
+.ch-essence{
+  font-family:'Noto Serif Thai',serif;font-size:18px;line-height:1.75;color:var(--ink-mid);
+  font-style:italic;max-width:540px;font-weight:400;position:relative;z-index:1;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.eyebrow{
+  font-family:'Sarabun',sans-serif;font-size:10.5px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;margin-bottom:14px;
+}
+.h1{
+  font-family:'Noto Serif Thai',serif;font-size:30px;font-weight:700;line-height:1.3;
+  color:var(--ink);margin-bottom:20px;letter-spacing:-.3px;
+}
+.h2{
+  font-family:'Noto Serif Thai',serif;font-size:22px;font-weight:600;line-height:1.35;
+  color:var(--ink);margin:40px 0 16px;letter-spacing:-.2px;
+}
+.h2::before{
+  content:'';display:inline-block;width:6px;height:6px;background:var(--accent);
+  margin-right:14px;vertical-align:middle;transform:translateY(-3px);
+}
+.h3{
+  font-family:'Noto Serif Thai',serif;font-size:17px;font-weight:600;line-height:1.4;
+  color:var(--ink-soft);margin:28px 0 12px;
+}
+.p{
+  font-family:'Noto Serif Thai',serif;font-size:16px;line-height:1.85;color:var(--ink-soft);
+  margin-bottom:18px;font-weight:400;
+}
+.p strong{color:var(--ink);font-weight:600}
+.p em{color:var(--accent-deep);font-style:italic}
+.lead{font-size:17.5px;line-height:1.85;color:var(--ink-mid)}
+.lead::first-letter{
+  font-family:'Playfair Display',serif;font-size:64px;font-weight:700;float:left;
+  line-height:.85;margin:6px 10px 0 0;color:var(--accent-deep);
+}
+
+/* ============ INSIGHT BOX ============ */
+.insight-box{
+  background:var(--paper-mid);border-left:3px solid var(--accent);padding:24px 28px;margin:28px 0;
+  position:relative;
+}
+.insight-tag{
+  font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;margin-bottom:10px;
+}
+.insight-text{
+  font-family:'Noto Serif Thai',serif;font-size:16px;line-height:1.8;color:var(--ink-soft);
+  font-weight:500;
+}
+.insight-text strong{color:var(--ink);font-weight:700}
+
+/* ============ PULLQUOTE / BLOCKQUOTE ============ */
+.pullquote{
+  font-family:'Playfair Display',serif;font-size:26px;line-height:1.45;font-style:italic;
+  color:var(--accent-deep);text-align:center;padding:32px 24px;margin:36px 0;
+  border-top:1px solid var(--accent-rule);border-bottom:1px solid var(--accent-rule);
+}
+.pullquote-th{
+  font-family:'Noto Serif Thai',serif;font-size:16px;line-height:1.7;color:var(--ink-muted);
+  font-style:normal;margin-top:14px;font-weight:400;
+}
+.pullquote-attr{
+  font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--ink-muted);font-style:normal;margin-top:14px;font-weight:600;
+}
+
+.blockquote-full{
+  background:var(--ink); color:var(--paper); padding:56px var(--page-pad-h);
+  margin:40px calc(-1 * var(--page-pad-h));text-align:center;position:relative;
+}
+.blockquote-full::before{
+  content:'"';font-family:'Playfair Display',serif;font-size:120px;
+  color:var(--accent-light);line-height:.5;display:block;margin-bottom:-20px;
+}
+.blockquote-full-en{
+  font-family:'Playfair Display',serif;font-style:italic;font-size:32px;line-height:1.4;
+  color:var(--paper);max-width:560px;margin:0 auto 20px;
+}
+.blockquote-full-th{
+  font-family:'Noto Serif Thai',serif;font-size:18px;line-height:1.7;color:var(--paper-deep);
+  max-width:520px;margin:0 auto 20px;
+}
+.blockquote-full-attr{
+  font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent-light);font-weight:600;
+}
+
+/* ============ AUTHOR VOICE BOX ============ */
+.author-box{
+  display:flex;gap:18px;padding:24px 26px;background:var(--paper-mid);
+  border-left:3px solid var(--accent);margin:28px 0;
+}
+.author-avatar{
+  width:46px;height:46px;border-radius:50%;background:var(--accent-deep);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;
+  font-size:18px;font-style:italic;flex-shrink:0;font-weight:600;
+}
+.author-meta{
+  font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--accent-deep);margin-bottom:8px;font-weight:600;
+}
+.author-text{
+  font-family:'Noto Serif Thai',serif;font-size:15.5px;line-height:1.8;color:var(--ink-soft);
+  font-style:italic;margin:0;
+}
+
+/* ============ LADDER ============ */
+.ladder{margin:32px 0}
+.ladder-step{padding:18px 22px}
+.ladder-step.wrong{background:var(--red-bg);border-left:3px solid var(--red)}
+.ladder-step.truth{background:var(--accent-bg);border-left:3px solid var(--accent-deep)}
+.ladder-step.action{background:var(--green-bg);border-left:3px solid var(--green)}
+.ladder-tag{
+  font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  font-weight:700;margin-bottom:6px;
+}
+.ladder-step.wrong .ladder-tag{color:var(--red)}
+.ladder-step.truth .ladder-tag{color:var(--accent-deep)}
+.ladder-step.action .ladder-tag{color:var(--green)}
+.ladder-text{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.7;color:var(--ink-soft)}
+.ladder-text strong{color:var(--ink);font-weight:600}
+.ladder-arrow{text-align:center;padding:8px;color:var(--ink-faint);font-size:18px}
+
+/* ============ FORMULA BOX ============ */
+.formula-block{
+  background:var(--ink); color:var(--paper); padding:32px 28px;margin:28px 0;
+  font-family:'JetBrains Mono',monospace;text-align:center;border-radius:2px;
+  position:relative;
+}
+.formula-label{
+  font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent-light);margin-bottom:18px;font-weight:600;
+}
+.formula-eq{
+  font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--paper);
+  margin-bottom:20px;letter-spacing:1px;font-weight:500;
+}
+.formula-eq sup{font-size:14px;vertical-align:super}
+.formula-eq sub{font-size:14px;vertical-align:sub}
+.formula-where{
+  font-family:'Noto Serif Thai',serif;font-size:14px;line-height:1.8;color:var(--paper-deep);
+  text-align:left;max-width:480px;margin:0 auto;font-weight:400;
+}
+.formula-where span{
+  font-family:'JetBrains Mono',monospace;color:var(--accent-light);font-weight:500;
+}
+
+/* ============ SIGNAL BOX ============ */
+.signal-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.signal-box{padding:20px 22px;border-left:3px solid}
+.signal-box.buy{background:var(--green-bg);border-color:var(--green)}
+.signal-box.sell{background:var(--red-bg);border-color:var(--red)}
+.signal-tag{
+  font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:700;margin-bottom:10px;
+}
+.signal-box.buy .signal-tag{color:var(--green)}
+.signal-box.sell .signal-tag{color:var(--red)}
+.signal-list{font-family:'Noto Serif Thai',serif;font-size:14px;line-height:1.8;color:var(--ink-soft);list-style:none}
+.signal-list li{padding-left:18px;position:relative;margin-bottom:8px}
+.signal-box.buy .signal-list li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+.signal-box.sell .signal-list li::before{content:'✕';position:absolute;left:0;color:var(--red);font-weight:700}
+
+/* ============ ALLOCATION TABLE ============ */
+.alloc-table{
+  width:100%;border-collapse:collapse;margin:28px 0;
+  font-family:'Sarabun',sans-serif;font-size:14px;
+}
+.alloc-table th{
+  background:var(--ink);color:var(--paper);padding:14px 12px;text-align:left;
+  font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;
+}
+.alloc-table th.right{text-align:right}
+.alloc-table td{
+  padding:14px 12px;border-bottom:1px solid var(--paper-shadow);color:var(--ink-soft);
+}
+.alloc-table td.right{text-align:right;font-family:'JetBrains Mono',monospace;font-weight:500}
+.alloc-table tr.tier1 td{background:rgba(168,120,42,.06)}
+.alloc-table tr.tier2 td{background:rgba(61,107,78,.05)}
+.alloc-table tr.tier3 td{background:rgba(42,38,28,.03)}
+.alloc-table tr.cash td{background:var(--paper-deep);font-weight:600}
+.alloc-table tr.total td{background:var(--ink);color:var(--paper);font-weight:700;font-size:13px}
+.alloc-table .tier-tag{
+  display:inline-block;font-size:9px;letter-spacing:1.5px;padding:2px 7px;
+  text-transform:uppercase;font-weight:700;margin-right:8px;
+}
+.tier-tag.t1{background:var(--gold);color:var(--paper)}
+.tier-tag.t2{background:var(--accent);color:var(--paper)}
+.tier-tag.t3{background:var(--ink-muted);color:var(--paper)}
+.tier-tag.cs{background:var(--ink);color:var(--paper)}
+
+/* ============ COMPARISON TABLE ============ */
+.cmp-table{width:100%;border-collapse:collapse;margin:24px 0;font-family:'Sarabun',sans-serif;font-size:14px}
+.cmp-table th{
+  padding:14px 14px;text-align:left;font-size:10.5px;letter-spacing:1.5px;
+  text-transform:uppercase;font-weight:700;border-bottom:2px solid var(--ink);
+}
+.cmp-table th.wrong{background:var(--red-bg);color:var(--red)}
+.cmp-table th.right{background:var(--green-bg);color:var(--green)}
+.cmp-table td{padding:14px 14px;border-bottom:1px solid var(--paper-shadow);font-family:'Noto Serif Thai',serif;font-size:14.5px;line-height:1.6;color:var(--ink-soft);vertical-align:top}
+.cmp-table td.wrong{background:var(--red-bg)}
+.cmp-table td.right{background:var(--green-bg)}
+
+/* ============ ACTION CARD ============ */
+.action-card{
+  background:var(--paper-mid);padding:24px 26px;margin:24px 0;border-top:2px solid var(--accent);
+}
+.action-card-num{
+  font-family:'Playfair Display',serif;font-style:italic;font-size:14px;color:var(--accent-deep);
+  margin-bottom:6px;font-weight:600;letter-spacing:1px;
+}
+.action-card-title{
+  font-family:'Noto Serif Thai',serif;font-size:17px;font-weight:600;color:var(--ink);
+  margin-bottom:10px;
+}
+.action-card-desc{
+  font-family:'Noto Serif Thai',serif;font-size:14.5px;line-height:1.75;color:var(--ink-soft);
+}
+
+/* ============ CHECKLIST ============ */
+.checklist{margin:24px 0;background:var(--paper-mid);padding:28px 32px}
+.checklist-title{
+  font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;margin-bottom:18px;
+}
+.checklist-item{
+  display:flex;gap:14px;padding:12px 0;border-bottom:1px dashed var(--paper-shadow);
+  font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.65;color:var(--ink-soft);
+  align-items:flex-start;
+}
+.checklist-item:last-child{border-bottom:none}
+.checklist-box{
+  width:18px;height:18px;border:1.5px solid var(--accent-deep);background:var(--paper);
+  flex-shrink:0;margin-top:2px;
+}
+.checklist-text strong{color:var(--ink);font-weight:600}
+
+/* ============ REFLECTION ============ */
+.reflection{
+  background:var(--paper-mid);padding:32px 32px;margin:36px 0;border-left:3px solid var(--accent-deep);
+}
+.reflection-title{
+  font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--accent-deep);font-weight:700;margin-bottom:16px;
+}
+.reflection-q{
+  font-family:'Noto Serif Thai',serif;font-size:15.5px;line-height:1.7;color:var(--ink-mid);
+  font-style:italic;padding:10px 0;border-bottom:1px dashed var(--paper-shadow);
+}
+.reflection-q:last-child{border-bottom:none}
+.reflection-q strong{color:var(--accent-deep);font-style:normal;margin-right:8px;font-family:'Playfair Display',serif}
+
+/* ============ DIVIDER ============ */
+.divider{text-align:center;margin:40px 0;color:var(--accent);font-family:'Playfair Display',serif;font-size:20px;letter-spacing:18px}
+
+/* ============ FOOTER ============ */
+.book-footer{background:var(--ink);padding:64px var(--page-pad-h);text-align:center}
+.book-footer-mark{font-family:'Playfair Display',serif;font-style:italic;font-size:36px;color:var(--accent-light);margin-bottom:18px}
+.book-footer-text{font-family:'Noto Serif Thai',serif;font-size:14.5px;color:var(--paper-deep);font-style:italic;line-height:1.8;max-width:520px;margin:0 auto 22px}
+.book-footer-author{font-family:'Sarabun',sans-serif;font-size:11px;color:var(--accent-light);letter-spacing:3px;text-transform:uppercase;font-weight:600}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:780px){
+  :root{--page-pad-h:28px;--page-pad-v:56px}
+  body{padding:16px 8px}
+  .cover{padding:64px 28px 76px;min-height:780px}
+  .cover-title{font-size:54px}
+  .cover-th{font-size:22px}
+  .ch-num-bg{font-size:160px;right:16px}
+  .ch-title{font-size:38px}
+  .toc-h1{font-size:36px}
+  .stat-row,.signal-row{grid-template-columns:1fr}
+  .stat-cell{border-right:none;border-bottom:1px solid var(--paper-shadow)}
+  .stat-cell:last-child{border-bottom:none}
+  .blockquote-full{padding:40px 28px;margin-left:-28px;margin-right:-28px}
+  .blockquote-full-en{font-size:24px}
+  .formula-eq{font-size:18px}
+  .alloc-table{font-size:12px}
+  .alloc-table th,.alloc-table td{padding:10px 6px}
+  .lead::first-letter{font-size:48px}
+  .h1{font-size:24px}
+  .h2{font-size:19px}
+}
+</style>
+</head>
+<body>
+
+<div class="book">
+
+<!-- ========================================================
+     COVER
+======================================================== -->
+<section class="cover">
+  <div class="cover-corner cc-tl"></div>
+  <div class="cover-corner cc-tr"></div>
+  <div class="cover-corner cc-bl"></div>
+  <div class="cover-corner cc-br"></div>
+
+  <div>
+    <div class="cover-tag">The Synthesis · Vol. 1</div>
+    <h1 class="cover-title">Position<br><em>Sizing</em></h1>
+    <div class="cover-th">แก่นการลงเงิน · จัดพอร์ตอย่างไร<br>ไม่ให้พังในตลาดจริง</div>
+    <div class="cover-rule"></div>
+    <p class="cover-sub">
+      สังเคราะห์จาก 3 เล่มเสาหลัก — ทั้งคณิตศาสตร์ของ Kelly,
+      เรื่องเล่าจริงของ Edward Thorp และศาสตร์ของนักลงทุนเข้มข้น
+      ที่บริหารเงินด้วย 5–10 หุ้นแล้วชนะตลาดมาตลอด 30 ปี
+    </p>
+  </div>
+
+  <div class="cover-meta">
+    <div class="cover-authors">
+      Based on the Works of<br>
+      <span>L.C. MacLean &amp; W.T. Ziemba</span>
+      <span>William Poundstone</span>
+      <span>Benello · van Biema · Carlisle</span>
+    </div>
+    <div class="cover-edition">Personal Edition<br>2026</div>
+  </div>
+</section>
+
+<!-- ========================================================
+     TABLE OF CONTENTS
+======================================================== -->
+<section class="page">
+  <div class="toc-eyebrow">Contents · สารบัญ</div>
+  <h2 class="toc-h1">The Map</h2>
+  <div class="toc-h1-th">เส้นทางจากคนที่จะ "ลง" เงิน<br>ไปสู่คนที่ "บริหาร" เงิน</div>
+  <div class="toc-rule"></div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-num">6</div>
+      <div class="stat-label">หุ้นเต็มพอร์ต</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">10%</div>
+      <div class="stat-label">เงินสด ดราย พาวเดอร์</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">3</div>
+      <div class="stat-label">ไม้/ตัว ทยอยเข้า</div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">00</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">คำนำ — จดหมายถึงคนที่จะลงเงินจริง</div>
+      <div class="ch-card-one-liner">ทำไมเรื่องนี้สำคัญกว่าการเลือกหุ้น</div>
+      <div><span class="ch-tag">Mindset</span><span class="ch-tag">Foundation</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">01</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">คณิตศาสตร์ของ Kelly</div>
+      <div class="ch-card-one-liner">สูตรที่ทุกคนต้องเข้าใจ ก่อนจะเข้าใจว่าทำไมไม่ควรใช้เต็มสูตร</div>
+      <div><span class="ch-tag">Kelly Formula</span><span class="ch-tag">Geometric Mean</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">02</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Edge — รากฐานของการลงเงินทุกไม้</div>
+      <div class="ch-card-one-liner">ถ้าไม่มี edge จริง ทุกสูตรในโลกก็ไม่ช่วย</div>
+      <div><span class="ch-tag">Edge Estimation</span><span class="ch-tag">Information</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">03</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Conviction — ความมั่นใจจริง vs หลงตัวเอง</div>
+      <div class="ch-card-one-liner">5 บททดสอบที่บอกได้ว่าเรามั่นใจจริง หรือแค่อยากให้มันถูก</div>
+      <div><span class="ch-tag">Psychology</span><span class="ch-tag">Self-Honesty</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">04</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">โครงสร้าง 6 หุ้น 10% เงินสด</div>
+      <div class="ch-card-one-liner">วิธีจัดน้ำหนักด้วยระบบ Conviction Tier — ตัวเลขจริงจากเงิน 5 แสน</div>
+      <div><span class="ch-tag">Allocation</span><span class="ch-tag">Tier System</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">05</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">ลำดับการเข้าไม้ — Scaling In</div>
+      <div class="ch-card-one-liner">ทำไมการเข้าครั้งเดียวเต็มไซส์คือบาปทางพอร์ต และทำอย่างไรแทน</div>
+      <div><span class="ch-tag">Entry Strategy</span><span class="ch-tag">Tranches</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">06</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">5 จุดพังที่ทำให้คนหมดตัว</div>
+      <div class="ch-card-one-liner">เรียนรู้จากซากของคนที่ฉลาดกว่าเรา (LTCM, Kerviel, retail blow-ups)</div>
+      <div><span class="ch-tag">Risk</span><span class="ch-tag">Ruin Patterns</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">07</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Synthesis — Pre-Trade Ritual</div>
+      <div class="ch-card-one-liner">7 คำถามที่ต้องตอบทุกครั้ง ก่อนกดปุ่ม "ซื้อ"</div>
+      <div><span class="ch-tag">Checklist</span><span class="ch-tag">Discipline</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================
+     FOREWORD
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">00</div>
+  <div class="ch-label">Foreword · คำนำ</div>
+  <h2 class="ch-title">A Letter to <em>You</em></h2>
+  <div class="ch-title-th">จดหมายถึงคนที่จะลงเงินจริง</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    การเลือกหุ้นถูกตัวคือ 20% ของเกม
+    การลงเงินถูกขนาดและถูกจังหวะคือ 80% ที่เหลือ —
+    ส่วนที่ทำให้คนเก่งหุ้นเจ๊ง และคนเฉยๆ รวย
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Hard Truth · ความจริงที่เจ็บปวด</div>
+  <h1 class="h1">เลือกหุ้นถูก ไม่พอที่จะรวย</h1>
+
+  <p class="p lead">
+    มีนักลงทุนนับไม่ถ้วนที่เลือกหุ้นถูก แต่จบเกมด้วยการขาดทุน
+    เพราะอะไร? เพราะ<strong>เขาลงเงินผิดขนาด ผิดจังหวะ และผิดโครงสร้าง</strong> —
+    ไม่ใช่เพราะวิเคราะห์บริษัทผิด การวิเคราะห์ของเขาถูกต้องที่สุด
+    แต่ตัวเขาไม่ได้อยู่ดูจนถึงตอนที่ทฤษฎีถูกพิสูจน์
+  </p>
+
+  <p class="p">
+    หนังสือสามเล่มที่ผมจะตกผลึกให้ฟัง — Kelly Capital Growth, Fortune's Formula
+    และ Concentrated Investing — ไม่ได้พูดเรื่องเดียวกันเลยในมุมผิวเผิน
+    เล่มแรกเป็นคณิตศาสตร์ล้วนๆ เล่มที่สองเป็นเรื่องเล่าของนักพนันและ Wall Street
+    เล่มที่สามเป็นกรณีศึกษาของ Buffett, Munger, Keynes, Lou Simpson
+  </p>
+
+  <p class="p">
+    แต่ทั้งสามเล่ม — เมื่ออ่านพร้อมกัน — กำลังบอกความจริงเดียวกัน:
+    <em>ขนาดของไม้สำคัญกว่าตัวที่เลือก</em>
+  </p>
+
+  <div class="author-box">
+    <div class="author-avatar">ET</div>
+    <div>
+      <div class="author-meta">Edward O. Thorp · Beat the Dealer</div>
+      <p class="author-text">
+        "ผมเคยมี edge ในแบล็คแจ็คชัดเจน นับไพ่ได้แม่นยำ
+        แต่ถ้าผมลงเดิมพันใหญ่เกินไป ผมก็จะหมดเงินก่อนที่ edge จะทำงาน —
+        แม้ว่าทุกการเดิมพันจะถูกในระยะยาว"
+      </p>
+    </div>
+  </div>
+
+  <h2 class="h2">สมมติฐานของหนังสือเล่มนี้</h2>
+
+  <p class="p">
+    คุณมีเงิน <strong>500,000 บาท</strong> ตั้งใจถือหุ้นไม่เกิน <strong>6 ตัว</strong>
+    และเก็บเงินสดไว้ <strong>10%</strong> เป็นกระสุนสำรอง
+    คุณต้องการรู้ว่า <em>จะลงเท่าไหร่/ตัว</em> และ <em>จะทยอยเข้าอย่างไร</em>
+  </p>
+
+  <p class="p">
+    ผมจะตอบคำถามนี้ตรงๆ โดยมีตัวเลขจริง
+    แต่ก่อนจะถึงตัวเลข ผมต้องสอนหลักการที่อยู่ข้างหลังก่อน —
+    เพราะถ้าคุณท่องจำตัวเลขโดยไม่เข้าใจหลักการ
+    วันที่ตลาดเปลี่ยน คุณจะปฏิบัติผิดทันที
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-tag">Core Promise · สัญญาของหนังสือเล่มนี้</div>
+    <p class="insight-text">
+      ถ้าคุณอ่านจนจบและทำตามได้ <strong>ผมไม่รับประกันว่าคุณจะรวย</strong> —
+      ตลาดไม่มีใครรับประกันได้ แต่ผมรับประกันว่า <strong>คุณจะไม่หมดตัว</strong>
+      จากความผิดพลาดเรื่องการจัดขนาดไม้ ซึ่งเป็นสาเหตุหลักของ retail blow-ups
+    </p>
+  </div>
+
+  <p class="p">
+    ในหน้าต่อไป เราจะเริ่มจากสิ่งที่หลายคนกลัว — คณิตศาสตร์
+    แต่จะอธิบายแบบที่ <strong>คนไม่ได้จบสายวิทย์ก็เข้าใจได้</strong>
+    เพราะถ้าคุณไม่เข้าใจ Kelly คุณจะไม่เข้าใจว่าทำไม
+    "ลงเยอะตอนมั่นใจ" ถึงเป็นกับดักที่ทำให้คนหมดตัว
+  </p>
+</section>
+
+<!-- ========================================================
+     CHAPTER 1 — KELLY MATH
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">01</div>
+  <div class="ch-label">Chapter One · บทที่หนึ่ง</div>
+  <h2 class="ch-title">The Kelly <em>Mathematics</em></h2>
+  <div class="ch-title-th">คณิตศาสตร์ที่ต้องเข้าใจ ก่อนจะรู้ว่าทำไมไม่ควรใช้เต็มสูตร</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    Kelly บอกว่าเราควรลงเท่าไหร่ <em>ถ้า</em> เรารู้แม่นยำว่าตัวเองมี edge เท่าไหร่ —
+    แต่ในตลาดหุ้นจริง เราไม่เคยรู้แม่นยำ และนั่นเปลี่ยนทุกอย่าง
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1 class="h1">สูตรที่ Shannon, Thorp และ Buffett ใช้</h1>
+
+  <p class="p lead">
+    ปี 1956 John Kelly Jr. นักวิจัยที่ Bell Labs เผยแพร่บทความหนึ่ง
+    ที่ตอนนั้นไม่มีใครสนใจ มันชื่อ "A New Interpretation of Information Rate"
+    เป็นการประยุกต์ทฤษฎีสารสนเทศของ Claude Shannon กับการเดิมพัน
+    Kelly ตั้งคำถามง่ายๆ: <em>ถ้าเรามีข่าววงในที่ถูกเป็นบางครั้ง เราควรเดิมพันเท่าไหร่ของเงินที่มี?</em>
+  </p>
+
+  <p class="p">
+    คำตอบของเขาเปลี่ยนโลกการเงิน — แม้ว่าโลกจะใช้เวลาอีก 30 ปีกว่าจะรู้ตัว
+    Edward Thorp นักคณิตศาสตร์ที่นับไพ่ในแบล็คแจ็คได้ เป็นคนแรกที่เอาสูตรนี้มาใช้จริง
+    หลังจากนั้น Warren Buffett, Bill Gross, James Simons ล้วนใช้เวอร์ชันของสูตรนี้
+  </p>
+
+  <h2 class="h2">สูตร Kelly ในเวอร์ชันคนทั่วไปเข้าใจ</h2>
+
+  <p class="p">
+    ในการพนันที่รู้ความน่าจะเป็นชัด สูตรเป็นแบบนี้:
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">Kelly Criterion — Discrete Bet</div>
+    <div class="formula-eq">f* = (bp - q) / b</div>
+    <div class="formula-where">
+      <span>f*</span> = สัดส่วนของเงินที่ควรเดิมพัน<br>
+      <span>b</span> = อัตราต่อรอง (กำไรต่อ 1 บาทที่เดิมพัน)<br>
+      <span>p</span> = ความน่าจะเป็นที่จะชนะ<br>
+      <span>q</span> = 1 - p (ความน่าจะเป็นที่จะแพ้)
+    </div>
+  </div>
+
+  <p class="p">
+    ตัวอย่างง่าย: เกมที่ชนะได้กำไรเท่าทุน (b = 1) ความน่าจะเป็นชนะ 60% (p = 0.6)
+    Kelly บอกว่าควรเดิมพัน <strong>(1×0.6 - 0.4) / 1 = 0.20</strong> หรือ 20% ของเงินที่มี
+    ทุกครั้งที่ลงสนาม
+  </p>
+
+  <p class="p">
+    ฟังดูธรรมดา แต่สิ่งที่สูตรนี้ทำคือ <strong>maximizing the geometric mean</strong> —
+    หรือพูดให้เข้าใจง่าย: ทำให้เงินงอกในระยะยาวสูงสุดเท่าที่จะเป็นไปได้
+    โดยที่ <em>โอกาสหมดตัวเป็น 0 ในเชิงทฤษฎี</em>
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-tag">ศัพท์ที่ต้องเข้าใจ · Geometric Mean</div>
+    <p class="insight-text">
+      <strong>ค่าเฉลี่ยเรขาคณิต (Geometric Mean)</strong> คือวิธีคิดผลตอบแทนที่ทบต้น
+      ต่างจากค่าเฉลี่ยเลขคณิต (Arithmetic Mean) ที่บวกแล้วหารธรรมดา —
+      ตัวอย่าง: ถ้าปีแรกได้ +50% ปีที่สอง -50% ค่าเฉลี่ยเลขคณิต = 0%
+      แต่จริงๆ เงินหายไป 25% (เพราะ 1.5 × 0.5 = 0.75) —
+      Geometric mean จับความจริงนี้ได้ Arithmetic mean จับไม่ได้
+    </p>
+  </div>
+
+  <h2 class="h2">เวอร์ชันสำหรับหุ้น (Continuous Kelly)</h2>
+
+  <p class="p">
+    ในตลาดหุ้นที่ผลตอบแทนเป็นแบบต่อเนื่อง สูตรกลายเป็น:
+  </p>
+
+  <div class="formula-block">
+    <div class="formula-label">Kelly Criterion — Continuous (Stocks)</div>
+    <div class="formula-eq">f* = (μ - r) / σ<sup>2</sup></div>
+    <div class="formula-where">
+      <span>f*</span> = สัดส่วนพอร์ตที่ควรลงในสินทรัพย์เสี่ยง<br>
+      <span>μ</span> = ผลตอบแทนคาดหวังของหุ้น (Expected Return)<br>
+      <span>r</span> = อัตราดอกเบี้ยปลอดภัย (Risk-free Rate)<br>
+      <span>σ<sup>2</sup></span> = ความผันผวนยกกำลังสอง (Variance)
+    </div>
+  </div>
+
+  <p class="p">
+    สมมติคุณคิดว่าหุ้นตัวหนึ่งให้ผลตอบแทนคาดหวัง 15% ต่อปี
+    ดอกเบี้ยปลอดภัย 2.5% ความผันผวน 30% (ซึ่งคือมาตรฐานของหุ้นไทยทั่วไป)
+    Kelly จะบอกว่า: <strong>(0.15 - 0.025) / 0.09 = 1.39</strong> —
+    ลงทุน 139% ของพอร์ต (กู้มาลงเพิ่ม)
+  </p>
+
+  <p class="p">
+    ถ้าคุณเชื่อตัวเลขนี้แบบไม่คิด คุณจะกู้เงินมาลงหุ้นจนพอร์ตเต็มกำลัง
+    และในวันที่หุ้นลง 30% ในสัปดาห์เดียว (ซึ่งเกิดขึ้นได้ทุกๆ 5–10 ปี)
+    คุณจะถูก margin call แล้วถูกบังคับขายที่จุดต่ำสุด —
+    หมดตัวทั้งที่การวิเคราะห์ของคุณอาจจะถูกต้องในระยะยาว
+  </p>
+
+  <div class="pullquote">
+    "Kelly is correct in theory.<br>The problem is theory."
+    <div class="pullquote-th">"Kelly ถูกต้องในเชิงทฤษฎี ปัญหาคือเรากำลังอยู่ในชีวิตจริง"</div>
+    <div class="pullquote-attr">— Synthesis of Fortune's Formula</div>
+  </div>
+
+  <h2 class="h2">ทำไม "Full Kelly" ถึงอันตรายในตลาดจริง</h2>
+
+  <p class="p">
+    ในการพนันแบล็คแจ็ค Thorp รู้ความน่าจะเป็นแม่นยำเพราะเป็นเกมปิด
+    ไพ่ทั้ง 52 ใบไม่หายไปไหน นับได้ คำนวณได้
+    แต่ในตลาดหุ้น <strong>เราไม่รู้ μ (ผลตอบแทนคาดหวัง) แม่นยำ</strong>
+    เราแค่ <em>ประมาณ</em> และความผิดพลาดในการประมาณนี้คือกับดักใหญ่ที่สุด
+  </p>
+
+  <p class="p">
+    Ziemba และ MacLean ใช้เวลาทั้งหนังสือพิสูจน์ว่า: <strong>ถ้าเราประมาณ edge เกินจริง 2 เท่า
+    การใช้ full Kelly จะทำให้พอร์ตเรา drawdown 60–80%</strong>
+    และ retail investor ส่วนใหญ่ประมาณ edge ของตัวเองเกินจริงมากกว่า 2 เท่าเสมอ
+  </p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>กลยุทธ์</th>
+        <th>การเติบโต/ปี</th>
+        <th>Drawdown สูงสุด</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Full Kelly</strong></td>
+        <td>20%</td>
+        <td>~50%</td>
+      </tr>
+      <tr>
+        <td><strong>Half Kelly (½)</strong></td>
+        <td>15%</td>
+        <td>~25%</td>
+      </tr>
+      <tr>
+        <td><strong>Quarter Kelly (¼)</strong></td>
+        <td>10%</td>
+        <td>~12%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="p">
+    สังเกตจุดสำคัญ: <strong>Half Kelly ให้ผลตอบแทน 75% ของ Full Kelly
+    แต่ drawdown ลดลงเหลือครึ่งหนึ่ง</strong>
+    นี่คือเหตุผลที่ Thorp, Simons, และ professional bettor ทุกคนใช้ Fractional Kelly
+  </p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ถ้าฉันมั่นใจมาก ฉันก็ควรลงให้สุด — ลงน้อยคือเสียโอกาส"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">
+        ความมั่นใจของเรา <strong>มีความผิดพลาดในตัวมันเอง</strong> เสมอ —
+        การลงครึ่งหนึ่งของที่คิดว่าควรลง คือการให้พื้นที่ความผิดพลาดนั้น
+      </div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">
+        คำนวณ Kelly ตามความรู้สึก แล้ว<strong>หารด้วย 2 หรือ 4</strong>
+        ก่อนตัดสินใจขนาดไม้ — มันคือ insurance policy ฟรีๆ
+      </div>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามให้คิด · ก่อนผ่านบท</div>
+    <p class="reflection-q"><strong>1.</strong> ครั้งสุดท้ายที่คุณ "มั่นใจมาก" แล้วลงเต็มไม้ — ผลเป็นอย่างไร? ถ้ามั่นใจถูก แสดงว่าคุณเก่ง หรือโชคดี?</p>
+    <p class="reflection-q"><strong>2.</strong> ในชีวิตคุณมีหุ้นกี่ตัวที่ "ถ้าลงเยอะกว่านี้ก็ดี" และกี่ตัวที่ "ถ้าลงน้อยกว่านี้ก็ดี"? อันไหนมากกว่า?</p>
+    <p class="reflection-q"><strong>3.</strong> ถ้าตอนนี้พอร์ตคุณลง 50% พรุ่งนี้ คุณจะยังคิดถูกต้องอยู่ไหม? หรือจะรีบขายแบบ panic?</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     CHAPTER 2 — EDGE
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">02</div>
+  <div class="ch-label">Chapter Two · บทที่สอง</div>
+  <h2 class="ch-title">Edge — The <em>Foundation</em></h2>
+  <div class="ch-title-th">รากฐานของการลงเงินทุกไม้</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    ถ้าไม่มี edge จริง การจัด position sizing ไม่มีความหมาย —
+    การลงน้อยก็แพ้ช้าๆ การลงเยอะก็แพ้เร็วๆ
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1 class="h1">Edge คืออะไร และคุณมีจริงไหม</h1>
+
+  <p class="p lead">
+    ในแบล็คแจ็ค Edward Thorp มี edge ที่วัดได้ชัด — ประมาณ 0.5–2% เหนือเจ้ามือ
+    มันดูน้อยนิดเดียว แต่เมื่อเล่นหลายร้อยมือต่อชั่วโมง บวกกับการลงเดิมพันถูกขนาดตาม Kelly
+    ก็ทำให้เขารวยจากคาสิโนได้ ในตลาดหุ้น edge คืออะไร? คุณวัดมันยังไง? —
+    คำถามนี้คือคำถามที่นักลงทุน 95% ตอบไม่ได้
+  </p>
+
+  <h2 class="h2">นิยามของ Edge ในตลาดหุ้น</h2>
+
+  <p class="p">
+    Edge ในตลาดหุ้นคือ <strong>ความแตกต่างระหว่างสิ่งที่คุณรู้กับสิ่งที่ตลาดรู้</strong> —
+    หรือที่ Howard Marks เรียกว่า "second-level thinking"
+    ตลาดเห็นบริษัท ABC ทำกำไรลดลง 20% แล้วเทขาย
+    คุณเห็นว่าการลดลงนี้เป็นเรื่องชั่วคราวเพราะลงทุนสร้างโรงงานใหม่ที่จะให้ผลในปีหน้า
+    ความเข้าใจนี้คือ edge — ถ้ามันถูก
+  </p>
+
+  <p class="p">
+    Edge ไม่ใช่ <em>ความรู้สึก</em> ว่ามั่นใจ Edge คือสิ่งที่ <strong>ระบุได้เป็นข้อความชัดเจน</strong>
+    เป็นสิ่งที่คุณเขียนใส่กระดาษได้ และอีก 6 เดือนข้างหน้าจะรู้ว่า "ถูก" หรือ "ผิด"
+  </p>
+
+  <div class="signal-row">
+    <div class="signal-box buy">
+      <div class="signal-tag">Edge จริง</div>
+      <ul class="signal-list">
+        <li>เขียนเป็นวิทยานิพนธ์ได้ใน 1 ย่อหน้า</li>
+        <li>มีตัวเลขที่จะ "พิสูจน์" หรือ "หักล้าง" ได้</li>
+        <li>มีกรอบเวลา (6 เดือน, 1 ปี, 3 ปี)</li>
+        <li>คุณรู้ว่าทำไมตลาดถึงคิดผิด</li>
+      </ul>
+    </div>
+    <div class="signal-box sell">
+      <div class="signal-tag">Edge ปลอม</div>
+      <ul class="signal-list">
+        <li>"มันต้องขึ้นแน่ๆ"</li>
+        <li>"พื้นฐานดี" — แต่บอกไม่ได้ว่าดีเหนือใคร</li>
+        <li>"คนกำลังพูดถึงตัวนี้เยอะ"</li>
+        <li>"กราฟดูดี" (โดยไม่มี thesis)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="h2">3 ประเภทของ Edge ที่มีจริงในตลาด</h2>
+
+  <div class="action-card">
+    <div class="action-card-num">EDGE TYPE I</div>
+    <div class="action-card-title">Information Edge — รู้สิ่งที่คนอื่นยังไม่รู้</div>
+    <div class="action-card-desc">
+      <strong>หายากที่สุดในยุคปัจจุบัน</strong> เพราะข้อมูลกระจายเร็ว
+      แต่ยังมีในหุ้นเล็ก หุ้นที่ analyst ไม่ครอบคลุม
+      หรือบริษัทที่คุณรู้จักผ่านอุตสาหกรรมที่ทำงาน — Peter Lynch เรียกว่า "edge from your daily life"
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">EDGE TYPE II</div>
+    <div class="action-card-title">Analytical Edge — เข้าใจดีกว่า</div>
+    <div class="action-card-desc">
+      ทุกคนเห็นข้อมูลเดียวกัน แต่บางคนวิเคราะห์ได้ลึกกว่า
+      เห็น <em>ความเชื่อมโยง</em> ที่คนอื่นพลาด เช่น เข้าใจว่าธุรกิจ B2B จะได้ประโยชน์
+      จากการเปลี่ยนแปลงของอุตสาหกรรม A — นี่คือ edge หลักของ value investor
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">EDGE TYPE III</div>
+    <div class="action-card-title">Behavioral Edge — ทนต่อความเจ็บได้นานกว่า</div>
+    <div class="action-card-desc">
+      ในตลาดที่คนอื่นกลัว คุณกล้า ในตลาดที่คนอื่นโลภ คุณระวัง —
+      <strong>นี่คือ edge ที่ค้นพบได้ง่ายที่สุดสำหรับคนทั่วไป</strong>
+      เพราะไม่ต้องเก่งวิเคราะห์ก็ทำได้ แค่ต้องมีจิตใจแข็งแรงและกฎที่ตัวเองสร้างไว้
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-en">
+      "If you can't measure your edge,<br>
+      you don't have one."
+    </div>
+    <div class="blockquote-full-th">
+      ถ้าคุณวัด edge ของตัวเองไม่ได้ คุณก็ยังไม่มี edge
+    </div>
+    <div class="blockquote-full-attr">— The Synthesis Principle</div>
+  </div>
+
+  <h2 class="h2">การประมาณ Edge: ที่มาของหายนะ</h2>
+
+  <p class="p">
+    Ziemba ตั้งข้อสังเกตที่สำคัญ: ในการศึกษานักพนันม้าที่มีกำไรระยะยาว
+    edge เฉลี่ยของพวกเขาอยู่ที่ <strong>5–10%</strong> เท่านั้น —
+    ไม่ใช่ 30% 50% อย่างที่หลายคนคิด
+    เซียนหุ้นที่เก่งจริงในระยะยาว เอาชนะตลาดได้ <strong>3–5%/ปี</strong> หลังหักค่าใช้จ่าย
+    Buffett เองในช่วง 30 ปีที่ผ่านมา ก็เอาชนะ S&amp;P 500 ได้ประมาณ 5%/ปีเท่านั้น
+  </p>
+
+  <p class="p">
+    ฉะนั้นถ้าคุณคิดว่าตัวเองมี edge 20% ต่อปี — <em>คุณกำลังโกหกตัวเอง</em>
+    หรือไม่ก็คุณกำลังอยู่ใน lucky streak ที่ตลาดจะมาเก็บภาษีคืนในเร็วๆ นี้
+  </p>
+
+  <div class="author-box">
+    <div class="author-avatar">CM</div>
+    <div>
+      <div class="author-meta">Charlie Munger · Concentrated Investing</div>
+      <p class="author-text">
+        "ในชีวิตคุณจะเจอโอกาสที่มี edge ชัดเจนแค่ไม่กี่ครั้ง —
+        บางคนเจอแค่ 3–5 ครั้งใน 30 ปี เวลาที่เจอ ต้องลงให้หนัก
+        เวลาที่ไม่เจอ ต้องอดทนรอ ปัญหาของนักลงทุนส่วนใหญ่คือ
+        ลงทุน 'ทุกครั้ง' โดยที่ส่วนใหญ่ไม่มี edge เลย"
+      </p>
+    </div>
+  </div>
+
+  <h2 class="h2">วิธีประมาณ Edge แบบ Honest</h2>
+
+  <p class="p">
+    คำถามที่คุณต้องตอบทุกครั้งก่อนซื้อหุ้น:
+  </p>
+
+  <div class="checklist">
+    <div class="checklist-title">Edge Audit · ตรวจสอบ Edge ก่อนลง</div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>ผมรู้อะไรที่คนอื่นไม่รู้?</strong>
+        ถ้าตอบไม่ได้ ผมไม่มี information edge
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>ผมตีความสิ่งเดียวกันที่คนอื่นเห็นได้ลึกซึ้งกว่ายังไง?</strong>
+        ถ้าอธิบายไม่ได้ใน 2–3 ประโยค ผมไม่มี analytical edge
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>ผมพร้อมจะถือต่อตอนที่คนอื่นทิ้งไหม?</strong>
+        ถ้าจะขายตอน drawdown 25% ผมไม่มี behavioral edge
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>ผม disprove thesis ตัวเองได้ยังไง?</strong>
+        ถ้าตอบไม่ได้ ผมไม่ได้คิด ผมแค่หลงรัก
+      </div>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามให้คิด · ก่อนผ่านบท</div>
+    <p class="reflection-q"><strong>1.</strong> ใน 6 หุ้นที่คุณตั้งใจถือ — กี่ตัวที่คุณ "เขียน thesis" ลงกระดาษได้ใน 1 ย่อหน้า?</p>
+    <p class="reflection-q"><strong>2.</strong> มีตัวไหนที่คุณ "ซื้อตามคนอื่น" หรือ "ชอบเพราะกราฟ" โดยไม่มี thesis ของตัวเอง?</p>
+    <p class="reflection-q"><strong>3.</strong> ถ้าหุ้นตัวนึงในพอร์ตลง 30% ในวันพรุ่งนี้ — คุณจะเปิด thesis เก่ามาอ่าน หรือเปิด screen ราคา?</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     CHAPTER 3 — CONVICTION
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">03</div>
+  <div class="ch-label">Chapter Three · บทที่สาม</div>
+  <h2 class="ch-title">True <em>Conviction</em></h2>
+  <div class="ch-title-th">เส้นแบ่งระหว่างความมั่นใจจริงกับการหลอกตัวเอง</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    Conviction ไม่ใช่ความรู้สึก — มันคือผลลัพธ์ของกระบวนการคิดที่ทดสอบได้
+    คนที่หลงรักหุ้นจะลงเงินเหมือนคนมั่นใจจริง — แต่จะรีบขายตอนตลาดทดสอบ
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1 class="h1">บททดสอบ 5 ข้อของ Conviction จริง</h1>
+
+  <p class="p lead">
+    Lou Simpson ผู้บริหาร GEICO Investment Portfolio ที่ Buffett เรียกว่า
+    "ผู้บริหารพอร์ตที่ดีที่สุดที่ผมรู้จัก" ถือหุ้น 8–15 ตัวเท่านั้น
+    และเอาชนะตลาดได้ 6.8% ต่อปีเป็นเวลา 17 ปีติดต่อกัน เคล็ดลับเขาไม่ใช่
+    การเลือกหุ้นเก่ง — เพราะเขาก็ผิดบ่อย — แต่คือการ <em>รู้ว่าเขามั่นใจจริงเมื่อไหร่ และไม่มั่นใจเมื่อไหร่</em>
+  </p>
+
+  <h2 class="h2">Test #1: The Inversion Test (ทดสอบการกลับด้าน)</h2>
+
+  <p class="p">
+    Munger ชอบบอกว่า "Invert, always invert" — กลับด้านปัญหาเสมอ
+    ถ้าคุณมั่นใจจริงในหุ้น A คุณต้องอธิบาย <strong>bear case</strong>
+    (เหตุผลที่จะลงทุนผิด) ได้ดีพอๆ กับ bull case
+    ถ้าคุณบอก bull case ได้ 5 ข้อแต่ bear case ได้แค่ 1 ข้อ
+    หรือบอกว่า "ไม่มีจุดอ่อนเลย" — คุณยังไม่ได้คิด คุณกำลัง <em>หลงรัก</em>
+  </p>
+
+  <div class="author-box">
+    <div class="author-avatar">CM</div>
+    <div>
+      <div class="author-meta">Charlie Munger</div>
+      <p class="author-text">
+        "ผมคิดว่าตัวเองไม่มีสิทธิ์มีความเห็นในเรื่องไหน
+        นอกจากผมจะอธิบายฝ่ายตรงข้ามได้ดีกว่าคนที่อยู่ฝั่งนั้นเอง —
+        ในการลงทุนก็เหมือนกัน ถ้าผมเขียน bear case ของหุ้นได้ดีกว่า
+        คนที่ short หุ้นนั้น ผมถึงจะกล้าลงเงินจริง"
+      </p>
+    </div>
+  </div>
+
+  <h2 class="h2">Test #2: The 30% Test (ทดสอบราคาลง 30%)</h2>
+
+  <p class="p">
+    ถามตัวเองว่า: <strong>"ถ้าราคาหุ้นนี้ลง 30% พรุ่งนี้ — โดยที่งบการเงินยังเหมือนเดิม
+    — ผมจะซื้อเพิ่มหรือขายทิ้ง?"</strong>
+    ถ้าคำตอบคือ "ซื้อเพิ่ม" — คุณมี conviction จริง
+    ถ้าคำตอบคือ "ไม่รู้" หรือ "อาจจะขาย" — คุณไม่ได้มี conviction
+    คุณแค่มี <em>ความหวังราคาขึ้น</em>
+  </p>
+
+  <p class="p">
+    นี่คือเหตุผลที่ Buffett บอกว่า "ตลาดหุ้นปิดได้ 5 ปี ผมก็ไม่เดือดร้อน" —
+    เพราะของที่เขาถือ เขาตั้งใจจะเป็นเจ้าของ ไม่ใช่ตั้งใจจะเทรด
+    ราคาตลาดเป็นแค่บริการที่เสนอราคามาให้ ถ้าราคาแย่ — ไม่ต้องรับ
+  </p>
+
+  <h2 class="h2">Test #3: The Time Horizon Test (ทดสอบกรอบเวลา)</h2>
+
+  <p class="p">
+    ถามตัวเองว่า: <strong>"ผมตั้งใจจะถือหุ้นนี้นานเท่าไหร่?"</strong>
+    ถ้าตอบเป็นเดือน — คุณคือเทรดเดอร์
+    ถ้าตอบเป็นปี — คุณคือนักลงทุน
+    ถ้าตอบเป็น "จนกว่า thesis จะพิสูจน์ได้/หักล้าง" — คุณกำลังคิดอย่างถูกต้อง
+  </p>
+
+  <p class="p">
+    ปัญหาของหลายคนคือ <em>กรอบเวลาไม่ตรงกับ thesis</em> เช่น
+    เชื่อว่าบริษัทจะเติบโตจากการขยายโรงงานใหม่ — ซึ่งใช้เวลา 18 เดือน — แต่ขายภายใน 3 เดือน
+    เพราะราคาไม่ขึ้น นี่ไม่ใช่ขาดทุนจากตลาด นี่คือขาดทุนจาก <em>ความใจร้อนของตัวเอง</em>
+  </p>
+
+  <h2 class="h2">Test #4: The Concentration Test (ทดสอบขนาดไม้)</h2>
+
+  <p class="p">
+    Buffett มีกฎที่ตัวเองตั้งไว้: <strong>"ถ้าผมลงในหุ้นนี้น้อยกว่า 5% ของพอร์ต
+    แสดงว่าผมไม่มั่นใจพอ — ดังนั้นผมไม่ควรลงเลย"</strong>
+    หลักนี้ดูเข้มงวดเกินไปสำหรับคนทั่วไป
+    แต่ตรรกะข้างหลังลึกซึ้ง: ถ้าคุณคิดว่ามันดีแต่ไม่ดีพอจะลงหนัก
+    คุณกำลังจ่ายค่า opportunity cost ฟรีๆ — เงินก้อนเล็กๆ ในหุ้นปานกลาง
+    จะไม่เปลี่ยนชีวิตคุณ ไม่ว่าจะถูกหรือผิด
+  </p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ลงน้อยๆ หลายตัว = ปลอดภัย"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">
+        ลงน้อยๆ หลายตัวที่ <strong>ไม่ได้คัดมาแล้ว</strong> = "Diworsification" ของ Peter Lynch —
+        คือการเอาเงินไปกระจายในของที่คุณไม่ได้คิดดีพอ ผลคือไม่ได้กำไรพอ และยังขาดทุนได้
+      </div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">
+        ลงน้อยๆ <strong>เฉพาะตัวที่คัดมาแล้วและรู้ว่ามั่นใจรองลงมา</strong> —
+        แต่ถ้ามั่นใจไม่ถึง 5% ของพอร์ต ให้ตัดออกจากรายการ ดีกว่าใส่แล้วงงตัวเอง
+      </div>
+    </div>
+  </div>
+
+  <h2 class="h2">Test #5: The Sleep Test (ทดสอบการนอนหลับ)</h2>
+
+  <p class="p">
+    การทดสอบสุดท้าย เป็นการทดสอบที่ <em>ตรงไปตรงมาที่สุด</em>:
+    ถ้าตำแหน่งของคุณทำให้คุณนอนไม่หลับ — มันใหญ่เกินไป
+    ถ้าตำแหน่งของคุณทำให้คุณเช็คราคาทุกชั่วโมง — มันใหญ่เกินไป
+    ถ้าคุณรู้สึกผ่อนคลายและเช็คราคาแค่สัปดาห์ละครั้ง — ขนาดถูกต้อง
+  </p>
+
+  <div class="pullquote">
+    "The best portfolio is the one<br>that lets you sleep at night."
+    <div class="pullquote-th">"พอร์ตที่ดีที่สุด คือพอร์ตที่ทำให้เรานอนหลับสบาย"</div>
+    <div class="pullquote-attr">— Synthesis of Concentrated Investing</div>
+  </div>
+
+  <h2 class="h2">การจัดเกรด Conviction — Tier System</h2>
+
+  <p class="p">
+    เพื่อใช้บททดสอบทั้ง 5 ข้อในการสร้างพอร์ต ผมจะให้คุณจัดเกรดทุกหุ้นเป็น 3 ระดับ:
+  </p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>เกณฑ์ผ่าน 5 Tests</th>
+        <th>น้ำหนักในพอร์ต</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Tier 1: Highest</strong><br><em>ความเชื่อมั่นสูงสุด</em></td>
+        <td>ผ่าน 5/5 — เห็น edge ชัด, รู้ bear case, อยากซื้อเพิ่มถ้าลง 30%, ถือได้ 3+ ปี, นอนหลับสบาย</td>
+        <td>20–25% ต่อตัว<br>มีได้ 1–2 ตัว</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 2: Strong</strong><br><em>มั่นใจสูง</em></td>
+        <td>ผ่าน 4/5 — บางครั้งกังวลตอน drawdown แต่ thesis แข็งแรง</td>
+        <td>12–17% ต่อตัว<br>มีได้ 2–3 ตัว</td>
+      </tr>
+      <tr>
+        <td><strong>Tier 3: Decent</strong><br><em>มั่นใจระดับธรรมดา</em></td>
+        <td>ผ่าน 3/5 — มี thesis แต่ไม่แข็งแรงเท่า ใช้กระจายความเสี่ยง</td>
+        <td>5–10% ต่อตัว<br>มีได้ 1–2 ตัว</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <div class="insight-tag">หลักการสำคัญ</div>
+    <p class="insight-text">
+      <strong>ในแต่ละพอร์ต ควรมี Tier 1 อย่างน้อย 1 ตัว</strong> —
+      เพราะถ้าไม่มีหุ้นที่คุณมั่นใจสูงสุดเลย แสดงว่าคุณไม่พร้อมลงทุนแบบ concentrated
+      กลับไปเป็น index investor จะดีกว่า
+    </p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามให้คิด · ก่อนผ่านบท</div>
+    <p class="reflection-q"><strong>1.</strong> ใน 6 ตัวของคุณ — กี่ตัวที่ผ่าน Inversion Test? (อธิบาย bear case ได้ดีพอๆ กับ bull case)</p>
+    <p class="reflection-q"><strong>2.</strong> ตัวไหนที่คุณ "อยากซื้อเพิ่มถ้าลง 30%" และตัวไหนที่คุณ "จะขายถ้าลง 30%"? อันหลังคือสัญญาณว่ามันไม่ควรอยู่ในพอร์ต</p>
+    <p class="reflection-q"><strong>3.</strong> มีตัวไหนที่คุณเช็คราคาเกินวันละ 3 ครั้งไหม? นั่นคือสัญญาณว่ามันใหญ่เกินไปสำหรับคุณ</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     CHAPTER 4 — STRUCTURE 6 STOCKS + 10% CASH
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">04</div>
+  <div class="ch-label">Chapter Four · บทที่สี่</div>
+  <h2 class="ch-title">The Structure of <em>Six</em></h2>
+  <div class="ch-title-th">โครงสร้าง 6 หุ้น 10% เงินสด — ตัวเลขจริงจากเงิน 5 แสน</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    บทนี้คือคำตอบจริงสำหรับคำถามของคุณ — มีตัวเลขเป็นบาท ไม่ใช่แค่ทฤษฎี
+    เพราะถ้าคุณทำตามได้ คุณจะมี framework ที่ใช้ได้ตลอดชีวิต
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Real Answer · คำตอบจริง</div>
+  <h1 class="h1">เงิน 500,000 บาท จัดยังไงให้ไม่พัง</h1>
+
+  <p class="p lead">
+    มาถึงจุดที่คุณรอคอย ผมจะให้ตัวเลขจริง ไม่ใช่ทฤษฎี
+    แต่ก่อนจะเปิดตาราง ผมต้องบอกข้อจำกัดก่อน:
+    <strong>ตัวเลขเหล่านี้คือ "default" ที่ใช้ได้ดีสำหรับคนส่วนใหญ่</strong> —
+    ไม่ใช่กฎตายตัว คุณต้องปรับตามระดับ conviction จริงของคุณในแต่ละตัว
+  </p>
+
+  <h2 class="h2">โครงสร้างที่ผมแนะนำ — Conviction Tiered Structure</h2>
+
+  <p class="p">
+    นี่คือการจัดสรรพอร์ตด้วยเงินทุน 500,000 บาท
+    หุ้น 6 ตัว (จำนวนคงที่ตามที่คุณต้องการ) และเงินสด 10%:
+  </p>
+
+  <table class="alloc-table">
+    <thead>
+      <tr>
+        <th>ตำแหน่ง</th>
+        <th>ระดับความเชื่อมั่น</th>
+        <th class="right">% พอร์ต</th>
+        <th class="right">จำนวนเงิน (บาท)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tier1">
+        <td>Position 1</td>
+        <td><span class="tier-tag t1">Tier 1</span> Highest Conviction</td>
+        <td class="right">22.5%</td>
+        <td class="right">112,500</td>
+      </tr>
+      <tr class="tier2">
+        <td>Position 2</td>
+        <td><span class="tier-tag t2">Tier 2</span> Strong</td>
+        <td class="right">17.5%</td>
+        <td class="right">87,500</td>
+      </tr>
+      <tr class="tier2">
+        <td>Position 3</td>
+        <td><span class="tier-tag t2">Tier 2</span> Strong</td>
+        <td class="right">17.5%</td>
+        <td class="right">87,500</td>
+      </tr>
+      <tr class="tier3">
+        <td>Position 4</td>
+        <td><span class="tier-tag t3">Tier 3</span> Decent</td>
+        <td class="right">12.5%</td>
+        <td class="right">62,500</td>
+      </tr>
+      <tr class="tier3">
+        <td>Position 5</td>
+        <td><span class="tier-tag t3">Tier 3</span> Decent</td>
+        <td class="right">12.5%</td>
+        <td class="right">62,500</td>
+      </tr>
+      <tr class="tier3">
+        <td>Position 6</td>
+        <td><span class="tier-tag t3">Tier 3</span> Decent</td>
+        <td class="right">7.5%</td>
+        <td class="right">37,500</td>
+      </tr>
+      <tr class="cash">
+        <td>Cash</td>
+        <td><span class="tier-tag cs">Reserve</span> Dry Powder</td>
+        <td class="right">10.0%</td>
+        <td class="right">50,000</td>
+      </tr>
+      <tr class="total">
+        <td colspan="2">รวม</td>
+        <td class="right">100.0%</td>
+        <td class="right">500,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="h2">ทำไมต้องโครงนี้ — เหตุผลข้างหลังตัวเลข</h2>
+
+  <p class="p">
+    <strong>เหตุผล #1: Tier 1 ใหญ่ที่สุด เพราะนั่นคือที่ Edge ของคุณอยู่</strong> —
+    ถ้าคุณมี edge จริงในตัวที่ 1 (ผ่าน 5/5 tests ในบทที่แล้ว)
+    การลง 22.5% ของพอร์ตคือการ <em>ใช้ edge นั้นจริงๆ</em> — ไม่งั้นมีไปทำไม
+    Buffett เคยลง American Express 40% ของพอร์ต Berkshire ในปี 1964 เพราะเขาเห็น edge ชัดเจน
+  </p>
+
+  <p class="p">
+    <strong>เหตุผล #2: Tier 2 มี 2 ตัวเท่ากัน เพราะเราหลีกเลี่ยงการ "เอนเอียงไปข้างใดข้างหนึ่ง"</strong> —
+    ถ้า Tier 2 มีแค่ตัวเดียวใหญ่ และอีกตัวเล็ก แสดงว่าคุณไม่ได้แยกแยะให้ชัด
+    การจัดให้เท่ากันเป็นการบังคับให้คุณคิดให้ละเอียดว่ามันมั่นใจระดับเดียวกันจริงไหม
+  </p>
+
+  <p class="p">
+    <strong>เหตุผล #3: Tier 3 มี 3 ตัว และตัวสุดท้ายเล็กที่สุด</strong> —
+    เพราะตัวที่ 6 มักเป็นตัว "เผื่อไว้" หรือ "อยากลอง" — ลงเล็กๆ พอ
+    ถ้ามันโตจริง คุณค่อยเลื่อนเป็น Tier 2 ในรอบ rebalance
+    ถ้ามันไม่โต ความเสียหายจำกัด
+  </p>
+
+  <p class="p">
+    <strong>เหตุผล #4: เงินสด 10% = ทั้งกระสุนและตัวดูดซับแรง</strong> —
+    50,000 บาทเป็นเงินที่คุณ <em>เก็บไว้รอวันที่ตลาดให้โอกาส</em>
+    ในตลาด crash ปกติหุ้น Tier 1 ของคุณอาจลง 30–40% — นั่นคือเวลาที่คุณเอาเงินสดมาเพิ่ม
+    ถ้าไม่มีเงินสด คุณจะแค่ดูพอร์ตหายและเครียด
+  </p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-en">
+      "Cash is not lazy.<br>Cash is patient."
+    </div>
+    <div class="blockquote-full-th">
+      "เงินสดไม่ใช่ความขี้เกียจ — มันคือความอดทน"
+    </div>
+    <div class="blockquote-full-attr">— Seth Klarman, Margin of Safety</div>
+  </div>
+
+  <h2 class="h2">รูปแบบทางเลือก — Equal Weighting</h2>
+
+  <p class="p">
+    ถ้าคุณรู้สึกว่าระบบ Tier ซับซ้อนเกินไป หรือคุณยังไม่มั่นใจว่าจะแยก Tier ของหุ้นได้แม่นยำ
+    มีทางเลือกที่ง่ายกว่าและทำงานได้ดี: <strong>Equal Weighting</strong> —
+    หุ้นทุกตัวได้น้ำหนักเท่ากัน
+  </p>
+
+  <table class="alloc-table">
+    <thead>
+      <tr>
+        <th>ตำแหน่ง</th>
+        <th>ระบบ</th>
+        <th class="right">% พอร์ต</th>
+        <th class="right">บาท</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tier2">
+        <td>Position 1–6</td>
+        <td>Equal Weight</td>
+        <td class="right">15.0% × 6</td>
+        <td class="right">75,000 × 6</td>
+      </tr>
+      <tr class="cash">
+        <td>Cash</td>
+        <td>Reserve</td>
+        <td class="right">10.0%</td>
+        <td class="right">50,000</td>
+      </tr>
+      <tr class="total">
+        <td colspan="2">รวม</td>
+        <td class="right">100.0%</td>
+        <td class="right">500,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="p">
+    Equal weighting มีข้อดีที่ <strong>ไม่ต้องตัดสินใจเรื่อง conviction tier</strong> —
+    ลดอคติของตัวเอง แต่มีข้อเสียที่ไม่ใช้ประโยชน์จาก edge เต็มที่
+    Lou Simpson เริ่มต้นด้วย equal weight แล้วค่อยปรับเป็น tier เมื่อมีประสบการณ์มากขึ้น —
+    คุณก็ทำแบบเดียวกันได้
+  </p>
+
+  <h2 class="h2">กฎเหล็ก 4 ข้อของโครงสร้างนี้</h2>
+
+  <div class="action-card">
+    <div class="action-card-num">RULE I</div>
+    <div class="action-card-title">ไม่มีตัวไหนเกิน 25% ของพอร์ต</div>
+    <div class="action-card-desc">
+      แม้ว่าหุ้นนั้นจะวิเศษแค่ไหน ถ้ามันโตจนเกิน 25% ของพอร์ต <strong>ให้ trim</strong>
+      เพราะ single-stock risk เริ่มควบคุมพอร์ต — ถ้าผิด 1 ตัว พอร์ตเสียหายเกินรับได้
+      ข้อยกเว้น: ถ้าคุณคือ Buffett และนี่คือ Coca-Cola ในปี 1988 — แต่คุณไม่ใช่
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">RULE II</div>
+    <div class="action-card-title">ไม่มีตัวไหนน้อยกว่า 5%</div>
+    <div class="action-card-desc">
+      ถ้าหุ้นตัวไหนมีน้ำหนักน้อยกว่า 5% มันจะ <strong>ไม่มีผลต่อพอร์ต</strong>
+      ไม่ว่ามันจะ +100% หรือ -50% — เลิกถือเลย เอาเงินไปเสริมตัวที่มี conviction มากกว่า
+      หรือเก็บเป็นเงินสดดีกว่า
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">RULE III</div>
+    <div class="action-card-title">เช็ค Correlation อย่างน้อย 1 ครั้งต่อไตรมาส</div>
+    <div class="action-card-desc">
+      ถ้าหุ้น 4 ใน 6 ตัวอยู่ในกลุ่มอุตสาหกรรมเดียว — คุณไม่ได้มี 6 ไม้ คุณมี 1 ไม้ใหญ่ที่ดูเหมือน 6
+      นี่คือ "<em>hidden correlation</em>" ที่ทำให้ LTCM ล่มสลาย — ทุกการเทรดดูแยกกัน แต่ทั้งหมดพึ่ง liquidity เหมือนกัน
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">RULE IV</div>
+    <div class="action-card-title">เงินสดต้องเป็นเงินสดจริง — ไม่ใช่ตราสารหนี้ระยะสั้น</div>
+    <div class="action-card-desc">
+      เงินสด 50,000 บาทของคุณต้องอยู่ในรูปที่ <strong>ใช้ได้ทันทีในวันที่ตลาดเปิด</strong> —
+      ไม่ใช่กองทุน MMF ที่ต้องรอ T+1 ไม่ใช่ FD 6 เดือน ในวันที่ตลาดให้โอกาส
+      ทุกชั่วโมงที่เงินยังไม่เข้าบัญชี = โอกาสที่หายไป
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามให้คิด · ก่อนผ่านบท</div>
+    <p class="reflection-q"><strong>1.</strong> ถ้าจัดพอร์ตตามตารางข้างบน — Tier 1 ของคุณคือตัวไหน? ถ้าตอบไม่ได้ คุณยังไม่พร้อมเริ่ม</p>
+    <p class="reflection-q"><strong>2.</strong> ใน 6 ตัวที่จะถือ — มีกี่ตัวที่อยู่ในกลุ่มอุตสาหกรรมเดียวกัน? เกิน 3 ตัวคือสัญญาณ correlation</p>
+    <p class="reflection-q"><strong>3.</strong> เงินสด 10% ของคุณตอนนี้ พร้อมใช้ใน 1 วันทำการไหม? ถ้าไม่ — ปรับด่วน</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     CHAPTER 5 — SCALING IN
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">05</div>
+  <div class="ch-label">Chapter Five · บทที่ห้า</div>
+  <h2 class="ch-title">The Art of <em>Scaling In</em></h2>
+  <div class="ch-title-th">ลำดับการเข้าไม้ — ทำไมการเข้าครั้งเดียวเต็มไซส์คือบาปทางพอร์ต</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    คุณคิดถูกไม่ได้แปลว่าคุณคิดถูกในจังหวะ — Scaling In คือกลไก
+    ที่แยก "ความถูกของ thesis" ออกจาก "ความถูกของ timing"
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1 class="h1">3-Tranche Entry Framework</h1>
+
+  <p class="p lead">
+    ความผิดพลาดที่นักลงทุนรายย่อยทำซ้ำๆ คือ <strong>"all-in on day one"</strong> —
+    เห็นหุ้นที่ชอบ ก็ซื้อเต็มไซส์ทันที วันรุ่งขึ้นราคาลง 5% ก็ตื่นเต้น
+    ลงต่ออีก 10% ก็เริ่มสงสัยตัวเอง ลงต่ออีก 15% ก็ panic sell — ขาย bottom พอดี
+    ปัญหาไม่ได้อยู่ที่ thesis ของเขา ปัญหาอยู่ที่เขา <em>ใช้กระสุนหมดในยกแรก</em>
+  </p>
+
+  <h2 class="h2">หลักการ Scaling In</h2>
+
+  <p class="p">
+    ทุกตำแหน่งในพอร์ตของคุณ ควรเข้าด้วย <strong>3 ไม้</strong> (3 tranches)
+    ห่างกันด้วยเวลา ราคา หรือเหตุการณ์ — ไม่ใช่เข้าครั้งเดียว
+    การทำแบบนี้ทำให้คุณ:
+  </p>
+
+  <p class="p">
+    <strong>1. ลด timing risk</strong> — ถ้า thesis ถูกแต่ราคาผันผวน คุณยังมีเงินซื้อต่ำกว่า<br>
+    <strong>2. ทดสอบ conviction</strong> — การจ่ายซื้อเพิ่มในราคาที่ต่ำลงคือการพิสูจน์ว่ามั่นใจจริง<br>
+    <strong>3. ได้ราคาเฉลี่ยดีขึ้น</strong> — โดยเฉพาะเวลาตลาดผันผวน<br>
+    <strong>4. มีพื้นที่ให้คิดใหม่</strong> — ถ้าซื้อไม้แรกแล้วเจอข่าวร้ายจริง ยังพอถอยได้
+  </p>
+
+  <h2 class="h2">โครงสร้าง 3 ไม้ที่ผมแนะนำ</h2>
+
+  <p class="p">
+    สำหรับ Position 1 (Tier 1) ที่ตั้งใจลง 112,500 บาท:
+  </p>
+
+  <table class="alloc-table">
+    <thead>
+      <tr>
+        <th>ไม้</th>
+        <th>เงื่อนไข</th>
+        <th class="right">% Target</th>
+        <th class="right">จำนวนเงิน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tier1">
+        <td><strong>ไม้ที่ 1</strong></td>
+        <td>เข้าทันที (Initial)</td>
+        <td class="right">50%</td>
+        <td class="right">56,250</td>
+      </tr>
+      <tr class="tier2">
+        <td><strong>ไม้ที่ 2</strong></td>
+        <td>เข้าเมื่อราคาลง 10–15% หรือ 4–8 สัปดาห์ผ่านไป</td>
+        <td class="right">30%</td>
+        <td class="right">33,750</td>
+      </tr>
+      <tr class="tier3">
+        <td><strong>ไม้ที่ 3</strong></td>
+        <td>เข้าเมื่อราคาลง 20–25% (เก็บไว้สำหรับวันแย่)</td>
+        <td class="right">20%</td>
+        <td class="right">22,500</td>
+      </tr>
+      <tr class="total">
+        <td colspan="2">รวม Position 1</td>
+        <td class="right">100%</td>
+        <td class="right">112,500</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="p">
+    สังเกตว่าไม้ที่ 1 คือครึ่งหนึ่ง ไม่ใช่ 1/3 เพราะ:
+    ถ้าคุณคิดถูกและราคาขึ้นทันที คุณยังได้กำไรจาก 50% ที่เข้าไปแล้ว
+    ไม่ใช่แค่ 33% — แต่ยังมีพื้นที่อีก 50% เผื่อมีโอกาสซื้อต่ำกว่า
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-tag">หลักการ 50–30–20</div>
+    <p class="insight-text">
+      <strong>50% เริ่ม · 30% เพิ่มเมื่อตลาดให้โอกาสปานกลาง · 20% เก็บไว้สำหรับโอกาสใหญ่</strong>
+      โครงนี้ใช้ได้กับทุกตำแหน่ง เพียงแค่ปรับเงินตามขนาดเป้าหมายของแต่ละ tier
+    </p>
+  </div>
+
+  <h2 class="h2">ปัญหาคลาสสิก: เข้าไม้ที่ 2 และ 3 อย่างไร</h2>
+
+  <p class="p">
+    คนส่วนใหญ่ติดอยู่ที่นี่ — <em>เข้าไม้แรกได้ แต่ไม่กล้าเข้าไม้ที่ 2 และ 3</em>
+    เพราะตอนที่ราคาลงมา 15% สมองคุณจะบอกว่า "อาจจะมีอะไรที่ไม่รู้"
+    "อาจจะลงต่อ" — และคุณจะไม่กดซื้อ ทั้งที่นี่คือเวลาที่ scaling in ออกแบบมาให้ใช้
+  </p>
+
+  <p class="p">
+    วิธีแก้: <strong>ตั้งเงื่อนไขเป็นกฎเหล็ก ก่อนเปิดตำแหน่งแรก</strong>
+    เขียนใส่กระดาษ/note ว่า "ถ้าราคาลงถึง X (= -10% ถึง -15% จากไม้แรก)
+    และ thesis ยังไม่เปลี่ยน ผมจะซื้อเพิ่ม Y บาท" —
+    เมื่อถึงวันนั้น คุณแค่ตามกฎ ไม่ต้องคิดใหม่
+  </p>
+
+  <div class="author-box">
+    <div class="author-avatar">EO</div>
+    <div>
+      <div class="author-meta">Edward Thorp · Beat the Dealer</div>
+      <p class="author-text">
+        "ผมเขียนกฎทุกอย่างไว้ก่อนเริ่มเล่น — ตอนเล่นจริงผมแค่ตามกฎ
+        เพราะเวลาเล่นจริง สมองมนุษย์จะหา 'เหตุผลพิเศษ' ที่จะไม่ทำตามกฎเสมอ
+        และเหตุผลเหล่านั้นมักทำให้แพ้"
+      </p>
+    </div>
+  </div>
+
+  <h2 class="h2">การเพิ่มไซส์ — Pyramid Up vs Average Down</h2>
+
+  <p class="p">
+    มี 2 ปรัชญาในการเพิ่มไซส์ที่ขัดกันชัดเจน:
+  </p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th class="wrong">Average Down (ซื้อเฉลี่ยเมื่อลง)</th>
+        <th class="right">Pyramid Up (เพิ่มเมื่อพิสูจน์)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="wrong">ซื้อเพิ่มเมื่อราคาลง<br>เพราะเชื่อว่ามันจะกลับมา</td>
+        <td class="right">ซื้อเพิ่มเมื่อ thesis เริ่มพิสูจน์ตัว<br>(งบดี / โครงการคืบหน้า)</td>
+      </tr>
+      <tr>
+        <td class="wrong">เสี่ยงสูง — ถ้า thesis ผิด<br>ขาดทุนจะใหญ่ขึ้น</td>
+        <td class="right">เสี่ยงต่ำ — เพิ่มเฉพาะเมื่อมั่นใจมากขึ้น</td>
+      </tr>
+      <tr>
+        <td class="wrong">ใช้กับ Tier 1 ที่ thesis ชัดเจนมากเท่านั้น</td>
+        <td class="right">ใช้ได้กับทุก tier โดยเฉพาะ Tier 2 และ 3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="p">
+    <strong>ผมแนะนำ Pyramid Up เป็น default</strong> สำหรับนักลงทุนทั่วไป
+    เพราะมันบังคับให้คุณ <em>รอความถูกต้อง</em> ก่อนเสริมไม้
+    Average Down ดีในทฤษฎี แต่ทำให้คุณ "ลงเงินซ้ำในข้อผิดพลาด" ได้ง่าย
+    ใช้ Average Down เฉพาะเมื่อ:<br>
+    • หุ้นเป็น Tier 1 ของคุณ (ผ่าน 5/5 tests)<br>
+    • Thesis ยังไม่เปลี่ยน — งบยังดี ผู้บริหารยังเหมือนเดิม<br>
+    • ราคาที่ลงเป็นจาก market mood ไม่ใช่จากปัจจัยพื้นฐาน
+  </p>
+
+  <h2 class="h2">เมื่อไหร่ <em>ไม่</em> ควร Scaling In</h2>
+
+  <div class="signal-row">
+    <div class="signal-box buy">
+      <div class="signal-tag">Scale In ได้</div>
+      <ul class="signal-list">
+        <li>หุ้นที่มี thesis ชัด</li>
+        <li>ราคาผันผวนปกติ</li>
+        <li>คุณมีกระสุนสำรองพอ</li>
+        <li>ตลาดยังเปิดได้สม่ำเสมอ</li>
+      </ul>
+    </div>
+    <div class="signal-box sell">
+      <div class="signal-tag">เข้าครั้งเดียวเต็มไซส์</div>
+      <ul class="signal-list">
+        <li>โอกาสที่ปรากฏน้อยมาก (special situation)</li>
+        <li>หุ้น takeover ที่มีกรอบเวลา</li>
+        <li>เงินสดล้นพอร์ตหลัง crash</li>
+        <li>conviction ระดับ 5/5 และราคาดีมากแล้ว</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="p">
+    บางครั้ง — น้อยมาก — ตลาดให้โอกาสที่ดีจน scaling in กลายเป็นเรื่องโง่ๆ
+    เช่น Buffett ตัดสินใจซื้อ Goldman Sachs และ GE ในเดือนตุลาคม 2008
+    เขาไม่ได้ทยอย เขาเข้าครั้งเดียวเพราะ <em>โอกาสจะหายไปเร็ว</em>
+    แต่นี่คือ exception ไม่ใช่ rule — และคุณต้องมั่นใจมากๆ จึงจะใช้
+  </p>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามให้คิด · ก่อนผ่านบท</div>
+    <p class="reflection-q"><strong>1.</strong> ครั้งล่าสุดที่คุณเข้าไม้เต็มในรอบเดียว — ผลออกมาดีกว่าหรือแย่กว่าการแบ่ง?</p>
+    <p class="reflection-q"><strong>2.</strong> ถ้าหุ้นที่คุณซื้อวันนี้ ราคาลง 15% สัปดาห์หน้า คุณมีเงินซื้อเพิ่มไหม? ถ้าไม่มี = คุณใช้กระสุนหมดในไม้แรก</p>
+    <p class="reflection-q"><strong>3.</strong> ใน 6 ตัวที่คุณตั้งใจถือ — กี่ตัวที่คุณ "เข้าครบไซส์ตั้งแต่วันแรก"? เปลี่ยนนิสัยนี้</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     CHAPTER 6 — RUIN PATTERNS
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">06</div>
+  <div class="ch-label">Chapter Six · บทที่หก</div>
+  <h2 class="ch-title">5 Paths to <em>Ruin</em></h2>
+  <div class="ch-title-th">5 จุดพังที่ทำให้คนหมดตัว — และวิธีหลีกเลี่ยง</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    บทนี้เรียนจากซากของคนที่ฉลาดกว่าเรา — LTCM, Long-Term Capital Management
+    ที่มี Nobel laureates 2 คนและยังพังในปี 1998 จุดพังเหล่านี้คือ pattern ที่ยังเกิดอยู่ทุกวัน
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1 class="h1">เรียนจากซากของคนที่ฉลาดกว่าเรา</h1>
+
+  <p class="p lead">
+    คนที่หมดตัวในตลาดหุ้นไม่ได้โง่ — หลายคนฉลาดมาก หลายคนเก่งกว่าผมและคุณ
+    LTCM มี Nobel laureates 2 คน Myron Scholes และ Robert Merton — ผู้คิดสูตร Black-Scholes
+    แต่ก็ยังพังในเดือนสิงหาคม 1998 เพราะตกหลุมพรางคลาสสิก 5 หลุมต่อไปนี้
+  </p>
+
+  <h2 class="h2">หลุม #1: Over-Kelly (ลงเกินกำลัง)</h2>
+
+  <p class="p">
+    ในบทที่ 1 ผมพูดเรื่องนี้ไปแล้ว แต่ขอย้ำเพราะมันคือหลุมที่ใหญ่ที่สุด:
+    <strong>การประมาณ edge เกินจริง คือสาเหตุของ blow-up มากกว่า 80%</strong>
+    คนๆ หนึ่งคิดว่ามี edge 30% — ความจริงมีแค่ 10% — เขาเลยลง position size เกินไป 3 เท่า
+    Drawdown ปกติ 30% กลายเป็น 60% และเขา panic sell ที่ bottom
+  </p>
+
+  <p class="p">
+    <strong>วิธีหลีกเลี่ยง:</strong> ใช้ Half Kelly เป็น default
+    บอกตัวเองเสมอว่า "ความมั่นใจของผมมีโอกาสผิด 30%" — แล้วลดไซส์ตามนั้น
+    ถ้ามั่นใจจะลง 20% ของพอร์ต ลง 12–15% พอ เก็บส่วนต่างไว้ใช้กับโอกาสถัดไป
+  </p>
+
+  <h2 class="h2">หลุม #2: Hidden Correlation (ความสัมพันธ์ที่มองไม่เห็น)</h2>
+
+  <p class="p">
+    คนหนึ่งบอกว่า "พอร์ตผมมี 8 ตัว กระจายความเสี่ยงดี"
+    แต่ดูจริงๆ — เป็นธนาคาร 3, อสังหา 2, ค้าปลีก 2, ท่องเที่ยว 1
+    ทั้งหมดนี้เป็น <em>cyclicals ที่ขึ้นอยู่กับเศรษฐกิจไทย</em>
+    เวลาเศรษฐกิจตก ทั้ง 8 ตัวลงพร้อมกัน — เขาไม่ได้มี 8 ไม้ เขามี 1 ไม้ที่ดูเหมือน 8
+  </p>
+
+  <p class="p">
+    LTCM เจอปัญหาเดียวกัน: position ของพวกเขาดูแยกจากกัน — Russian bonds, Italian bonds,
+    Danish mortgages — แต่ทั้งหมดมีจุดร่วมคือ <em>liquidity premium</em>
+    เมื่อเดือนสิงหาคม 1998 รัสเซียเบี้ยวหนี้ liquidity แห้ง — ทุก position ของพวกเขาแย่ลงพร้อมกัน
+  </p>
+
+  <p class="p">
+    <strong>วิธีหลีกเลี่ยง:</strong> ตอบคำถาม "ถ้าเหตุการณ์ X เกิดขึ้น หุ้นในพอร์ตผมกี่ตัวจะแย่ลง?"
+    สำหรับ X = วิกฤตเศรษฐกิจ, ดอกเบี้ยขึ้น, น้ำมันลง, จีนชะลอ ฯลฯ —
+    ถ้าคำตอบสำหรับเหตุการณ์ใดเหตุการณ์หนึ่งคือ "เกิน 4 ตัว" คุณไม่ได้กระจาย
+  </p>
+
+  <h2 class="h2">หลุม #3: Stubborn Averaging Down (ดื้อด้านซื้อเพิ่มในของพัง)</h2>
+
+  <p class="p">
+    การ Average Down ที่ผมพูดในบทที่ 5 — ใช้ได้เฉพาะเมื่อ thesis ไม่เปลี่ยน
+    หลุมคือคนใช้กับหุ้นที่ <strong>thesis เปลี่ยนไปแล้ว</strong>
+    บริษัท เปลี่ยน CEO, ขาดทุนเรื่อยๆ, อุตสาหกรรมเปลี่ยน — แต่เขายังซื้อเพิ่มเพราะ "ราคาถูกลง"
+    ไม่ใช่ — ราคามันถูกลงเพราะ <em>มันสมควรถูกลง</em>
+  </p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ราคาลง = โอกาส, ผมต้องซื้อเพิ่ม"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">
+        <strong>ราคาลงต้องมาคู่กับ thesis ไม่เปลี่ยน</strong> ถึงจะเป็นโอกาส —
+        ถ้า thesis เปลี่ยน ราคาที่ลงคือสัญญาณว่าตลาดถูกและคุณผิด
+      </div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">
+        ก่อนซื้อเพิ่ม <strong>ทบทวน thesis เป็นลายลักษณ์อักษร</strong> —
+        มีอะไรเปลี่ยนไหม? ถ้าเปลี่ยน — ขายทิ้ง ไม่ใช่ซื้อเพิ่ม
+      </div>
+    </div>
+  </div>
+
+  <h2 class="h2">หลุม #4: No Cash Reserve (ไม่มีเงินสำรอง)</h2>
+
+  <p class="p">
+    คนที่ลงทุน 100% ของเงินทันที — แม้ว่า thesis ทุกตัวจะถูก —
+    ก็จะเสียโอกาสยิ่งใหญ่ที่สุดในชีวิต
+    คือเวลาที่ตลาด crash 30–50% และของดีถูกขายในราคา fire sale
+    ตอนนั้น Buffett มี 90 พันล้านดอลลาร์ในรูปเงินสด — ตอนคนอื่นไม่มีเงินซื้อ เขามี
+  </p>
+
+  <p class="p">
+    <strong>เงินสด 10% ของคุณ = 50,000 บาท</strong> ในวิกฤต crash อาจกลายเป็น
+    การซื้อหุ้น Tier 1 ที่ราคาต่ำกว่าปกติ 30–40% — ผลตอบแทนระยะยาวจาก 50,000 บาทนี้
+    อาจสูงกว่าผลรวมของอีก 450,000 บาทในพอร์ตของคุณตลอดทั้งปี
+  </p>
+
+  <div class="pullquote">
+    "Cash combined with courage<br>in a crisis is priceless."
+    <div class="pullquote-th">"เงินสดบวกกับความกล้าหาญในวิกฤต — มีค่ามากกว่าทอง"</div>
+    <div class="pullquote-attr">— Warren Buffett · Annual Letter 2010</div>
+  </div>
+
+  <h2 class="h2">หลุม #5: Position Too Big to Sleep (ไซส์ใหญ่จนนอนไม่หลับ)</h2>
+
+  <p class="p">
+    หลุมสุดท้ายเป็นหลุมจิตวิทยา และเป็นหลุมที่ผู้เขียนของ Concentrated Investing
+    เน้นย้ำที่สุด — <strong>คุณต้องอยู่ได้กับตำแหน่งของคุณในวันที่แย่</strong>
+    ไม่ใช่ในวันธรรมดา ไม่ใช่ในวันที่ขึ้น แต่ในวันที่หุ้นลง 25% ในเดือนเดียว
+    และข่าวบอกว่าจะลงต่อ
+  </p>
+
+  <p class="p">
+    ถ้าวันแบบนั้นทำให้คุณ panic sell — ขนาดไม้นั้นใหญ่เกินไปสำหรับคุณ
+    ไม่ว่าวิเคราะห์จะถูกแค่ไหน เพราะคุณจะ <em>ไม่อยู่ดู</em> จนถึงวันที่ thesis พิสูจน์
+    Joel Greenblatt บอกว่า "การเข้าใจตัวเองสำคัญพอๆ กับการเข้าใจหุ้น"
+  </p>
+
+  <p class="p">
+    <strong>วิธีทดสอบล่วงหน้า:</strong> เปิด Excel จำลองว่าหุ้นแต่ละตัวลง 50% ในวันพรุ่งนี้ —
+    ดูว่าพอร์ตเป็นเท่าไหร่ ถ้าตัวเลขนั้นทำให้คุณรู้สึกแย่จนนอนไม่หลับ — <em>ปรับลด</em> ก่อนที่จะเกิดจริง
+    ดีกว่าไปเจอตอนเหตุการณ์เกิดขึ้นจริง
+  </p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-en">
+      "Survive first.<br>Thrive second."
+    </div>
+    <div class="blockquote-full-th">
+      "อยู่รอดก่อน — รวยทีหลัง"
+    </div>
+    <div class="blockquote-full-attr">— The First Law of Investment</div>
+  </div>
+
+  <h2 class="h2">สรุป 5 หลุม — ตารางตรวจสอบเร็ว</h2>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>หลุม</th>
+        <th>สัญญาณเตือน</th>
+        <th>ทางแก้</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Over-Kelly</strong></td>
+        <td>"ผมมั่นใจมาก ลงสุดเลย"</td>
+        <td>หาร Kelly ด้วย 2</td>
+      </tr>
+      <tr>
+        <td><strong>2. Hidden Correlation</strong></td>
+        <td>หุ้นในกลุ่มอุตสาหกรรมเดียวกันเกิน 4 ตัว</td>
+        <td>กระจายข้ามอุตสาหกรรม</td>
+      </tr>
+      <tr>
+        <td><strong>3. Stubborn Averaging</strong></td>
+        <td>ซื้อเพิ่มโดยไม่ได้ทบทวน thesis</td>
+        <td>เขียน thesis ใหม่ก่อนซื้อเพิ่มทุกครั้ง</td>
+      </tr>
+      <tr>
+        <td><strong>4. No Cash</strong></td>
+        <td>ลงทุน 95–100%</td>
+        <td>เก็บเงินสด 10% ขั้นต่ำเสมอ</td>
+      </tr>
+      <tr>
+        <td><strong>5. Too Big to Sleep</strong></td>
+        <td>เช็คราคาทุกชั่วโมง / นอนไม่หลับ</td>
+        <td>ลด position size ทันที</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามให้คิด · ก่อนผ่านบท</div>
+    <p class="reflection-q"><strong>1.</strong> ในประวัติศาสตร์การลงทุนของคุณ ตกหลุมไหนบ่อยที่สุด? เขียนลงกระดาษ — รู้ตัวคือครึ่งหนึ่งของการแก้ไข</p>
+    <p class="reflection-q"><strong>2.</strong> ถ้าพอร์ตคุณตอนนี้ลง 50% ในเดือนหน้า — คุณจะกลัวที่สุดเรื่องไหน? คำตอบนั้นคือ position ที่ใหญ่เกินไป</p>
+    <p class="reflection-q"><strong>3.</strong> เงินสด 10% ของคุณ — ถ้าตลาด crash พรุ่งนี้ คุณรู้แล้วไหมว่าจะซื้ออะไรเพิ่ม?</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     SYNTHESIS CHAPTER
+======================================================== -->
+<section class="chapter-open">
+  <div class="ch-num-bg">07</div>
+  <div class="ch-label">Synthesis · บทสรุป</div>
+  <h2 class="ch-title">The Pre-Trade <em>Ritual</em></h2>
+  <div class="ch-title-th">7 คำถามที่ต้องตอบทุกครั้ง ก่อนกดปุ่ม "ซื้อ"</div>
+  <div class="ch-rule"></div>
+  <p class="ch-essence">
+    ถ้าจำได้แค่อย่างเดียวจาก 6 บทที่ผ่านมา ให้จำพิธีกรรมนี้ —
+    ทำทุกครั้ง ก่อนทุกการตัดสินใจ และคุณจะหลีกเลี่ยงความผิดพลาด 90% ที่ฆ่านักลงทุนรายย่อย
+  </p>
+</section>
+
+<section class="page">
+  <div class="eyebrow">The Master One-Liner · ประโยคเดียวที่สรุปทั้งเล่ม</div>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-en">
+      "Bet big when you have edge<br>
+      and certainty. Bet small or<br>
+      not at all when you don't."
+    </div>
+    <div class="blockquote-full-th">
+      ลงหนักเมื่อมี edge และมั่นใจจริง<br>
+      ลงเบาหรือไม่ลงเลยเมื่อไม่มี
+    </div>
+    <div class="blockquote-full-attr">— The Synthesis Principle</div>
+  </div>
+
+  <h1 class="h1">7 คำถามที่ต้องตอบ ก่อนทุกการเทรด</h1>
+
+  <p class="p lead">
+    ก่อนที่จะกดปุ่มซื้อทุกครั้ง — ไม่ว่าจะเป็นไม้แรกหรือไม้ที่ 3
+    ไม่ว่าจะเป็นหุ้นใหม่หรือเพิ่มเงินในตัวเดิม — ตอบ 7 คำถามนี้เป็นลายลักษณ์อักษร
+    ถ้ามีคำถามไหนตอบไม่ได้ — <em>ห้ามกดปุ่ม</em>
+  </p>
+
+  <div class="checklist">
+    <div class="checklist-title">Pre-Trade Ritual · พิธีกรรมก่อนเทรด</div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>1. Edge ของผมในตัวนี้คืออะไร?</strong> เขียนเป็น 1 ย่อหน้า ระบุว่ารู้อะไรที่ตลาดยังไม่เห็น —
+        ถ้าตอบไม่ได้ ผมไม่มี edge ห้ามซื้อ
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>2. Bear Case คืออะไร?</strong> เขียนเหตุผลที่ thesis ของผมอาจผิด 3 ข้อ —
+        ถ้าเขียนไม่ได้ ผมยังไม่ได้คิด แค่หลงรัก
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>3. Tier ของหุ้นนี้คืออะไร?</strong> Tier 1 (สูงสุด), 2 (มั่นใจสูง), 3 (ปกติ) —
+        ถ้าเป็น Tier 3 ที่น้ำหนักจะน้อยกว่า 5% — ห้ามซื้อ ใหญ่ไม่พอจะสำคัญ
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>4. ขนาดเป้าหมายเต็มเป็นเท่าไหร่ และวันนี้ผมจะเข้าเท่าไหร่?</strong>
+        วันนี้เข้า 50% ของเป้า — ที่เหลือเก็บไว้สำหรับ tranches ถัดไป
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>5. ถ้าราคาลง 15% ผมจะทำอะไร?</strong> เขียนการตัดสินใจล่วงหน้า —
+        ถ้า thesis ไม่เปลี่ยน: ซื้อเพิ่ม X บาท | ถ้า thesis เปลี่ยน: ขายทั้งหมด
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>6. หลังเทรดนี้ correlation ในพอร์ตเป็นอย่างไร?</strong>
+        นับว่ามีกี่ตัวในกลุ่มอุตสาหกรรมเดียวกัน — เกิน 3 ตัวคือสัญญาณเตือน
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"></div>
+      <div class="checklist-text">
+        <strong>7. หลังเทรดนี้ผมจะนอนหลับสบายไหมถ้ามันลง 30%?</strong>
+        ทดสอบด้วยใจจริง ไม่ใช่ด้วยความหวัง — ถ้าตอบไม่ — ลดไซส์
+      </div>
+    </div>
+  </div>
+
+  <h2 class="h2">การประยุกต์: Routine รายสัปดาห์/เดือน</h2>
+
+  <div class="action-card">
+    <div class="action-card-num">RITUAL · WEEKLY</div>
+    <div class="action-card-title">ทุกวันอาทิตย์ 30 นาที</div>
+    <div class="action-card-desc">
+      เปิดสมุดบันทึกของพอร์ต — ตรวจ thesis ของหุ้นทั้ง 6 ตัว มีอะไรเปลี่ยนไหม?
+      เขียนสั้นๆ ว่า "ทุกอย่างยังตามแผน" หรือ "X เปลี่ยนไป — ต้องคิดใหม่"
+      <em>ห้ามดูราคา</em> ในระหว่าง routine นี้ — ดูแค่ business
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">RITUAL · MONTHLY</div>
+    <div class="action-card-title">ทุกสิ้นเดือน 1 ชั่วโมง</div>
+    <div class="action-card-desc">
+      ตรวจน้ำหนักพอร์ต — มีตัวไหนเกิน 25% หรือต่ำกว่า 5% ไหม?
+      ตรวจเงินสด — ยังที่ 10% หรือเปล่า? ถ้าโตเป็น 15% เพราะหุ้นลง — เริ่มมองหาโอกาสซื้อ
+      ถ้าเหลือ 5% เพราะเข้าซื้อไป — รออย่าซื้อต่อจนกว่าจะมีกระสุนใหม่
+    </div>
+  </div>
+
+  <div class="action-card">
+    <div class="action-card-num">RITUAL · QUARTERLY</div>
+    <div class="action-card-title">ทุก 3 เดือน 2 ชั่วโมง</div>
+    <div class="action-card-desc">
+      Conviction Audit — ทบทวน Tier ของทุกตัว มีตัวไหนที่ Tier ขึ้นได้ไหม
+      (ลงเงินเพิ่ม)? มีตัวไหนที่ Tier ลง — ต้องตัด? ตรวจ correlation อย่างละเอียด
+      เขียนสั้นๆ ว่าเรียนรู้อะไรใน 3 เดือนที่ผ่านมา
+    </div>
+  </div>
+
+  <h2 class="h2">บทสรุปสุดท้าย — สิ่งที่ผมอยากให้จำ</h2>
+
+  <p class="p">
+    ทั้งสามเล่มที่ผมตกผลึกให้ฟัง — Kelly, Fortune's Formula, Concentrated Investing —
+    เขียนโดยคนต่างวงการ ต่างยุค ต่างสไตล์ แต่บอกความจริงเดียวกันใน 4 ระดับ:
+  </p>
+
+  <div class="ladder">
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ระดับ 1 — Mathematics</div>
+      <div class="ladder-text">
+        <strong>คณิตศาสตร์บอกว่า</strong> ไซส์ที่ถูกต้องขึ้นกับ edge —
+        แต่ความผิดพลาดในการประมาณ edge บังคับให้เราใช้ <em>ครึ่งหนึ่ง</em> ของที่คณิตศาสตร์บอก
+      </div>
+    </div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ระดับ 2 — Psychology</div>
+      <div class="ladder-text">
+        <strong>จิตวิทยาบอกว่า</strong> ความมั่นใจของเรา <em>ผิดได้</em> —
+        ดังนั้นเราต้องสร้างระบบที่ปกป้องเราจากตัวเอง — เช่น scaling in และ pre-trade ritual
+      </div>
+    </div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ระดับ 3 — Practice</div>
+      <div class="ladder-text">
+        <strong>ประสบการณ์บอกว่า</strong> 5–10 หุ้นที่คัดมาแล้วดีกว่า 30 หุ้นที่ไม่ได้คัด —
+        แต่เฉพาะเมื่อคุณมี edge และ temperament ที่ถูกต้อง
+      </div>
+    </div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ระดับ 4 — Survival</div>
+      <div class="ladder-text">
+        <strong>ความเป็นจริงบอกว่า</strong> เกมที่เล่นตอนนี้คือเกมยาว — ไม่ใช่เกม 1 ปี ไม่ใช่ 5 ปี — เกม 30+ ปี —
+        ความสำคัญอันดับ 1 คือ <em>ไม่หมดตัว</em> เพราะคนที่หมดตัวออกจากเกม
+        คนที่ยังอยู่ในเกม 30 ปีจะรวยจาก compounding เอง
+      </div>
+    </div>
+  </div>
+
+  <h2 class="h2">หนังสือที่ควรอ่านต่อ</h2>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>หนังสือ</th>
+        <th>เน้นเรื่อง</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>The Most Important Thing</strong> — Howard Marks</td>
+        <td>Second-level thinking, การวัด risk จริงๆ ที่ไม่ใช่ volatility</td>
+      </tr>
+      <tr>
+        <td><strong>Margin of Safety</strong> — Seth Klarman</td>
+        <td>Value investing แบบเข้มข้น และความสำคัญของ cash reserve</td>
+      </tr>
+      <tr>
+        <td><strong>The Dhandho Investor</strong> — Mohnish Pabrai</td>
+        <td>Concentration + Margin of Safety + Patience — สำหรับคนที่อยากลงน้อยแต่หนัก</td>
+      </tr>
+      <tr>
+        <td><strong>Poor Charlie's Almanack</strong> — Charles Munger</td>
+        <td>Mental models และวิธีคิดของผู้ลงทุนที่ดีที่สุดในประวัติศาสตร์</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pullquote">
+    "If you can't sleep with your portfolio,<br>your portfolio is wrong — not the market."
+    <div class="pullquote-th">"ถ้าคุณนอนไม่หลับเพราะพอร์ต — พอร์ตคุณผิด ไม่ใช่ตลาด"</div>
+    <div class="pullquote-attr">— Final Word</div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสุดท้าย · ก่อนปิดหนังสือ</div>
+    <p class="reflection-q"><strong>1.</strong> วันนี้ — ก่อนคุณจะปิดหน้านี้ — เขียน Pre-Trade Ritual ของคุณลงในสมุด/แอปจดบันทึก เพื่อให้พรุ่งนี้คุณมีไว้ใช้</p>
+    <p class="reflection-q"><strong>2.</strong> ใน 6 ตัวที่คุณถืออยู่ตอนนี้ — กี่ตัวที่ผ่าน 7 คำถามครบ? ตัวที่ไม่ผ่าน — มีแผนจะทำอย่างไร?</p>
+    <p class="reflection-q"><strong>3.</strong> ในอีก 10 ปีข้างหน้า ถ้าคุณดูพอร์ตวันนี้ — คุณจะภูมิใจกับการตัดสินใจไหน และเสียดายการตัดสินใจไหน?</p>
+  </div>
+</section>
+
+<!-- ========================================================
+     FOOTER
+======================================================== -->
+<div class="book-footer">
+  <div class="book-footer-mark">∞</div>
+  <div class="book-footer-text">
+    "Investing is not the study of finance.<br>
+    It is the study of how people behave with money."<br><br>
+    การลงทุนไม่ใช่การศึกษาการเงิน — มันคือการศึกษาว่าคนใช้เงินอย่างไร
+  </div>
+  <div class="book-footer-author">Position Sizing · Personal Edition · 2026</div>
+</div>
+
+</div>
+</body>
+</html>
