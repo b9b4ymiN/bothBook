@@ -327,6 +327,54 @@
       return String(aValue).localeCompare(String(bValue), "th", { numeric: true, sensitivity: "base" });
     }
 
+    function parseNumber(value) {
+      const text = String(value ?? "").trim().replace(/,/g, "").replace(/%$/, "");
+      if (!text) return null;
+      const number = Number(text);
+      return Number.isNaN(number) ? null : number;
+    }
+
+    function matchesColumnFilter(cellValue, filter) {
+      const rawFilter = String(filter || "").trim();
+      if (!rawFilter) return true;
+
+      const cellText = String(cellValue ?? "").trim();
+      const cellLower = cellText.toLowerCase();
+      const numericValue = parseNumber(cellText);
+      const normalizedFilter = rawFilter.replace(/\s+/g, "");
+
+      const rangeMatch = normalizedFilter.match(/^(-?\d+(?:\.\d+)?)\.\.(-?\d+(?:\.\d+)?)$/);
+      if (rangeMatch && numericValue !== null) {
+        const min = Number(rangeMatch[1]);
+        const max = Number(rangeMatch[2]);
+        return numericValue >= Math.min(min, max) && numericValue <= Math.max(min, max);
+      }
+
+      const compareMatch = normalizedFilter.match(/^(<=|>=|<|>|=|==|!=)(-?\d+(?:\.\d+)?)$/);
+      if (compareMatch && numericValue !== null) {
+        const operator = compareMatch[1];
+        const target = Number(compareMatch[2]);
+        if (operator === "<") return numericValue < target;
+        if (operator === "<=") return numericValue <= target;
+        if (operator === ">") return numericValue > target;
+        if (operator === ">=") return numericValue >= target;
+        if (operator === "=" || operator === "==") return numericValue === target;
+        if (operator === "!=") return numericValue !== target;
+      }
+
+      const multiCompare = rawFilter.split(/\s+(?:and|&&)\s+/i);
+      if (multiCompare.length > 1) {
+        return multiCompare.every(part => matchesColumnFilter(cellValue, part));
+      }
+
+      const options = rawFilter.split("|").map(item => item.trim().toLowerCase()).filter(Boolean);
+      if (options.length > 1) {
+        return options.some(option => cellLower.includes(option));
+      }
+
+      return cellLower.includes(rawFilter.toLowerCase());
+    }
+
     async function json(url, github = false) {
       const options = github ? { headers: { Accept: "application/vnd.github+json" } } : undefined;
       const response = await fetch(url, options);
@@ -393,8 +441,7 @@
         const globalMatch = !keyword || Object.values(row).join(" ").toLowerCase().includes(keyword);
         if (!globalMatch) return false;
         return Object.entries(columnFilters).every(([header, filter]) => {
-          const needle = String(filter || "").trim().toLowerCase();
-          return !needle || String(row[header] ?? "").toLowerCase().includes(needle);
+          return matchesColumnFilter(row[header], filter);
         });
       });
     }
@@ -471,7 +518,7 @@
                 }).join("")}
               </tr>
               <tr class="filter-row">
-                ${headers.map(header => `<th class="${header === headers[0] ? "sticky-col" : ""}"><input class="column-filter" data-filter-col="${escapeHtml(header)}" value="${escapeHtml(columnFilters[header] || "")}" placeholder="Filter..." /></th>`).join("")}
+                ${headers.map(header => `<th class="${header === headers[0] ? "sticky-col" : ""}"><input class="column-filter" data-filter-col="${escapeHtml(header)}" value="${escapeHtml(columnFilters[header] || "")}" placeholder="${isNumericColumn(header) ? ">10, <15, 10..20" : "Filter..."}" /></th>`).join("")}
               </tr>
             </thead>
             <tbody>
