@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="bothBook คลังสรุปหนังสือ บทความ และ playbook สำหรับอ่านอย่างเป็นระบบ" />
+  <meta name="theme-color" content="#2f5f4f" />
   <title>bothBook | Knowledge Library</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -121,6 +125,12 @@
       padding: 10px 16px;
       background: rgba(255, 252, 244, .58);
       backdrop-filter: blur(12px);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .hero-card {
@@ -661,7 +671,7 @@
       .nav-link { display: inline-flex; }
       .hero-card { padding: 46px; }
       .hero-actions {
-        grid-template-columns: max-content max-content;
+        grid-template-columns: repeat(2, max-content);
       }
       .stats {
         width: min(620px, 100%);
@@ -689,6 +699,9 @@
     }
 
     @media (min-width: 1040px) {
+      .hero-actions {
+        grid-template-columns: repeat(4, max-content);
+      }
       .hero-grid {
         display: grid;
         grid-template-columns: 1fr 320px;
@@ -726,7 +739,11 @@
             <span>Knowledge Library</span>
           </div>
         </div>
-        <a class="nav-link" href="#library">เริ่มอ่านเอกสาร</a>
+        <div class="nav-links">
+          <a class="nav-link" href="#library">เริ่มอ่านเอกสาร</a>
+          <a class="nav-link" href="./research/">งานวิจัย</a>
+          <a class="nav-link" href="./stocks/">วิเคราะห์หุ้น</a>
+        </div>
       </nav>
 
       <section class="hero-card">
@@ -738,6 +755,8 @@
         <div class="hero-actions">
           <a class="button primary" href="#library">ดูเอกสารทั้งหมด</a>
           <button class="button secondary" id="continueBtn" type="button">อ่านรายการที่ยังไม่จบ</button>
+          <a class="button secondary" href="./research/">คลังงานวิจัย</a>
+          <a class="button secondary" href="./stocks/">วิเคราะห์หุ้นรายตัว</a>
         </div>
         <div class="stats" aria-label="Library summary">
           <div class="stat">

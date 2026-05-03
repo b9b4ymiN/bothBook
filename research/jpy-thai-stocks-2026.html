@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เยนแข็ง → ผลต่อตลาดหุ้น | Stock Impact Research 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #080c10;
+  --surface:  #0e1420;
+  --card:     #121922;
+  --border:   rgba(255,255,255,0.05);
+  --teal:     #00c9a7;
+  --teal-dim: #007a66;
+  --sky:      #38bdf8;
+  --amber:    #f59e0b;
+  --red:      #ef4444;
+  --green:    #22c55e;
+  --slate:    #94a3b8;
+  --text:     #e2e8f0;
+  --muted:    #64748b;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 15% 5%, rgba(0,201,167,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 85% 90%, rgba(56,189,248,0.03) 0%, transparent 50%);
+}
+
+/* ── HEADER ── */
+.hdr {
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hdr::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--sky), var(--teal));
+}
+.hdr-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 18px;
+}
+.hdr-pretitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hdr-pretitle::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--teal-dim);
+}
+.hdr h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(30px, 5vw, 58px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.hdr h1 em { font-style: normal; color: var(--teal); }
+.hdr h1 span { color: var(--amber); }
+.hdr-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--slate);
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+.hdr-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.chip.teal { background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.25); color: var(--teal); }
+.chip.amber { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: var(--amber); }
+.chip.red { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: var(--red); }
+.chip.sky { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: var(--sky); }
+
+/* ── LAYOUT ── */
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 28px; }
+
+/* ── NAV BAR ── */
+.nav-bar {
+  background: rgba(14,20,32,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  padding: 0;
+}
+.nav-inner {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-link {
+  padding: 14px 20px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.nav-link:hover { color: var(--teal); border-bottom-color: var(--teal); }
+
+/* ── SECTIONS ── */
+section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+.sec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--teal-dim);
+  margin-bottom: 10px;
+}
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 36px 0 14px;
+  padding-left: 14px;
+  border-left: 3px solid var(--teal);
+}
+h4 {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin: 24px 0 10px;
+}
+p { color: #b0bec5; margin-bottom: 14px; font-size: 15px; }
+strong { color: var(--text); }
+em { color: var(--teal); font-style: italic; }
+
+/* ── CALLOUT ── */
+.callout {
+  padding: 24px 28px;
+  border-radius: 4px;
+  margin: 24px 0;
+  border-left: 4px solid;
+}
+.callout.teal { background: rgba(0,201,167,0.06); border-color: var(--teal); }
+.callout.red { background: rgba(239,68,68,0.06); border-color: var(--red); }
+.callout.amber { background: rgba(245,158,11,0.06); border-color: var(--amber); }
+.callout.sky { background: rgba(56,189,248,0.06); border-color: var(--sky); }
+.callout-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.callout.teal .callout-label { color: var(--teal); }
+.callout.red .callout-label { color: var(--red); }
+.callout.amber .callout-label { color: var(--amber); }
+.callout.sky .callout-label { color: var(--sky); }
+.callout p { margin: 0; font-size: 14px; }
+
+/* ── TABLES ── */
+.tbl-wrap { overflow-x: auto; margin: 24px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+thead th {
+  background: rgba(0,201,167,0.06);
+  color: var(--teal);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0,201,167,0.2);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: #94a3b8;
+  vertical-align: top;
+}
+tbody tr:hover td { background: rgba(255,255,255,0.02); }
+.num { font-family: 'JetBrains Mono', monospace; }
+.pos { color: var(--green); font-weight: 600; }
+.neg { color: var(--red); font-weight: 600; }
+.neu { color: var(--amber); font-weight: 600; }
+.hi { color: #fff; font-weight: 600; }
+
+/* ── CHANNEL CARDS ── */
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.ch-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+.ch-card:hover { border-color: rgba(0,201,167,0.3); }
+.ch-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(0,201,167,0.12);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.ch-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.ch-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+/* ── PHASE BOXES ── */
+.phase-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+@media (max-width: 640px) { .phase-row { grid-template-columns: 1fr; } }
+.phase-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 24px;
+}
+.phase-box.danger { border-top: 3px solid var(--red); }
+.phase-box.oppty { border-top: 3px solid var(--green); }
+.phase-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.phase-box.danger .phase-head { color: var(--red); }
+.phase-box.oppty .phase-head { color: var(--green); }
+.phase-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.phase-box p { font-size: 13.5px; margin-bottom: 10px; }
+.phase-ul { list-style: none; padding: 0; }
+.phase-ul li {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  align-items: flex-start;
+}
+.phase-box.danger .phase-ul li::before { content: '↓'; color: var(--red); flex-shrink: 0; }
+.phase-box.oppty .phase-ul li::before { content: '↑'; color: var(--green); flex-shrink: 0; }
+
+/* ── STOCK CARDS ── */
+.stock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin: 28px 0; }
+.stock-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 22px;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.stock-card:hover { border-color: rgba(0,201,167,0.35); transform: translateY(-2px); }
+.stock-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.stock-card.buy::before { background: var(--green); }
+.stock-card.watch::before { background: var(--amber); }
+.stock-card.avoid::before { background: var(--red); }
+.stock-ticker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.stock-name { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+.stock-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.stock-card.buy .stock-badge { background: rgba(34,197,94,0.12); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+.stock-card.watch .stock-badge { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+.stock-card.avoid .stock-badge { background: rgba(239,68,68,0.12); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.stock-desc { font-size: 13px; color: var(--slate); line-height: 1.55; margin-bottom: 14px; }
+.stock-drivers { border-top: 1px solid var(--border); padding-top: 12px; }
+.driver-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.driver-label { font-size: 11.5px; color: var(--muted); }
+.driver-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.driver-val.pos { background: rgba(34,197,94,0.1); color: var(--green); }
+.driver-val.neg { background: rgba(239,68,68,0.1); color: var(--red); }
+.driver-val.neu { background: rgba(245,158,11,0.1); color: var(--amber); }
+.stock-thesis { font-size: 12.5px; color: #64748b; font-style: italic; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+/* ── FLOW DIAGRAM ── */
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 28px 0;
+}
+.flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+}
+.flow-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 32px;
+}
+.flow-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 3px solid var(--bg);
+  z-index: 1;
+}
+.flow-dot.red { background: var(--red); }
+.flow-dot.amber { background: var(--amber); }
+.flow-dot.green { background: var(--green); }
+.flow-line {
+  width: 1px;
+  flex: 1;
+  background: rgba(0,201,167,0.2);
+  min-height: 24px;
+  margin-top: 2px;
+}
+.flow-right { flex: 1; padding-bottom: 8px; }
+.flow-step-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.flow-step-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ── METER ── */
+.meters { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.mrow { display: flex; align-items: center; gap: 12px; }
+.mlbl { font-size: 12.5px; color: var(--muted); width: 160px; flex-shrink: 0; }
+.mbar { flex: 1; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+.mfill { height: 100%; border-radius: 3px; }
+.mfill.t { background: linear-gradient(90deg, var(--teal-dim), var(--teal)); }
+.mfill.r { background: linear-gradient(90deg, #7f1d1d, var(--red)); }
+.mfill.a { background: linear-gradient(90deg, #78350f, var(--amber)); }
+.mfill.g { background: linear-gradient(90deg, #14532d, var(--green)); }
+.mval { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text); width: 36px; text-align: right; }
+
+/* ── PORTFOLIO ── */
+.port-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 28px 0; }
+@media(max-width:640px){.port-grid{grid-template-columns:1fr}}
+.port-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+}
+.port-card h4 { margin: 0 0 12px; }
+.port-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+.port-item span:first-child { color: var(--slate); }
+.port-item span:last-child { font-family: 'JetBrains Mono', monospace; }
+.port-item .wt { color: #fff; font-weight: 600; }
+
+/* ── GLOBAL MAP ── */
+.global-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 24px 0; }
+.glob-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px 18px;
+}
+.glob-market { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #fff; margin-bottom: 4px; }
+.glob-country { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+.glob-impact { font-size: 12px; margin-bottom: 6px; }
+.glob-why { font-size: 11px; color: var(--muted); line-height: 1.4; }
+.pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+.pill.bad { background: rgba(239,68,68,0.12); color: var(--red); }
+.pill.mid { background: rgba(245,158,11,0.12); color: var(--amber); }
+.pill.good { background: rgba(34,197,94,0.12); color: var(--green); }
+
+/* ── TIMELINE ── */
+.tline { position: relative; padding-left: 28px; margin: 24px 0; }
+.tline::before { content:''; position:absolute; left:5px; top:8px; bottom:0; width:1px; background:linear-gradient(180deg, var(--teal), rgba(0,201,167,0.05)); }
+.tl { position:relative; margin-bottom:24px; }
+.tl-dot2 { position:absolute; left:-26px; top:4px; width:12px; height:12px; border-radius:50%; border:2px solid var(--teal); background:var(--bg); }
+.tl-dot2.now { background: var(--teal); }
+.tl-date { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--teal); margin-bottom:4px; }
+.tl-body { font-size:13.5px; color:var(--slate); }
+.tl-body strong { color:var(--text); }
+
+footer { padding: 48px 0; text-align: center; border-top: 1px solid var(--border); }
+footer p { font-size: 12px; color: var(--muted); margin: 4px 0; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.hdr>*{animation:fadeUp 0.5s ease both}
+.hdr-eyebrow{animation-delay:.05s}
+.hdr-pretitle{animation-delay:.1s}
+.hdr h1{animation-delay:.15s}
+.hdr-sub{animation-delay:.2s}
+.hdr-chips{animation-delay:.25s}
+
+@media(max-width:700px){.wrap{padding:0 16px}}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="hdr">
+<div class="wrap">
+  <div class="hdr-eyebrow">ต่อเนื่องจาก JPY Analysis Vol.1 · Stock Market Impact · พฤษภาคม 2569</div>
+  <div class="hdr-pretitle">เมื่อเยนแข็งค่า — ตลาดหุ้นจะเกิดอะไรขึ้น?</div>
+  <h1>เยน<em>แข็ง</em>ค่า →<br>โอกาส<span> SET</span></h1>
+  <p class="hdr-sub">วิเคราะห์ผลกระทบ carry trade unwind ถึงตลาดหุ้นไทย และหุ้นรายตัวที่ได้/เสียประโยชน์เมื่อ USD/JPY มุ่งสู่ 140–150</p>
+  <div class="hdr-chips">
+    <div class="chip teal">Carry Trade Unwind</div>
+    <div class="chip sky">Global Risk-Off</div>
+    <div class="chip amber">Tourism Play</div>
+    <div class="chip teal">Auto Parts Export</div>
+    <div class="chip red">EM Capital Flight</div>
+    <div class="chip sky">Food Export Japan</div>
+  </div>
+</div>
+</header>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav-bar">
+<div class="wrap">
+<div class="nav-inner">
+  <a href="#s1" class="nav-link">01 กลไก</a>
+  <a href="#s2" class="nav-link">02 Global Impact</a>
+  <a href="#s3" class="nav-link">03 SET Impact</a>
+  <a href="#s4" class="nav-link">04 2-Phase Framework</a>
+  <a href="#s5" class="nav-link">05 Sector Analysis</a>
+  <a href="#s6" class="nav-link">06 Buy List</a>
+  <a href="#s7" class="nav-link">07 Avoid List</a>
+  <a href="#s8" class="nav-link">08 Portfolio</a>
+  <a href="#s9" class="nav-link">09 Trigger Map</a>
+</div>
+</div>
+</nav>
+
+<!-- ═══ S1: MECHANISM ═══ -->
+<section id="s1">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 01</div>
+  <h2>4 ช่องทางที่เยนแข็งกระทบ<br>ตลาดหุ้นทั่วโลก</h2>
+
+  <p>เยนแข็งค่าไม่ได้ส่งผลต่อตลาดหุ้นแบบ "เส้นตรง" — มี <strong>ช่องทางการส่งผ่านที่ซับซ้อน 4 ช่องทาง</strong> ที่ทำงานพร้อมกัน บางช่องทางส่งผลระยะสั้น บางช่องทางส่งผลโครงสร้างระยะยาว และบางช่องทางก็ดีหรือเลวขึ้นกับ "เร็วแค่ไหน" ที่เยนแข็ง</p>
+
+  <div class="channel-grid">
+    <div class="ch-card">
+      <div class="ch-num">1</div>
+      <div class="ch-title">Carry Trade Unwind</div>
+      <p class="ch-desc">ผลรุนแรงที่สุดในระยะสั้น — Investor ที่กู้ JPY ลงทุน EM ต้องขายสินทรัพย์ทั่วโลกเพื่อ cover margin call เมื่อ JPY แข็งขึ้น ก่อ cascading selloff</p>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">2</div>
+      <div class="ch-title">Capital Repatriation</div>
+      <p class="ch-desc">Japan institutions ($4–5T ต่างประเทศ) ขาย foreign assets กลับซื้อ JGB เมื่อ JGB yield น่าสนใจกว่า ช่วยเยนแข็งแต่กดดัน global bond/equity</p>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">3</div>
+      <div class="ch-title">Exporter Earnings Hit</div>
+      <p class="ch-desc">Toyota, Sony, Honda กำไรลดเมื่อ JPY แข็ง ¥45B ต่อ ¥1 สำหรับ Toyota → Nikkei ร่วง → contagion ไปตลาดอื่นผ่าน risk sentiment</p>
+    </div>
+    <div class="ch-card">
+      <div class="ch-num">4</div>
+      <div class="ch-title">Tourism &amp; Trade Flow</div>
+      <p class="ch-desc">เยนแข็ง → ชาวญี่ปุ่น "รวยขึ้น" ในสกุลอื่น → ท่องเที่ยวต่างประเทศมากขึ้น → ส่งออกไทยไปญี่ปุ่นถูกลงในสายตาผู้ซื้อ → demand เพิ่ม</p>
+    </div>
+  </div>
+
+  <h3>Chain of Events เมื่อเยนแข็งเร็ว (Carry Unwind Scenario)</h3>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot red"></div><div class="flow-line"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">⚡ Trigger: BOJ hawkish + US weak data (พร้อมกัน)</div>
+        <div class="flow-step-desc">ส.ค. 2567: BOJ hike 0.25% + Ueda hawkish + US NFP 114K (ต่ำกว่าคาด) → USD/JPY ร่วงจาก 161 → 142 ใน 3 สัปดาห์</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot red"></div><div class="flow-line"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">📈 JPY แข็งอย่างรวดเร็ว</div>
+        <div class="flow-step-desc">JPY borrowing cost เพิ่ม → carry position ขาดทุน → margin call ทั่วโลก</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot amber"></div><div class="flow-line"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">🌍 Global Risk Asset Selloff</div>
+        <div class="flow-step-desc">Investors ขาย US stocks, EM bonds, EM equities, Bitcoin เพื่อ buy JPY ชดใช้หนี้ VIX พุ่ง → liquidity ตึง</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot amber"></div><div class="flow-line"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">🇯🇵 Nikkei ร่วงพร้อม JPY แข็ง</div>
+        <div class="flow-step-desc">Exporter กำไรลด + forced liquidation ของ carry-funded Nikkei positions → Nikkei -12.4% วันเดียว (5 ส.ค. 2567)</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot amber"></div><div class="flow-line"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">🌏 EM Markets ถูกทิ้งพร้อมกัน</div>
+        <div class="flow-step-desc">KOSPI -8.8%, TAIEX -8.4%, ASX -3.7%, S&P 500 -3% — correlation ทุกตลาดพุ่งสู่ 0.8+ ในวิกฤต</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot green"></div><div class="flow-line"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">⏱ Stabilization ใน 2–4 สัปดาห์</div>
+        <div class="flow-step-desc">JPM ประมาณ Aug 2024 unwind 65–75% เสร็จใน 3 สัปดาห์ หลังจากนั้น risk appetite กลับ — แต่ JPY ไม่กลับ 160 เพราะ fundamental เปลี่ยน</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-left"><div class="flow-dot green"></div></div>
+      <div class="flow-right">
+        <div class="flow-step-title">✅ Medium-Term Opportunity เปิดขึ้น</div>
+        <div class="flow-step-desc">ตลาดฟื้น แต่ JPY ยังแข็งต่อ → tourism/food export benefit ของตลาดปลายทาง (Thailand) เริ่มเห็นผล</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-label">⚡ Key Principle</div>
+    <p><strong>"เยนแข็งเร็ว"</strong> = Risk-off = ขายทุกอย่างก่อน รวมถึงหุ้นไทย &nbsp;|&nbsp; <strong>"เยนแข็งช้า"</strong> = Structural benefit = ซื้อ sector ที่ได้ประโยชน์ในไทย<br>นักลงทุนต้องแยกแยะ 2 สถานการณ์นี้ให้ชัดก่อนตัดสินใจ</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══ S2: GLOBAL IMPACT ═══ -->
+<section id="s2">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 02</div>
+  <h2>ผลกระทบต่อตลาดหุ้นโลก<br>— Global Impact Map</h2>
+
+  <p>ข้อมูลจาก BIS Bulletin No.90 และ JPMorgan เก็บผลจริงจากเหตุการณ์ ส.ค. 2567 ซึ่งเป็น template ที่ดีที่สุดสำหรับ scenario ต่อไป</p>
+
+  <div class="global-grid">
+    <div class="glob-card">
+      <div class="glob-market">Nikkei 225</div>
+      <div class="glob-country">🇯🇵 ญี่ปุ่น</div>
+      <div class="pill bad">SHORT-TERM CRASH</div>
+      <div class="glob-impact">ส.ค. 2567: <strong>-12.4% วันเดียว</strong> (Black Monday ครั้งใหม่)</div>
+      <div class="glob-why">Export earnings ลด + carry-funded Nikkei ถูกขาย + panic sell ซ้ำ (reflexivity loop)</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">S&P 500</div>
+      <div class="glob-country">🇺🇸 สหรัฐอเมริกา</div>
+      <div class="pill bad">MODERATE SHOCK</div>
+      <div class="glob-impact">ส.ค. 2567: <strong>-3% ใน 5 วัน</strong></div>
+      <div class="glob-why">Tech stocks ที่ funded ด้วย JPY ถูกขาย VIX พุ่งถึง 65 — สูงสุดนับแต่ COVID</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">KOSPI</div>
+      <div class="glob-country">🇰🇷 เกาหลีใต้</div>
+      <div class="pill bad">SEVERE SHOCK</div>
+      <div class="glob-impact">ส.ค. 2567: <strong>-8.8% วันเดียว</strong></div>
+      <div class="glob-why">High foreign ownership + EM proxy + carry trade-funded position ขนาดใหญ่</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">TAIEX</div>
+      <div class="glob-country">🇹🇼 ไต้หวัน</div>
+      <div class="pill bad">SEVERE SHOCK</div>
+      <div class="glob-impact">ส.ค. 2567: <strong>-8.4% วันเดียว</strong></div>
+      <div class="glob-why">Tech-heavy + TSMC driven + carry-funded semi positions</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">ASX 200</div>
+      <div class="glob-country">🇦🇺 ออสเตรเลีย</div>
+      <div class="pill mid">MODERATE</div>
+      <div class="glob-impact">ส.ค. 2567: <strong>-3.7% วันเดียว</strong></div>
+      <div class="glob-why">AUD เป็น carry currency ด้วย → JPY unwind กดทั้ง AUD และ ASX</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">EUR Stoxx 50</div>
+      <div class="glob-country">🇪🇺 ยุโรป</div>
+      <div class="pill mid">MODERATE</div>
+      <div class="glob-impact">-3 to -5% ในช่วง unwind</div>
+      <div class="glob-why">European exports แข่งกับ Japanese goods + carry positions ในยุโรป</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">MXN, BRL, TRY</div>
+      <div class="glob-country">🌍 EM High-Yield</div>
+      <div class="pill bad">HARDEST HIT</div>
+      <div class="glob-impact">Peso -6%, Real -5% ใน unwind episode</div>
+      <div class="glob-why">Popular carry destination — ถูกขายหนักที่สุดเมื่อ JPY unwind</div>
+    </div>
+    <div class="glob-card">
+      <div class="glob-market">Bitcoin</div>
+      <div class="glob-country">🔗 Crypto</div>
+      <div class="pill bad">EXTREME VOLATILITY</div>
+      <div class="glob-impact">ส.ค. 2567: -20%+ จาก peak ก่อน unwind</div>
+      <div class="glob-why">Crypto เป็น carry trade destination ยุคใหม่ → ถูกขายหนักในช่วง risk-off</div>
+    </div>
+  </div>
+
+  <h3>ความเสียหายตามลำดับ (Severity Ranking)</h3>
+  <div class="meters">
+    <div class="mrow"><span class="mlbl">Nikkei 225</span><div class="mbar"><div class="mfill r" style="width:95%"></div></div><span class="mval">-12%</span></div>
+    <div class="mrow"><span class="mlbl">KOSPI / TAIEX</span><div class="mbar"><div class="mfill r" style="width:88%"></div></div><span class="mval">-8.5%</span></div>
+    <div class="mrow"><span class="mlbl">EM High-Yield FX</span><div class="mbar"><div class="mfill r" style="width:80%"></div></div><span class="mval">-6%</span></div>
+    <div class="mrow"><span class="mlbl">ASX 200</span><div class="mbar"><div class="mfill a" style="width:55%"></div></div><span class="mval">-4%</span></div>
+    <div class="mrow"><span class="mlbl">S&P 500</span><div class="mbar"><div class="mfill a" style="width:45%"></div></div><span class="mval">-3%</span></div>
+    <div class="mrow"><span class="mlbl">EUR Stoxx 50</span><div class="mbar"><div class="mfill a" style="width:40%"></div></div><span class="mval">-3.5%</span></div>
+    <div class="mrow"><span class="mlbl">SET (คาดการณ์)</span><div class="mbar"><div class="mfill a" style="width:52%"></div></div><span class="mval">-3–5%</span></div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:-8px">*ตัวเลข ส.ค. 2567 จากข้อมูลจริง, SET คาดการณ์จาก EM correlation pattern</p>
+
+  <div class="callout sky">
+    <div class="callout-label">💡 ข้อสังเกตสำคัญ</div>
+    <p>ตลาดที่มี <strong>foreign ownership สูง + EM label + carry trade exposure</strong> จะถูกขายก่อนและแรงกว่า ตลาดหุ้นไทยมีครบทั้ง 3 คุณสมบัตินี้ BIS ยืนยันว่า THB ปรากฏใน carry trade basket (จากข้อมูล BIS OTC derivatives statistics)</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══ S3: SET IMPACT ═══ -->
+<section id="s3">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 03</div>
+  <h2>ผลกระทบต่อตลาดหุ้นไทย<br>— SET Index Analysis</h2>
+
+  <p>SET อยู่ในฐานะ <strong>EM market ที่มี 6 ความเสี่ยงพิเศษ</strong> ต่อ JPY appreciation แต่ขณะเดียวกันก็มี <strong>4 โอกาสเฉพาะตัว</strong> ที่ตลาดอื่นไม่มี</p>
+
+  <h3>ความเสี่ยงของ SET ต่อ JPY Appreciation</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>#</th><th>ความเสี่ยง</th><th>กลไก</th><th>ระดับความรุนแรง</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><strong>Foreign Fund Outflow</strong></td><td>ต่างชาติถือหุ้นไทย ~27% → ขาย SET ซื้อ JPY ในช่วง carry unwind</td><td class="neg">สูงมาก ⚡</td></tr>
+        <tr><td class="num">2</td><td><strong>THB อ่อนค่า</strong></td><td>THB เป็น carry destination → เมื่อ JPY unwind THB ก็อ่อน (แต่อาจแข็งถ้า safe haven flow)</td><td class="neu">ปานกลาง</td></tr>
+        <tr><td class="num">3</td><td><strong>Japanese FDI ลดลง</strong></td><td>Toyota, Honda, Isuzu กำไรน้อยลง → ลด capex ใน Thailand ระยะกลาง</td><td class="neu">ปานกลาง (ช้า)</td></tr>
+        <tr><td class="num">4</td><td><strong>Auto Sector Disruption</strong></td><td>Japanese brand ใน Thailand ปรับแผน → กระทบ tier-1/2 suppliers</td><td class="neg">สูง (sector specific)</td></tr>
+        <tr><td class="num">5</td><td><strong>Global Risk-Off Contagion</strong></td><td>ทุก EM ร่วงพร้อมกันในช่วง panic — ไม่เลือก fundamentals</td><td class="neg">สูงมาก</td></tr>
+        <tr><td class="num">6</td><td><strong>Japan Competition ลดลง</strong></td><td>หลังเยนแข็ง สินค้าญี่ปุ่นแพงขึ้นในตลาดโลก → Thai exporters แข่งขันได้ดีขึ้น</td><td class="pos">โอกาส ✅</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>โอกาสเฉพาะตัวของไทยเมื่อเยนแข็ง (ระยะกลาง-ยาว)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>#</th><th>โอกาส</th><th>กลไก</th><th>Magnitude</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><strong>🏖 นักท่องเที่ยวญี่ปุ่น</strong></td><td>JPY แข็ง → ชาวญี่ปุ่น "ซื้อ" THB ได้มากขึ้น → ไทยถูกลงในสายตาญี่ปุ่น</td><td class="pos">ถ้า THB/JPY 4.83→5.5 = +14%</td></tr>
+        <tr><td class="num">2</td><td><strong>🍗 ส่งออกอาหารไปญี่ปุ่น</strong></td><td>ไก่/กุ้ง/อาหารแปรรูป → ถูกลงในสายตาผู้ซื้อญี่ปุ่น → demand เพิ่ม</td><td class="pos">ขึ้นกับ commodity</td></tr>
+        <tr><td class="num">3</td><td><strong>🏭 Auto Parts ส่งออก</strong></td><td>Thai parts สำหรับ JV ใน Thailand → ต้นทุนใน THB แต่ขายในระบบที่ JPY แข็งช่วย</td><td class="neu">Mixed, complex</td></tr>
+        <tr><td class="num">4</td><td><strong>🏥 Medical Tourism</strong></td><td>ญี่ปุ่นแพงขึ้นในตลาดโลก → Japanese patients ใช้บริการ Thailand เพิ่มขึ้น</td><td class="pos">Growing trend</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Japan–Thailand Economic Links ที่สำคัญ</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>ตัวชี้วัด</th><th>ค่า</th><th>นัยสำคัญ</th></tr></thead>
+      <tbody>
+        <tr><td>Japan → Thailand FDI stock</td><td class="num hi">อันดับ 1 ของ BOI applications Q1/2026</td><td>ญี่ปุ่นยังลงทุนไทยสูงสุด</td></tr>
+        <tr><td>นักท่องเที่ยวญี่ปุ่นมาไทย (2019 peak)</td><td class="num">~1.8–2.5M คน/ปี</td><td>อันดับ 3–5 ของ inbound tourism</td></tr>
+        <tr><td>Thailand ส่งออกไปญี่ปุ่น</td><td class="num">~9–10% ของ total exports</td><td>ญี่ปุ่น = Top 4 ตลาดส่งออก</td></tr>
+        <tr><td>Auto industry employment (Japanese JV)</td><td class="num">~500K+ jobs ทางตรง+ทางอ้อม</td><td>Toyota/Honda/Isuzu ผลิตหลักในไทย</td></tr>
+        <tr><td>Japanese companies ใน Thailand</td><td class="num">~5,000+ บริษัท</td><td>มากที่สุดใน ASEAN</td></tr>
+        <tr><td>THB/JPY ปัจจุบัน</td><td class="num neu">4.83 บาท/เยน</td><td>ถ้า JPY→140 = 5.35–5.5 บาท/เยน</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══ S4: 2-PHASE FRAMEWORK ═══ -->
+<section id="s4">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 04</div>
+  <h2>2-Phase Framework<br>สำหรับนักลงทุนไทย</h2>
+
+  <p>การลงทุนโดยอาศัย JPY thesis ต้องแบ่งออกเป็น <strong>2 Phase ที่แตกต่างกันโดยสิ้นเชิง</strong> — Phase 1 คือช่วงอันตราย Phase 2 คือช่วงโอกาส การเข้าใจความแตกต่างนี้คือจุดที่แยกนักลงทุนมืออาชีพจากมือสมัครเล่น</p>
+
+  <div class="phase-row">
+    <div class="phase-box danger">
+      <div class="phase-head">🔴 Phase 1 — Danger Zone</div>
+      <div class="phase-title">Carry Trade Unwind<br>ช่วงแรก 0–6 สัปดาห์</div>
+      <p>เมื่อ carry unwind เริ่ม ทุกอย่างถูกขายพร้อมกัน โดยไม่เลือก fundamentals นักลงทุนต่างชาติขาย SET ซื้อ JPY ตามกลไก margin call</p>
+      <ul class="phase-ul">
+        <li>SET index ร่วง 3–7% ใน 1–2 สัปดาห์</li>
+        <li>Foreign sell volume สูงผิดปกติ</li>
+        <li>THB อาจอ่อนค่า (carry currency)</li>
+        <li>หุ้นที่ foreigners ถือเยอะถูกขายหนักสุด</li>
+        <li>Correlation ทุกตลาดพุ่ง → diversification ไม่ช่วย</li>
+      </ul>
+    </div>
+    <div class="phase-box oppty">
+      <div class="phase-head">🟢 Phase 2 — Opportunity Window</div>
+      <div class="phase-title">Structural JPY Strength<br>ช่วง 3–24 เดือน</div>
+      <p>หลัง panic จางลง และ JPY ยังแข็งต่อ (structural) ไม่ใช่ panic-driven — ตลาดเริ่มเล่น sector ที่ได้ประโยชน์จาก JPY strong</p>
+      <ul class="phase-ul">
+        <li>Tourism stocks ราคาขึ้น (Japanese tourists เพิ่ม)</li>
+        <li>Food exporter to Japan เติบโต</li>
+        <li>Medical tourism ขยายตัว</li>
+        <li>THB/JPY สูงขึ้น = Thai assets น่าสนใจสำหรับ Japanese</li>
+        <li>Japanese FDI อาจ rebalance ไป non-Japan assets</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-label">🎯 กลยุทธ์หลัก</div>
+    <p><strong>Phase 1:</strong> ลด position EM (รวม SET) ก่อน หรือ รอซื้อหลัง panic ผ่านไป ห้ามขัดแย้งกับ momentum selloff &nbsp;|&nbsp; <strong>Phase 2:</strong> ซื้อสะสม tourism, food export, medical tourism ด้วย conviction ระยะกลาง 12–24 เดือน &nbsp;|&nbsp; <strong>Key question:</strong> "เยนแข็งเร็วหรือช้า?" ตอบโจทย์นี้ก่อนลงทุน</p>
+  </div>
+
+  <h3>สัญญาณแยกแยะ Phase 1 vs Phase 2</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>สัญญาณ</th><th>Phase 1 (Danger)</th><th>Phase 2 (Opportunity)</th></tr></thead>
+      <tbody>
+        <tr><td>VIX</td><td class="neg">&gt;25 (สูงขึ้น)</td><td class="pos">&lt;20 (ลดลง)</td></tr>
+        <tr><td>USD/JPY daily change</td><td class="neg">&gt;1.5% ต่อวัน</td><td class="pos">&lt;0.5% ต่อวัน (ค่อยๆ)</td></tr>
+        <tr><td>SET foreign flow</td><td class="neg">ขายสุทธิ &gt;3B THB/วัน</td><td class="pos">ขายลดลง หรือซื้อสลับ</td></tr>
+        <tr><td>Nikkei direction</td><td class="neg">ร่วงพร้อม JPY แข็ง</td><td class="pos">Nikkei stabilize แม้ JPY แข็ง</td></tr>
+        <tr><td>BOJ/Fed tone</td><td class="neg">Surprise, ไม่ได้ price in</td><td class="pos">Gradual, market-expected</td></tr>
+        <tr><td>THB/JPY move</td><td class="neg">THB อ่อนพร้อมกัน (risk-off)</td><td class="pos">THB stable หรือแข็ง</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ═══ S5: SECTOR ANALYSIS ═══ -->
+<section id="s5">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 05</div>
+  <h2>Sector Analysis<br>— ใครได้ ใครเสียใน SET</h2>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Sector</th><th>Phase 1 Impact</th><th>Phase 2 Impact</th><th>Net View</th><th>หุ้นตัวอย่าง</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>✈️ Aviation &amp; Tourism</strong></td>
+          <td class="neg">-3 to -6% (foreign sell)</td>
+          <td class="pos">++++ (นักท่องเที่ยวญี่ปุ่น)</td>
+          <td class="pos">BUY on Dip</td>
+          <td class="hi">AOT, BA, AAV</td>
+        </tr>
+        <tr>
+          <td><strong>🏨 Hotels &amp; Hospitality</strong></td>
+          <td class="neg">-3 to -5%</td>
+          <td class="pos">+++ (occupancy สูงขึ้น)</td>
+          <td class="pos">BUY on Dip</td>
+          <td class="hi">MINT, ERW, CENTEL</td>
+        </tr>
+        <tr>
+          <td><strong>🍗 Food Export (Japan)</strong></td>
+          <td class="neg">-2 to -4%</td>
+          <td class="pos">+++ (demand จากญี่ปุ่น)</td>
+          <td class="pos">BUY</td>
+          <td class="hi">CPF, GFPT, TFG</td>
+        </tr>
+        <tr>
+          <td><strong>🏥 Healthcare/Medical Tourism</strong></td>
+          <td class="neg">-2 to -3%</td>
+          <td class="pos">++ (Japanese patients)</td>
+          <td class="pos">BUY</td>
+          <td class="hi">BDMS, BH</td>
+        </tr>
+        <tr>
+          <td><strong>🔩 Auto Parts (JV)</strong></td>
+          <td class="neg">-4 to -8%</td>
+          <td class="neu">Mixed (JV dynamics)</td>
+          <td class="neu">SELECTIVE</td>
+          <td class="hi">SAT, STANLY, SNC</td>
+        </tr>
+        <tr>
+          <td><strong>💻 Electronics Export</strong></td>
+          <td class="neg">-3 to -5%</td>
+          <td class="neu">+ (Japanese OEM demand ↑)</td>
+          <td class="neu">WATCH</td>
+          <td class="hi">KCE, HANA, DELTA</td>
+        </tr>
+        <tr>
+          <td><strong>🏦 Banking</strong></td>
+          <td class="neg">-5 to -8% (foreign sell)</td>
+          <td class="neu">Neutral (domestic driven)</td>
+          <td class="neg">AVOID Phase 1</td>
+          <td>KBANK, SCB, BBL</td>
+        </tr>
+        <tr>
+          <td><strong>⛽ Energy</strong></td>
+          <td class="neg">-3 to -6% (commodity+EM)</td>
+          <td class="neu">Depends on oil price</td>
+          <td class="neg">REDUCE</td>
+          <td>PTT, PTTEP</td>
+        </tr>
+        <tr>
+          <td><strong>🏠 Real Estate</strong></td>
+          <td class="neg">-2 to -4%</td>
+          <td class="pos">+ (Japanese condo buyers)</td>
+          <td class="neu">NEUTRAL</td>
+          <td>AP, SC, LPN</td>
+        </tr>
+        <tr>
+          <td><strong>🛒 Retail/Consumer</strong></td>
+          <td class="neg">-3 to -5%</td>
+          <td class="pos">+ (Japanese tourists spend)</td>
+          <td class="neu">SELECTIVE</td>
+          <td>CPALL, CRC, BJC</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout amber">
+    <div class="callout-label">⚠️ สำคัญ: Auto Sector ความซับซ้อน</div>
+    <p>Toyota, Honda, Isuzu ผลิตรถในไทยเพื่อ export 50%+ ถ้าเยนแข็ง: (1) Revenue ใน JPY เพิ่มขึ้น แต่ (2) กำไรรวมบริษัทแม่ที่ Japan ลดลง → budget capex ลดลง → อาจ กระทบ Thai supplier ระยะกลาง แต่ (3) ถ้าผลิตในไทยและขาย global ด้วย USD → THB cost ต่ำกว่า → competitive ขึ้น นักลงทุนต้องดู <strong>สัดส่วน revenue ที่ผูกกับ JPY</strong> ของ supplier แต่ละราย</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══ S6: BUY LIST ═══ -->
+<section id="s6">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 06</div>
+  <h2>หุ้นไทยที่น่าสนใจ<br>— Opportunity List</h2>
+  <p>เหล่านี้คือหุ้นที่ <strong>ได้ประโยชน์โดยตรง</strong> จาก JPY appreciation ในระยะกลาง (Phase 2) — ซื้อหลัง carry unwind panic จบ หรือสะสมช้าๆ ในช่วง volatility สูง</p>
+
+  <div class="stock-grid">
+
+    <!-- AOT -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">AOT</div>
+      <div class="stock-name">Airports of Thailand PCL</div>
+      <div class="stock-badge">BUY on Dip — Tourism Play</div>
+      <div class="stock-desc">ท่าอากาศยานที่ใหญ่ที่สุดในไทย รับประโยชน์โดยตรงจากนักท่องเที่ยวญี่ปุ่นที่เพิ่มขึ้น เมื่อ THB/JPY สูงขึ้น ต้นทุนการเดินทางไทยในสายตาญี่ปุ่นลดลงอย่างมีนัย ยังได้รับ traffic จากนักท่องเที่ยวที่ Reroute หลีก Middle East</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japanese tourist exposure</span><span class="driver-val pos">Direct, High</span></div>
+        <div class="driver-row"><span class="driver-label">THB/JPY sensitivity</span><span class="driver-val pos">Strong positive</span></div>
+        <div class="driver-row"><span class="driver-label">Phase 1 risk</span><span class="driver-val neg">-3 to -5%</span></div>
+        <div class="driver-row"><span class="driver-label">Phase 2 upside</span><span class="driver-val pos">High</span></div>
+      </div>
+      <div class="stock-thesis">ซื้อช่วง VIX spike / foreign selloff — เมื่อ Phase 1 จบ recovery มักแรง</div>
+    </div>
+
+    <!-- ERW -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">ERW</div>
+      <div class="stock-name">The Erawan Group PCL</div>
+      <div class="stock-badge">BUY — Japanese Tourist Direct</div>
+      <div class="stock-desc">โรงแรมระดับกลาง HOP INN ที่ขยายตัวรวดเร็ว ฐานลูกค้าญี่ปุ่น-ASEAN สูง Valuation ยังน่าสนใจ KSS ตั้ง target 3.20 THB ปี 2026 ได้รับ upside ทั้งจาก Chinese travel warning ต่อ Japan และ JPY strong</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japanese guest mix</span><span class="driver-val pos">High (ASEAN focus)</span></div>
+        <div class="driver-row"><span class="driver-label">Valuation</span><span class="driver-val pos">Attractive</span></div>
+        <div class="driver-row"><span class="driver-label">HOP INN expansion</span><span class="driver-val pos">Growth catalyst</span></div>
+        <div class="driver-row"><span class="driver-label">ME hotel exposure</span><span class="driver-val pos">Minimal (&lt;5%)</span></div>
+      </div>
+      <div class="stock-thesis">Top pick ของ Krungsri และ Maybank ในกลุ่ม hotel สำหรับ 2026</div>
+    </div>
+
+    <!-- MINT -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">MINT</div>
+      <div class="stock-name">Minor International PCL</div>
+      <div class="stock-badge">BUY — Diversified Tourism</div>
+      <div class="stock-desc">Luxury hotel และ restaurant chain ระดับ international มีทั้ง Anantara, NH Hotels, และ Burger King franchise ในหลายประเทศ ได้รับประโยชน์จาก Japanese luxury travellers และ spending power ที่เพิ่มขึ้น</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Luxury Japanese traveler</span><span class="driver-val pos">Growing segment</span></div>
+        <div class="driver-row"><span class="driver-label">ME exposure risk</span><span class="driver-val neg">25 properties (~20%)</span></div>
+        <div class="driver-row"><span class="driver-label">Diversification</span><span class="driver-val pos">Multi-country revenue</span></div>
+        <div class="driver-row"><span class="driver-label">Recovery path</span><span class="driver-val pos">2026 rebound expected</span></div>
+      </div>
+      <div class="stock-thesis">ระวัง ME exposure แต่ core Thailand business ได้รับประโยชน์ full</div>
+    </div>
+
+    <!-- CENTEL -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">CENTEL</div>
+      <div class="stock-name">Central Plaza Hotel PCL</div>
+      <div class="stock-badge">BUY — Centara Brand Play</div>
+      <div class="stock-desc">Centara Hotels &amp; Resorts ที่เน้นตลาด Thai + Inbound โดยเฉพาะ Centara Pattaya, Koh Samui มีฐานลูกค้าญี่ปุ่นสูง 78% revenue จาก Thai hotels KSS target 37 THB สำหรับ 2026</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Thai hotel revenue %</span><span class="driver-val pos">78% (High)</span></div>
+        <div class="driver-row"><span class="driver-label">Japanese guest %</span><span class="driver-val pos">Growing</span></div>
+        <div class="driver-row"><span class="driver-label">ME hotel exposure</span><span class="driver-val neg">~20% earnings</span></div>
+        <div class="driver-row"><span class="driver-label">Lucky Suki stake</span><span class="driver-val pos">New growth engine</span></div>
+      </div>
+      <div class="stock-thesis">เลือกถ้า ME conflict de-escalates — Thailand operation แข็งแกร่งมาก</div>
+    </div>
+
+    <!-- CPF -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">CPF</div>
+      <div class="stock-name">Charoen Pokphand Foods PCL</div>
+      <div class="stock-badge">BUY — Food Export to Japan</div>
+      <div class="stock-desc">บริษัทอาหารที่ใหญ่ที่สุดในไทย ส่งออกไก่แปรรูป กุ้ง และอาหารพร้อมทานไปญี่ปุ่นเป็นสัดส่วนสำคัญ เมื่อ JPY แข็ง สินค้า CPF ถูกลงในสายตาผู้ซื้อญี่ปุ่น demand เพิ่มขึ้น margin ดีขึ้น</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japan export revenue</span><span class="driver-val pos">Significant (Top 3 mkt)</span></div>
+        <div class="driver-row"><span class="driver-label">FX benefit (JPY strong)</span><span class="driver-val pos">Price competitiveness ↑</span></div>
+        <div class="driver-row"><span class="driver-label">Feed cost pressure</span><span class="driver-val neg">Global commodity risk</span></div>
+        <div class="driver-row"><span class="driver-label">Diversification</span><span class="driver-val pos">25+ countries</span></div>
+      </div>
+      <div class="stock-thesis">Defensive + JPY play — เหมาะสำหรับนักลงทุนที่อยากได้ upside แต่ risk ต่ำ</div>
+    </div>
+
+    <!-- GFPT -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">GFPT</div>
+      <div class="stock-name">GFPT Public Company Limited</div>
+      <div class="stock-badge">BUY — Japan Chicken Export</div>
+      <div class="stock-desc">ผู้ผลิตไก่รายใหญ่ของไทยที่ส่งออกไปญี่ปุ่นเป็นหลัก ญี่ปุ่นเป็นตลาดสำคัญที่สุด เมื่อ JPY แข็ง competitive advantage ของ GFPT ยิ่งแข็งขึ้นเพราะต้นทุน THB แต่รับเงิน JPY ที่มีมูลค่าสูงขึ้น</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japan revenue %</span><span class="driver-val pos">Very High (Primary)</span></div>
+        <div class="driver-row"><span class="driver-label">JPY appreciation benefit</span><span class="driver-val pos">Direct &amp; Strong</span></div>
+        <div class="driver-row"><span class="driver-label">Market cap</span><span class="driver-val neu">Mid-cap (liquid)</span></div>
+        <div class="driver-row"><span class="driver-label">Dividend yield</span><span class="driver-val pos">Attractive</span></div>
+      </div>
+      <div class="stock-thesis">Pure play Japan food export — upside ชัดเจนที่สุดใน sector นี้เมื่อ JPY แข็ง</div>
+    </div>
+
+    <!-- TFG -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">TFG</div>
+      <div class="stock-name">Thai Foods Group PCL</div>
+      <div class="stock-badge">BUY — Processed Chicken Japan</div>
+      <div class="stock-desc">ผลิตไก่แปรรูปคุณภาพสูงส่งออกญี่ปุ่นและเกาหลี (similar dynamics กับ GFPT แต่เล็กกว่า) ได้รับประโยชน์จาก JPY strong ทั้งด้าน demand และ FX translation</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japan export focus</span><span class="driver-val pos">High concentration</span></div>
+        <div class="driver-row"><span class="driver-label">Premium product</span><span class="driver-val pos">Higher margin</span></div>
+        <div class="driver-row"><span class="driver-label">Market cap</span><span class="driver-val neu">Smaller (less liquid)</span></div>
+        <div class="driver-row"><span class="driver-label">JPY sensitivity</span><span class="driver-val pos">Very High</span></div>
+      </div>
+      <div class="stock-thesis">High sensitivity to JPY play — เหมาะสำหรับนักลงทุนที่รับ concentration risk ได้</div>
+    </div>
+
+    <!-- BDMS -->
+    <div class="stock-card buy">
+      <div class="stock-ticker">BDMS</div>
+      <div class="stock-name">Bangkok Dusit Medical Services PCL</div>
+      <div class="stock-badge">WATCH — Medical Tourism</div>
+      <div class="stock-desc">เครือโรงพยาบาลที่ใหญ่ที่สุดในไทย มีบริการ Japanese-speaking และ JCI accredited ชาวญี่ปุ่นเป็น top-5 ของ medical tourist ไทย เมื่อ JPY แข็ง ค่ารักษาในไทยถูกลงมากในสายตาญี่ปุ่น</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japanese patient %</span><span class="driver-val pos">Growing (top 5 source)</span></div>
+        <div class="driver-row"><span class="driver-label">Medical tourism trend</span><span class="driver-val pos">Long-term growth</span></div>
+        <div class="driver-row"><span class="driver-label">Domestic business</span><span class="driver-val pos">Stable base</span></div>
+        <div class="driver-row"><span class="driver-label">Valuation</span><span class="driver-val neu">Premium (P/E ~30x)</span></div>
+      </div>
+      <div class="stock-thesis">Long-term compounder + JPY tailwind — เหมาะเป็น core holding ระยะยาว</div>
+    </div>
+
+    <!-- KCE -->
+    <div class="stock-card watch">
+      <div class="stock-ticker">KCE</div>
+      <div class="stock-name">KCE Electronics PCL</div>
+      <div class="stock-badge">WATCH — PCB Export Play</div>
+      <div class="stock-desc">ผู้ผลิต Printed Circuit Board ระดับโลก ลูกค้าหลักคือ Japanese และ European OEM ใน auto electronics เมื่อ JPY แข็ง ต้นทุนการซื้อ Thai-made PCB ในสายตา Japanese OEM ถูกลง → demand อาจเพิ่ม</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Japanese OEM exposure</span><span class="driver-val pos">Significant</span></div>
+        <div class="driver-row"><span class="driver-label">Auto EV transition risk</span><span class="driver-val neg">Medium concern</span></div>
+        <div class="driver-row"><span class="driver-label">USD revenue base</span><span class="driver-val neu">Mixed FX</span></div>
+        <div class="driver-row"><span class="driver-label">Cycle position</span><span class="driver-val neu">Watch carefully</span></div>
+      </div>
+      <div class="stock-thesis">Indirect play — ต้องดู auto sector health ด้วย ไม่ใช่ pure JPY play</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ═══ S7: AVOID LIST ═══ -->
+<section id="s7">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 07</div>
+  <h2>หุ้นที่ต้องระวัง<br>— Reduce/Avoid in Phase 1</h2>
+  <p>ในช่วง Phase 1 (carry unwind) หุ้นกลุ่มนี้จะถูกขายก่อนและแรงกว่า เพราะ foreign ownership สูง EM sensitive หรือมี JPY cost structure</p>
+
+  <div class="stock-grid">
+
+    <!-- KBANK -->
+    <div class="stock-card avoid">
+      <div class="stock-ticker">KBANK</div>
+      <div class="stock-name">Kasikornbank PCL</div>
+      <div class="stock-badge">REDUCE Phase 1</div>
+      <div class="stock-desc">ธนาคารที่ foreign ownership สูงที่สุดในกลุ่ม ถูกขายหนักในทุก EM selloff episode กิจการพื้นฐานดี แต่ราคาจะร่วงก่อนในช่วง carry unwind</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Foreign ownership</span><span class="driver-val neg">~35%+ (Target sell)</span></div>
+        <div class="driver-row"><span class="driver-label">Phase 1 risk</span><span class="driver-val neg">High selloff pressure</span></div>
+        <div class="driver-row"><span class="driver-label">Fundamental</span><span class="driver-val pos">Strong (buy later)</span></div>
+      </div>
+      <div class="stock-thesis">ลด Phase 1 → ซื้อกลับหลัง panic จบ ที่ราคาดีกว่า</div>
+    </div>
+
+    <!-- SCB -->
+    <div class="stock-card avoid">
+      <div class="stock-ticker">SCB</div>
+      <div class="stock-name">SCB X PCL</div>
+      <div class="stock-badge">REDUCE Phase 1</div>
+      <div class="stock-desc">กลุ่มธนาคารและ fintech ที่มีทั้ง banking และ digital finance ถูกขายในรูปแบบเดียวกับ KBANK ในช่วง EM risk-off</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">EM selloff exposure</span><span class="driver-val neg">High (MSCI member)</span></div>
+        <div class="driver-row"><span class="driver-label">Digital business</span><span class="driver-val pos">Long-term positive</span></div>
+        <div class="driver-row"><span class="driver-label">Timing risk</span><span class="driver-val neg">Buy after dip</span></div>
+      </div>
+      <div class="stock-thesis">รอซื้อใน panic dip — ราคาดีกว่าในช่วง VIX spike</div>
+    </div>
+
+    <!-- CPALL -->
+    <div class="stock-card avoid">
+      <div class="stock-ticker">CPALL</div>
+      <div class="stock-name">CP All PCL (7-Eleven)</div>
+      <div class="stock-badge">NEUTRAL–REDUCE</div>
+      <div class="stock-desc">ธุรกิจ domestic retail ที่ดี แต่ foreign ownership สูง และถูก include ใน MSCI — ถูกขายพร้อม EM passive outflow เสมอ ไม่ได้รับประโยชน์จาก JPY strong โดยตรง</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">JPY benefit</span><span class="driver-val neg">Minimal direct</span></div>
+        <div class="driver-row"><span class="driver-label">MSCI passive flow</span><span class="driver-val neg">Sell with EM</span></div>
+        <div class="driver-row"><span class="driver-label">Fundamental</span><span class="driver-val pos">Domestic stable</span></div>
+      </div>
+      <div class="stock-thesis">ดี long-term แต่ไม่ใช่ JPY play — รอ panic buy ราคาดี</div>
+    </div>
+
+    <!-- PTTEP -->
+    <div class="stock-card avoid">
+      <div class="stock-ticker">PTTEP</div>
+      <div class="stock-name">PTT Exploration &amp; Production</div>
+      <div class="stock-badge">CAUTION — Commodity+EM</div>
+      <div class="stock-desc">E&amp;P สำรวจพลังงาน double whammy ในช่วง JPY unwind: (1) global risk-off → oil price ลง และ (2) EM selloff → foreign ขาย PTTEP</div>
+      <div class="stock-drivers">
+        <div class="driver-row"><span class="driver-label">Oil price correlation</span><span class="driver-val neg">High (falls in risk-off)</span></div>
+        <div class="driver-row"><span class="driver-label">Foreign ownership</span><span class="driver-val neg">Medium-high</span></div>
+        <div class="driver-row"><span class="driver-label">Dividend</span><span class="driver-val pos">Strong historically</span></div>
+      </div>
+      <div class="stock-thesis">Hold คนที่ถืออยู่ แต่ไม่เพิ่มในช่วง carry unwind risk สูง</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ═══ S8: PORTFOLIO CONSTRUCTION ═══ -->
+<section id="s8">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 08</div>
+  <h2>Portfolio Construction<br>— จัดพอร์ตตาม JPY Thesis</h2>
+
+  <h3>3 พอร์ตตามโปรไฟล์นักลงทุน</h3>
+  <div class="port-grid">
+    <div class="port-card">
+      <h4 style="color:var(--teal)">🛡 Conservative<br>ระยะยาว 2–3 ปี</h4>
+      <div class="port-item"><span>AOT</span><span class="wt">20%</span></div>
+      <div class="port-item"><span>MINT</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>CPF</span><span class="wt">20%</span></div>
+      <div class="port-item"><span>BDMS</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>GFPT</span><span class="wt">10%</span></div>
+      <div class="port-item"><span>Cash / THB Bond</span><span class="wt">20%</span></div>
+      <p style="font-size:12px;margin-top:12px;color:var(--muted)">สำหรับผู้ที่เชื่อ thesis แต่ต้องการ low volatility รอดูการ validate ใน BOJ มิถุนายน</p>
+    </div>
+    <div class="port-card">
+      <h4 style="color:var(--amber)">⚡ Balanced<br>ระยะกลาง 12–24 เดือน</h4>
+      <div class="port-item"><span>AOT</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>ERW</span><span class="wt">12%</span></div>
+      <div class="port-item"><span>CENTEL</span><span class="wt">10%</span></div>
+      <div class="port-item"><span>CPF</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>GFPT</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>BDMS</span><span class="wt">10%</span></div>
+      <div class="port-item"><span>TFG</span><span class="wt">8%</span></div>
+      <div class="port-item"><span>Cash</span><span class="wt">15%</span></div>
+      <p style="font-size:12px;margin-top:12px;color:var(--muted)">Portfolio หลักที่ balance ระหว่าง tourism และ food export</p>
+    </div>
+    <div class="port-card">
+      <h4 style="color:var(--red)">🎯 Aggressive<br>ระยะสั้น 6–12 เดือน</h4>
+      <div class="port-item"><span>ERW</span><span class="wt">20%</span></div>
+      <div class="port-item"><span>GFPT</span><span class="wt">20%</span></div>
+      <div class="port-item"><span>TFG</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>AOT</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>CENTEL</span><span class="wt">15%</span></div>
+      <div class="port-item"><span>Cash (dry powder)</span><span class="wt">15%</span></div>
+      <p style="font-size:12px;margin-top:12px;color:var(--muted)">High concentration — เหมาะถ้า BOJ มิถุนายน hawkish ชัดเจน จัดพอร์ตหลังนั้น</p>
+    </div>
+  </div>
+
+  <h3>Execution Timing — เมื่อไหร่ที่ควรซื้อ</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Trigger Event</th><th>Action</th><th>หมายเหตุ</th></tr></thead>
+      <tbody>
+        <tr><td>VIX พุ่งเกิน 25 (carry unwind starts)</td><td class="neg">ลด EM exposure 30–50%</td><td>รอ panic จบก่อนซื้อใหม่</td></tr>
+        <tr><td>SET ร่วง 5%+ ใน 1 สัปดาห์ (panic low)</td><td class="pos">เริ่มสะสม tourism 20–30%</td><td>ซื้อ AOT, ERW, GFPT ก่อน</td></tr>
+        <tr><td>BOJ มิถุนายน hike + hawkish</td><td class="pos">เพิ่ม position เป็น 50–70%</td><td>Green light สำหรับ thesis</td></tr>
+        <tr><td>Fed ลดดอกเบี้ยครั้งแรก</td><td class="pos">Full position 80–100%</td><td>Spread แคบ → momentum เยน</td></tr>
+        <tr><td>USD/JPY ทะลุ 150 ลงไป</td><td class="pos">Hold และ review ขึ้นใหม่</td><td>เยนแข็งตาม thesis</td></tr>
+        <tr><td>USD/JPY ทะลุ 168 ขึ้นไป</td><td class="neg">ลด stop-loss ทั้งหมด</td><td>Thesis invalidated</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-label">💡 Key Portfolio Principle</div>
+    <p><strong>เก็บ cash 15–20% ไว้เสมอ</strong> สำหรับ add ในวัน panic VIX spike — นั่นคือวันที่ให้ราคาดีที่สุด และมักเป็น 1–2 วันเท่านั้น ต้องมีรายชื่อหุ้นและราคาเป้าหมายพร้อมก่อน ไม่ใช่คิดในวันที่ตลาดแดง</p>
+  </div>
+</div>
+</section>
+
+<!-- ═══ S9: TRIGGER MAP ═══ -->
+<section id="s9">
+<div class="wrap">
+  <div class="sec-label">ส่วนที่ 09</div>
+  <h2>Trigger Map 2026<br>— จับตาสิ่งเหล่านี้</h2>
+
+  <div class="tline">
+    <div class="tl">
+      <div class="tl-dot2 now"></div>
+      <div class="tl-date">▸ พฤษภาคม 2569 (ตอนนี้)</div>
+      <div class="tl-body"><strong>ระดับ: MONITOR</strong> — BOJ hold 30 เม.ย. + Intervention + PCE 3.5% ยังไม่ถึงเวลา full position <br>ให้ดู: US April PCE (ปลาย พ.ค.), Japan CPI พ.ค. สัญญาณ BOJ มิถุนายน</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot2"></div>
+      <div class="tl-date">▸ มิถุนายน 2569 — PIVOTAL</div>
+      <div class="tl-body"><strong>BOJ Meeting</strong>: hike + hawkish → ซื้อทันที | hold/dovish → รอ<br><strong>FOMC Meeting 17 มิ.ย.</strong>: cut หรือ signal cut → สะสมเพิ่ม<br><strong>ผลต่อ SET:</strong> ถ้า BOJ hawkish SET อาจ dip ก่อน 3–5% แล้วค่อย recover ใน sector ที่ถูก</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot2"></div>
+      <div class="tl-date">▸ กรกฎาคม–สิงหาคม 2569</div>
+      <div class="tl-body"><strong>ครบรอบ ส.ค. 2567 Unwind</strong> — Behavioral risk: market reminisce<br><strong>High risk carry unwind window</strong> + ถ้า US data อ่อนแอ → double trigger<br><strong>Tourism data Q2</strong> — ถ้าญี่ปุ่น +20%+ = thesis validate ชัดเจน</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot2"></div>
+      <div class="tl-date">▸ Q3–Q4 2569</div>
+      <div class="tl-body"><strong>Shunto 2570 preliminary</strong> — wage data ชี้ BOJ path ปีหน้า<br><strong>GPIF annual rebalancing</strong> — institutional flow shift<br><strong>Tourism high season</strong> — Q4 คือ peak สำหรับ Japanese tourist ในไทย → ผล ERW, CENTEL Q4 จะชัดเจน</div>
+    </div>
+    <div class="tl">
+      <div class="tl-dot2"></div>
+      <div class="tl-date">▸ 2570: Year of Acceleration</div>
+      <div class="tl-body"><strong>BOJ ขึ้นถึง 1.5%</strong> + <strong>Fed ลดถึง 2.75–3%</strong> = Spread ใต้ 175 bps<br><strong>USD/JPY คาด 135–148</strong> → THB/JPY 5.0–5.5<br><strong>Tourism, food export, medical tourism</strong> ผลเต็มที่ใน earnings</div>
+    </div>
+  </div>
+
+  <h3>หุ้นรายตัว vs JPY Level</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>USD/JPY Level</th><th>THB/JPY (ประมาณ)</th><th>Expected impact</th><th>หุ้นที่ react</th></tr></thead>
+      <tbody>
+        <tr><td class="num">160–157 (ตอนนี้)</td><td class="num">~4.83</td><td class="neg">Carry trade ยังดีอยู่ → pressure EM</td><td>ขาย Banks (Phase 1 prep)</td></tr>
+        <tr><td class="num">155–150</td><td class="num">~4.95–5.00</td><td class="neu">Thesis เริ่มมีนัย → transition</td><td>สะสม AOT, GFPT เบาๆ</td></tr>
+        <tr><td class="num">150–145</td><td class="num">~5.00–5.15</td><td class="pos">Japanese tourists เห็นผล → Q2/Q3 earnings</td><td>เพิ่ม ERW, CENTEL, CPF</td></tr>
+        <tr><td class="num">145–140</td><td class="num">~5.15–5.35</td><td class="pos">Structural shift ชัดเจน → Full thesis</td><td>Full position tourism+food</td></tr>
+        <tr><td class="num">&lt;140</td><td class="num">&gt;5.35</td><td class="pos">Bull case → sector re-rating</td><td>BDMS, MINT, KCE เพิ่ม</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout sky">
+    <div class="callout-label">🔑 จุดสำคัญที่สุดที่ต้องจำ</div>
+    <p>เยนแข็งไม่ได้เป็นข่าวดีสำหรับตลาดหุ้นทั้งหมดพร้อมกัน <strong>Phase 1 (ช่วงแรก)</strong> = ขาย EM ทั้งหมดรวม SET · <strong>Phase 2 (ระยะกลาง)</strong> = ซื้อหุ้นกลุ่มที่ญี่ปุ่นเป็น tailwind โดยตรง · <strong>กุญแจ</strong> คือ: "เยนแข็งเร็วหรือช้า?" และ "ผ่าน panic phase แล้วหรือยัง?" — ตอบ 2 คำถามนี้ได้ก่อนแล้วค่อยลงทุน</p>
+  </div>
+</div>
+</section>
+
+<footer>
+<div class="wrap">
+  <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--teal);margin-bottom:12px">¥ → 📈</p>
+  <p>บทวิเคราะห์นี้เป็นส่วนที่ 2 ต่อจาก JPY Macro Analysis 2026–2030 | สำหรับการศึกษาและประกอบการตัดสินใจเท่านั้น</p>
+  <p>ไม่ถือเป็นคำแนะนำทางการเงิน การลงทุนมีความเสี่ยง ผู้ลงทุนควรพิจารณาให้รอบคอบและปรึกษาผู้เชี่ยวชาญก่อนตัดสินใจ</p>
+  <p style="color:rgba(0,201,167,0.3);margin-top:16px">© วิเคราะห์ 3 พฤษภาคม 2569 | ข้อมูลจาก: BIS Bulletin No.90 · JPMorgan · Krungsri Securities · Maybank Research · BOJ Policy Documents</p>
+</div>
+</footer>
+
+</body>
+</html>
