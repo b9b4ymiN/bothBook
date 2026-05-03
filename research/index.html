@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -141,6 +143,24 @@
 
   <footer class="shell">Powered by GitHub Pages · research/</footer>
 
+  <script type="application/json" id="folderFiles">
+[
+{% assign folder_prefix = '/research/' %}
+{% assign first_file = true %}
+{% for file in site.static_files %}
+  {% if file.path contains folder_prefix and file.extname == '.html' and file.name != 'index.html' %}
+    {% unless first_file %},{% endunless %}
+    {
+      "name": {{ file.name | jsonify }},
+      "size": {{ file.size | default: 0 | jsonify }},
+      "source": "jekyll"
+    }
+    {% assign first_file = false %}
+  {% endif %}
+{% endfor %}
+]
+  </script>
+
   <script>
     const config = {
       owner: "b9b4ymiN",
@@ -193,6 +213,12 @@
     }
 
     async function loadFileList() {
+      const embeddedFiles = loadEmbeddedFileList();
+      if (embeddedFiles.length) {
+        listSource = "GitHub Pages";
+        return embeddedFiles;
+      }
+
       const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;
       try {
         const files = await json(`${apiBase}/contents/${config.folder}`, true);
@@ -205,6 +231,16 @@
         return (payload.files || [])
           .filter(file => file.name.startsWith(prefix) && !file.name.slice(prefix.length).includes("/"))
           .map(file => ({ name: file.name.slice(prefix.length), size: file.size || 0, source: "jsdelivr" }));
+      }
+    }
+
+    function loadEmbeddedFileList() {
+      try {
+        const element = document.getElementById("folderFiles");
+        const files = JSON.parse(element?.textContent || "[]");
+        return Array.isArray(files) ? files : [];
+      } catch (error) {
+        return [];
       }
     }
 

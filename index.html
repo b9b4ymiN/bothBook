@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -834,6 +836,24 @@
     Powered by GitHub Pages · สถานะอ่านแล้วถูกเก็บเฉพาะใน browser นี้
   </footer>
 
+  <script type="application/json" id="rootFiles">
+[
+{% assign first_file = true %}
+{% for file in site.static_files %}
+  {% assign root_path = '/' | append: file.name %}
+  {% if file.extname == '.html' and file.path == root_path and file.name != 'index.html' %}
+    {% unless first_file %},{% endunless %}
+    {
+      "name": {{ file.name | jsonify }},
+      "size": {{ file.size | default: 0 | jsonify }},
+      "source": "jekyll"
+    }
+    {% assign first_file = false %}
+  {% endif %}
+{% endfor %}
+]
+  </script>
+
   <script>
     const owner = "b9b4ymiN";
     const repo = "bothBook";
@@ -1168,6 +1188,11 @@
     }
 
     async function loadHtmlFileList() {
+      const embeddedFiles = loadEmbeddedRootFileList();
+      if (embeddedFiles.length) {
+        return embeddedFiles;
+      }
+
       try {
         const files = await fetchJson(contentsUrl);
         return files
@@ -1186,6 +1211,16 @@
             size: file.size || 0,
             source: "jsdelivr"
           }));
+      }
+    }
+
+    function loadEmbeddedRootFileList() {
+      try {
+        const element = document.getElementById("rootFiles");
+        const files = JSON.parse(element?.textContent || "[]");
+        return Array.isArray(files) ? files : [];
+      } catch (error) {
+        return [];
       }
     }
 
