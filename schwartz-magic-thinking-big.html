@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Magic of Thinking Big — David J. Schwartz</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ─── PALETTE: Rich Gold / Confidence ─── */
+  :root {
+    --accent:       #C17F24;
+    --accent-deep:  #8B5A17;
+    --accent-light: #D9A84E;
+    --accent-rule:  rgba(193,127,36,0.28);
+    --accent-bg:    rgba(193,127,36,0.08);
+
+    --paper:        #F2EFE4;
+    --paper-mid:    #EAE5D2;
+    --paper-deep:   #DDD7BD;
+    --paper-shadow: #C8C0A0;
+    --ink:          #14110B;
+    --ink-soft:     #2A261C;
+    --ink-mid:      #46402F;
+    --ink-muted:    #7C7460;
+    --ink-faint:    #ABA48C;
+
+    --red: #7A1A1A; --red-bg: #FBF3F0;
+    --green: #355E40; --green-bg: #F1F6EE;
+    --book-width: 760px;
+    --page-pad-h: 76px;
+    --page-pad-v: 84px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1A1610;
+    padding: 40px 16px;
+    font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  }
+
+  .book {
+    max-width: var(--book-width);
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+  }
+
+  /* ─── COVER ─── */
+  .cover {
+    background: linear-gradient(160deg, #1A1000 0%, #2C1F00 40%, #3D2B00 70%, #1A1000 100%);
+    padding: 80px var(--page-pad-h) 70px;
+    position: relative;
+    overflow: hidden;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cover::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 40%, rgba(193,127,36,0.18) 0%, transparent 70%);
+  }
+  .cover-corner {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-color: rgba(193,127,36,0.35);
+    border-style: solid;
+  }
+  .cover-corner.tl { top: 24px; left: 24px; border-width: 1px 0 0 1px; }
+  .cover-corner.tr { top: 24px; right: 24px; border-width: 1px 1px 0 0; }
+  .cover-corner.bl { bottom: 24px; left: 24px; border-width: 0 0 1px 1px; }
+  .cover-corner.br { bottom: 24px; right: 24px; border-width: 0 1px 1px 0; }
+
+  .cover-eyebrow {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    font-weight: 600;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .cover-eyebrow::after {
+    content: '';
+    display: block;
+    width: 48px; height: 1px;
+    background: var(--accent);
+    margin-top: 12px;
+  }
+
+  .cover-main { position: relative; }
+  .cover-the {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: rgba(193,127,36,0.7);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .cover-magic {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--accent-light);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    display: block;
+    text-shadow: 0 2px 30px rgba(193,127,36,0.3);
+  }
+  .cover-of {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: rgba(193,127,36,0.6);
+    margin-top: 4px;
+    display: block;
+  }
+  .cover-thinking {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    font-weight: 700;
+    color: #F2EFE4;
+    line-height: 1.1;
+    display: block;
+    margin-top: 4px;
+  }
+  .cover-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1.0;
+    display: block;
+    letter-spacing: 2px;
+  }
+
+  .cover-rule {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    margin: 28px 0;
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 16px;
+    color: rgba(242,239,228,0.65);
+    font-style: italic;
+    line-height: 1.7;
+    max-width: 380px;
+  }
+
+  .cover-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    position: relative;
+  }
+  .cover-author-block {}
+  .cover-author-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(193,127,36,0.6);
+    margin-bottom: 4px;
+  }
+  .cover-author-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--accent-light);
+  }
+
+  .cover-emblem {
+    width: 70px; height: 70px;
+    border: 1px solid rgba(193,127,36,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--accent);
+  }
+
+  /* ─── PAGE ─── */
+  .page {
+    padding: var(--page-pad-v) var(--page-pad-h);
+    border-top: 1px solid var(--paper-shadow);
+  }
+  .page-mid {
+    padding: var(--page-pad-v) var(--page-pad-h);
+    background: var(--paper-mid);
+    border-top: 1px solid var(--paper-shadow);
+  }
+
+  /* ─── CHAPTER OPEN ─── */
+  .chapter-open {
+    padding: 80px var(--page-pad-h) 64px;
+    background: var(--paper-mid);
+    border-top: 2px solid var(--paper-shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .ch-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 140px;
+    font-weight: 800;
+    color: var(--accent-rule);
+    position: absolute;
+    right: 48px; top: 20px;
+    line-height: 1;
+    font-style: italic;
+    user-select: none;
+  }
+  .ch-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .ch-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 8px;
+    max-width: 480px;
+    position: relative;
+  }
+  .ch-title em {
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink-muted);
+    display: block;
+    margin-top: 6px;
+  }
+  .ch-essence {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 17px;
+    color: var(--ink-mid);
+    font-style: italic;
+    line-height: 1.75;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--accent-rule);
+    max-width: 480px;
+    position: relative;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  .eyebrow {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--accent-rule);
+  }
+  h3 {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink-mid);
+    margin: 28px 0 10px;
+  }
+  p {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  strong { color: var(--ink); }
+
+  /* ─── COMPONENTS ─── */
+
+  /* Insight Box */
+  .insight-box {
+    background: var(--accent-bg);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .insight-box-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .insight-box p {
+    font-size: 15px;
+    color: var(--ink-mid);
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  /* Blockquote Full */
+  .blockquote-full {
+    background: var(--ink);
+    padding: 56px var(--page-pad-h);
+    margin: 48px calc(-1 * var(--page-pad-h));
+    text-align: center;
+  }
+  .blockquote-full .bq-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    color: var(--accent);
+    line-height: 0.6;
+    display: block;
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+  .blockquote-full p {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--paper);
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto 16px;
+  }
+  .blockquote-full .bq-th {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px;
+    color: rgba(242,239,228,0.55);
+    font-style: italic;
+    display: block;
+    margin-top: 12px;
+  }
+  .blockquote-full .bq-src {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-top: 20px;
+    display: block;
+  }
+
+  /* Pull Quote */
+  .pullquote {
+    border-top: 2px solid var(--accent);
+    border-bottom: 1px solid var(--accent-rule);
+    padding: 28px 0;
+    margin: 36px 0;
+    text-align: center;
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .pullquote .pq-th {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 14px;
+    color: var(--ink-muted);
+    font-style: italic;
+    display: block;
+    margin-top: 12px;
+  }
+
+  /* Author Box */
+  .author-box {
+    display: flex;
+    gap: 18px;
+    padding: 24px 28px;
+    background: var(--paper-mid);
+    border-left: 3px solid var(--accent);
+    margin: 28px 0;
+  }
+  .author-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    flex-shrink: 0;
+  }
+  .author-meta {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .author-text {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Insight Ladder */
+  .ladder { margin: 32px 0; }
+  .ladder-step { padding: 18px 24px; }
+  .ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+  .ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+  .ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+  .ladder-tag {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .ladder-step.wrong .ladder-tag { color: var(--red); }
+  .ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+  .ladder-step.action .ladder-tag { color: var(--green); }
+  .ladder-text {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .ladder-arrow { text-align: center; padding: 6px; color: var(--ink-faint); font-size: 20px; }
+
+  /* Chapter Summary Card */
+  .ch-card {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--paper-shadow);
+    align-items: flex-start;
+  }
+  .ch-card-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 36px;
+    color: var(--accent);
+    font-weight: 400;
+    line-height: 1;
+    min-width: 52px;
+    padding-top: 4px;
+  }
+  .ch-card-title {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .ch-card-one-liner {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 14px;
+    color: var(--ink-muted);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .ch-tag {
+    display: inline-block;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: var(--accent-bg);
+    color: var(--accent-deep);
+    padding: 3px 8px;
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  /* Compare Table */
+  .cmp-table { width: 100%; border-collapse: collapse; margin: 28px 0; }
+  .cmp-table th {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    font-weight: 700;
+    text-align: left;
+  }
+  .cmp-table th:first-child { background: var(--red-bg); color: var(--red); }
+  .cmp-table th:last-child { background: var(--green-bg); color: var(--green); }
+  .cmp-table td {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 14px;
+    padding: 12px 16px;
+    line-height: 1.6;
+    vertical-align: top;
+    border-bottom: 1px solid var(--paper-shadow);
+  }
+  .cmp-table td:first-child { background: rgba(122,26,26,0.04); color: var(--ink-mid); }
+  .cmp-table td:last-child { background: rgba(53,94,64,0.04); color: var(--ink-mid); }
+
+  /* Stat Row */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--paper-shadow);
+    margin: 32px 0;
+  }
+  .stat-cell {
+    background: var(--paper-mid);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  /* Checklist */
+  .checklist { margin: 28px 0; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--paper-shadow);
+  }
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    font-size: 13px;
+  }
+  .check-text {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .check-text strong { color: var(--ink); }
+
+  /* Signal Box */
+  .signal-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .signal-box {
+    padding: 20px 22px;
+  }
+  .signal-box.do { background: var(--green-bg); border-top: 2px solid var(--green); }
+  .signal-box.dont { background: var(--red-bg); border-top: 2px solid var(--red); }
+  .signal-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .signal-box.do .signal-label { color: var(--green); }
+  .signal-box.dont .signal-label { color: var(--red); }
+  .signal-box ul { padding-left: 0; list-style: none; }
+  .signal-box li {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 14px;
+    color: var(--ink-mid);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    line-height: 1.6;
+  }
+  .signal-box li::before {
+    margin-right: 6px;
+    font-size: 12px;
+  }
+  .signal-box.do li::before { content: "✓"; color: var(--green); }
+  .signal-box.dont li::before { content: "✗"; color: var(--red); }
+
+  /* Reflection */
+  .reflection {
+    background: var(--paper-deep);
+    padding: 32px 36px;
+    margin: 40px 0 0;
+  }
+  .reflection-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .reflection ol {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: ref;
+  }
+  .reflection li {
+    counter-increment: ref;
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    padding: 10px 0 10px 36px;
+    position: relative;
+    border-bottom: 1px dashed var(--paper-shadow);
+  }
+  .reflection li:last-child { border-bottom: none; }
+  .reflection li::before {
+    content: counter(ref);
+    position: absolute;
+    left: 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--accent);
+    top: 8px;
+  }
+
+  /* TOC */
+  .toc-header {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--accent-rule);
+  }
+
+  /* Foreword Letter */
+  .letter-open {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink-mid);
+    margin-bottom: 24px;
+  }
+  .letter-sign {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--accent-deep);
+    text-align: right;
+    margin-top: 32px;
+  }
+
+  /* Rule Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 36px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--accent-rule);
+  }
+  .divider-mark {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  /* Book Footer */
+  .book-footer {
+    background: var(--ink);
+    padding: 56px var(--page-pad-h);
+    text-align: center;
+  }
+  .book-footer-mark {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 36px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .book-footer-text {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 15px;
+    color: var(--paper-deep);
+    font-style: italic;
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto 20px;
+  }
+  .book-footer-author {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px;
+    color: var(--accent-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Number highlight */
+  .num-highlight {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1em;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+
+  /* Tip card */
+  .tip-card {
+    background: var(--paper-mid);
+    border: 1px solid var(--paper-shadow);
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .tip-card-label {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .tip-card p { font-size: 14px; margin: 0; color: var(--ink-mid); }
+
+  @media (max-width: 780px) {
+    :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+    body { padding: 16px 8px; }
+    .ch-num { font-size: 96px; right: 16px; }
+    .stat-row { grid-template-columns: 1fr; }
+    .signal-row { grid-template-columns: 1fr; }
+    .blockquote-full { padding: 40px 24px; margin-left: -28px; margin-right: -28px; }
+    .cover-magic { font-size: 52px; }
+    .cover-thinking, .cover-big { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+<div class="book">
+
+  <!-- ══════════════════════════════════════════════════════
+       COVER
+  ══════════════════════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-corner tl"></div>
+    <div class="cover-corner tr"></div>
+    <div class="cover-corner bl"></div>
+    <div class="cover-corner br"></div>
+
+    <div class="cover-eyebrow">Personal Edition · Book Summary</div>
+
+    <div class="cover-main">
+      <span class="cover-the">The</span>
+      <span class="cover-magic">Magic</span>
+      <span class="cover-of">of</span>
+      <span class="cover-thinking">Thinking</span>
+      <span class="cover-big">Big</span>
+      <div class="cover-rule"></div>
+      <p class="cover-tagline">"ถ้าคุณเชื่อว่าคุณทำได้ คุณก็จะทำได้"<br>แก่นสารทั้งเล่ม ใน 1 ประโยค</p>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-author-block">
+        <div class="cover-author-label">written by</div>
+        <div class="cover-author-name">David J. Schwartz, Ph.D.</div>
+      </div>
+      <div class="cover-emblem">✦</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       TABLE OF CONTENTS
+  ══════════════════════════════════════════════════════ -->
+  <div class="page-mid">
+    <div class="toc-header">สารบัญ</div>
+    <div class="toc-title">Table of Contents</div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">I</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">จดหมายจากผู้เขียน — ก่อนเปิดอ่าน</div>
+        <div class="ch-card-one-liner">ทำไมหนังสือเล่มนี้ถึงเปลี่ยนชีวิตคนมาแล้วกว่า 6 ล้านคน</div>
+        <div><span class="ch-tag">Foreword</span><span class="ch-tag">Philosophy</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">01</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">รักษาโรค "แก้ตัว" ให้หาย</div>
+        <div class="ch-card-one-liner">Excusitis คือโรคร้ายที่ปิดกั้นความสำเร็จมากที่สุดในโลก</div>
+        <div><span class="ch-tag">Mindset</span><span class="ch-tag">Belief</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">02</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">สร้างความเชื่อมั่น ทำลายความกลัว</div>
+        <div class="ch-card-one-liner">ความกลัวไม่ใช่ศัตรู — ความคิดที่สร้างความกลัวนั้นต่างหากที่เป็น</div>
+        <div><span class="ch-tag">Confidence</span><span class="ch-tag">Action</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">03</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">คิดใหญ่ — พลังที่มองไม่เห็น</div>
+        <div class="ch-card-one-liner">ขนาดความสำเร็จของคุณถูกกำหนดด้วยขนาดความคิดของคุณ</div>
+        <div><span class="ch-tag">Think Big</span><span class="ch-tag">Possibility</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">04</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">บริหารสภาพแวดล้อมและทัศนคติ</div>
+        <div class="ch-card-one-liner">คุณกลายเป็นคนที่คุณคิด — ระวังสิ่งที่คุณ "ป้อน" เข้าไปในหัว</div>
+        <div><span class="ch-tag">Environment</span><span class="ch-tag">Attitude</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">05</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">คิดดีต่อคน และสร้างอำนาจด้วยทีม</div>
+        <div class="ch-card-one-liner">ความสำเร็จที่ยั่งยืนมาจากการทำให้คนอื่นรู้สึกสำคัญ</div>
+        <div><span class="ch-tag">Leadership</span><span class="ch-tag">People</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">06</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">นิสัยลงมือทำ + พลังของเป้าหมาย</div>
+        <div class="ch-card-one-liner">ความคิดที่ไม่กลายเป็นการกระทำ คือแค่ความฝันกลางวัน</div>
+        <div><span class="ch-tag">Action</span><span class="ch-tag">Goals</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">✦</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Synthesis — พิธีกรรมความคิดใหญ่ของคุณ</div>
+        <div class="ch-card-one-liner">รวมทุกแก่นสารของหนังสือเล่มนี้ให้เป็นระบบที่ใช้งานได้จริงทุกวัน</div>
+        <div><span class="ch-tag">Action Plan</span><span class="ch-tag">Checklist</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOREWORD — จดหมายจากผู้เขียน
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-label">จดหมายจากผู้เขียน · Foreword</div>
+    <div class="ch-title">เพื่อนของฉัน<br><em>ก่อนที่คุณจะพลิกหน้าแรก</em></div>
+    <div class="ch-essence">"ฉันได้ใช้ชีวิตกว่า 20 ปีในการศึกษาคนที่ประสบความสำเร็จและคนที่ไม่ประสบความสำเร็จ และสิ่งที่ฉันค้นพบนั้นเรียบง่ายจนน่าตกใจ"</div>
+  </div>
+
+  <div class="page">
+    <p class="letter-open">สวัสดี</p>
+
+    <p>ฉันเริ่มต้นเขียนหนังสือเล่มนี้จากคำถามง่ายๆ ที่ทรมานฉันมาหลายปี: <strong>ทำไมคนที่มีความสามารถเท่าๆ กัน บางคนถึงประสบความสำเร็จอย่างยิ่งใหญ่ ในขณะที่อีกคนใช้ชีวิตแบบธรรมดาไปวันๆ?</strong></p>
+
+    <p>คำตอบไม่ใช่ IQ ไม่ใช่ความโชคดีตั้งแต่เกิด ไม่ใช่แม้แต่การทำงานหนัก สิ่งที่แยกคนสองกลุ่มนี้ออกจากกันมีเพียงอย่างเดียว — <strong>ขนาดของความคิด</strong></p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ แก่นสารทั้งเล่ม</div>
+      <p>คนที่ประสบความสำเร็จ <strong>คิดใหญ่</strong> — พวกเขาเชื่อว่าตัวเองสามารถทำสิ่งที่ยิ่งใหญ่กว่าได้ และความเชื่อนั้นเองที่สร้างพฤติกรรม สร้างนิสัย และในที่สุดก็สร้างชีวิตที่พวกเขาต้องการ ในทางกลับกัน คนที่คิดเล็กจะจำกัดตัวเองโดยไม่รู้ตัว</p>
+    </div>
+
+    <p>ฉันอยากให้คุณอ่านหนังสือเล่มนี้ไม่ใช่เพื่อความรู้ แต่เพื่อ <strong>เปลี่ยนวิธีที่คุณคิดเกี่ยวกับตัวเอง</strong> เพราะเมื่อความคิดคุณเปลี่ยน ทุกอย่างในชีวิตก็จะเปลี่ยนตาม</p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <span class="stat-num">6M+</span>
+        <div class="stat-label">สำเนาที่ขายได้ทั่วโลก นับตั้งแต่พิมพ์ครั้งแรก ปี 1959</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">20 ปี</span>
+        <div class="stat-label">ที่ Schwartz ใช้ศึกษาพฤติกรรมของคนสำเร็จและคนล้มเหลว</div>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-num">1 เชื่อ</span>
+        <div class="stat-label">ความเชื่อมั่นในตัวเอง คือสิ่งเดียวที่แยกระหว่างสองกลุ่มนี้</div>
+      </div>
+    </div>
+
+    <p class="letter-sign">— David J. Schwartz</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAPTER 1 — EXCUSITIS
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">01</div>
+    <div class="ch-label">บทที่ 1 · Chapter One</div>
+    <div class="ch-title">รักษาโรค "แก้ตัว" ให้หาย<br><em>Cure Yourself of Excusitis</em></div>
+    <div class="ch-essence">โรคที่ร้ายแรงที่สุดสำหรับความสำเร็จไม่ใช่ความล้มเหลว — แต่คือนิสัยหาข้อแก้ตัวที่ฝังรากลึกจนคิดว่าเป็นความจริง</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>Excusitis — โรคระบาดของคนที่ไม่เคยประสบความสำเร็จ</h1>
+
+    <p>ฉันเรียกมันว่า <strong>"Excusitis"</strong> — โรคแก้ตัว (อ่านว่า เอ็กซ์-คิว-ไซ-ทิส) มันคืออาการที่คนเราคิดหาเหตุผลมาอธิบายว่า "ทำไมฉันถึงทำไม่ได้" แทนที่จะหาทางว่า "ฉันจะทำมันได้อย่างไร" โรคนี้ไม่มีอาการเจ็บปวดทางกาย แต่มันทำลายชีวิตคนได้อย่างเงียบๆ และโหดร้ายยิ่งกว่ามะเร็งใดๆ</p>
+
+    <p>ในช่วง 20 ปีที่ฉันศึกษาคนล้มเหลว ฉันพบว่าพวกเขาทุกคนล้วนมีข้อแก้ตัวที่พร้อมเสมอ และข้อแก้ตัวที่พบบ่อยที่สุดมีเพียง 4 อย่าง</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ 4 ข้อแก้ตัวที่พบบ่อยที่สุด</div>
+      <p><strong>1. สุขภาพ</strong> — "ฉันสุขภาพไม่ดีพอ"<br>
+      <strong>2. อายุ</strong> — "ฉันแก่เกินไป / อายุน้อยเกินไป"<br>
+      <strong>3. สติปัญญา</strong> — "ฉันไม่ฉลาดพอ"<br>
+      <strong>4. โชค</strong> — "ฉันโชคไม่ดี ไม่มีโอกาส"</p>
+    </div>
+
+    <h2>1. โรคแก้ตัวเรื่องสุขภาพ</h2>
+
+    <p>เมื่อใดก็ตามที่คุณถามคนล้มเหลวว่าทำไมถึงไม่ก้าวหน้า คำตอบแรกมักเป็น <strong>"ฉันไม่สบาย"</strong> หรือ <strong>"ฉันมีปัญหาสุขภาพ"</strong> ซึ่งอาจจริง แต่คำถามที่แท้จริงคือ — ปัญหาสุขภาพนั้นมันร้ายแรงพอที่จะหยุดคุณจริงหรือ?</p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">ความเชื่อเดิม</div>
+        <div class="ladder-text">"ฉันทำไม่ได้เพราะสุขภาพไม่ดี ร่างกายฉันไม่เอื้ออำนวย"</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ความจริง</div>
+        <div class="ladder-text">Franklin D. Roosevelt นำอเมริกาผ่านสงครามโลกครั้งที่ 2 จากรถเข็น ขณะที่ไม่สามารถเดินได้ John Milton เขียนบทกวีระดับตำนานขณะตาบอด Beethoven แต่งซิมโฟนีบทที่ 9 หลังจากหูหนวกสนิท</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">ลงมือทำ</div>
+        <div class="ladder-text">หยุดพูดถึงสุขภาพของคุณในแง่ลบ ให้พลังงานทั้งหมดกับสิ่งที่คุณทำได้ ไม่ใช่สิ่งที่คุณทำไม่ได้</div>
+      </div>
+    </div>
+
+    <h2>2. โรคแก้ตัวเรื่องอายุ</h2>
+
+    <p>ฉันพบคนสองประเภทที่ใช้อายุเป็นข้อแก้ตัว: คนที่บอกว่า <strong>"แก่เกินไปแล้ว"</strong> และคนที่บอกว่า <strong>"ยังเด็กเกินไป"</strong> ทั้งสองกลุ่มต่างก็ใช้อายุเป็นกำแพง ซึ่งเป็นกำแพงที่สร้างขึ้นในหัว ไม่ใช่ในความเป็นจริง</p>
+
+    <div class="author-box">
+      <div class="author-avatar">D</div>
+      <div>
+        <div class="author-meta">David J. Schwartz — The Magic of Thinking Big</div>
+        <p class="author-text">"จงถามตัวเองว่า ฉันจะรู้สึกอย่างไรในอีก 10 ปี ถ้าฉันไม่ลงมือทำตั้งแต่วันนี้? ถ้าคำตอบคือ 'เสียใจ' นั่นแปลว่าตอนนี้คือเวลาที่ดีที่สุดแล้ว"</p>
+      </div>
+    </div>
+
+    <h2>3. โรคแก้ตัวเรื่องสติปัญญา</h2>
+
+    <p>นี่คือข้อแก้ตัวที่ทำลายคนมากที่สุด เพราะมันทำให้คนยอมแพ้ก่อนแม้แต่จะเริ่มต้น ความจริงที่ฉันค้นพบหลังจากศึกษามานานคือ: <strong>ความสำเร็จไม่ได้วัดด้วย IQ แต่วัดด้วยทัศนคติ</strong></p>
+
+    <div class="cmp-table-wrapper">
+      <table class="cmp-table">
+        <tr>
+          <th>❌ คนที่คิดว่าตัวเองไม่ฉลาดพอ</th>
+          <th>✅ คนที่ใช้ความฉลาดที่มีให้เต็มที่</th>
+        </tr>
+        <tr>
+          <td>รอให้ตัวเองพร้อมก่อนจึงจะลงมือ</td>
+          <td>ลงมือทำและเรียนรู้ไปพร้อมกัน</td>
+        </tr>
+        <tr>
+          <td>หลีกเลี่ยงความท้าทาย เพราะกลัวความล้มเหลว</td>
+          <td>มองความท้าทายเป็นโอกาสพัฒนาตัวเอง</td>
+        </tr>
+        <tr>
+          <td>เชื่อว่าคนเก่งเกิดมาพร้อมกับความสามารถ</td>
+          <td>เชื่อว่าความสามารถสร้างได้ด้วยการฝึกฝน</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>4. โรคแก้ตัวเรื่องโชค</h2>
+
+    <p>คนที่ประสบความสำเร็จไม่ได้ "โชคดี" กว่าคนอื่น พวกเขาแค่สร้างสภาพแวดล้อมที่ทำให้ "โชคดี" เกิดขึ้นได้บ่อยกว่า พวกเขาพบปะผู้คนมากกว่า ลองทำสิ่งใหม่มากกว่า และมองโอกาสในที่ที่คนอื่นมองว่าเป็นปัญหา</p>
+
+    <div class="blockquote-full">
+      <span class="bq-mark">"</span>
+      <p>The more I practice, the luckier I get.</p>
+      <span class="bq-th">ยิ่งฉันฝึกฝนมากเท่าไหร่ ฉันก็ยิ่งโชคดีมากขึ้นเท่านั้น</span>
+      <span class="bq-src">— Gary Player · นักกอล์ฟระดับโลก</span>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🪞 Reflection — ไตร่ตรองก่อนไปต่อ</div>
+      <ol>
+        <li>ข้อแก้ตัวที่คุณใช้บ่อยที่สุดในชีวิตตอนนี้คืออะไร? และมันจริงแค่ไหน?</li>
+        <li>ถ้าข้อแก้ตัวนั้นไม่มีอยู่ คุณจะลงมือทำอะไรเป็นอย่างแรก?</li>
+        <li>มีใครที่มีข้อจำกัดมากกว่าคุณ แต่ประสบความสำเร็จกว่าคุณไหม? พวกเขาทำยังไง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAPTER 2 — BUILD CONFIDENCE, DESTROY FEAR
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">02</div>
+    <div class="ch-label">บทที่ 2 · Chapter Two</div>
+    <div class="ch-title">สร้างความเชื่อมั่น ทำลายความกลัว<br><em>Build Confidence and Destroy Fear</em></div>
+    <div class="ch-essence">ความกลัวไม่ใช่ศัตรูตัวจริง — ความคิดที่สร้างความกลัวนั้นต่างหากที่เราต้องกำจัด</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ความกลัวเป็นเพียงความคิด — และความคิดเปลี่ยนได้</h1>
+
+    <p>ทุกคนกลัว นั่นคือธรรมชาติของมนุษย์ แต่สิ่งที่แยกคนกล้าออกจากคนขลาดไม่ใช่การไม่มีความกลัว แต่คือวิธีที่พวกเขา <strong>จัดการกับความกลัว</strong> คนที่ประสบความสำเร็จเข้าใจความจริงข้อนี้: <strong>ยิ่งคุณหนีจากสิ่งที่กลัว ความกลัวนั้นยิ่งใหญ่ขึ้น ยิ่งคุณเผชิญหน้ามัน มันยิ่งเล็กลง</strong></p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ ความจริงเกี่ยวกับความกลัว</div>
+      <p>ความกลัว <strong>90%</strong> ที่เราสร้างขึ้นในหัวไม่มีอยู่จริงในโลกความเป็นจริง เราจินตนาการสถานการณ์ที่เลวร้ายที่สุด แล้วสมองก็หลอกตัวเองว่ามันจะเกิดขึ้นจริง วิธีที่ดีที่สุดในการรับมือคือ "ลงมือทำ" ทันที ก่อนที่สมองจะมีเวลาสร้างเรื่องราวน่ากลัว</p>
+    </div>
+
+    <h2>วิธีสร้างความเชื่อมั่น: Action Cure</h2>
+
+    <p>ฉันเรียกมันว่า <strong>"Action Cure"</strong> — การรักษาด้วยการกระทำ หลักการคือ: <strong>อย่ารอจนกว่าคุณจะรู้สึกพร้อม แต่ให้ลงมือทำแล้วความพร้อมจะตามมา</strong> ความเชื่อมั่นไม่ได้เกิดก่อนการกระทำ มันเกิดขึ้นหลังจากที่คุณลงมือทำและเห็นว่า "ฉันทำได้"</p>
+
+    <div class="signal-row">
+      <div class="signal-box do">
+        <div class="signal-label">✅ สร้างความเชื่อมั่น</div>
+        <ul>
+          <li>ลงมือทำสิ่งที่กลัวทันที อย่ารอ</li>
+          <li>จำชัยชนะเล็กๆ ของตัวเองทุกวัน</li>
+          <li>พูดคุยกับคนที่ประสบความสำเร็จในสิ่งที่คุณต้องการทำ</li>
+          <li>นั่งหน้า ยืนหน้า ในทุกการประชุม</li>
+          <li>สบตาคนที่คุณคุยด้วย มันแสดงถึงความมั่นใจ</li>
+        </ul>
+      </div>
+      <div class="signal-box dont">
+        <div class="signal-label">❌ ทำลายความเชื่อมั่น</div>
+        <ul>
+          <li>รอจนพร้อม 100% ก่อนจึงลงมือ</li>
+          <li>พูดซ้ำๆ ถึงความล้มเหลวของตัวเอง</li>
+          <li>เปรียบตัวเองกับจุดแข็งของคนอื่น</li>
+          <li>นั่งหลัง ยืนหลัง หลีกเลี่ยงสายตา</li>
+          <li>พูดแต่เรื่องที่แย่และน่ากลัวซ้ำๆ</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>เทคนิค Deposit-Withdrawal: บัญชีธนาคารแห่งความเชื่อมั่น</h2>
+
+    <p>ลองคิดว่าความเชื่อมั่นเป็นเหมือนบัญชีธนาคาร ทุกครั้งที่คุณทำสิ่งที่กลัวและผ่านมันมาได้ คุณกำลัง <strong>"ฝาก"</strong> เงินเข้าบัญชี ทุกครั้งที่คุณหนีและหาข้อแก้ตัว คุณกำลัง <strong>"ถอน"</strong> เงินออก คนที่มั่นใจในตัวเองคือคนที่มียอดเงินในบัญชีนี้สูง เพราะพวกเขาฝากเงินผ่านการกระทำทุกวัน</p>
+
+    <div class="pullquote">
+      <p>"Do what you fear and fear disappears."</p>
+      <span class="pq-th">จงทำในสิ่งที่คุณกลัว แล้วความกลัวนั้นจะหายไป</span>
+    </div>
+
+    <h2>ความเชื่อมั่นกับภาษากาย</h2>
+
+    <p>สิ่งที่คนส่วนใหญ่ไม่รู้คือ <strong>ร่างกายมีอิทธิพลต่อความคิดพอๆ กับที่ความคิดมีอิทธิพลต่อร่างกาย</strong> เมื่อคุณเดินตรง ยกหัว มองตา พูดชัด สมองของคุณก็เริ่มรู้สึกว่าคุณมั่นใจ แม้ว่าข้างในยังไม่มั่นใจก็ตาม</p>
+
+    <div class="tip-card">
+      <div class="tip-card-label">💡 เทคนิคทันที</div>
+      <p>วันพรุ่งนี้ ลองเดินเร็วขึ้น 25% พูดให้ดังขึ้นเล็กน้อย และนั่งหน้าห้องในการประชุมครั้งต่อไป สังเกตว่าคุณรู้สึกต่างกันไหม</p>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🪞 Reflection — ไตร่ตรองก่อนไปต่อ</div>
+      <ol>
+        <li>สิ่งที่คุณกลัวมากที่สุดในชีวิตตอนนี้คืออะไร? และมันเกิดขึ้นจริงบ่อยแค่ไหน?</li>
+        <li>ถ้าคุณลงมือทำสิ่งที่กลัวนั้นพรุ่งนี้ อะไรจะเกิดขึ้นในกรณีที่แย่ที่สุด?</li>
+        <li>คุณฝาก "เงิน" เข้าบัญชีความเชื่อมั่นบ้างไหมในสัปดาห์ที่ผ่านมา?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAPTER 3 — THINK BIG
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">03</div>
+    <div class="ch-label">บทที่ 3 · Chapter Three</div>
+    <div class="ch-title">คิดใหญ่ — พลังที่มองไม่เห็น<br><em>How to Think Big</em></div>
+    <div class="ch-essence">ขนาดของความสำเร็จคุณไม่ได้ถูกกำหนดโดยความสามารถที่มีอยู่ — แต่ถูกกำหนดโดยขนาดความคิดที่คุณอนุญาตให้ตัวเองคิด</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ความคิดใหญ่คือทักษะ ไม่ใช่พรสวรรค์</h1>
+
+    <p>เมื่อฉันพูดว่า "คิดใหญ่" หลายคนนึกว่าหมายถึงการฝันเฟื่อง แต่ความจริงแล้ว <strong>การคิดใหญ่คือทักษะที่ฝึกได้</strong> มันหมายถึงการมองเห็นสิ่งที่เป็นไปได้ในสถานการณ์ที่คนอื่นมองว่าเป็นอุปสรรค มันหมายถึงการตั้งเป้าหมายที่ทำให้คนอื่นกลั้นหัวเราะ แต่คุณรู้ว่ามันเป็นไปได้</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ ความแตกต่างของความคิดใหญ่และเล็ก</div>
+      <p>คนคิดเล็กถามว่า <strong>"ฉันจะทำได้ไหม?"</strong><br>
+      คนคิดใหญ่ถามว่า <strong>"ฉันจะทำมันได้อย่างไร?"</strong><br>
+      ประโยคเดียวที่ต่างกัน แต่นำไปสู่ชีวิตที่ต่างกันโดยสิ้นเชิง</p>
+    </div>
+
+    <h2>ขยายภาพของตัวเองให้ใหญ่ขึ้น (Expand Your View of Yourself)</h2>
+
+    <p>ทุกคนมี <strong>"ภาพตัวเอง" (Self-image)</strong> ในหัว — ภาพนั้นบอกว่าคุณคือใคร คุณสมควรได้อะไร และคุณทำอะไรได้บ้าง ปัญหาคือ ภาพนี้มักถูกสร้างขึ้นจากความล้มเหลวในอดีต คำวิจารณ์ของคนอื่น และความกลัวของตัวเอง <strong>ไม่ใช่จากความเป็นจริงของสิ่งที่คุณเป็นได้</strong></p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">คนคิดเล็ก — พูดกับตัวเอง</div>
+        <div class="ladder-text">"ฉันแค่พนักงานธรรมดา ฉันไม่ใช่ประเภทที่จะเป็นผู้นำ ฉันไม่พร้อม ฉันยังไม่เก่งพอ"</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ความจริง</div>
+        <div class="ladder-text">ภาพตัวเองที่เล็กนั้นสร้างขึ้นจากความคิด ไม่ใช่ความเป็นจริง คนที่เป็นผู้นำยิ่งใหญ่ส่วนใหญ่ ณ จุดหนึ่งในชีวิตก็เคยคิดว่าตัวเองไม่พร้อม</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">ลงมือทำ</div>
+        <div class="ladder-text">เริ่มพูดกับตัวเองว่า "ฉันกำลังพัฒนาเพื่อเป็นผู้นำ" แทน "ฉันไม่ใช่ประเภทผู้นำ" แล้วลงมือทำในสิ่งที่ผู้นำทำ</div>
+      </div>
+    </div>
+
+    <h2>ใช้ภาษาของคนคิดใหญ่</h2>
+
+    <p>คำพูดที่คุณใช้กับตัวเองและคนอื่นเป็นตัวบ่งชี้ว่าคุณคิดแบบไหน และมันก็สร้างความเป็นจริงในชีวิตคุณด้วย ลองสังเกตว่าคุณใช้ภาษาแบบไหน</p>
+
+    <table class="cmp-table">
+      <tr>
+        <th>❌ ภาษาของคนคิดเล็ก</th>
+        <th>✅ ภาษาของคนคิดใหญ่</th>
+      </tr>
+      <tr>
+        <td>"ฉันทำไม่ได้"</td>
+        <td>"ฉันจะหาทางทำให้ได้"</td>
+      </tr>
+      <tr>
+        <td>"มันยากเกินไป"</td>
+        <td>"มันต้องการความพยายามมากขึ้น"</td>
+      </tr>
+      <tr>
+        <td>"ฉันแค่ไม่โชคดี"</td>
+        <td>"ฉันต้องสร้างโอกาสเพิ่ม"</td>
+      </tr>
+      <tr>
+        <td>"ฉันไม่มีเวลา"</td>
+        <td>"ฉันต้องจัดลำดับความสำคัญใหม่"</td>
+      </tr>
+      <tr>
+        <td>"คนอื่นเก่งกว่าฉัน"</td>
+        <td>"ฉันเรียนรู้อะไรจากคนเก่งเหล่านั้นได้บ้าง"</td>
+      </tr>
+    </table>
+
+    <h2>มองคนอื่นในแบบที่พวกเขาเป็นได้ ไม่ใช่แค่ที่พวกเขาเป็นอยู่</h2>
+
+    <p>คนที่คิดใหญ่มีพลังพิเศษอย่างหนึ่ง — พวกเขา <strong>มองเห็นศักยภาพในคนอื่น</strong> ซึ่งทำให้พวกเขากลายเป็นผู้นำที่ยิ่งใหญ่ได้โดยธรรมชาติ เพราะคนที่รู้สึกว่าตัวเองได้รับการมองเห็นและเชื่อใจ มักทำผลงานได้เกินที่คาดไว้</p>
+
+    <div class="blockquote-full">
+      <span class="bq-mark">"</span>
+      <p>Big thinkers are specialists in creating positive, forward-looking, optimistic pictures in their own minds and in the minds of others.</p>
+      <span class="bq-th">คนที่คิดใหญ่คือผู้เชี่ยวชาญในการสร้างภาพที่เป็นบวก มองไปข้างหน้า และเต็มไปด้วยความหวัง ทั้งในหัวตัวเองและในหัวคนอื่น</span>
+      <span class="bq-src">— David J. Schwartz · The Magic of Thinking Big</span>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🪞 Reflection — ไตร่ตรองก่อนไปต่อ</div>
+      <ol>
+        <li>"ภาพตัวเอง" ที่คุณมีอยู่ตอนนี้คืออะไร? มันถูกสร้างมาจากอะไร?</li>
+        <li>ถ้าไม่มีข้อจำกัดใดๆ เลย คุณอยากทำอะไรมากที่สุดในชีวิต?</li>
+        <li>คุณใช้ภาษาของคนคิดเล็กหรือคนคิดใหญ่บ่อยกว่ากัน?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAPTER 4 — ENVIRONMENT & ATTITUDE
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">04</div>
+    <div class="ch-label">บทที่ 4 · Chapter Four</div>
+    <div class="ch-title">บริหารสภาพแวดล้อมและทัศนคติ<br><em>Manage Your Environment, Go First Class</em></div>
+    <div class="ch-essence">คุณไม่ได้เป็นแค่ผลผลิตของยีนส์หรือโชคชะตา — คุณเป็นผลผลิตของสภาพแวดล้อมที่คุณเลือก</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>คุณกลายเป็นคนที่คุณอยู่ด้วย — เลือกให้ดี</h1>
+
+    <p>มีสูตรเรียบง่ายที่ฉันค้นพบจากการศึกษาคนหลายพันคน: <strong>คุณในอีก 5 ปีข้างหน้าจะถูกกำหนดด้วย 2 สิ่ง — หนังสือที่คุณอ่าน และคนที่คุณอยู่ด้วย</strong> นั่นคือสภาพแวดล้อมของคุณ และสภาพแวดล้อมนั้นสามารถเลือกได้</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ กฎของสภาพแวดล้อม</div>
+      <p>สมองของคุณเปรียบเหมือนดินที่อุดมสมบูรณ์ — มันจะปลูกอะไรก็ได้ที่คุณโยนลงไป ไม่ว่าจะเป็นเมล็ดพืชดีหรือวัชพืช ถ้าคุณอยู่แวดล้อมด้วยความคิดลบ คนบ่น คนที่ไม่มีความฝัน — สมองของคุณก็จะงอกสิ่งเหล่านั้นขึ้นมา และในทางกลับกัน</p>
+    </div>
+
+    <h2>Go First Class — ทำทุกอย่างในระดับที่ดีที่สุดที่ทำได้</h2>
+
+    <p>หนึ่งในคำแนะนำที่ฉันให้กับทุกคนคือ: <strong>"Go First Class"</strong> — นั่นไม่ได้หมายความว่าต้องใช้จ่ายฟุ่มเฟือย แต่หมายถึงการทำทุกสิ่งในระดับที่ดีที่สุดเท่าที่คุณทำได้ตอนนี้ เพราะวิธีที่คุณทำสิ่งเล็กน้อยคือวิธีที่คุณทำทุกอย่าง</p>
+
+    <div class="author-box">
+      <div class="author-avatar">D</div>
+      <div>
+        <div class="author-meta">David J. Schwartz — The Magic of Thinking Big</div>
+        <p class="author-text">"คนที่ประสบความสำเร็จไม่ได้รอให้ตัวเองรวยก่อนถึงจะมีชีวิตที่ดี พวกเขาใช้ชีวิตดีในทุกระดับที่พวกเขาอยู่ และนั่นทำให้พวกเขาขยับขึ้นไปสู่ระดับที่สูงกว่าเสมอ"</p>
+      </div>
+    </div>
+
+    <h2>ทัศนคติดี (Positive Attitude) ไม่ใช่แค่การยิ้มสวย</h2>
+
+    <p>หลายคนเข้าใจผิดว่า "ทัศนคติดี" หมายถึงการแกล้งทำเป็นว่าทุกอย่างดี แต่ความจริงคือ <strong>ทัศนคติดีคือการเลือกมุมมอง</strong> ในสถานการณ์เดียวกัน คนสองคนสามารถมองต่างกันได้ คนหนึ่งมองว่า "มันเป็นปัญหา" อีกคนมองว่า "มันเป็นโอกาสเรียนรู้"</p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">สภาพแวดล้อมที่ทำลายความคิดใหญ่</div>
+        <div class="ladder-text">คนรอบข้างบ่นตลอดเวลา / ดูข่าวลบๆ มากเกินไป / คบกับคนที่ไม่เชื่อในความฝันของคุณ / ใช้เวลาส่วนใหญ่กับคนที่คิดเล็กและกลัวการเปลี่ยนแปลง</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ความจริง</div>
+        <div class="ladder-text">สภาพแวดล้อมของคุณค่อยๆ หล่อหลอมความคิด ความเชื่อ และพฤติกรรมของคุณโดยที่คุณไม่รู้สึกตัว มันเหมือนกบที่อยู่ในหม้อน้ำอุ่น</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">ลงมือทำ</div>
+        <div class="ladder-text">จงใจเลือกคนที่ดีกว่าคุณในทักษะที่คุณต้องการพัฒนา อ่านชีวประวัติคนที่ประสบความสำเร็จ จำกัดเวลากับคนหรือสิ่งที่ดึงพลังงานของคุณลง</div>
+      </div>
+    </div>
+
+    <h2>ทำให้ทัศนคติกลายเป็นพันธมิตร (Make Attitude Work for You)</h2>
+
+    <p>ฉันศึกษาพบว่า ในการตัดสินใจจ้างพนักงาน ผู้บริหารส่วนใหญ่ให้ <strong>ทัศนคติมีน้ำหนักมากกว่าทักษะถึง 2 เท่า</strong> เพราะทักษะสอนได้ แต่ทัศนคติเปลี่ยนยากกว่ามาก คนที่มีทัศนคติดีจะเรียนรู้ทักษะได้เร็วกว่า และสร้างความสัมพันธ์ที่ดีกว่า ซึ่งทั้งสองอย่างนั้นคือรากของความสำเร็จ</p>
+
+    <div class="reflection">
+      <div class="reflection-label">🪞 Reflection — ไตร่ตรองก่อนไปต่อ</div>
+      <ol>
+        <li>คน 5 คนที่คุณใช้เวลามากที่สุดในชีวิตตอนนี้คือใคร? พวกเขาดึงคุณขึ้นหรือดึงคุณลง?</li>
+        <li>สภาพแวดล้อมที่คุณอยู่ (ข่าว โซเชียล คนรอบข้าง) ส่วนใหญ่เป็นบวกหรือลบ?</li>
+        <li>คุณ "Go First Class" ในชีวิตประจำวันของคุณอย่างไรบ้าง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAPTER 5 — THINK RIGHT TOWARD PEOPLE
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">05</div>
+    <div class="ch-label">บทที่ 5 · Chapter Five</div>
+    <div class="ch-title">คิดดีต่อคน สร้างอำนาจด้วยทีม<br><em>Think Right Toward People</em></div>
+    <div class="ch-essence">ไม่มีใครประสบความสำเร็จคนเดียว ความสำเร็จยิ่งใหญ่ทุกอย่างล้วนสร้างขึ้นผ่านและกับคนอื่น</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ทักษะที่มีค่าที่สุดในโลก: ทำให้คนอื่นรู้สึกสำคัญ</h1>
+
+    <p>หลังจากศึกษาคนที่ประสบความสำเร็จหลายพันคน ฉันพบว่าพวกเขาทุกคนมีทักษะหนึ่งร่วมกัน — <strong>พวกเขาทำให้คนอื่นรู้สึกสำคัญ พวกเขาฟัง พวกเขาสนใจ และพวกเขาทำให้คนรอบข้างรู้สึกว่าตัวเองมีคุณค่า</strong> ทักษะนี้ไม่ต้องใช้เงินซื้อ ไม่ต้องการ IQ สูง แต่ให้ผลตอบแทนสูงที่สุดในทุกความสัมพันธ์</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ กฎทองของความสัมพันธ์</div>
+      <p>คนทุกคนต้องการสิ่งเดียวกัน: ต้องการรู้สึกว่าตัวเองสำคัญ มีคุณค่า และได้รับการเคารพ คนที่ให้สิ่งนี้กับคนอื่นได้ คือคนที่คนอื่นอยากช่วยเหลือ ผลักดัน และอยู่เคียงข้างตลอดเวลา</p>
+    </div>
+
+    <h2>หลีกเลี่ยง "การเป็นนักชนะแบบทำลาย"</h2>
+
+    <p>มีคนบางประเภทที่ชนะในการโต้เถียงทุกครั้ง แต่กลับแพ้ในความสัมพันธ์ทุกอย่าง เพราะ <strong>ทุกครั้งที่คุณทำให้คนอื่นรู้สึกโง่หรือด้อยกว่า คุณกำลังสร้างศัตรูที่จะรอโอกาสดึงคุณลงมา</strong> คนที่คิดใหญ่เข้าใจว่าการแพ้ในการโต้เถียงบางครั้ง แต่ชนะในความสัมพันธ์ คือกลยุทธ์ที่ฉลาดกว่า</p>
+
+    <h2>ฟังด้วยหัวใจ ไม่ใช่แค่หู</h2>
+
+    <p>ฉันพบว่าผู้นำที่ยิ่งใหญ่ที่สุดที่ฉันเคยพบเป็นผู้ฟังที่ดีที่สุด พวกเขาไม่รอแค่ให้คนอื่นหยุดพูดเพื่อที่พวกเขาจะพูด แต่พวกเขา <strong>ฟังเพื่อเข้าใจ</strong> ฟังเพื่อค้นหาว่าคนที่อยู่ตรงหน้าต้องการอะไรจริงๆ</p>
+
+    <div class="signal-row">
+      <div class="signal-box do">
+        <div class="signal-label">✅ สร้างความสัมพันธ์ที่ดี</div>
+        <ul>
+          <li>จำชื่อคนและใช้ชื่อในการสนทนา</li>
+          <li>ถามคำถามเกี่ยวกับชีวิตและความสนใจของเขา</li>
+          <li>ยอมรับความผิดพลาดของตัวเองตรงๆ</li>
+          <li>ชมเชยอย่างจริงใจ ไม่ใช่แค่ยอ</li>
+          <li>ให้เครดิตคนที่ช่วยเหลือคุณเสมอ</li>
+        </ul>
+      </div>
+      <div class="signal-box dont">
+        <div class="signal-label">❌ ทำลายความสัมพันธ์</div>
+        <ul>
+          <li>วิจารณ์คนอื่นต่อหน้าคนอื่น</li>
+          <li>รับเครดิตผลงานของทีมมาเป็นของตัวเอง</li>
+          <li>แสดงให้รู้ว่าคุณฉลาดกว่าหรือรู้มากกว่า</li>
+          <li>ขัดคนอื่นขณะที่เขากำลังพูด</li>
+          <li>นินทาและพูดเรื่องคนอื่นลับหลัง</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <p>"You can make more friends in two months by becoming interested in other people than you can in two years by trying to get other people interested in you."</p>
+      <span class="pq-th">คุณสามารถหาเพื่อนได้มากในสองเดือน ด้วยการสนใจคนอื่น มากกว่าที่คุณจะทำในสองปี ด้วยการพยายามทำให้คนอื่นสนใจคุณ</span>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🪞 Reflection — ไตร่ตรองก่อนไปต่อ</div>
+      <ol>
+        <li>ในสัปดาห์ที่ผ่านมา คุณทำให้คนอื่นรู้สึกสำคัญและมีคุณค่ากี่ครั้ง?</li>
+        <li>มีความสัมพันธ์ไหนในชีวิตคุณที่ต้องการ "ซ่อมแซม"? คุณจะเริ่มต้นอย่างไร?</li>
+        <li>คุณฟังเพื่อตอบ หรือฟังเพื่อเข้าใจ?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CHAPTER 6 — ACTION & GOALS
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">06</div>
+    <div class="ch-label">บทที่ 6 · Chapter Six</div>
+    <div class="ch-title">นิสัยลงมือทำ + พลังของเป้าหมาย<br><em>The Action Habit and the Power of Goals</em></div>
+    <div class="ch-essence">ความคิดที่ดีที่สุดในโลก ไม่มีค่าอะไรเลย ถ้ามันไม่เคยถูกแปลงเป็นการกระทำ</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ลงมือทำก่อน รู้สึกพร้อมทีหลัง</h1>
+
+    <p>ฉันพบคนนับพันที่มีแผนดีเยี่ยม มีความคิดที่ยอดเยี่ยม มีความสามารถมากกว่าคนที่ประสบความสำเร็จกว่าพวกเขา แต่พวกเขาไม่เคยไปถึงไหนเลย เพราะพวกเขาติดอยู่กับการ <strong>"รอจนพร้อม"</strong> ซึ่งไม่มีวันมาถึง</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ กฎ 10 นาที</div>
+      <p>เมื่อเผชิญกับงานที่คุณผัดวันประกันพรุ่ง ให้บอกกับตัวเองว่า "ฉันจะทำแค่ 10 นาทีก่อน" เพราะการเริ่มต้นคืออุปสรรคที่ใหญ่ที่สุด เมื่อคุณเริ่มแล้ว โมเมนตัมจะพาคุณไปต่อเอง นี่คือวิธีที่ works ทุกครั้ง</p>
+    </div>
+
+    <h2>เปลี่ยนความพ่ายแพ้ให้เป็นชัยชนะ</h2>
+
+    <p>ทุกคนพ่ายแพ้ ทุกคนล้มเหลว คนที่ประสบความสำเร็จไม่ได้ล้มน้อยกว่า แต่พวกเขา <strong>เรียนรู้จากความล้มเหลวเร็วกว่า และลุกขึ้นเร็วกว่า</strong> ฉันสังเกตเห็นว่าคนที่ประสบความสำเร็จมีนิสัยหนึ่งที่น่าสนใจ — พวกเขาถามตัวเองหลังจากความล้มเหลวว่า: <strong>"ฉันเรียนรู้อะไรจากเรื่องนี้?"</strong> ไม่ใช่ "ทำไมโชคร้ายอย่างนี้"</p>
+
+    <h2>พลังของเป้าหมายที่ชัดเจน</h2>
+
+    <p>เป้าหมายไม่ใช่แค่รายการสิ่งที่อยากทำ — มันคือระบบนำทางของสมอง สมองของมนุษย์ทำงานได้ดีที่สุดเมื่อมีเป้าหมายที่ชัดเจน เพราะมันจะเริ่ม <strong>"กรอง"</strong> ข้อมูลรอบตัวเพื่อหาสิ่งที่เกี่ยวข้องกับเป้าหมายนั้นโดยอัตโนมัติ คุณจะเริ่มเห็นโอกาสที่คุณไม่เคยเห็นมาก่อน</p>
+
+    <div class="cmp-table-wrapper">
+      <table class="cmp-table">
+        <tr>
+          <th>❌ เป้าหมายที่ไม่ทำงาน</th>
+          <th>✅ เป้าหมายที่ทำงานจริง</th>
+        </tr>
+        <tr>
+          <td>"ฉันอยากรวยขึ้น"</td>
+          <td>"ฉันจะมีรายได้ 200,000 บาทต่อเดือนภายใน 3 ปี"</td>
+        </tr>
+        <tr>
+          <td>"ฉันอยากสุขภาพดีขึ้น"</td>
+          <td>"ฉันจะวิ่ง 5 กม. ทุกเช้าจันทร์-พฤหัสฯ"</td>
+        </tr>
+        <tr>
+          <td>"ฉันอยากเรียนรู้มากขึ้น"</td>
+          <td>"ฉันจะอ่านหนังสือ 1 เล่มต่อเดือน และจดบันทึก key insights"</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2>สร้างระบบ ไม่ใช่แค่แรงจูงใจ</h2>
+
+    <p>แรงจูงใจมาและไป แต่ระบบอยู่กับคุณตลอดไป ความแตกต่างระหว่างคนที่ประสบความสำเร็จและคนที่ไม่ประสบความสำเร็จไม่ใช่ว่าคนสำเร็จมีแรงจูงใจมากกว่า แต่เพราะ <strong>พวกเขาสร้างระบบที่ทำให้การกระทำที่ถูกต้องเป็นเรื่องง่าย และการกระทำที่ผิดเป็นเรื่องยาก</strong></p>
+
+    <div class="blockquote-full">
+      <span class="bq-mark">"</span>
+      <p>Action cures fear. Indecision, postponement, on the other hand, fertilize fear.</p>
+      <span class="bq-th">การกระทำรักษาความกลัว แต่การลังเลและการผัดวันประกันพรุ่ง กลับทำให้ความกลัวเติบโต</span>
+      <span class="bq-src">— David J. Schwartz · The Magic of Thinking Big</span>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🪞 Reflection — ไตร่ตรองก่อนไปต่อ</div>
+      <ol>
+        <li>มีสิ่งที่คุณรู้ว่าควรทำแต่ยังผัดวันประกันพรุ่งอยู่ไหม? อะไรที่ขัดขวางคุณจริงๆ?</li>
+        <li>เป้าหมาย 1 ปีของคุณมีความชัดเจนพอที่จะวัดผลได้ไหม?</li>
+        <li>ความล้มเหลวครั้งล่าสุดของคุณสอนอะไรคุณบ้าง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       SYNTHESIS — บทสรุปลงมือ
+  ══════════════════════════════════════════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num" style="opacity:0.15">✦</div>
+    <div class="ch-label">Synthesis · บทสรุป</div>
+    <div class="ch-title">พิธีกรรมความคิดใหญ่ของคุณ<br><em>Your Big Thinking Daily Ritual</em></div>
+    <div class="ch-essence">ทุกสิ่งที่คุณอ่านมาในหนังสือเล่มนี้ จะไม่มีความหมายอะไรเลย ถ้ามันไม่เปลี่ยนวิธีที่คุณใช้ชีวิตในวันพรุ่งนี้</div>
+  </div>
+
+  <div class="page">
+
+    <div class="blockquote-full">
+      <span class="bq-mark">"</span>
+      <p>Believe it can be done. When you believe something can be done, really believe, your mind will find the ways to do it.</p>
+      <span class="bq-th">เชื่อว่ามันเป็นไปได้ เมื่อคุณเชื่ออย่างจริงใจว่าบางสิ่งทำได้ จิตใจของคุณจะหาทางทำมันให้สำเร็จเอง</span>
+      <span class="bq-src">— David J. Schwartz · The Magic of Thinking Big</span>
+    </div>
+
+    <h2>แก่นสารทั้งหนังสือใน 6 บรรทัด</h2>
+
+    <p>หลังจากศึกษาคนนับพันและใช้เวลา 20 ปีในการค้นหาคำตอบ ฉันสรุปได้ว่าความสำเร็จมีสูตร และสูตรนั้นเรียบง่ายมาก:</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">✦ สูตรความสำเร็จของ Schwartz</div>
+      <p>
+        <strong>1.</strong> หยุดหาข้อแก้ตัว — Excusitis คืออุปสรรคหมายเลข 1<br>
+        <strong>2.</strong> สร้างความเชื่อมั่นด้วยการกระทำ ไม่ใช่การรอ<br>
+        <strong>3.</strong> คิดใหญ่กว่าที่คุณคิดว่าตัวเองสมควรได้<br>
+        <strong>4.</strong> เลือกสภาพแวดล้อมที่ดีกว่า — คนรอบข้างและสิ่งที่ป้อนเข้าหัว<br>
+        <strong>5.</strong> ทำให้คนอื่นรู้สึกสำคัญ ความสำเร็จสร้างผ่านคนอื่นเสมอ<br>
+        <strong>6.</strong> ลงมือทำวันนี้ ไม่ใช่เมื่อพร้อม
+      </p>
+    </div>
+
+    <h2>✅ Checklist ความคิดใหญ่ประจำวัน</h2>
+    <p>ใช้ checklist นี้ทุกเช้าหรือก่อนนอน เพื่อปรับความคิดให้อยู่ในโหมดของคนที่ประสบความสำเร็จ:</p>
+
+    <div class="checklist">
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>หยุดข้อแก้ตัว</strong> — วันนี้มีอะไรที่ฉันรู้ว่าควรทำแต่กำลังหาข้อแก้ตัวอยู่? ฉันจะทำมันก่อนสิ้นวัน</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>ฝากเงินความเชื่อมั่น</strong> — วันนี้ฉันจะทำสิ่งที่กลัวหรือไม่สบายใจสักหนึ่งอย่าง เพื่อสร้างความเชื่อมั่นในตัวเอง</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>ภาษาของคนคิดใหญ่</strong> — วันนี้ฉันจะหลีกเลี่ยงการพูดว่า "ฉันทำไม่ได้" แทนด้วย "ฉันจะหาทางทำให้ได้"</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>สภาพแวดล้อม</strong> — วันนี้ฉันจะใช้เวลากับคนที่ทำให้ฉันดีขึ้น และจำกัดเวลากับสิ่งที่ดึงพลังงานฉันลง</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>ทำให้คนรู้สึกสำคัญ</strong> — วันนี้ฉันจะหาโอกาสทำให้คนอย่างน้อย 1 คนรู้สึกว่าตัวเองมีคุณค่า ผ่านการชมเชย ขอบคุณ หรือฟังอย่างตั้งใจ</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>ลงมือทำสิ่งที่สำคัญ</strong> — วันนี้ฉันจะทำสิ่งที่เข้าใกล้เป้าหมายใหญ่ของฉันมากขึ้นอย่างน้อย 1 ก้าว ไม่ว่าจะเล็กแค่ไหน</div>
+      </div>
+      <div class="check-item">
+        <div class="check-box">☐</div>
+        <div class="check-text"><strong>ทบทวนก่อนนอน</strong> — คืนนี้ฉันจะถามตัวเองว่า "วันนี้ฉันคิดใหญ่พอไหม?" และ "พรุ่งนี้ฉันจะทำอะไรให้ดีขึ้น?"</div>
+      </div>
+    </div>
+
+    <h2>📚 หนังสือที่ควรอ่านต่อ</h2>
+    <p>ถ้าหนังสือเล่มนี้เปิดประตูบานแรกให้คุณ นี่คือหนังสือที่จะพาคุณลึกลงไปในทักษะที่สำคัญแต่ละด้าน:</p>
+
+    <table class="cmp-table">
+      <tr>
+        <th>หนังสือ</th>
+        <th>อ่านต่อเพื่อ</th>
+      </tr>
+      <tr>
+        <td><strong>Mindset</strong> — Carol S. Dweck</td>
+        <td>เข้าใจลึกขึ้นว่า Growth Mindset (ความเชื่อว่าตัวเองพัฒนาได้) ทำงานอย่างไร</td>
+      </tr>
+      <tr>
+        <td><strong>How to Win Friends and Influence People</strong> — Dale Carnegie</td>
+        <td>เรียนรู้ทักษะการสร้างความสัมพันธ์และโน้มน้าวใจอย่างละเอียด</td>
+      </tr>
+      <tr>
+        <td><strong>Atomic Habits</strong> — James Clear</td>
+        <td>สร้างระบบนิสัยที่ทำให้การกระทำที่ถูกต้องเกิดขึ้นโดยอัตโนมัติ</td>
+      </tr>
+      <tr>
+        <td><strong>The 7 Habits of Highly Effective People</strong> — Stephen R. Covey</td>
+        <td>กรอบความคิดครบวงจรสำหรับการใช้ชีวิตอย่างมีประสิทธิภาพ</td>
+      </tr>
+    </table>
+
+    <div class="divider"><span class="divider-mark">✦</span></div>
+
+    <div class="author-box">
+      <div class="author-avatar">D</div>
+      <div>
+        <div class="author-meta">David J. Schwartz — คำสุดท้ายจากผู้เขียน</div>
+        <p class="author-text">"จงจำไว้ว่า คุณไม่จำเป็นต้องเปลี่ยนแปลงทุกอย่างในคืนเดียว เริ่มจากสิ่งเล็กๆ ที่คุณทำได้วันนี้ แล้วทำมันซ้ำๆ ทุกวัน ความยิ่งใหญ่ไม่ได้เกิดจากการก้าวยักษ์ แต่เกิดจากการก้าวเล็กๆ ที่สม่ำเสมอ"</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="book-footer">
+    <div class="book-footer-mark">✦</div>
+    <div class="book-footer-text">"ถ้าคุณเชื่อว่าคุณทำได้ คุณก็จะทำได้ — ขนาดของความสำเร็จคุณถูกกำหนดด้วยขนาดความเชื่อของคุณ"</div>
+    <div class="book-footer-author">The Magic of Thinking Big · David J. Schwartz · Personal Edition</div>
+  </div>
+
+</div><!-- /.book -->
+</body>
+</html>
