@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 4-Hour Workweek — Lifestyle Freedom Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Gold palette — matching the iconic yellow cover */
+      --accent:       #C8960C;
+      --accent-deep:  #8B6508;
+      --accent-light: #E8C84A;
+      --accent-rule:  rgba(200, 150, 12, 0.30);
+      --accent-bg:    rgba(200, 150, 12, 0.08);
+
+      /* Paper tones */
+      --paper:        #F2EFE4;
+      --paper-mid:    #EAE5D2;
+      --paper-deep:   #DDD7BD;
+      --paper-shadow: #C8C0A0;
+
+      /* Ink tones */
+      --ink:          #14110B;
+      --ink-soft:     #2A261C;
+      --ink-mid:      #46402F;
+      --ink-muted:    #7C7460;
+      --ink-faint:    #ABA48C;
+
+      /* Semantic */
+      --red:          #7A1A1A;
+      --red-bg:       #FBF3F0;
+      --green:        #355E40;
+      --green-bg:     #F1F6EE;
+
+      --page-pad-h: 76px;
+      --page-pad-v: 84px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #1A1208;
+      padding: 40px 16px;
+      font-family: 'Noto Serif Thai', serif;
+    }
+
+    .book {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.12), 0 4px 60px rgba(0,0,0,.50), 0 0 140px rgba(200,150,12,.08);
+    }
+
+    /* ─── COVER ─────────────────────────────────────── */
+    .cover {
+      background: #E8B900;
+      padding: 64px var(--page-pad-h) 72px;
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 240px; height: 240px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.06);
+    }
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .cover-badge {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.50);
+      background: rgba(255,255,255,0.35);
+      padding: 6px 14px;
+      border-radius: 2px;
+    }
+    .cover-edition {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.40);
+    }
+    .cover-main { position: relative; z-index: 1; }
+    .cover-eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.45);
+      margin-bottom: 20px;
+    }
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 0.95;
+      color: #14110B;
+      margin-bottom: 8px;
+    }
+    .cover-title span {
+      font-style: italic;
+      font-weight: 400;
+      font-size: 52px;
+    }
+    .cover-subtitle {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: rgba(0,0,0,0.55);
+      margin-top: 16px;
+      margin-bottom: 32px;
+      letter-spacing: -0.3px;
+    }
+    .cover-divider {
+      width: 60px;
+      height: 3px;
+      background: rgba(0,0,0,0.30);
+      margin-bottom: 24px;
+    }
+    .cover-desc {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      color: rgba(0,0,0,0.60);
+      line-height: 1.7;
+      max-width: 440px;
+      font-style: italic;
+    }
+    .cover-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-author {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: rgba(0,0,0,0.50);
+      text-transform: uppercase;
+    }
+    .cover-author strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(0,0,0,0.70);
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 4px;
+    }
+    .cover-clock {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: 2px solid rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-style: italic;
+      color: rgba(0,0,0,0.40);
+    }
+
+    /* ─── TOC ───────────────────────────────────────── */
+    .toc-page {
+      padding: 72px var(--page-pad-h);
+      background: var(--paper-mid);
+      border-top: 4px solid var(--accent);
+    }
+    .toc-eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .toc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .toc-intro {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+    .ch-card {
+      display: flex;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--paper-shadow);
+      align-items: flex-start;
+    }
+    .ch-card:last-child { border-bottom: none; }
+    .ch-card-num {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 38px;
+      color: var(--accent);
+      font-weight: 400;
+      line-height: 1;
+      min-width: 56px;
+      padding-top: 2px;
+    }
+    .ch-card-body { flex: 1; }
+    .ch-card-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ch-card-title {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .ch-card-one-liner {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 13px;
+      color: var(--ink-muted);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .ch-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ch-tag {
+      display: inline-block;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--accent-bg);
+      color: var(--accent-deep);
+      padding: 3px 8px;
+      font-weight: 700;
+      border: 1px solid var(--accent-rule);
+    }
+
+    /* ─── PAGES ─────────────────────────────────────── */
+    .page {
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-top: 1px solid var(--paper-shadow);
+    }
+    .chapter-open {
+      padding: 72px var(--page-pad-h) 56px;
+      background: var(--paper-mid);
+      border-top: 4px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+    .ch-bg-num {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 180px;
+      font-weight: 800;
+      color: rgba(200,150,12,0.08);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .ch-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .ch-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .ch-title em {
+      font-style: italic;
+      font-weight: 400;
+      font-size: 34px;
+      color: var(--ink-mid);
+      display: block;
+      margin-top: 4px;
+    }
+    .ch-essence {
+      margin-top: 28px;
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);
+      background: rgba(232,185,0,0.08);
+    }
+    .ch-essence p {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      color: var(--ink-soft);
+      font-style: italic;
+      line-height: 1.75;
+    }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────── */
+    .eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 48px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--accent-rule);
+    }
+    h3 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+    p {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    p em { font-style: italic; color: var(--ink-mid); }
+
+    /* ─── INSIGHT BOX ────────────────────────────────── */
+    .insight-box {
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-rule);
+      border-left: 4px solid var(--accent);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .insight-box .ib-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .insight-box p {
+      font-size: 15px;
+      color: var(--ink-soft);
+      margin-bottom: 0;
+      line-height: 1.75;
+    }
+
+    /* ─── BLOCKQUOTE FULL (dark) ─────────────────────── */
+    .blockquote-full {
+      background: var(--ink);
+      margin: 48px calc(-1 * var(--page-pad-h));
+      padding: 60px var(--page-pad-h);
+      text-align: center;
+    }
+    .blockquote-full .bq-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      color: var(--accent);
+      line-height: 0.7;
+      display: block;
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+    .blockquote-full blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--paper);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 16px;
+    }
+    .blockquote-full .bq-th {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: var(--accent-light);
+      font-style: italic;
+      margin-top: 14px;
+      line-height: 1.7;
+    }
+    .blockquote-full .bq-cite {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    /* ─── PULLQUOTE ──────────────────────────────────── */
+    .pullquote {
+      border-left: 4px solid var(--accent);
+      padding: 18px 24px;
+      margin: 32px 0;
+      background: var(--paper-mid);
+    }
+    .pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      font-style: italic;
+      color: var(--ink);
+      margin: 0 0 8px;
+      line-height: 1.55;
+    }
+    .pullquote .pq-th {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+    .pullquote cite {
+      display: block;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    /* ─── AUTHOR BOX ─────────────────────────────────── */
+    .author-box {
+      display: flex;
+      gap: 18px;
+      padding: 24px 28px;
+      background: var(--paper-mid);
+      border-left: 3px solid var(--accent);
+      margin: 32px 0;
+    }
+    .author-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--accent-deep);
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-style: italic;
+      flex-shrink: 0;
+    }
+    .author-meta {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .author-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--ink-soft);
+      font-style: italic;
+      margin: 0;
+    }
+
+    /* ─── INSIGHT LADDER ─────────────────────────────── */
+    .ladder { margin: 36px 0; }
+    .ladder-step { padding: 18px 24px; }
+    .ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+    .ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+    .ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+    .ladder-tag {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .ladder-step.wrong .ladder-tag { color: var(--red); }
+    .ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+    .ladder-step.action .ladder-tag { color: var(--green); }
+    .ladder-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+    .ladder-arrow { text-align: center; padding: 8px; color: var(--ink-faint); font-size: 22px; }
+
+    /* ─── COMPARE TABLE ──────────────────────────────── */
+    .cmp-table { width: 100%; border-collapse: collapse; margin: 32px 0; }
+    .cmp-table th {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 12px 16px;
+      text-align: left;
+    }
+    .cmp-table th:first-child {
+      background: var(--red);
+      color: var(--paper);
+    }
+    .cmp-table th:last-child {
+      background: var(--accent-deep);
+      color: var(--paper);
+    }
+    .cmp-table td {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      padding: 12px 16px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--paper-shadow);
+      vertical-align: top;
+    }
+    .cmp-table tr:nth-child(even) td:first-child { background: #FBF3F0; }
+    .cmp-table tr:nth-child(even) td:last-child { background: rgba(200,150,12,0.05); }
+
+    /* ─── STAT ROW ───────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--paper-shadow);
+      margin: 32px 0;
+    }
+    .stat-cell {
+      background: var(--paper);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent-deep);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      color: var(--ink-muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* ─── ACTION CARD ────────────────────────────────── */
+    .action-card {
+      background: var(--green-bg);
+      border: 1px solid rgba(53,94,64,0.2);
+      border-top: 3px solid var(--green);
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+    .action-card .ac-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .action-card h3 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 17px;
+      color: var(--green);
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+    .action-card ul {
+      list-style: none;
+      padding: 0;
+    }
+    .action-card ul li {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      color: var(--ink-soft);
+      padding: 7px 0 7px 22px;
+      border-bottom: 1px solid rgba(53,94,64,0.12);
+      position: relative;
+      line-height: 1.65;
+    }
+    .action-card ul li:last-child { border-bottom: none; }
+    .action-card ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ─── CHECKLIST ──────────────────────────────────── */
+    .checklist { list-style: none; padding: 0; margin: 24px 0; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--paper-deep);
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist-box {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--accent-deep);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ─── REFLECTION ─────────────────────────────────── */
+    .reflection {
+      background: var(--paper-deep);
+      padding: 32px 36px;
+      margin: 48px 0 0;
+      border-top: 2px solid var(--ink-faint);
+    }
+    .reflection-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .reflection ol {
+      padding-left: 0;
+      list-style: none;
+      counter-reset: q;
+    }
+    .reflection ol li {
+      counter-increment: q;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      padding: 10px 0 10px 32px;
+      border-bottom: 1px solid var(--paper-shadow);
+      position: relative;
+    }
+    .reflection ol li:last-child { border-bottom: none; }
+    .reflection ol li::before {
+      content: counter(q);
+      position: absolute;
+      left: 0;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--accent);
+      top: 8px;
+    }
+
+    /* ─── SIGNAL BOX ─────────────────────────────────── */
+    .signal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--paper-shadow);
+      margin: 32px 0;
+    }
+    .signal-box { padding: 24px 22px; }
+    .signal-box.do { background: var(--green-bg); }
+    .signal-box.dont { background: var(--red-bg); }
+    .signal-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .signal-box.do .signal-label { color: var(--green); }
+    .signal-box.dont .signal-label { color: var(--red); }
+    .signal-box ul { list-style: none; padding: 0; }
+    .signal-box ul li {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      color: var(--ink-soft);
+      padding: 7px 0 7px 18px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+      line-height: 1.6;
+    }
+    .signal-box ul li:last-child { border-bottom: none; }
+    .signal-box.do ul li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+    .signal-box.dont ul li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+    /* ─── FORMULA BLOCK ──────────────────────────────── */
+    .formula-block {
+      background: var(--ink-soft);
+      padding: 32px 36px;
+      margin: 32px 0;
+      text-align: center;
+    }
+    .formula-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .formula-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--accent-light);
+      line-height: 1.5;
+    }
+    .formula-desc {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 13px;
+      color: var(--ink-faint);
+      margin-top: 14px;
+      font-style: italic;
+    }
+
+    /* ─── PAGE RULE ──────────────────────────────────── */
+    .page-rule {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent-rule), transparent);
+      margin: 40px 0;
+    }
+
+    /* ─── BOOK FOOTER ────────────────────────────────── */
+    .book-footer {
+      background: var(--ink);
+      padding: 60px var(--page-pad-h);
+      text-align: center;
+    }
+    .book-footer-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 36px;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .book-footer-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: var(--paper-deep);
+      font-style: italic;
+      line-height: 1.75;
+      max-width: 500px;
+      margin: 0 auto 20px;
+    }
+    .book-footer-author {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      color: var(--accent-light);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ─── READING LIST ───────────────────────────────── */
+    .reading-list { list-style: none; padding: 0; margin: 24px 0; }
+    .reading-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--paper-shadow);
+      align-items: flex-start;
+    }
+    .reading-item:last-child { border-bottom: none; }
+    .reading-num {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--accent);
+      min-width: 28px;
+      line-height: 1;
+      padding-top: 2px;
+    }
+    .reading-title {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .reading-why {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 13px;
+      color: var(--ink-muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 780px) {
+      :root {
+        --page-pad-h: 28px;
+        --page-pad-v: 56px;
+      }
+      body { padding: 12px 8px; }
+      .cover { padding: 48px 28px 56px; min-height: 480px; }
+      .cover-title { font-size: 52px; }
+      .cover-title span { font-size: 38px; }
+      .cover-clock { display: none; }
+      .ch-bg-num { font-size: 120px; }
+      .ch-title { font-size: 34px; }
+      .blockquote-full { margin-left: -28px; margin-right: -28px; padding: 48px 28px; }
+      .blockquote-full blockquote { font-size: 20px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .signal-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="book">
+
+<!-- ════════════════════ COVER ════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-badge">Personal Edition · สรุปฉบับสมบูรณ์</div>
+    <div class="cover-edition">Lifestyle Freedom</div>
+  </div>
+  <div class="cover-main">
+    <div class="cover-eyebrow">Timothy Ferriss · 2007 / ฉบับปรับปรุง</div>
+    <div class="cover-title">
+      The<br>4-Hour<br><span>Workweek</span>
+    </div>
+    <div class="cover-divider"></div>
+    <div class="cover-subtitle">ทำน้อย — แต่รวยมาก</div>
+    <div class="cover-desc">"เป้าหมายไม่ใช่การทำงานน้อยลงเพื่อไม่ทำอะไร เป้าหมายคือการทำสิ่งที่ตัวเองรักมากขึ้น"</div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-author">
+      By
+      <strong>Timothy Ferriss</strong>
+    </div>
+    <div class="cover-clock">⏱</div>
+  </div>
+</div>
+
+<!-- ════════════════════ TOC ════════════════════ -->
+<div class="toc-page">
+  <div class="toc-eyebrow">สารบัญ · Table of Contents</div>
+  <div class="toc-title">เส้นทาง DEAL</div>
+  <div class="toc-intro">หนังสือเล่มนี้ไม่ได้สอนให้ทำงานน้อยลง — มันสอนให้คิดใหม่ว่า "ชีวิตที่ดี" หมายถึงอะไร</div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">D</div>
+    <div class="ch-card-body">
+      <div class="ch-card-label">Definition · นิยามใหม่</div>
+      <div class="ch-card-title">คนรวยใหม่ ≠ คนรวยเงิน</div>
+      <div class="ch-card-one-liner">ถ้าคุณยังต้องขออนุญาตเพื่อใช้เวลาของตัวเอง — คุณยังไม่รวยจริง</div>
+      <div class="ch-tags">
+        <span class="ch-tag">Lifestyle Design</span>
+        <span class="ch-tag">Fear-Setting</span>
+        <span class="ch-tag">Dreamlining</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">E</div>
+    <div class="ch-card-body">
+      <div class="ch-card-label">Elimination · กำจัดความสูญเปล่า</div>
+      <div class="ch-card-title">80% ของผลลัพธ์ มาจาก 20% ของการกระทำ</div>
+      <div class="ch-card-one-liner">ความยุ่งไม่ใช่ความขยัน — มันคือความไม่รู้ว่าสิ่งไหนสำคัญจริง</div>
+      <div class="ch-tags">
+        <span class="ch-tag">Pareto 80/20</span>
+        <span class="ch-tag">Low-Info Diet</span>
+        <span class="ch-tag">Batching</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">A</div>
+    <div class="ch-card-body">
+      <div class="ch-card-label">Automation · สร้างระบบ</div>
+      <div class="ch-card-title">ธุรกิจที่ทำงานโดยไม่ต้องมีคุณ</div>
+      <div class="ch-card-one-liner">เป้าหมายไม่ใช่หาเงินเก่งขึ้น — แต่ต้องสร้างระบบที่หาเงินแทนคุณ</div>
+      <div class="ch-tags">
+        <span class="ch-tag">Muse Business</span>
+        <span class="ch-tag">Virtual Assistant</span>
+        <span class="ch-tag">Outsourcing</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">L</div>
+    <div class="ch-card-body">
+      <div class="ch-card-label">Liberation · อิสรภาพ</div>
+      <div class="ch-card-title">Mini-Retirement ไม่ใช่แค่วันหยุด</div>
+      <div class="ch-card-one-liner">อย่ารอเกษียณเพื่อเริ่มใช้ชีวิต — กระจายช่วงชีวิตที่ดีที่สุดออกไปตลอดทาง</div>
+      <div class="ch-tags">
+        <span class="ch-tag">Remote Work</span>
+        <span class="ch-tag">Mini-Retirement</span>
+        <span class="ch-tag">Geoarbitrage</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">∞</div>
+    <div class="ch-card-body">
+      <div class="ch-card-label">Synthesis · บทสรุป</div>
+      <div class="ch-card-title">ลงมือออกแบบชีวิต</div>
+      <div class="ch-card-one-liner">Checklist, Action Steps, และหนังสือเพิ่มเติมเพื่อต่อยอด</div>
+      <div class="ch-tags">
+        <span class="ch-tag">Action Plan</span>
+        <span class="ch-tag">Reading List</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ FOREWORD ════════════════════ -->
+<div class="page">
+  <div class="eyebrow">จดหมายจาก Tim · Foreword</div>
+  <h1>ผมเขียนหนังสือเล่มนี้เพราะผมเกือบตาย — ในออฟฟิศ</h1>
+
+  <div class="author-box">
+    <div class="author-avatar">T</div>
+    <div>
+      <div class="author-meta">Timothy Ferriss — The 4-Hour Workweek</div>
+      <p class="author-text">"ผมเคยทำงาน 14 ชั่วโมงต่อวัน 7 วันต่อสัปดาห์ และนั่นทำให้ผมรู้ว่า การทำงานหนักที่สุดในห้อง ไม่ได้หมายความว่าคุณกำลังก้าวหน้า — มันแค่หมายความว่าคุณกำลังสูญเสียชีวิต"</p>
+    </div>
+  </div>
+
+  <p>ปี 2004 ผมนั่งอยู่ในออฟฟิศของบริษัทเสริมอาหารที่ผมก่อตั้งเอง มีเงินหมุนเวียน มีพนักงาน และทำงานแทบไม่ได้นอน แต่ผมไม่มีอะไรที่ผมต้องการจริงๆ — <strong>ไม่มีเวลา ไม่มีอิสระ และไม่มีพลังงาน</strong></p>
+
+  <p>แล้ววันหนึ่ง ผมก็ขึ้นเครื่องบินไปยุโรปโดยไม่ได้วางแผน เหลือเงินในบัตรเครดิตแค่พอใช้ แล้วค้นพบว่า — ธุรกิจดำเนินได้ดีกว่าตอนที่ผมอยู่เสียอีก นั่นคือจุดเริ่มต้นของทุกอย่าง</p>
+
+  <p>หนังสือเล่มนี้ไม่ใช่คู่มือลาออกจากงาน ไม่ใช่สูตรสำเร็จรูป มันคือ <strong>กระบวนการคิดใหม่ทั้งหมด</strong> ว่าเราจะออกแบบชีวิตที่มีเวลา มีอิสระ มีรายได้ และมีพลังงานไปพร้อมกันได้อย่างไร โดยไม่ต้องรอเกษียณ</p>
+
+  <div class="insight-box">
+    <div class="ib-label">แก่นสารของหนังสือ</div>
+    <p>The 4-Hour Workweek ไม่ได้สอนให้ทำงาน 4 ชั่วโมงต่อสัปดาห์จริงๆ แต่สอนให้ตั้งคำถามใหม่ว่า "ชีวิตที่ดีหน้าตาเป็นอย่างไร?" และ "จะถึงที่นั่นโดยไม่ต้องรอ 40 ปีได้อย่างไร?" ผ่านกระบวนการ DEAL: <strong>D</strong>efinition → <strong>E</strong>limination → <strong>A</strong>utomation → <strong>L</strong>iberation</p>
+  </div>
+</div>
+
+<!-- ════════════════════ CHAPTER D ════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-bg-num">D</div>
+  <div class="ch-label">บทที่หนึ่ง · Definition</div>
+  <div class="ch-title">
+    คนรวยใหม่ คือใคร?
+    <em>The New Rich — นิยามที่เปลี่ยนทุกอย่าง</em>
+  </div>
+  <div class="ch-essence">
+    <p>"คนรวยที่แท้จริงไม่ได้วัดด้วยเงินในบัญชี แต่วัดด้วยอิสรภาพในการใช้เวลา — ถ้าคุณต้องขออนุญาตเพื่อออกไปรับลูกที่โรงเรียน คุณยังไม่รวยจริง"</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คุณไม่ได้ต้องการเงินหลายล้าน — คุณต้องการสิ่งที่เงินซื้อได้</h1>
+
+  <p>ลองนึกภาพนี้: คนคนหนึ่งมีเงิน 10 ล้านบาทในบัญชี แต่ทำงาน 80 ชั่วโมงต่อสัปดาห์ ป่วยตลอดเวลา และไม่มีเวลาพบเจอคนที่รัก กับอีกคนที่มีเงินเดือน 60,000 บาท แต่ทำงานจากที่ไหนก็ได้ในโลก ท่องเที่ยวไปพร้อมทำงาน และมีเวลาทำสิ่งที่รัก — <strong>ใครมีชีวิตที่รวยกว่ากัน?</strong></p>
+
+  <p>Tim เรียกคนกลุ่มที่สองว่า <strong>"The New Rich" (คนรวยใหม่)</strong> — กลุ่มคนที่เลือกออกแบบชีวิตเพื่อให้ได้ทั้ง เวลา อิสระ รายได้ และพลังงาน แทนที่จะสะสมเงินไว้ใช้ "หลังเกษียณ"</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>❌ คนเลื่อนชีวิตออกไป (The Deferrers)</th>
+          <th>✅ คนรวยใหม่ (The New Rich)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ทำงานหนักทั้งชีวิต รอเกษียณเพื่อ "ใช้ชีวิตจริง"</td>
+          <td>กระจายช่วงชีวิตที่ดีออกตลอดทาง ไม่รอ</td>
+        </tr>
+        <tr>
+          <td>วัดความสำเร็จด้วยรายได้รวม (absolute income)</td>
+          <td>วัดด้วย "รายได้ต่อชั่วโมง" และ "อิสรภาพ"</td>
+        </tr>
+        <tr>
+          <td>ยุ่งตลอดเวลา = ขยัน = ดี</td>
+          <td>ประสิทธิผล (ผลลัพธ์) สำคัญกว่าการยุ่ง</td>
+        </tr>
+        <tr>
+          <td>ฝันเรื่องเกษียณอายุ 60-65 ปี</td>
+          <td>ออกแบบ "Mini-Retirement" ระหว่างทาง</td>
+        </tr>
+        <tr>
+          <td>รอให้พร้อมก่อนค่อยเริ่ม</td>
+          <td>ทดลองเล็กๆ แล้วปรับ — เริ่มได้เลย</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Fear-Setting — เครื่องมือสำหรับเอาชนะความกลัว</h2>
+
+  <p>สิ่งที่หยุดคนส่วนใหญ่ไม่ใช่ขาดความสามารถ — แต่เป็นความกลัว กลัวล้มเหลว กลัวดูโง่ กลัวสูญเสียสิ่งที่มี Tim แนะนำเครื่องมือที่เขาเรียกว่า <strong>Fear-Setting</strong> ซึ่งตรงข้ามกับ Goal-Setting</p>
+
+  <div class="insight-box">
+    <div class="ib-label">วิธีทำ Fear-Setting (ใช้เวลา 20 นาที)</div>
+    <p><strong>คำถาม 1:</strong> ถ้าตัดสินใจแบบที่กลัว แล้วทุกอย่างพังหมดเลย สิ่งที่แย่ที่สุดที่จะเกิดคืออะไร? (เขียนออกมาทั้งหมด)<br><br>
+    <strong>คำถาม 2:</strong> ถ้าเกิดสิ่งแย่ที่สุดนั้น จะซ่อมแซมหรือกลับมาได้อย่างไร? มีโอกาสแค่ไหน?<br><br>
+    <strong>คำถาม 3:</strong> ถ้าไม่ทำสิ่งที่กลัว ชีวิตจะเป็นอย่างไรใน 6 เดือน / 1 ปี / 3 ปี?<br><br>
+    ส่วนใหญ่พบว่า <em>ต้นทุนของการไม่ทำ มากกว่าต้นทุนของการล้มเหลวเสียอีก</em></p>
+  </div>
+
+  <h2>Dreamlining — ฝันให้เป็นตัวเลข</h2>
+
+  <p>Tim เชื่อว่าเป้าหมายที่막เดิมเกินไปมักเป็นเพราะเรา "ฝันไม่ออก" มากกว่า "ฝันไม่ไหว" Dreamlining คือการแปลงความฝันให้เป็นตัวเลขรายเดือนที่คำนวณได้</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความฝันแบบเดิม (막บอกไม่ได้)</div>
+      <div class="ladder-text">"อยากรวย อยากมีอิสระ อยากมีเวลาเดินทาง" — คลุมเครือ ทำให้ลงมือทำไม่ได้</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ตั้งคำถามให้ถูก</div>
+      <div class="ladder-text">ต้องการอะไร? → ต้องใช้เงินเดือนเท่าไหร่? → ต้องมีรายได้ passive เท่าไหร่? → ต้องสร้างอะไรเพื่อให้ได้รายได้นั้น?</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">Dreamlining ที่ทำได้จริง</div>
+      <div class="ladder-text">"ต้องการทำงานจากบาหลี ใช้เงิน 80,000 บาท/เดือน → ต้องมี passive income 80,000 บาท → ต้องขาย X ชิ้นต่อเดือน"</div>
+    </div>
+  </div>
+
+  <div class="pullquote">
+    <p>"Someday is a disease that will take your dreams to the grave with you."</p>
+    <div class="pq-th">"'สักวัน' คือโรคที่จะพาความฝันของคุณไปฝังดินด้วยกัน"</div>
+    <cite>Timothy Ferriss</cite>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <span class="stat-num">$5</span>
+      <div class="stat-label">ต่อวัน คือต้นทุนของการมีชีวิตที่ดีในเมืองบางแห่งทั่วโลก (Geoarbitrage)</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">6mo</span>
+      <div class="stat-label">เวลาที่ใช้ในการทดสอบ Muse Business แรกของ Tim ก่อนจะปลดระวาง</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">3 คำถาม</span>
+      <div class="stat-label">Fear-Setting ใช้แค่ 3 คำถามเพื่อเอาชนะความกลัวที่หยุดคุณมาปีแล้ว</div>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">🤔 ไตร่ตรองก่อนไปต่อ</div>
+    <ol>
+      <li>ถ้าเงินและเวลาไม่ใช่ปัญหา วันๆ หนึ่งของคุณจะมีหน้าตาแบบไหน? (เขียนให้ละเอียด ไม่ใช่แค่ "เที่ยวเล่น")</li>
+      <li>ความกลัวอะไรที่กำลังหยุดคุณจากการออกแบบชีวิตที่ต้องการ? ถ้าความกลัวนั้นเป็นจริง จะซ่อมแซมได้ไหม?</li>
+      <li>ตอนนี้คุณ "ซื้อ" อะไรด้วยเวลาชีวิตอยู่บ้าง — และมันคุ้มค่าหรือเปล่า?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════ CHAPTER E ════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-bg-num">E</div>
+  <div class="ch-label">บทที่สอง · Elimination</div>
+  <div class="ch-title">
+    กำจัดความสูญเปล่า
+    <em>Be Effective, Not Efficient</em>
+  </div>
+  <div class="ch-essence">
+    <p>"ความยุ่งไม่ใช่สัญญาณของความขยัน — มันคือสัญญาณของการที่คุณไม่รู้ว่าสิ่งไหนสำคัญจริงๆ ในชีวิต"</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ทำงานให้น้อยลง แต่ผลลัพธ์มากขึ้น — นี่ไม่ใช่เรื่องขี้เกียจ</h1>
+
+  <p>Tim แยกแยะคำ 2 คำที่คนมักสับสนกัน: <strong>Efficiency (ประสิทธิภาพ)</strong> คือทำสิ่งหนึ่งได้ดีขึ้น แต่ <strong>Effectiveness (ประสิทธิผล)</strong> คือเลือกทำสิ่งที่ถูกต้อง ก่อนที่คุณจะพยายามทำอะไรให้ "ดีขึ้น" คุณต้องถามก่อนว่า "ควรทำสิ่งนี้อยู่ไหม?"</p>
+
+  <p>คนส่วนใหญ่ใช้เวลา 80% ไปกับงานที่สร้างผลลัพธ์แค่ 20% — แล้วก็บ่นว่าไม่มีเวลา นั่นคือปัญหา</p>
+
+  <h2>หลักการ 80/20 (Pareto Principle) — กฎที่เปลี่ยนชีวิต</h2>
+
+  <p>Vilfredo Pareto นักเศรษฐศาสตร์ชาวอิตาลีพบในช่วงปี 1800s ว่า 80% ของที่ดินในอิตาลีเป็นของคน 20% วันนี้เราเรียกหลักการนี้ว่า <strong>กฎ 80/20</strong> และมันปรากฏอยู่ทุกที่:</p>
+
+  <div class="insight-box">
+    <div class="ib-label">80/20 ในชีวิตจริง</div>
+    <p>
+    • 80% ของรายได้ธุรกิจมาจากลูกค้า 20%<br>
+    • 80% ของปัญหาในที่ทำงานมาจากคน 20%<br>
+    • 80% ของความสุขในชีวิตมาจากกิจกรรม 20%<br><br>
+    <strong>คำถามสำคัญ:</strong> "20% ของสิ่งที่ทำอยู่ที่สร้าง 80% ของผลลัพธ์คืออะไร? — และตัดอีก 80% ที่เหลือได้ไหม?"</p>
+  </div>
+
+  <h2>กฎของ Parkinson — งานขยายตัวเต็มเวลาที่กำหนด</h2>
+
+  <p>Cyril Northcote Parkinson สังเกตว่า <strong>"งานจะขยายตัวจนเต็มเวลาที่จัดสรรให้"</strong> ถ้าให้เวลา 8 ชั่วโมงทำรายงาน มันจะใช้ 8 ชั่วโมงพอดี แต่ถ้าให้แค่ 2 ชั่วโมง — ส่วนใหญ่ก็ทำเสร็จได้ใน 2 ชั่วโมง</p>
+
+  <p>วิธีใช้: <strong>ตั้ง deadline ที่สั้นลงโดยตั้งใจ</strong> มันบังคับให้สมองโฟกัสกับสิ่งที่สำคัญจริงๆ และตัดส่วนที่ไม่จำเป็นออกอัตโนมัติ</p>
+
+  <div class="blockquote-full">
+    <span class="bq-mark">"</span>
+    <blockquote>Being busy is a form of laziness — lazy thinking and indiscriminate action.</blockquote>
+    <div class="bq-th">"การยุ่งตลอดเวลาคือรูปแบบหนึ่งของความขี้เกียจ — ขี้เกียจคิด และทำอะไรโดยไม่เลือก"</div>
+    <div class="bq-cite">Timothy Ferriss · The 4-Hour Workweek</div>
+  </div>
+
+  <h2>Low-Information Diet — อาหารข้อมูลต่ำ</h2>
+
+  <p>เราอยู่ในยุคที่ข้อมูลท่วมโลก แต่ข้อมูลส่วนใหญ่ไม่ได้ช่วยให้ชีวิตดีขึ้น Tim ทำสิ่งที่เขาเรียกว่า <strong>Information Fast</strong> — งดข่าว งดโซเชียลมีเดีย งดอีเมลที่ไม่จำเป็น เป็นเวลา 1 สัปดาห์ แล้วพบว่าชีวิตไม่ได้พัง — กลับมีสมาธิและผลผลิตสูงขึ้นมาก</p>
+
+  <div class="signal-grid">
+    <div class="signal-box do">
+      <div class="signal-label">✅ ทำสิ่งเหล่านี้</div>
+      <ul>
+        <li>อ่านข่าวเฉพาะที่ "จำเป็นต้องรู้" เท่านั้น</li>
+        <li>เช็คอีเมลเป็นรอบ (วันละ 2-3 ครั้ง ไม่ใช่ตลอดวัน)</li>
+        <li>ตั้งคำถามว่า "รู้แล้วจะทำอะไร?" ก่อนอ่านอะไร</li>
+        <li>ใช้ RSS หรือ Newsletter แทนการไล่ Scroll Social</li>
+        <li>บอกคนอื่นถึง "เวลาที่ติดต่อได้" แทนการ Available ตลอดเวลา</li>
+      </ul>
+    </div>
+    <div class="signal-box dont">
+      <div class="signal-label">❌ หลีกเลี่ยงสิ่งเหล่านี้</div>
+      <ul>
+        <li>ไล่ดูข่าวทุกชั่วโมงโดยไม่มีเหตุผล</li>
+        <li>เปิด Notification ทุกอย่างไว้ตลอดวัน</li>
+        <li>ตอบอีเมลทุกฉบับทันทีที่เห็น</li>
+        <li>เข้าร่วมประชุมที่ไม่ได้ต้องการตัดสินใจ</li>
+        <li>ทำหลายอย่างพร้อมกัน (Multi-tasking ทำลาย IQ มากกว่ากัญชา)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Batching — ทำงานเหมือนๆ กันรวมกัน</h2>
+
+  <p><strong>Batching</strong> คือการรวบงานประเภทเดียวกันไว้ทำในรอบเดียว แทนที่จะกระจายตลอดวัน เหมือนกับการซักผ้ารอบใหญ่ครั้งเดียวดีกว่าซักทีละชิ้นทุกวัน เพราะสมองต้องใช้พลังงานมากในการ "สลับโหมด" แต่ละครั้ง</p>
+
+  <div class="action-card">
+    <div class="ac-label">ลงมือทำได้วันนี้ · Batching in Action</div>
+    <h3>ทดลอง 1 สัปดาห์นี้</h3>
+    <ul>
+      <li>กำหนด "เวลาเช็คอีเมล" แค่ 2 ครั้งต่อวัน (10.00 น. และ 16.00 น.) — แล้วดูว่าโลกพังไหม</li>
+      <li>รวบโทรศัพท์ทุกสายไว้ทำในช่วงบ่าย แทนที่จะรับทุกครั้งที่มีสาย</li>
+      <li>ทำ "งานที่ต้องคิดหนัก" เฉพาะช่วง 2-3 ชั่วโมงแรกของวัน — ก่อนเปิด Social</li>
+      <li>ระบุงาน 3 อย่างที่ถ้าทำเสร็จวันนี้จะรู้สึกว่าวันนี้ประสบความสำเร็จ</li>
+    </ul>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">🤔 ไตร่ตรองก่อนไปต่อ</div>
+    <ol>
+      <li>20% ของงานที่ทำอยู่ ที่สร้างผลลัพธ์ 80% คืออะไร? และทำไมถึงยังทำส่วนที่เหลืออยู่?</li>
+      <li>ถ้าตั้ง deadline ของงานสำคัญให้สั้นลงครึ่งหนึ่ง จะเกิดอะไรขึ้น?</li>
+      <li>ลูกค้า/เพื่อนร่วมงาน/โปรเจกต์ 20% ที่สร้างปัญหา 80% ในชีวิตตอนนี้คือใคร/อะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════ CHAPTER A ════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-bg-num">A</div>
+  <div class="ch-label">บทที่สาม · Automation</div>
+  <div class="ch-title">
+    สร้างระบบที่ทำงานแทนคุณ
+    <em>The Muse & The Machine</em>
+  </div>
+  <div class="ch-essence">
+    <p>"เป้าหมายไม่ใช่การหาเงินให้ได้มากขึ้น — แต่คือการสร้างระบบที่หาเงินแทนคุณ เพื่อที่คุณจะได้ไปทำสิ่งที่สำคัญกว่านั้น"</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ธุรกิจที่ดีที่สุดคือธุรกิจที่ทำงานได้โดยไม่ต้องมีคุณ</h1>
+
+  <p>หลังจากรู้ว่าต้องการอะไร (D) และตัดสิ่งที่สูญเปล่าออกไป (E) ขั้นตอนต่อมาคือ <strong>สร้างรายได้แบบอัตโนมัติ</strong> Tim เรียกธุรกิจนี้ว่า <strong>"Muse"</strong> — ธุรกิจขนาดเล็กที่สร้างรายได้ passive ให้เพียงพอกับ lifestyle ที่ออกแบบไว้ โดยไม่ต้องการความสนใจทุกวัน</p>
+
+  <div class="insight-box">
+    <div class="ib-label">Muse Business คืออะไร?</div>
+    <p>ธุรกิจ "Muse" ตาม Tim มีลักษณะ: สร้าง/ขายได้โดยไม่ต้องแลกด้วยเวลาโดยตรง (เช่น ข้อมูลดิจิทัล ผลิตภัณฑ์ที่ outsource การผลิตได้ course ออนไลน์ SaaS เล็กๆ) มีการส่งมอบและ support แบบอัตโนมัติหรือมี VA ดูแล และให้รายได้เพียงพอสำหรับ lifestyle ที่ต้องการ ไม่จำเป็นต้องรวยพันล้าน</p>
+  </div>
+
+  <h2>Virtual Assistant (VA) — ผู้ช่วยเสมือน</h2>
+
+  <p>Tim เป็นคนแรกๆ ที่พูดถึง Virtual Assistant อย่างจริงจัง แนวคิดคือ: <strong>งานที่คุณไม่ควรทำเพราะมีคน/ระบบทำได้ดีกว่าหรือถูกกว่า ให้ outsource ออกไป</strong> ปล่อยเวลาของคุณไว้สำหรับงานที่มีแต่คุณเท่านั้นที่ทำได้</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">กับดักที่คนส่วนใหญ่ติด</div>
+      <div class="ladder-text">"ทำเองดีกว่า ไม่มีใครทำได้เหมือนเรา" — ความคิดนี้ทำให้คุณติดอยู่กับงาน Operations ตลอดชีวิต</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริงที่เจ็บปวด</div>
+      <div class="ladder-text">ถ้าธุรกิจพังทันทีที่คุณหายไป 2 สัปดาห์ — นั่นไม่ใช่ธุรกิจ นั่นคืองานที่มีเจ้านายเป็นตัวเอง</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">แนวทางที่ถูกต้อง</div>
+      <div class="ladder-text">ทำ "Operations Manual" สำหรับทุก task ที่ทำซ้ำๆ แล้ว delegate ให้ VA หรือระบบ Automation ทีละ task</div>
+    </div>
+  </div>
+
+  <h2>หลักการ "Test Before Invest" — ทดสอบก่อนลงทุนจริง</h2>
+
+  <p>Tim ไม่เชื่อในการเขียน Business Plan ยาว 40 หน้าก่อนเริ่มต้น เขาเชื่อในการ <strong>"ทดสอบความเป็นจริงให้เร็วที่สุดและถูกที่สุด"</strong></p>
+
+  <div class="formula-block">
+    <div class="formula-label">สูตร Muse Testing ของ Timothy Ferriss</div>
+    <div class="formula-text">
+      สร้าง Landing Page ง่ายๆ<br>
+      → ทดสอบ Google/Facebook Ads เล็กๆ (500-1000 บาท)<br>
+      → ดูว่ามีคนคลิก/ซื้อไหม<br>
+      → ถ้าใช่ ค่อยสร้างของจริง
+    </div>
+    <div class="formula-desc">ล้มเหลวให้เร็วและถูก ดีกว่าลงทุนมากแล้วพบว่าไม่มีตลาด</div>
+  </div>
+
+  <h2>ประเภท Muse ที่ Tim แนะนำ</h2>
+
+  <p>Tim แบ่ง Muse เป็น 3 ประเภทหลักตามความเหมาะสม:</p>
+
+  <div class="action-card">
+    <div class="ac-label">3 ประเภท Muse Business</div>
+    <h3>เลือกที่เหมาะกับทักษะของคุณ</h3>
+    <ul>
+      <li><strong>Resell (ซื้อมาขายไป):</strong> นำเข้าสินค้าจากต่างประเทศ ขายในตลาดที่ราคาสูงกว่า เช่น สินค้าจาก Alibaba มาขายใน Amazon หรือ Shopee — เริ่มง่าย แต่ margin น้อย</li>
+      <li><strong>License (ขายสิทธิ์):</strong> สร้างผลิตภัณฑ์หรือ IP แล้วขายสิทธิ์การใช้งาน เช่น คอร์สออนไลน์ Template แบบ Stock Photo</li>
+      <li><strong>Create (สร้างเอง):</strong> สร้างผลิตภัณฑ์ใหม่ในตลาดเฉพาะ (Niche) เช่น Supplement สำหรับนักกีฬา Software เฉพาะทาง — ยากกว่าแต่ margin สูงสุด</li>
+    </ul>
+  </div>
+
+  <div class="pullquote">
+    <p>"The question is never whether something can be done, but whether you're willing to find a cheaper and easier way to test it."</p>
+    <div class="pq-th">"คำถามไม่ใช่ว่าทำได้ไหม แต่คือคุณเต็มใจหาวิธีทดสอบที่ถูกกว่าและง่ายกว่านั้นไหม"</div>
+    <cite>Timothy Ferriss</cite>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">🤔 ไตร่ตรองก่อนไปต่อ</div>
+    <ol>
+      <li>งานที่คุณทำซ้ำๆ ทุกสัปดาห์ที่ถ้าหายไปจะประหยัดเวลาได้มากที่สุดคืออะไร?</li>
+      <li>ความเชี่ยวชาญของคุณที่สามารถแปลงเป็นผลิตภัณฑ์ดิจิทัลหรือคอร์สได้คืออะไร?</li>
+      <li>ถ้าต้องทดสอบ Muse Business ใน 30 วันโดยใช้เงินน้อยกว่า 5,000 บาท จะทดสอบอะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════ CHAPTER L ════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-bg-num">L</div>
+  <div class="ch-label">บทที่สี่ · Liberation</div>
+  <div class="ch-title">
+    อิสรภาพที่แท้จริง
+    <em>Mini-Retirements & Geoarbitrage</em>
+  </div>
+  <div class="ch-essence">
+    <p>"อย่าออมชีวิตที่ดีทั้งหมดไว้สำหรับวันสุดท้าย — กระจายมันออกไปให้ทั่วทุกทศวรรษของชีวิต"</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>เกษียณไม่ใช่จุดหมาย — มันคือกลยุทธ์สำหรับคนที่ไม่รักงานที่ทำ</h1>
+
+  <p>แนวคิดดั้งเดิมคือ ทำงาน 40 ปี สะสมเงิน แล้ว "ใช้ชีวิต" หลังอายุ 65 Tim บอกว่านี่คือ <strong>แผนที่อันตราย</strong> ด้วยเหตุผลง่ายๆ: ตอนอายุ 65 ร่างกายและพลังงานไม่เหมือนตอนอายุ 30 สิ่งที่อยากทำตอน 30 อาจทำไม่ได้ตอน 65 แล้ว</p>
+
+  <div class="insight-box">
+    <div class="ib-label">Mini-Retirement คืออะไร?</div>
+    <p>Mini-Retirement ไม่ใช่การหยุดงาน — มันคือการกระจาย "ช่วงเวลาที่ดีที่สุดในชีวิต" ออกไปตลอดทาง แทนที่จะรอทั้งหมดไว้ที่ท้าย เช่น หยุดงาน 1-3 เดือนเพื่อเรียนภาษา ท่องเที่ยว หรือทำโปรเจกต์ที่รัก ทำสิ่งนี้ทุก 1-2 ปี แทนการรอเกษียณ 40 ปี</p>
+  </div>
+
+  <h2>Geoarbitrage — ใช้ประโยชน์จากความแตกต่างของค่าครองชีพ</h2>
+
+  <p><strong>Geoarbitrage</strong> (อ่านว่า จีโอ-อาบิทราจ) คือการใช้ประโยชน์จากความแตกต่างของค่าครองชีพในแต่ละประเทศ ถ้าคุณหาเงินเป็นดอลลาร์หรือยูโร แต่ใช้ชีวิตในประเทศที่ค่าครองชีพถูกกว่า — คุณสามารถมีชีวิตที่ดีกว่ามากด้วยเงินน้อยกว่ามาก</p>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <span class="stat-num">$1,500</span>
+      <div class="stat-label">ต่อเดือน = ชีวิตแบบ premium ในเชียงใหม่ บาหลี หรือลิสบอน</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">$5,000</span>
+      <div class="stat-label">ต่อเดือน = ค่าเช่า Studio ธรรมดาๆ ในซานฟรานซิสโกหรือลอนดอน</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">3× </span>
+      <div class="stat-label">คุณภาพชีวิตที่ได้มากขึ้น ด้วยเงินจำนวนเดิม แค่เปลี่ยนที่อยู่</div>
+    </div>
+  </div>
+
+  <h2>Remote Work — จาก "สิทธิพิเศษ" สู่ "ข้อต่อรอง"</h2>
+
+  <p>Tim เขียนหนังสือนี้ก่อน COVID จะเปิดโลก Remote Work แต่เขามองเห็นแนวโน้มนี้มาก่อน เขาแนะนำกลยุทธ์สำหรับคนที่ยังทำงานออฟฟิศอยู่ว่าจะ <strong>"ขอ Work From Anywhere"</strong> จากนายจ้างได้อย่างไร</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">วิธีผิด — ขอตรงๆ แล้วถูกปฏิเสธ</div>
+      <div class="ladder-text">"ขอทำงานที่บ้านเลยดีไหม?" — นายจ้างส่วนใหญ่ปฏิเสธเพราะยังไม่มีหลักฐานว่า "ประสิทธิภาพไม่ลดลง"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">กลยุทธ์ที่ Tim แนะนำ</div>
+      <div class="ladder-text">สร้างผลลัพธ์ที่วัดได้ก่อน → ลา "ป่วย" แล้วทำงานจากที่บ้าน → พิสูจน์ว่าผลงานไม่ลดลง → แล้วค่อยขอ remote work อย่างเป็นทางการ</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ผลลัพธ์ที่ต้องการ</div>
+      <div class="ladder-text">มีหลักฐานว่า "คุณ remote ได้ดีกว่าออฟฟิศ" → นายจ้างตอบรับข้อเสนอง่ายขึ้นมาก → เริ่ม Geoarbitrage ได้</div>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <span class="bq-mark">"</span>
+    <blockquote>Retirement is worst-case-scenario insurance, not the goal. The goal is to have the life you want while you can still enjoy it.</blockquote>
+    <div class="bq-th">"การเกษียณคือประกันภัยสำหรับกรณีที่แย่ที่สุด ไม่ใช่เป้าหมาย เป้าหมายคือการมีชีวิตที่ต้องการในขณะที่ยังสนุกกับมันได้"</div>
+    <div class="bq-cite">Timothy Ferriss · The 4-Hour Workweek</div>
+  </div>
+
+  <h2>Comfort Challenge — ขยายขอบเขตความสบายใจ</h2>
+
+  <p>Tim ยังแนะนำ <strong>"Comfort Challenges"</strong> — แบบทดสอบเล็กๆ ที่ทำให้เราเคยชินกับความไม่สบายใจ เพราะคนส่วนใหญ่ไม่ได้ไม่รู้ว่าจะทำอะไร แต่กลัวการถูกปฏิเสธ กลัวดูโง่ หรือกลัวทำสิ่งที่ผิดปกติ</p>
+
+  <div class="action-card">
+    <div class="ac-label">Comfort Challenges ลองทำสัปดาห์นี้</div>
+    <h3>ขยาย Comfort Zone ทีละก้าว</h3>
+    <ul>
+      <li>โกหกตาขาว: นอนบนพื้น Coffee Shop 10 วินาที (ฝึกที่จะรู้สึกอายแล้วยังทำต่อได้)</li>
+      <li>ขอส่วนลด: ขอส่วนลด 10% ที่ร้านอาหารที่ไม่มีโปรโมชั่น — และดูว่าเกิดอะไรขึ้น</li>
+      <li>ขอโทรหาคนที่ชื่นชม: ส่งอีเมลถึงคนที่นับถือและขอสนทนา 15 นาที</li>
+      <li>ลา "Digital Detox" 24 ชั่วโมง: ไม่เช็คโทรศัพท์ อีเมล หรือโซเชียลมีเดียเลยหนึ่งวัน</li>
+    </ul>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">🤔 ไตร่ตรองก่อนไปต่อ</div>
+    <ol>
+      <li>ถ้าต้องออกแบบ Mini-Retirement ครั้งแรก จะทำอะไร ที่ไหน และนานแค่ไหน?</li>
+      <li>มีงานอะไรที่คุณทำอยู่ที่สามารถทำจากที่ไหนก็ได้ในโลก ถ้าได้รับอนุญาต?</li>
+      <li>ความกลัวอะไรที่กำลังหยุดคุณจากการมีชีวิตที่อิสระมากขึ้น ตอนนี้เลย?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ════════════════════ SYNTHESIS ════════════════════ -->
+<div class="chapter-open">
+  <div class="ch-bg-num">∞</div>
+  <div class="ch-label">บทสรุป · Synthesis</div>
+  <div class="ch-title">
+    Your Lifestyle Design
+    <em>เริ่มออกแบบชีวิตได้เลยวันนี้</em>
+  </div>
+  <div class="ch-essence">
+    <p>"คุณไม่ต้องรอให้พร้อม ไม่ต้องรอให้มีเงินพอ ไม่ต้องรอให้ลูกโต — คุณแค่ต้องเริ่มทำสิ่งแรกที่ทำได้วันนี้"</p>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="blockquote-full">
+    <span class="bq-mark">"</span>
+    <blockquote>Life is too short to be small.</blockquote>
+    <div class="bq-th">"ชีวิตสั้นเกินไปที่จะดำเนินไปแบบเล็กๆ น้อยๆ"</div>
+    <div class="bq-cite">Benjamin Disraeli — อ้างโดย Timothy Ferriss</div>
+  </div>
+
+  <div class="eyebrow">Master Framework · สรุปทั้งเล่ม</div>
+  <h1>DEAL — สี่ขั้นตอนสู่ Lifestyle Freedom</h1>
+
+  <p>หนังสือเล่มนี้ไม่ได้บอกให้เราหนีจากชีวิต มันบอกให้เราหยุดก่อน แล้วถามคำถามใหม่: <strong>"ฉันต้องการชีวิตแบบไหน? และฉันต้องทำอะไรเพื่อให้ได้มันตอนนี้ ไม่ใช่หลังเกษียณ?"</strong></p>
+
+  <p>ระบบ DEAL ไม่ใช่ขั้นตอนที่ทำครั้งเดียวแล้วจบ — มันคือกระบวนการที่ต้องทำซ้ำตลอดชีวิต เมื่อชีวิตเปลี่ยน เมื่อเป้าหมายเปลี่ยน เราก็วนกลับมาที่ D อีกครั้ง</p>
+
+  <div class="insight-box">
+    <div class="ib-label">One-Liner ของหนังสือเล่มนี้</div>
+    <p style="font-size:17px; font-style:italic; font-family:'Playfair Display',serif; color:var(--ink);">"The goal is not to have the most, but to live the most — on your terms, right now."<br><br>
+    <span style="font-size:15px; font-family:'Noto Serif Thai',serif; font-style:normal; color:var(--ink-mid);">"เป้าหมายไม่ใช่การมีให้มากที่สุด — แต่คือการใช้ชีวิตให้เต็มที่ที่สุด ในแบบของตัวเอง ตั้งแต่ตอนนี้"</span></p>
+  </div>
+
+  <h2>Pre-Action Checklist — ก่อนเริ่มออกแบบชีวิต</h2>
+
+  <p>ใช้ checklist นี้ก่อนลงมือทำทุกครั้ง:</p>
+
+  <ul class="checklist">
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>D — ฉันรู้แล้วว่าต้องการอะไรจริงๆ</strong> ไม่ใช่แค่ "อยากรวย" แต่รู้ว่าต้องการรายได้เท่าไหร่ต่อเดือน ต้องการเวลาอิสระกี่ชั่วโมงต่อสัปดาห์ และจะใช้เวลานั้นทำอะไร</span>
+    </li>
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>D — ฉันทำ Fear-Setting แล้ว</strong> เขียนสิ่งที่แย่ที่สุดที่จะเกิดขึ้นถ้าตัดสินใจเปลี่ยน และพบว่าต้นทุนของการไม่เปลี่ยนมากกว่า</span>
+    </li>
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>E — ฉันระบุ 20% ของงานที่สร้าง 80% ของผลลัพธ์ได้แล้ว</strong> และรู้ว่าจะตัด/ลดงาน 80% ที่เหลือออกได้อย่างไร</span>
+    </li>
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>E — ฉันเริ่ม Batching และ Low-Info Diet แล้ว</strong> เช็คอีเมลแค่ 2 ครั้งต่อวัน และตั้งชัดเจนว่าจะรับข้อมูลจากไหน</span>
+    </li>
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>A — ฉันมีแผน Muse Business อย่างน้อย 1 ไอเดีย</strong> และรู้ว่าจะทดสอบมันได้อย่างไรด้วยต้นทุนต่ำสุด</span>
+    </li>
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>A — ฉันระบุงาน 3 อย่างที่สามารถ Outsource หรือ Automate ได้</strong> แทนที่จะยังคง "ทำเองทุกอย่าง"</span>
+    </li>
+    <li>
+      <div class="checklist-box"></div>
+      <span><strong>L — ฉันออกแบบ Mini-Retirement ครั้งแรกไว้แล้ว</strong> รู้ว่าจะทำอะไร ที่ไหน เมื่อไหร่ และต้องใช้เงินเดือนละเท่าไหร่</span>
+    </li>
+  </ul>
+
+  <div class="page-rule"></div>
+
+  <h2>📚 หนังสือที่อ่านต่อได้</h2>
+  <ul class="reading-list">
+    <li class="reading-item">
+      <div class="reading-num">1</div>
+      <div>
+        <div class="reading-title">Essentialism — Greg McKeown</div>
+        <div class="reading-why">ต่อยอดเรื่อง Elimination — "ทำน้อยลงแต่ดีกว่า" เป็นปรัชญาที่ลึกกว่า 80/20 ของ Tim</div>
+      </div>
+    </li>
+    <li class="reading-item">
+      <div class="reading-num">2</div>
+      <div>
+        <div class="reading-title">The E-Myth Revisited — Michael Gerber</div>
+        <div class="reading-why">เข้าใจว่าทำไมนักธุรกิจส่วนใหญ่ถึงไม่มีธุรกิจจริงๆ — พวกเขามีแค่งานที่ตัวเองเป็นเจ้านาย</div>
+      </div>
+    </li>
+    <li class="reading-item">
+      <div class="reading-num">3</div>
+      <div>
+        <div class="reading-title">Rich Dad Poor Dad — Robert Kiyosaki</div>
+        <div class="reading-why">รากฐานด้านความคิดเรื่อง Passive Income และความแตกต่างระหว่าง "ทำงานเพื่อเงิน" กับ "ให้เงินทำงานแทน"</div>
+      </div>
+    </li>
+    <li class="reading-item">
+      <div class="reading-num">4</div>
+      <div>
+        <div class="reading-title">Tools of Titans — Timothy Ferriss</div>
+        <div class="reading-why">Tim รวบรวมนิสัยและกลยุทธ์ของคนที่ประสบความสำเร็จสูงสุดในโลกกว่า 200 คน — อ่านต่อยอดจาก 4HWW</div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="page-rule"></div>
+
+  <h2>🎯 แผน 30 วันแรก</h2>
+
+  <div class="action-card">
+    <div class="ac-label">เริ่มต้นทันที · 30-Day Action Plan</div>
+    <h3>ทำสิ่งเหล่านี้ในเดือนแรก</h3>
+    <ul>
+      <li><strong>วันที่ 1-7:</strong> ทำ Fear-Setting สำหรับการเปลี่ยนแปลงที่กลัวที่สุด 1 อย่าง และเขียน Dreamline — รายได้เดือนละเท่าไหร่ที่ "เพียงพอ" สำหรับชีวิตในฝัน</li>
+      <li><strong>วันที่ 8-14:</strong> วิเคราะห์ 80/20 ของงานตัวเอง — ระบุ 3 งานที่ไม่ควรทำต่อ และเริ่ม Batching อีเมลเป็น 2 รอบต่อวัน</li>
+      <li><strong>วันที่ 15-21:</strong> ลองทำ "Digital Detox" 24 ชั่วโมง และเริ่มคิด Muse Business ไอเดีย 3 อย่าง โดยตั้งคำถามว่า "จะทดสอบด้วยเงินน้อยกว่า 3,000 บาทได้อย่างไร?"</li>
+      <li><strong>วันที่ 22-30:</strong> วางแผน Mini-Retirement ครั้งแรก (แม้จะเป็นแค่ 2 สัปดาห์) และกำหนดวันที่ชัดเจน แล้วบอกคนในครอบครัวหรือเพื่อนสนิท</li>
+    </ul>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">💬 คำถามสำหรับชีวิต</div>
+    <ol>
+      <li>ถ้ารู้ว่าจะไม่ล้มเหลว คุณจะทำอะไรที่แตกต่างจากทุกวันนี้?</li>
+      <li>10 ปีข้างหน้า ถ้าคุณยังดำเนินชีวิตแบบเดิม — คุณจะรู้สึกอย่างไร?</li>
+      <li>สิ่งเล็กๆ ที่สามารถเปลี่ยนได้วันนี้เลย (ใช้เวลาไม่เกิน 30 นาที) เพื่อเริ่มต้นในทิศทางที่ต้องการคืออะไร?</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<div class="book-footer">
+  <div class="book-footer-mark">⏱</div>
+  <div class="book-footer-text">"ชีวิตที่ดีไม่ได้อยู่ที่จุดหมาย — มันอยู่ที่การออกแบบว่าเราเดินทางอย่างไร และกับใคร"</div>
+  <div class="book-footer-author">The 4-Hour Workweek · Timothy Ferriss · Personal Edition</div>
+</div>
+
+</div><!-- end .book -->
+</body>
+</html>
