@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCBS&P500 — Deep Valuation Analysis 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --accent:        #1B3A6B;
+  --accent-deep:   #0F2347;
+  --accent-light:  #4A6FA5;
+  --accent-rule:   rgba(27,58,107,0.25);
+  --accent-bg:     rgba(27,58,107,0.07);
+  --gold:          #C4912A;
+  --gold-bg:       rgba(196,145,42,0.10);
+  --paper:         #F2EFE4;
+  --paper-mid:     #EAE5D2;
+  --paper-deep:    #DDD7BD;
+  --paper-shadow:  #C8C0A0;
+  --ink:           #14110B;
+  --ink-soft:      #2A261C;
+  --ink-mid:       #46402F;
+  --ink-muted:     #7C7460;
+  --ink-faint:     #ABA48C;
+  --red:           #7A1A1A;
+  --red-bg:        #FBF3F0;
+  --red-light:     #C0392B;
+  --green:         #1A5C2A;
+  --green-bg:      #F0F6EE;
+  --green-bright:  #27AE60;
+  --amber:         #B07D10;
+  --amber-bg:      #FDF6E3;
+  --book-width:    760px;
+  --page-pad-h:    72px;
+  --page-pad-v:    80px;
+}
+
+/* ===== BASE ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0D1117;
+  padding: 40px 16px;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+}
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.12), 0 4px 60px rgba(0,0,0,.50), 0 0 140px rgba(0,0,0,.30);
+}
+
+/* ===== COVER ===== */
+.cover {
+  background: var(--accent-deep);
+  padding: 70px var(--page-pad-h) 60px;
+  position: relative;
+  overflow: hidden;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(196,145,42,0.04) 0px, rgba(196,145,42,0.04) 1px, transparent 1px, transparent 60px),
+    repeating-linear-gradient(0deg, rgba(196,145,42,0.04) 0px, rgba(196,145,42,0.04) 1px, transparent 1px, transparent 60px);
+}
+.cover-corner { position: absolute; width: 80px; height: 80px; }
+.cover-corner.tl { top: 20px; left: 20px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.cover-corner.tr { top: 20px; right: 20px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+.cover-corner.bl { bottom: 20px; left: 20px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
+.cover-corner.br { bottom: 20px; right: 20px; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
+.cover-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 28px;
+  position: relative;
+}
+.cover-main { position: relative; }
+.cover-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  background: var(--gold); color: var(--accent-deep);
+  padding: 4px 12px; font-weight: 700; margin-bottom: 20px;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px; font-weight: 800;
+  color: #FFFFFF; line-height: 1.05;
+  margin-bottom: 8px; letter-spacing: -1px;
+}
+.cover-sub {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-style: italic;
+  color: var(--gold); margin-bottom: 24px;
+}
+.cover-divider { width: 60px; height: 2px; background: var(--gold); margin-bottom: 24px; }
+.cover-desc {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px; color: rgba(255,255,255,0.70);
+  line-height: 1.8; max-width: 480px;
+}
+.cover-bottom {
+  position: relative;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.cover-stats { display: flex; gap: 32px; }
+.cover-stat-item { }
+.cover-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 700; color: var(--gold);
+}
+.cover-stat-lbl {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); font-weight: 600;
+}
+.cover-date {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 2px; color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+}
+
+/* ===== PAGE ===== */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-deep);
+}
+.page-toc { background: var(--paper-mid); }
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 60px var(--page-pad-h) 56px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.chapter-open::after {
+  content: '';
+  position: absolute; right: -20px; top: -20px;
+  width: 200px; height: 200px;
+  background: var(--accent-rule);
+  border-radius: 50%;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 16px;
+}
+.ch-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 130px; font-weight: 800; font-style: italic;
+  color: var(--accent-rule); line-height: 0.85;
+  position: absolute; right: var(--page-pad-h); top: 40px;
+  user-select: none;
+}
+.ch-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px; font-weight: 700;
+  color: var(--accent-deep); line-height: 1.2;
+  margin-bottom: 6px; position: relative; z-index: 1;
+}
+.ch-title em {
+  display: block; font-size: 16px; font-style: italic;
+  color: var(--gold); font-weight: 400; margin-top: 4px;
+}
+.ch-essence {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; color: var(--ink-mid);
+  font-style: italic; line-height: 1.75;
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid var(--paper-shadow);
+  max-width: 500px; position: relative; z-index: 1;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.eyebrow {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 12px;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700; color: var(--ink);
+  line-height: 1.25; margin-bottom: 20px;
+}
+h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px; font-weight: 700; color: var(--accent-deep);
+  margin: 32px 0 14px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent-rule);
+}
+h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; font-weight: 700; color: var(--ink-soft);
+  margin: 22px 0 10px;
+}
+p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.85; color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+ul, ol { padding-left: 22px; margin-bottom: 16px; }
+li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; line-height: 1.8; color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+strong { color: var(--ink); font-weight: 700; }
+
+/* ===== COMPONENTS ===== */
+
+/* insight box */
+.insight-box {
+  background: var(--accent-bg);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px; margin: 24px 0;
+}
+.insight-box-label {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 8px;
+}
+.insight-box p { font-size: 14px; margin: 0; line-height: 1.75; }
+
+/* verdict box */
+.verdict-box {
+  border: 2px solid var(--accent);
+  padding: 24px 28px; margin: 24px 0;
+  background: var(--paper-mid);
+}
+.verdict-box.expensive { border-color: var(--red); }
+.verdict-box.fair { border-color: var(--amber); }
+.verdict-box.cheap { border-color: var(--green); }
+.verdict-label {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+  margin-bottom: 6px;
+}
+.verdict-box.expensive .verdict-label { color: var(--red); }
+.verdict-box.fair .verdict-label { color: var(--amber); }
+.verdict-box.cheap .verdict-label { color: var(--green); }
+.verdict-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 800; line-height: 1.1;
+  margin-bottom: 8px;
+}
+.verdict-box.expensive .verdict-value { color: var(--red); }
+.verdict-box.fair .verdict-value { color: var(--amber); }
+.verdict-box.cheap .verdict-value { color: var(--green); }
+.verdict-box p { font-size: 14px; margin: 0; }
+
+/* blockquote-full */
+.blockquote-full {
+  background: var(--accent-deep);
+  padding: 52px var(--page-pad-h);
+  margin: 40px calc(-1 * var(--page-pad-h));
+  text-align: center;
+}
+.blockquote-full .bq-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px; color: var(--gold);
+  line-height: 0.5; display: block; margin-bottom: 24px;
+  font-style: italic; opacity: 0.6;
+}
+.blockquote-full blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-style: italic;
+  color: rgba(255,255,255,0.88); line-height: 1.65;
+  max-width: 540px; margin: 0 auto 18px;
+}
+.blockquote-full cite {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); font-style: normal; font-weight: 600;
+}
+
+/* data table */
+.data-table {
+  width: 100%; border-collapse: collapse;
+  margin: 20px 0; font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+}
+.data-table th {
+  background: var(--accent-deep); color: rgba(255,255,255,0.90);
+  padding: 10px 14px; text-align: left; font-weight: 700;
+  font-size: 11px; letter-spacing: 1px;
+}
+.data-table td {
+  padding: 9px 14px; border-bottom: 1px solid var(--paper-deep);
+  color: var(--ink-soft); vertical-align: middle;
+}
+.data-table tr:nth-child(even) td { background: var(--paper-mid); }
+.data-table tr:hover td { background: var(--accent-bg); }
+.data-table .num { text-align: right; font-weight: 600; }
+.data-table .metric { font-weight: 700; color: var(--ink); }
+.data-table .highlight td { background: var(--gold-bg) !important; font-weight: 700; }
+.tag-exp { background: var(--red-bg); color: var(--red); padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.tag-fair { background: var(--amber-bg); color: var(--amber); padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.tag-cheap { background: var(--green-bg); color: var(--green); padding: 2px 8px; font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+
+/* sensitivity table */
+.sens-table {
+  width: 100%; border-collapse: collapse;
+  margin: 20px 0; font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+}
+.sens-table th {
+  background: var(--accent-deep); color: rgba(255,255,255,0.88);
+  padding: 8px 10px; text-align: center; font-size: 11px;
+}
+.sens-table td {
+  padding: 7px 10px; text-align: center;
+  border: 1px solid var(--paper-deep);
+  font-weight: 600;
+}
+.sens-table .row-header {
+  background: var(--paper-mid); color: var(--accent-deep);
+  font-weight: 700; text-align: left;
+}
+.s-red { background: #FDEDEC; color: #C0392B; }
+.s-lorange { background: #FEF5E7; color: #B07D10; }
+.s-lyellow { background: #FFFDE7; color: #7D6608; }
+.s-lgreen { background: #EAFAF1; color: #1A5C2A; }
+.s-green { background: #D5F5E3; color: #1A5C2A; }
+.s-base { background: var(--accent-bg); color: var(--accent-deep); font-weight: 800; border: 2px solid var(--accent) !important; }
+
+/* scenario cards */
+.scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin: 24px 0; }
+.scenario-card { padding: 20px 18px; border-top: 4px solid; }
+.scenario-card.bull { border-color: var(--green); background: var(--green-bg); }
+.scenario-card.base { border-color: var(--accent); background: var(--accent-bg); }
+.scenario-card.bear { border-color: var(--red); background: var(--red-bg); }
+.sc-label {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase; font-weight: 800;
+  margin-bottom: 4px;
+}
+.scenario-card.bull .sc-label { color: var(--green); }
+.scenario-card.base .sc-label { color: var(--accent); }
+.scenario-card.bear .sc-label { color: var(--red); }
+.sc-title {
+  font-family: 'Noto Serif Thai', serif; font-size: 15px;
+  font-weight: 700; color: var(--ink); margin-bottom: 12px;
+}
+.sc-item {
+  font-family: 'Sarabun', sans-serif; font-size: 12px;
+  color: var(--ink-mid); margin-bottom: 5px; line-height: 1.5;
+}
+.sc-item span { font-weight: 700; color: var(--ink); }
+.sc-return {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 800;
+  margin-top: 12px; padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.10);
+}
+.scenario-card.bull .sc-return { color: var(--green); }
+.scenario-card.base .sc-return { color: var(--accent); }
+.scenario-card.bear .sc-return { color: var(--red); }
+.sc-return-lbl {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--ink-muted); font-weight: 600; display: block; margin-bottom: 2px;
+}
+
+/* stat row */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--paper-shadow); margin: 20px 0; }
+.stat-cell { background: var(--paper); padding: 18px 16px; text-align: center; }
+.stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 700; color: var(--accent-deep);
+}
+.stat-val.red { color: var(--red); }
+.stat-val.green { color: var(--green); }
+.stat-val.gold { color: var(--gold); }
+.stat-lbl {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 1px; color: var(--ink-muted); margin-top: 4px;
+  text-transform: uppercase;
+}
+.stat-sub {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  color: var(--ink-faint); margin-top: 2px;
+}
+
+/* author box */
+.author-box {
+  display: flex; gap: 18px; padding: 22px 26px;
+  background: var(--paper-mid); border-left: 3px solid var(--gold);
+  margin: 24px 0;
+}
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--accent-deep); color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 16px;
+  font-style: italic; flex-shrink: 0;
+}
+.author-meta {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px; font-weight: 600;
+}
+.author-text {
+  font-family: 'Noto Serif Thai', serif; font-size: 14px;
+  line-height: 1.75; color: var(--ink-soft); font-style: italic; margin: 0;
+}
+
+/* ladder */
+.ladder { margin: 28px 0; }
+.ladder-step { padding: 16px 20px; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 5px;
+}
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text {
+  font-family: 'Noto Serif Thai', serif; font-size: 14px;
+  line-height: 1.7; color: var(--ink-soft);
+}
+.ladder-arrow { text-align: center; padding: 5px; color: var(--ink-faint); font-size: 18px; }
+
+/* signal box */
+.signal-box { padding: 18px 22px; margin: 16px 0; border-left: 4px solid; }
+.signal-box.buy { background: var(--green-bg); border-color: var(--green); }
+.signal-box.sell { background: var(--red-bg); border-color: var(--red); }
+.signal-box.neutral { background: var(--amber-bg); border-color: var(--amber); }
+.signal-label {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase; font-weight: 800;
+  margin-bottom: 6px;
+}
+.signal-box.buy .signal-label { color: var(--green); }
+.signal-box.sell .signal-label { color: var(--red); }
+.signal-box.neutral .signal-label { color: var(--amber); }
+.signal-box p { font-size: 14px; margin: 0; line-height: 1.7; }
+
+/* formula box */
+.formula-box {
+  background: var(--ink); color: rgba(255,255,255,0.88);
+  padding: 22px 26px; margin: 22px 0;
+  font-family: 'Sarabun', sans-serif;
+}
+.formula-title {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 10px;
+}
+.formula-eq {
+  font-size: 17px; font-weight: 700; line-height: 1.5;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  color: #FFFFFF; margin-bottom: 8px;
+}
+.formula-note { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+/* checklist */
+.checklist { list-style: none; padding: 0; margin: 20px 0; }
+.checklist li {
+  font-family: 'Noto Serif Thai', serif; font-size: 14px;
+  padding: 10px 0 10px 36px; position: relative;
+  border-bottom: 1px solid var(--paper-deep); color: var(--ink-soft); line-height: 1.7;
+}
+.checklist li::before {
+  content: '□';
+  position: absolute; left: 0; top: 10px;
+  font-size: 18px; color: var(--accent); font-family: serif;
+}
+
+/* assumption box */
+.assumption-box {
+  background: var(--amber-bg); border: 1px solid rgba(176,125,16,0.30);
+  padding: 18px 22px; margin: 20px 0;
+}
+.assumption-label {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--amber); font-weight: 800; margin-bottom: 8px;
+}
+.assumption-box ul { margin: 0; }
+.assumption-box li { font-size: 13px; color: var(--ink-mid); margin-bottom: 4px; line-height: 1.7; }
+
+/* percentile bar */
+.pct-bar-wrap { margin: 12px 0 20px; }
+.pct-bar-label {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  color: var(--ink-muted); margin-bottom: 6px; font-weight: 600;
+}
+.pct-bar-track {
+  height: 18px; background: var(--paper-deep);
+  border-radius: 2px; position: relative; overflow: visible;
+}
+.pct-bar-fill {
+  height: 100%; border-radius: 2px; transition: width 0.5s;
+  position: relative;
+}
+.pct-bar-fill::after {
+  content: attr(data-pct);
+  position: absolute; right: -2px; top: -20px;
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  font-weight: 800; color: var(--ink);
+}
+.pct-bar-zones {
+  display: flex; font-family: 'Sarabun', sans-serif; font-size: 9px;
+  color: var(--ink-faint); margin-top: 4px; justify-content: space-between;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* TOC */
+.toc-item {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 12px 0; border-bottom: 1px solid var(--paper-shadow);
+}
+.toc-num {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 28px; color: var(--accent); min-width: 44px; font-weight: 400;
+}
+.toc-body { flex: 1; }
+.toc-title {
+  font-family: 'Noto Serif Thai', serif; font-size: 15px;
+  font-weight: 700; color: var(--ink); margin-bottom: 3px;
+}
+.toc-en { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 3px; }
+.toc-desc {
+  font-family: 'Noto Serif Thai', serif; font-size: 13px;
+  color: var(--ink-muted); font-style: italic;
+}
+
+/* reflection */
+.reflection {
+  background: var(--paper-mid); padding: 24px 28px; margin: 32px 0 0;
+  border-top: 2px solid var(--accent-rule);
+}
+.reflection-label {
+  font-family: 'Sarabun', sans-serif; font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 12px;
+}
+.reflection ol { padding-left: 18px; margin: 0; }
+.reflection li {
+  font-family: 'Noto Serif Thai', serif; font-size: 14px;
+  color: var(--ink-mid); margin-bottom: 8px; line-height: 1.75;
+}
+
+/* ch-card */
+.ch-card { display: flex; gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--paper-shadow); }
+.ch-card-num {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 32px; color: var(--accent); font-weight: 400; line-height: 1;
+  min-width: 48px; padding-top: 4px;
+}
+.ch-card-title { font-family: 'Noto Serif Thai', serif; font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+.ch-card-one { font-family: 'Noto Serif Thai', serif; font-size: 13px; color: var(--ink-muted); font-style: italic; margin-bottom: 8px; }
+.ch-tag {
+  display: inline-block; font-family: 'Sarabun', sans-serif;
+  font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  background: var(--accent-bg); color: var(--accent-deep);
+  padding: 3px 7px; margin-right: 5px; font-weight: 700;
+}
+
+/* special: reverse DCF */
+.dcf-block {
+  background: var(--ink); padding: 28px 30px; margin: 24px 0;
+  color: rgba(255,255,255,0.88);
+}
+.dcf-title {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 16px;
+}
+.dcf-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Sarabun', sans-serif; font-size: 13px;
+}
+.dcf-row:last-child { border: none; }
+.dcf-key { color: rgba(255,255,255,0.60); }
+.dcf-val { font-weight: 700; color: #FFFFFF; }
+.dcf-val.gold { color: var(--gold); }
+.dcf-val.red { color: #E74C3C; }
+.dcf-conclusion {
+  font-family: 'Noto Serif Thai', serif; font-size: 15px;
+  font-style: italic; color: rgba(255,255,255,0.80);
+  padding-top: 14px; margin-top: 4px; line-height: 1.7;
+}
+
+/* verdict final */
+.final-verdict {
+  background: var(--accent-deep); padding: 36px 32px;
+  margin: 28px 0; text-align: center;
+}
+.fv-label {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 10px;
+}
+.fv-rating {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; font-weight: 800; color: #FFFFFF;
+  line-height: 1; margin-bottom: 8px;
+}
+.fv-sub {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px; color: rgba(255,255,255,0.70);
+  font-style: italic;
+}
+
+/* fund cost table special */
+.cost-flow {
+  display: flex; align-items: center; gap: 0; margin: 20px 0;
+  flex-wrap: wrap;
+}
+.cost-box {
+  flex: 1; min-width: 100px; padding: 16px 12px; text-align: center;
+  background: var(--paper-mid); border: 1px solid var(--paper-shadow);
+}
+.cost-box.final { background: var(--accent-deep); color: white; }
+.cost-arrow { color: var(--accent); font-size: 20px; padding: 0 4px; }
+.cost-title { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+.cost-box.final .cost-title { color: var(--gold); }
+.cost-val { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 800; color: var(--ink); }
+.cost-box.final .cost-val { color: white; }
+.cost-note { font-family: 'Sarabun', sans-serif; font-size: 10px; color: var(--ink-muted); margin-top: 3px; }
+.cost-box.final .cost-note { color: rgba(255,255,255,0.60); }
+
+/* footer */
+.book-footer {
+  background: var(--ink); padding: 56px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 36px; color: var(--gold); margin-bottom: 16px;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif; font-size: 14px;
+  color: var(--paper-deep); font-style: italic;
+  line-height: 1.8; max-width: 500px; margin: 0 auto 20px;
+}
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif; font-size: 11px;
+  color: var(--accent-light); letter-spacing: 3px;
+  text-transform: uppercase; font-weight: 600;
+}
+.disclaimer {
+  font-family: 'Sarabun', sans-serif; font-size: 10px;
+  color: rgba(255,255,255,0.25); margin-top: 20px;
+  line-height: 1.7; max-width: 520px; margin-left: auto; margin-right: auto;
+}
+
+/* responsive */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 24px; --page-pad-v: 48px; }
+  body { padding: 12px 4px; }
+  .cover-title { font-size: 38px; }
+  .ch-num { font-size: 80px; right: 16px; }
+  .stat-row { grid-template-columns: 1fr; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 40px 24px; margin-left: -24px; margin-right: -24px; }
+  .blockquote-full blockquote { font-size: 16px; }
+  .cover-stats { flex-wrap: wrap; gap: 16px; }
+  .cost-flow { flex-direction: column; align-items: stretch; }
+  .cost-arrow { transform: rotate(90deg); text-align: center; }
+  .sens-table { font-size: 10px; }
+  .sens-table th, .sens-table td { padding: 5px 6px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <div class="cover-corner tl"></div>
+  <div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div>
+  <div class="cover-corner br"></div>
+  <div class="cover-main">
+    <div class="cover-eyebrow">Equity Research · Deep Valuation Analysis</div>
+    <div class="cover-tag">Professional Edition · Q2 2026</div>
+    <div class="cover-title">SCBS&amp;P500</div>
+    <div class="cover-sub">รายงานประเมินมูลค่าเชิงลึก</div>
+    <div class="cover-divider"></div>
+    <div class="cover-desc">
+      วิเคราะห์ครบทุกมิติ — โครงสร้างกองทุน · Valuation Framework · EPS Growth ·
+      Reverse DCF · Scenario Analysis · และกลยุทธ์สำหรับนักลงทุนไทย
+      โดยทีม Equity Research ที่มีประสบการณ์กว่า 20 ปี
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-stats">
+      <div class="cover-stat-item">
+        <div class="cover-stat-val">~21×</div>
+        <div class="cover-stat-lbl">Forward P/E</div>
+      </div>
+      <div class="cover-stat-item">
+        <div class="cover-stat-val">~33×</div>
+        <div class="cover-stat-lbl">Shiller CAPE</div>
+      </div>
+      <div class="cover-stat-item">
+        <div class="cover-stat-val">~7–8%</div>
+        <div class="cover-stat-lbl">Base Return (5Y)</div>
+      </div>
+      <div class="cover-stat-item">
+        <div class="cover-stat-val">DCA</div>
+        <div class="cover-stat-lbl">Recommended Strategy</div>
+      </div>
+    </div>
+    <div class="cover-date">May 2026 · Bangkok</div>
+  </div>
+</div>
+
+<!-- ===== TABLE OF CONTENTS ===== -->
+<div class="page page-toc">
+  <div class="eyebrow">สารบัญ</div>
+  <h1 style="margin-bottom:28px;">Table of Contents</h1>
+  <div class="assumption-box" style="margin-bottom:24px;">
+    <div class="assumption-label">⚠ หมายเหตุสำคัญ · Key Assumption</div>
+    <ul>
+      <li>ข้อมูลในรายงานนี้อ้างอิงจาก ณ ประมาณ Q1–Q2 2026 (ข้อมูลบางส่วนเป็น consensus estimates)</li>
+      <li>ตัวเลขตลาด: S&amp;P 500 ~5,300–5,500 pts หลังจากความผันผวนจาก tariff concerns</li>
+      <li>10Y US Treasury Yield: ~4.3% | Forward EPS Growth Consensus: ~9–11%</li>
+      <li>รายงานนี้เป็นการวิเคราะห์เชิงกรอบความคิด ไม่ใช่คำแนะนำการลงทุนโดยตรง</li>
+    </ul>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">01</div>
+    <div>
+      <div class="toc-en">Fund Structure Analysis</div>
+      <div class="ch-card-title">โครงสร้างกองทุน SCBS&amp;P500</div>
+      <div class="ch-card-one">Feeder Fund · IVV · Fee Structure · Currency Hedging · Tracking Error</div>
+      <div><span class="ch-tag">TER</span><span class="ch-tag">Hedging</span><span class="ch-tag">Feeder Fund</span></div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">02</div>
+    <div>
+      <div class="toc-en">S&amp;P 500 Valuation Core</div>
+      <div class="ch-card-title">การประเมินมูลค่า S&amp;P 500</div>
+      <div class="ch-card-one">Forward P/E · CAPE · Earnings Yield · ERP · Percentile Analysis</div>
+      <div><span class="ch-tag">Valuation</span><span class="ch-tag">CAPE</span><span class="ch-tag">ERP</span></div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">03</div>
+    <div>
+      <div class="toc-en">Growth Analysis</div>
+      <div class="ch-card-title">วิเคราะห์การเติบโตของกำไร EPS</div>
+      <div class="ch-card-one">Historical Growth · Forward EPS · AI Drivers · Structural vs Cyclical</div>
+      <div><span class="ch-tag">EPS Growth</span><span class="ch-tag">Big Tech</span><span class="ch-tag">AI</span></div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">04</div>
+    <div>
+      <div class="toc-en">Valuation vs Growth · Critical</div>
+      <div class="ch-card-title">ราคา vs การเติบโต: สมเหตุสมผลหรือไม่?</div>
+      <div class="ch-card-one">PEG · Reverse DCF · Sensitivity Table · Implied Return Model</div>
+      <div><span class="ch-tag">PEG</span><span class="ch-tag">Reverse DCF</span><span class="ch-tag">Sensitivity</span></div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">05</div>
+    <div>
+      <div class="toc-en">Scenario Analysis</div>
+      <div class="ch-card-title">3 Scenario: Bull / Base / Bear</div>
+      <div class="ch-card-one">EPS Forecast · Fair P/E · Expected 5Y CAGR per Scenario</div>
+      <div><span class="ch-tag">Bull Case</span><span class="ch-tag">Base Case</span><span class="ch-tag">Bear Case</span></div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">06</div>
+    <div>
+      <div class="toc-en">Thai Investor Perspective</div>
+      <div class="ch-card-title">มุมมองสำหรับนักลงทุนไทย</div>
+      <div class="ch-card-one">THB/USD Impact · DCA vs Lump Sum · Risk Factors ที่ต้องระวัง</div>
+      <div><span class="ch-tag">Currency</span><span class="ch-tag">DCA</span><span class="ch-tag">Risk</span></div>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">07</div>
+    <div>
+      <div class="toc-en">Final Investment Verdict</div>
+      <div class="ch-card-title">สรุปการลงทุน: คำแนะนำขั้นสุดท้าย</div>
+      <div class="ch-card-one">Verdict · Risk/Reward · Entry Strategy · Checklist ก่อนลงทุน</div>
+      <div><span class="ch-tag">Verdict</span><span class="ch-tag">Strategy</span><span class="ch-tag">Checklist</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOREWORD ===== -->
+<div class="page">
+  <div class="eyebrow">คำนำ · Analyst's Foreword</div>
+  <h1>ทำไมต้องวิเคราะห์อย่างลึกซึ้ง?</h1>
+  <p>กองทุน SCBS&amp;P500 คือ access point ที่ง่ายที่สุดสำหรับนักลงทุนไทยที่ต้องการ exposure ต่อตลาดหุ้นสหรัฐฯ แต่ "ง่ายในการเข้าถึง" ไม่ได้แปลว่า "ง่ายในการตัดสินใจลงทุน" — โดยเฉพาะในช่วงที่ S&amp;P 500 ซื้อขายบน valuation ที่อยู่ในระดับ percentile สูงสุดในรอบหลายทศวรรษ</p>
+  <div class="author-box">
+    <div class="author-avatar">EP</div>
+    <div>
+      <div class="author-meta">Equity Research Analyst — Deep Valuation Report 2026</div>
+      <p class="author-text">"นักลงทุนส่วนใหญ่รู้ว่า S&amp;P 500 'แพง' แต่คำถามจริงๆ คือ แพงเท่าไหร่ เมื่อเทียบกับ growth ที่กำลัง pricing อยู่ — และผลตอบแทนที่สมเหตุสมผลควรเป็นเท่าไหร่ในอีก 3–5 ปีข้างหน้า นั่นคือสิ่งที่รายงานฉบับนี้จะตอบ"</p>
+    </div>
+  </div>
+  <p>รายงานฉบับนี้จะไม่ใช้คำว่า "น่าสนใจ" หรือ "ดูดี" โดยไม่มีตัวเลขรองรับ ทุกข้อสรุปจะมาพร้อมกับ data, model, และ explicit assumption ที่คุณสามารถตรวจสอบและปรับเปลี่ยนได้ตามมุมมองของตัวเอง</p>
+</div>
+
+<!-- ===== SECTION 1 ===== -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">Section 1 · Fund Structure Analysis</div>
+  <div class="ch-title">โครงสร้างกองทุน SCBS&amp;P500<em>ค่าใช้จ่ายที่นักลงทุนจ่ายจริงคือเท่าไหร่?</em></div>
+  <div class="ch-essence">ก่อนวิเคราะห์ว่าตลาดแพงหรือถูก ต้องเข้าใจก่อนว่ากองทุนทำงานอย่างไร และค่าใช้จ่ายที่ซ่อนอยู่ส่งผลต่อผลตอบแทนจริงอย่างไร</div>
+</div>
+<div class="page">
+  <div class="eyebrow">Fund Mechanics</div>
+  <h1>Feeder Fund → IVV: กลไกการลงทุน</h1>
+  <p>SCBS&amp;P500 เป็น <strong>Feeder Fund</strong> ที่ลงทุนผ่าน <strong>iShares Core S&amp;P 500 ETF (IVV)</strong> ของ BlackRock เป็นหลัก ซึ่ง IVV นั้น track S&amp;P 500 Index โดยตรงด้วย full replication method กองทุนมีทั้งสองคลาส: <strong>Unhedged</strong> (รับความเสี่ยงค่าเงินเต็ม) และ <strong>Hedged (H)</strong> (ป้องกันความเสี่ยงค่าเงิน)</p>
+  <div class="cost-flow">
+    <div class="cost-box">
+      <div class="cost-title">นักลงทุนไทย</div>
+      <div class="cost-val">THB</div>
+      <div class="cost-note">ซื้อขายผ่าน SCB</div>
+    </div>
+    <div class="cost-arrow">→</div>
+    <div class="cost-box">
+      <div class="cost-title">SCBS&amp;P500 Fund</div>
+      <div class="cost-val">Feeder</div>
+      <div class="cost-note">จดทะเบียนในไทย</div>
+    </div>
+    <div class="cost-arrow">→</div>
+    <div class="cost-box">
+      <div class="cost-title">IVV ETF</div>
+      <div class="cost-val">USD</div>
+      <div class="cost-note">iShares · BlackRock</div>
+    </div>
+    <div class="cost-arrow">→</div>
+    <div class="cost-box">
+      <div class="cost-title">S&amp;P 500</div>
+      <div class="cost-val">500</div>
+      <div class="cost-note">US Large Cap</div>
+    </div>
+    <div class="cost-arrow">→</div>
+    <div class="cost-box final">
+      <div class="cost-title">Exposure จริง</div>
+      <div class="cost-val">~100%</div>
+      <div class="cost-note">US Equities</div>
+    </div>
+  </div>
+
+  <h2>โครงสร้างค่าใช้จ่าย: ต้นทุนจริงที่ถูกลืม</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>รายการค่าใช้จ่าย</th>
+        <th>ประเภท</th>
+        <th class="num">อัตรา (%/ปี)</th>
+        <th>หมายเหตุ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Management Fee (SCB)</td>
+        <td>ค่าจัดการกองทุน</td>
+        <td class="num">~0.50%</td>
+        <td>เรียกเก็บจาก NAV</td>
+      </tr>
+      <tr>
+        <td class="metric">IVV Expense Ratio</td>
+        <td>ค่าใช้จ่าย Underlying</td>
+        <td class="num">0.03%</td>
+        <td>BlackRock iShares</td>
+      </tr>
+      <tr>
+        <td class="metric">Custodian / Admin Fee</td>
+        <td>ค่าธรรมเนียมอื่น</td>
+        <td class="num">~0.02–0.05%</td>
+        <td>ขึ้นกับโบรกเกอร์</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">Total TER (ไม่รวม hedging)</td>
+        <td>รวมทั้งหมด</td>
+        <td class="num">~0.53–0.55%</td>
+        <td>ต้นทุนรวมต่อปี</td>
+      </tr>
+      <tr>
+        <td class="metric">Hedging Cost (สำหรับ H class)</td>
+        <td>ค่าป้องกันความเสี่ยง</td>
+        <td class="num">+1.0–2.0%</td>
+        <td>Forward premium THB/USD</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">Total Cost (Hedged Class)</td>
+        <td><strong>รวมทั้งหมด (Hedged)</strong></td>
+        <td class="num"><strong>~1.5–2.5%</strong></td>
+        <td>ขึ้นกับ interest rate differential</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Tracking Error: ค่าเบี่ยงเบนจากเกณฑ์มาตรฐาน</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>เทียบกับ</th>
+        <th class="num">Tracking Error (%/ปี)</th>
+        <th>สาเหตุหลัก</th>
+        <th>ผลกระทบ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">IVV ETF</td>
+        <td class="num">&lt;0.05%</td>
+        <td>ต่ำมาก (feeder แทบ match)</td>
+        <td>ดี — ไม่มี active risk</td>
+      </tr>
+      <tr>
+        <td class="metric">S&amp;P 500 Index</td>
+        <td class="num">~0.53–0.55%</td>
+        <td>ค่าธรรมเนียมเป็นหลัก</td>
+        <td>ผลตอบแทนต่ำกว่า benchmark ~0.53%</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">S&amp;P 500 (Hedged Class)</td>
+        <td class="num">~1.5–2.5%</td>
+        <td>Hedging cost บวกเพิ่ม</td>
+        <td>ค่าเสียโอกาสสูงถ้า USD แข็ง</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>นโยบาย Currency Hedging: ตัดสินใจอย่างไร?</h2>
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเข้าใจผิด</div>
+      <div class="ladder-text">กอง Hedged "ปลอดภัยกว่า" เสมอ และควรเลือก Hedged เพื่อลดความเสี่ยง</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">Hedging มีต้นทุน 1–2%/ปี ถ้า THB อ่อนค่า (USD แข็ง) กอง Unhedged ได้ประโยชน์จากค่าเงิน แต่ Hedged จ่ายค่า premium ไปฟรี ในอดีต THB อ่อนค่า ~1–2%/ปีเทียบ USD ระยะยาว ทำให้ Unhedged มักได้เปรียบ</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">กรอบการตัดสินใจ</div>
+      <div class="ladder-text">เลือก <strong>Unhedged</strong> ถ้า: มีระยะเวลาลงทุน &gt;5 ปี, คาด THB ไม่แข็งค่ากว่า 1–2% ต่อปี, หรือมีรายได้เป็น THB และต้องการ natural hedge ต่อเงินเฟ้อ | เลือก <strong>Hedged</strong> ถ้า: กังวลค่าเงินระยะสั้น 1–2 ปี หรือมีภาระผูกพัน USD อยู่แล้ว</div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-box-label">สรุปส่วนที่ 1</div>
+    <p>SCBS&amp;P500 เป็นกองทุนที่มีโครงสร้างโปร่งใส ลงทุนผ่าน IVV โดยตรง ค่าใช้จ่ายรวม (Unhedged) อยู่ที่ ~0.53%/ปี ซึ่งถือว่าสมเหตุสมผล แต่ Hedged Class มี total cost สูงถึง ~1.5–2.5%/ปี ซึ่ง "กิน" ผลตอบแทนอย่างมีนัยสำคัญในระยะยาว นักลงทุนระยะยาวควรพิจารณา Unhedged Class เป็นค่าเริ่มต้น</p>
+  </div>
+</div>
+
+<!-- ===== SECTION 2 ===== -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">Section 2 · S&amp;P 500 Valuation Core</div>
+  <div class="ch-title">การประเมินมูลค่า S&amp;P 500<em>ตลาดอยู่ในโซน Cheap / Fair / Expensive / Bubble?</em></div>
+  <div class="ch-essence">ใช้ 5 เครื่องมือวัด valuation พร้อม percentile เทียบประวัติศาสตร์ เพื่อหาคำตอบที่ชัดเจน ไม่ใช่แค่ "รู้สึกว่าแพง"</div>
+</div>
+<div class="page">
+  <div class="eyebrow">Valuation Framework · 5 Metrics</div>
+  <h1>ตาราง Valuation เปรียบเทียบประวัติศาสตร์</h1>
+
+  <div class="assumption-box">
+    <div class="assumption-label">Explicit Assumptions · ข้อสมมติที่ใช้</div>
+    <ul>
+      <li>S&amp;P 500 Level: ~5,300–5,500 pts (หลังการปรับตัวจาก tariff concerns ต้นปี 2026)</li>
+      <li>TTM EPS: ~$220–225 | Forward EPS (NTM): ~$248–255 | Shiller 10Y Average EPS: ~$163</li>
+      <li>10Y US Treasury Yield: ~4.30% | Data source: FactSet consensus estimates Q1 2026</li>
+    </ul>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th class="num">ค่าปัจจุบัน</th>
+        <th class="num">Avg 5Y</th>
+        <th class="num">Avg 10Y</th>
+        <th class="num">Avg 20Y</th>
+        <th>Percentile (20Y)</th>
+        <th>โซน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Forward P/E (NTM)</td>
+        <td class="num"><strong>~21.0×</strong></td>
+        <td class="num">19.8×</td>
+        <td class="num">18.0×</td>
+        <td class="num">16.5×</td>
+        <td><span class="tag-exp">~78th pct</span></td>
+        <td><span class="tag-exp">Expensive</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Trailing P/E (TTM)</td>
+        <td class="num"><strong>~24.0×</strong></td>
+        <td class="num">22.1×</td>
+        <td class="num">19.2×</td>
+        <td class="num">18.0×</td>
+        <td><span class="tag-exp">~80th pct</span></td>
+        <td><span class="tag-exp">Expensive</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Shiller CAPE (10Y)</td>
+        <td class="num"><strong>~33.0×</strong></td>
+        <td class="num">30.5×</td>
+        <td class="num">27.8×</td>
+        <td class="num">25.5×</td>
+        <td><span class="tag-exp">~88th pct*</span></td>
+        <td><span class="tag-exp">Very Expensive</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Earnings Yield (E/P)</td>
+        <td class="num"><strong>4.17%</strong></td>
+        <td class="num">4.82%</td>
+        <td class="num">5.54%</td>
+        <td class="num">5.95%</td>
+        <td><span class="tag-exp">~22nd pct</span></td>
+        <td><span class="tag-exp">Low Yield</span></td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">Equity Risk Premium</td>
+        <td class="num"><strong>~−0.13%</strong></td>
+        <td class="num">+0.9%</td>
+        <td class="num">+2.1%</td>
+        <td class="num">+3.3%</td>
+        <td><span class="tag-exp">~5th pct</span></td>
+        <td><span class="tag-exp">Historically Low</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px; color:var(--ink-muted); margin-top:-8px;">*CAPE percentile เทียบตั้งแต่ปี 1881 (Robert Shiller data) | ERP = Earnings Yield − 10Y UST Yield (4.17% − 4.30% = −0.13%)</p>
+
+  <h2>Percentile Visualization: อยู่ในระดับใด?</h2>
+
+  <div class="pct-bar-wrap">
+    <div class="pct-bar-label">Forward P/E — 78th Percentile (20-Year)</div>
+    <div class="pct-bar-track">
+      <div class="pct-bar-fill" style="width:78%; background: linear-gradient(90deg, #355E40 30%, #B07D10 60%, #7A1A1A 100%); " data-pct="78%"></div>
+    </div>
+    <div class="pct-bar-zones"><span>Cheap</span><span>Fair</span><span>Expensive</span></div>
+  </div>
+
+  <div class="pct-bar-wrap">
+    <div class="pct-bar-label">Shiller CAPE — 88th Percentile (Since 1881)</div>
+    <div class="pct-bar-track">
+      <div class="pct-bar-fill" style="width:88%; background: linear-gradient(90deg, #355E40 30%, #B07D10 60%, #7A1A1A 100%);" data-pct="88%"></div>
+    </div>
+    <div class="pct-bar-zones"><span>Cheap</span><span>Fair</span><span>Expensive</span></div>
+  </div>
+
+  <div class="pct-bar-wrap">
+    <div class="pct-bar-label">Equity Risk Premium — 5th Percentile (Bond vs Equity ดึงดูดกว่า)</div>
+    <div class="pct-bar-track">
+      <div class="pct-bar-fill" style="width:5%; background: #7A1A1A;" data-pct="5%"></div>
+    </div>
+    <div class="pct-bar-zones"><span>Bonds Attractive</span><span>Neutral</span><span>Equities Attractive</span></div>
+  </div>
+
+  <h2>Equity Risk Premium: สัญญาณที่น่ากังวลที่สุด</h2>
+  <p>ERP ปัจจุบันที่ <strong>−0.13%</strong> หมายความว่า S&amp;P 500 ให้ earnings yield น้อยกว่าพันธบัตรรัฐบาลอายุ 10 ปีแบบปลอดความเสี่ยง — นี่คือสถานการณ์ที่ผิดปกติทางประวัติศาสตร์ เกิดขึ้นเพียงไม่กี่ครั้ง ได้แก่ ช่วงฟองสบู่ dot-com ปี 1999–2000 และช่วงก่อน financial crisis บางระยะ</p>
+
+  <div class="blockquote-full">
+    <span class="bq-mark">"</span>
+    <blockquote>เมื่อ Equity Risk Premium ติดลบ นักลงทุนกำลังยอมรับความเสี่ยงหุ้น โดยได้รับผลตอบแทนน้อยกว่าการฝากเงินในพันธบัตร — นั่นคือนิยามของการ overpay</blockquote>
+    <cite>Equity Research Analysis · Deep Valuation 2026</cite>
+  </div>
+
+  <h2>สรุปโซน Valuation</h2>
+  <div class="verdict-box expensive">
+    <div class="verdict-label">⚠ Valuation Zone Assessment</div>
+    <div class="verdict-value">EXPENSIVE</div>
+    <p>ทุกเครื่องมือวัด valuation ชี้ไปทิศทางเดียวกัน: S&amp;P 500 ณ ปัจจุบันซื้อขายสูงกว่าค่าเฉลี่ย 10 และ 20 ปี อย่างมีนัยสำคัญ Shiller CAPE อยู่ที่ 88th percentile เทียบประวัติศาสตร์ และ ERP ติดลบเป็นครั้งแรกในรอบหลายปี ตลาดไม่ได้อยู่ในโซน Bubble (เช่น dot-com ที่ CAPE สูงถึง 44×) แต่ความ upside มีจำกัด และ downside risk สูงกว่าค่าเฉลี่ย</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Analyst's Key Observations</div>
+    <ol>
+      <li>Forward P/E ที่ 21× implicitly คาดหวัง EPS growth ต่อเนื่องสูง — ถ้า growth ผิดคาด P/E compression จะรุนแรง</li>
+      <li>CAPE สูง แต่มีข้อถกเถียงว่า "CAPE ในยุค Tech-dominated index" ควรปรับฐานสูงขึ้น — ประเด็นนี้ถูกวิเคราะห์ใน Section 4</li>
+      <li>ERP ติดลบหมายความว่าพันธบัตรสหรัฐฯ ให้ risk-adjusted return ดีกว่าหุ้นในปัจจุบัน — ต้องการ growth premium เพื่อชดเชย</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== SECTION 3 ===== -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">Section 3 · Growth Analysis</div>
+  <div class="ch-title">วิเคราะห์การเติบโตของกำไร<em>EPS Growth คือ Justify ราคาแพงได้หรือเปล่า?</em></div>
+  <div class="ch-essence">Valuation แพงได้ ถ้า growth สูงกว่าที่ตลาด pricing — ส่วนนี้จะแยกให้ชัดว่าอะไรคือ structural growth จริง และอะไรคือ cyclical หรือ one-off</div>
+</div>
+<div class="page">
+  <div class="eyebrow">EPS Growth Analysis</div>
+  <h1>ประวัติ EPS Growth และ Forward Estimates</h1>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-val">+8.5%</div>
+      <div class="stat-lbl">EPS CAGR (10 ปีย้อนหลัง)</div>
+      <div class="stat-sub">2014–2024 annualized</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val">+9.2%</div>
+      <div class="stat-lbl">EPS CAGR (5 ปีย้อนหลัง)</div>
+      <div class="stat-sub">2019–2024 annualized</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val gold">+10.5%</div>
+      <div class="stat-lbl">Forward EPS Growth (NTM)</div>
+      <div class="stat-sub">FactSet consensus estimate</div>
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th class="num">EPS Growth (%)</th>
+        <th>หมายเหตุ</th>
+        <th>คุณภาพ Growth</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Historical 10Y (2014–24)</td>
+        <td class="num">+8.5% CAGR</td>
+        <td>รวม buyback และ margin expansion</td>
+        <td><span class="tag-fair">Mixed</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Historical 5Y (2019–24)</td>
+        <td class="num">+9.2% CAGR</td>
+        <td>Boosted by COVID recovery + tech</td>
+        <td><span class="tag-fair">Mixed</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Forward 1Y (FY2026E)</td>
+        <td class="num">+10.5%</td>
+        <td>Consensus: ~$253–258 EPS</td>
+        <td><span class="tag-fair">Optimistic</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Forward 2Y (FY2027E)</td>
+        <td class="num">+9.0%</td>
+        <td>Deceleration expected</td>
+        <td><span class="tag-fair">Moderate</span></td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">Forward 3Y Avg (2026–28E)</td>
+        <td class="num">~+9–10%</td>
+        <td>Structural AI + buyback driven</td>
+        <td><span class="tag-cheap">Credible</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Drivers of EPS Growth: แยก Structural vs Cyclical</h2>
+
+  <h3>1. Big Tech / AI: Structural Driver (~30–35% of S&amp;P earnings)</h3>
+  <p>กลุ่ม "Magnificent 7" (Apple, Microsoft, NVIDIA, Amazon, Alphabet, Meta, Tesla) สร้างสัดส่วน EPS growth ของ S&amp;P 500 ประมาณ <strong>30–35%</strong> โดยเฉพาะ AI-driven revenue ของ Microsoft Azure, Google Cloud, Amazon AWS และ NVIDIA Data Center — ซึ่งยังคงเป็น <strong>structural growth</strong> ระยะยาว 5–10 ปี</p>
+
+  <h3>2. Margin Expansion: Cyclical / At Risk</h3>
+  <p>Net profit margin ของ S&amp;P 500 อยู่ที่ ~12.5–13% ซึ่งสูงกว่าค่าเฉลี่ย 10 ปีที่ ~11.0% อย่างชัดเจน Margin expansion ที่เกิดขึ้นในช่วง 5 ปีที่ผ่านมามาจาก: การ offshore production, leverage ต่อต้นทุนแรงงาน, และ SaaS economics — แต่ tariff risks และ wage inflation ปี 2025–26 เริ่มกดดัน margin</p>
+
+  <div class="signal-box sell">
+    <div class="signal-label">⚠ Risk: Margin Compression</div>
+    <p>ถ้า tariff จาก US–China trade war บวกกับ wage inflation กด operating margin ลง 1–1.5 percentage point EPS growth ที่คาดไว้ 10% อาจเหลือเพียง 5–6% — ซึ่งส่งผลให้ valuation แพงขึ้นไปอีก</p>
+  </div>
+
+  <h3>3. Share Buyback: Mechanical EPS Boost</h3>
+  <p>S&amp;P 500 companies ซื้อหุ้นคืน (~$800Bn–1Tn/ปี) ส่งผล mechanically ให้ EPS สูงขึ้น ~1.5–2.0% ต่อปี โดยที่ earnings จริงไม่ได้เพิ่มขึ้น — นี่คือ <strong>financial engineering</strong> ไม่ใช่ organic growth</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Growth Driver</th>
+        <th class="num">Contribution (%)</th>
+        <th>ประเภท</th>
+        <th>ความยั่งยืน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">AI / Cloud Revenue Growth</td>
+        <td class="num">~3–4%</td>
+        <td>Structural</td>
+        <td><span class="tag-cheap">สูง — 5+ ปี</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Non-Tech Revenue Growth</td>
+        <td class="num">~2–3%</td>
+        <td>Cyclical</td>
+        <td><span class="tag-fair">ปานกลาง</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Margin Expansion</td>
+        <td class="num">~1–2%</td>
+        <td>Cyclical / At Risk</td>
+        <td><span class="tag-exp">ต่ำ — กำลังถูกกดดัน</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Share Buyback (EPS effect)</td>
+        <td class="num">~1.5–2%</td>
+        <td>Financial Engineering</td>
+        <td><span class="tag-fair">ปานกลาง (ขึ้นกับ FCF)</span></td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric"><strong>รวม Forward EPS Growth</strong></td>
+        <td class="num"><strong>~9–11%</strong></td>
+        <td>Mixed</td>
+        <td><span class="tag-fair">ปานกลาง-สูง</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Key Insight · Growth Quality</div>
+    <p>EPS growth ~9–11% ในระยะ 3 ปีข้างหน้ามีความน่าเชื่อถือ แต่ ~30–40% ของ growth นี้มาจาก Big Tech/AI (concentrated risk) และ ~20% มาจาก financial engineering (buyback) ไม่ใช่ organic business growth ทั้งหมด ดังนั้น "quality" ของ growth จึงต่ำกว่า headline number บอก</p>
+  </div>
+</div>
+
+<!-- ===== SECTION 4 ===== -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">Section 4 · Valuation vs Growth · Critical</div>
+  <div class="ch-title">ราคา vs การเติบโต<em>ตลาดกำลัง Overpay หรือ Underestimate?</em></div>
+  <div class="ch-essence">นี่คือส่วนที่สำคัญที่สุดของรายงาน — Reverse DCF และ Sensitivity Table จะเผยให้เห็นว่าตลาดกำลังคาดหวัง EPS growth เท่าไหร่ และสมเหตุสมผลเพียงใด</div>
+</div>
+<div class="page">
+  <div class="eyebrow">PEG · Reverse DCF · Sensitivity Analysis</div>
+  <h1>Framework วิเคราะห์: ราคาสมเหตุสมผลหรือไม่?</h1>
+
+  <h2>1. PEG Ratio Analysis</h2>
+  <div class="formula-box">
+    <div class="formula-title">PEG Ratio Formula</div>
+    <div class="formula-eq">PEG = Forward P/E ÷ Forward EPS Growth (%)</div>
+    <div class="formula-note">
+      Rule of Thumb: PEG &lt; 1.0 = Cheap | PEG 1.0–1.5 = Fair | PEG 1.5–2.0 = Expensive | PEG &gt; 2.0 = Very Expensive<br>
+      ข้อจำกัด: PEG ใช้ได้ดีกับหุ้นรายตัว แต่สำหรับ index ต้องพิจารณาร่วมกับ macro context
+    </div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th class="num">ค่าปัจจุบัน</th>
+        <th>การตีความ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Forward P/E</td>
+        <td class="num">~21.0×</td>
+        <td>Expensive vs history</td>
+      </tr>
+      <tr>
+        <td class="metric">Forward EPS Growth (3Y avg)</td>
+        <td class="num">~10.0%</td>
+        <td>Consensus estimate</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric"><strong>PEG Ratio</strong></td>
+        <td class="num"><strong>2.10×</strong></td>
+        <td><span class="tag-exp">Very Expensive</span></td>
+      </tr>
+      <tr>
+        <td class="metric">PEG at Fair Value (PEG=1.5)</td>
+        <td class="num">P/E ควรเป็น 15×</td>
+        <td>ต้อง P/E compression ~29%</td>
+      </tr>
+      <tr>
+        <td class="metric">PEG at "Growth Premium" (PEG=2.0)</td>
+        <td class="num">P/E ควรเป็น 20×</td>
+        <td>เกือบ fully priced</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Reverse DCF: ตลาดกำลัง Price-in EPS Growth เท่าไหร่?</h2>
+  <p>แทนที่จะถามว่า "S&amp;P 500 ควรซื้อขายที่ราคาเท่าไหร่?" เราถามว่า <strong>"ที่ราคาปัจจุบัน ตลาดกำลังคาดหวัง EPS growth เท่าไหร่?"</strong></p>
+
+  <div class="dcf-block">
+    <div class="dcf-title">Reverse DCF Calculation · S&amp;P 500 Implied Growth</div>
+    <div class="dcf-row">
+      <span class="dcf-key">S&amp;P 500 Current Level</span>
+      <span class="dcf-val">~5,400</span>
+    </div>
+    <div class="dcf-row">
+      <span class="dcf-key">TTM EPS (Base)</span>
+      <span class="dcf-val">~$225</span>
+    </div>
+    <div class="dcf-row">
+      <span class="dcf-key">Required Return (Discount Rate)</span>
+      <span class="dcf-val">~9.0% (risk-free 4.3% + ERP 4.7%)</span>
+    </div>
+    <div class="dcf-row">
+      <span class="dcf-key">Terminal Growth Rate (after Year 5)</span>
+      <span class="dcf-val">~3.5% (GDP trend)</span>
+    </div>
+    <div class="dcf-row">
+      <span class="dcf-key">Terminal P/E Assumption</span>
+      <span class="dcf-val">~18× (long-run fair value)</span>
+    </div>
+    <div class="dcf-row">
+      <span class="dcf-key" style="font-weight:700; color:rgba(255,255,255,0.88);">→ Implied EPS CAGR (5Y) to Justify Price</span>
+      <span class="dcf-val gold" style="font-size:22px;">~11–12%</span>
+    </div>
+    <div class="dcf-conclusion">
+      ตลาดกำลัง pricing EPS growth ที่ 11–12% CAGR ใน 5 ปีข้างหน้า ซึ่งสูงกว่า consensus estimate ที่ ~9–10% และสูงกว่า historical 10-year average ที่ 8.5% — แปลว่าตลาดต้องการ growth "ดีกว่าประวัติศาสตร์" เพื่อ justify ราคาปัจจุบัน
+    </div>
+  </div>
+
+  <h2>3. Sensitivity Table: P/E × EPS Growth → Expected 5Y Return</h2>
+  <p>ตารางนี้แสดงว่าถ้า Terminal P/E เปลี่ยนแปลง (แกนตั้ง) และ EPS Growth เปลี่ยนแปลง (แกนนอน) นักลงทุนจะได้รับ Expected Return (5Y CAGR) เท่าไหร่ จาก S&amp;P 500 ที่ระดับ ~5,400</p>
+
+  <div class="assumption-box">
+    <div class="assumption-label">Sensitivity Table Assumptions</div>
+    <ul>
+      <li>Base: S&amp;P 500 = 5,400 | TTM EPS = $225 | Holding Period = 5 Years</li>
+      <li>Expected Return = (EPS × (1+g)^5 × Terminal P/E / 5,400)^(1/5) − 1</li>
+      <li>ตัวเลขสีเขียว = Expected Return &gt;10% | สีเหลือง = 5–10% | สีแดง = &lt;5%</li>
+      <li>กล่องสีน้ำเงิน (Base Case) = Terminal P/E 19× และ EPS Growth 9%</li>
+    </ul>
+  </div>
+
+  <div style="overflow-x:auto;">
+  <table class="sens-table">
+    <thead>
+      <tr>
+        <th style="text-align:left; min-width:130px;">Terminal P/E →<br>EPS Growth ↓</th>
+        <th>P/E = 14×<br><span style="font-size:9px;opacity:0.7;">Deep Discount</span></th>
+        <th>P/E = 16×<br><span style="font-size:9px;opacity:0.7;">Below Avg</span></th>
+        <th>P/E = 18×<br><span style="font-size:9px;opacity:0.7;">Fair Value</span></th>
+        <th>P/E = 19×<br><span style="font-size:9px;opacity:0.7;">Fair+</span></th>
+        <th>P/E = 21×<br><span style="font-size:9px;opacity:0.7;">Current</span></th>
+        <th>P/E = 24×<br><span style="font-size:9px;opacity:0.7;">Premium</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="row-header">EPS Growth: 4%</td>
+        <td class="s-red">−3.1%</td>
+        <td class="s-red">−1.4%</td>
+        <td class="s-lorange">+0.2%</td>
+        <td class="s-lorange">+0.9%</td>
+        <td class="s-lyellow">+2.7%</td>
+        <td class="s-lyellow">+4.9%</td>
+      </tr>
+      <tr>
+        <td class="row-header">EPS Growth: 6%</td>
+        <td class="s-red">−1.2%</td>
+        <td class="s-lorange">+0.6%</td>
+        <td class="s-lyellow">+2.3%</td>
+        <td class="s-lyellow">+3.0%</td>
+        <td class="s-lyellow">+4.9%</td>
+        <td class="s-lgreen">+7.1%</td>
+      </tr>
+      <tr>
+        <td class="row-header">EPS Growth: 8%</td>
+        <td class="s-lorange">+0.7%</td>
+        <td class="s-lyellow">+2.6%</td>
+        <td class="s-lyellow">+4.3%</td>
+        <td class="s-lgreen">+5.1%</td>
+        <td class="s-lgreen">+7.0%</td>
+        <td class="s-lgreen">+9.3%</td>
+      </tr>
+      <tr>
+        <td class="row-header"><strong>EPS Growth: 9%</strong> ★</td>
+        <td class="s-lyellow">+1.6%</td>
+        <td class="s-lgreen">+3.5%</td>
+        <td class="s-lgreen">+5.3%</td>
+        <td class="s-base">+6.1% ★</td>
+        <td class="s-lgreen">+8.0%</td>
+        <td class="s-green">+10.3%</td>
+      </tr>
+      <tr>
+        <td class="row-header">EPS Growth: 11%</td>
+        <td class="s-lyellow">+3.5%</td>
+        <td class="s-lgreen">+5.5%</td>
+        <td class="s-lgreen">+7.3%</td>
+        <td class="s-lgreen">+8.1%</td>
+        <td class="s-green">+10.0%</td>
+        <td class="s-green">+12.4%</td>
+      </tr>
+      <tr>
+        <td class="row-header">EPS Growth: 13%</td>
+        <td class="s-lgreen">+5.5%</td>
+        <td class="s-lgreen">+7.5%</td>
+        <td class="s-green">+9.4%</td>
+        <td class="s-green">+10.2%</td>
+        <td class="s-green">+12.1%</td>
+        <td class="s-green">+14.5%</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:11px; color:var(--ink-muted); margin-top:4px;">★ = Base Case (Terminal P/E 19× · EPS Growth 9%) → Expected 5Y CAGR ≈ 6.1%</p>
+
+  <h2>คำตอบ: ตลาด Overpay หรือ Underestimate?</h2>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ถ้า Growth เป็นแค่ Consensus (~9–10%)</div>
+      <div class="ladder-text">ตลาดกำลัง OVERPAY เล็กน้อย — Implied growth ที่ตลาด price in (11–12%) สูงกว่า consensus จริง (~9–10%) ซึ่งหมายความว่าต้องมี positive surprise ถึงจะ justify ราคาปัจจุบันได้</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ถ้า AI Supercharged Growth ถึง 12–14%</div>
+      <div class="ladder-text">ราคาปัจจุบัน "สมเหตุสมผล" หรือแม้แต่ถูก — เป็นสถานการณ์ที่เป็นไปได้ถ้า AI monetization เพิ่ม productivity ทั่วระบบเศรษฐกิจในอีก 3–5 ปีข้างหน้า</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">สรุป: ตลาดซื้อขายบน "Optimistic Base Case"</div>
+      <div class="ladder-text">ไม่ถึง bubble แต่ก็ไม่มี margin of safety ราคาสะท้อน scenario ที่ดีที่สุดของ consensus แล้ว — Upside จำกัด downside risk ชัดเจนถ้า growth ต่ำกว่าคาด</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 5 ===== -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">Section 5 · Scenario Analysis</div>
+  <div class="ch-title">3 Scenarios: Bull / Base / Bear<em>Expected Return ต่างกันแค่ไหนใน 3–5 ปี?</em></div>
+  <div class="ch-essence">ลงทุนโดยไม่มี scenario analysis คือการขับรถโดยไม่มีกระจกหน้า — ส่วนนี้จะสร้าง probability-weighted view ของผลตอบแทนที่คาดหวัง</div>
+</div>
+<div class="page">
+  <div class="eyebrow">Scenario Analysis · 5Y Forward</div>
+  <h1>คาดการณ์ผลตอบแทน 3 กรณี</h1>
+
+  <div class="assumption-box">
+    <div class="assumption-label">Scenario Assumptions · Key Variables</div>
+    <ul>
+      <li>Base Year: S&amp;P 500 ~5,400 | TTM EPS ~$225 | Holding Period: 5 ปี</li>
+      <li>Dividend Yield: ~1.3% ต่อปี (รวมใน Total Return)</li>
+      <li>Probability weights: Bull 25% · Base 50% · Bear 25%</li>
+    </ul>
+  </div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card bull">
+      <div class="sc-label">🟢 Bull Case · 25%</div>
+      <div class="sc-title">AI Productivity Revolution</div>
+      <div class="sc-item">EPS CAGR (5Y): <span>+13–14%</span></div>
+      <div class="sc-item">Terminal P/E: <span>22–24×</span></div>
+      <div class="sc-item">Driver: AI คืน ROE ประวัติศาสตร์ใหม่ หุ้น Tech ขึ้น 40–60%</div>
+      <div class="sc-item">Fed: Cut rates 2–3 ครั้ง → P/E expansion</div>
+      <div class="sc-item">S&amp;P 500 Level: ~8,000–9,500 (5 ปี)</div>
+      <div class="sc-return">
+        <span class="sc-return-lbl">5Y Expected CAGR</span>
+        +13–15%
+      </div>
+    </div>
+    <div class="scenario-card base">
+      <div class="sc-label">🔵 Base Case · 50%</div>
+      <div class="sc-title">Moderate Growth + P/E Compression</div>
+      <div class="sc-item">EPS CAGR (5Y): <span>+8–10%</span></div>
+      <div class="sc-item">Terminal P/E: <span>18–20×</span></div>
+      <div class="sc-item">Driver: AI growth บางส่วน, margin stable</div>
+      <div class="sc-item">Fed: คง rate หรือ cut 1–2 ครั้งช้าๆ</div>
+      <div class="sc-item">S&amp;P 500 Level: ~6,800–7,500 (5 ปี)</div>
+      <div class="sc-return">
+        <span class="sc-return-lbl">5Y Expected CAGR</span>
+        +6–8%
+      </div>
+    </div>
+    <div class="scenario-card bear">
+      <div class="sc-label">🔴 Bear Case · 25%</div>
+      <div class="sc-title">Earnings Miss + Valuation Reset</div>
+      <div class="sc-item">EPS CAGR (5Y): <span>+3–5%</span></div>
+      <div class="sc-item">Terminal P/E: <span>14–16×</span></div>
+      <div class="sc-item">Driver: Recession, tariff war, credit crunch</div>
+      <div class="sc-item">Fed: Forced to cut aggressively (but too late)</div>
+      <div class="sc-item">S&amp;P 500 Level: ~4,200–5,000 (5 ปี)</div>
+      <div class="sc-return">
+        <span class="sc-return-lbl">5Y Expected CAGR</span>
+        −2% ถึง +2%
+      </div>
+    </div>
+  </div>
+
+  <h2>Probability-Weighted Expected Return</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th class="num">Probability</th>
+        <th class="num">5Y CAGR</th>
+        <th class="num">Weighted Return</th>
+        <th>EPS Assumption</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Bull Case</td>
+        <td class="num">25%</td>
+        <td class="num">+14%</td>
+        <td class="num">+3.5%</td>
+        <td>$225 × 1.14^5 × 23× = ~9,200</td>
+      </tr>
+      <tr>
+        <td class="metric">Base Case</td>
+        <td class="num">50%</td>
+        <td class="num">+7%</td>
+        <td class="num">+3.5%</td>
+        <td>$225 × 1.09^5 × 19× = ~6,700</td>
+      </tr>
+      <tr>
+        <td class="metric">Bear Case</td>
+        <td class="num">25%</td>
+        <td class="num">0%</td>
+        <td class="num">0.0%</td>
+        <td>$225 × 1.04^5 × 15× = ~4,100</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric"><strong>Weighted Expected Return</strong></td>
+        <td class="num"><strong>100%</strong></td>
+        <td class="num">—</td>
+        <td class="num"><strong>~+7.0%</strong></td>
+        <td>รวม dividend ~1.3%/ปี</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Scenario Summary</div>
+    <p>Expected Return แบบ probability-weighted อยู่ที่ ~7% CAGR ใน 5 ปี ซึ่งไม่ใช่ตัวเลขที่ดีไม่ดี — แต่ต้องดูในบริบทว่า <strong>risk-free rate อยู่ที่ 4.3%</strong> ดังนั้น equity premium ที่ได้จากการรับความเสี่ยงหุ้นจึงอยู่ที่ประมาณ <strong>~2.7%</strong> ต่อปีเท่านั้น ซึ่งต่ำกว่าค่าเฉลี่ยประวัติศาสตร์ ERP ที่ ~3.5–4.5% อย่างชัดเจน</p>
+  </div>
+
+  <h2>Risk/Reward Asymmetry</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th class="num">Upside (Bull)</th>
+        <th class="num">Downside (Bear)</th>
+        <th>การประเมิน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">S&amp;P 500 Level Change (5Y)</td>
+        <td class="num">+70% (~9,200)</td>
+        <td class="num">−24% (~4,100)</td>
+        <td><span class="tag-fair">Asymmetric — Downside Risk เด่น</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Max Drawdown Risk (Short-term)</td>
+        <td class="num">N/A</td>
+        <td class="num">−30 ถึง −40%</td>
+        <td><span class="tag-exp">สูงในช่วง 1–2 ปีแรก</span></td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">Upside/Downside Ratio</td>
+        <td class="num" colspan="2">70% / 24% = 2.9:1</td>
+        <td><span class="tag-fair">พอรับได้ แต่ไม่โดดเด่น</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== SECTION 6 ===== -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">Section 6 · Thai Investor Perspective</div>
+  <div class="ch-title">มุมมองสำหรับนักลงทุนไทย<em>ค่าเงิน · กลยุทธ์ · และความเสี่ยงที่ต้องระวัง</em></div>
+  <div class="ch-essence">การลงทุนใน SCBS&amp;P500 มีมิติที่ไม่เหมือนการลงทุนในตลาดสหรัฐโดยตรง — ค่าเงิน ภาษี และพฤติกรรมนักลงทุนไทยล้วนส่งผลต่อผลตอบแทนจริงที่ได้รับ</div>
+</div>
+<div class="page">
+  <div class="eyebrow">Thai Investor · Currency · Strategy</div>
+  <h1>ผลกระทบค่าเงิน THB/USD ต่อผลตอบแทน</h1>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ช่วงเวลา / สถานการณ์</th>
+        <th class="num">USD Return</th>
+        <th class="num">THB/USD Change</th>
+        <th class="num">THB Return (Unhedged)</th>
+        <th>บทเรียน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Bull USD (Dollar แข็ง)</td>
+        <td class="num">+10%</td>
+        <td class="num">THB อ่อน 5%</td>
+        <td class="num"><strong>+15.5%</strong></td>
+        <td><span class="tag-cheap">Currency เพิ่มผลตอบแทน</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Neutral (ค่าเงินนิ่ง)</td>
+        <td class="num">+10%</td>
+        <td class="num">—</td>
+        <td class="num"><strong>+10%</strong></td>
+        <td><span class="tag-fair">ตรงตาม USD return</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Bear USD (Dollar อ่อน)</td>
+        <td class="num">+10%</td>
+        <td class="num">THB แข็ง 5%</td>
+        <td class="num"><strong>+4.5%</strong></td>
+        <td><span class="tag-exp">Currency ลดผลตอบแทน 5.5%</span></td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric">Historical Avg (10Y)</td>
+        <td class="num">+13.5%/ปี</td>
+        <td class="num">THB อ่อน ~1.5%/ปี</td>
+        <td class="num"><strong>+15.2%/ปี</strong></td>
+        <td><span class="tag-cheap">USD exposure ช่วยในอดีต</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>เปรียบเทียบ: Hedged vs Unhedged</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>ปัจจัย</th>
+        <th>Unhedged Class</th>
+        <th>Hedged Class (H)</th>
+        <th>แนะนำสำหรับ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">TER (ค่าใช้จ่ายรวม)</td>
+        <td>~0.53%/ปี</td>
+        <td>~1.5–2.5%/ปี</td>
+        <td>Unhedged ถูกกว่ามาก</td>
+      </tr>
+      <tr>
+        <td class="metric">Currency Risk</td>
+        <td>เต็ม (Full USD exposure)</td>
+        <td>ป้องกันแล้ว</td>
+        <td>ขึ้นกับ view ค่าเงิน</td>
+      </tr>
+      <tr>
+        <td class="metric">ระยะเวลาลงทุนที่เหมาะ</td>
+        <td>5 ปีขึ้นไป</td>
+        <td>1–3 ปี</td>
+        <td>ส่วนใหญ่: Unhedged</td>
+      </tr>
+      <tr>
+        <td class="metric">Break-even: Hedged คุ้มกว่า</td>
+        <td>—</td>
+        <td>THB แข็ง &gt;1.5–2.5%/ปี</td>
+        <td>THB ต้องแข็งมากพอ</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric"><strong>สรุประยะยาว</strong></td>
+        <td><strong>✓ แนะนำ</strong></td>
+        <td>เฉพาะกรณี</td>
+        <td>Unhedged สำหรับ DCA 5Y+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>DCA vs Lump Sum: กลยุทธ์ที่เหมาะกับ Valuation ปัจจุบัน</h2>
+
+  <div class="formula-box">
+    <div class="formula-title">กรณีศึกษา: ลงทุน 1,000,000 บาท ณ CAPE 33× (ปัจจุบัน)</div>
+    <div class="formula-eq">Lump Sum vs DCA 12 เดือน → Difference in Outcome</div>
+    <div class="formula-note">
+      Historical data: ในช่วง CAPE &gt;30× ที่ผ่านมา | Lump Sum มักให้ผลตอบแทนต่ำกว่า DCA 12 เดือนใน 70% ของกรณี<br>
+      เหตุผล: ตลาดที่แพง "ผิดหวัง" บ่อยกว่าในระยะ 1–2 ปีแรก ทำให้ DCA ลดต้นทุนเฉลี่ยได้ดีกว่า
+    </div>
+  </div>
+
+  <div class="scenario-grid">
+    <div class="scenario-card bear" style="border-color:var(--accent); background:var(--accent-bg);">
+      <div class="sc-label" style="color:var(--accent);">Lump Sum</div>
+      <div class="sc-title">ลงทุนทีเดียว 1 ล้าน</div>
+      <div class="sc-item">ข้อดี: <span>หลีกเลี่ยง cash drag ถ้าตลาดขึ้น</span></div>
+      <div class="sc-item">ข้อเสีย: <span>ถ้าตลาดลง 20–30% ในปีแรก ขาดทุนก้อนใหญ่ทันที</span></div>
+      <div class="sc-item">เหมาะกับ: <span>CAPE &lt;20× หรือหลังตลาดลงแล้ว 20%+</span></div>
+      <div class="sc-return" style="color:var(--amber); font-size:18px;">
+        <span class="sc-return-lbl">คำแนะนำ ณ ปัจจุบัน</span>
+        ไม่แนะนำเต็มก้อน
+      </div>
+    </div>
+    <div class="scenario-card bull">
+      <div class="sc-label">DCA รายเดือน ✓</div>
+      <div class="sc-title">แบ่งซื้อ 12–24 เดือน</div>
+      <div class="sc-item">ข้อดี: <span>ลด timing risk, เฉลี่ยต้นทุน, วินัยดีกว่า</span></div>
+      <div class="sc-item">ข้อเสีย: <span>ถ้าตลาดขึ้นต่อเนื่อง ซื้อแพงขึ้นเรื่อยๆ</span></div>
+      <div class="sc-item">เหมาะกับ: <span>CAPE &gt;28× หรือช่วง uncertainty สูง</span></div>
+      <div class="sc-return">
+        <span class="sc-return-lbl">คำแนะนำ ณ ปัจจุบัน</span>
+        แนะนำเป็นหลัก ✓
+      </div>
+    </div>
+    <div class="scenario-card base">
+      <div class="sc-label">Hybrid Strategy</div>
+      <div class="sc-title">50% ทันที + 50% DCA 12M</div>
+      <div class="sc-item">ข้อดี: <span>Balance ระหว่าง opportunity cost และ risk management</span></div>
+      <div class="sc-item">ข้อเสีย: <span>ซับซ้อนกว่า, ต้องมีวินัย</span></div>
+      <div class="sc-item">เหมาะกับ: <span>นักลงทุนที่มี conviction กลาง</span></div>
+      <div class="sc-return">
+        <span class="sc-return-lbl">คำแนะนำ ณ ปัจจุบัน</span>
+        ทางเลือกที่ดี
+      </div>
+    </div>
+  </div>
+
+  <h2>Risks ที่นักลงทุนไทยต้องระวัง 3 อันดับแรก</h2>
+
+  <div class="signal-box sell">
+    <div class="signal-label">Risk #1 · Valuation Compression</div>
+    <p><strong>สถานการณ์:</strong> ถ้า P/E หดตัวจาก 21× → 16× (ซึ่งเป็น 10-year avg) โดยที่ EPS ไม่เปลี่ยน S&amp;P 500 จะลดลง ~24% จากระดับปัจจุบัน — และ SCBS&amp;P500 จะร่วงตาม (บวก/ลบ ผลกระทบค่าเงิน) นี่คือ silent risk ที่ไม่ต้องมี recession เกิดขึ้นก็ได้</p>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-label">Risk #2 · Fed Policy Reversal</div>
+    <p><strong>สถานการณ์:</strong> ถ้า inflation กลับมา (tariff-driven stagflation) บังคับให้ Fed ขึ้นดอกเบี้ยหรือคงไว้นาน 10Y UST yield ขึ้นถึง 5–5.5% จะกด ERP ติดลบมากขึ้น และดึงเงินออกจากตลาดหุ้น กลุ่มที่ได้รับผลกระทบมากสุด: Growth stocks / Tech (ซึ่งเป็น 30%+ ของ S&amp;P 500)</p>
+  </div>
+
+  <div class="signal-box neutral">
+    <div class="signal-label">Risk #3 · Earnings Miss (vs High Expectations)</div>
+    <p><strong>สถานการณ์:</strong> ตลาดกำลัง price-in EPS growth 11–12% CAGR — ถ้า actual growth มาที่เพียง 7–8% (ซึ่งยังเป็นตัวเลขดี) ตลาดอาจ "ผิดหวัง" และ re-rate ลงได้ 10–15% โดยไม่มีวิกฤตเลย นักลงทุนไทยมักประเมิน risk นี้ต่ำกว่าความเป็นจริง</p>
+  </div>
+</div>
+
+<!-- ===== SECTION 7: SYNTHESIS / FINAL VERDICT ===== -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">Synthesis · Final Investment Verdict</div>
+  <div class="ch-title">คำตัดสินการลงทุนขั้นสุดท้าย<em>Buy · Hold · Wait · Trim — และ Entry Strategy</em></div>
+  <div class="ch-essence">รวบรวมทุก framework เข้าเป็นคำแนะนำเดียวที่ชัดเจน พร้อม Pre-Investment Checklist ที่ใช้ได้ทันที</div>
+</div>
+<div class="page">
+  <div class="eyebrow">Investment Verdict · Summary</div>
+  <h1>Valuation Scorecard: สรุปทุก Metric</h1>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Framework</th>
+        <th>ผลการวิเคราะห์</th>
+        <th>ชี้ไปทาง</th>
+        <th>น้ำหนัก</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">Forward P/E (78th pct)</td>
+        <td>21× vs avg 18× (10Y)</td>
+        <td><span class="tag-exp">Expensive</span></td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td class="metric">Shiller CAPE (88th pct)</td>
+        <td>33× vs avg 17× (history)</td>
+        <td><span class="tag-exp">Very Expensive</span></td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td class="metric">ERP (5th pct)</td>
+        <td>−0.13% vs avg +3.3%</td>
+        <td><span class="tag-exp">Bonds Beat Equities</span></td>
+        <td>Very High</td>
+      </tr>
+      <tr>
+        <td class="metric">PEG Ratio</td>
+        <td>2.1× (vs fair &lt;1.5×)</td>
+        <td><span class="tag-exp">Expensive</span></td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td class="metric">Reverse DCF</td>
+        <td>Pricing 11–12% growth (vs 9–10% consensus)</td>
+        <td><span class="tag-exp">Slightly Overpriced</span></td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td class="metric">EPS Growth Quality</td>
+        <td>9–11% (mixed quality, AI-dependent)</td>
+        <td><span class="tag-fair">Credible but Concentrated</span></td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td class="metric">Probability-Weighted Return</td>
+        <td>~7% CAGR (5Y) vs RF 4.3%</td>
+        <td><span class="tag-fair">ERP 2.7% — Below Avg</span></td>
+        <td>High</td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric"><strong>Overall Verdict</strong></td>
+        <td colspan="2"><strong>EXPENSIVE — ไม่มี Margin of Safety</strong></td>
+        <td><strong>ชัดเจน</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="final-verdict">
+    <div class="fv-label">⚖ Overall Valuation Verdict</div>
+    <div class="fv-rating">EXPENSIVE</div>
+    <div class="fv-sub">ไม่ใช่ Bubble แต่ไม่มี Margin of Safety — Risk/Reward ต่ำกว่าค่าเฉลี่ยประวัติศาสตร์</div>
+  </div>
+
+  <h2>Strategy Recommendation: ทำอะไรตอนนี้?</h2>
+
+  <div class="signal-box neutral">
+    <div class="signal-label">🎯 Core Strategy: DCA + Tactical Patience</div>
+    <p><strong>สำหรับผู้ที่ยังไม่มีหรือมีน้อย:</strong> เริ่ม DCA รายเดือนได้เลย ใช้ 50–60% ของเงินที่ตั้งใจลงทุน และเก็บ 40–50% ไว้รอโอกาสหาก S&amp;P 500 ปรับตัวลง 15–20% (ระดับ Forward P/E กลับมาที่ 17–18×)</p>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-label">✅ Action ที่แนะนำ</div>
+    <p><strong>เพิ่ม/ซื้อ (ไม่ใช่ Lump Sum เต็ม):</strong> DCA รายเดือน 12–24 เดือนข้างหน้า ด้วย Unhedged Class สำหรับ time horizon 5 ปีขึ้นไป เหมาะกับ core portfolio ที่ต้องการ global equity exposure โดยไม่ต้องบริหารเอง</p>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-label">⚠ หลีกเลี่ยง</div>
+    <p><strong>Lump Sum เต็มก้อนในจังหวะนี้:</strong> CAPE 88th percentile + ERP ติดลบ + Implied growth สูงกว่า consensus = ไม่มี margin of safety เพียงพอสำหรับ lump sum ขนาดใหญ่ รอให้ตลาดลงมาถึง entry zone ที่ระบุด้านล่างก่อน</p>
+  </div>
+
+  <h2>Entry Strategy: รอระดับใดถึงจะน่าสนใจ?</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Entry Zone</th>
+        <th class="num">S&amp;P 500 Level</th>
+        <th class="num">Forward P/E</th>
+        <th class="num">CAPE ประมาณ</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric">DCA Zone (Now)</td>
+        <td class="num">5,000–5,500</td>
+        <td class="num">~19–21×</td>
+        <td class="num">~30–33×</td>
+        <td><span class="tag-fair">DCA รายเดือน — ไม่รอ</span></td>
+      </tr>
+      <tr>
+        <td class="metric">Moderate Buyzone</td>
+        <td class="num">4,500–5,000</td>
+        <td class="num">~17–19×</td>
+        <td class="num">~27–30×</td>
+        <td><span class="tag-cheap">เพิ่ม size DCA + บางส่วน lump</span></td>
+      </tr>
+      <tr class="highlight">
+        <td class="metric"><strong>Strong Buyzone</strong></td>
+        <td class="num"><strong>4,000–4,500</strong></td>
+        <td class="num"><strong>~15–17×</strong></td>
+        <td class="num"><strong>~24–27×</strong></td>
+        <td><span class="tag-cheap"><strong>Lump sum ก้อนใหญ่ได้เลย</strong></span></td>
+      </tr>
+      <tr>
+        <td class="metric">Deep Value Zone (Rare)</td>
+        <td class="num">&lt;3,800</td>
+        <td class="num">&lt;14×</td>
+        <td class="num">&lt;22×</td>
+        <td><span class="tag-cheap">All-in — ซื้อเต็มที่</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="blockquote-full">
+    <span class="bq-mark">"</span>
+    <blockquote>ผลตอบแทน 7% ต่อปีจาก S&amp;P 500 ในอีก 5 ปีข้างหน้าคืออะไร? มันคือรางวัลของคนที่อดทนรักษา DCA ในช่วงที่ตลาด "ดูแพง" — และของคนที่ซื้อเพิ่มตอนที่ทุกคนกลัว ไม่มีวิธีลัด</blockquote>
+    <cite>Equity Research · Deep Valuation 2026</cite>
+  </div>
+
+  <h2>Pre-Investment Checklist สำหรับนักลงทุนไทย</h2>
+  <p>ก่อนโอนเงินเข้า SCBS&amp;P500 ตอบ 7 คำถามนี้ให้ครบ:</p>
+  <ul class="checklist">
+    <li>ฉันมี <strong>time horizon อย่างน้อย 5 ปี</strong> สำหรับเงินก้อนนี้ หรือนี่คือ "เงินเย็น" จริงๆ ไม่ใช่เงินสำรองฉุกเฉิน</li>
+    <li>ฉันเข้าใจว่าตลาดอาจลง 30–40% ในระยะสั้น และ <strong>ฉันจะ DCA ต่อหรือซื้อเพิ่ม ไม่ใช่ panic sell</strong></li>
+    <li>ฉันเลือกระหว่าง <strong>Unhedged vs Hedged</strong> แล้ว โดยพิจารณา hedging cost (1–2%/ปี) เทียบกับ view ค่าเงิน THB/USD ของตัวเอง</li>
+    <li>ฉันมี <strong>asset allocation</strong> ที่ชัดเจน: SCBS&amp;P500 เป็น x% ของ total portfolio ไม่ใช่ลงทั้งหมด</li>
+    <li>ฉัน <strong>เข้าใจ scenario analysis</strong>: Base case ~7% CAGR · Bear case ขาดทุนได้ 2–5 ปี · Bull case ~14% CAGR</li>
+    <li>ถ้า Lump Sum ฉันรอให้ <strong>S&amp;P 500 ลงมาถึง 4,500 หรือต่ำกว่า</strong> ก่อน ไม่ใช่ซื้อที่ระดับ CAPE 88th percentile เต็มก้อน</li>
+    <li>ฉันตั้ง <strong>DCA schedule รายเดือน</strong> และจะ automate ไม่ให้ emotion มากวน (ตั้ง standing order หรือ auto-invest feature)</li>
+  </ul>
+
+  <div class="reflection">
+    <div class="reflection-label">3 คำถามสุดท้าย ก่อนตัดสินใจ</div>
+    <ol>
+      <li>ถ้า S&amp;P 500 ลง 30% ในปีหน้า คุณจะซื้อเพิ่ม หรือขาย? คำตอบนี้จะบอกว่าคุณควร lump sum หรือ DCA</li>
+      <li>คุณมองว่า AI จะสร้าง EPS growth 12%+ ต่อปีจริงหรือเปล่า? ถ้าใช่ → ตลาดอาจ fair value อยู่ ถ้าไม่ → ตลาดแพงกว่าที่คิด</li>
+      <li>Portfolio ของคุณรับ maximum drawdown 40% ได้ไหมโดยไม่ต้องใช้เงินก้อนนั้นในชีวิตจริง? ถ้าไม่ → ลด position size ลง</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="book-footer">
+  <div class="book-footer-mark">◆</div>
+  <div class="book-footer-text">
+    "ตลาดแพงไม่ได้แปลว่าห้ามลงทุน — แต่แปลว่าต้องลงทุนด้วย discipline มากกว่าเดิม
+    DCA คือเกราะป้องกัน valuation risk ที่ดีที่สุดสำหรับนักลงทุนไทย"
+  </div>
+  <div class="book-footer-author">SCBS&amp;P500 Deep Valuation Analysis · Q2 2026 · Professional Edition</div>
+  <div class="disclaimer">
+    รายงานฉบับนี้จัดทำเพื่อการศึกษาและเป็นกรอบวิเคราะห์เท่านั้น ไม่ใช่คำแนะนำการลงทุน ตัวเลขและการคาดการณ์ทั้งหมดเป็น estimates ที่มีความไม่แน่นอน นักลงทุนควรศึกษาข้อมูลเพิ่มเติมและปรึกษาที่ปรึกษาการเงินก่อนตัดสินใจลงทุน การลงทุนมีความเสี่ยง ผลตอบแทนในอดีตไม่ได้รับประกันผลตอบแทนในอนาคต
+  </div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
