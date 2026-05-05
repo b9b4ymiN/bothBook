@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memories, Dreams, Reflections — Carl Jung</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* === JUNG PALETTE — Midnight Depth + Sacred Gold === */
+      --accent:       #5C4499;
+      --accent-deep:  #3D2B6B;
+      --accent-light: #8B72CC;
+      --accent-rule:  rgba(92, 68, 153, 0.30);
+      --accent-bg:    rgba(92, 68, 153, 0.08);
+
+      /* === Paper Tones === */
+      --paper:        #F2EFE4;
+      --paper-mid:    #EAE5D2;
+      --paper-deep:   #DDD7BD;
+      --paper-shadow: #C8C0A0;
+      --ink:          #14110B;
+      --ink-soft:     #2A261C;
+      --ink-mid:      #46402F;
+      --ink-muted:    #7C7460;
+      --ink-faint:    #ABA48C;
+
+      /* === Semantic === */
+      --red:          #7A1A1A;
+      --red-bg:       #FBF3F0;
+      --green:        #355E40;
+      --green-bg:     #F1F6EE;
+
+      /* === Layout === */
+      --book-width:   760px;
+      --page-pad-h:   76px;
+      --page-pad-v:   84px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0D0A14;
+      padding: 40px 16px;
+      font-family: 'Noto Serif Thai', serif;
+    }
+
+    .book {
+      max-width: var(--book-width);
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.10),
+        0 4px 40px rgba(0,0,0,.60),
+        0 0 120px rgba(92,68,153,.15);
+    }
+
+    /* =============================================
+       COVER
+    ============================================= */
+    .cover {
+      background: linear-gradient(160deg, #0D0A14 0%, #1A1230 40%, #0D0A14 100%);
+      padding: 80px var(--page-pad-h) 72px;
+      min-height: 640px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(92,68,153,.25) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(184,134,11,.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cover-ornament {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 4px;
+      color: var(--accent-light);
+      opacity: .7;
+      text-transform: uppercase;
+    }
+    .cover-symbol {
+      text-align: center;
+      font-size: 52px;
+      margin-bottom: 32px;
+      opacity: .85;
+      filter: drop-shadow(0 0 20px rgba(92,68,153,.6));
+    }
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: #F2EFE4;
+      line-height: 1.15;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+    .cover-title em {
+      font-style: italic;
+      color: #C9A84C;
+      display: block;
+      font-size: 36px;
+      margin-top: 8px;
+      font-weight: 400;
+    }
+    .cover-rule {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+      margin: 32px auto;
+    }
+    .cover-sub {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 13px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(242,239,228,.45);
+      text-align: center;
+    }
+    .cover-author {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: rgba(201,168,76,.80);
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cover-corner {
+      position: absolute;
+      width: 56px; height: 56px;
+      border-color: rgba(201,168,76,.25);
+      border-style: solid;
+    }
+    .cover-corner.tl { top: 28px; left: 28px; border-width: 1px 0 0 1px; }
+    .cover-corner.tr { top: 28px; right: 28px; border-width: 1px 1px 0 0; }
+    .cover-corner.bl { bottom: 28px; left: 28px; border-width: 0 0 1px 1px; }
+    .cover-corner.br { bottom: 28px; right: 28px; border-width: 0 1px 1px 0; }
+
+    /* =============================================
+       TOC
+    ============================================= */
+    .toc-page {
+      background: var(--paper-mid);
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-shadow);
+    }
+    .toc-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 36px;
+      font-weight: 700;
+    }
+    .toc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 40px;
+    }
+    .ch-card { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--paper-shadow); align-items: flex-start; }
+    .ch-card:last-child { border-bottom: none; }
+    .ch-card-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 36px; color: var(--accent); font-weight: 400; line-height: 1; min-width: 52px; padding-top: 4px; }
+    .ch-card-title { font-family: 'Noto Serif Thai', serif; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .ch-card-one-liner { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: var(--ink-muted); font-style: italic; line-height: 1.6; margin-bottom: 10px; }
+    .ch-tag { display: inline-block; font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; background: var(--accent-bg); color: var(--accent-deep); padding: 3px 8px; margin-right: 6px; font-weight: 600; }
+
+    /* =============================================
+       FOREWORD / LETTER
+    ============================================= */
+    .letter-page {
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-shadow);
+    }
+    .letter-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 36px;
+    }
+    .letter-greeting {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin-bottom: 28px;
+    }
+    .letter-body p {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      line-height: 1.95;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+    }
+    .letter-sig {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--ink-mid);
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--paper-shadow);
+    }
+
+    /* =============================================
+       CHAPTER OPENING
+    ============================================= */
+    .chapter-open {
+      background: var(--paper-mid);
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .ch-num {
+      position: absolute;
+      right: var(--page-pad-h);
+      top: 50%;
+      transform: translateY(-60%);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 180px;
+      font-weight: 700;
+      color: rgba(92,68,153,.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .ch-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .ch-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 8px;
+      max-width: 480px;
+    }
+    .ch-title em {
+      display: block;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      color: var(--ink-mid);
+      margin-top: 8px;
+    }
+    .ch-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--accent);
+      margin: 28px 0;
+    }
+    .ch-essence {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 17px;
+      line-height: 1.9;
+      color: var(--ink-muted);
+      font-style: italic;
+      max-width: 420px;
+    }
+
+    /* =============================================
+       PAGE
+    ============================================= */
+    .page {
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-shadow);
+    }
+    .eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .page h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 28px;
+    }
+    .page h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin-top: 44px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--accent-rule);
+    }
+    .page p {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      line-height: 2.0;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+    }
+    .page p strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* === Insight Box === */
+    .insight-box {
+      background: var(--accent-bg);
+      border-left: 3px solid var(--accent);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+    .insight-box .ib-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .insight-box p {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* === Pullquote === */
+    .pullquote {
+      border-left: 3px solid var(--accent);
+      margin: 36px 0;
+      padding: 8px 0 8px 28px;
+    }
+    .pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 21px;
+      font-style: italic;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin: 0 0 8px 0;
+    }
+    .pullquote cite {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      font-style: normal;
+    }
+
+    /* === Blockquote Full (Dark) === */
+    .blockquote-full {
+      background: var(--accent-deep);
+      margin: 40px calc(-1 * var(--page-pad-h));
+      padding: 56px var(--page-pad-h);
+      text-align: center;
+    }
+    .blockquote-full p {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-style: italic;
+      color: rgba(242,239,228,.92);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .blockquote-full .bq-th {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 17px;
+      color: rgba(201,168,76,.80);
+      font-style: normal;
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+    .blockquote-full cite {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(242,239,228,.35);
+      margin-top: 20px;
+      display: block;
+    }
+
+    /* === Author Box === */
+    .author-box {
+      display: flex;
+      gap: 18px;
+      padding: 24px 28px;
+      background: var(--paper-mid);
+      border-left: 3px solid var(--accent);
+      margin: 28px 0;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--accent-deep);
+      color: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-style: italic;
+      flex-shrink: 0;
+    }
+    .author-meta {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent-deep); margin-bottom: 8px; font-weight: 600;
+    }
+    .author-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15.5px; line-height: 1.85; color: var(--ink-soft);
+      font-style: italic; margin: 0;
+    }
+    .author-content { flex: 1; }
+
+    /* === Insight Ladder === */
+    .ladder { margin: 32px 0; }
+    .ladder-step { padding: 18px 24px; }
+    .ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+    .ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+    .ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+    .ladder-tag {
+      font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; font-weight: 700; margin-bottom: 6px;
+    }
+    .ladder-step.wrong .ladder-tag { color: var(--red); }
+    .ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+    .ladder-step.action .ladder-tag { color: var(--green); }
+    .ladder-text { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+    .ladder-arrow { text-align: center; padding: 6px; color: var(--ink-faint); font-size: 20px; }
+
+    /* === Reflection === */
+    .reflection {
+      background: var(--paper-deep);
+      border-top: 2px solid var(--accent-rule);
+      padding: 28px 32px;
+      margin-top: 44px;
+    }
+    .reflection-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--ink-faint); font-weight: 700; margin-bottom: 16px;
+    }
+    .reflection ol {
+      padding-left: 20px;
+    }
+    .reflection li {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px; line-height: 1.85; color: var(--ink-mid);
+      margin-bottom: 10px; font-style: italic;
+    }
+
+    /* === Checklist === */
+    .checklist { margin: 28px 0; }
+    .checklist-title {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent-deep); font-weight: 700; margin-bottom: 16px;
+    }
+    .check-item {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--paper-shadow);
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-box {
+      width: 20px; height: 20px; border: 2px solid var(--accent);
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .check-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px; line-height: 1.7; color: var(--ink-soft);
+    }
+
+    /* === Signal Box === */
+    .signal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 32px 0; }
+    .signal-box { padding: 22px 24px; }
+    .signal-box.warn { background: var(--red-bg); border-top: 3px solid var(--red); }
+    .signal-box.go { background: var(--green-bg); border-top: 3px solid var(--green); }
+    .signal-label { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 10px; }
+    .signal-box.warn .signal-label { color: var(--red); }
+    .signal-box.go .signal-label { color: var(--green); }
+    .signal-box ul { padding-left: 16px; }
+    .signal-box li { font-family: 'Noto Serif Thai', serif; font-size: 14px; line-height: 1.75; color: var(--ink-soft); margin-bottom: 6px; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .book-footer {
+      background: var(--ink);
+      padding: 56px var(--page-pad-h);
+      text-align: center;
+    }
+    .book-footer-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 36px;
+      color: #C9A84C; margin-bottom: 16px;
+    }
+    .book-footer-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px; color: var(--paper-deep);
+      font-style: italic; line-height: 1.8;
+      max-width: 480px; margin: 0 auto 20px;
+    }
+    .book-footer-author {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px; color: var(--accent-light);
+      letter-spacing: 3px; text-transform: uppercase; font-weight: 600;
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 780px) {
+      :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+      body { padding: 16px 8px; }
+      .ch-num { font-size: 100px; right: 16px; }
+      .ch-title { font-size: 32px; }
+      .cover-title { font-size: 36px; }
+      .cover-title em { font-size: 26px; }
+      .blockquote-full { padding: 40px 28px; margin-left: -28px; margin-right: -28px; }
+      .blockquote-full p { font-size: 19px; }
+      .signal-row { grid-template-columns: 1fr; }
+      .page h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="book">
+
+  <!-- =================== COVER =================== -->
+  <div class="cover">
+    <div class="cover-corner tl"></div>
+    <div class="cover-corner tr"></div>
+    <div class="cover-corner bl"></div>
+    <div class="cover-corner br"></div>
+
+    <div class="cover-ornament">C. G. Jung · 1962</div>
+
+    <div style="text-align:center;">
+      <div class="cover-symbol">☽</div>
+      <div class="cover-title">
+        Memories, Dreams,<br>Reflections
+        <em>ความทรงจำ · ความฝัน · การสะท้อนตน</em>
+      </div>
+      <div class="cover-rule"></div>
+      <div class="cover-sub">จากมุมมองภายในของ Carl Gustav Jung</div>
+      <div class="cover-author">Carl Gustav Jung</div>
+    </div>
+
+    <div class="cover-ornament" style="text-align:right;">
+      จิตวิทยาเชิงลึก · อัตชีวประวัติแห่งจิตใจ
+    </div>
+  </div>
+
+  <!-- =================== TOC =================== -->
+  <div class="toc-page">
+    <div class="toc-label">สารบัญ · Table of Contents</div>
+    <div class="toc-title">บทสำรวจจิตใจมนุษย์จากภายใน</div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">I</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">🧭 แก่นแท้สูงสุด — The Core Realization</div>
+        <div class="ch-card-one-liner">ความจริงที่ยิ่งใหญ่ที่สุดที่ฉันค้นพบในชีวิต คืออะไร?</div>
+        <div><span class="ch-tag">จิตใจ</span><span class="ch-tag">ชีวิต</span><span class="ch-tag">ความหมาย</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">II</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">🌑 จิตไร้สำนึก — The Unconscious & Inner World</div>
+        <div class="ch-card-one-liner">โลกที่แท้จริงอยู่ข้างในเรา ไม่ใช่ข้างนอก</div>
+        <div><span class="ch-tag">unconscious</span><span class="ch-tag">ฝัน</span><span class="ch-tag">สัญลักษณ์</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">III</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">🔥 Individuation — การเป็นตัวของตัวเองอย่างแท้จริง</div>
+        <div class="ch-card-one-liner">การเดินทางสู่ความสมบูรณ์ที่คนส่วนใหญ่ไม่กล้าเผชิญ</div>
+        <div><span class="ch-tag">individuation</span><span class="ch-tag">self</span><span class="ch-tag">ความสมบูรณ์</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">IV</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">🐍 Shadow · Archetypes · Symbols — เงาและต้นแบบ</div>
+        <div class="ch-card-one-liner">ส่วนที่เราปฏิเสธในตัวเองคือสิ่งที่ทรงพลังที่สุด</div>
+        <div><span class="ch-tag">shadow</span><span class="ch-tag">archetype</span><span class="ch-tag">สัญลักษณ์</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">V</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">⚔️ ความขัดแย้งภายใน — My Inner Struggles</div>
+        <div class="ch-card-one-liner">วิกฤตส่วนตัวของฉันคือประตูสู่การค้นพบ</div>
+        <div><span class="ch-tag">วิกฤต</span><span class="ch-tag">ความกลัว</span><span class="ch-tag">การค้นพบ</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">VI</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">🌌 สารถึงมนุษยชาติ — Message to Humanity</div>
+        <div class="ch-card-one-liner">สิ่งที่มนุษย์ยุคใหม่กำลังสูญเสียโดยไม่รู้ตัว</div>
+        <div><span class="ch-tag">มนุษยชาติ</span><span class="ch-tag">อันตราย</span><span class="ch-tag">ทางออก</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== FOREWORD =================== -->
+  <div class="letter-page">
+    <div class="letter-label">คำนำ · Foreword from Within</div>
+    <div class="letter-greeting">ถึงผู้ที่กล้าหยุดและมองเข้าไปข้างใน —</div>
+    <div class="letter-body">
+      <p>ฉันไม่เขียนหนังสือเล่มนี้เพื่อสอนใคร ฉันเขียนมันเพราะรู้สึกว่าชีวิตของฉัน — ทั้งที่มีอยู่และที่ไม่มีอยู่ ทั้งที่รู้และที่ไม่รู้ — ต่างล้วนเป็นส่วนหนึ่งของบางสิ่งที่ยิ่งใหญ่กว่าตัวฉันเองอย่างมหาศาล</p>
+      <p>เมื่อฉันมองย้อนกลับไปในวัยชรา ฉันไม่เห็นชีวิตของมนุษย์คนหนึ่งที่ประสบความสำเร็จ แต่ฉันเห็นการเดินทางของจิตใจที่พยายามจะเข้าใจตัวเอง ล้มเหลว ลุกขึ้น และค้นพบใหม่เรื่อยๆ จนกระทั่งลมหายใจสุดท้าย</p>
+      <p>เนื้อหาที่ท่านจะอ่านต่อไปนี้ไม่ใช่ชีวประวัติในแบบที่คนทั่วไปเข้าใจ มันคือแผนที่ของโลกภายใน — โลกที่ฉันเชื่อว่าเป็นโลกที่แท้จริงกว่า กว้างใหญ่กว่า และสำคัญกว่าทุกสิ่งที่ตาเปล่ามองเห็น</p>
+    </div>
+    <div class="letter-sig">C. G. Jung, Küsnacht, 1962</div>
+  </div>
+
+  <!-- =================== CHAPTER I =================== -->
+  <div class="chapter-open">
+    <div class="ch-num">I</div>
+    <div class="ch-label">บทที่หนึ่ง · Chapter One</div>
+    <div class="ch-title">The Core Realization<em>🧭 แก่นแท้สูงสุดที่ฉันค้นพบ</em></div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">ชีวิตมนุษย์มีความหมายก็ต่อเมื่อมนุษย์กล้าเผชิญกับตนเองอย่างแท้จริง</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Realization · แก่นแท้</div>
+    <h1>สิ่งที่สำคัญที่สุดในชีวิต ไม่ใช่สิ่งที่ข้างนอก แต่คือสิ่งที่ข้างใน</h1>
+
+    <p>ตลอดชีวิตของฉัน ฉันพบว่าคำถามที่ทรงพลังที่สุดไม่ใช่ "โลกทำงานอย่างไร?" แต่คือ <strong>"ฉันเป็นใคร?"</strong> คำถามนี้ไม่มีคำตอบที่ตายตัว เพราะตัวตนของเราลึกกว่าที่สติปัญญาจะสำรวจได้ มันเป็นมหาสมุทร — กว้างขวาง มืดมน และเต็มไปด้วยสิ่งที่เรายังไม่รู้จัก</p>
+
+    <p>ฉันเป็นจิตแพทย์ แต่สิ่งที่ฉันค้นพบไม่ใช่เพียงทฤษฎีทางการแพทย์ มันเป็นความจริงที่ฉันสัมผัสได้ด้วยตัวเอง — ในความฝัน ในวิสัยทัศน์ ในช่วงเวลาที่ฉันเกือบจะสูญเสียความเป็นตัวเองไป ความจริงนั้นคือ: <strong>จิตไร้สำนึก (Unconscious) มีชีวิต มีเสียง และมีปัญญาของตัวเอง</strong></p>
+
+    <div class="insight-box">
+      <div class="ib-label">แก่นสาร</div>
+      <p>ชีวิตที่ไม่ได้สำรวจตัวเองจากข้างในคือชีวิตที่ถูกกำหนดจากข้างนอก — ถูกควบคุมโดยสิ่งที่ไม่รู้จัก ถูกผลักโดยแรงที่ไม่เข้าใจ และสิ้นสุดโดยไม่เคยรู้จักตัวเองเลย</p>
+    </div>
+
+    <h2>ความจริงที่หนึ่ง: ชีวิตคือการสนทนากับตัวเอง</h2>
+    <p>เราคิดว่าเราใช้ชีวิต แต่ที่จริงแล้ว ชีวิตกำลัง "ใช้" เรา — มันพูดกับเราผ่านความฝัน ผ่านความเจ็บปวด ผ่านสิ่งที่ดึงดูดใจเราอย่างไม่มีเหตุผล ถ้าเราไม่หยุดฟัง เราจะใช้ชีวิตทั้งชีวิตแบบ "หูหนวก" ต่อเสียงที่สำคัญที่สุด</p>
+
+    <p>ฉันใช้เวลาหลายทศวรรษในการฟังเสียงเหล่านั้น บางครั้งมันน่ากลัว บางครั้งมันงดงาม เสมอมันสอนฉันบางสิ่งที่สติปัญญาของฉันไม่เคยสามารถสร้างขึ้นเองได้</p>
+
+    <div class="pullquote">
+      <p>"Who looks outside, dreams; who looks inside, awakes."</p>
+      <p style="font-family:'Noto Serif Thai',serif;font-size:16px;font-style:normal;color:var(--ink-mid);">ใครที่มองออกไปข้างนอก กำลังฝัน — ใครที่มองเข้าไปข้างใน กำลังตื่น</p>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <h2>ความจริงที่สอง: ชีวิตทุกชีวิตคือตำนานที่กำลังเขียนตัวเอง</h2>
+    <p>มนุษย์ทุกคนไม่ได้แค่ "มีชีวิต" — เขากำลัง "เล่าเรื่อง" ที่ลึกกว่าตัวเขาเอง เรื่องราวนั้นถูกเขียนขึ้นโดยพลังของ Archetype (ต้นแบบของจิตใจ) — ซึ่งก็คือรูปแบบพื้นฐานที่ฝังอยู่ในจิตใจมนุษย์มาตั้งแต่ยุคดึกดำบรรพ์ เหมือนฉากที่ถูกเขียนไว้ล่วงหน้า แต่เราต้องเลือกว่าจะแสดงมันออกมาอย่างมีสติหรือไม่</p>
+
+    <div class="blockquote-full">
+      <p>"The privilege of a lifetime is to become who you truly are."</p>
+      <div class="bq-th">สิทธิพิเศษสูงสุดของชีวิตคือการได้เป็นสิ่งที่คุณเป็นจริงๆ — ไม่ใช่สิ่งที่โลกอยากให้คุณเป็น</div>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <h2>ความจริงที่สาม: ความหมายไม่ได้ถูกค้นพบ — มันถูกสร้าง</h2>
+    <p>มนุษย์ยุคใหม่ถามว่า "ชีวิตมีความหมายอะไร?" ราวกับว่ามีคำตอบที่รอให้ค้นพบอยู่ที่ไหนสักแห่ง แต่ความจริงคือ ความหมายเกิดขึ้นก็ต่อเมื่อเราเต็มใจ <strong>เผชิญกับสิ่งที่เป็นตัวเราอย่างสมบูรณ์</strong> — ทั้งแสงและเงา ทั้งความรักและความกลัว ทั้งพรสวรรค์และบาดแผล</p>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection · คำถามเพื่อสำรวจตัวเอง</div>
+      <ol>
+        <li>เสียงไหนในชีวิตของเราที่เราเคยเพิกเฉย หรือพยายามทำให้เงียบลง?</li>
+        <li>ถ้าชีวิตของเราเป็นตำนาน — ตำนานนั้นกำลังพูดถึงอะไร?</li>
+        <li>สิ่งที่เรา "รู้สึกดึงดูด" แต่ไม่รู้ทำไม นั้นบอกอะไรเราบ้าง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- =================== CHAPTER II =================== -->
+  <div class="chapter-open">
+    <div class="ch-num">II</div>
+    <div class="ch-label">บทที่สอง · Chapter Two</div>
+    <div class="ch-title">The Unconscious<em>🌑 จิตไร้สำนึก — โลกที่แท้จริงข้างใน</em></div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">จิตไร้สำนึกไม่ใช่ถังขยะของความคิด มันคือมหาสมุทรที่จิตสำนึกลอยอยู่บนผิวน้ำ</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Unconscious · จิตไร้สำนึก</div>
+    <h1>ส่วนที่ใหญ่กว่าของเรา กำลังพูดอยู่ตลอดเวลา</h1>
+
+    <p>เมื่อฉันพูดว่า "จิตไร้สำนึก" (Unconscious) — ฉันไม่ได้หมายถึงสิ่งที่ซ่อนอยู่เบื้องหลังจิตสำนึก เหมือนห้องที่ล็อคกุญแจไว้ ฉันหมายถึงสิ่งที่<strong>ยิ่งใหญ่กว่าจิตสำนึก</strong> อย่างไม่มีขอบเขต — เหมือนมหาสมุทรที่จิตสำนึกของเราลอยอยู่บนผิวน้ำราวกับเกาะเล็กๆ โดยไม่รู้ว่าใต้เท้าตัวเองลึกแค่ไหน</p>
+
+    <div class="insight-box">
+      <div class="ib-label">ทำความเข้าใจ</div>
+      <p>จิตไร้สำนึก (Unconscious) = ส่วนของจิตใจที่เราไม่รู้ตัวว่ามีอยู่ แต่มันกำลังทำงาน กำหนดพฤติกรรม และสร้างความฝันของเราอยู่ตลอดเวลา เหมือนรากของต้นไม้ที่อยู่ใต้ดิน — เราไม่เห็นมัน แต่มันเป็นแหล่งชีวิตทั้งหมด</p>
+    </div>
+
+    <h2>จิตไร้สำนึกส่วนบุคคล vs. จิตไร้สำนึกส่วนรวม</h2>
+    <p>ฉันแยกจิตไร้สำนึกออกเป็นสองชั้น ชั้นแรกคือ <strong>จิตไร้สำนึกส่วนบุคคล</strong> — บรรจุประสบการณ์ที่เราลืมหรือกดทับ บาดแผลที่ไม่ได้รับการรักษา ความคิดที่เราปฏิเสธ ชั้นนี้คือ "เงา" (Shadow) ของเรา สิ่งที่เป็นส่วนหนึ่งของเราแต่เราไม่ยอมรับ</p>
+
+    <p>แต่ชั้นที่ลึกกว่าและน่าตื่นเต้นกว่าคือ <strong>จิตไร้สำนึกส่วนรวม</strong> (Collective Unconscious) — ชั้นนี้ไม่ได้เป็นของคนใดคนหนึ่ง มันเป็นมรดกทางจิตวิทยาของมนุษยชาติทั้งหมด เก็บบันทึก "ต้นแบบ" (Archetypes) ที่ปรากฏซ้ำๆ ในทุกวัฒนธรรม ทุกยุคสมัย — ตัวละครที่เราพบในนิทาน ในศาสนา ในความฝัน ทั่วทุกมุมโลก</p>
+
+    <div class="author-box">
+      <div class="author-avatar">J</div>
+      <div class="author-content">
+        <div class="author-meta">Carl Jung — Memories, Dreams, Reflections</div>
+        <div class="author-text">"In each of us there is another whom we do not know. He speaks to us in dreams and tells us how differently he sees us from the way we see ourselves." — ในตัวเราแต่ละคนมีบุคคลอื่นที่เราไม่รู้จัก เขาพูดกับเราในความฝัน และบอกเราว่าเขามองเราต่างจากที่เรามองตัวเองเพียงใด</div>
+      </div>
+    </div>
+
+    <h2>ทำไมจิตไร้สำนึกจึงสำคัญกว่าโลกภายนอก</h2>
+    <p>คนส่วนใหญ่ใช้ชีวิตโดยตอบสนองต่อโลกภายนอก — เงิน ชื่อเสียง ความสัมพันธ์ ความสำเร็จ แต่พฤติกรรมทั้งหมดนั้นถูก<strong>กำหนดจากข้างใน</strong> โดยสิ่งที่เราไม่รู้ตัว เราเลือกคู่ชีวิตเพราะ Archetype ภายในของเรา เราหวาดกลัวสิ่งที่ Shadow ของเราฉายออกมา เราถูกดึงดูดสู่บางอาชีพเพราะพลังที่ลึกกว่าตรรกะ</p>
+
+    <p>ถ้าเราไม่เข้าใจโลกข้างใน เราจะถูกโลกข้างในควบคุมโดยไม่รู้ตัว นั่นคือสิ่งที่ฉันเรียกว่า <strong>"ชีวิตที่ถูกกำหนดโดยสิ่งที่ไม่รู้จัก"</strong></p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">ความเชื่อเดิม</div>
+        <div class="ladder-text">จิตไร้สำนึกคือสิ่งน่ากลัว มืดมน ที่ดีที่สุดคืออย่าไปยุ่ง</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ความจริง</div>
+        <div class="ladder-text">จิตไร้สำนึกคือแหล่งพลังงาน ความคิดสร้างสรรค์ และปัญญาที่ลึกที่สุดของเรา การเพิกเฉยมันคือการสูญเสียส่วนใหญ่ของตัวเอง</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">ลงมือทำ</div>
+        <div class="ladder-text">เริ่มบันทึกความฝัน สังเกตว่าอารมณ์แรงๆ (โกรธ กลัว อิจฉา) กำลังบอกอะไรเรา — มันคือสัญญาณจากจิตไร้สำนึก</div>
+      </div>
+    </div>
+
+    <div class="blockquote-full">
+      <p>"Until you make the unconscious conscious, it will direct your life and you will call it fate."</p>
+      <div class="bq-th">จนกว่าคุณจะทำให้สิ่งที่ไม่รู้ตัวกลายเป็นสิ่งที่รู้ตัว มันจะควบคุมชีวิตของคุณ — และคุณจะเรียกมันว่าชะตากรรม</div>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection · คำถามเพื่อสำรวจตัวเอง</div>
+      <ol>
+        <li>ความฝันที่ฝังใจเราที่สุดในชีวิตคืออะไร และมันบอกอะไรเราบ้าง?</li>
+        <li>อารมณ์ไหนที่เรามักพยายามกดทับ และทำไม?</li>
+        <li>พฤติกรรมซ้ำๆ ที่เราทำโดยไม่รู้ว่าทำไม — อะไรอาจเป็นแรงขับเบื้องหลัง?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- =================== CHAPTER III =================== -->
+  <div class="chapter-open">
+    <div class="ch-num">III</div>
+    <div class="ch-label">บทที่สาม · Chapter Three</div>
+    <div class="ch-title">Individuation<em>🔥 การเป็นตัวของตัวเองอย่างแท้จริง</em></div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">Individuation ไม่ใช่การหาตัวเอง — มันคือการยอมรับทุกส่วนของตัวเอง รวมทั้งส่วนที่เราเกลียดที่สุด</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">Individuation · การเป็นตนเอง</div>
+    <h1>การเดินทางสู่ความสมบูรณ์ที่คนส่วนใหญ่ไม่กล้าเริ่ม</h1>
+
+    <p><strong>Individuation</strong> (อ่านว่า อิน-ดิ-วิด-จู-เอ-ชัน) คือกระบวนการที่บุคคลหนึ่งค่อยๆ กลายเป็น "ตัวเองอย่างสมบูรณ์" — ไม่ใช่ตามที่พ่อแม่อยากให้เป็น ไม่ใช่ตามที่สังคมกำหนด แต่คือการรวมทุกมิติของตัวเองเข้าด้วยกัน ทั้งแสงและเงา ทั้งความดีและความมืด ทั้งชายและหญิงที่อยู่ในทุกคน</p>
+
+    <div class="insight-box">
+      <div class="ib-label">คืออะไร?</div>
+      <p>ลองนึกภาพ: ถ้าตัวตนของเราเป็นวงกลม — คนส่วนใหญ่ใช้ชีวิตอยู่แค่ครึ่งวงกลม (ส่วนที่แสงส่องถึง สังคมยอมรับ ตัวเองพอใจ) Individuation คือการค้นพบและยอมรับครึ่งวงกลมที่เหลือ — จนในที่สุดกลายเป็นวงกลมที่สมบูรณ์</p>
+    </div>
+
+    <h2>ทำไมคนส่วนใหญ่ไม่มีวันถึงจุดนั้น</h2>
+    <p>เส้นทางสู่ Individuation ต้องผ่านสิ่งที่น่ากลัวที่สุดสำหรับมนุษย์ — การ<strong>เผชิญกับเงาของตัวเอง</strong> ส่วนของตัวเราที่เราปฏิเสธ ซ่อน หรือโยนให้เป็น "ความผิดของคนอื่น" คนที่ไม่ชอบความโกรธในตัวเองจะมองเห็นโลกเต็มไปด้วยคนโกรธ คนที่กลัวความอ่อนแอในตัวเองจะดูถูกคนอื่นที่แสดงความเปราะบาง นี่คือกลไกที่จิตวิทยาเรียกว่า "Projection" — การฉายสิ่งที่ข้างในออกไปสู่ข้างนอก</p>
+
+    <p>กระบวนการ Individuation ต้องการความกล้าสามอย่าง: <strong>ความกล้าที่จะหยุดแสดงบทบาทที่คนอื่นกำหนด</strong> ความกล้าที่จะยอมรับส่วนที่น่าเกลียดในตัวเอง และความกล้าที่จะเป็น "แปลก" ในสายตาสังคม เพราะคนที่เดินสู่ความสมบูรณ์มักดูไม่เข้าพวกในสายตาของผู้ที่ยังนอนหลับอยู่</p>
+
+    <div class="pullquote">
+      <p>"The most terrifying thing is to accept oneself completely."</p>
+      <p style="font-family:'Noto Serif Thai',serif;font-size:16px;font-style:normal;color:var(--ink-mid);">สิ่งที่น่าหวาดกลัวที่สุดคือการยอมรับตัวเองอย่างสมบูรณ์</p>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <h2>สิ่งที่ต้องเผชิญบนเส้นทางนี้</h2>
+
+    <div class="signal-row">
+      <div class="signal-box warn">
+        <div class="signal-label">⚠️ ดักพรางที่ต้องระวัง</div>
+        <ul>
+          <li>คิดว่า Individuation = การตามใจตัวเอง</li>
+          <li>หนีความเจ็บปวดแทนที่จะผ่านมัน</li>
+          <li>ติดอยู่กับ Persona (หน้ากากสังคม)</li>
+          <li>Inflation — รู้สึกตัวเองยิ่งใหญ่เกินจริง</li>
+        </ul>
+      </div>
+      <div class="signal-box go">
+        <div class="signal-label">✅ สัญญาณที่ใช่</div>
+        <ul>
+          <li>รับรู้ได้ว่าตัวเองมีทั้งแสงและเงา</li>
+          <li>ความฝันเริ่มมีความหมายและสอนเรา</li>
+          <li>อารมณ์รุนแรงลดลง เพราะเข้าใจที่มา</li>
+          <li>ความสัมพันธ์กับผู้อื่นลึกขึ้น</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Individuation ไม่ใช่จุดหมาย — มันคือการเดินทาง</h2>
+    <p>ฉันไม่เคยรู้สึกว่าตัวเอง "สำเร็จ" ในการ Individuate ฉันยังคงค้นพบส่วนใหม่ๆ ของตัวเองจนถึงวาระสุดท้าย นั่นคือความงามของมัน — มันไม่มีเส้นชัย มีแต่ความลึกที่ไม่มีก้น และยิ่งเราดำดิ่งลงไป เราก็ยิ่งพบว่าตัวเองกว้างขวางกว่าที่คิด</p>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection · คำถามเพื่อสำรวจตัวเอง</div>
+      <ol>
+        <li>บทบาทไหนที่เราแสดงในชีวิตประจำวัน ที่ไม่ใช่ตัวเราจริงๆ?</li>
+        <li>ลักษณะของคนอื่นที่ทำให้เราหงุดหิดหรือหลงใหลมากที่สุด บอกอะไรเราเกี่ยวกับตัวเองบ้าง?</li>
+        <li>ถ้าไม่มีความกลัวคำตัดสินของใครเลย เราจะใช้ชีวิตต่างออกไปอย่างไร?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- =================== CHAPTER IV =================== -->
+  <div class="chapter-open">
+    <div class="ch-num">IV</div>
+    <div class="ch-label">บทที่สี่ · Chapter Four</div>
+    <div class="ch-title">Shadow, Archetypes<br>& Symbols<em>🐍 เงา ต้นแบบ และสัญลักษณ์</em></div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">เงาของเราไม่ใช่ศัตรู มันคือส่วนที่ถูกลืมซึ่งรอวันที่เราจะกลับมาเอามันคืน</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">Shadow · Archetypes · Symbols</div>
+    <h1>สิ่งที่เราปฏิเสธในตัวเอง คือสิ่งที่ทรงพลังที่สุด</h1>
+
+    <p>มีสิ่งหนึ่งที่ฉันพบซ้ำแล้วซ้ำเล่าในผู้ป่วยนับพันคน และในตัวฉันเอง: <strong>ยิ่งเราปฏิเสธส่วนใดของตัวเองมากเท่าไหร่ ส่วนนั้นก็ยิ่งมีอำนาจเหนือเราโดยที่เราไม่รู้ตัว</strong> มันปรากฏออกมาในรูปความโกรธที่ควบคุมไม่ได้ ความกลัวที่ไร้เหตุผล หรือพฤติกรรมที่เราเองก็สงสัยตัวเอง</p>
+
+    <h2>เงา (Shadow) — คืออะไรจริงๆ</h2>
+    <p><strong>Shadow</strong> ไม่ใช่ "ความชั่วร้าย" — มันคือ <strong>ทุกสิ่งที่เราตัดสินว่าไม่ใช่ตัวเอง</strong> และโยนทิ้งไว้ในความมืด เด็กที่ถูกสอนว่า "โกรธไม่ได้" จะโตมาพร้อม Shadow แห่งความโกรธที่ใหญ่โต คนที่ถูกสอนว่า "อ่อนแอไม่ได้" จะมี Shadow แห่งความเปราะบางที่ระเบิดออกมาในเวลาที่คาดไม่ถึง</p>
+
+    <div class="insight-box">
+      <div class="ib-label">สำคัญมาก</div>
+      <p>Shadow ไม่ได้มีแต่ด้านที่น่ากลัว มันยังเก็บ "Gold" (ทองคำ) ไว้ด้วย — พรสวรรค์ ความสามารถ และส่วนของตัวเราที่ยิ่งใหญ่ที่สังคมทำให้เราเชื่อว่ามันไม่เหมาะสม การสำรวจ Shadow คือการค้นหาทองคำที่ซ่อนอยู่ในความมืด</p>
+    </div>
+
+    <h2>Archetypes — ต้นแบบของจิตใจมนุษย์</h2>
+    <p><strong>Archetypes</strong> (อ่านว่า อาร์ค-ไค-ไทพ์) คือรูปแบบหรือตัวละครพื้นฐานที่ฝังอยู่ในจิตไร้สำนึกส่วนรวมของมนุษย์ทุกคน เหมือนแม่แบบที่ถูกสลักไว้ในดีเอ็นเอของจิตใจ Archetype หลักที่ฉันพบได้แก่:</p>
+
+    <p><strong>Anima/Animus</strong> — ด้านหญิงในผู้ชาย / ด้านชายในผู้หญิง เป็นสะพานเชื่อมสู่จิตไร้สำนึก<br>
+    <strong>Persona</strong> — หน้ากากที่เราสวมต่อสังคม (≠ ตัวตนที่แท้จริง)<br>
+    <strong>Shadow</strong> — ส่วนที่ถูกปฏิเสธและผลักออกไป<br>
+    <strong>Self</strong> — ศูนย์กลางของจิตใจทั้งหมด เป้าหมายของ Individuation</p>
+
+    <div class="author-box">
+      <div class="author-avatar">J</div>
+      <div class="author-content">
+        <div class="author-meta">Carl Jung — Memories, Dreams, Reflections</div>
+        <div class="author-text">"The shadow is a moral problem that challenges the whole ego-personality, for no one can become conscious of the shadow without considerable moral effort." — เงาคือปัญหาทางจริยธรรมที่ท้าทายบุคลิกภาพทั้งหมด เพราะไม่มีใครสามารถตระหนักรู้ถึงเงาของตัวเองได้โดยไม่ต้องใช้ความพยายามทางจริยธรรมอย่างมาก</div>
+      </div>
+    </div>
+
+    <h2>ความฝันและสัญลักษณ์ — ภาษาแม่ของจิตไร้สำนึก</h2>
+    <p>ความฝันไม่ใช่เรื่องไร้สาระ มันคือ<strong>จดหมายจากจิตไร้สำนึก</strong> ที่เขียนด้วยภาษาสัญลักษณ์ ฉันบันทึกความฝันของตัวเองทุกคืนมาตลอดชีวิต และพบว่ามันแม่นยำเกินกว่าจะเป็นเรื่องบังเอิญ ความฝันเตือนฉัน แก้ไขฉัน และนำทางฉันในเวลาที่จิตสำนึกของฉันหลงทาง</p>
+
+    <p>สัญลักษณ์ในความฝันไม่ได้มีความหมายตายตัว มันต้องตีความในบริบทของชีวิตผู้ฝัน งูในความฝันของคนหนึ่งอาจหมายถึงการเปลี่ยนแปลง ในขณะที่ของอีกคนอาจหมายถึงสิ่งที่น่ากลัวที่ต้องเผชิญ สัญลักษณ์พูดกับคนนั้นคนเดียว — ไม่มีพจนานุกรมความฝันที่ใช้ได้กับทุกคน</p>
+
+    <div class="blockquote-full">
+      <p>"Your visions will become clear only when you can look into your own heart. Who looks outside, dreams; who looks inside, awakes."</p>
+      <div class="bq-th">วิสัยทัศน์ของคุณจะชัดเจนก็ต่อเมื่อคุณสามารถมองเข้าไปในหัวใจของตัวเอง — ผู้ที่มองออกไปข้างนอก กำลังฝัน — ผู้ที่มองเข้าไปข้างใน กำลังตื่น</div>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection · คำถามเพื่อสำรวจตัวเอง</div>
+      <ol>
+        <li>ลักษณะในคนอื่นที่ทำให้เราโกรธหรือดูถูกที่สุด — อาจเป็น Shadow ของเราเองหรือเปล่า?</li>
+        <li>หน้ากาก (Persona) ที่เราสวมทุกวันคืออะไร — แตกต่างจากตัวจริงเราแค่ไหน?</li>
+        <li>ความฝันที่ซ้ำๆ หรือความฝันที่น่ากลัวที่สุดในชีวิตเราพูดถึงอะไร?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- =================== CHAPTER V =================== -->
+  <div class="chapter-open">
+    <div class="ch-num">V</div>
+    <div class="ch-label">บทที่ห้า · Chapter Five</div>
+    <div class="ch-title">My Inner Struggles<em>⚔️ ความขัดแย้งภายในและวิกฤตของฉัน</em></div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">วิกฤตที่เลวร้ายที่สุดในชีวิตของฉัน กลายเป็นการค้นพบที่ยิ่งใหญ่ที่สุด</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">Inner Struggles · ความขัดแย้งภายใน</div>
+    <h1>ฉันต้องลงสู่ความมืดก่อน จึงจะพบแสงสว่าง</h1>
+
+    <p>ช่วงเวลาที่เจ็บปวดที่สุดในชีวิตของฉันเกิดขึ้นหลังจากที่ฉันและ Sigmund Freud (ซิกมุนด์ ฟรอยด์ — บิดาแห่งจิตวิเคราะห์ ผู้เป็นอาจารย์และเพื่อนของฉัน) แยกทางกัน ฉันสูญเสียทั้งมิตรภาพ ทั้งชุมชนทางวิชาการ และที่น่ากลัวที่สุด — ฉันเริ่มสูญเสียตัวเอง</p>
+
+    <p>ฉันตกอยู่ในสภาวะที่ฉันเรียกว่า <strong>"Confrontation with the Unconscious"</strong> — การเผชิญหน้ากับจิตไร้สำนึก เป็นเวลาหลายปีที่ฉันได้ยินเสียงที่ไม่ใช่ตัวเอง เห็นภาพที่ไม่ใช่ความฝัน และรู้สึกว่าตัวเองกำลังจะถูกกลืนหายไปในความมืดที่ไม่มีก้น</p>
+
+    <div class="insight-box">
+      <div class="ib-label">สิ่งสำคัญที่ควรรู้</div>
+      <p>สิ่งที่ฉันกำลังเผชิญในช่วงเวลานั้นคือสิ่งที่ฉันต่อมาเรียกว่า "Nekyia" — การลงสู่โลกใต้ (เหมือนตำนานกรีกที่วีรบุรุษต้องลงสู่ยมโลกก่อนจะกลับมาแข็งแกร่ง) ประสบการณ์นั้นน่ากลัวมาก แต่มันคือแหล่งกำเนิดของทุกสิ่งที่ฉันค้นพบในชีวิต</p>
+    </div>
+
+    <h2>วิกฤตกับ Freud — การสูญเสียที่จำเป็น</h2>
+    <p>ฉันรัก Freud ในแบบที่ลูกรักพ่อ และฉันเชื่อในทฤษฎีของเขา แต่มีบางสิ่งที่ฉันไม่อาจยอมรับได้ — Freud เชื่อว่าทุกอย่างในจิตไร้สำนึกสามารถอธิบายได้ด้วย<strong>สัญชาตญาณทางเพศ</strong> ฉันรู้สึกอยู่ลึกๆ ว่านั่นไม่ครบถ้วน จิตไร้สำนึกกว้างกว่านั้นมาก ลึกกว่านั้นมาก และศักดิ์สิทธิ์กว่านั้นมาก</p>
+
+    <p>การแยกทางนั้นเจ็บปวดมาก แต่ถ้าฉันไม่กล้าออกจากเงาของ Freud ฉันจะไม่มีวันค้นพบ Collective Unconscious ฉันจะไม่มีวันพบ Archetypes และโลกคงไม่มีวันรู้จักจิตวิทยาแบบ Jungian</p>
+
+    <div class="pullquote">
+      <p>"I need more room. I need the horizon."</p>
+      <p style="font-family:'Noto Serif Thai',serif;font-size:16px;font-style:normal;color:var(--ink-mid);">ฉันต้องการพื้นที่มากกว่านี้ ฉันต้องการขอบฟ้า</p>
+      <cite>— C. G. Jung (ในช่วงเวลาที่แยกทางกับ Freud)</cite>
+    </div>
+
+    <h2>ปีที่มืดมิดและสิ่งที่ฉันค้นพบในนั้น</h2>
+    <p>หลังจากแยกทางกับ Freud ฉันใช้เวลาหลายปีในการ "ลงสู่ความลึก" ฉันสร้างหอคอยทดลองที่ Bollingen สร้างประติมากรรม วาดภาพ เล่นกับทราย — สิ่งเหล่านี้เป็นการสนทนากับจิตไร้สำนึกของฉัน ฉันยังเขียน "Red Book" (หนังสือแดง) ซึ่งเป็นบันทึกการเดินทางภายในที่ลึกที่สุดของฉัน ใช้เวลาหลายสิบปีในการเขียน</p>
+
+    <p>สิ่งที่ฉันพบในความมืดนั้นคือ: <strong>ความมืดไม่ใช่สิ่งตรงข้ามกับแสง มันคือส่วนหนึ่งของแสง</strong> เพราะถ้าไม่มีความมืด เราจะไม่มีวันรู้ว่าแสงคืออะไร วิกฤตคือครูที่เข้มแข็งที่สุด และเราจะเติบโตได้ก็ต่อเมื่อเรายอมให้วิกฤตสอนเรา แทนที่จะหนีมัน</p>
+
+    <div class="blockquote-full">
+      <p>"In the middle of difficulty lies opportunity — but first you must be willing to lose your footing."</p>
+      <div class="bq-th">ในใจกลางของความยากลำบาก มีโอกาสอยู่ — แต่ก่อนอื่นคุณต้องยอมรับว่าตัวเองกำลังเสียพื้นดินใต้เท้า</div>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">Reflection · คำถามเพื่อสำรวจตัวเอง</div>
+      <ol>
+        <li>วิกฤตที่เจ็บปวดที่สุดในชีวิตเราสอนอะไรเราบ้าง?</li>
+        <li>เราเคยอยู่ในสถานการณ์ที่ต้องเลือกระหว่าง "ความปลอดภัย" กับ "ความเป็นตัวเอง" ไหม? เราเลือกอะไร?</li>
+        <li>ความมืดหรือช่วงเวลาที่ยากที่สุดในชีวิตได้ให้อะไรแก่เราที่แสงสว่างให้ไม่ได้?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- =================== CHAPTER VI =================== -->
+  <div class="chapter-open">
+    <div class="ch-num">VI</div>
+    <div class="ch-label">บทที่หก · Chapter Six</div>
+    <div class="ch-title">Message to Humanity<em>🌌 สารถึงมนุษยชาติ</em></div>
+    <div class="ch-rule"></div>
+    <div class="ch-essence">อันตรายที่ยิ่งใหญ่ที่สุดของมนุษยชาติไม่ใช่ระเบิดปรมาณู มันคือจิตไร้สำนึกที่ไม่ได้รับการดูแล</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">Message to Humanity · สารถึงมนุษย์</div>
+    <h1>ถ้าฉันพูดกับมนุษย์ยุคนี้ได้ — ฉันจะพูดว่า</h1>
+
+    <p>ฉันใช้ชีวิตทั้งชีวิตศึกษาจิตใจมนุษย์ และสิ่งที่ทำให้ฉันกังวลที่สุดในยุคใหม่ไม่ใช่สงคราม ไม่ใช่โรคระบาด ไม่ใช่ความยากจน สิ่งที่ฉันกลัวที่สุดคือ <strong>มนุษย์กำลังสร้างโลกภายนอกที่ยิ่งใหญ่ขึ้นเรื่อยๆ ในขณะที่โลกภายในกำลังหดตัวลงทุกวัน</strong></p>
+
+    <h2>สิ่งที่มนุษย์ยุคใหม่กำลังสูญเสีย</h2>
+    <p>มนุษย์สมัยใหม่ได้ทิ้ง<strong>ตำนาน สัญลักษณ์ และพิธีกรรม</strong> ออกไปในนามของ "ความเป็นเหตุเป็นผล" ในสายตาของคนยุคใหม่ ความฝันเป็นแค่สัญญาณประสาท ตำนานเป็นแค่นิทาน และสัญลักษณ์เป็นแค่โลโก้ทางธุรกิจ แต่สิ่งเหล่านั้นคือภาษาที่จิตไร้สำนึกใช้สื่อสารกับเรามาตลอดประวัติศาสตร์ เมื่อเราตัดการเชื่อมต่อนั้น เราก็กลายเป็น<strong>คนที่ไม่รู้จักตัวเอง</strong></p>
+
+    <div class="insight-box">
+      <div class="ib-label">อันตราย</div>
+      <p>มนุษย์ที่ไม่รู้จักจิตไร้สำนึกของตัวเองไม่ได้หายไป — มันถูกฉายออกสู่ภายนอก ความกลัวที่ไม่รู้ที่มากลายเป็นการเกลียดกลุ่มคนอื่น เงาที่ไม่ยอมรับกลายเป็นอุดมการณ์สุดโต่ง และความโกรธที่ไม่ได้รับการรักษากลายเป็นความรุนแรงหมู่</p>
+    </div>
+
+    <h2>อันตรายของ "ผู้นำที่ไม่รู้จักตัวเอง"</h2>
+    <p>ฉันเห็นการเกิดขึ้นของลัทธิเผด็จการในยุโรปด้วยตาตัวเอง และฉันรู้ว่ามันไม่ได้เกิดขึ้นเพราะผู้นำชั่วร้าย มันเกิดเพราะ<strong>ฝูงชนที่ไม่รู้จักเงาของตัวเอง</strong> ยินดีโยนทิ้งความรับผิดชอบส่วนตัวเพื่อตามผู้นำที่บอกว่า "ศัตรูอยู่ข้างนอก" ทั้งที่ศัตรูที่แท้จริงอยู่ข้างในทุกคน</p>
+
+    <p>สังคมที่สุขภาพดีไม่ใช่สังคมที่ไม่มีความขัดแย้ง มันคือสังคมที่ประกอบด้วย<strong>ปัจเจกบุคคลที่รู้จักตัวเอง</strong> — คนที่เคยเผชิญกับเงาของตัวเองและไม่จำเป็นต้องฉายมันออกไปสู่คนอื่น</p>
+
+    <div class="pullquote">
+      <p>"The world will ask you who you are, and if you do not know, the world will tell you."</p>
+      <p style="font-family:'Noto Serif Thai',serif;font-size:16px;font-style:normal;color:var(--ink-mid);">โลกจะถามคุณว่าคุณเป็นใคร และถ้าคุณไม่รู้ โลกจะบอกคุณเอง</p>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <h2>สิ่งที่มนุษย์ต้องทำ</h2>
+
+    <div class="checklist">
+      <div class="checklist-title">สิ่งที่ฉันอยากฝากถึงมนุษย์ยุคนี้</div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>หยุดหนีจากตัวเอง</strong> — ทุกครั้งที่เราหยิบโทรศัพท์ขึ้นมาด้วยความเบื่อ เราคือการหนีจากการสำรวจตัวเอง ลองนั่งในความเงียบแค่ 10 นาทีและดูว่าจะเกิดอะไรขึ้น</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>บันทึกความฝัน</strong> — วางสมุดไว้ข้างเตียง เขียนทันทีที่ตื่น ความฝันคือจดหมายส่วนตัวที่จิตไร้สำนึกเขียนถึงเราทุกคืน การไม่อ่านมันคือการทิ้งจดหมายโดยไม่แกะซอง</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>สังเกตสิ่งที่ทำให้โกรธหรือรังเกียจ</strong> — อารมณ์รุนแรงคือสัญญาณจากเงา สิ่งที่ทำให้เราโกรธมากในคนอื่นมักเป็นสิ่งที่เราไม่ยอมรับในตัวเอง</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>แสวงหาความหมาย ไม่ใช่ความสุข</strong> — ความสุขเป็นผลพลอยได้ของชีวิตที่มีความหมาย ถ้าตามหาความสุขโดยตรง มักหาไม่พบ แต่ถ้าใช้ชีวิตอย่างมีความหมาย ความสุขจะตามมาเอง</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>ยอมรับความขัดแย้งภายใน</strong> — อย่าพยายามเป็น "คนดีสมบูรณ์แบบ" ความดีที่แท้จริงเกิดจากการที่เราเข้าใจความมืดในตัวเอง ไม่ใช่จากการปฏิเสธว่ามันไม่มีอยู่</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>สร้างพื้นที่ให้กับสัญลักษณ์ในชีวิต</strong> — ศิลปะ ดนตรี ธรรมชาติ พิธีกรรม สิ่งเหล่านี้ไม่ใช่ฟุ่มเฟือย มันคืออาหารของจิตวิญญาณ ชีวิตที่ขาดสัญลักษณ์คือชีวิตที่ขาดความลึก</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>เริ่มการเดินทาง Individuation</strong> — ไม่จำเป็นต้องเป็นนักจิตวิทยา แค่เริ่มถามตัวเองทุกวันว่า "ฉันกำลังแสดงบทบาทที่คนอื่นให้ หรือฉันกำลังเป็นตัวเอง?"</div>
+      </div>
+    </div>
+
+    <div class="blockquote-full">
+      <p>"One does not become enlightened by imagining figures of light, but by making the darkness conscious."</p>
+      <div class="bq-th">คนไม่ได้บรรลุแสงสว่างด้วยการจินตนาการถึงแสงสว่าง แต่ด้วยการทำให้ความมืดกลายเป็นสิ่งที่รู้ตัว</div>
+      <cite>— C. G. Jung</cite>
+    </div>
+  </div>
+
+  <!-- =================== SYNTHESIS =================== -->
+  <div class="chapter-open" style="background: var(--accent-deep);">
+    <div style="position:absolute;right:var(--page-pad-h);top:50%;transform:translateY(-60%);font-family:'Playfair Display',serif;font-style:italic;font-size:180px;font-weight:700;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;">∞</div>
+    <div class="ch-label" style="color:rgba(201,168,76,.80);">Synthesis · บทสรุป</div>
+    <div class="ch-title" style="color:#F2EFE4;">Your Descent &amp; Return<em style="color:rgba(201,168,76,.70);">การลงไปในความมืด แล้วกลับออกมาพร้อมแสงสว่าง</em></div>
+    <div class="ch-rule" style="background:#C9A84C;"></div>
+    <div class="ch-essence" style="color:rgba(242,239,228,.65);">ทุกความฝัน ทุกเงา ทุกวิกฤต ล้วนเชิญชวนให้เราเดินทางสู่การเป็นตัวเองอย่างสมบูรณ์</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">Master One-Liner · ประโยคที่สรุปทั้งชีวิต</div>
+    <h1>สิ่งเดียวที่ฉันอยากให้จดจำ</h1>
+
+    <div class="blockquote-full">
+      <p>"Until you make the unconscious conscious, it will direct your life — and you will call it fate."</p>
+      <div class="bq-th">จนกว่าคุณจะทำให้สิ่งที่ไม่รู้ตัวกลายเป็นสิ่งที่รู้ตัว มันจะควบคุมชีวิตของคุณ — และคุณจะเรียกมันว่าชะตากรรม</div>
+      <cite>— C. G. Jung</cite>
+    </div>
+
+    <p>ประโยคนี้สรุปทุกสิ่งที่ฉันค้นพบในชีวิต ชะตากรรมส่วนใหญ่ที่มนุษย์คิดว่า "โชค" หรือ "ฟ้าลิขิต" นั้น แท้จริงแล้วคือผลผลิตของจิตไร้สำนึกที่ไม่ได้รับการดูแล เมื่อเราทำให้มันมีสติ เราไม่ได้กำจัดชะตากรรม — เราเริ่ม<strong>เลือก</strong>ชะตากรรมของตัวเองได้</p>
+
+    <h2>Pre-Action Ritual — สิ่งที่ทำได้เริ่มตั้งแต่วันนี้</h2>
+
+    <div class="checklist">
+      <div class="checklist-title">🌑 พิธีกรรมแห่งการตื่นรู้ประจำวัน</div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>เช้า — บันทึกความฝัน (5 นาที)</strong> ก่อนลุกจากเตียง เขียนสิ่งที่จำได้จากความฝัน ไม่ต้องตีความ แค่บันทึก ความหมายจะเผยเองเมื่อเวลาผ่านไป</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>กลางวัน — สังเกตอารมณ์รุนแรง</strong> ทุกครั้งที่รู้สึกโกรธ กลัว หรืออิจฉาผิดปกติ หยุดถามว่า "นี่บอกอะไรฉันเกี่ยวกับตัวฉันเอง?" อย่าตัดสิน แค่สังเกต</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>เย็น — เวลาเงียบ (10 นาที)</strong> นั่งโดยไม่มีหน้าจอ ไม่มีดนตรี ไม่มีการอ่าน แค่นั่งกับตัวเองและสังเกตว่าอะไรผุดขึ้นมา นั่นคือเสียงของจิตไร้สำนึก</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>สัปดาห์ละครั้ง — ทำกิจกรรมสร้างสรรค์</strong> วาดภาพ เขียน ปั้นดิน ทำอาหาร หรือสร้างสิ่งใดก็ได้ด้วยมือ นี่คือภาษาที่จิตไร้สำนึกชอบ</div>
+      </div>
+
+      <div class="check-item">
+        <div class="check-box"></div>
+        <div class="check-text"><strong>เดือนละครั้ง — ทบทวน Shadow</strong> ถามตัวเองว่า ใครทำให้ฉันโกรธหรืออิจฉาในเดือนนี้? สิ่งนั้นสะท้อนอะไรเกี่ยวกับตัวฉันเอง? อาจทำกับนักจิตวิทยาหรือในสมุดส่วนตัวก็ได้</div>
+      </div>
+    </div>
+
+    <h2>หนังสือเพื่อเดินทางต่อ</h2>
+    <p>ถ้าหนังสือเล่มนี้จุดประกายบางสิ่งในตัวท่าน ฉันขอแนะนำเส้นทางต่อไป:</p>
+
+    <div style="margin:24px 0;">
+      <div class="ch-card">
+        <div class="ch-card-num" style="font-size:24px;color:var(--accent);min-width:36px;">📕</div>
+        <div class="ch-card-body">
+          <div class="ch-card-title">Man and His Symbols — Carl Jung</div>
+          <div class="ch-card-one-liner">หนังสือที่ Jung เขียนเพื่อคนทั่วไป อธิบาย Archetypes และสัญลักษณ์ในความฝันด้วยภาษาที่เข้าถึงได้</div>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-card-num" style="font-size:24px;color:var(--accent);min-width:36px;">📗</div>
+        <div class="ch-card-body">
+          <div class="ch-card-title">The Hero with a Thousand Faces — Joseph Campbell</div>
+          <div class="ch-card-one-liner">ว่าด้วย Monomyth (การเดินทางของวีรบุรุษ) ที่ปรากฏในทุกตำนานทั่วโลก เชื่อมโยงกับ Archetypes ของ Jung อย่างลึกซึ้ง</div>
+        </div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-card-num" style="font-size:24px;color:var(--accent);min-width:36px;">📘</div>
+        <div class="ch-card-body">
+          <div class="ch-card-title">Owning Your Own Shadow — Robert A. Johnson</div>
+          <div class="ch-card-one-liner">คู่มือปฏิบัติเพื่อทำงานกับ Shadow — เขียนเข้าใจง่าย เหมาะสำหรับผู้เริ่มต้นสำรวจโลกภายใน</div>
+        </div>
+      </div>
+      <div class="ch-card" style="border-bottom:none;">
+        <div class="ch-card-num" style="font-size:24px;color:var(--accent);min-width:36px;">📙</div>
+        <div class="ch-card-body">
+          <div class="ch-card-title">The Red Book — Carl Jung</div>
+          <div class="ch-card-one-liner">บันทึกการเดินทางภายในส่วนตัวของ Jung ตีพิมพ์หลังเขาเสียชีวิต ลึกและท้าทาย แนะนำหลังอ่านเล่มอื่นก่อน</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">คำถามสุดท้าย · Final Reflection</div>
+      <ol>
+        <li>หลังจากอ่านจบ — สิ่งไหนที่โดนใจเราที่สุด และทำไม?</li>
+        <li>มีส่วนใดของตัวเองที่เราเพิ่งเริ่มมองเห็นว่าเคยหลีกเลี่ยงมาตลอด?</li>
+        <li>ถ้าจะเริ่มต้นการเดินทาง Individuation วันนี้ — ก้าวแรกของเราคืออะไร?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- =================== FOOTER =================== -->
+  <div class="book-footer">
+    <div class="book-footer-mark">☽</div>
+    <div class="book-footer-text">
+      "The greatest tragedy of the family is the unlived lives of the parents — passed down to their children as unconscious patterns. Live your own life, so they do not have to live it for you."
+      <br><br>
+      <span style="font-size:13px;color:rgba(201,168,76,.70);">โศกนาฏกรรมที่ยิ่งใหญ่ที่สุดของครอบครัว คือชีวิตที่พ่อแม่ไม่ได้ใช้ — ส่งต่อให้ลูกในรูปแบบของรูปแบบจิตไร้สำนึก จงใช้ชีวิตของตัวเอง เพื่อที่พวกเขาจะไม่ต้องใช้มันแทนคุณ</span>
+    </div>
+    <div class="book-footer-author">Memories, Dreams, Reflections · C. G. Jung · Personal Edition</div>
+  </div>
+
+</div>
+</body>
+</html>
