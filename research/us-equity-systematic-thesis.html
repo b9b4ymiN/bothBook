@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Systematic Edge — กลยุทธ์ลงทุนเชิงระบบ 13 กลยุทธ์ที่ผ่านการพิสูจน์ในตลาดหุ้น US</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Paper tones */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+  /* Accent — Deep Forest Green: ทุน + วิชาการ */
+  --accent:       #2D5C3E;
+  --accent-deep:  #1B3F28;
+  --accent-light: #4F8362;
+  --accent-rule:  rgba(45,92,62,0.30);
+  --accent-bg:    rgba(45,92,62,0.08);
+  /* Semantic */
+  --red:          #7A1A1A;
+  --red-bg:       #FBF3F0;
+  --green:        #355E40;
+  --green-bg:     #F1F6EE;
+  --gold:         #A8782A;
+  --gold-bg:      #F8F1DD;
+  --book-width:   760px;
+  --page-pad-h:   76px;
+  --page-pad-v:   84px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#1A1610;
+  padding:40px 16px;
+  font-family:'Noto Serif Thai','Noto Serif',serif;
+  color:var(--ink-soft);
+  line-height:1.75;
+}
+.book{
+  max-width:var(--book-width);
+  margin:0 auto;
+  background:var(--paper);
+  box-shadow:0 0 0 1px rgba(0,0,0,.10),0 4px 40px rgba(0,0,0,.40),0 0 120px rgba(0,0,0,.25);
+  position:relative;
+}
+
+/* ============ COVER ============ */
+.cover{
+  background:linear-gradient(135deg,#1B3F28 0%,#2D5C3E 60%,#3F6F4F 100%);
+  color:#F2EFE4;
+  padding:96px 56px 80px;
+  position:relative;
+  overflow:hidden;
+  min-height:780px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.cover::before{
+  content:'';
+  position:absolute;
+  inset:24px;
+  border:1px solid rgba(242,239,228,0.25);
+  pointer-events:none;
+}
+.cover::after{
+  content:'';
+  position:absolute;
+  inset:32px;
+  border:1px solid rgba(242,239,228,0.10);
+  pointer-events:none;
+}
+.cover-corner{
+  position:absolute;
+  width:34px;
+  height:34px;
+  border:2px solid #C9B273;
+}
+.cover-corner.tl{top:48px;left:48px;border-right:0;border-bottom:0}
+.cover-corner.tr{top:48px;right:48px;border-left:0;border-bottom:0}
+.cover-corner.bl{bottom:48px;left:48px;border-right:0;border-top:0}
+.cover-corner.br{bottom:48px;right:48px;border-left:0;border-top:0}
+
+.cover-publisher{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#C9B273;
+  font-weight:600;
+  text-align:center;
+  margin-bottom:8px;
+}
+.cover-meta{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(242,239,228,0.65);
+  text-align:center;
+}
+.cover-title-block{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px 0}
+.cover-eyebrow{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:6px;
+  text-transform:uppercase;
+  color:#C9B273;
+  margin-bottom:32px;
+  font-weight:600;
+}
+.cover-title{
+  font-family:'Playfair Display',serif;
+  font-size:64px;
+  line-height:1.05;
+  font-weight:700;
+  color:#F2EFE4;
+  margin-bottom:16px;
+  letter-spacing:-0.5px;
+}
+.cover-title em{
+  font-style:italic;
+  color:#C9B273;
+  font-weight:400;
+}
+.cover-rule{
+  width:60px;
+  height:2px;
+  background:#C9B273;
+  margin:24px auto;
+}
+.cover-subtitle{
+  font-family:'Noto Serif Thai',serif;
+  font-size:18px;
+  line-height:1.7;
+  color:rgba(242,239,228,0.88);
+  font-weight:300;
+  max-width:520px;
+  font-style:italic;
+}
+.cover-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:48px;
+  max-width:520px;
+}
+.cover-stat{text-align:center}
+.cover-stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:36px;
+  font-weight:700;
+  color:#C9B273;
+  line-height:1;
+  margin-bottom:6px;
+}
+.cover-stat-lbl{
+  font-family:'Sarabun',sans-serif;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:rgba(242,239,228,0.65);
+  font-weight:600;
+}
+.cover-author{
+  text-align:center;
+  margin-top:auto;
+  padding-top:32px;
+}
+.cover-author-name{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:20px;
+  color:#F2EFE4;
+  margin-bottom:6px;
+}
+.cover-author-tag{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(201,178,115,0.85);
+  font-weight:600;
+}
+
+/* ============ PAGE BASE ============ */
+.page,.chapter-open{
+  padding:var(--page-pad-v) var(--page-pad-h);
+  position:relative;
+}
+.page{background:var(--paper)}
+.chapter-open{background:var(--paper-mid);position:relative;overflow:hidden;min-height:480px}
+
+/* ============ TOC ============ */
+.toc-eyebrow{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:700;
+  margin-bottom:12px;
+}
+.toc-title{
+  font-family:'Playfair Display',serif;
+  font-size:48px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:12px;
+  letter-spacing:-0.5px;
+}
+.toc-title em{font-style:italic;color:var(--accent);font-weight:400}
+.toc-rule{
+  width:48px;
+  height:2px;
+  background:var(--accent);
+  margin:0 0 36px;
+}
+.toc-intro{
+  font-family:'Noto Serif Thai',serif;
+  font-size:15px;
+  line-height:1.85;
+  color:var(--ink-mid);
+  font-style:italic;
+  margin-bottom:40px;
+  max-width:560px;
+}
+
+.ch-card{
+  display:flex;
+  gap:24px;
+  padding:22px 0;
+  border-bottom:1px solid var(--paper-shadow);
+  align-items:flex-start;
+}
+.ch-card:last-child{border-bottom:none}
+.ch-card-num{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:42px;
+  color:var(--accent);
+  font-weight:400;
+  line-height:1;
+  min-width:60px;
+  padding-top:2px;
+}
+.ch-card-body{flex:1}
+.ch-card-title{
+  font-family:'Noto Serif Thai',serif;
+  font-size:17px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:6px;
+  letter-spacing:-0.2px;
+}
+.ch-card-one-liner{
+  font-family:'Noto Serif Thai',serif;
+  font-size:14px;
+  color:var(--ink-muted);
+  font-style:italic;
+  line-height:1.6;
+  margin-bottom:10px;
+}
+.ch-tag{
+  display:inline-block;
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  background:var(--accent-bg);
+  color:var(--accent-deep);
+  padding:3px 9px;
+  margin-right:6px;
+  font-weight:600;
+  border-radius:1px;
+}
+
+/* ============ CHAPTER OPEN ============ */
+.ch-num-bg{
+  position:absolute;
+  font-family:'Playfair Display',serif;
+  font-size:240px;
+  font-style:italic;
+  font-weight:400;
+  color:var(--paper-deep);
+  right:48px;
+  top:48px;
+  line-height:1;
+  z-index:0;
+  user-select:none;
+}
+.ch-label{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:700;
+  margin-bottom:24px;
+  position:relative;
+  z-index:1;
+}
+.ch-title{
+  font-family:'Playfair Display',serif;
+  font-size:52px;
+  line-height:1.1;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:8px;
+  position:relative;
+  z-index:1;
+  letter-spacing:-0.5px;
+}
+.ch-title em{font-style:italic;color:var(--accent);font-weight:400}
+.ch-title .em{
+  display:block;
+  font-family:'Noto Serif Thai',serif;
+  font-size:22px;
+  font-style:normal;
+  font-weight:400;
+  color:var(--ink-mid);
+  margin-top:14px;
+  letter-spacing:0;
+}
+.ch-essence{
+  font-family:'Noto Serif Thai',serif;
+  font-size:16px;
+  line-height:1.85;
+  color:var(--ink-mid);
+  font-style:italic;
+  max-width:520px;
+  margin-top:36px;
+  padding-top:24px;
+  border-top:1px solid var(--accent-rule);
+  position:relative;
+  z-index:1;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.eyebrow{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:700;
+  margin-bottom:14px;
+}
+h1.h1{
+  font-family:'Playfair Display',serif;
+  font-size:38px;
+  line-height:1.15;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:28px;
+  letter-spacing:-0.3px;
+}
+h1.h1 em{font-style:italic;color:var(--accent);font-weight:400}
+h2.h2{
+  font-family:'Noto Serif Thai',serif;
+  font-size:24px;
+  line-height:1.35;
+  font-weight:700;
+  color:var(--ink);
+  margin:48px 0 18px;
+  letter-spacing:-0.2px;
+  position:relative;
+  padding-left:18px;
+}
+h2.h2::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:10px;
+  width:6px;
+  height:24px;
+  background:var(--accent);
+}
+h3.h3{
+  font-family:'Noto Serif Thai',serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--ink-soft);
+  margin:32px 0 12px;
+}
+p{
+  font-family:'Noto Serif Thai',serif;
+  font-size:16px;
+  line-height:1.85;
+  color:var(--ink-soft);
+  margin-bottom:18px;
+}
+p strong{color:var(--ink);font-weight:600}
+p em{font-style:italic;color:var(--accent-deep)}
+
+.lead{
+  font-family:'Noto Serif Thai',serif;
+  font-size:18px;
+  line-height:1.85;
+  color:var(--ink-mid);
+  margin-bottom:24px;
+  font-weight:400;
+}
+.dropcap::first-letter{
+  font-family:'Playfair Display',serif;
+  font-size:64px;
+  font-weight:700;
+  float:left;
+  line-height:0.85;
+  margin:8px 10px 0 0;
+  color:var(--accent);
+}
+
+/* ============ INSIGHT BOX ============ */
+.insight-box{
+  background:var(--accent-bg);
+  border-left:3px solid var(--accent);
+  padding:24px 28px;
+  margin:32px 0;
+}
+.insight-box-label{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:700;
+  margin-bottom:10px;
+}
+.insight-box p{
+  font-size:16px;
+  line-height:1.8;
+  color:var(--ink-soft);
+  margin-bottom:0;
+  font-style:italic;
+}
+
+/* ============ AUTHOR VOICE ============ */
+.author-box{
+  display:flex;
+  gap:18px;
+  padding:24px 28px;
+  background:var(--paper-mid);
+  border-left:3px solid var(--accent);
+  margin:32px 0;
+}
+.author-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--accent-deep);
+  color:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  font-style:italic;
+  flex-shrink:0;
+  font-weight:600;
+}
+.author-meta{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  margin-bottom:8px;
+  font-weight:700;
+}
+.author-text{
+  font-family:'Noto Serif Thai',serif;
+  font-size:16px;
+  line-height:1.8;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin:0;
+}
+
+/* ============ PULLQUOTE & FULL QUOTE ============ */
+.pullquote{
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  line-height:1.5;
+  font-style:italic;
+  color:var(--accent-deep);
+  border-top:1px solid var(--accent-rule);
+  border-bottom:1px solid var(--accent-rule);
+  padding:28px 0;
+  margin:36px 0;
+  text-align:center;
+  font-weight:400;
+}
+.pullquote-attr{
+  display:block;
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  font-style:normal;
+  margin-top:14px;
+  font-weight:600;
+}
+
+.blockquote-full{
+  background:#1B3F28;
+  color:var(--paper);
+  padding:60px 56px;
+  margin:48px -76px;
+  text-align:center;
+  position:relative;
+}
+.blockquote-full::before{
+  content:'"';
+  font-family:'Playfair Display',serif;
+  font-size:120px;
+  color:#C9B273;
+  position:absolute;
+  top:8px;
+  left:32px;
+  line-height:1;
+  font-style:italic;
+}
+.blockquote-full-text{
+  font-family:'Playfair Display',serif;
+  font-size:30px;
+  line-height:1.45;
+  font-style:italic;
+  color:var(--paper);
+  font-weight:400;
+  position:relative;
+  z-index:1;
+  max-width:520px;
+  margin:0 auto;
+}
+.blockquote-full-th{
+  font-family:'Noto Serif Thai',serif;
+  font-size:17px;
+  font-style:italic;
+  color:rgba(242,239,228,0.80);
+  margin-top:20px;
+  font-weight:300;
+  position:relative;
+  z-index:1;
+}
+.blockquote-full-attr{
+  display:block;
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:#C9B273;
+  margin-top:24px;
+  font-weight:600;
+  position:relative;
+  z-index:1;
+}
+
+/* ============ STAT ROW ============ */
+.stat-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin:32px 0;
+  padding:24px;
+  background:var(--paper-mid);
+  border-top:2px solid var(--accent);
+}
+.stat-item{text-align:center}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:32px;
+  font-weight:700;
+  color:var(--accent-deep);
+  line-height:1;
+  margin-bottom:6px;
+}
+.stat-lbl{
+  font-family:'Sarabun',sans-serif;
+  font-size:9px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  font-weight:600;
+}
+
+/* ============ LADDER ============ */
+.ladder{margin:36px 0}
+.ladder-step{
+  padding:20px 26px;
+  margin:0;
+}
+.ladder-step.wrong{background:var(--red-bg);border-left:3px solid var(--red)}
+.ladder-step.truth{background:var(--accent-bg);border-left:3px solid var(--accent-deep)}
+.ladder-step.action{background:var(--green-bg);border-left:3px solid var(--green)}
+.ladder-tag{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:6px;
+}
+.ladder-step.wrong .ladder-tag{color:var(--red)}
+.ladder-step.truth .ladder-tag{color:var(--accent-deep)}
+.ladder-step.action .ladder-tag{color:var(--green)}
+.ladder-text{
+  font-family:'Noto Serif Thai',serif;
+  font-size:15px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.ladder-arrow{
+  text-align:center;
+  padding:8px;
+  color:var(--ink-faint);
+  font-size:22px;
+  line-height:1;
+}
+
+/* ============ TABLES ============ */
+.cmp-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:28px 0;
+  font-family:'Sarabun',sans-serif;
+  font-size:13px;
+}
+.cmp-table thead th{
+  background:var(--accent-deep);
+  color:var(--paper);
+  padding:12px 14px;
+  text-align:left;
+  font-weight:700;
+  letter-spacing:1px;
+  font-size:11px;
+  text-transform:uppercase;
+}
+.cmp-table tbody td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--paper-shadow);
+  color:var(--ink-soft);
+  vertical-align:top;
+}
+.cmp-table tbody tr:nth-child(even){background:var(--paper-mid)}
+.cmp-table tbody tr:hover{background:var(--accent-bg)}
+.cmp-table .num{font-family:'Playfair Display',serif;font-weight:600;color:var(--accent-deep)}
+.cmp-table .pos{color:var(--green);font-weight:600}
+.cmp-table .neg{color:var(--red);font-weight:600}
+.cmp-table .name{font-weight:700;color:var(--ink)}
+
+/* ============ SIGNAL BOX ============ */
+.signal-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0;
+  margin:32px 0;
+  border:1px solid var(--paper-shadow);
+}
+.signal-pane{padding:22px 26px}
+.signal-pane.do{background:var(--green-bg)}
+.signal-pane.dont{background:var(--red-bg);border-left:1px solid var(--paper-shadow)}
+.signal-tag{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:14px;
+}
+.signal-pane.do .signal-tag{color:var(--green)}
+.signal-pane.dont .signal-tag{color:var(--red)}
+.signal-list{
+  list-style:none;
+  font-family:'Noto Serif Thai',serif;
+  font-size:14px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.signal-list li{
+  padding-left:22px;
+  position:relative;
+  margin-bottom:10px;
+}
+.signal-list li::before{
+  position:absolute;
+  left:0;
+  top:0;
+  font-weight:700;
+}
+.signal-pane.do .signal-list li::before{content:'✓';color:var(--green)}
+.signal-pane.dont .signal-list li::before{content:'✗';color:var(--red)}
+
+/* ============ ACTION CARD ============ */
+.action-card{
+  background:var(--paper-mid);
+  border:1px solid var(--paper-shadow);
+  padding:28px 30px;
+  margin:32px 0;
+  position:relative;
+}
+.action-card-header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--paper-shadow);
+}
+.action-card-icon{
+  width:40px;
+  height:40px;
+  background:var(--accent);
+  color:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  font-weight:700;
+  flex-shrink:0;
+}
+.action-card-title{
+  font-family:'Noto Serif Thai',serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--ink);
+}
+
+/* ============ CHECKLIST ============ */
+.checklist{
+  list-style:none;
+  margin:24px 0;
+  padding:0;
+}
+.checklist li{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px dashed var(--paper-shadow);
+  font-family:'Noto Serif Thai',serif;
+  font-size:15px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.checklist li:last-child{border-bottom:none}
+.checklist .box{
+  width:22px;
+  height:22px;
+  border:1.5px solid var(--accent);
+  flex-shrink:0;
+  margin-top:2px;
+  position:relative;
+}
+.checklist .num{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:24px;
+  color:var(--accent);
+  font-weight:600;
+  line-height:1;
+  min-width:34px;
+  margin-top:-2px;
+}
+
+/* ============ REFLECTION ============ */
+.reflection{
+  background:#1B3F28;
+  color:var(--paper);
+  padding:36px 44px;
+  margin:48px 0 0;
+  position:relative;
+}
+.reflection::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:48px;
+  height:3px;
+  background:#C9B273;
+}
+.reflection-label{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#C9B273;
+  font-weight:700;
+  margin-bottom:18px;
+}
+.reflection-q{
+  font-family:'Noto Serif Thai',serif;
+  font-size:17px;
+  line-height:1.75;
+  color:rgba(242,239,228,0.92);
+  margin-bottom:14px;
+  padding-left:24px;
+  position:relative;
+  font-style:italic;
+}
+.reflection-q::before{
+  content:'?';
+  font-family:'Playfair Display',serif;
+  position:absolute;
+  left:0;
+  top:0;
+  color:#C9B273;
+  font-style:italic;
+  font-size:20px;
+  font-weight:600;
+}
+
+/* ============ FORMULA BLOCK ============ */
+.formula-block{
+  background:var(--paper-mid);
+  border-top:2px solid var(--accent);
+  border-bottom:2px solid var(--accent);
+  padding:28px 32px;
+  margin:32px 0;
+  text-align:center;
+}
+.formula-label{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:700;
+  margin-bottom:14px;
+}
+.formula-text{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  font-style:italic;
+  color:var(--ink);
+  line-height:1.5;
+  margin-bottom:10px;
+}
+.formula-explain{
+  font-family:'Noto Serif Thai',serif;
+  font-size:13px;
+  color:var(--ink-muted);
+  font-style:italic;
+}
+
+/* ============ WARN/NOTE BOX ============ */
+.warn-box{
+  background:#F8F1DD;
+  border-left:3px solid var(--gold);
+  padding:20px 26px;
+  margin:28px 0;
+  font-family:'Noto Serif Thai',serif;
+  font-size:14px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.warn-tag{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--gold);
+  font-weight:700;
+  margin-bottom:8px;
+  display:block;
+}
+
+/* ============ FRAMEWORK CARD ============ */
+.fw-card{
+  background:var(--paper-mid);
+  border:1px solid var(--paper-shadow);
+  padding:24px 28px;
+  margin:20px 0;
+  position:relative;
+}
+.fw-card-rank{
+  position:absolute;
+  top:-14px;
+  right:24px;
+  background:var(--accent-deep);
+  color:var(--paper);
+  font-family:'Playfair Display',serif;
+  font-size:14px;
+  font-weight:700;
+  font-style:italic;
+  padding:4px 14px;
+}
+.fw-card-name{
+  font-family:'Playfair Display',serif;
+  font-size:24px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:4px;
+}
+.fw-card-author{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:600;
+  margin-bottom:14px;
+}
+.fw-card-essence{
+  font-family:'Noto Serif Thai',serif;
+  font-size:14px;
+  line-height:1.7;
+  color:var(--ink-mid);
+  font-style:italic;
+  margin-bottom:18px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--paper-shadow);
+}
+.fw-card-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:14px;
+}
+.fw-stat{text-align:center}
+.fw-stat-val{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  font-weight:700;
+  color:var(--accent-deep);
+  line-height:1;
+}
+.fw-stat-val.warn{color:var(--gold)}
+.fw-stat-val.good{color:var(--green)}
+.fw-stat-lbl{
+  font-family:'Sarabun',sans-serif;
+  font-size:9px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  font-weight:600;
+  margin-top:4px;
+}
+.fw-card-note{
+  font-family:'Noto Serif Thai',serif;
+  font-size:13px;
+  line-height:1.65;
+  color:var(--ink-muted);
+}
+.fw-card-note strong{color:var(--ink-soft)}
+
+/* ============ DIALOGUE / PROFILE ============ */
+.profile-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin:28px 0;
+}
+.profile-card{
+  background:var(--paper-mid);
+  padding:24px 22px;
+  border-top:3px solid var(--accent);
+}
+.profile-tag{
+  font-family:'Sarabun',sans-serif;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  font-weight:700;
+  margin-bottom:8px;
+}
+.profile-name{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:10px;
+  font-style:italic;
+}
+.profile-meta{
+  font-family:'Noto Serif Thai',serif;
+  font-size:13px;
+  color:var(--ink-muted);
+  font-style:italic;
+  margin-bottom:14px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--paper-shadow);
+}
+.profile-list{
+  list-style:none;
+  font-family:'Noto Serif Thai',serif;
+  font-size:13px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+.profile-list li{
+  padding:5px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  border-bottom:1px dotted var(--paper-shadow);
+}
+.profile-list li:last-child{border-bottom:none}
+.profile-list .fw{font-weight:600}
+.profile-list .pct{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  color:var(--accent);
+  font-weight:600;
+}
+
+/* ============ FOOTER ============ */
+.book-footer{
+  background:var(--ink);
+  padding:64px var(--page-pad-h);
+  text-align:center;
+  position:relative;
+  color:#C9B273;
+}
+.book-footer::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:80px;
+  height:3px;
+  background:#C9B273;
+}
+.book-footer-mark{
+  font-family:'Playfair Display',serif;
+  font-style:italic;
+  font-size:36px;
+  color:#C9B273;
+  margin-bottom:20px;
+  font-weight:600;
+}
+.book-footer-text{
+  font-family:'Noto Serif Thai',serif;
+  font-size:15px;
+  color:var(--paper-deep);
+  font-style:italic;
+  line-height:1.75;
+  max-width:480px;
+  margin:0 auto 24px;
+}
+.book-footer-author{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px;
+  color:#C9B273;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-weight:600;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:780px){
+  :root{--page-pad-h:28px;--page-pad-v:56px}
+  body{padding:16px 8px}
+  .cover{padding:64px 32px 48px;min-height:680px}
+  .cover-title{font-size:42px}
+  .cover-subtitle{font-size:16px}
+  .cover-stats{grid-template-columns:repeat(3,1fr);gap:14px}
+  .cover-stat-num{font-size:26px}
+  .ch-num-bg{font-size:140px;right:24px;top:24px}
+  .ch-title{font-size:36px}
+  .ch-title .em{font-size:18px}
+  .toc-title{font-size:36px}
+  h1.h1{font-size:30px}
+  .blockquote-full{padding:40px 28px;margin-left:-28px;margin-right:-28px}
+  .blockquote-full-text{font-size:22px}
+  .stat-row,.profile-row,.signal-box,.fw-card-stats{grid-template-columns:1fr}
+  .signal-pane.dont{border-left:none;border-top:1px solid var(--paper-shadow)}
+  .pullquote{font-size:20px}
+  .ch-card-num{font-size:32px;min-width:50px}
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ===================== COVER ===================== -->
+<div class="cover">
+  <div class="cover-corner tl"></div>
+  <div class="cover-corner tr"></div>
+  <div class="cover-corner bl"></div>
+  <div class="cover-corner br"></div>
+
+  <div>
+    <div class="cover-publisher">Systematic Strategy Research</div>
+    <div class="cover-meta">10-Year Validated · Point-in-Time Data · 2014–2024</div>
+  </div>
+
+  <div class="cover-title-block">
+    <div class="cover-eyebrow">A Practitioner's Thesis</div>
+    <h1 class="cover-title">The Systematic <em>Edge</em></h1>
+    <div class="cover-rule"></div>
+    <p class="cover-subtitle">กลยุทธ์ลงทุนเชิงระบบ 13 กลยุทธ์ ที่ผ่านการพิสูจน์ทางสถิติบนหุ้น 1,010 ตัว ในตลาดสหรัฐ — สำหรับนักลงทุนที่อยากชนะตลาดด้วยวินัย ไม่ใช่อารมณ์</p>
+
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-num">13/15</div>
+        <div class="cover-stat-lbl">Frameworks Validated</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">1,010</div>
+        <div class="cover-stat-lbl">US Equities Tested</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-num">10 yrs</div>
+        <div class="cover-stat-lbl">Walk-Forward Period</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-author">
+    <div class="cover-author-name">Investor's Edition · ฉบับนักลงทุน</div>
+    <div class="cover-author-tag">Evidence Over Opinion</div>
+  </div>
+</div>
+
+<!-- ===================== TABLE OF CONTENTS ===================== -->
+<div class="page">
+  <div class="toc-eyebrow">Contents · สารบัญ</div>
+  <h1 class="toc-title">Eight <em>Chapters</em></h1>
+  <div class="toc-rule"></div>
+  <p class="toc-intro">หนังสือเล่มนี้เกิดจากงานวิจัยที่ทดสอบกลยุทธ์ 15 ตัวบนหุ้น 1,010 ตัว ตลอด 10 ปี ผ่านการตรวจสอบ 4 ด้านอย่างเข้มงวด — และจะแปลผลออกมาให้คุณนำไปลงทุนจริงได้ทันที</p>
+
+  <div class="ch-card">
+    <div class="ch-card-num">01</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">ทำไมต้องลงทุนแบบเป็นระบบ</div>
+      <div class="ch-card-one-liner">Why Systematic — เหตุผลที่กลยุทธ์เป็นระบบเอาชนะการเลือกหุ้นด้วยอารมณ์</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Mindset</span>
+        <span class="ch-tag">Foundation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">02</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">โต๊ะอาหารของกลยุทธ์ — 13 ตัวที่รอดชีวิต</div>
+      <div class="ch-card-one-liner">The Validated 13 — ภูมิทัศน์ของกลยุทธ์ทุกประเภท ตั้งแต่ Growth, Value, Quality, Factor</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Frameworks</span>
+        <span class="ch-tag">Map</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">03</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">5 ผู้ชนะที่คุณต้องรู้จัก</div>
+      <div class="ch-card-one-liner">Top 5 Frameworks — Quality Compounder, CANSLIM, Earnings Revision, Piotroski, Dividend Growth</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Top Picks</span>
+        <span class="ch-tag">Deep Dive</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">04</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">4 เสาหลักของการตรวจสอบ</div>
+      <div class="ch-card-one-liner">The Four Pillars — เกณฑ์ที่แยก "กลยุทธ์จริง" ออกจาก "Backtest หลอกตา"</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Validation</span>
+        <span class="ch-tag">Statistics</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">05</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">เลือกกลยุทธ์ที่ใช่กับตัวคุณ</div>
+      <div class="ch-card-one-liner">Your Profile — Aggressive, Balanced, Conservative — กลยุทธ์ที่นอนหลับสบาย</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Profile</span>
+        <span class="ch-tag">Allocation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">06</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">วินัยของผู้ชนะ — กฎ 4 ข้อในชีวิตจริง</div>
+      <div class="ch-card-one-liner">Execution Playbook — Rebalance, Risk Limit, Health Check, Exit Protocol</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Execution</span>
+        <span class="ch-tag">Risk</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">07</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">สิ่งที่งานวิจัยไม่อยากบอก</div>
+      <div class="ch-card-one-liner">Honest Limitations — Survivorship Bias, Bull Market Bias, Factor Decay</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Caveats</span>
+        <span class="ch-tag">Truth</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">08</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">บทสรุป — พิธีกรรมก่อนซื้อ และคู่มือ 30 วันแรก</div>
+      <div class="ch-card-one-liner">Synthesis — One-Liner ที่ต้องท่องได้ + Pre-Trade Ritual 7 ข้อ</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Action</span>
+        <span class="ch-tag">Ritual</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FOREWORD ===================== -->
+<div class="page">
+  <div class="eyebrow">Foreword · จากผู้เขียนถึงนักลงทุน</div>
+  <h1 class="h1">A Letter Before <em>You Begin</em></h1>
+
+  <p class="lead">หากคุณเปิดหนังสือเล่มนี้ คุณคงเคยรู้สึกแบบเดียวกับผม — ตลาดหุ้นเต็มไปด้วยเสียงรบกวน คนชวนซื้อหุ้นนั้น คนเตือนให้ขายหุ้นนี้ ทุกคนมีเรื่องเล่าที่ฟังดูน่าเชื่อ แต่ไม่มีใครยอมเปิดสมุดบัญชีและพิสูจน์ว่าวิธีของเขาเคย "ใช้ได้จริง" หรือไม่ในระยะยาว</p>
+
+  <p class="dropcap">ผมใช้เวลามากกว่ายี่สิบปีในตลาด ผ่าน Dot-com bubble ผ่าน Lehman ผ่าน COVID และผ่าน Rate Hike ปี 2022 บทเรียนที่แพงที่สุดที่ตลาดสอนผมไม่ใช่เรื่อง "หุ้นไหนดี" แต่เป็นเรื่อง "ทำไมแม้รู้ว่าหุ้นดี ผมก็ยังขาดทุน" คำตอบมีคำเดียว — เพราะผมตัดสินใจด้วยอารมณ์ ไม่ใช่ด้วยระบบ</p>
+
+  <p>หนังสือเล่มนี้ไม่ใช่งานเขียนของผมเอง แต่เป็นการกลั่นกรองงานวิจัยที่ทดสอบกลยุทธ์ลงทุนเชิงระบบ <strong>15 กลยุทธ์</strong> บนหุ้นสหรัฐ <strong>1,010 ตัว</strong> ตลอดระยะเวลา <strong>10 ปี</strong> ผ่านการตรวจสอบ 4 ด้านอย่างเข้มข้น ทั้ง walk-forward (ทดสอบในช่วงที่ระบบยังไม่เคยเห็น), Monte Carlo (จำลอง 1,000 สถานการณ์), การทดสอบนัยสำคัญทางสถิติ และการทดสอบในสภาวะตลาดวิกฤต</p>
+
+  <div class="author-box">
+    <div class="author-avatar">SE</div>
+    <div class="author-content">
+      <div class="author-meta">From The Researcher · จากผู้วิจัย</div>
+      <p class="author-text">"งานวิจัยนี้ไม่ได้บอกว่ากลยุทธ์ไหน 'ดีที่สุด' มันบอกว่ากลยุทธ์ไหน 'รอด' ในการทดสอบที่เราออกแบบให้โหดที่สุดเท่าที่จะทำได้ ส่วนตลาดในอนาคต — มันจะตัดสินด้วยตัวมันเอง"</p>
+    </div>
+  </div>
+
+  <p>สิ่งที่คุณจะได้จากหนังสือเล่มนี้ คือกรอบความคิดที่จะแยก "กลยุทธ์ที่ใช้ได้จริง" ออกจาก "เรื่องเล่าที่ฟังดูดี" คุณจะได้รู้จัก 13 กลยุทธ์ที่ผ่านการพิสูจน์ พร้อมตัวเลขผลตอบแทน, ความเสี่ยง, และระดับความน่าเชื่อถือทางสถิติของแต่ละตัว แต่ที่สำคัญกว่า — คุณจะได้แม่บทในการเลือกกลยุทธ์ที่เหมาะกับตัวคุณ ไม่ใช่กลยุทธ์ที่ "ดูเท่ที่สุด"</p>
+
+  <p>ผมเตือนคุณตั้งแต่ตอนนี้ว่า งานวิจัยนี้ทำในช่วงที่ตลาดหุ้นสหรัฐเป็น <em>secular bull market</em> ผลตอบแทนเฉลี่ยของกลยุทธ์ทั้ง 13 อยู่ที่ <strong>19.6% ต่อปี</strong> ซึ่งสูงกว่า SPY ที่ทำได้ราว 13.7% มาก แต่ในตลาดหมีระยะยาว ตัวเลขเหล่านี้อาจไม่ซ้ำรอย สิ่งที่จะอยู่ยืนยาวคือ <strong>วินัยของการลงทุนเชิงระบบ</strong> ไม่ใช่ตัวเลข CAGR ใดๆ</p>
+
+  <p>เปิดหน้าถัดไปได้เลยครับ ผมจะพาคุณไปดูตั้งแต่ "ทำไม" จนถึง "ทำอย่างไรในวันจันทร์เช้า"</p>
+
+  <div class="pullquote">
+    Past performance does not guarantee future results.<br>
+    But discipline, statistically validated, comes close.
+    <span class="pullquote-attr">— ผลงานในอดีตไม่ได้รับประกันอนาคต แต่วินัยที่ผ่านการพิสูจน์ทางสถิติ ก็ใกล้เคียงที่สุดเท่าที่เราจะมีได้</span>
+  </div>
+</div>
+
+<!-- ===================== CHAPTER 1 OPEN ===================== -->
+<div class="chapter-open">
+  <div class="ch-num-bg">01</div>
+  <div class="ch-label">Chapter One · บทที่ 1</div>
+  <h2 class="ch-title">Why <em>Systematic</em><span class="em">เหตุผลที่กลยุทธ์เป็นระบบเอาชนะอารมณ์เสมอ</span></h2>
+  <p class="ch-essence">นักลงทุนรายย่อยที่ซื้อขายบ่อยที่สุด ทำผลตอบแทนต่ำกว่ากลุ่มที่ซื้อขายน้อยที่สุดถึง 7% ต่อปี — นี่คือต้นทุนของการตัดสินใจด้วยอารมณ์</p>
+</div>
+
+<!-- ===================== CHAPTER 1 CONTENT ===================== -->
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1 class="h1">เลิกถามว่า "หุ้นไหนดี" — เริ่มถามว่า "<em>ระบบไหนใช้ได้</em>"</h1>
+
+  <p class="lead">งานวิจัยของ Barber, Huang และ Odean ในปี 2022 พบว่านักลงทุนรายย่อยที่ซื้อขายบ่อยที่สุด ทำผลตอบแทนต่ำกว่ากลุ่มที่ซื้อขายน้อยที่สุด <strong>7% ต่อปี</strong> ซึ่งเป็นตัวเลขที่น่าตกใจมาก เพราะมันหมายความว่าการ "พยายามเก่ง" ในตลาดหุ้น มักจะให้ผลตรงข้ามกับที่หวัง</p>
+
+  <p>คำว่า "การลงทุนเชิงระบบ" (Systematic Investing) ฟังดูเย็นชาและเป็นทางการ แต่จริงๆ แล้วมันคือเรื่องที่เรียบง่ายมาก — มันคือการเขียน "กฎการตัดสินใจ" ลงบนกระดาษล่วงหน้า แล้วทำตามกฎนั้นทุกครั้งโดยไม่เถียงกับตัวเอง ตัวอย่างของกฎที่เป็นระบบคือ "ทุก 3 เดือน ผมจะคัดหุ้นที่มี ROE สูง, P/E ต่ำกว่า 20, และมีกระแสเงินสดเป็นบวก จากนั้นซื้อ 20 ตัวแรกเท่ากันทุกตัว" — นี่คือระบบ ส่วนการตัดสินใจว่า "วันนี้รู้สึกว่าตลาดจะลง เลยขายดีกว่า" — นี่คือการพนัน</p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Core Insight · แก่นสาร</div>
+    <p>ระบบไม่ได้ช่วยให้คุณเก่งขึ้น ระบบช่วยให้คุณ <strong>ไม่โง่ลง</strong> ในวันที่ตลาดทำให้สมองคุณคิดสั้น ความได้เปรียบทางสถิติของระบบไม่ได้มาจากการ "ทำนายอนาคตได้แม่น" แต่มาจากการ "ไม่ทำเรื่องโง่ๆ ในวันที่อารมณ์เป็นนาย"</p>
+  </div>
+
+  <h2 class="h2">4 ข้อได้เปรียบของระบบ ที่นักลงทุนใช้อารมณ์ไม่มีวันมี</h2>
+
+  <p>เหตุผลแรกที่งานวิจัยให้ความสำคัญกับการลงทุนเชิงระบบ คือมันกำจัด <em>loss aversion</em> และ <em>recency bias</em> ซึ่งเป็นอคติทางจิตวิทยาที่ Kahneman และ Tversky ได้ค้นพบในปี 1979 ว่ามนุษย์รู้สึกเจ็บปวดจากการขาดทุนรุนแรงกว่ารู้สึกดีจากกำไรเท่ากันถึงสองเท่า ซึ่งหมายความว่าเมื่อเราเห็นพอร์ตติดลบ 20% สมองของเราจะสั่งให้ขายทิ้งทั้งที่ในเชิงเหตุผล นั่นอาจเป็นจังหวะซื้อที่ดีที่สุด</p>
+
+  <p>เหตุผลที่สองคือระบบสามารถถูกทดสอบกับข้อมูลย้อนหลังนับพันบริษัทได้ — เป็นสิ่งที่นักลงทุนเลือกหุ้นด้วยความรู้สึก ไม่มีทางทำได้ คุณไม่สามารถพิสูจน์ได้ว่า "ถ้าผมใช้สัญชาตญาณแบบเดิมในปี 2008 ผมจะรอดมั้ย" แต่คุณพิสูจน์ได้ว่า "ถ้าผมใช้กลยุทธ์ Quality Compounder ในปี 2008 ผมจะขาดทุนกี่เปอร์เซ็นต์" คำตอบที่งานวิจัยนี้ให้คือ <strong>-35.6%</strong> ซึ่งเจ็บแต่ฟื้นได้ และเป็นตัวเลขที่คุณรู้ก่อนเข้าตลาด</p>
+
+  <p>เหตุผลที่สามคือ <strong>ความสามารถในการทำซ้ำ</strong> (Reproducibility) — ระบบที่ใช้ได้ในเดือนนี้ จะใช้ได้แบบเดียวกันในเดือนหน้า โดยไม่ต้องอาศัย "วันที่อารมณ์ดี" หรือ "วันที่กำลังโชค" ของผู้ตัดสินใจ และเหตุผลสุดท้ายคือ ระบบช่วยให้เราวัดผลได้อย่างเป็นวิทยาศาสตร์ผ่านตัวชี้วัดมาตรฐาน เช่น Sharpe ratio (ผลตอบแทนต่อหน่วยความผันผวน), Maximum Drawdown (จุดที่พอร์ตเคยลึกที่สุดเมื่อเทียบกับยอดสูงสุด), และ Calmar ratio</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ถ้าผมขยันอ่านข่าว ติดตามตลาดทุกวัน ผมจะตัดสินใจได้ดีขึ้นและได้ผลตอบแทนมากกว่าคนที่ปล่อยให้ระบบทำงาน"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริงจากงานวิจัย</div>
+      <div class="ladder-text">นักลงทุนที่เทรดบ่อยที่สุด underperform คนที่เทรดน้อยที่สุดถึง 7% ต่อปี (Barber, Huang, Odean 2022) — ความขยันในการตัดสินใจ ทำลายผลตอบแทน เพราะมันเปิดประตูให้อารมณ์เข้ามามีส่วนร่วมมากขึ้น</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">สิ่งที่ต้องลงมือทำ</div>
+      <div class="ladder-text">เขียนกฎการลงทุนของคุณลงบนกระดาษ — เกณฑ์ซื้อ, เกณฑ์ขาย, จังหวะ rebalance — แล้วทำตามนั้น 1 ปีเต็มก่อนจะแก้ไขใดๆ ระบบที่แย่ที่ทำตามอย่างเคร่งครัด ดีกว่าระบบที่ดีที่ทำตามครึ่งใจ</div>
+    </div>
+  </div>
+
+  <h2 class="h2">"Anomaly" คืออะไร — และทำไมเราถึงหากำไรจากมันได้</h2>
+
+  <p>ในวงวิชาการทางการเงิน มีคำว่า <em>anomaly</em> หรือ "ปรากฏการณ์ผิดปกติ" ซึ่งหมายถึงรูปแบบของผลตอบแทนหุ้นที่ไม่สามารถอธิบายได้ด้วยทฤษฎี CAPM (Capital Asset Pricing Model) ซึ่งบอกว่าผลตอบแทนสูง = ความเสี่ยงสูง</p>
+
+  <p>Fama และ French ค้นพบในปี 1992 ว่า <strong>หุ้นบริษัทเล็ก</strong> และ <strong>หุ้นที่ราคาต่ำเมื่อเทียบกับมูลค่าทางบัญชี</strong> มักให้ผลตอบแทนสูงกว่าตลาดในระยะยาว Jegadeesh และ Titman ปี 1993 พบว่า <strong>หุ้นที่ราคาขึ้นแรงในช่วง 3-12 เดือนที่ผ่านมา</strong> มักจะวิ่งต่อในอีก 3-12 เดือนข้างหน้า และ Novy-Marx ปี 2013 เพิ่ม <strong>"คุณภาพของบริษัท"</strong> เข้ามาเป็นอีกหนึ่งปัจจัย — ทั้งหมดนี้คือ "anomaly" ที่ระบบสามารถจับและสร้างกำไรได้ ในขณะที่นักลงทุนรายย่อยมักไม่รู้ตัว</p>
+
+  <div class="warn-box">
+    <span class="warn-tag">⚠ คำเตือนสำคัญ</span>
+    คำว่า <strong>Sharpe Ratio</strong> ที่จะปรากฏหลายครั้งในหนังสือเล่มนี้ คืออัตราส่วนระหว่าง "ผลตอบแทนส่วนเกินจากอัตราดอกเบี้ยปลอดความเสี่ยง" ต่อ "ความผันผวนของผลตอบแทน" — พูดง่ายๆ คือ <em>ได้กำไรเท่าไหร่ต่อความเจ็บปวด 1 หน่วย</em> ค่ายิ่งสูงยิ่งดี ค่า 1.0 ถือว่าดีมาก ค่า 0.5 ถือว่าพอใช้ ส่วนตลาดโดยรวม (S&P 500) มีค่าราว 0.6
+  </div>
+
+  <p>งานวิจัยที่หนังสือเล่มนี้สรุปมาให้คุณ ใช้แนวทางที่ตรงไปตรงมา — เลือกกลยุทธ์ที่นักการเงินยอมรับอยู่แล้ว 15 ตัว แล้วทดสอบทุกตัวด้วยมาตรฐานเดียวกัน บนข้อมูลชุดเดียวกัน เพื่อให้เปรียบเทียบกันได้อย่างยุติธรรม สิ่งที่น่าสนใจคือ — มี <strong>10 จาก 13 กลยุทธ์</strong> ที่ผ่านการทดสอบนัยสำคัญทางสถิติ หมายความว่าผลตอบแทนของพวกเขาไม่ใช่เรื่องบังเอิญ</p>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · ก่อนผ่านไปบทถัดไป</div>
+    <p class="reflection-q">ในรอบ 12 เดือนที่ผ่านมา การตัดสินใจซื้อหรือขายของคุณกี่ครั้ง ที่ "ทำตามแผนที่เขียนไว้ล่วงหน้า" และกี่ครั้งที่ "ทำเพราะรู้สึก"?</p>
+    <p class="reflection-q">ถ้าให้คุณเขียนกฎ 3 ข้อที่ "ห้ามแหก" ในการลงทุน คุณจะเขียนอะไร — และทำไมคุณถึงยังไม่ได้เขียนมัน?</p>
+    <p class="reflection-q">เราจะพิสูจน์ได้อย่างไรว่า "วิธีของเรา" ดีจริง ถ้าเราไม่ยอมเอามันไปทดสอบกับข้อมูลย้อนหลัง?</p>
+  </div>
+</div>
+
+<!-- ===================== CHAPTER 2 OPEN ===================== -->
+<div class="chapter-open">
+  <div class="ch-num-bg">02</div>
+  <div class="ch-label">Chapter Two · บทที่ 2</div>
+  <h2 class="ch-title">The Validated <em>Thirteen</em><span class="em">โต๊ะอาหารของกลยุทธ์ — 13 ตัวที่รอดชีวิตจากการทดสอบโหด</span></h2>
+  <p class="ch-essence">ใน 15 กลยุทธ์ที่นำมาทดสอบ มี 2 ตัวที่ตกรอบเพราะไม่สามารถหาหุ้นได้พอ และ 13 ตัวที่เหลือต้องผ่านเกณฑ์ขั้นต่ำ 15 หุ้นในพอร์ต — นี่คือภูมิทัศน์ของการลงทุนเชิงระบบทั้งหมดที่คุณควรรู้จัก</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Big Picture · ภาพรวม</div>
+  <h1 class="h1">หกตระกูลกลยุทธ์ <em>หนึ่งโต๊ะ</em></h1>
+
+  <p class="lead">ก่อนจะลึกลงไปดูกลยุทธ์ทีละตัวในบทถัดไป ผมอยากให้คุณเห็น "ภาพรวม" ของกลยุทธ์ทั้งหมดก่อน เพราะการเข้าใจว่ากลยุทธ์แต่ละตัวอยู่ในตระกูลไหน และทำงานในสภาวะตลาดแบบใด จะช่วยให้คุณเลือกได้เหมาะสมกับตัวคุณเอง</p>
+
+  <p class="dropcap">งานวิจัยจัดกลุ่มกลยุทธ์ทั้ง 15 ออกเป็น 4 ตระกูลใหญ่ ตามแนวคิดในการเลือกหุ้น — ตระกูล Growth (เน้นการเติบโต), ตระกูล Value (เน้นความถูก), ตระกูล Quality (เน้นคุณภาพของบริษัท) และตระกูล Factor (เน้นปัจจัยทางสถิติ) ทุกตระกูลมีประวัติศาสตร์ของตัวเอง มีนักลงทุนระดับตำนานที่เป็นต้นแบบ และมีจังหวะเวลาที่มันเปล่งประกายและจังหวะที่มันสะดุดล้ม</p>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-num">15</div>
+      <div class="stat-lbl">กลยุทธ์ที่ทดสอบ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">13</div>
+      <div class="stat-lbl">ผ่านเกณฑ์ 15 หุ้น</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10</div>
+      <div class="stat-lbl">มีนัยสำคัญทางสถิติ</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">11</div>
+      <div class="stat-lbl">ชนะ SPY 3+/5 รอบ</div>
+    </div>
+  </div>
+
+  <h2 class="h2">ตระกูล Growth — ลงทุนในบริษัทที่กำลังเติบโตเร็ว</h2>
+
+  <p>ตระกูล Growth คือกลยุทธ์ที่มองหาบริษัทที่ <strong>กำไรกำลังเร่งตัว</strong> ยอดขายเติบโตเร็ว และมักมีนวัตกรรมใหม่ในอุตสาหกรรม นักลงทุนตำนานในตระกูลนี้คือ William J. O'Neil ผู้คิดค้น CANSLIM, Peter Lynch ผู้ผลักดันแนวคิด GARP (Growth at Reasonable Price) และ Richard Driehaus ผู้กล่าวคำคมว่า "การซื้อสูงและขายสูงกว่า ทำเงินได้มากกว่าซื้อต่ำขายสูง"</p>
+
+  <p>ในงานวิจัย กลยุทธ์ตระกูล Growth ที่โดดเด่นคือ <strong>CANSLIM</strong> ซึ่งให้ CAGR สูงสุดที่ 25.5% ต่อปี และ <strong>Earnings Revision</strong> ซึ่งทำผลงานยอดเยี่ยมเมื่อเฟดขึ้นดอกเบี้ยปี 2022 (ขาดทุนเพียง -3.4% ขณะที่ SPY ติดลบ -18.2%) แต่จุดอ่อนของตระกูลนี้คือ Maximum Drawdown ที่สูง — CANSLIM เคยเจ็บถึง -43.5% ส่วน Momentum 12-1 หนักกว่านั้น คือ -49.4%</p>
+
+  <h2 class="h2">ตระกูล Value — ซื้อเมื่อราคาต่ำกว่ามูลค่าจริง</h2>
+
+  <p>ตระกูล Value เป็นโรงเรียนเก่าแก่ที่สุดของการลงทุน เริ่มต้นจาก Benjamin Graham กับ David Dodd ในหนังสือ <em>Security Analysis</em> ปี 1934 หลักคิดคือ — ตลาดมักมีอารมณ์เกินจริง ทำให้บริษัทดีๆ มีราคาต่ำเป็นบางครั้ง หน้าที่เราคือซื้อเมื่อมัน "ลดราคา" และรอจนตลาดหายอารมณ์เสียแล้วราคากลับมาตามมูลค่าจริง</p>
+
+  <p>ในงานวิจัย ตระกูล Value มีตัวเด่นๆ คือ <strong>Magic Formula</strong> ของ Joel Greenblatt (จัดอันดับด้วย ROIC + Earnings Yield), <strong>Acquirer's Multiple</strong> ของ Tobias Carlisle (ใช้ EV/EBIT แทน P/E เพราะรวมหนี้ของบริษัทด้วย), <strong>Piotroski F-Score</strong> ของ Joseph Piotroski (กรองด้วย 9 สัญญาณคุณภาพทางการเงิน) และ <strong>Ken Fisher PSR</strong> (Price-to-Sales Ratio) — ที่น่าสังเกตคือ Piotroski F-Score มี Maximum Drawdown ต่ำที่สุดในกลุ่มนี้คือ -30.6% ทำให้กลายเป็น "ม้านอกสายตา" ของผู้ที่ต้องการความปลอดภัย</p>
+
+  <div class="warn-box">
+    <span class="warn-tag">📌 ศัพท์ที่ต้องเข้าใจ</span>
+    <strong>Maximum Drawdown (Max DD)</strong> คือเปอร์เซ็นต์ที่พอร์ตเคยลึกที่สุดเมื่อเทียบจากจุดสูงสุดถึงจุดต่ำสุด พูดง่ายๆ คือ "เคยขาดทุนหนักที่สุดเท่าไหร่" — ถ้า Max DD = -40% หมายความว่าจากเงิน 1 ล้านบาท เคยลดลงเหลือ 6 แสนบาท ตัวเลขนี้สำคัญกว่าผลตอบแทนเฉลี่ย เพราะถ้าคุณทนความเจ็บปวดไม่ไหวและขายตอนพอร์ตติดลบ คุณจะไม่มีวันได้เห็นผลตอบแทนเฉลี่ยที่ว่าไว้
+  </div>
+
+  <h2 class="h2">ตระกูล Quality — ซื้อบริษัทดีในราคาที่ยุติธรรม</h2>
+
+  <p>ตระกูล Quality เป็นปรัชญาของ Warren Buffett และ Charlie Munger — แทนที่จะหา "บริษัทธรรมดาในราคาถูกๆ" (Value แบบดั้งเดิม) พวกเขามองหา "บริษัทที่ยอดเยี่ยมในราคาที่ยุติธรรม" หลักคิดคือบริษัทที่มี <em>economic moat</em> หรือ "คูเมืองทางเศรษฐกิจ" — ความได้เปรียบในการแข่งขันที่ยั่งยืน — จะสามารถสร้างผลตอบแทนสูงในระยะยาวได้ แม้คุณซื้อในราคาที่ไม่ถูกที่สุด</p>
+
+  <p>นักวิชาการ Novy-Marx ในปี 2013 พิสูจน์ทางสถิติว่า "คุณภาพ" (วัดจาก Gross Margin) เป็นปัจจัยที่ให้ผลตอบแทนสูงกว่าตลาดอย่างมีนัยสำคัญ ในงานวิจัยของเรา <strong>Quality Compounder</strong> เป็นกลยุทธ์ที่ทำคะแนนรวมสูงที่สุด — Sharpe ratio 0.84 ซึ่งเป็นค่าสูงสุด CAGR 23.9% และ Max DD -35.6% ที่ยอมรับได้ ส่วน <strong>Dividend Growth</strong> เป็นกลยุทธ์เดียวที่เอาชนะ SPY ได้ทั้ง 5 ใน 5 ช่วงเวลาทดสอบ — ความสม่ำเสมอที่หาตัวจับยาก</p>
+
+  <h2 class="h2">ตระกูล Factor — ปัจจัยทางสถิติที่สามารถวัดได้</h2>
+
+  <p>ตระกูลสุดท้ายคือ Factor Models ซึ่งเริ่มจากงานบุกเบิกของ Eugene Fama และ Kenneth French ในปี 1992 กลยุทธ์ในตระกูลนี้พยายามจับ "factor premium" หรือผลตอบแทนส่วนเกินที่เกิดจากปัจจัยเฉพาะ เช่น ขนาดของบริษัท (Size), Book-to-Market (Value), ความผันผวน (Volatility), หรือโมเมนตัม (Momentum)</p>
+
+  <p>ในงานวิจัย <strong>Low Volatility</strong> เป็นกลยุทธ์ที่น่าสนใจ — มันท้าทายตำราคลาสสิคที่บอกว่า "เสี่ยงสูง = ผลตอบแทนสูง" เพราะหุ้นที่ผันผวนต่ำกลับให้ผลตอบแทนปรับความเสี่ยงดีกว่าหุ้นผันผวนสูงในระยะยาว ส่วน <strong>Fama-French SMV</strong> (Small + Value) ในงานวิจัยนี้ผลงานน่าผิดหวังที่สุด เป็นหนึ่งในไม่กี่กลยุทธ์ที่ไม่ผ่านการทดสอบนัยสำคัญทางสถิติ</p>
+
+  <h2 class="h2">ตารางสรุปผลการทดสอบทั้ง 13 กลยุทธ์</h2>
+
+  <p>ก่อนอ่านตารางนี้ ขอสรุป 3 ตัวชี้วัดสำคัญให้ฟังก่อน — <strong>CAGR</strong> คือผลตอบแทนเฉลี่ยทบต้นต่อปี (Compound Annual Growth Rate) ส่วน <strong>Sharpe</strong> คือผลตอบแทนต่อหน่วยความเสี่ยง (ยิ่งสูงยิ่งดี) และ <strong>Max DD</strong> คือจุดที่พอร์ตเคยเจ็บที่สุด ข้อมูลทั้งหมดเป็นช่วง 2014-2024 หลังหักค่าธรรมเนียมแล้ว</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>กลยุทธ์</th>
+        <th>ตระกูล</th>
+        <th>CAGR</th>
+        <th>Sharpe</th>
+        <th>Max DD</th>
+        <th>คำตัดสิน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Quality Compounder</td>
+        <td>Quality</td>
+        <td class="num pos">23.9%</td>
+        <td class="num pos">0.84</td>
+        <td class="num neg">-35.6%</td>
+        <td><strong style="color:var(--green)">ROBUST</strong></td>
+      </tr>
+      <tr>
+        <td class="name">CANSLIM</td>
+        <td>Growth</td>
+        <td class="num pos">25.5%</td>
+        <td class="num pos">0.83</td>
+        <td class="num neg">-43.5%</td>
+        <td><strong style="color:var(--green)">ROBUST</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Earnings Revision</td>
+        <td>Growth</td>
+        <td class="num pos">23.7%</td>
+        <td class="num pos">0.81</td>
+        <td class="num neg">-43.3%</td>
+        <td><strong style="color:var(--green)">ROBUST</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Piotroski F-Score</td>
+        <td>Value</td>
+        <td class="num pos">20.7%</td>
+        <td class="num pos">0.79</td>
+        <td class="num neg">-30.6%</td>
+        <td><strong style="color:var(--green)">ROBUST</strong></td>
+      </tr>
+      <tr>
+        <td class="name">SPEA</td>
+        <td>Growth</td>
+        <td class="num pos">23.1%</td>
+        <td class="num pos">0.75</td>
+        <td class="num neg">-43.9%</td>
+        <td><strong style="color:var(--gold)">CAUTION</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Dividend Growth</td>
+        <td>Quality</td>
+        <td class="num pos">18.7%</td>
+        <td class="num pos">0.74</td>
+        <td class="num neg">-37.8%</td>
+        <td><strong style="color:var(--green)">ROBUST</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Momentum 12-1</td>
+        <td>Momentum</td>
+        <td class="num pos">24.7%</td>
+        <td class="num pos">0.74</td>
+        <td class="num neg">-49.4%</td>
+        <td><strong style="color:var(--green)">ROBUST</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Ken Fisher PSR</td>
+        <td>Value</td>
+        <td class="num pos">20.4%</td>
+        <td class="num pos">0.68</td>
+        <td class="num neg">-47.1%</td>
+        <td><strong style="color:var(--gold)">CAUTION</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Magic Formula</td>
+        <td>Value</td>
+        <td class="num pos">17.2%</td>
+        <td class="num pos">0.64</td>
+        <td class="num neg">-45.0%</td>
+        <td><strong style="color:var(--gold)">CAUTION</strong></td>
+      </tr>
+      <tr>
+        <td class="name">PEG Lynch</td>
+        <td>Growth</td>
+        <td class="num pos">18.3%</td>
+        <td class="num pos">0.61</td>
+        <td class="num neg">-46.5%</td>
+        <td><strong style="color:var(--gold)">CAUTION</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Acquirer's Multiple</td>
+        <td>Value</td>
+        <td class="num pos">13.3%</td>
+        <td class="num">0.50</td>
+        <td class="num neg">-43.5%</td>
+        <td><strong style="color:var(--red)">REJECT</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Low Volatility</td>
+        <td>Factor</td>
+        <td class="num pos">13.0%</td>
+        <td class="num">0.50</td>
+        <td class="num neg">-38.3%</td>
+        <td><strong style="color:var(--red)">REJECT</strong></td>
+      </tr>
+      <tr>
+        <td class="name">Fama-French SMV</td>
+        <td>Factor</td>
+        <td class="num pos">9.5%</td>
+        <td class="num">0.34</td>
+        <td class="num neg">-43.6%</td>
+        <td><strong style="color:var(--red)">REJECT</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>ผมต้องเน้นย้ำให้คุณเห็นชัดๆ ว่า — แม้ตารางนี้จะดูเหมือนตัดสินกลยุทธ์ "เก่ง/ไม่เก่ง" แต่จริงๆ มันบอกเรื่องที่ลึกกว่านั้น <strong>คำว่า ROBUST</strong> หมายถึงกลยุทธ์ที่ผ่านทั้ง 3 ด่าน คือมีนัยสำคัญทางสถิติ + Sharpe ≥ 0.70 + ผ่าน walk-forward test ส่วน <strong>CAUTION</strong> คือผ่านบางด่านแต่ยังไม่ทั้งหมด และ <strong>REJECT</strong> คือผลตอบแทนไม่มีนัยสำคัญทางสถิติ ซึ่งไม่ได้แปลว่าใช้ไม่ได้ แต่หมายความว่าเราไม่สามารถพิสูจน์ได้ว่ามันดีจริง</p>
+
+  <div class="pullquote">
+    "Far more money is made buying high and selling higher,<br>than buying low and selling high."
+    <span class="pullquote-attr">Richard Driehaus — เงินที่ได้จากการซื้อสูงและขายสูงกว่า มีมากกว่าเงินที่ได้จากซื้อต่ำขายสูง (สรุปปรัชญาตระกูล Momentum)</span>
+  </div>
+
+  <h2 class="h2">บทเรียนของ Seth Klarman — กับดักของกลยุทธ์ที่ดูสวยเกินจริง</h2>
+
+  <p>ก่อนปิดบทนี้ ผมอยากเล่าเรื่อง <strong>Seth Klarman</strong> ให้ฟัง — เขาเป็นนักลงทุนสายลึกที่ Baupost Group และมีหลักคิดเรื่อง "Margin of Safety" ที่ทรงพลังมาก ในการทดสอบ <em>Phase 2</em> ของงานวิจัยนี้ กลยุทธ์ของ Klarman ทำผลตอบแทนสะสมถึง <strong>3,252%</strong> ซึ่งดูเหมือนของขวัญจากสวรรค์</p>
+
+  <p>แต่เมื่อทีมวิจัยเข้าไปดูใกล้ๆ พบว่ามันถือหุ้นเพียง <strong>ไม่ถึง 5 ตัว</strong> ในแต่ละช่วงเวลา ซึ่งหมายความว่าผลตอบแทนนั้นไม่ใช่ "อัลฟ่า" จริง แต่เป็น <em>concentration bias</em> — การที่หุ้น 1-2 ตัวทำผลงานยอดเยี่ยมแล้วลากพอร์ตทั้งหมดขึ้น เมื่องานวิจัยใส่กฎ "ต้องถืออย่างน้อย 15 หุ้น" เข้าไป กลยุทธ์ของ Klarman ก็ถูกตัดออกทันที เพราะหาหุ้นที่เข้าเกณฑ์ไม่ถึง</p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">บทเรียนสำคัญ · Lesson Learned</div>
+    <p>กลยุทธ์ที่ดูเหมือนทำผลตอบแทน "พระเจ้า" บนกระดาษ ไม่ใช่กลยุทธ์ที่ดี — มันคือกลยุทธ์ที่กระจุกตัว และถ้าโชคพลิก คุณจะเห็นพอร์ตหายไปครึ่งภายในสัปดาห์ การกระจายความเสี่ยงไม่ใช่ทางเลือก มันคือเงื่อนไขขั้นต่ำของ "ระบบที่ใช้ได้จริง"</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · ก่อนผ่านไปบทถัดไป</div>
+    <p class="reflection-q">คุณเคยสนใจกลยุทธ์ที่อ้างผลตอบแทนเกิน 50% ต่อปีหรือไม่ — แล้วถ้าผมบอกคุณว่า ในการทดสอบที่ "ใส่กฎกระจายความเสี่ยง 15 หุ้น" กลยุทธ์ที่อ้างพรรค์นั้นมักหายไปทันที?</p>
+    <p class="reflection-q">ระหว่างกลยุทธ์ A ที่ทำ CAGR 25% แต่ Max DD -49% กับกลยุทธ์ B ที่ทำ CAGR 20% แต่ Max DD -30% คุณคิดว่าตัวจริงของคุณจะถือกลยุทธ์ไหนได้นานกว่ากันในช่วง 5 ปี?</p>
+    <p class="reflection-q">ถ้าให้ลองเลือกตระกูลกลยุทธ์ที่ "ตรงกับนิสัย" คุณที่สุด — Growth, Value, Quality, หรือ Factor — คุณจะเลือกอะไร และทำไม?</p>
+  </div>
+</div>
+
+<!-- ===================== CHAPTER 3 OPEN ===================== -->
+<div class="chapter-open">
+  <div class="ch-num-bg">03</div>
+  <div class="ch-label">Chapter Three · บทที่ 3</div>
+  <h2 class="ch-title">The <em>Top Five</em><span class="em">5 ผู้ชนะที่คุณต้องรู้จัก — และนำไปใช้ได้จริงในวันจันทร์เช้า</span></h2>
+  <p class="ch-essence">ใน 13 กลยุทธ์ที่ผ่าน เราเลือก 5 ตัวที่โดดเด่นที่สุดมาแกะลึก — แต่ละตัวมีจุดแข็งคนละแบบ และเหมาะกับนักลงทุนคนละสไตล์</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Five Champions · ห้าผู้ชนะ</div>
+  <h1 class="h1">ห้ากลยุทธ์ ห้าบุคลิก <em>หนึ่งเป้าหมาย</em></h1>
+
+  <p class="lead">ถ้าผมต้องเลือกกลยุทธ์ทั้งหมดที่ผ่านเกณฑ์มาเป็น "ห้าตัวสำคัญ" ที่นักลงทุนทุกคนควรเข้าใจอย่างลึกซึ้ง ผมจะเลือกห้าตัวนี้ — แต่ละตัวเป็นตัวเอกในเกมของตัวเอง และถ้าคุณรู้จักครบทั้งห้า คุณจะมีเครื่องมือเพียงพอสำหรับสภาวะตลาดทุกแบบที่อาจเกิดขึ้นในอนาคต</p>
+
+  <h2 class="h2">#1 Quality Compounder — แชมป์เปี้ยนของ Sharpe Ratio</h2>
+
+  <div class="fw-card">
+    <div class="fw-card-rank">RANK 01</div>
+    <div class="fw-card-name">Quality Compounder</div>
+    <div class="fw-card-author">Buffett & Munger Philosophy · Quality Family</div>
+    <p class="fw-card-essence">"ซื้อบริษัทที่ยอดเยี่ยมในราคาที่ยุติธรรม" — มองหา ROE สูงและสม่ำเสมอ, อัตรากำไรขยายตัว, หนี้ต่ำ, กระแสเงินสดอิสระแข็งแกร่ง</p>
+    <div class="fw-card-stats">
+      <div class="fw-stat">
+        <div class="fw-stat-val good">23.9%</div>
+        <div class="fw-stat-lbl">CAGR</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">0.84</div>
+        <div class="fw-stat-lbl">Sharpe (สูงสุด)</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val warn">-35.6%</div>
+        <div class="fw-stat-lbl">Max DD</div>
+      </div>
+    </div>
+    <p class="fw-card-note"><strong>จุดแข็ง:</strong> ผลตอบแทนปรับความเสี่ยงสูงที่สุดในงานวิจัย — ถ้าคุณต้องเลือกกลยุทธ์เดียว Quality Compounder คือคำตอบ <strong>จุดอ่อน:</strong> ในช่วงเฟดขึ้นดอกเบี้ยปี 2022 ขาดทุน -20.5% (เทียบกับ SPY -18.2%) เพราะหุ้น Quality มักมี multiple สูงและถูกกดเมื่อดอกเบี้ยขึ้น <strong>เหมาะกับ:</strong> นักลงทุนถือยาวที่อยากนอนหลับสบาย</p>
+  </div>
+
+  <p>ปรัชญาของ Quality Compounder มีรากมาจากจดหมายประจำปีของ Berkshire Hathaway ที่ Warren Buffett เขียนถึงผู้ถือหุ้นมานานกว่า 60 ปี เกณฑ์หลักของเขาคือ — เข้าใจธุรกิจได้, มี <em>moat</em> หรือคูเมืองทางเศรษฐกิจที่ยั่งยืน, ผู้บริหารซื่อสัตย์และมีฝีมือ, และซื้อในราคาที่น่าสนใจ ในงานวิจัย หลักคิดนี้ถูกแปลงเป็นเกณฑ์เชิงปริมาณ — ROE สูงและสม่ำเสมอเป็นตัวแทนของ <em>moat</em> ส่วนหนี้ต่ำเป็นตัวแทนของ <em>ความปลอดภัย</em> และ valuation multiple ที่สมเหตุสมผลเป็นตัวแทนของ <em>วินัยเรื่องราคา</em></p>
+
+  <p>ที่น่าสนใจที่สุดคือ — ในช่วง COVID-19 ปี 2020 Quality Compounder ทำผลตอบแทน OOS (Out-of-Sample, คือทดสอบในช่วงที่ระบบไม่เคยเห็นมาก่อน) สูงถึง <strong>+85.0%</strong> ซึ่งเป็นการพิสูจน์ว่าบริษัทคุณภาพสูงไม่เพียงแค่ "ทนทาน" ในวิกฤต แต่ยังเป็นผู้นำในการฟื้นตัวด้วย เพราะนักลงทุนที่ตื่นกลัวมักจะแห่ไปซื้อบริษัทที่พวกเขามั่นใจว่าจะอยู่รอด</p>
+
+  <h2 class="h2">#2 CANSLIM — เครื่องจักรการเติบโต</h2>
+
+  <div class="fw-card">
+    <div class="fw-card-rank">RANK 02</div>
+    <div class="fw-card-name">CANSLIM</div>
+    <div class="fw-card-author">William J. O'Neil · Growth Family</div>
+    <p class="fw-card-essence">"ซื้อบริษัทที่กำลังเติบโตเร็วที่สุดก่อนที่ราคาจะวิ่งใหญ่ที่สุด" — ค้นหา EPS เติบโตเร่งตัว, ยอดขายโต, มีนวัตกรรมใหม่, และมี institutional sponsorship</p>
+    <div class="fw-card-stats">
+      <div class="fw-stat">
+        <div class="fw-stat-val good">25.5%</div>
+        <div class="fw-stat-lbl">CAGR (สูงสุด)</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">0.83</div>
+        <div class="fw-stat-lbl">Sharpe</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val warn">-43.5%</div>
+        <div class="fw-stat-lbl">Max DD (สูง)</div>
+      </div>
+    </div>
+    <p class="fw-card-note"><strong>จุดแข็ง:</strong> ผลตอบแทนดิบสูงที่สุด — ในตลาดขาขึ้น CANSLIM ทำได้ใกล้เคียงผลตอบแทนของ momentum strategies แต่ความเสี่ยงต่ำกว่า ชนะ SPY 4 ใน 5 ช่วงทดสอบ <strong>จุดอ่อน:</strong> Max DD -43.5% หมายความว่าคุณต้องเตรียมใจรับการขาดทุนเกือบครึ่งพอร์ตในช่วง bear market <strong>เหมาะกับ:</strong> นักลงทุนรุ่นใหม่ที่รับความผันผวนได้สูง อายุน้อยกว่า 45</p>
+  </div>
+
+  <p>CANSLIM เป็นคำย่อของเงื่อนไข 7 ข้อที่ William O'Neil เขียนไว้ในหนังสือ <em>How to Make Money in Stocks</em> ปี 1988 — Current quarterly earnings (กำไรไตรมาสล่าสุด), Annual earnings (กำไรประจำปี), New things (ผลิตภัณฑ์/บริการใหม่), Supply and demand (ปริมาณและความต้องการหุ้น), Leader (ผู้นำในอุตสาหกรรม), Institutional sponsorship (สถาบันถือ), และ Market direction (ทิศทางตลาด)</p>
+
+  <p>ในงานวิจัย O'Neil's CANSLIM ทำ CAGR สูงถึง 25.5% ซึ่งเป็นตัวเลขที่สูงสุดในกลุ่มกลยุทธ์ทั้งหมด แต่สิ่งที่ผมอยากเตือนคุณคือ — ใน OOS ปี 2024 (ช่วงที่ Magnificent Seven ครองตลาด) CANSLIM ทำได้เพียง 0.8% เพราะระบบเลือกหุ้น growth ขนาดกลางที่ไม่ได้รับประโยชน์จากการชี้นำของ AI/tech รายใหญ่ บทเรียนที่นี่คือ — แม้แต่กลยุทธ์ที่ดี ก็มีช่วงที่มันไม่ทำงาน</p>
+
+  <h2 class="h2">#3 Earnings Revision — นักรบในตลาดหมี</h2>
+
+  <div class="fw-card">
+    <div class="fw-card-rank">RANK 03</div>
+    <div class="fw-card-name">Earnings Revision</div>
+    <div class="fw-card-author">Hawkins, Chamberlin & Daniel · Growth Family</div>
+    <p class="fw-card-essence">"นักวิเคราะห์ปรับประมาณการณ์ขึ้นทีละน้อย — ราคาหุ้นจะตามมาทีละก้าว" — จับ Post-Earnings Announcement Drift (PEAD)</p>
+    <div class="fw-card-stats">
+      <div class="fw-stat">
+        <div class="fw-stat-val good">23.7%</div>
+        <div class="fw-stat-lbl">CAGR</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">0.81</div>
+        <div class="fw-stat-lbl">Sharpe</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val warn">-43.3%</div>
+        <div class="fw-stat-lbl">Max DD</div>
+      </div>
+    </div>
+    <p class="fw-card-note"><strong>จุดเด่นพิเศษ:</strong> ในปี 2022 ที่ทุกกลยุทธ์ขาดทุนหนัก Earnings Revision ขาดทุนเพียง <strong>-3.4%</strong> เทียบกับ SPY ที่ -18.2% นี่คือ "ยาแก้ปวดในตลาดหมี" ที่หากลยุทธ์อื่นทำได้ยาก <strong>เหมาะกับ:</strong> ใช้เป็น defensive component ในพอร์ต รวมกับกลยุทธ์ growth อื่น</p>
+  </div>
+
+  <p>Bernard และ Thomas ในปี 1989 ค้นพบปรากฏการณ์ <em>Post-Earnings Announcement Drift</em> หรือ PEAD ซึ่งเป็นเรื่องที่น่าทึ่งมาก — เมื่อบริษัทประกาศผลกำไรดีกว่าคาด ราคาหุ้นไม่ได้ปรับขึ้นทันทีในวันประกาศ แต่จะค่อยๆ ปรับขึ้นเรื่อยๆ ในอีก 2-3 เดือนถัดมา และในทำนองเดียวกัน เมื่อบริษัทรายงานผลแย่กว่าคาด ราคาหุ้นจะค่อยๆ ลดลงต่อไปอีก ปรากฏการณ์นี้ขัดกับสมมติฐาน Efficient Market Hypothesis และยังคงมีอยู่จนถึงปัจจุบัน</p>
+
+  <p>เหตุผลทางจิตวิทยาคือ — นักวิเคราะห์มักยึดติดกับประมาณการณ์เดิม (anchoring bias) และปรับประมาณการณ์อย่างไม่เพียงพอเมื่อมีข้อมูลใหม่ บริษัทจัดการความคาดหวังของตลาดให้อยู่ในระดับต่ำ แล้วประกาศผลที่เกินคาด สถาบันการลงทุนตอบสนองต่อการเปลี่ยนแปลงปัจจัยพื้นฐานอย่างค่อยเป็นค่อยไป เพราะกระบวนการตัดสินใจของพวกเขามักเป็นแบบคณะกรรมการ — ทั้งหมดนี้สร้าง "ดริฟต์" ของราคาที่กลยุทธ์ Earnings Revision สามารถจับได้</p>
+
+  <h2 class="h2">#4 Piotroski F-Score — กลยุทธ์ที่นอนหลับสบายที่สุด</h2>
+
+  <div class="fw-card">
+    <div class="fw-card-rank">RANK 04</div>
+    <div class="fw-card-name">Piotroski F-Score</div>
+    <div class="fw-card-author">Joseph Piotroski (2000) · Value Family</div>
+    <p class="fw-card-essence">"ระบบให้คะแนน 9 ข้อ ที่กรอง 'หุ้นถูกที่สุขภาพดี' ออกจาก 'value trap'" — ตรวจสอบ profitability, leverage, operating efficiency</p>
+    <div class="fw-card-stats">
+      <div class="fw-stat">
+        <div class="fw-stat-val good">20.7%</div>
+        <div class="fw-stat-lbl">CAGR</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">0.79</div>
+        <div class="fw-stat-lbl">Sharpe</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">-30.6%</div>
+        <div class="fw-stat-lbl">Max DD (ต่ำสุด)</div>
+      </div>
+    </div>
+    <p class="fw-card-note"><strong>เด่นที่สุด:</strong> Maximum Drawdown ต่ำที่สุดในงานวิจัย — เป็นกลยุทธ์ defensive ในทุกการทดสอบความเครียด <strong>Bootstrap uncertainty:</strong> 18.6% — ต่ำที่สุด หมายความว่าผลตอบแทนคาดเดาได้แม่นยำที่สุด <strong>เหมาะกับ:</strong> นักลงทุนที่อายุ 50+ หรือผู้ที่ไม่อยากเสียวเวลาตลาดผันผวน</p>
+  </div>
+
+  <p>ขอเล่ารายละเอียดของระบบให้คะแนน 9 ข้อของ Piotroski สักหน่อย เพราะมันสวยมากในเชิงตรรกะ — Piotroski แบ่งสุขภาพของบริษัทออกเป็น 3 มิติ คือ <strong>กำไร</strong> (4 สัญญาณ), <strong>โครงสร้างทุน</strong> (3 สัญญาณ), และ <strong>ประสิทธิภาพการดำเนินงาน</strong> (2 สัญญาณ) แต่ละสัญญาณให้ 0 หรือ 1 คะแนน รวมเต็ม 9</p>
+
+  <p>สัญญาณกำไร 4 ข้อคือ — ROA เป็นบวก, กระแสเงินสดจากการดำเนินงานเป็นบวก, ROA เพิ่มขึ้นจากปีก่อน, และกระแสเงินสด > กำไรทางบัญชี (สัญญาณนี้สำคัญมาก เพราะหมายความว่ากำไรของบริษัทเป็นเงินจริง ไม่ใช่ตัวเลขที่ปั่นจากการบัญชี) สัญญาณโครงสร้างทุน 3 ข้อคือ — หนี้ระยะยาวลดลง, สภาพคล่องดีขึ้น, ไม่มีการออกหุ้นใหม่ และสัญญาณประสิทธิภาพ 2 ข้อคือ — Gross Margin เพิ่มขึ้น และอัตราการหมุนของสินทรัพย์เพิ่มขึ้น</p>
+
+  <p>เมื่อใช้เกณฑ์ F-Score ≥ 7 ผสมกับการคัดหุ้นถูก (low Book-to-Market) Piotroski แสดงให้เห็นในงานวิจัยต้นฉบับปี 2000 ว่าผลตอบแทนเพิ่มขึ้นจาก 7.3% เป็น 13.4% ต่อปี — เพิ่มขึ้น 6.1% เพียงแค่เพิ่มชั้นกรองคุณภาพ ปรากฏการณ์นี้ทำซ้ำได้ในงานวิจัยของเรา ทำให้ Piotroski F-Score กลายเป็นกลยุทธ์ที่น่าเคารพที่สุดสำหรับผู้ที่ไม่ต้องการความเสี่ยงสูง</p>
+
+  <h2 class="h2">#5 Dividend Growth — ผู้สม่ำเสมอที่ชนะทุกรอบ</h2>
+
+  <div class="fw-card">
+    <div class="fw-card-rank">RANK 05</div>
+    <div class="fw-card-name">Dividend Growth</div>
+    <div class="fw-card-author">David Fish · Chowder Rule · Quality Family</div>
+    <p class="fw-card-essence">"บริษัทที่ขึ้นปันผลทุกปี = บริษัทที่กำไรเติบโตจริง" — ใช้ Chowder Rule (Dividend Yield + 5-Year Growth Rate > 12%)</p>
+    <div class="fw-card-stats">
+      <div class="fw-stat">
+        <div class="fw-stat-val good">18.7%</div>
+        <div class="fw-stat-lbl">CAGR</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">0.74</div>
+        <div class="fw-stat-lbl">Sharpe</div>
+      </div>
+      <div class="fw-stat">
+        <div class="fw-stat-val good">5/5</div>
+        <div class="fw-stat-lbl">ชนะ SPY ทุกรอบ</div>
+      </div>
+    </div>
+    <p class="fw-card-note"><strong>เด่นที่สุด:</strong> เป็นกลยุทธ์เดียวที่เอาชนะ SPY ใน <strong>ทั้ง 5 ใน 5 ช่วงทดสอบ</strong> — ความสม่ำเสมอที่หาตัวจับได้ยาก <strong>โบนัส:</strong> ได้รับเงินสดจากปันผลทุกปี ทำให้ทนต่อตลาดผันผวนได้ดี <strong>เหมาะกับ:</strong> นักลงทุนใกล้เกษียณ หรือผู้ที่ต้องการ cash flow จากพอร์ต</p>
+  </div>
+
+  <p>กฎ <em>Chowder Rule</em> ที่งานวิจัยใช้เป็นกฎที่เรียบง่ายมาก — เอา Dividend Yield ปัจจุบัน บวกกับ Dividend Growth Rate เฉลี่ย 5 ปี ถ้าผลรวมมากกว่า 12% (สำหรับหุ้นทั่วไป) หรือมากกว่า 8% (สำหรับ utilities/telecoms) ก็ผ่านเกณฑ์ ความสวยของกฎนี้คือมัน <strong>กรองทั้งสองด้าน</strong> — บริษัทที่ปันผลสูงแต่ไม่เติบโต อาจเป็นกับดัก ส่วนบริษัทที่เติบโตเร็วแต่ไม่จ่ายปันผล อาจไม่มีกำไรจริง ต้องมีทั้งสองอย่างจึงผ่านเกณฑ์</p>
+
+  <p>ผลการวิจัยของ Arnott และ Bernstein ปี 2002 และต่อมา Vanguard Research ปี 2012 พบว่า "การเติบโตของปันผล" เป็นตัวพยากรณ์ผลตอบแทนรวมในอนาคตที่ดีกว่า "ระดับปันผล" เพียงอย่างเดียว เหตุผลคือบริษัทที่ขึ้นปันผลได้สม่ำเสมอ ต้องมี <strong>cash flow จริง</strong> มี <strong>payout ratio ที่ยั่งยืน</strong> และ <strong>ผู้บริหารมีความมั่นใจ</strong> ในกำไรอนาคต — สามอย่างนี้รวมกันเป็นสัญญาณที่ทรงพลังมาก</p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">Quality companies don't just survive crises — they lead the recovery.</p>
+    <p class="blockquote-full-th">บริษัทคุณภาพไม่เพียงแค่อยู่รอดในวิกฤต — พวกเขายังเป็นผู้นำในการฟื้นตัว</p>
+    <span class="blockquote-full-attr">Quality Compounder OOS 2020 · +85.0% Return</span>
+  </div>
+
+  <h2 class="h2">เปรียบเทียบบุคลิกของ 5 แชมป์เปี้ยน</h2>
+
+  <p>ทั้ง 5 กลยุทธ์เป็นผู้ชนะในเกมของตัวเอง แต่บุคลิกของแต่ละตัวต่างกันมาก ผมเปรียบให้เห็นชัดๆ ในตารางด้านล่าง — Quality Compounder เหมือนนักวิ่งมาราธอน วิ่งสม่ำเสมอ ไม่หกล้ม ส่วน CANSLIM เหมือนนักวิ่ง 100 เมตร เร็วที่สุดแต่ใช้พลังงานเยอะ Earnings Revision เป็นนักรบที่เก่งในตลาดหมี Piotroski F-Score เป็นนักการเมืองที่อนุรักษ์นิยม และ Dividend Growth เป็นชาวนาที่ใจเย็น เก็บเกี่ยวทุกฤดู</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>กลยุทธ์</th>
+        <th>เด่นในสถานการณ์</th>
+        <th>อ่อนในสถานการณ์</th>
+        <th>นักลงทุนที่เหมาะ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="name">Quality Compounder</td>
+        <td>Bull market สม่ำเสมอ และฟื้นตัวจากวิกฤต</td>
+        <td>Rate hike (ดอกเบี้ยขึ้นเร็ว)</td>
+        <td>Long-term holder, อายุ 35-55</td>
+      </tr>
+      <tr>
+        <td class="name">CANSLIM</td>
+        <td>ตลาดขาขึ้นที่ growth นำ</td>
+        <td>Mega-cap concentration (เช่น 2024)</td>
+        <td>Aggressive, อายุน้อยกว่า 45</td>
+      </tr>
+      <tr>
+        <td class="name">Earnings Revision</td>
+        <td>Rate hike และตลาดผันผวน</td>
+        <td>Mega-cap rally แคบ ๆ</td>
+        <td>Defensive component, ทุกอายุ</td>
+      </tr>
+      <tr>
+        <td class="name">Piotroski F-Score</td>
+        <td>ทุกสภาวะ — สม่ำเสมอที่สุด</td>
+        <td>(ไม่มีจุดอ่อนชัดเจน)</td>
+        <td>Conservative, อายุ 50+</td>
+      </tr>
+      <tr>
+        <td class="name">Dividend Growth</td>
+        <td>ทุกสภาวะ — ชนะ SPY 5/5 รอบ</td>
+        <td>Hyper-growth bull (ผลตอบแทนตามไม่ทัน)</td>
+        <td>ใกล้เกษียณ + ต้องการ cash flow</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · ก่อนผ่านไปบทถัดไป</div>
+    <p class="reflection-q">ระหว่าง Quality Compounder (Sharpe 0.84, DD -35.6%) กับ CANSLIM (CAGR 25.5%, DD -43.5%) คุณเลือกตัวไหน — และคุณรู้ตัวเองดีพอหรือยังว่าจะถือไหวในวันที่พอร์ตติดลบ -40%?</p>
+    <p class="reflection-q">ทำไม Earnings Revision จึงทำผลงานได้ดีในปี 2022 ที่ทุกคนเจ็บหนัก? คำตอบไม่ใช่ "โชค" — มันคือกลไกที่อธิบายได้ คุณอธิบายได้หรือไม่?</p>
+    <p class="reflection-q">ถ้าคุณสามารถถือพอร์ต Dividend Growth ที่จ่ายปันผลทุกไตรมาส และเอาชนะ SPY ทั้ง 5 รอบทดสอบ — ทำไมคุณยังพยายามจะเล่นกลยุทธ์ที่ผันผวนกว่านี้?</p>
+  </div>
+</div>
+
+<!-- ===================== CHAPTER 4 OPEN ===================== -->
+<div class="chapter-open">
+  <div class="ch-num-bg">04</div>
+  <div class="ch-label">Chapter Four · บทที่ 4</div>
+  <h2 class="ch-title">The Four <em>Pillars</em><span class="em">เกณฑ์ที่แยก "กลยุทธ์จริง" ออกจาก "Backtest หลอกตา"</span></h2>
+  <p class="ch-essence">ใครๆ ก็สร้าง Backtest ที่ดูสวยได้ แต่ที่ตัดสินกลยุทธ์จริงๆ คือสี่เสาหลัก — Walk-Forward, Monte Carlo, Statistical Significance, และ Regime Stress Test</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Validation Framework · กรอบการตรวจสอบ</div>
+  <h1 class="h1">เพราะ Backtest ที่ดูสวย <em>ไม่ใช่กลยุทธ์ที่ใช้ได้</em></h1>
+
+  <p class="lead">ก่อนคุณจะเชื่องานวิจัยใดๆ ในโลกการเงิน คุณต้องเรียนรู้ที่จะถามคำถามที่ถูกต้องก่อน — กลยุทธ์ที่ดูเหมือนทำผลตอบแทน 30% ต่อปีในกระดาษ อาจกลายเป็นการขาดทุน 10% ในชีวิตจริง เพราะหลายเหตุผลที่ผมจะอธิบายในบทนี้ และนี่คือเหตุผลที่งานวิจัยที่ดีต้องผ่านการตรวจสอบหลายชั้น ไม่ใช่แค่รัน backtest แล้วประกาศชัยชนะ</p>
+
+  <p class="dropcap">งานวิจัยนี้ใช้สิ่งที่เรียกว่า <em>Four-Pillar Validation</em> — เสาหลักสี่ต้นที่กลยุทธ์ทุกตัวต้องผ่านก่อนถูกประกาศว่าเป็น <strong>ROBUST</strong> หรือ "ทนทาน" ในแต่ละเสาผมจะอธิบายให้คุณเข้าใจง่ายๆ ว่ามันคืออะไร ทำไมต้องมี และใช้ตัดสินอะไร เพราะถ้าคุณเข้าใจกลไกการตรวจสอบ คุณจะอ่านงานวิจัยอื่นๆ ในอนาคตได้อย่างมีวิจารณญาณ และไม่หลงเชื่อโฆษณา hedge fund ที่อ้างผลตอบแทนสูงเกินจริง</p>
+
+  <h2 class="h2">เสาหลักที่ 1 — Walk-Forward Analysis</h2>
+
+  <p>ปัญหาใหญ่ที่สุดของ backtest แบบดั้งเดิมคือสิ่งที่เรียกว่า <em>overfitting</em> หรือ "การปรับตัวเลขเข้ากับข้อมูลที่มีในมือมากเกินไป" ลองนึกภาพว่าคุณดูข้อสอบแล้วทำเฉลย — แน่นอนคุณได้คะแนนเต็ม แต่นั่นไม่ได้หมายความว่าคุณเก่งจริง การทดสอบที่แท้จริงคือการเอาคุณไปทำข้อสอบที่ <em>คุณไม่เคยเห็น</em> Walk-Forward Analysis ก็เป็นแนวคิดเดียวกัน</p>
+
+  <p>วิธีของงานวิจัยคือ — แบ่งช่วงเวลาออกเป็น 5 หน้าต่าง โดยแต่ละหน้าต่างใช้ข้อมูลย้อนหลัง 5 ปีในการ "ฝึก" ระบบ และเอาผลของระบบไปทดสอบกับปีถัดไปที่ระบบไม่เคยเห็น (Out-of-Sample หรือ OOS) ถ้ากลยุทธ์ดีจริง มันจะให้ผลตอบแทนเป็นบวกใน OOS อย่างน้อย 3 ใน 5 หน้าต่าง — นี่คือเกณฑ์ขั้นต่ำของ ROBUST</p>
+
+  <div class="formula-block">
+    <div class="formula-label">Walk-Forward Logic</div>
+    <div class="formula-text">Train Period (5 ปี) → Test Period (1 ปี) → ทำซ้ำ 5 รอบ</div>
+    <div class="formula-explain">ROBUST = OOS เป็นบวก ≥ 3 ใน 5 หน้าต่าง<br>TRUE_ROBUST (เกณฑ์ใหม่) = ชนะ SPY ≥ 3 ใน 5 หน้าต่าง</div>
+  </div>
+
+  <p>ตัวเลขที่น่าตกใจคือ — เมื่อใช้เกณฑ์เก่า (OOS เป็นบวก) มี <strong>13/13</strong> กลยุทธ์ผ่าน แต่เมื่อใช้เกณฑ์ใหม่ที่เข้มงวดกว่า (ต้องชนะ SPY) เหลือเพียง <strong>11/13</strong> ที่ผ่าน — สองตัวที่ตกรอบคือ <strong>SPEA</strong> และ <strong>Fama-French SMV</strong> นี่คือเหตุผลที่งานวิจัยนี้น่าเชื่อถือกว่างานวิจัยอื่นๆ — มันยอมแก้ตัวเองและเปลี่ยนเกณฑ์ให้โหดขึ้นเมื่อเห็นว่าเกณฑ์เดิมหละหลวม</p>
+
+  <h2 class="h2">เสาหลักที่ 2 — Monte Carlo Simulation</h2>
+
+  <p>คำว่า <em>Monte Carlo</em> มาจากชื่อเมืองคาสิโนในโมนาโก ใช้เรียกเทคนิคการจำลองสถานการณ์แบบสุ่มซ้ำๆ จำนวนมาก เพื่อดู "การกระจายของผลลัพธ์ที่เป็นไปได้" แทนที่จะดูแค่ผลลัพธ์เดียว — ลองนึกภาพว่าคุณโยนเหรียญ 100 ครั้งและได้หัว 60 ครั้ง คุณจะรู้ได้อย่างไรว่ามันบังเอิญ หรือว่าเหรียญถ่วง? วิธีพิสูจน์คือจำลองการโยนซ้ำๆ 10,000 ชุด แล้วดูว่าได้ผล 60+ มีบ่อยแค่ไหน</p>
+
+  <p>ในงานวิจัย ทีมวิจัยทำ <strong>1,000 simulations</strong> ต่อกลยุทธ์ ใช้เทคนิคที่เรียกว่า <em>stationary block bootstrap</em> ซึ่งจะหยิบช่วงเวลาประมาณ 5 วันต่อบล็อก แล้วสุ่มเรียงใหม่จนได้ชุดข้อมูลใหม่ที่มีความยาวเท่าเดิม — วิธีนี้รักษาโครงสร้างของความสัมพันธ์ระหว่างวันต่อวัน (autocorrelation) ไว้ แต่ให้ลำดับใหม่ที่ไม่ซ้ำกับของจริง จากนั้นคำนวณ CAGR และ Sharpe ratio ของแต่ละ simulation แล้วดูการกระจาย</p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Why This Matters · ทำไมเรื่องนี้สำคัญ</div>
+    <p>ตัวเลขที่งานวิจัยให้ความสำคัญที่สุดคือ <strong>5th Percentile CAGR</strong> หรือ "ผลตอบแทนในกรณีที่เลวร้าย 5% แรก" — ถ้าตัวเลขนี้ยังเป็นบวก หมายความว่าแม้ในสถานการณ์ที่เลวร้ายที่สุด กลยุทธ์ก็ยังให้ผลตอบแทนเป็นบวก ทั้ง 13 กลยุทธ์ในงานวิจัย <strong>มี 5th Percentile เป็นบวกทั้งหมด</strong> ซึ่งเป็นสัญญาณที่ดีมาก แต่ก็ต้องเข้าใจว่ามันทดสอบในช่วง bull market</p>
+  </div>
+
+  <p>ที่น่าสนใจในผล Monte Carlo คือ Piotroski F-Score มี <em>uncertainty band</em> หรือ "ช่วงความไม่แน่นอน" แคบที่สุดเพียง 18.6 percentage points ซึ่งหมายความว่าผลตอบแทนคาดเดาได้ค่อนข้างแม่นยำ ส่วน Ken Fisher PSR มี uncertainty band กว้างที่สุดถึง 32.6 percentage points แสดงว่าผลตอบแทนผันผวนมากกว่า การเลือกกลยุทธ์ที่ uncertainty แคบ มักจะให้ความสบายใจในการลงทุนระยะยาว มากกว่าการเลือกตัวที่ CAGR สูงแต่กระจายผลลัพธ์กว้าง</p>
+
+  <h2 class="h2">เสาหลักที่ 3 — Statistical Significance Testing</h2>
+
+  <p>คำว่า <em>statistical significance</em> หรือ "นัยสำคัญทางสถิติ" ฟังดูยาก แต่จริงๆ แล้วมันถามคำถามง่ายๆ ว่า — "ผลตอบแทนที่เห็นนี้ มันเกิดจากความสามารถของกลยุทธ์ หรือเกิดจากความบังเอิญ?" วิธีตอบคือใช้ t-test ทางสถิติ เพื่อคำนวณ <em>p-value</em> ซึ่งเป็นค่าที่บอกว่า "ความน่าจะเป็นที่ผลลัพธ์นี้เกิดจากความบังเอิญ มีกี่เปอร์เซ็นต์"</p>
+
+  <p>ถ้า p-value น้อยกว่า 0.05 หรือ 5% นักสถิติจะถือว่าผลลัพธ์ "มีนัยสำคัญ" — แปลว่ามีความน่าจะเป็นน้อยกว่า 5% ที่ผลลัพธ์นี้เกิดจากความบังเอิญ แต่งานวิจัยนี้ทำมากกว่านั้น — มันใช้ <em>Benjamini-Hochberg correction</em> ซึ่งเป็นการปรับ p-value เพื่อชดเชยกับการที่เราทดสอบหลายกลยุทธ์พร้อมกัน</p>
+
+  <p>เหตุผลคือ — ถ้าคุณทดสอบกลยุทธ์ 13 ตัวที่ระดับ 5% โดยไม่ปรับ คุณจะได้ "false positive" หรือ "บังเอิญดูเหมือนดี" โดยเฉลี่ย <strong>0.65 ตัว</strong> เพียงเพราะการทดสอบหลายครั้ง ดังนั้นการ correction จึงสำคัญมาก เพื่อรับประกันว่ากลยุทธ์ที่ผ่านการทดสอบ มีความน่าเชื่อถือจริงๆ</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>กลยุทธ์</th>
+        <th>BH-Adjusted p-value</th>
+        <th>มีนัยสำคัญ?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">CANSLIM</td><td class="num">0.023</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">Quality Compounder</td><td class="num">0.023</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">Earnings Revision</td><td class="num">0.023</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">Piotroski F-Score</td><td class="num">0.023</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">Dividend Growth</td><td class="num">0.024</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">Magic Formula</td><td class="num">0.034</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">PEG Lynch</td><td class="num">0.037</td><td><strong style="color:var(--green)">YES</strong></td></tr>
+      <tr><td class="name">Acquirer's Multiple</td><td class="num">0.072</td><td><strong style="color:var(--red)">NO</strong></td></tr>
+      <tr><td class="name">Low Volatility</td><td class="num">0.090</td><td><strong style="color:var(--red)">NO</strong></td></tr>
+      <tr><td class="name">Fama-French SMV</td><td class="num">0.146</td><td><strong style="color:var(--red)">NO</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p>10 จาก 13 กลยุทธ์ผ่านการทดสอบนัยสำคัญทางสถิติ ส่วนอีก 3 ตัว (Acquirer's Multiple, Low Volatility, Fama-French SMV) ไม่ผ่าน — แต่ผมต้องเตือนคุณว่า "ไม่มีนัยสำคัญ" ไม่ได้แปลว่า "ใช้ไม่ได้" มันแปลว่า "เราไม่สามารถพิสูจน์ได้ว่ามันดีจริง" Low Volatility ตัวอย่างเช่น มันให้ประโยชน์ในรูปของ <em>การลด Drawdown</em> มากกว่า <em>การเพิ่มผลตอบแทน</em> ซึ่งเป็นคุณค่าในตัวมันเอง แต่ไม่สามารถพิสูจน์ได้ผ่าน t-test ที่วัดผลตอบแทน</p>
+
+  <h2 class="h2">เสาหลักที่ 4 — Regime Stress Test</h2>
+
+  <p>เสาสุดท้ายเป็นการทดสอบที่จริงจังที่สุด — ลองดูว่ากลยุทธ์ทำตัวอย่างไรในสภาวะตลาดที่ <em>เครียดที่สุด</em> งานวิจัยกำหนดสถานการณ์เครียด 5 แบบ ที่เป็นเหตุการณ์จริงในช่วง 2014-2024:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>สถานการณ์</th>
+        <th>ช่วงเวลา</th>
+        <th>SPY Return</th>
+        <th>VIX เฉลี่ย</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="name">QE Bull Market</td><td>2014-2018</td><td class="num pos">+68.2%</td><td class="num">14.2</td></tr>
+      <tr><td class="name">COVID Crash</td><td>กพ-มีค 2020</td><td class="num neg">-33.7%</td><td class="num">57.4</td></tr>
+      <tr><td class="name">COVID Recovery</td><td>เมย 2020 - ธค 2021</td><td class="num pos">+89.6%</td><td class="num">22.1</td></tr>
+      <tr><td class="name">Rate Hike Cycle</td><td>2022 ทั้งปี</td><td class="num neg">-19.4%</td><td class="num">25.6</td></tr>
+      <tr><td class="name">Mega Cap Dominance</td><td>2023-2024</td><td class="num pos">+26.3%</td><td class="num">16.8</td></tr>
+    </tbody>
+  </table>
+
+  <p>กลยุทธ์ที่ผ่านการทดสอบจะถูกแบ่งเป็น 2 ประเภท — <strong>Defensive</strong> คือกลยุทธ์ที่ทำได้ดีกว่าค่าเฉลี่ยใน <em>ทุก</em> สถานการณ์เครียด มีเพียง 3 ตัวคือ <strong>Dividend Growth, Low Volatility, และ Piotroski F-Score</strong> ส่วน <strong>Fragile</strong> คือกลยุทธ์ที่ทำได้แย่กว่าค่าเฉลี่ยใน 2 สถานการณ์ขึ้นไป — มี 9 ตัวซึ่งรวมถึง CANSLIM, Quality Compounder, และ Momentum ที่ผมแนะนำในบทก่อน</p>
+
+  <div class="warn-box">
+    <span class="warn-tag">⚠ บทเรียนจากปี 2022</span>
+    ในปี 2022 ที่เฟดขึ้นดอกเบี้ยจาก 0.25% เป็น 4.50% ทำให้หุ้น growth ถูกเทขายอย่างหนัก กลยุทธ์ที่ผมยกย่องในบทก่อนต่างก็ขาดทุน — Quality Compounder -20.5%, Magic Formula -20.4%, PEG Lynch -18.9%, Ken Fisher PSR -33.3% มีเพียง 2 ตัวที่ขาดทุนต่ำกว่า 10% คือ <strong>Earnings Revision (-3.4%)</strong> และ <strong>Acquirer's Multiple (-6.1%)</strong> นี่คือเหตุผลที่การผสมหลายกลยุทธ์เป็นเรื่องสำคัญ
+  </div>
+
+  <h2 class="h2">รวมทั้ง 4 เสา — มันบอกอะไรเรา</h2>
+
+  <p>เมื่อรวมการทดสอบทั้ง 4 เสาเข้าด้วยกัน เราจะได้คำตัดสิน 3 ระดับ — <strong>ROBUST</strong> ผ่านทุกเสา หมายความว่ากลยุทธ์นี้มีอัลฟ่าจริงและสามารถนำไปใช้ได้ <strong>CAUTION</strong> ผ่านบางเสาแต่ไม่ทั้งหมด ใช้ได้แต่ต้องระมัดระวังและอาจไม่เหมาะเป็น core strategy และ <strong>REJECT</strong> ไม่ผ่านการทดสอบนัยสำคัญทางสถิติ ใช้ได้เป็นส่วนผสมของพอร์ต แต่ไม่ควรเป็นกลยุทธ์หลัก</p>
+
+  <p>สิ่งที่ผมอยากให้คุณจดจำจากบทนี้คือ — <strong>กลยุทธ์ที่ผ่านการตรวจสอบ 4 เสา ไม่ได้แปลว่าจะทำผลตอบแทนสูงในอนาคต</strong> มันแปลเพียงว่า "ในข้อมูล 10 ปีที่ผ่านมา มันมีหลักฐานมากพอที่จะเชื่อว่ามันมี edge จริง" และนี่คือสิ่งที่ดีที่สุดที่วิทยาศาสตร์การเงินสามารถให้เราได้ — ไม่มีอะไรรับประกันอนาคต แต่หลักฐานที่ผ่านการพิสูจน์อย่างเข้มงวด ก็ดีกว่าการตัดสินใจตามอารมณ์</p>
+
+  <div class="pullquote">
+    "Robust" doesn't mean it will work tomorrow.<br>It means it had the most evidence that it worked yesterday.
+    <span class="pullquote-attr">"ทนทาน" ไม่ได้แปลว่าจะใช้ได้พรุ่งนี้ — มันแปลว่ามีหลักฐานมากที่สุดว่ามันใช้ได้เมื่อวาน</span>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · ก่อนผ่านไปบทถัดไป</div>
+    <p class="reflection-q">เมื่อมีคนชวนคุณซื้อกลยุทธ์ที่อ้างผลตอบแทน 30% ต่อปี คุณจะถามคำถามอะไรบ้าง — Walk-forward ผ่านมั้ย? Monte Carlo มีไหม? p-value เท่าไหร่? Stress test ผลเป็นยังไง?</p>
+    <p class="reflection-q">ทำไมการเปลี่ยนเกณฑ์จาก "OOS เป็นบวก" เป็น "ชนะ SPY" จึงสำคัญ? คำตอบคือ — ในตลาดขาขึ้นทุกอย่างที่ลงทุนก็เป็นบวก แต่ไม่ทุกอย่างจะ <em>เก่งกว่า</em> ตลาด</p>
+    <p class="reflection-q">ถ้ากลยุทธ์ของคุณไม่เคยผ่านการทดสอบ 4 เสานี้เลย คุณยอมเอาเงินเก็บทั้งหมดของคุณไปเสี่ยงกับมันได้จริงหรือ?</p>
+  </div>
+</div>
+
+<!-- ===================== CHAPTER 5 OPEN ===================== -->
+<div class="chapter-open">
+  <div class="ch-num-bg">05</div>
+  <div class="ch-label">Chapter Five · บทที่ 5</div>
+  <h2 class="ch-title">Your <em>Profile</em><span class="em">เลือกกลยุทธ์ที่ใช่กับชีวิตคุณ — กลยุทธ์ที่ดีที่สุดคือกลยุทธ์ที่นอนหลับสบาย</span></h2>
+  <p class="ch-essence">กลยุทธ์ที่ดีที่สุดทางสถิติ ไม่ใช่กลยุทธ์ที่ดีที่สุดสำหรับคุณ — สิ่งที่สำคัญกว่าคือคุณจะถือมันได้นานพอที่จะเก็บเกี่ยวผลตอบแทนหรือไม่</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Find Your Fit · หากลยุทธ์ที่ใช่</div>
+  <h1 class="h1">สามโปรไฟล์ <em>สามทางเลือก</em></h1>
+
+  <p class="lead">ถ้าผมต้องสรุปบทเรียนที่สำคัญที่สุดจากการเป็นนักลงทุน 20 ปี ผมจะบอกแค่หนึ่งประโยค — <em>"กลยุทธ์ที่ดีที่สุดคือกลยุทธ์ที่คุณถือไหวในวันที่มันแย่ที่สุด"</em> เพราะไม่มีกลยุทธ์ใดในโลกที่ขึ้นเป็นเส้นตรง ทุกตัวมีช่วงที่มันแย่ และในช่วงนั้นแหละ ที่นักลงทุน 90% ทิ้งกลยุทธ์ของตัวเองและไปไล่ตามตัวที่กำลังร้อน — นั่นคือเหตุผลที่ 90% ของนักลงทุนรายย่อยขาดทุน</p>
+
+  <p>งานวิจัยแบ่งโปรไฟล์นักลงทุนออกเป็น 3 กลุ่ม โดยใช้เกณฑ์ <strong>ระยะเวลาการลงทุน</strong>, <strong>ระดับการรับ Drawdown ได้</strong>, และ <strong>เวลาที่พร้อมจะใช้ในการบริหารพอร์ต</strong> ก่อนเลือกโปรไฟล์ของคุณ ผมอยากให้คุณตอบคำถามตัวเองก่อน 3 ข้อ — และตอบอย่างซื่อสัตย์</p>
+
+  <div class="action-card">
+    <div class="action-card-header">
+      <div class="action-card-icon">3Q</div>
+      <div class="action-card-title">3 คำถามที่ต้องตอบก่อนเลือกกลยุทธ์</div>
+    </div>
+    <ul class="checklist">
+      <li><span class="num">1</span><span><strong>ระยะเวลาที่จำเป็นต้องใช้เงิน</strong> — เงินที่คุณจะลงทุน คุณต้องใช้ในอีกกี่ปี? ถ้าน้อยกว่า 5 ปี ให้ใช้ Low Volatility หรือ Dividend Growth เท่านั้น ถ้า 5-10 ปี โปรไฟล์สมดุลใช้ได้ ถ้ามากกว่า 10 ปี กลยุทธ์รุกรานเหมาะสม</span></li>
+      <li><span class="num">2</span><span><strong>ระดับ Drawdown ที่รับได้โดยไม่ขายตื่นกลัว</strong> — ในวันที่พอร์ตติดลบเท่าไหร่ คุณจะเริ่มกินไม่ได้นอนไม่หลับและคิดจะขาย? ถ้าน้อยกว่า 15% เลือกกลยุทธ์ defensive เท่านั้น ถ้า 15-30% สมดุลใช้ได้ ถ้ามากกว่า 30% กลยุทธ์รุกรานเป็นไปได้</span></li>
+      <li><span class="num">3</span><span><strong>เวลาที่พร้อมจะใช้ในการบริหารพอร์ต</strong> — Rebalance ทุกเดือนใช้เวลา 2-4 ชั่วโมงต่อเดือน ทุกไตรมาส 2-4 ชั่วโมงต่อไตรมาส ทุกปี 2-4 ชั่วโมงต่อปี เลือกความถี่ที่คุณทำได้สม่ำเสมอ</span></li>
+    </ul>
+  </div>
+
+  <h2 class="h2">โปรไฟล์ A — Aggressive Growth (รุกรานเพื่อเติบโต)</h2>
+
+  <p>โปรไฟล์นี้เหมาะกับนักลงทุนอายุ 25-40 ปี ที่มีรายได้สม่ำเสมอ มีเวลาฟื้นตัวจากความผิดพลาด มีระยะเวลาลงทุนอย่างน้อย 5 ปีขึ้นไป และที่สำคัญ — รับ Drawdown ได้สูง คือเห็นพอร์ตติดลบ 40-50% แล้วยังนอนหลับได้ ไม่ตื่นมาขายในตอนเช้า ถ้าคุณคิดว่าตัวเองเป็นแบบนี้ ผมขอเตือนซื่อๆ ว่าคุณยังไม่เคยเจอ Drawdown -50% จริงๆ ลองนึกภาพเงิน 1 ล้านบาทเหลือ 5 แสนบาทดู — ถ้ายังไหวจริง ค่อยมา</p>
+
+  <p>กลยุทธ์ที่แนะนำสำหรับโปรไฟล์ A คือใช้ <strong>CANSLIM เป็นเครื่องจักรหลัก 35%</strong> เพราะมันทำ CAGR สูงสุด ผสมกับ <strong>Earnings Revision 30%</strong> เพื่อเป็น defensive component ที่จะช่วยพอร์ตในปีที่ตลาดเครียด เพิ่ม <strong>Momentum 12-1 อีก 20%</strong> เพื่อจับกระแสในตลาดขาขึ้น และปิดท้ายด้วย <strong>Ken Fisher PSR 15%</strong> เพื่อให้มี value tilt บ้าง — แต่อย่าลืมว่าโปรไฟล์นี้มี Maximum Drawdown ที่อาจถึง -50% ในปีที่แย่ ดังนั้นการมีเงินสำรองนอกพอร์ตที่สามารถใช้ได้ 12 เดือนเป็นเรื่องสำคัญมาก</p>
+
+  <h2 class="h2">โปรไฟล์ B — Balanced (สมดุลระยะกลาง-ยาว)</h2>
+
+  <p>โปรไฟล์นี้เหมาะกับนักลงทุนอายุ 35-55 ปี ที่ผ่านวิกฤตในตลาดมาบ้างแล้ว รู้จักตัวเองดีพอว่า Drawdown ระดับ 30-35% นั้นพอรับได้ แต่ -50% เริ่มอันตราย และที่สำคัญ — มีเป้าหมายระยะยาวเช่น เกษียณ การศึกษาบุตร หรือการสร้างความมั่งคั่งระยะยาว นี่คือโปรไฟล์ที่ "เหมาะกับคนส่วนใหญ่" ที่สุด</p>
+
+  <p>กลยุทธ์ที่แนะนำสำหรับโปรไฟล์ B คือ <strong>Quality Compounder 30%</strong> เป็นแกนกลาง เพราะมัน Sharpe สูงสุดและสม่ำเสมอที่สุด เพิ่ม <strong>Piotroski F-Score 25%</strong> เพื่อเป็น defensive anchor ที่ Max DD ต่ำที่สุด ผสมด้วย <strong>Dividend Growth 25%</strong> ที่ชนะ SPY ทั้ง 5/5 รอบและให้ cash flow ระหว่างทาง และปิดด้วย <strong>Earnings Revision 20%</strong> ที่ทำหน้าที่เป็นโล่ในปีที่ตลาดเครียด — โปรไฟล์นี้คาดว่าจะให้ CAGR ราว 18-23% ต่อปี โดย Max DD อยู่ที่ราว -30% ถึง -35%</p>
+
+  <h2 class="h2">โปรไฟล์ C — Conservative Income (อนุรักษ์นิยมเน้นรักษาทุน)</h2>
+
+  <p>โปรไฟล์นี้เหมาะกับนักลงทุนอายุ 55+ ที่ใกล้เกษียณหรือเกษียณแล้ว ต้องการรักษาทุนเป็นหลัก และอยากได้ cash flow บ้างจากพอร์ต ระยะเวลาลงทุนยังอีกอย่างน้อย 10 ปี (เพราะอายุยืนขึ้น) แต่ Drawdown ที่ยอมรับได้คือไม่เกิน 25-30% — เพราะถ้าเสียเงินตอนเกษียณ จะไม่มีเงินเดือนใหม่มาเติม</p>
+
+  <p>กลยุทธ์ที่แนะนำสำหรับโปรไฟล์ C คือ <strong>Dividend Growth 35%</strong> เป็นแกนหลัก เพราะมันจ่ายปันผลสม่ำเสมอและชนะ SPY ทุกรอบ ผสม <strong>Quality Compounder 30%</strong> เพื่อให้ยังมีการเติบโตของทุน เพิ่ม <strong>Piotroski F-Score 20%</strong> เพื่อ defensive และปิดด้วย <strong>Low Volatility 15%</strong> เพื่อช่วยลดความผันผวนของพอร์ต — โปรไฟล์นี้คาดว่าจะให้ CAGR ราว 15-20% ต่อปี โดย Max DD อยู่ที่ราว -25% ถึง -30% ซึ่งฟื้นตัวได้ในเวลา 12-18 เดือน</p>
+
+  <div class="profile-row">
+    <div class="profile-card">
+      <div class="profile-tag">Profile A</div>
+      <div class="profile-name">Aggressive</div>
+      <div class="profile-meta">25-40 ปี · 5+ ปี · DD ≥ 40%</div>
+      <ul class="profile-list">
+        <li><span class="fw">CANSLIM</span><span class="pct">35%</span></li>
+        <li><span class="fw">Earnings Revision</span><span class="pct">30%</span></li>
+        <li><span class="fw">Momentum 12-1</span><span class="pct">20%</span></li>
+        <li><span class="fw">Ken Fisher PSR</span><span class="pct">15%</span></li>
+      </ul>
+    </div>
+    <div class="profile-card">
+      <div class="profile-tag">Profile B</div>
+      <div class="profile-name">Balanced</div>
+      <div class="profile-meta">35-55 ปี · 7+ ปี · DD ≤ 35%</div>
+      <ul class="profile-list">
+        <li><span class="fw">Quality Compounder</span><span class="pct">30%</span></li>
+        <li><span class="fw">Piotroski F-Score</span><span class="pct">25%</span></li>
+        <li><span class="fw">Dividend Growth</span><span class="pct">25%</span></li>
+        <li><span class="fw">Earnings Revision</span><span class="pct">20%</span></li>
+      </ul>
+    </div>
+    <div class="profile-card">
+      <div class="profile-tag">Profile C</div>
+      <div class="profile-name">Conservative</div>
+      <div class="profile-meta">55+ ปี · 10+ ปี · DD ≤ 25%</div>
+      <ul class="profile-list">
+        <li><span class="fw">Dividend Growth</span><span class="pct">35%</span></li>
+        <li><span class="fw">Quality Compounder</span><span class="pct">30%</span></li>
+        <li><span class="fw">Piotroski F-Score</span><span class="pct">20%</span></li>
+        <li><span class="fw">Low Volatility</span><span class="pct">15%</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="h2">เคล็ดลับการผสมกลยุทธ์ — "Combination Strategies"</h2>
+
+  <p>นอกเหนือจากการกระจายระหว่างกลยุทธ์ในระดับพอร์ต คุณสามารถผสมกลยุทธ์ในระดับการคัดหุ้น โดยใช้กลยุทธ์หนึ่งเป็น "เครื่องคัด" และอีกกลยุทธ์หนึ่งเป็น "ตัวกรองคุณภาพ" งานวิจัยแนะนำการผสมที่ทรงพลัง 2 แบบที่ผมเห็นว่าใช้ได้จริงมากที่สุด</p>
+
+  <p>คอมโบแรกคือ <strong>CANSLIM + Piotroski F-Score</strong> หรือที่งานวิจัยเรียกว่า "Growth Quality Filter" — หลักคิดคือ CANSLIM จะคัดหุ้น growth ที่กำลังร้อน แต่ปัญหาของ growth คือบางตัวเป็น "growth ปลอม" ที่งบการเงินกำลังแย่ลง การเอา Piotroski F-Score ≥ 7 เข้าไปกรองอีกชั้น ช่วยตัด "growth ปลอม" เหล่านี้ออก ทำให้พอร์ตเหลือแต่หุ้นที่ทั้งโตเร็วและงบการเงินกำลังดีขึ้น คาดว่าจะให้ CAGR 20-25% โดย Max DD ลดเหลือ -30% ถึง -40%</p>
+
+  <p>คอมโบสองคือ <strong>Magic Formula + Low Volatility</strong> หรือ "Defensive Value" — Magic Formula จะคัดหุ้นที่ดี (ROIC สูง) และถูก (EBIT/EV สูง) แต่บางตัวก็ผันผวนมาก การเอา Low Volatility filter เข้าไปอีกชั้น ช่วยตัดหุ้นที่ผันผวนสูงออก เหลือแต่หุ้นที่คุณภาพดี ราคาถูก และผันผวนต่ำ — เป็นพอร์ตในฝันสำหรับนักลงทุนอนุรักษ์นิยม คาดว่าจะให้ CAGR 12-16% โดย Max DD เพียง -20% ถึง -30%</p>
+
+  <div class="warn-box">
+    <span class="warn-tag">⚠ ข้อควรระวังเรื่อง Combination</span>
+    การผสมกลยุทธ์โดยใช้ "intersection" (ต้องผ่านทั้งสองเกณฑ์) บางครั้งอาจทำให้เหลือหุ้นน้อยกว่า 15 ตัวซึ่งขัดกับหลักการกระจายความเสี่ยง วิธีแก้คือใช้ "union" หรือเลือกหุ้นจากทั้งสองกลยุทธ์ (เช่น top 10 จาก A + top 10 จาก B) เป็นวิธีสำรอง และที่สำคัญ — งานวิจัยยังไม่ได้ทำ backtest combinations เต็มรูปแบบ ตัวเลขที่ให้เป็นการคาดการณ์เท่านั้น
+  </div>
+
+  <h2 class="h2">บทสรุปของบทนี้ — ความสำคัญของการรู้จักตัวเอง</h2>
+
+  <p>ในบทก่อน ผมยกย่อง Quality Compounder ว่ามี Sharpe สูงสุด แต่มันไม่ใช่กลยุทธ์ที่ดีที่สุดสำหรับทุกคน — ถ้าคุณอายุ 28 ปี ลงทุนระยะยาว และอยากได้ผลตอบแทนสูงสุดในยุค bull market ที่กำลังมา CANSLIM อาจตอบโจทย์มากกว่า ถ้าคุณอายุ 60 ปี ใกล้เกษียณ และต้องการให้พอร์ตจ่าย cash flow ระหว่างทาง Dividend Growth คือคำตอบ</p>
+
+  <p>ที่ผมอยากเน้นย้ำคือ — <strong>คุณไม่จำเป็นต้องเลือกกลยุทธ์ที่มีตัวเลขสวยที่สุด</strong> คุณควรเลือกกลยุทธ์ที่คุณ <em>ถือไหวในวันที่มันแย่ที่สุด</em> เพราะกลยุทธ์ที่ดีที่ทิ้งไประหว่างทาง ให้ผลตอบแทนเป็นศูนย์ ส่วนกลยุทธ์ที่ "ดีพอ" ที่ถือไปจนสุด ให้ผลตอบแทนตามที่งานวิจัยบอก</p>
+
+  <div class="pullquote">
+    The best strategy isn't the one with the highest Sharpe ratio.<br>It's the one you can hold through the worst drawdown.
+    <span class="pullquote-attr">กลยุทธ์ที่ดีที่สุด ไม่ใช่กลยุทธ์ที่ Sharpe สูงสุด — แต่เป็นกลยุทธ์ที่คุณถือผ่าน Drawdown ที่แย่ที่สุดได้</span>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · ก่อนผ่านไปบทถัดไป</div>
+    <p class="reflection-q">ถ้าวันนี้พอร์ตของคุณติดลบ 30% — คุณจะ (ก) ทำตามแผนต่อไป (ข) ลดสัดส่วน 20% (ค) ขายเกือบหมดและรอ? ถ้าตอบ ค ให้ลดโปรไฟล์ของคุณลงหนึ่งระดับ</p>
+    <p class="reflection-q">คุณรู้จักตัวเองดีพอว่า "เหตุผลที่ขายตอนพอร์ตติดลบ" ครั้งล่าสุด มันมีเหตุผลทางการเงินจริง หรือเป็นเพราะอารมณ์?</p>
+    <p class="reflection-q">ถ้าให้คุณเลือก 1 กลยุทธ์ที่จะถือไปอีก 10 ปี โดยไม่เปลี่ยน คุณจะเลือกอะไร — และทำไมคุณถึงไม่เลือกมันตั้งแต่วันนี้?</p>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- CHAPTER 6 : EXECUTION PLAYBOOK              -->
+<!-- ============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">VI</div>
+  <div class="eyebrow">Chapter Six · บทที่หก</div>
+  <h1 class="h1">Execution Playbook<br><span style="font-size:0.6em;font-weight:400;color:var(--ink-soft);">คู่มือลงมือจริง — ตั้งแต่เปิดพอร์ตจนถึงจัดพอร์ตใหม่ทุกไตรมาส</span></h1>
+  <p class="lead" style="margin-top:32px;">หากบทก่อนคือการ "เลือกอาวุธ" บทนี้คือ "วิธีฝึกใช้อาวุธ" — เพราะกลยุทธ์ที่ดีที่สุดในโลก ถ้าลงมือทำผิด ก็ไม่มีค่า งานวิจัยใช้คำว่า "Execution Discipline" และผมเห็นด้วยอย่างยิ่ง — ในประสบการณ์ 20 ปีของผม ผมเห็นนักลงทุนที่ใช้กลยุทธ์ "พื้นๆ" แต่ทำตามแผนอย่างเคร่งครัด เอาชนะนักลงทุนที่ใช้กลยุทธ์ซับซ้อน แต่ทำตามอารมณ์ ทุกครั้งไป</p>
+</div>
+
+<div class="page">
+  <p class="lead"><span class="dropcap">บ</span>ทนี้จะแบ่งเป็น 4 ส่วนเรียงตามลำดับเวลา — ตั้งแต่ <strong>วันแรกที่เปิดพอร์ต</strong> (Setup), <strong>การจัดพอร์ตใหม่ทุกไตรมาส</strong> (Rebalance), <strong>การจัดการช่วง Drawdown</strong> (Risk Management), และ <strong>การตรวจสุขภาพกลยุทธ์รายปี</strong> (Health Check) ทั้งหมดนี้ผมเขียนเป็น checklist ที่คุณ print แปะข้างจอลงทุนได้เลย</p>
+
+  <h2 class="h2">ส่วนที่ 1 — Setup Day · วันเปิดพอร์ตจริง</h2>
+
+  <p>ก่อนคุณกดซื้อหุ้นตัวแรก มี 5 อย่างที่ต้องตั้งให้แน่นก่อน เพราะหลังจากนั้นทุกการตัดสินใจจะวิ่งผ่าน "กรอบ" นี้</p>
+
+  <div class="action-card">
+    <div class="action-tag">Setup Checklist · 5 ข้อก่อนกดซื้อตัวแรก</div>
+    <ol class="checklist num">
+      <li><strong>เลือก Broker ที่ค่าธรรมเนียมต่ำและมีเศษหุ้น (Fractional Shares)</strong> — เพราะกลยุทธ์ทุกตัวต้องถือ 15-20 หุ้น น้ำหนักเท่ากัน ถ้าซื้อเศษหุ้นไม่ได้ การ rebalance จะคลาดเคลื่อน Interactive Brokers, Fidelity, Charles Schwab รองรับเศษหุ้น</li>
+      <li><strong>กำหนดเงินต้น (Initial Capital)</strong> ที่คุณ "เสียได้ 35% โดยไม่กระทบชีวิต" — ถ้าพอร์ตติดลบ 35% และคุณยังนอนหลับสบาย แสดงว่าขนาดถูกต้อง ถ้าตื่นมาเครียดทุกวัน แสดงว่าใหญ่เกินไป</li>
+      <li><strong>กำหนดวันที่ Rebalance ล่วงหน้าทั้งปี</strong> — ผมแนะนำ mid-May (Q1 data ออกแล้ว), mid-Aug (Q2), mid-Nov (Q3), mid-Feb (Q4 + 10-K) — ใส่ปฏิทินทันที และห้ามเลื่อนไม่ว่าตลาดจะเป็นอย่างไร</li>
+      <li><strong>เปิด spreadsheet สำหรับ Trade Journal</strong> — บันทึกทุก trade: วันที่, ราคาเข้า, เหตุผล (กลยุทธ์อะไร, อันดับเท่าไร), ราคาออก, P&L, และ <em>อารมณ์ ณ วันที่ทำธุรกรรม</em> — ข้อสุดท้ายสำคัญที่สุด</li>
+      <li><strong>เขียน "Investment Policy Statement"</strong> 1 หน้า ระบุ: กลยุทธ์ที่ใช้, สัดส่วน, ความถี่ rebalance, drawdown thresholds, และเงื่อนไขที่ "ห้ามทำ" — เซ็นชื่อกำกับ และอ่านทุกครั้งก่อนตัดสินใจครั้งใหญ่</li>
+    </ol>
+  </div>
+
+  <p>ในข้อ 5 ผมจริงจังมาก — Investment Policy Statement (IPS) คือสัญญากับตัวเองในวันที่ใจเย็น เพื่อปกป้องตัวเองในวันที่ใจร้อน ในวันที่พอร์ตติดลบ 30% และคุณรู้สึกอยากขายทิ้งทั้งหมด การได้กลับมาอ่าน IPS ที่คุณเขียนเองตอนใจเย็น ช่วยให้คุณกลับมามีสติได้ ผมเก็บ IPS ของผมไว้ในซองเปิดเฉพาะตอนวิกฤต และมันช่วยชีวิตพอร์ตผมหลายครั้ง</p>
+
+  <h2 class="h2">ส่วนที่ 2 — Quarterly Rebalance · พิธีกรรมทุกไตรมาส</h2>
+
+  <p>การ rebalance คือกิจกรรมที่สำคัญที่สุดของการลงทุนเชิงระบบ — ไม่ใช่การเลือกหุ้น เพราะการเลือกหุ้นทำโดยกลยุทธ์อยู่แล้ว สิ่งที่คุณทำคือ "บังคับวินัย" ให้พอร์ตกลับไปสะท้อนกลยุทธ์ปัจจุบัน ถ้าคุณข้าม rebalance ครั้งหนึ่ง พอร์ตจะค่อยๆ "ลอย" ออกจากกลยุทธ์ และคุณจะไม่รู้แล้วว่ากำลังถือพอร์ตอะไรอยู่</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>ไตรมาส</th><th>วันที่ Rebalance</th><th>ข้อมูลที่ใช้</th><th>เหตุผล</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Q1</strong></td><td>กลางพฤษภาคม (~May 15)</td><td>Q1 10-Q + 10-K ปีก่อน</td><td>รอให้บริษัทใหญ่ๆ ส่ง 10-Q ครบ</td></tr>
+      <tr><td><strong>Q2</strong></td><td>กลางสิงหาคม (~Aug 15)</td><td>Q2 10-Q</td><td>หลังประกาศผลประกอบการครึ่งปี</td></tr>
+      <tr><td><strong>Q3</strong></td><td>กลางพฤศจิกายน (~Nov 15)</td><td>Q3 10-Q</td><td>ก่อนช่วง holiday season</td></tr>
+      <tr><td><strong>Q4</strong></td><td>กลางกุมภาพันธ์ (~Feb 15)</td><td>Q4 10-Q + งบทั้งปี</td><td>หลังบริษัทส่ง 10-K (annual)</td></tr>
+    </tbody>
+  </table>
+
+  <p>ขั้นตอนการ rebalance ในแต่ละไตรมาส มี 7 ขั้น ทำตามลำดับนี้เสมอ — อย่าข้าม อย่าสลับ</p>
+
+  <div class="action-card">
+    <div class="action-tag">Quarterly Rebalance · 7 ขั้นตอนตายตัว</div>
+    <ol class="checklist num">
+      <li><strong>Update ข้อมูล</strong> — Pull งบการเงินใหม่จาก SEC EDGAR หรือบริการเช่น Stock Analysis, Stockopedia, Compustat (สำหรับมืออาชีพ) ถ้าใช้ฟรี ผมแนะนำ <em>SimplyWallSt</em> หรือ <em>Stockanalysis.com</em></li>
+      <li><strong>Run Screener ของกลยุทธ์ที่คุณใช้</strong> — กรองหุ้นใน universe ของคุณ (1,010 หุ้นใหญ่ตามงานวิจัย หรือ S&P 500 / Russell 1000) ผ่านเกณฑ์ของกลยุทธ์</li>
+      <li><strong>Rank และเลือก top 15-20</strong> — เลือกตามคะแนนของกลยุทธ์ ไม่ใช่ความชอบส่วนตัว ถ้าหุ้นที่คุณเกลียดอยู่ใน top 15 — คุณต้องซื้อ</li>
+      <li><strong>เปรียบเทียบกับ portfolio ปัจจุบัน</strong> — รายชื่อใหม่กับเก่ามักจะ overlap 60-70% (แปลว่า turnover 30-40% ตามที่งานวิจัยรายงาน) ตัวที่หลุดจาก top 15 → ขาย, ตัวใหม่ที่เข้ามา → ซื้อ</li>
+      <li><strong>คำนวณ position sizing</strong> — น้ำหนักเท่ากันทุกตัว (Equal Weight) — เช่น พอร์ต $100,000 / 20 หุ้น = $5,000 ต่อตัว ใช้ fractional shares ถ้าจำเป็น</li>
+      <li><strong>Execute trades ทั้งหมดในวันเดียว</strong> — ห้ามทยอย ห้ามรอ "จังหวะดี" เพราะการรอคือการเดาทิศทาง ซึ่งขัดกับหลัก systematic</li>
+      <li><strong>บันทึก Trade Journal</strong> — รวมต้นทุน (commission + slippage), turnover %, และอารมณ์ของคุณ ณ วันนั้น (เช่น "ตื่นเต้น" "กลัว" "เฉยๆ")</li>
+    </ol>
+  </div>
+
+  <div class="signal-box">
+    <div class="signal-col do">
+      <div class="signal-tag do-tag">✓ Do · ทำสิ่งนี้</div>
+      <ul>
+        <li>Rebalance ตามวันที่กำหนดล่วงหน้า ไม่ว่าตลาดจะเป็นอย่างไร</li>
+        <li>เชื่อ ranking ของกลยุทธ์ แม้หุ้นนั้นจะเป็นชื่อที่คุณไม่ชอบ</li>
+        <li>Equal weight ทุกตัวเสมอ — ไม่ overweight ตามความเชื่อส่วนตัว</li>
+        <li>บันทึกทุกอย่างใน journal — เพื่อเรียนรู้ตัวเองในระยะยาว</li>
+      </ul>
+    </div>
+    <div class="signal-col dont">
+      <div class="signal-tag dont-tag">✗ Don't · อย่าทำสิ่งนี้</div>
+      <ul>
+        <li>เลื่อน rebalance เพราะ "ตลาดกำลังจะลง" หรือ "กำลังจะขึ้น"</li>
+        <li>ข้ามหุ้นใน top 15 เพราะคุณ "ไม่เชื่อ" หรือ "ไม่ชอบ"</li>
+        <li>Overweight หุ้นที่คุณ "ชอบเป็นพิเศษ" — ทำลายหลัก equal weight</li>
+        <li>เพิ่มกลยุทธ์ใหม่กลางคัน เพราะมันกำลังร้อนแรง — รอ 1 ปีอย่างน้อย</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="h2">ส่วนที่ 3 — Drawdown Management · จัดการช่วงพอร์ตติดลบ</h2>
+
+  <p>ทุกกลยุทธ์ในงานวิจัย มี Max Drawdown 30-50% — แปลว่า <strong>ในประวัติศาสตร์ 10 ปี ทุกคนเคยพอร์ตติดลบครั้งใหญ่</strong> นี่ไม่ใช่ความล้มเหลว แต่เป็นราคาของผลตอบแทนสูง คำถามไม่ใช่ "จะเกิด drawdown หรือไม่" — แต่คือ "เมื่อเกิดแล้วจะตอบสนองอย่างไร"</p>
+
+  <p>หลักการคือ — <strong>ยิ่ง drawdown ลึก ยิ่งต้องอยู่ในระบบ ไม่ใช่ออกจากระบบ</strong> เพราะการฟื้นตัวมักเริ่มในจุดที่นักลงทุนทั่วไป "ทนไม่ไหวแล้ว" และขายไปก่อน ผมเห็นเรื่องนี้ทุกครั้งใน 2008, 2020, 2022 — ดังนั้นผมตั้ง threshold ที่ตายตัวไว้ล่วงหน้า ตามนี้</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>ระดับ Drawdown</th><th>การกระทำ</th><th>เหตุผล</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>-10% ถึง -15%</strong></td><td>Monitor — ทำตามแผนปกติ</td><td>เป็นความผันผวนปกติ เกิดทุก 1-2 ปี</td></tr>
+      <tr><td><strong>-15% ถึง -25%</strong></td><td>Reduce position 20% — ถือเงินสด 20%</td><td>ลดความเสี่ยงเชิงป้องกัน แต่ไม่ออกจากระบบ</td></tr>
+      <tr><td><strong>-25% ถึง -35%</strong></td><td>Freeze new positions — ไม่ rebalance, ไม่เพิ่ม</td><td>หลีกเลี่ยง catching falling knife</td></tr>
+      <tr><td><strong>ต่ำกว่า -35%</strong></td><td>Suspend strategy — รอเงื่อนไข Re-entry</td><td>ระบบอาจกำลัง break — ปกป้องเงินต้นเป็นหลัก</td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:24px;">ในจุด <strong>Suspend</strong> (ต่ำกว่า -35%) คุณถือเงินสดทั้งหมด แต่ยัง <em>ติดตามตลาดต่อไป</em> — และคุณกลับเข้าตลาดเมื่อมีเงื่อนไขครบ 3 ข้อ คือ <strong>Re-entry Protocol</strong></p>
+
+  <div class="insight-box">
+    <div class="insight-label">Re-entry Protocol · 3 เงื่อนไขกลับเข้าตลาด</div>
+    <p style="margin:0 0 8px 0;"><strong>1. ดัชนีอ้างอิง (S&P 500) ฟื้นจากจุดต่ำสุด ≥ 50%</strong> — เช่น ถ้า SPY ลงจาก $500 ไป $400 (ลง 20%) ต้องฟื้นกลับขึ้นมา ≥ $450 ก่อน</p>
+    <p style="margin:0 0 8px 0;"><strong>2. กลยุทธ์ของคุณยังคัดได้อย่างน้อย 15 หุ้นที่ผ่านเกณฑ์</strong> — ถ้าน้อยกว่า แปลว่า opportunity set แคบเกินไป รอต่อ</p>
+    <p style="margin:0;"><strong>3. VIX (ดัชนีความกลัว) ลดลงต่ำกว่า 25</strong> — ตลาดเริ่มเข้าสู่ภาวะปกติ ไม่ใช่ภาวะ panic</p>
+    <p style="margin:16px 0 0 0;font-style:italic;color:var(--ink-soft);">ทั้งสามต้องครบพร้อมกัน — ไม่ใช่อย่างใดอย่างหนึ่ง</p>
+  </div>
+
+  <h2 class="h2">ส่วนที่ 4 — Annual Health Check · ตรวจสุขภาพกลยุทธ์รายปี</h2>
+
+  <p>ทุกๆ 12 เดือน ในเดือนที่คุณเปิดพอร์ตครั้งแรก ผมแนะนำให้นั่งลง 2-3 ชั่วโมง และทำสิ่งที่นักลงทุนส่วนใหญ่ไม่ทำ — <strong>ตรวจสุขภาพกลยุทธ์</strong> ดูว่าระบบยังทำงานเหมือนที่งานวิจัยบอกหรือไม่ ถ้าทำได้ดีกว่า — ดี ถ้าทำได้แย่กว่า — ก็ยังดี <em>ถ้า</em>ตรงกับช่วงที่กลยุทธ์ "ควรจะ" แย่</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>ตัวชี้วัด</th><th>ค่าที่ควรเห็น (Healthy)</th><th>สัญญาณเตือน (Red Flag)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>จำนวนหุ้นที่ผ่านเกณฑ์</td><td>≥ 15 หุ้นทุกไตรมาส</td><td>< 15 หุ้น 2 ไตรมาสติด</td></tr>
+      <tr><td>Annual Turnover</td><td>30-60% (ตามตาราง Ch.3)</td><td>> 100% หรือ < 10%</td></tr>
+      <tr><td>Hit Rate (% หุ้นที่กำไร)</td><td>≥ 50% (ใน 1 ปี)</td><td>< 40% นาน 2 ปีติด</td></tr>
+      <tr><td>Alpha vs SPY</td><td>+2% ถึง +10% ต่อปี</td><td>-5% หรือมากกว่า นาน 3 ปีติด</td></tr>
+      <tr><td>Sharpe Ratio (rolling 12m)</td><td>≥ 0.5</td><td>< 0 นาน 2 ปีติด</td></tr>
+    </tbody>
+  </table>
+
+  <p>ถ้าเห็น <strong>red flag 2 ตัวขึ้นไปพร้อมกัน นานเกิน 18 เดือน</strong> นั่นคือสัญญาณว่ากลยุทธ์อาจกำลัง <em>decay</em> — ความสามารถในการทำกำไรลดลงเพราะตลาดเปลี่ยน หรือ premium ของ factor หายไป ในจุดนี้ผมแนะนำให้ทบทวนทั้ง portfolio และพิจารณาลดน้ำหนักของกลยุทธ์นั้น 50% และเพิ่มน้ำหนักของกลยุทธ์อื่นในพอร์ตที่ยังทำงานได้ดี</p>
+
+  <div class="warn-box">
+    <span class="warn-tag">⚠ คำเตือน — อย่าทิ้งกลยุทธ์เร็วเกินไป</span>
+    1 ปีที่แย่ ไม่ใช่สัญญาณ decay — งานวิจัยบอกว่าทุกกลยุทธ์มี "ปีที่แย่" เช่น CANSLIM แย่ในปี value rotation, Earnings Revision แย่ในปี momentum crash หากคุณทิ้งกลยุทธ์ทุกครั้งที่มัน "ไม่ดี" 1 ปี คุณจะ chase ตลอดชีวิต และไม่ได้ผลตอบแทนของกลยุทธ์ใดๆ จริงๆ — เกณฑ์ของผมคือ "แย่กว่าที่งานวิจัยบอกอย่างต่อเนื่อง 18+ เดือน" เท่านั้น
+  </div>
+
+  <h2 class="h2">บทสรุปของบทนี้ — Discipline = Edge</h2>
+
+  <p>ในตลาด US ที่มีนักลงทุนสถาบันระดับโลก, hedge funds ที่ใช้ AI, และอาจารย์มหาวิทยาลัยลงสนามแข่ง — คนที่ได้เปรียบไม่ใช่คนฉลาดที่สุด แต่คือคนที่ <strong>มีวินัยมากที่สุด</strong> เพราะคนฉลาดมีเยอะ แต่คนที่ทำตามแผนเดียวกันได้นาน 10 ปีขึ้นไป มีน้อย</p>
+
+  <p>กลยุทธ์ใน 13 ตัวที่งานวิจัยพิสูจน์มา ไม่ได้ "ลึกลับ" — Quality Compounder คือสิ่งที่ Buffett เขียนใน letter ทุกปี, CANSLIM คือสิ่งที่ O'Neil สอนในหนังสือตั้งแต่ 1988, Piotroski คือ paper ปี 2000 ที่ใครๆ ก็อ่านได้ — แต่คนทำตามจริงๆ ไม่ถึง 5% และนั่นคือ edge ของคุณ</p>
+
+  <div class="pullquote">
+    The market doesn't reward intelligence — it rewards discipline applied to a sound strategy over decades.
+    <span class="pullquote-attr">ตลาดไม่ตอบแทนความฉลาด — แต่ตอบแทนวินัยที่ใช้กับกลยุทธ์ที่ดี ตลอดทศวรรษ</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- CHAPTER 7 : HONEST LIMITATIONS              -->
+<!-- ============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">VII</div>
+  <div class="eyebrow">Chapter Seven · บทที่เจ็ด</div>
+  <h1 class="h1">Honest Limitations<br><span style="font-size:0.6em;font-weight:400;color:var(--ink-soft);">สิ่งที่งานวิจัยทำไม่ได้ และสิ่งที่คุณต้องระวังในโลกจริง</span></h1>
+  <p class="lead" style="margin-top:32px;">บทนี้เป็นบทที่นักวิจัยส่วนใหญ่ไม่ค่อยอยากพูดถึง — เพราะมันลดความตื่นเต้นของตัวเลข แต่ผมคิดว่าเป็นบทที่สำคัญที่สุดในเอกสารทั้งหมดนี้ เพราะการรู้ขีดจำกัดของเครื่องมือ คือการป้องกันไม่ให้คุณใช้มันผิดทาง งานวิจัยที่ดีคือการพิสูจน์ ส่วนงานวิจัยที่ดีกว่า — คือการพิสูจน์ <em>พร้อมยอมรับว่าตัวเองยังไม่สมบูรณ์แบบ</em></p>
+</div>
+
+<div class="page">
+  <p class="lead"><span class="dropcap">ใ</span>นบทนี้ผมจะอธิบาย 5 ข้อจำกัดที่งานวิจัยยอมรับเอง และผมขยายความเพิ่มจากประสบการณ์ตลาดจริง — เพราะถ้าคุณเชื่อแค่ตัวเลข CAGR 23.9% โดยไม่เข้าใจว่ามันได้มาในเงื่อนไขใด คุณจะเข้าตลาดด้วยความคาดหวังที่ผิด และล้มเหลวในที่สุด</p>
+
+  <h2 class="h2">ข้อจำกัด 1 — Survivorship Bias · ความลำเอียงผู้รอด</h2>
+
+  <p>นี่คือ "ผีร้าย" อันดับหนึ่งของการ backtest หุ้น และงานวิจัยยอมรับเอง ว่ามันมีอยู่ ส่วนที่ดีคือ — ทีมวิจัยใช้ <strong>1,010 หุ้นที่ยัง active ปัจจุบัน</strong> ซึ่งแปลว่าหุ้นที่ delisted ระหว่างปี 2014-2024 (ล้มละลาย, merger, going private) ถูกตัดออกจาก universe ทั้งหมด — ซึ่งทำให้ผลตอบแทนในงานวิจัย <em>สูงกว่า</em> ความจริงที่นักลงทุนจะได้</p>
+
+  <p>ทำไม? เพราะหุ้นที่ delisted ส่วนใหญ่คือหุ้นที่ <em>ล้มเหลว</em> — ถ้าคุณเอามารวมในการ backtest ผลตอบแทนจะต่ำลง วงการวิชาการประมาณ survivorship bias ของหุ้น US ในยุคนี้อยู่ที่ <strong>~1.5% ต่อปี</strong> หมายความว่า — ถ้างานวิจัยบอก CANSLIM ได้ CAGR 25.5% ในความจริงควรคิดที่ <strong>~24%</strong> และ Quality Compounder จาก 23.9% → ~22.4%</p>
+
+  <div class="insight-box">
+    <div class="insight-label">วิธีปรับใจ</div>
+    หักลบ <strong>1.5% จาก CAGR ทุกตัวในงานวิจัย</strong> เพื่อให้ได้ตัวเลข "realistic" ที่ใกล้เคียงกับที่คุณจะได้จริง — ตัวเลขนี้ยังเป็นตัวเลขที่ดี (CANSLIM ~24% ยังเอาชนะ SPY ~10% อย่างมาก) แต่ไม่สวยเท่า headline ของงานวิจัย
+  </div>
+
+  <h2 class="h2">ข้อจำกัด 2 — Bull Market Period · ช่วงตลาดกระทิงเป็นหลัก</h2>
+
+  <p>ปี 2014-2024 เป็นช่วงที่ <strong>บวกมาก</strong> ในประวัติศาสตร์ตลาด US — SPY เองก็ทำ CAGR ประมาณ 13% ในยุคที่ค่าเฉลี่ยระยะยาวคือ 10% ต่อปี มี "หมีจริง" ครั้งเดียวคือปี 2022 (drawdown -25% ใน SPY) ซึ่งสั้นและฟื้นเร็ว</p>
+
+  <p>นั่นแปลว่า — กลยุทธ์ทั้ง 13 ตัวยังไม่ผ่าน "crisis test" จริงๆ เช่น Dot-com bust 2000-2002 (ลง 49% ใน 2.5 ปี), Global Financial Crisis 2008-2009 (ลง 55% ใน 1.5 ปี), หรือ Stagflation ยุค 1970s (รับความเจ็บปวดติดต่อกัน 10 ปี) — คุณจึงไม่สามารถพูดได้ 100% ว่ากลยุทธ์เหล่านี้จะรอดในวิกฤตที่ลึกและยาวกว่า 2022 สามเท่า</p>
+
+  <p>ส่วนที่ดีคือ ทีมวิจัยทำ <strong>regime stress test แยก</strong> และ Quality Compounder, Piotroski, Dividend Growth ยังให้ผลบวกในช่วง 2022 (regime หมี) ซึ่งเป็นสัญญาณบวก แต่ <em>ไม่ใช่หลักประกัน</em> สำหรับวิกฤตที่ลึกกว่านั้น</p>
+
+  <div class="warn-box">
+    <span class="warn-tag">⚠ Reality Check</span>
+    หากคุณลงทุนในยุค 2008 ด้วยกลยุทธ์ใดๆ ก็ตาม คุณจะติดลบ 40-55% เป็นอย่างน้อย — ไม่ว่ากลยุทธ์นั้นจะ "ดีมาก" แค่ไหน เพราะในวิกฤตการเงินรุนแรง correlation ของหุ้นทั้งหมด (รวมถึงหุ้นคุณภาพ) วิ่งเข้าหา 1 ทุกอย่างลงพร้อมกัน — ดังนั้น <em>อย่าคิดว่าคุณจะรอด 2008 ครั้งหน้าด้วยกลยุทธ์ใดๆ ในเอกสารนี้</em>
+  </div>
+
+  <h2 class="h2">ข้อจำกัด 3 — "13/13 Robust" Anomaly · ความผิดปกติของผลลัพธ์ที่ดีเกินไป</h2>
+
+  <p>นี่คือข้อที่ผมอยากให้คุณคิดอย่างหนัก — ในงานวิจัย walk-forward test แบบ <em>absolute return</em> (ใช้ CAGR > 0 เป็นเกณฑ์) <strong>13/13 กลยุทธ์ผ่าน 100%</strong> เป็นตัวเลขที่ "สวยเกินไป" สำหรับวงการวิชาการ — ในงานวิจัย factor ส่วนใหญ่ทั่วไป โดยเฉลี่ย 30-50% ของกลยุทธ์ตกในช่วง walk-forward</p>
+
+  <p>ทีมวิจัยเองก็เห็นเรื่องนี้และอธิบายว่า — เพราะ universe มีหุ้นใหญ่ 1,010 ตัว และช่วงเวลาเป็น secular bull market ทำให้ "พื้นฐาน" ของตลาดยกทุกอย่างขึ้น ตลาดขึ้นมาก แม้กลยุทธ์ที่อ่อน ก็ยังให้ผลตอบแทนเป็นบวก</p>
+
+  <p>ส่วนที่ดีคือ — เมื่อใช้ <strong>benchmark-relative</strong> (ต้องเอาชนะ SPY เกิน 0.5% ต่อปี) เกณฑ์นี้เข้มงวดกว่า และจริงกว่า — มี <strong>2 กลยุทธ์ตก</strong> คือ SPEA (Mean-Variance) และ Fama-French Small-Minus-Value (เหลือ 11/13 ผ่าน) ซึ่งเป็นตัวเลขที่ "realistic" มากกว่า</p>
+
+  <div class="insight-box">
+    <div class="insight-label">บทเรียน</div>
+    <strong>ใช้ benchmark-relative เป็นเกณฑ์หลัก ไม่ใช่ absolute return</strong> เพราะถ้าคุณเอาชนะ SPY ไม่ได้ คุณควรซื้อ SPY แล้วทำงานอื่น ไม่ต้องเสียเวลาทำ systematic strategy การมี alpha คือเหตุผลเดียวที่จะทำงานหนักขนาดนี้
+  </div>
+
+  <h2 class="h2">ข้อจำกัด 4 — Free Data Quality · คุณภาพข้อมูลที่ใช้</h2>
+
+  <p>ทีมวิจัยใช้ข้อมูลฟรี (SEC EDGAR + free price data) ซึ่งเป็นข้อดี — ใครๆ ก็เข้าถึงได้ และทำซ้ำได้ — แต่ก็เป็นข้อจำกัด เพราะข้อมูลพรีเมียมจาก Bloomberg, Compustat, S&P Capital IQ มีความสะอาดและละเอียดกว่า ในข้อมูลฟรี อาจมี <em>missing values</em>, <em>restated earnings</em> ที่ไม่ครบ, หรือ <em>corporate actions</em> (split, merger) ที่ปรับไม่สมบูรณ์</p>
+
+  <p>ผลกระทบคือ — สำหรับกลยุทธ์ที่พึ่ง earnings (เช่น Earnings Revision, CANSLIM) คุณภาพข้อมูล earnings สำคัญมาก ถ้ามีหุ้นบางตัวที่ข้อมูลผิดพลาด อาจถูกคัดเข้ามาทั้งที่ไม่ควร — ซึ่งอาจสร้างทั้ง false positive และ false negative ในการคัดเลือก</p>
+
+  <p>วิธีแก้ — ถ้าคุณจริงจัง ลงทุนเดือนละ ~$50 กับ Stockopedia, Stock Rover, หรือ Koyfin เพื่อข้อมูลที่สะอาดขึ้น มันคือต้นทุนที่ต่ำกว่า 0.1% ของพอร์ต $50,000 ต่อปี และเป็นต้นทุนที่ผมยอมจ่ายมาตลอด เพราะข้อมูลผิด = decision ผิด = เงินหาย</p>
+
+  <h2 class="h2">ข้อจำกัด 5 — Factor Decay · กลยุทธ์ที่ใครๆ ก็รู้ จะหมดไอเดียหรือไม่</h2>
+
+  <p>นี่คือคำถามเชิงปรัชญาที่ผมอยากให้คุณตระหนัก — กลยุทธ์ที่ผ่านการพิสูจน์จะ "หมดมุก" หรือไม่ เมื่อนักลงทุนทุกคนทำตาม? ในวงการวิชาการ ปรากฏการณ์นี้เรียก <strong>"factor decay"</strong> หรือ <em>arbitrage away</em> — เมื่อใครๆ ก็ทำตาม กำไรพิเศษจะหายไป</p>
+
+  <p>มีหลักฐานทั้งสองทาง:</p>
+
+  <p><strong>ฝั่งที่บอกว่าจะหายไป</strong> — งานของ McLean & Pontiff (2016) ทดสอบ 97 anomalies ที่ตีพิมพ์ พบว่า return ของ anomaly ลดลงเฉลี่ย 32% หลังการตีพิมพ์ และลดลง 58% เมื่อเข้าสู่การลงทุนจริง</p>
+
+  <p><strong>ฝั่งที่บอกว่าจะอยู่ต่อ</strong> — Quality (Buffett 1965-2024), Momentum (Jegadeesh & Titman 1993, ยังทำงาน), Low Volatility (Frazzini & Pedersen 2014, ยังทำงาน) — เป็น factor ที่อยู่มาเกิน 50 ปีและยังให้ premium</p>
+
+  <p>ทำไม factor บางตัวอยู่นาน บางตัวหายไป? — คำตอบของ Cliff Asness (AQR) คือ: <em>factor ที่อยู่ได้นาน คือ factor ที่ "เจ็บ" ตอนถือ</em> — Quality แพง, Momentum กลัวฟอง, Low Vol น่าเบื่อ — มนุษย์ไม่อยากถือ ดังนั้น premium จึงไม่หาย ส่วน factor ที่ "ฟรีเหรียญ" จะถูก arbitrage ออกเร็ว</p>
+
+  <div class="pullquote">
+    Factors that hurt to hold are the factors that pay to hold.
+    <span class="pullquote-attr">Factor ที่ "เจ็บตอนถือ" คือ Factor ที่ "จ่ายดีตอนได้"</span>
+  </div>
+
+  <p>ใน 13 กลยุทธ์ของงานวิจัย ผมเชื่อว่าทุกตัวมีความ "เจ็บ" ในตัวมันเอง — Quality Compounder "ต้องซื้อหุ้นที่ดูแพง", CANSLIM "ต้องซื้อหุ้นที่นิวไฮ", Dividend Growth "ต้องอดทน 10 ปีกว่าจะเห็นผล", Piotroski "ต้องซื้อหุ้นที่ตลาดเกลียด" — ดังนั้นผมคาดว่า premium ส่วนใหญ่จะอยู่ต่อในทศวรรษหน้า แต่อาจ <em>ลดลง 10-30%</em> จากตัวเลขในงานวิจัย</p>
+
+  <h2 class="h2">บทสรุปของบทนี้ — ทำไมการรู้ขีดจำกัดเป็นพลัง</h2>
+
+  <p>หากคุณเข้าตลาดโดยคิดว่า "งานวิจัยพิสูจน์แล้วว่าได้ 24% ต่อปี ดังนั้นผมจะได้ 24%" — คุณกำลังเข้าตลาดด้วยความคาดหวังที่ผิด และเมื่อความจริงให้คุณได้ 18% (หลังหัก survivorship bias + factor decay) คุณจะคิดว่ากลยุทธ์ "ไม่ทำงาน" และทิ้งมันไประหว่างทาง</p>
+
+  <p>แต่หากคุณเข้าตลาดโดยรู้แล้วว่า — ตัวเลขที่ realistic คือ <strong>15-22% ต่อปีในยุคปกติ, 5-10% ในยุคแย่, และ -30 ถึง -45% ในยุควิกฤต</strong> คุณจะ <em>ไม่ตกใจ</em> เมื่อความเป็นจริงมาถึง คุณจะอยู่ในระบบนานพอที่จะได้รับผลตอบแทนเฉลี่ยระยะยาว</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Realistic Expectations Table</div>
+    <p style="margin:0 0 8px 0;"><strong>ในยุคปกติ (เหมือน 2014-2024):</strong> CAGR 15-22%, Max DD -25 ถึง -40%</p>
+    <p style="margin:0 0 8px 0;"><strong>ในยุคแย่ (เหมือน 2000-2002 หรือ 2022):</strong> CAGR -10 ถึง +5%, Max DD -30 ถึง -50%</p>
+    <p style="margin:0;"><strong>ในยุควิกฤต (เหมือน 2008):</strong> CAGR -30 ถึง -45% (แต่ฟื้นภายใน 2-3 ปี)</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · ก่อนผ่านไปบทสุดท้าย</div>
+    <p class="reflection-q">หากกลยุทธ์ของคุณให้ผลตอบแทน 15% ในปีที่ SPY ได้ 18% — คุณจะรู้สึกอย่างไร? คำตอบนี้บอกได้ว่าคุณพร้อมเข้าตลาดหรือยัง</p>
+    <p class="reflection-q">ถ้างานวิจัยฉบับใหม่ในปี 2030 บอกว่า "factor decay ลดผลตอบแทนของ Quality Compounder จาก 22% เหลือ 15%" — คุณจะยังถือกลยุทธ์นี้ต่อหรือไม่ และเพราะอะไร?</p>
+    <p class="reflection-q">คุณยอมรับได้ไหมว่า <strong>คุณอาจไม่ใช่กรณีพิเศษ</strong> — คุณจะได้ผลตอบแทนใกล้เคียงเฉลี่ย ไม่ใช่ดีกว่าทุกคน?</p>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- CHAPTER 8 : SYNTHESIS · MASTER ONE-LINER    -->
+<!-- ============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">VIII</div>
+  <div class="eyebrow">Chapter Eight · บทที่แปด · Synthesis</div>
+  <h1 class="h1">The Master One-Liner<br><span style="font-size:0.6em;font-weight:400;color:var(--ink-soft);">บทตกผลึก — รวบยอดทุกอย่างเป็นประโยคเดียว</span></h1>
+  <p class="lead" style="margin-top:32px;">หากเอกสารทั้งหมดนี้ ผมต้องสรุปเป็นประโยคเดียวที่คุณจะจดจำตลอดชีวิตการลงทุน — ประโยคที่คุณท่องในใจตอนพอร์ตติดลบ 30%, ตอนเพื่อนชวนคุณลงทุนหุ้นร้อน, ตอนสื่อบอกว่า "ครั้งนี้ต่างจากครั้งก่อน" — ประโยคนั้นคือ:</p>
+</div>
+
+<div class="page">
+  <div class="blockquote-full">
+    Systematic discipline beats brilliant intuition — every cycle, every regime.
+    <div class="blockquote-th">วินัยที่ผ่านการพิสูจน์ ชนะสัญชาตญาณอัจฉริยะ — ทุกวงจรตลาด ทุกสภาวะ</div>
+  </div>
+
+  <p style="margin-top:32px;"><span class="dropcap">ป</span>ระโยคนี้สั้น แต่บรรจุทุกอย่างที่งานวิจัยพิสูจน์มา — <strong>"Systematic"</strong> หมายถึงการมีกฎเกณฑ์ตายตัวที่เขียนล่วงหน้า ไม่ใช่ตัดสินใจตามอารมณ์, <strong>"Discipline"</strong> หมายถึงการทำตามกฎเกณฑ์นั้นแม้วันที่ใจไม่อยาก, <strong>"Beats"</strong> หมายถึงเอาชนะ — มีหลักฐานทางสถิติยืนยัน, <strong>"Brilliant Intuition"</strong> หมายถึง <em>แม้แต่ความเก่งและความเฉลียวฉลาด</em> ก็ยังแพ้วินัย, และ <strong>"Every cycle, every regime"</strong> หมายถึง — ในทุกสภาวะตลาด — bull, bear, sideways, growth-led, value-led — วินัยชนะเสมอในระยะยาว</p>
+
+  <p>ผมจะปิดเอกสารด้วย 3 สิ่ง — <strong>Pre-Trade Ritual</strong> 7 ขั้นตอนที่คุณทำก่อนทุกการซื้อขาย, <strong>Reading List</strong> 4 เล่มที่ขยายความเข้าใจของคุณ, และ <strong>Closing Reflection</strong> ความคิดส่งท้ายจากผมในฐานะนักลงทุนที่ผ่านวงจรตลาดมา 4 รอบ</p>
+
+  <h2 class="h2">Pre-Trade Ritual · 7 คำถามก่อนทุกการซื้อขาย</h2>
+
+  <p>ผมเรียนรู้จาก <em>Howard Marks</em> ว่าการลงทุนที่ดีไม่ใช่การเลือกหุ้นถูกเพียงครั้ง แต่คือการมี <strong>process</strong> ที่ทำซ้ำได้ และ Pre-Trade Ritual คือสิ่งที่บังคับให้ process ของคุณทำงานทุกครั้ง — โดยเฉพาะวันที่อารมณ์รบกวน ก่อนกดซื้อหรือขายทุกครั้ง ตอบคำถามเหล่านี้ในใจหรือเขียนใน journal</p>
+
+  <div class="action-card">
+    <div class="action-tag">Pre-Trade Ritual · 7 คำถามตายตัว</div>
+    <ol class="checklist num">
+      <li><strong>กลยุทธ์ที่ฉันใช้คืออะไร?</strong> — ตอบเป็นชื่อกลยุทธ์ (เช่น Quality Compounder) ไม่ใช่ "ฉันคิดว่ามันน่าจะดี"</li>
+      <li><strong>หุ้นนี้อยู่ในอันดับเท่าไรของกลยุทธ์?</strong> — ต้องเป็น top 15-20 เท่านั้น ถ้าไม่ใช่ ห้ามซื้อ</li>
+      <li><strong>วันนี้ตรงกับวัน rebalance ที่กำหนดไว้หรือไม่?</strong> — ถ้าไม่ใช่ และไม่ใช่กรณี drawdown protocol — ห้ามซื้อขาย</li>
+      <li><strong>ตำแหน่งนี้เกิน 7% ของพอร์ตหรือไม่?</strong> — ถ้าเกิน คุณกำลังขัดหลัก equal weight — ลดขนาด</li>
+      <li><strong>ฉันกำลังขายเพราะ "กลยุทธ์บอก" หรือเพราะ "ฉันกลัว/โลภ"?</strong> — ถ้าเป็นเหตุผลที่สอง ดื่มน้ำ เดิน 10 นาที กลับมาทบทวน</li>
+      <li><strong>ถ้าฉันไม่ทำธุรกรรมนี้วันนี้ จะเสียโอกาสอะไรบ้าง?</strong> — ถ้าคำตอบคือ "ไม่มี" — แสดงว่าไม่จำเป็นต้องทำ</li>
+      <li><strong>ฉันจะอธิบายธุรกรรมนี้ให้ตัวเองในอีก 5 ปีฟังว่าอะไร?</strong> — ถ้าคำตอบเริ่มด้วย "ตอนนั้นฉันคิดว่า..." แทนที่จะเป็น "ตามแผนข้อ X..." — หยุด</li>
+    </ol>
+  </div>
+
+  <p>ที่จริงผม print 7 คำถามนี้แปะข้างจอลงทุน และในวันที่ผมรู้สึกอยากทำอะไรนอกแผน — แค่อ่านผ่าน 7 ข้อนี้ ความอยากนั้นมักจะหายไป เพราะคำถามเหล่านี้ออกแบบมาเพื่อ "จับคุณตอนทำผิด" และคนเรา — แม้แต่คนเก่ง — ทำผิดบ่อยกว่าที่คิด</p>
+
+  <h2 class="h2">Reading List · 4 เล่มที่ขยายความเข้าใจ</h2>
+
+  <p>เอกสารนี้คือการสรุป 13 กลยุทธ์ในมุมที่ใช้งานจริง แต่หากคุณอยากเข้าใจ "ปรัชญาเบื้องหลัง" ของแต่ละกลยุทธ์ ผมแนะนำหนังสือ 4 เล่มต่อไปนี้ — เล่มเหล่านี้คือ "แม่บท" ที่ผู้สร้างกลยุทธ์เขียนเอง</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>หนังสือ</th><th>ผู้เขียน</th><th>เหตุผลที่อ่าน</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Berkshire Hathaway Letters to Shareholders (1965-2024)</strong></td>
+        <td>Warren Buffett</td>
+        <td>แม่บทของ Quality Compounder — อ่านฟรีจากเว็บ Berkshire</td>
+      </tr>
+      <tr>
+        <td><strong>How to Make Money in Stocks (4th ed.)</strong></td>
+        <td>William J. O'Neil</td>
+        <td>แม่บทของ CANSLIM — ผู้สร้างเขียนเองตั้งแต่ 1988 ปรับปรุงมาเรื่อยๆ</td>
+      </tr>
+      <tr>
+        <td><strong>The Little Book That Beats the Market</strong></td>
+        <td>Joel Greenblatt</td>
+        <td>แม่บทของ Magic Formula — บางและอ่านได้ใน 2 ชั่วโมง</td>
+      </tr>
+      <tr>
+        <td><strong>The Most Important Thing</strong></td>
+        <td>Howard Marks</td>
+        <td>ไม่ใช่กลยุทธ์ใดเฉพาะ แต่สอน "second-level thinking" และ risk awareness — รากของวินัยทุกข้อ</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:24px;">ถ้าคุณอ่านได้แค่เล่มเดียว — เลือก <strong>Howard Marks</strong> เพราะมันสอนวิธีคิดที่ใช้ได้กับทุกกลยุทธ์ ไม่ใช่กลยุทธ์เดียว ส่วนถ้าคุณอ่าน Buffett อย่าอ่านสุ่มเลือกปี — อ่านเรียงตั้งแต่ 1965 จะเห็นพัฒนาการความคิดของเขาที่ "งดงามที่สุดในโลกการลงทุน"</p>
+
+  <h2 class="h2">Closing Reflection · ความคิดส่งท้าย</h2>
+
+  <p>ผมเขียนเอกสารนี้ในฐานะคนที่เคยลงทุนผิด เคยขายในจุดต่ำสุด เคยซื้อในจุดสูงสุด และเคยทำตามอารมณ์มากกว่าทำตามแผน — ทุกบทเรียนใน 8 บทนี้ ผมจ่ายไปด้วย "เงินเรียน" ของผมเอง ก่อนที่งานวิจัยจะมาพิสูจน์ในภายหลังว่าสิ่งที่ผมเรียนรู้จากความเจ็บปวดนั้น <em>ถูกต้อง</em></p>
+
+  <p>สิ่งที่ผมอยากให้คุณเอาไปจากเอกสารนี้มากที่สุด ไม่ใช่ตัวเลข Sharpe 0.84 ของ Quality Compounder, ไม่ใช่ CAGR 25.5% ของ CANSLIM, ไม่ใช่ 13/15 กลยุทธ์ที่รอด — สิ่งที่ผมอยากให้คุณเอาไปคือ <strong>ความเชื่อที่หนักแน่น</strong> ว่าในตลาดที่เต็มไปด้วยเสียงรบกวน ข่าวรายวัน, การคาดเดาของกูรู, และอารมณ์ของฝูงชน — มี "พื้นที่ปลอดภัย" หนึ่งแห่งที่นักลงทุนรายย่อยอย่างเรา ยังมีโอกาสเอาชนะตลาด</p>
+
+  <p>พื้นที่นั้นคือ <strong>ระเบียบวินัย ผนวกกับเวลา</strong> — สองสิ่งที่นักลงทุนสถาบันมักจะมีไม่พอ (เพราะถูกประเมินผลทุกไตรมาส) และที่กองทุน hedge funds ส่วนใหญ่ทำไม่ได้ (เพราะลูกค้าทนไม่ไหวเมื่อ drawdown มาถึง) แต่คุณมีทั้งสองอย่าง ถ้าคุณ <em>เลือก</em>ที่จะมี</p>
+
+  <div class="blockquote-full">
+    Information is the resolution of uncertainty.
+    <div class="blockquote-th">— Claude Shannon · ข้อมูลคือการคลี่คลายความไม่แน่นอน</div>
+  </div>
+
+  <p style="margin-top:32px;">งานวิจัยฉบับนี้คือ "ข้อมูล" ในความหมายที่ Shannon พูดถึง — มันคลี่คลายความไม่แน่นอนของการเลือกกลยุทธ์ลงทุน จากที่เคย "ใครๆ ก็เถียงได้" มาเป็น "พิสูจน์ทางสถิติได้" และเมื่อความไม่แน่นอนคลี่คลายลง สิ่งที่เหลือก็แค่ <em>การลงมือทำ</em></p>
+
+  <p>วงจรตลาดถัดไป — bear market ถัดไป, bull market ถัดไป, regime ถัดไป — คือ <strong>peer review</strong> สูงสุดของงานวิจัยฉบับนี้ และของกลยุทธ์ที่คุณจะเลือก ผมหวังว่าเมื่อคุณเปิดเอกสารนี้อ่านอีกครั้งในปี 2030 หรือ 2035 — คุณจะอ่านในฐานะนักลงทุนที่ <em>ผ่านวงจรมาด้วยวินัย</em> และพอร์ตของคุณคือหลักฐานชิ้นต่อไป ที่ยืนยันว่าวินัยที่ผ่านการพิสูจน์ ชนะสัญชาตญาณอัจฉริยะจริงๆ — ทุกวงจรตลาด ทุกสภาวะ</p>
+
+  <p style="text-align:center;margin-top:48px;font-size:1.05em;color:var(--ink-soft);font-style:italic;">ขอให้คุณประสบความสำเร็จในตลาดหุ้น US<br>ด้วยวินัยของคุณเอง<br><br>— ในฐานะเพื่อนนักลงทุน</p>
+
+  <div class="reflection" style="margin-top:48px;">
+    <div class="reflection-label">Final Reflection · คำถามที่จะอยู่กับคุณตลอดชีวิต</div>
+    <p class="reflection-q">หากคุณเปิดเอกสารนี้อ่านอีกครั้งในอีก 10 ปี — คุณอยากเห็นอะไรในพอร์ตของคุณ? เขียนคำตอบนี้ลงกระดาษ ใส่ซองปิดผนึก เปิดในวัน 1 มกราคม 2036</p>
+    <p class="reflection-q">มีกลยุทธ์ใดในเอกสารนี้ที่ทำให้คุณ "รู้สึกไม่สบายใจที่จะถือ" หรือไม่? — นั่นอาจเป็นสัญญาณว่ามันเป็นกลยุทธ์ที่ premium อยู่ต่อในระยะยาว (เพราะมันเจ็บที่จะถือ)</p>
+    <p class="reflection-q">หากในอีก 5 ปี ผลตอบแทนของคุณ <em>ไม่เท่า</em> ที่งานวิจัยบอก — คุณจะหา "ผู้ผิด" (กลยุทธ์, งานวิจัย, ตลาด) หรือกลับมาดูที่ "การลงมือทำ" ของตัวเอง? คำตอบนี้กำหนดอนาคตการลงทุนของคุณ</p>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- BOOK FOOTER                                  -->
+<!-- ============================================ -->
+<div class="book-footer">
+  <div class="footer-mark">§</div>
+  <div class="footer-text">
+    The Systematic Edge · Investor's Edition<br>
+    เอกสารฉบับนี้สร้างจากผลการวิจัยเชิงระบบ บนข้อมูลหุ้นใหญ่ใน US 1,010 ตัว ปี 2014-2024<br>
+    ใช้กรอบ 4-Pillar Validation: Walk-Forward, Monte Carlo (1000 simulations), Statistical Significance (Benjamini-Hochberg), และ Regime Stress Test<br>
+    13 กลยุทธ์ที่ผ่าน · 5 กลยุทธ์ระดับ Champion · 3 โปรไฟล์นักลงทุนที่แตกต่าง
+  </div>
+  <div class="footer-author">
+    เรียบเรียงในฐานะนักลงทุน · ไม่ใช่คำแนะนำการลงทุน · การลงทุนมีความเสี่ยง
+  </div>
+</div>
+
+</div>
+</body>
+</html>
