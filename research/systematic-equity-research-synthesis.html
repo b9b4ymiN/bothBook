@@ -1,0 +1,2760 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Systematic Equity Research — Volume I, II, III Synthesis</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Paper tones */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+
+  /* Ink */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+
+  /* Accent — Oxford Blue (academic finance research) */
+  --accent:       #1F3A5F;
+  --accent-deep:  #0F2540;
+  --accent-light: #3D5C84;
+  --accent-rule:  rgba(31, 58, 95, 0.30);
+  --accent-bg:    rgba(31, 58, 95, 0.08);
+
+  /* Copper highlight (for warnings / critical findings) */
+  --copper:       #B8753D;
+  --copper-deep:  #8B5520;
+  --copper-bg:    rgba(184, 117, 61, 0.10);
+
+  /* Semantic */
+  --red: #7A1A1A; --red-bg: #FBF3F0;
+  --green: #355E40; --green-bg: #F1F6EE;
+  --amber: #8B6914; --amber-bg: #FAF6E8;
+
+  /* Layout */
+  --book-width: 820px;
+  --page-pad-h: 76px;
+  --page-pad-v: 84px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: #1A1610;
+  padding: 40px 16px;
+  margin: 0;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+}
+
+/* ============================================
+   COVER
+============================================ */
+.cover {
+  background: linear-gradient(180deg, #0F2540 0%, #1F3A5F 60%, #2A4868 100%);
+  color: var(--paper);
+  padding: 110px 60px 90px;
+  position: relative;
+  min-height: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.cover::before {
+  content: "";
+  position: absolute;
+  top: 24px; left: 24px; right: 24px; bottom: 24px;
+  border: 1px solid rgba(242,239,228,0.18);
+  pointer-events: none;
+}
+.cover::after {
+  content: "";
+  position: absolute;
+  top: 32px; left: 32px; right: 32px; bottom: 32px;
+  border: 1px solid rgba(242,239,228,0.08);
+  pointer-events: none;
+}
+.cover-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(242,239,228,0.55);
+  margin-bottom: 22px;
+}
+.cover-symbol {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-style: italic;
+  color: rgba(242,239,228,0.85);
+  margin-bottom: 36px;
+  line-height: 1;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 62px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin: 0 0 18px;
+}
+.cover-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(242,239,228,0.75);
+}
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(242,239,228,0.78);
+  margin: 0 0 40px;
+  max-width: 580px;
+}
+.cover-volumes {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.cover-volume {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid rgba(242,239,228,0.20);
+  background: rgba(15,37,64,0.40);
+}
+.cover-volume-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: rgba(242,239,228,0.95);
+  margin-bottom: 4px;
+}
+.cover-volume-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(242,239,228,0.55);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.cover-volume-desc {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(242,239,228,0.80);
+}
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(242,239,228,0.20);
+  padding-top: 24px;
+}
+.cover-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(242,239,228,0.65);
+  font-weight: 600;
+}
+.cover-edition {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(242,239,228,0.55);
+}
+
+/* ============================================
+   TOC PAGE
+============================================ */
+.toc {
+  background: var(--paper-mid);
+  padding: var(--page-pad-v) var(--page-pad-h);
+}
+.toc-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.toc-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+.toc-tagline {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: var(--ink-muted);
+  font-style: italic;
+  line-height: 1.7;
+  margin: 0 0 48px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+/* Stat row */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 32px 0 48px;
+}
+.stat {
+  text-align: center;
+  padding: 18px 8px;
+  background: var(--paper);
+  border-top: 2px solid var(--accent);
+}
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent-deep);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.toc-section-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin: 36px 0 14px;
+}
+
+/* Chapter card */
+.ch-card {
+  display: flex;
+  gap: 22px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  align-items: flex-start;
+}
+.ch-card-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 38px;
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1;
+  min-width: 60px;
+  padding-top: 2px;
+}
+.ch-card-body { flex: 1; }
+.ch-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+.ch-card-one-liner {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-style: italic;
+  line-height: 1.65;
+  margin-bottom: 10px;
+}
+.ch-card-tags { margin-top: 6px; }
+.ch-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  padding: 3px 9px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+/* ============================================
+   PAGE (chapter content)
+============================================ */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  position: relative;
+}
+.page + .page { border-top: 1px solid var(--paper-shadow); }
+
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.page h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0 0 18px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.page h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 44px 0 14px;
+  line-height: 1.35;
+  border-bottom: 1px solid var(--accent-rule);
+  padding-bottom: 8px;
+}
+.page h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin: 28px 0 10px;
+  line-height: 1.4;
+}
+.page p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+  text-align: justify;
+  hyphens: auto;
+}
+.page p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.page p em {
+  color: var(--accent-deep);
+  font-style: italic;
+}
+
+/* Chapter opening page */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 100px var(--page-pad-h) 80px;
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ch-num-big {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 140px;
+  color: var(--paper-shadow);
+  line-height: 1;
+  font-weight: 400;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.ch-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0 0 14px;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 2;
+}
+.ch-title em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--accent);
+}
+.ch-essence {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink-mid);
+  font-style: italic;
+  line-height: 1.7;
+  margin: 0;
+  max-width: 580px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Insight box */
+.insight-box {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  padding: 22px 26px;
+  margin: 28px 0;
+}
+.insight-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.insight-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.insight-text strong { color: var(--accent-deep); font-weight: 600; }
+
+/* Warning / Critical box */
+.warning-box {
+  background: var(--copper-bg);
+  border-left: 3px solid var(--copper);
+  padding: 22px 26px;
+  margin: 28px 0;
+}
+.warning-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--copper-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.warning-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.warning-text strong { color: var(--copper-deep); font-weight: 600; }
+
+/* Pullquote */
+.pullquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 36px 0;
+  padding: 0 0 0 32px;
+  border-left: 3px solid var(--accent);
+  font-weight: 400;
+}
+
+/* Blockquote full (dark) */
+.blockquote-full {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 56px 60px;
+  margin: 40px calc(-1 * var(--page-pad-h));
+  text-align: center;
+  position: relative;
+}
+.blockquote-full::before {
+  content: """;
+  position: absolute;
+  top: 8px;
+  left: 30px;
+  font-family: 'Playfair Display', serif;
+  font-size: 90px;
+  color: var(--accent-light);
+  line-height: 1;
+  opacity: 0.5;
+}
+.blockquote-full-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  font-weight: 400;
+}
+.blockquote-full-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: rgba(242,239,228,0.75);
+  margin: 0 0 16px;
+  line-height: 1.7;
+}
+.blockquote-full-attr {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(242,239,228,0.55);
+  font-weight: 600;
+}
+
+/* Data table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+}
+.data-table th {
+  background: var(--accent-deep);
+  color: var(--paper);
+  padding: 11px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.data-table th.num { text-align: right; }
+.data-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--paper-shadow);
+  color: var(--ink-soft);
+  vertical-align: top;
+}
+.data-table td.num {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.data-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+.data-table tr.highlight td {
+  background: var(--accent-bg);
+  font-weight: 600;
+  color: var(--ink);
+}
+.data-table tr.highlight td.num { color: var(--accent-deep); }
+.data-table tr.warn td { background: var(--copper-bg); }
+.data-table tr.warn td.num { color: var(--copper-deep); font-weight: 600; }
+
+/* Verdict badges */
+.verdict {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.verdict.robust { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.verdict.caution { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
+.verdict.reject { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+.verdict.fail { background: var(--copper-bg); color: var(--copper-deep); border: 1px solid var(--copper); }
+
+/* Question card */
+.question-card {
+  background: var(--paper);
+  border: 1px solid var(--paper-shadow);
+  border-left: 4px solid var(--accent);
+  padding: 26px 30px;
+  margin: 22px 0;
+}
+.question-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.question-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+  margin: 0 0 14px;
+}
+.question-body {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+.question-body strong { color: var(--ink); font-weight: 600; }
+.question-action {
+  background: var(--accent-bg);
+  padding: 12px 16px;
+  border-left: 2px solid var(--accent);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 13px;
+  color: var(--accent-deep);
+  font-weight: 500;
+  line-height: 1.65;
+  margin-top: 14px;
+}
+.question-action strong {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: var(--accent-deep);
+}
+
+/* Action card / checklist */
+.action-card {
+  background: var(--paper-mid);
+  padding: 24px 28px;
+  margin: 28px 0;
+  border-top: 2px solid var(--accent);
+}
+.action-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: chk;
+}
+.checklist li {
+  position: relative;
+  padding: 10px 0 10px 44px;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--paper-shadow);
+  counter-increment: chk;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before {
+  content: counter(chk, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 11px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.checklist li strong { color: var(--ink); font-weight: 600; }
+
+/* Insight Ladder */
+.ladder { margin: 32px 0; }
+.ladder-step {
+  padding: 18px 24px;
+  margin: 0;
+}
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.ladder-arrow {
+  text-align: center;
+  padding: 6px;
+  color: var(--ink-faint);
+  font-size: 20px;
+}
+
+/* Reflection block */
+.reflection {
+  background: var(--paper-deep);
+  padding: 28px 32px;
+  margin: 36px 0;
+  position: relative;
+}
+.reflection-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.reflection-q {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 10px 0;
+  padding-left: 22px;
+  position: relative;
+}
+.reflection-q::before {
+  content: "?";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* Comparison/contrast 2-col */
+.dialogue-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 28px 0;
+}
+.dialogue-cell {
+  padding: 22px 24px;
+}
+.dialogue-cell.before {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+}
+.dialogue-cell.after {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+}
+.dialogue-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.dialogue-cell.before .dialogue-label { color: var(--red); }
+.dialogue-cell.after .dialogue-label { color: var(--green); }
+.dialogue-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* Roadmap timeline */
+.roadmap { margin: 28px 0; }
+.roadmap-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.roadmap-phase {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--accent);
+  line-height: 1;
+  font-weight: 400;
+}
+.roadmap-phase-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-top: 4px;
+  font-weight: 600;
+}
+.roadmap-content { }
+.roadmap-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.roadmap-priority {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 2px 7px;
+  margin-left: 8px;
+  border-radius: 2px;
+}
+.roadmap-priority.critical { background: var(--copper); color: white; }
+.roadmap-priority.high { background: var(--accent); color: white; }
+.roadmap-priority.medium { background: var(--ink-faint); color: white; }
+.roadmap-desc {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 8px 0;
+}
+.roadmap-tools {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* Author voice */
+.author-box {
+  display: flex;
+  gap: 18px;
+  padding: 24px 28px;
+  background: var(--paper-mid);
+  border-left: 3px solid var(--accent);
+  margin: 28px 0;
+}
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-deep);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+.author-content { flex: 1; }
+.author-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.author-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Footer */
+.book-footer {
+  background: var(--ink);
+  padding: 64px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--accent-light);
+  margin-bottom: 18px;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--paper-deep);
+  font-style: italic;
+  line-height: 1.75;
+  max-width: 540px;
+  margin: 0 auto 24px;
+}
+.book-footer-text strong { color: var(--paper); font-weight: 600; }
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--accent-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .cover { padding: 60px 32px; min-height: auto; }
+  .cover-title { font-size: 38px; }
+  .cover-subtitle { font-size: 16px; }
+  .cover-volumes { flex-direction: column; gap: 10px; }
+  .ch-num-big { font-size: 80px; right: 20px; top: 28px; }
+  .ch-title { font-size: 32px; }
+  .page h1 { font-size: 28px; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-num { font-size: 24px; }
+  .dialogue-row { grid-template-columns: 1fr; }
+  .blockquote-full {
+    padding: 40px 28px;
+    margin-left: -28px;
+    margin-right: -28px;
+  }
+  .blockquote-full-text { font-size: 20px; }
+  .roadmap-item { grid-template-columns: 60px 1fr; gap: 14px; }
+  .roadmap-phase { font-size: 24px; }
+  .data-table { font-size: 11px; }
+  .data-table th, .data-table td { padding: 8px 6px; }
+  .ch-card-num { font-size: 28px; min-width: 44px; }
+  .toc-title { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ============================================
+     COVER
+============================================ -->
+<div class="cover">
+  <div>
+    <div class="cover-mark">A Synthesis · บทตกผลึก</div>
+    <div class="cover-symbol">α</div>
+    <h1 class="cover-title">
+      Three Volumes,<br>
+      <em>One Honest Question</em>
+    </h1>
+    <p class="cover-subtitle">
+      บทสรุปและวิเคราะห์เชิงลึกงานวิจัย Systematic Equity Investment Strategies ในตลาดหุ้นสหรัฐ — จากการทดสอบ 15 frameworks สู่การจับคู่ combinations จนถึงการค้นพบ "convergence trap" ที่เปิดเผยข้อจำกัดของระบบ
+    </p>
+  </div>
+
+  <div>
+    <div class="cover-volumes">
+      <div class="cover-volume">
+        <div class="cover-volume-num">I</div>
+        <div class="cover-volume-label">Foundation</div>
+        <div class="cover-volume-desc">15 frameworks · 10 ปี · 13/13 ROBUST (สัญญาณเตือน)</div>
+      </div>
+      <div class="cover-volume">
+        <div class="cover-volume-num">II</div>
+        <div class="cover-volume-label">Combinations</div>
+        <div class="cover-volume-desc">14 strategies · 10/14 TRUE_ROBUST · M2 Sharpe 1.26</div>
+      </div>
+      <div class="cover-volume">
+        <div class="cover-volume-num">III</div>
+        <div class="cover-volume-label">Convergence</div>
+        <div class="cover-volume-desc">7 portfolios · ALL FAIL concentration · Tech trap revealed</div>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-author">Synthesized by Senior Strategist · 20+ Years US Equity</div>
+      <div class="cover-edition">2026 · Master Edition</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     TOC
+============================================ -->
+<div class="toc">
+  <div class="toc-eyebrow">Table of Contents · สารบัญ</div>
+  <h2 class="toc-title">เส้นทางแห่งการตกผลึก</h2>
+  <p class="toc-tagline">
+    จากการเชื่อทุกอย่าง สู่การจับโกหกของตัวเอง<br>
+    จากการรวม frameworks สู่การค้นพบว่า "ความเห็นพ้อง" ก็เป็นเพียงภาพลวงตา
+  </p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="stat-num">1,010</div>
+      <div class="stat-label">US Stocks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10y</div>
+      <div class="stat-label">Backtest Period</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">36</div>
+      <div class="stat-label">Strategies Tested</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">90/100</div>
+      <div class="stat-label">Trust Score</div>
+    </div>
+  </div>
+
+  <div class="toc-section-label">Part I — บทคัดย่อระดับผู้บริหาร</div>
+  <div class="ch-card">
+    <div class="ch-card-num">00</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Executive Synthesis — สรุประดับ One-Page</div>
+      <div class="ch-card-one-liner">ทุกสิ่งที่ต้องรู้ใน 5 นาที — เพื่อนักลงทุนที่ไม่มีเวลาอ่านทั้งเล่ม</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">TL;DR</span>
+        <span class="ch-tag">Champion Strategy</span>
+        <span class="ch-tag">Key Caveats</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toc-section-label">Part II — บทเรียนจากสามเล่ม</div>
+  <div class="ch-card">
+    <div class="ch-card-num">01</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Volume I — The Foundation</div>
+      <div class="ch-card-one-liner">15 frameworks วางรากฐาน · ปัญหาคือ "ทุกอย่างดู ROBUST" — ที่จริงคือสัญญาณ</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">PIT Data</span>
+        <span class="ch-tag">Walk-Forward</span>
+        <span class="ch-tag">Bull Market Bias</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">02</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Volume II — The Combinations</div>
+      <div class="ch-card-one-liner">14 combinations ทดสอบจริง · มีแค่ 3 ที่ "ดีกว่า components" จริง · C1 คือผู้ชนะที่สะอาด</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Pre-Registration</span>
+        <span class="ch-tag">M2 Sharpe 1.26</span>
+        <span class="ch-tag">C1 Quality+Piotroski</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">03</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Volume III — The Convergence Trap</div>
+      <div class="ch-card-one-liner">Multi-framework consensus = ภาพลวงตา · เบื้องหลัง "ความเห็นพ้อง" คือกองหุ้น Tech 5 ตัว</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Concentration FAIL</span>
+        <span class="ch-tag">NVDA · ANET · TTD</span>
+        <span class="ch-tag">Independence Illusion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toc-section-label">Part III — สำหรับนักลงทุน</div>
+  <div class="ch-card">
+    <div class="ch-card-num">04</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">The Strategy Map — แผนที่การลงทุนตาม Profile</div>
+      <div class="ch-card-one-liner">Aggressive · Balanced · Conservative — พร้อม allocation จริงและตัวเลขที่ "ลด bias" แล้ว</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Profile A/B/C</span>
+        <span class="ch-tag">After-Tax Returns</span>
+        <span class="ch-tag">Honest CAGR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toc-section-label">Part IV — ที่งานวิจัยยังไปไม่ถึง</div>
+  <div class="ch-card">
+    <div class="ch-card-num">05</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Ten Critical Questions — ช่องโหว่ที่ต้องอุด</div>
+      <div class="ch-card-one-liner">10 คำถามจากนักลงทุน 20 ปี — ทุกคำถามคือเข็มทิศนำไปสู่ V4</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">Tech Trap</span>
+        <span class="ch-tag">Bear Market Untested</span>
+        <span class="ch-tag">Capacity Unknown</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">06</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">The V4 Roadmap — เส้นทางต่อยอด 7 Phase</div>
+      <div class="ch-card-one-liner">งานที่ควรทำต่อ — เรียงตาม impact × feasibility ตลอด 18 เดือนข้างหน้า</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">2004-2013 OOS</span>
+        <span class="ch-tag">Live Paper Trading</span>
+        <span class="ch-tag">ML Meta-Allocator</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">07</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Synthesis — บทสรุปลงมือ</div>
+      <div class="ch-card-one-liner">ประโยคเดียวที่ต้องจำจากงานวิจัยทั้งหมดนี้ + Pre-Action Ritual ก่อนลงทุน</div>
+      <div class="ch-card-tags">
+        <span class="ch-tag">One-Liner</span>
+        <span class="ch-tag">Checklist</span>
+        <span class="ch-tag">Action</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     CHAPTER 00 — EXECUTIVE SYNTHESIS
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">00</div>
+  <div class="ch-label">Executive Synthesis · บทคัดย่อ</div>
+  <h1 class="ch-title">Three Volumes <em>in Five Minutes</em></h1>
+  <p class="ch-essence">
+    หากคุณมีเวลาแค่ 5 นาที — นี่คือทุกสิ่งที่งานวิจัยนี้ค้นพบ และทุกสิ่งที่นักลงทุนจริงควรนำไปใช้
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>เรื่องเล่าจาก 3 เล่ม ใน 3 ประโยค</h1>
+
+  <p><strong>Volume I</strong> วาง foundation ทดสอบ 15 frameworks เก่าแก่ในตลาดสหรัฐระหว่างปี 2014-2024 ด้วยข้อมูล point-in-time ที่เคร่งครัด — และพบว่าทุก framework ที่ผ่านการกรองเข้มงวด (13 จาก 15) ดู "ROBUST" ทั้งหมด ซึ่งฟังดูดีจนน่าสงสัย</p>
+
+  <p><strong>Volume II</strong> ก้าวต่อไปด้วยการทดสอบ 14 combinations + 3 meta-strategies และค้นพบความจริงที่เจ็บปวดกว่า: <em>การจับคู่ frameworks ส่วนใหญ่ไม่ได้ดีกว่า single framework</em> มีเพียง 3 จาก 10 combinations ที่ "ชนะ components ได้จริง" ทางสถิติ — และผู้ชนะที่สะอาดที่สุดคือ <strong>C1 Quality + Piotroski</strong> (Sharpe 1.18, MaxDD -30.1%)</p>
+
+  <p><strong>Volume III</strong> ลึกที่สุดและน่าตกใจที่สุด — ทดสอบสมมติฐานว่า "ถ้า framework หลายตัวเห็นพ้อง = สัญญาณที่ดีกว่า" คำตอบคือ <strong>ไม่</strong> เมื่อบังคับให้หุ้นต้องผ่าน 3+ frameworks พบว่าหุ้นที่ "ทุกคนเห็นพ้อง" คือกองหุ้น Tech/Semiconductor 5 ตัวเดิม (NVDA, ANET, TTD, MPWR, ONTO) — ลบออก 5 ตัวนี้ Sharpe ลดลง 60-67% นี่ไม่ใช่ multi-factor alpha มันคือ <em>tech momentum ที่ใส่หน้ากากมา</em></p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"The same five tech stocks dominate every consensus portfolio. The convergence signal is not multi-factor — it is a tech bet wearing a costume."</p>
+    <p class="blockquote-full-th">"หุ้น Tech 5 ตัวเดิมครองทุก portfolio ที่ใช้ consensus signal — มันไม่ใช่ multi-factor alpha แต่คือ tech bet ที่ใส่หน้ากากมา"</p>
+    <p class="blockquote-full-attr">Volume III · Concentration Diagnostic Failure</p>
+  </div>
+
+  <h2>The Champion Strategy</h2>
+  <p>ถ้าเลือกได้แค่หนึ่ง — <strong>M2 Balanced (Meta-Strategy) Sharpe 1.26 / CAGR 36.8%</strong> คือ strategy ที่ดีที่สุดในงานวิจัยทั้งหมด แต่เนื่องจากเป็น meta-strategy ที่ allocate ข้าม strategies การปรับ weight อาจมี optimization benefit อยู่บ้าง — Sharpe ที่คาดหวังจริงน่าจะอยู่ที่ <strong>0.8-1.0 (forward-looking)</strong></p>
+
+  <p>ถ้าต้องเลือกแบบไม่ซ่อน complexity — <strong>C1 Quality + Piotroski Sharpe 1.18 / CAGR 29.0% / MaxDD -30.1%</strong> คือชัยชนะที่สะอาดที่สุด เพราะ:</p>
+
+  <ul style="font-family:'Noto Serif Thai',serif; font-size:15px; line-height:1.85; color:var(--ink-soft); padding-left:20px;">
+    <li>ชนะ Quality Compounder คนเดียว (Sharpe 0.91) ในทุกมิติ</li>
+    <li>ชนะ Piotroski คนเดียว (Sharpe 0.78) ในทุกมิติ</li>
+    <li>MaxDD <strong>ต่ำกว่า</strong> components ของตัวเอง (เป็นเหตุการณ์ที่เกิดยาก)</li>
+    <li>ผ่าน TRUE_ROBUST 4/5 windows (out-of-sample จริง)</li>
+    <li>กลไกชัด: <em>"already good × getting better"</em> — independent alpha sources</li>
+  </ul>
+
+  <h2>The Three Caveats You Cannot Ignore</h2>
+
+  <div class="warning-box">
+    <div class="warning-label">⚠ Caveat #1 — Bull Market Halo</div>
+    <p class="warning-text">
+      ช่วงทดสอบ 2014-2024 เป็น bull market ที่ SPY +250% ในช่วงเดียว — <strong>ทุก CAGR ควรลด 5-10 percentage points</strong> และ <strong>ทุก MaxDD ควรเพิ่มความรุนแรงอีก 10-15 pp</strong> ก่อนนำไปคาดการณ์อนาคต ในตลาด bear ของจริง (2008 SPY -55%) strategies เหล่านี้น่าจะ drawdown 50-65%
+    </p>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-label">⚠ Caveat #2 — The Tech Concentration Trap</div>
+    <p class="warning-text">
+      Volume III เปิดเผยว่า <strong>frameworks ส่วนใหญ่ไม่ได้ independent กันจริง</strong> — เมื่อบังคับให้เห็นพ้องกัน หุ้นที่ผ่านคือ tech/semiconductor ทั้งหมด แสดงว่า "Quality + Momentum + Growth + Earnings Acceleration" ในตลาด 2014-2024 คือ <strong>เรื่องเดียวกัน</strong> ไม่ใช่หลายเรื่อง — ในตลาดที่ tech ไม่ได้ครอง สัญญาณนี้อาจหายไปเลย
+    </p>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-label">⚠ Caveat #3 — The Behavioral Floor</div>
+    <p class="warning-text">
+      ทุก strategy ที่ Sharpe สูงในงานวิจัยมี MaxDD ตั้งแต่ -30% ถึง -49% — <strong>นักลงทุนส่วนใหญ่ขายที่จุดต่ำสุด</strong> ก่อนการฟื้นตัวจะเริ่ม ดังนั้น "expected CAGR" ที่ realistic ต้องคำนึงถึงโอกาสที่คุณจะ panic sell ซึ่งทำให้ผลตอบแทนจริงต่ำกว่า backtest อย่างมีนัยสำคัญ
+    </p>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">⬩ The Synthesis · ตกผลึก</div>
+    <p class="insight-text">
+      งานวิจัยนี้ <strong>ไม่ใช่</strong>คำพยากรณ์ แต่คือ <em>"แผนที่ของอุปสรรค"</em> มันสอนเราว่าทุก systematic strategy มีกับดักของตัวเอง: bull market bias, factor crowding, behavioral feasibility และ tech concentration ผู้ที่ได้ประโยชน์มากที่สุดจากงานนี้ <strong>ไม่ใช่</strong>คนที่ implement strategy แบบ blind แต่คือคนที่ใช้มันเป็น <em>starting point</em> แล้วเพิ่ม sector neutralization, tail-risk overlay, และ regime awareness เข้าไป
+    </p>
+  </div>
+</div>
+
+
+<!-- ============================================
+     CHAPTER 01 — VOLUME I FOUNDATION
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">01</div>
+  <div class="ch-label">Volume I · The Foundation</div>
+  <h1 class="ch-title">When <em>Everything</em> Looks Robust</h1>
+  <p class="ch-essence">
+    Volume I คือเล่มที่วาง infrastructure ทั้งหมด — แต่บทเรียนสำคัญที่สุดจากเล่มนี้คือ "13/13 ROBUST" ไม่ใช่คำชม มันคือคำเตือน
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Setup · ตั้งฉาก</div>
+  <h1>เครื่องมือก่อนการทดสอบ</h1>
+
+  <p>Volume I (Phase 1-5.5) ทำสิ่งที่ academic finance ส่วนใหญ่ไม่ทำ — สร้าง <strong>point-in-time data pipeline</strong> ที่เคร่งครัดด้วยมือ ครอบคลุม 1,010 หุ้นสหรัฐ 2.3 ล้าน price records และ 1.8 ล้าน fundamental records จาก SEC EDGAR XBRL filings โดยข้อมูลทุกชิ้นถูก reindex ด้วย "filed date" ไม่ใช่ "period end date" เพื่อป้องกัน look-ahead bias</p>
+
+  <p>กลยุทธ์ที่ทดสอบครอบคลุม 4 ตระกูล: <em>Growth (CANSLIM, SPEA, PEG Lynch, Momentum 12-1, Earnings Revision)</em>, <em>Value (Magic Formula, Piotroski F-Score, Acquirer's Multiple, Graham Net-Net, Seth Klarman)</em>, <em>Quality (Quality Compounder, Dividend Growth)</em>, และ <em>Factor (Low Volatility, Fama-French SMV, Ken Fisher PSR)</em></p>
+
+  <p>เครื่องมือ validation มี 4 ชั้น: <strong>(1) Walk-forward 5 windows</strong> · <strong>(2) Monte Carlo block bootstrap 1,000 simulations</strong> · <strong>(3) Statistical significance testing พร้อม Benjamini-Hochberg correction</strong> · <strong>(4) Regime stress testing</strong> (COVID crash, Rate hikes, Mega-cap bull) นอกจากนี้ยังบังคับ minimum holdings 15 ตัว, concentration cap 10%/หุ้น 30%/sector, และ tiered transaction cost 5-35 bps ตาม market cap</p>
+
+  <h2>Top Performers ของ Volume I</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Framework</th>
+        <th>Category</th>
+        <th class="num">CAGR</th>
+        <th class="num">Sharpe</th>
+        <th class="num">Max DD</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>Quality Compounder</td>
+        <td>Quality</td>
+        <td class="num">23.9%</td>
+        <td class="num">0.91</td>
+        <td class="num">-35.6%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr>
+        <td>CANSLIM</td>
+        <td>Growth</td>
+        <td class="num">25.5%</td>
+        <td class="num">0.83</td>
+        <td class="num">-43.5%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr>
+        <td>Earnings Revision</td>
+        <td>Growth</td>
+        <td class="num">23.7%</td>
+        <td class="num">0.81</td>
+        <td class="num">-43.3%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr>
+        <td>Piotroski F-Score</td>
+        <td>Value</td>
+        <td class="num">20.7%</td>
+        <td class="num">0.78</td>
+        <td class="num">-30.6%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr>
+        <td>SPEA</td>
+        <td>Growth</td>
+        <td class="num">23.1%</td>
+        <td class="num">0.75</td>
+        <td class="num">-43.9%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr>
+        <td>Dividend Growth</td>
+        <td>Quality</td>
+        <td class="num">18.7%</td>
+        <td class="num">0.74</td>
+        <td class="num">-37.8%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr>
+        <td>Momentum 12-1</td>
+        <td>Momentum</td>
+        <td class="num">24.7%</td>
+        <td class="num">0.74</td>
+        <td class="num">-49.4%</td>
+        <td><span class="verdict robust">ROBUST</span></td>
+      </tr>
+      <tr class="warn">
+        <td>Acquirer's Multiple</td>
+        <td>Value</td>
+        <td class="num">13.3%</td>
+        <td class="num">0.50</td>
+        <td class="num">-43.5%</td>
+        <td><span class="verdict reject">REJECT</span></td>
+      </tr>
+      <tr class="warn">
+        <td>Low Volatility</td>
+        <td>Factor</td>
+        <td class="num">13.0%</td>
+        <td class="num">0.50</td>
+        <td class="num">-38.3%</td>
+        <td><span class="verdict reject">REJECT</span></td>
+      </tr>
+      <tr class="warn">
+        <td>Fama-French SMV</td>
+        <td>Factor</td>
+        <td class="num">9.5%</td>
+        <td class="num">0.34</td>
+        <td class="num">-43.6%</td>
+        <td><span class="verdict reject">REJECT</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:13px; color:var(--ink-muted); font-style:italic; margin-top:-12px;">
+    SPY benchmark: CAGR ~13.7%, Sharpe ~0.60, MaxDD ~-33% (COVID 2020). · 13 จาก 15 frameworks ผ่าน minimum holdings · 10 จาก 13 มี statistical significance หลัง BH correction
+  </p>
+
+  <h2>The Scandal of "13/13 ROBUST"</h2>
+
+  <p>ภายใต้เกณฑ์เดิมของ Volume I (Walk-Forward ROBUST = OOS CAGR เป็นบวกใน ≥3 จาก 5 windows) <strong>ทั้ง 13 frameworks ผ่านหมด</strong> — ผลลัพธ์ที่ฟังดูเหมือนชัยชนะ แต่นักวิจัยยอมรับเองในบทที่ 7 ว่า <em>เกณฑ์นั้นอ่อนเกินไป</em></p>
+
+  <p>เพราะในช่วง 2014-2024 ที่ SPY ขึ้น +250% — <strong>เกือบทุก equity strategy ที่ถือหุ้น</strong> จะให้ผลตอบแทนเป็นบวก การ "ผ่าน" จึงไม่ได้พิสูจน์ว่า strategy มี alpha ที่แท้จริง แค่พิสูจน์ว่ามันลอยตามคลื่นได้</p>
+
+  <p>เมื่อ Phase 5.5 ปรับเกณฑ์ให้เข้มขึ้น (TRUE_ROBUST = OOS ต้อง <em>ชนะ SPY</em> ใน ≥3 จาก 5 windows) — ผ่านลดลงเหลือ <strong>11 จาก 13</strong> และทั้ง SPEA กับ Fama-French SMV ตกรอบ นี่คือบทเรียนแรกที่ทรงพลังที่สุดของงานวิจัยทั้งหมด:</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ถ้า strategy ผ่าน walk-forward test แสดงว่ามันมี alpha จริง"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">เกณฑ์ "OOS CAGR > 0%" อ่อนเกินไปในตลาด bull — ต้องใช้ "OOS CAGR > SPY OOS CAGR" จึงจะตัดสินว่ามี alpha จริงหรือเป็นแค่ market beta</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">ทุกครั้งที่อ่าน backtest report — ตรวจดูว่าเกณฑ์ ROBUST เป็น absolute (ดู return) หรือ relative (ดู alpha vs benchmark) ถ้าเป็นแบบแรกในตลาด bull ให้ลด trust score ลง 30%</div>
+    </div>
+  </div>
+
+  <h2>การค้นพบที่ลึกกว่า: Defensive vs Fragile</h2>
+
+  <p>นอกเหนือจาก raw return ที่ Volume I มอง — เครื่องมือ stress test ระบุว่ามีเพียง 3 frameworks ที่ "defensive" (drawdown ดีกว่าค่าเฉลี่ยในทุก stress scenario): <strong>Piotroski F-Score, Dividend Growth, Low Volatility</strong> ส่วน 9 frameworks ที่เหลือเป็น "fragile" — ซ่อมได้ใน bull แต่พังเมื่อ rate hike หรือ growth-led rally</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Framework</th>
+        <th class="num">COVID DD</th>
+        <th class="num">Rate Hike DD</th>
+        <th class="num">Bull 2023-24 DD</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>Piotroski F-Score</td>
+        <td class="num">-30.6%</td>
+        <td class="num">-26.7%</td>
+        <td class="num">-15.9%</td>
+        <td><span class="verdict robust">DEFENSIVE</span></td>
+      </tr>
+      <tr class="highlight">
+        <td>Dividend Growth</td>
+        <td class="num">-37.8%</td>
+        <td class="num">-20.4%</td>
+        <td class="num">-12.9%</td>
+        <td><span class="verdict robust">DEFENSIVE</span></td>
+      </tr>
+      <tr class="highlight">
+        <td>Low Volatility</td>
+        <td class="num">-38.3%</td>
+        <td class="num">-28.2%</td>
+        <td class="num">-8.4%</td>
+        <td><span class="verdict robust">DEFENSIVE</span></td>
+      </tr>
+      <tr class="warn">
+        <td>Momentum 12-1</td>
+        <td class="num">-49.4%</td>
+        <td class="num">-28.5%</td>
+        <td class="num">-27.1%</td>
+        <td><span class="verdict fail">FRAGILE</span></td>
+      </tr>
+      <tr class="warn">
+        <td>Ken Fisher PSR</td>
+        <td class="num">-47.1%</td>
+        <td class="num">-38.1%</td>
+        <td class="num">-19.6%</td>
+        <td><span class="verdict fail">FRAGILE</span></td>
+      </tr>
+      <tr class="warn">
+        <td>SPEA</td>
+        <td class="num">-34.3%</td>
+        <td class="num">-39.2%</td>
+        <td class="num">-26.7%</td>
+        <td><span class="verdict fail">FRAGILE</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Seth Klarman และบทเรียนเรื่อง Concentration</h2>
+
+  <p>หนึ่งในกรณีศึกษาสำคัญที่สุดของ Volume I คือ Seth Klarman — ใน Phase 2 (ก่อนบังคับ minimum 15 holdings) framework นี้ให้ <strong>cumulative return 3,252%</strong> แต่ Sharpe ratio เพียง 0.38 เพราะถือหุ้นเฉลี่ยน้อยกว่า 5 ตัว Phase 3 ปรับให้บังคับ minimum 15 holdings — Klarman ถูก exclude เพราะ screener หาหุ้นไม่ถึง 15 ตัวในแต่ละ rebalance period</p>
+
+  <p>นี่คือ <em>concentration bias</em> แบบคลาสสิก: เมื่อ deep value criteria เข้มเกินไป (Net Cash > 30%, P/B < 0.3) จำนวนหุ้นที่ผ่านน้อยมาก พอร์ตจึงกลายเป็น concentrated bet — return สูงไม่ใช่เพราะ alpha แต่เพราะ luck ของ 1-2 ตัว</p>
+
+  <div class="author-box">
+    <div class="author-avatar">SP</div>
+    <div class="author-content">
+      <div class="author-meta">Senior Strategist · 20+ Years</div>
+      <p class="author-text">
+        "Volume I ที่สำคัญที่สุดไม่ใช่ตารางผลตอบแทน — แต่คือ <strong>กรณี Klarman</strong> มันสอนว่า '3,252% return' ในงานวิจัยที่ไม่มี diversification constraint คือ noise ไม่ใช่ alpha นี่คือบทเรียนที่ผู้จัดการกองทุนเชิงปริมาณส่วนใหญ่ไม่ได้รับการสอน — และเป็นสาเหตุที่ retail trader หลายคน 'ค้นพบ' กลยุทธ์ใน TradingView ที่ดูเหมือนทำเงิน 5,000% แต่ใช้จริงไม่ได้เลย"
+      </p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">⬩ Reflection · คำถามก่อนข้ามไปบทถัดไป</div>
+    <p class="reflection-q">ถ้า "13/13 ROBUST" คือสัญญาณเตือน แล้ว benchmark-relative criterion ของ Phase 5.5 (11/13 TRUE_ROBUST) คือเกณฑ์ที่เข้มพอแล้วจริงหรือ? — หรือว่ายังต้อง stricter อีก?</p>
+    <p class="reflection-q">framework "defensive" 3 ตัว (Piotroski, Dividend Growth, Low Volatility) มีอะไรเหมือนกันในเชิงโครงสร้าง? — และเหตุใด Quality Compounder ที่ Sharpe สูงสุด ไม่ได้เป็น defensive?</p>
+    <p class="reflection-q">ถ้าทำ stress test เพิ่มในช่วง 2008-2009 (GFC) หรือ 2000-2002 (Dot-com bust) — frameworks ที่จัดเป็น "defensive" จะยังคงเป็น defensive อยู่หรือไม่?</p>
+  </div>
+</div>
+
+
+<!-- ============================================
+     CHAPTER 02 — VOLUME II COMBINATIONS
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">02</div>
+  <div class="ch-label">Volume II · The Combinations</div>
+  <h1 class="ch-title">When Two Goods <em>Make a Bad</em></h1>
+  <p class="ch-essence">
+    Volume II พิสูจน์ว่าการรวม frameworks ดีๆ เข้าด้วยกัน <em>ไม่ได้</em> ดีเสมอไป — มีแค่ 3 ใน 10 combinations ที่ "ดีกว่า components ของตัวเอง" จริง
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Question · คำถามตั้งต้น</div>
+  <h1>การรวม Frameworks ช่วยจริงหรือเปล่า?</h1>
+
+  <p>หลังจาก Volume I พบว่ามีหลาย frameworks ที่ <em>"ผ่าน"</em> — คำถามถัดมาคือ: ถ้าเราจับสองตัวมารวมกัน จะดีกว่าทั้งคู่ไหม? นี่คือคำถามที่สำคัญเพราะ <strong>ทฤษฎี diversification mathematics</strong> บอกว่า <em>ถ้า</em> สอง strategies มี return correlation < 0.6 — การรวมจะลด volatility และเพิ่ม Sharpe</p>
+
+  <p>Volume II (Phase 6) ทดสอบ <strong>10 pairwise combinations + 3 meta-strategies</strong> ภายใต้ pre-registration ที่ commit hash <code style="font-family:'JetBrains Mono',monospace; font-size:13px; background:var(--paper-mid); padding:2px 6px;">55a0922</code> — เพื่อป้องกัน p-hacking — และใช้เกณฑ์ TRUE_ROBUST ที่เข้ม (ต้องชนะ SPY ใน ≥3/5 OOS windows)</p>
+
+  <h2>The Champion Roster</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Strategy</th>
+        <th class="num">Sharpe</th>
+        <th class="num">CAGR</th>
+        <th class="num">MaxDD</th>
+        <th>WF</th>
+        <th>Beats Components?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>1</td>
+        <td>M2 Balanced (Meta)</td>
+        <td class="num">1.26</td>
+        <td class="num">36.8%</td>
+        <td class="num">-37.1%</td>
+        <td>4/5</td>
+        <td>N/A (meta)</td>
+      </tr>
+      <tr class="highlight">
+        <td>2</td>
+        <td>C1 Quality + Piotroski</td>
+        <td class="num">1.18</td>
+        <td class="num">29.0%</td>
+        <td class="num">-30.1%</td>
+        <td>4/5</td>
+        <td><strong style="color:var(--green)">YES — both</strong></td>
+      </tr>
+      <tr class="warn">
+        <td>3</td>
+        <td>C5 Magic + Piotroski</td>
+        <td class="num">1.17</td>
+        <td class="num">28.8%</td>
+        <td class="num">-38.8%</td>
+        <td><strong style="color:var(--copper-deep)">2/5 ✗</strong></td>
+        <td>YES (only Piotroski)</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>C3 Earnings + Quality</td>
+        <td class="num">1.14</td>
+        <td class="num">28.7%</td>
+        <td class="num">-32.4%</td>
+        <td>3/5</td>
+        <td><strong style="color:var(--green)">YES</strong></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>M3 Aggressive (Meta)</td>
+        <td class="num">1.14</td>
+        <td class="num">33.7%</td>
+        <td class="num">-43.6%</td>
+        <td>4/5</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>C8 Momentum + Quality</td>
+        <td class="num">1.10</td>
+        <td class="num">37.8%</td>
+        <td class="num">-45.5%</td>
+        <td>4/5</td>
+        <td>NO</td>
+      </tr>
+      <tr class="warn">
+        <td>7</td>
+        <td>M1 Conservative (Meta)</td>
+        <td class="num">1.08</td>
+        <td class="num">25.7%</td>
+        <td class="num">-43.1%</td>
+        <td><strong style="color:var(--copper-deep)">2/5 ✗</strong></td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>C10 Regime Adaptive</td>
+        <td class="num">1.01</td>
+        <td class="num">26.0%</td>
+        <td class="num">-42.5%</td>
+        <td>4/5</td>
+        <td>NO</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>C2 CANSLIM + Quality</td>
+        <td class="num">1.00</td>
+        <td class="num">25.6%</td>
+        <td class="num">-38.5%</td>
+        <td>4/5</td>
+        <td><strong style="color:var(--red)">NO — worse than Quality alone</strong></td>
+      </tr>
+      <tr class="warn">
+        <td>13</td>
+        <td>C6 Acquirers + Piotroski</td>
+        <td class="num">0.80</td>
+        <td class="num">16.0%</td>
+        <td class="num">-38.8%</td>
+        <td>3/5</td>
+        <td><strong style="color:var(--red)">NO — destroys value vs Piotroski alone</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:13px; color:var(--ink-muted); font-style:italic; margin-top:-8px;">
+    Pre-registered at git commit 55a0922 · TRUE_ROBUST = beats SPY in ≥3/5 walk-forward windows · 10/14 pass · 3/10 combinations genuinely beat components
+  </p>
+
+  <h2>Why C1 Quality + Piotroski Wins (กลไกชัดที่สุดในงานวิจัย)</h2>
+
+  <p>เหตุผลที่ <strong>C1</strong> ชนะอย่างสะอาดที่สุด ไม่ใช่เรื่องบังเอิญ — มันสะท้อน <em>independence ที่แท้จริงของ alpha sources</em>:</p>
+
+  <div class="dialogue-row">
+    <div class="dialogue-cell after">
+      <div class="dialogue-label">Quality Compounder</div>
+      <div class="dialogue-text">
+        ระบุบริษัทที่ <strong>"already good"</strong> — high ROE, stable margins, low leverage, durable competitive advantages — ภาพ static ของ "wonderful business"
+      </div>
+    </div>
+    <div class="dialogue-cell after">
+      <div class="dialogue-label">Piotroski F-Score</div>
+      <div class="dialogue-text">
+        ระบุบริษัทที่ <strong>"getting better"</strong> — 9 binary signals ที่ตรวจ improving fundamentals (ROA, leverage, margins, asset turnover) — ภาพ dynamic ของ "improving trajectory"
+      </div>
+    </div>
+  </div>
+
+  <p>การ intersect สองสัญญาณนี้ = <em>"already good × getting better"</em> ซึ่ง mathematically เป็น independent dimensions: quality กับ change-in-quality เป็นคนละเรื่อง การที่ MaxDD ของ C1 (-30.1%) <strong>ต่ำกว่า</strong> ทั้ง Quality (-40%) และ Piotroski (-34%) ซึ่งเป็นปรากฏการณ์ที่หาดู<em>ยาก</em>มากใน combination strategies — ยืนยันว่ามี genuine diversification benefit</p>
+
+  <h2>Why C2 CANSLIM + Quality Fails (เรื่องเดียวกันใส่หน้ากากซ้อนกัน)</h2>
+
+  <p>กลับกัน <strong>C2 CANSLIM + Quality Compounder</strong> ที่ฟังดูสมเหตุสมผล — รวม "growth ดี + quality ดี" — กลับ <em>ด้อยกว่า Quality Compounder คนเดียว</em> เหตุผล:</p>
+
+  <ul style="font-family:'Noto Serif Thai',serif; font-size:14.5px; line-height:1.85; color:var(--ink-soft); padding-left:24px;">
+    <li><strong>CANSLIM ใช้ ROE และ EPS growth เป็นองค์ประกอบ</strong> — ซึ่ง overlap กับ Quality Compounder ที่ใช้ ROE และ earnings stability</li>
+    <li><strong>การ intersect</strong> จึงไม่ได้สร้าง independence ใหม่ — เพียงแค่บังคับให้หุ้นต้อง pass criteria ทั้งสองชั้นที่ <em>วัดเรื่องคล้ายกัน</em></li>
+    <li><strong>ผลลัพธ์</strong> = portfolio ที่ใช้พื้นที่หา alpha น้อยลง โดยที่ alpha ต่อตัวไม่เพิ่ม</li>
+  </ul>
+
+  <div class="insight-box">
+    <div class="insight-label">⬩ Core Insight · กฎทอง</div>
+    <p class="insight-text">
+      <strong>การรวมสอง frameworks จะ "ดีกว่า" ก็ต่อเมื่อ alpha sources ของมันเป็น independent dimensions</strong> — ไม่ใช่แค่ "ทั้งคู่เป็น growth" หรือ "ทั้งคู่เป็น value" แต่ต้องเป็นเรื่องคนละมิติกันจริงๆ เช่น level (Quality) × change (Piotroski), หรือ value (Magic Formula) × earnings momentum (Earnings Revision)
+    </p>
+  </div>
+
+  <h2>The M2 Balanced Question — Sharpe 1.26 Real or Optimization Magic?</h2>
+
+  <p><strong>M2 Balanced</strong> ที่ Sharpe 1.26 คือดาวเด่นของ Volume II — แต่ผู้เขียนยอมรับเองว่ามี optimization concern: meta-strategy ที่ allocate ข้าม strategies ได้ Sharpe สูงกว่า component ที่ดีที่สุด (Sharpe 1.18) — improvement ที่มากเช่นนี้น่าสงสัย โดยเฉพาะถ้า allocation weights ถูก optimize บน data เดียวกับที่ใช้ test</p>
+
+  <p>การประเมินอย่างซื่อสัตย์: <em>"true forward-looking Sharpe น่าจะอยู่ที่ 0.8-1.0"</em> ซึ่งก็ยังเป็น strategy ที่ดีที่สุดในงานวิจัย แต่<strong>ต้องลด expectation</strong>ก่อนนำไปใช้จริง</p>
+
+  <div class="pullquote">
+    "A Sharpe above 1.0 sustained over a decade is rare even for the best hedge funds. Renaissance's Medallion achieves Sharpe above 2.0, but they trade at millisecond timescales. A quarterly-rebalanced equity portfolio at Sharpe 1.26 would be extraordinary."
+  </div>
+
+  <h2>The Hypothesis Prediction Paradox</h2>
+
+  <p>หนึ่งในการค้นพบที่ทรงคุณค่าที่สุดของ Volume II คือ <em>ผู้วิจัย "ทำนายผิด" บ่อยๆ</em> หรือที่งานวิจัยเรียกว่า <strong>LOW prediction accuracy</strong> นี่คือ feature ไม่ใช่ bug — เพราะ:</p>
+
+  <ul style="font-family:'Noto Serif Thai',serif; font-size:14.5px; line-height:1.85; color:var(--ink-soft); padding-left:24px;">
+    <li><strong>C2 CANSLIM + Quality</strong> ถูกทำนายว่าจะดี — กลับด้อยกว่า Quality Compounder คนเดียว</li>
+    <li><strong>C6 Acquirers + Piotroski</strong> ถูกทำนายว่าน่าจะปรับปรุง — กลับ <em>ทำลาย</em> alpha ของ Piotroski</li>
+    <li><strong>C8 Momentum + Quality</strong> ทำ CAGR สูงสุด (37.8%) แต่ "borderline significant" เท่านั้น</li>
+  </ul>
+
+  <p>การที่ <em>theory และ intuition ทำนายผิดบ่อย</em> สอนเราว่า <strong>combinations ทุกตัวต้องผ่านการทดสอบจริง</strong> ก่อนเชื่อ — ทฤษฎีอย่างเดียวไม่พอ ในตลาดทุน ถ้า combinations ดีๆ "ทำนายได้ก่อนทดสอบ" — ทุกคนคงรวยไปนานแล้ว</p>
+
+  <div class="reflection">
+    <div class="reflection-label">⬩ Reflection · คำถามที่ Volume II ทิ้งไว้</div>
+    <p class="reflection-q">ถ้า C1 Quality+Piotroski ทำงานเพราะ "level × change" — กลยุทธ์ใหม่ที่ใช้ "level × change × momentum" (3 mutually independent dimensions) จะให้ Sharpe สูงกว่าหรือไม่?</p>
+    <p class="reflection-q">M2 Balanced ที่ Sharpe 1.26 อาจมี optimization benefit ซ่อนอยู่ — ถ้าทดสอบในช่วง 2004-2013 (ที่ไม่ได้ใช้ optimize) Sharpe จะลดเหลือเท่าไหร่?</p>
+    <p class="reflection-q">ทำไม "Significant vs Component" ของหลาย combinations คือ NO ทั้งที่ headline numbers ดูดี? — สิ่งที่ Volume II สอนคือ Sharpe ratio และ TRUE_ROBUST ไม่ใช่เกณฑ์เพียงพอ — ต้องใช้ "beats components" เป็นเกณฑ์เพิ่ม</p>
+  </div>
+</div>
+
+
+<!-- ============================================
+     CHAPTER 03 — VOLUME III CONVERGENCE TRAP
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">03</div>
+  <div class="ch-label">Volume III · The Convergence Trap</div>
+  <h1 class="ch-title">When <em>Consensus</em> Becomes a Costume</h1>
+  <p class="ch-essence">
+    Volume III คือเล่มที่เข้มข้นที่สุดและน่าตกใจที่สุด — เปิดเผยว่า "ความเห็นพ้องของหลาย frameworks" ไม่ใช่ multi-factor alpha แต่คือ tech bet ที่ใส่หน้ากากซ่อนตัวมา
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Hypothesis · สมมติฐาน</div>
+  <h1>ถ้า 2 frameworks ดี — แล้ว 5 frameworks ที่เห็นพ้องล่ะ?</h1>
+
+  <p>หลังจาก Volume II พบว่า C1 (pairwise combination ของ 2 frameworks) ดีกว่า single — คำถามที่ logical ที่สุดถัดไปคือ <strong>"แล้วถ้า 3, 5, หรือ 7 frameworks เห็นพ้องล่ะ?"</strong> นี่คือสมมติฐาน convergence: <em>ยิ่งหลาย independent screeners agree หุ้นนั้นน่าจะมี alpha ที่ robust กว่า</em></p>
+
+  <p>Volume III (Phase 7) ทดสอบสมมติฐานนี้อย่างเป็นระบบ — สร้าง <strong>consensus score</strong> สำหรับทุกหุ้น (จำนวน frameworks จาก 11 ตัว ที่จัดให้ติด top decile พร้อมกัน) แล้วทดสอบ 7 portfolios:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Portfolio</th>
+        <th>Threshold</th>
+        <th class="num">CAGR</th>
+        <th class="num">Sharpe</th>
+        <th class="num">MaxDD</th>
+        <th>Walk-Forward</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>FamilyDiverse</td>
+        <td>≥5 from ≥3 families</td>
+        <td class="num">26.0%</td>
+        <td class="num">1.06</td>
+        <td class="num">-37.2%</td>
+        <td>3/5</td>
+        <td>PASS WF</td>
+      </tr>
+      <tr>
+        <td>P3</td>
+        <td>≥3 frameworks</td>
+        <td class="num">24.0%</td>
+        <td class="num">0.99</td>
+        <td class="num">-40.1%</td>
+        <td>3/5</td>
+        <td>PASS WF</td>
+      </tr>
+      <tr>
+        <td>P5</td>
+        <td>≥5 frameworks</td>
+        <td class="num">22.6%</td>
+        <td class="num">0.94</td>
+        <td class="num">-40.8%</td>
+        <td>3/5</td>
+        <td>PASS WF</td>
+      </tr>
+      <tr class="warn">
+        <td>P7</td>
+        <td>≥7 frameworks</td>
+        <td class="num" colspan="5">— ไม่มีหุ้นพอ (< 15) ที่ rebalance dates เกือบทุกครั้ง —</td>
+      </tr>
+      <tr class="warn">
+        <td>P9, P11</td>
+        <td>≥9, ≥11</td>
+        <td class="num" colspan="5">— ไม่มีหุ้นเลยที่ทำได้ระดับ consensus นี้ในช่วง 2014-2024 —</td>
+      </tr>
+      <tr class="warn">
+        <td>FamilyConcentrated</td>
+        <td>≥5 from 1-2 families</td>
+        <td class="num" colspan="5">— ไม่ viable —</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:13px; color:var(--ink-muted); font-style:italic; margin-top:-8px;">
+    Pre-registered at git commit <code style="font-family:'JetBrains Mono',monospace;">cf98768</code> · 4 จาก 7 portfolios ไม่ viable เพราะหุ้นไม่พอ — บอกอะไรเกี่ยวกับ "ความเห็นพ้องในทางปฏิบัติ"?
+  </p>
+
+  <h2>การค้นพบแรก: Lower Threshold = Higher Sharpe</h2>
+
+  <p>สิ่งแรกที่ผิดความคาดหวัง — <strong>P3 (threshold ต่ำสุด) มี Sharpe สูงกว่า P5</strong> สมมติฐาน "ยิ่งเข้มยิ่งดี" ถูกพังตั้งแต่บาทแรก ผู้วิจัยจึง <em>reject H2 (Optimal N hypothesis)</em> เนื่องจากตรงตามเกณฑ์ falsification</p>
+
+  <p>เหตุผล: ที่ threshold สูง — universe ของหุ้นที่ผ่านเล็กเกินไป จนเกิด concentration bias เหมือนกรณี Klarman ใน Volume I (มันคือ pattern เดียวกัน — strict criteria → too few stocks → concentrated bet → looks good but isn't real alpha)</p>
+
+  <h2>การค้นพบที่ทรงพลังที่สุด: All Three Viable Portfolios FAIL Concentration Test</h2>
+
+  <div class="warning-box">
+    <div class="warning-label">⚠ The Most Important Finding in All Three Volumes</div>
+    <p class="warning-text">
+      ทั้ง 3 portfolios ที่ viable (FamilyDiverse, P3, P5) <strong>ล้ม concentration diagnostic ทั้งหมด</strong> — เมื่อลบ top 5 contributors ออก Sharpe ratio ลดลง <strong>60-67%</strong> เกินเกณฑ์ failure threshold ที่ตั้งไว้ที่ 50%
+    </p>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Portfolio</th>
+        <th class="num">Total Stocks Held</th>
+        <th>Top 5 Contributors</th>
+        <th class="num">Sharpe Drop</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="warn">
+        <td>FamilyDiverse</td>
+        <td class="num">249</td>
+        <td>ONTO, TTD, ANET, NVDA, MKSI</td>
+        <td class="num">-67.1%</td>
+        <td><span class="verdict fail">FAIL</span></td>
+      </tr>
+      <tr class="warn">
+        <td>P3</td>
+        <td class="num">268</td>
+        <td>TTD, ANET, MPWR, ONTO, NVDA</td>
+        <td class="num">-64.7%</td>
+        <td><span class="verdict fail">FAIL</span></td>
+      </tr>
+      <tr class="warn">
+        <td>P5</td>
+        <td class="num">263</td>
+        <td>ONTO, TTD, ANET, NVDA, MPWR</td>
+        <td class="num">-63.7%</td>
+        <td><span class="verdict fail">FAIL</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>โปรดสังเกต — <strong>top 5 หุ้นเหมือนกันทั้ง 3 portfolios</strong> แม้ว่าจะเป็น strategies ที่ "ใช้คนละเกณฑ์":</p>
+
+  <ul style="font-family:'Noto Serif Thai',serif; font-size:14.5px; line-height:1.85; color:var(--ink-soft); padding-left:24px;">
+    <li><strong>NVDA</strong> — GPU / AI semiconductor</li>
+    <li><strong>ANET</strong> — Data center networking</li>
+    <li><strong>TTD</strong> — Digital advertising platform</li>
+    <li><strong>MPWR</strong> — Power management ICs</li>
+    <li><strong>ONTO</strong> — Semiconductor equipment</li>
+  </ul>
+
+  <p>ทั้งหมดเป็น <strong>tech / semiconductor</strong> ที่มี profile คล้ายกัน: high revenue growth, high ROE, strong momentum, reasonable PEG ในหลายช่วง พวกมันจึงผ่าน screen ของ <em>ทุก</em> framework: CANSLIM, Earnings Revision, Quality Compounder, Momentum 12-1, PEG Lynch, Ken Fisher PSR — ทั้งหมดเลือกหุ้นเหล่านี้พร้อมกัน</p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"The frameworks are not independent. They share a common growth/quality factor exposure that, in the 2014-2024 universe, points overwhelmingly at semiconductors and tech."</p>
+    <p class="blockquote-full-th">"Frameworks ทั้งหลายไม่ได้ independent กันจริง — พวกมันทั้งหมดมี exposure ร่วมต่อ growth/quality factor ซึ่งในช่วง 2014-2024 ชี้ไปที่ semiconductor และ tech อย่างท่วมท้น"</p>
+    <p class="blockquote-full-attr">Volume III · The Independence Illusion</p>
+  </div>
+
+  <h2>The Death of "Multi-Framework = Multi-Factor"</h2>
+
+  <p>นี่คือ <strong>การปฏิวัติทางความคิด</strong>ที่สำคัญที่สุดที่งานวิจัยนี้ค้นพบ — สิ่งที่นักลงทุนเชิงปริมาณส่วนใหญ่ <em>เชื่อโดยปริยาย</em>:</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม (Quant Folklore)</div>
+      <div class="ladder-text">"ใช้ multiple frameworks ที่ตรวจคนละแง่ = ลด overfitting risk + diversify alpha sources"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริงจาก Volume III</div>
+      <div class="ladder-text">Frameworks หลายตัว <strong>ไม่ได้</strong>แปลว่า factors หลายตัว — พวกมันอาจ correlate กับ underlying factor เดียวกัน (เช่น growth/quality momentum) ทำให้ "consensus" คือ <em>concentrated factor bet ที่ใส่หน้ากาก</em></div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">ก่อนเชื่อใน "multi-framework strategy" ใดๆ — ต้อง <strong>run concentration diagnostic</strong> (ลบ top 5/10 contributors แล้วดู Sharpe drop) และ <strong>sector exposure analysis</strong> ถ้า top contributors กระจุกตัวที่ sector เดียว — strategy ของคุณคือ sector bet ใส่หน้ากาก ไม่ใช่ multi-factor alpha</div>
+    </div>
+  </div>
+
+  <h2>Statistical Significance — All 3 Convergence Portfolios Lose</h2>
+
+  <p>ใช้ Jobson-Korkie z-test (Benjamini-Hochberg corrected) เปรียบเทียบ Sharpe ratio:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Strategy</th>
+        <th class="num">Sharpe</th>
+        <th class="num">vs C1 (1.18)</th>
+        <th class="num">vs M2 (1.26)</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="warn">
+        <td>FamilyDiverse</td>
+        <td class="num">1.06</td>
+        <td class="num">p = 0.0017</td>
+        <td class="num">p < 0.0001</td>
+        <td><span class="verdict reject">SIGNIFICANTLY BELOW</span></td>
+      </tr>
+      <tr class="warn">
+        <td>P3</td>
+        <td class="num">0.99</td>
+        <td class="num">p < 0.0001</td>
+        <td class="num">p < 0.0001</td>
+        <td><span class="verdict reject">SIGNIFICANTLY BELOW</span></td>
+      </tr>
+      <tr class="warn">
+        <td>P5</td>
+        <td class="num">0.94</td>
+        <td class="num">p < 0.0001</td>
+        <td class="num">p < 0.0001</td>
+        <td><span class="verdict reject">SIGNIFICANTLY BELOW</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>ข้อสรุปตรงไปตรงมา: <strong>convergence approach (N>2) ไม่ได้เพิ่ม alpha</strong> ที่ไม่ได้มีอยู่แล้วใน pairwise combinations — และยังมี hidden cost ของ concentration risk ที่ไม่ได้แสดงในตัวเลข headline</p>
+
+  <h2>The Champion Remains the Same</h2>
+
+  <p>หลังจากทดสอบ N-framework convergence อย่างเข้มงวด — <strong>M2 Balanced (Sharpe 1.26)</strong> และ <strong>C1 Quality + Piotroski (Sharpe 1.18)</strong> ยังเป็นแชมป์ของงานวิจัยทั้งหมด การค้นพบนี้สำคัญเพราะมันบอกเราว่า <em>มีจุดอิ่มตัวของ combination complexity</em> — pairwise คือจุด sweet spot ระหว่าง diversification benefit กับ concentration risk</p>
+
+  <div class="author-box">
+    <div class="author-avatar">SP</div>
+    <div class="author-content">
+      <div class="author-meta">Senior Strategist · 20+ Years</div>
+      <p class="author-text">
+        "ผม <strong>impressed</strong> กับ Volume III มากกว่า Volume I และ II มาก เพราะมัน <em>กล้าจะปฏิเสธ hypothesis ของตัวเอง</em> งานวิจัยที่ดีไม่ใช่งานที่ทุกอย่างเดินตามแผน — แต่คืองานที่ <em>เปิดเผยความล้มเหลวของแผน</em> และให้ insight ที่ใช้งานได้จริง การที่ convergence portfolios ทั้งสามล้ม concentration diagnostic คือ finding ที่มีคุณค่ามากกว่าตัวเลข Sharpe สูงๆ ใน Volume I ทั้งหมดรวมกัน"
+      </p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">⬩ Reflection · คำถามที่ Volume III เปิดออก</div>
+    <p class="reflection-q">ถ้า 11 frameworks ที่ทดสอบทั้งหมดมี exposure ร่วมต่อ "growth/quality factor" — แสดงว่า framework selection ของ Volume I มี <em>hidden bias</em>หรือเปล่า? ถ้าเพิ่ม pure mean-reversion หรือ contrarian frameworks เข้าไป จะเห็นภาพต่างไหม?</p>
+    <p class="reflection-q">ถ้าเรา <strong>sector-neutralize</strong> consensus signal (บังคับให้แต่ละ sector มี representation เท่ากัน) — ผลที่ได้จะดีขึ้นไหม? หรือจะกลายเป็น noise ทั้งหมด?</p>
+    <p class="reflection-q">การที่ NVDA, ANET, TTD, MPWR, ONTO ครอง portfolios ทั้งหมด — ถ้ายุคของ tech leadership ผ่านไปแล้ว (เช่น 2025+ rotation) strategies เหล่านี้จะยังคง Sharpe สูงอยู่หรือไม่? หรือเราเพิ่งทดสอบ "tech bet ที่ทำงานได้ใน 2014-2024"?</p>
+  </div>
+</div>
+
+
+<!-- ============================================
+     CHAPTER 04 — STRATEGY MAP
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">04</div>
+  <div class="ch-label">Part III · The Strategy Map</div>
+  <h1 class="ch-title">For <em>Real</em> Investors</h1>
+  <p class="ch-essence">
+    หลังตกผลึก 3 เล่ม — นี่คือ allocation ที่ควรนำไปใช้จริง พร้อมตัวเลข "honest CAGR" หลังหัก bull market halo, taxes, และ behavioral friction
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Recommendations · คำแนะนำตาม Profile</div>
+  <h1>3 Profiles, 3 Allocations</h1>
+
+  <p>ก่อนเข้าสู่ allocation — กำหนด <strong>"Honest Discount Framework"</strong> ที่ผมแนะนำให้ใช้กับทุกตัวเลขในงานวิจัยนี้ก่อนนำไปคาดการณ์อนาคต:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Adjustment</th>
+        <th class="num">CAGR Impact</th>
+        <th class="num">Sharpe Impact</th>
+        <th class="num">MaxDD Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bull Market Halo</td>
+        <td class="num">−5 to −10 pp</td>
+        <td class="num">−0.10 to −0.20</td>
+        <td class="num">+10 to +15 pp</td>
+      </tr>
+      <tr>
+        <td>Survivorship Bias</td>
+        <td class="num">−1.5 pp</td>
+        <td class="num">~−0.05</td>
+        <td class="num">—</td>
+      </tr>
+      <tr>
+        <td>Tax Drag (high-turnover, taxable account)</td>
+        <td class="num">−3 to −8 pp</td>
+        <td class="num">~−0.10</td>
+        <td class="num">—</td>
+      </tr>
+      <tr>
+        <td>Slippage & Real Trading Friction</td>
+        <td class="num">−1 to −3 pp</td>
+        <td class="num">~−0.05</td>
+        <td class="num">+2 to +5 pp</td>
+      </tr>
+      <tr class="highlight">
+        <td><strong>Total Honest Adjustment</strong></td>
+        <td class="num"><strong>−10 to −20 pp</strong></td>
+        <td class="num"><strong>−0.30 to −0.40</strong></td>
+        <td class="num"><strong>+12 to +20 pp</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:13px; color:var(--ink-muted); font-style:italic; margin-top:-8px;">
+    ถ้าใช้ tax-advantaged account (IRA, 401k) — ตัด tax drag ออก ลด total adjustment เหลือ −7 ถึง −12 pp · ใช้ในการประเมิน expected forward-looking returns ทุกครั้ง
+  </p>
+
+  <h2>Profile A — Aggressive Growth (อายุ 25-40, รับความเสี่ยงสูง)</h2>
+
+  <p>ลักษณะ: รับ MaxDD -35% ถึง -50% ได้ · holding period 3-7 ปี · ต้องการ growth สูง · ยอมรับ short-term capital gains tax</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Weight</th>
+        <th>Strategy</th>
+        <th>Backtest CAGR</th>
+        <th>Honest CAGR</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>30%</td>
+        <td>C1 Quality + Piotroski</td>
+        <td class="num">29.0%</td>
+        <td class="num">17-20%</td>
+        <td>Anchor — สะอาดที่สุด, MaxDD -30.1% ต่ำสุดใน combinations</td>
+      </tr>
+      <tr>
+        <td>20%</td>
+        <td>C8 Momentum + Quality</td>
+        <td class="num">37.8%</td>
+        <td class="num">18-25%</td>
+        <td>Highest CAGR, TRUE_ROBUST 4/5 — แต่ MaxDD -45.5% size เล็ก</td>
+      </tr>
+      <tr>
+        <td>15%</td>
+        <td>M2 Balanced (Meta)</td>
+        <td class="num">36.8%</td>
+        <td class="num">15-22%</td>
+        <td>Highest Sharpe 1.26 — meta-strategy diversification</td>
+      </tr>
+      <tr>
+        <td>15%</td>
+        <td>CANSLIM (single)</td>
+        <td class="num">25.5%</td>
+        <td class="num">12-17%</td>
+        <td>Pure growth/momentum anchor</td>
+      </tr>
+      <tr>
+        <td>10%</td>
+        <td>Piotroski F-Score (single)</td>
+        <td class="num">20.7%</td>
+        <td class="num">11-15%</td>
+        <td>Defensive ballast — MaxDD -30.6% ต่ำสุด</td>
+      </tr>
+      <tr>
+        <td>10%</td>
+        <td>Cash Reserve</td>
+        <td class="num">~5% (T-bills)</td>
+        <td class="num">3-5%</td>
+        <td>Dry powder for drawdown opportunities — none of the strategies model this</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Expected Portfolio Profile:</strong> CAGR backtest 25-30% / honest 14-18% · MaxDD backtest -35% ถึง -42% / realistic -45% ถึง -55% · Sharpe ~1.0 honest</p>
+
+  <h2>Profile B — Balanced (อายุ 35-55, รับความเสี่ยงปานกลาง)</h2>
+
+  <p>ลักษณะ: รับ MaxDD -25% ถึง -35% · long-term holding · core-satellite approach · ใช้ tax-advantaged account ส่วนใหญ่</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Weight</th>
+        <th>Strategy</th>
+        <th>Backtest CAGR</th>
+        <th>Honest CAGR</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>35%</td>
+        <td>C1 Quality + Piotroski</td>
+        <td class="num">29.0%</td>
+        <td class="num">17-20%</td>
+        <td>Core holding — Sharpe สูงสุดใน "clean wins"</td>
+      </tr>
+      <tr>
+        <td>20%</td>
+        <td>Quality Compounder (single)</td>
+        <td class="num">23.9%</td>
+        <td class="num">13-17%</td>
+        <td>Buy-and-hold oriented · low turnover · tax-efficient · non-correlated to C1</td>
+      </tr>
+      <tr>
+        <td>15%</td>
+        <td>M2 Balanced (Meta)</td>
+        <td class="num">36.8%</td>
+        <td class="num">15-22%</td>
+        <td>Meta-diversification benefit · sized smaller due to optimization concern</td>
+      </tr>
+      <tr>
+        <td>15%</td>
+        <td>Dividend Growth (single)</td>
+        <td class="num">18.7%</td>
+        <td class="num">10-13%</td>
+        <td>Outperformed SPY 5/5 windows · income generator · defensive</td>
+      </tr>
+      <tr>
+        <td>10%</td>
+        <td>Piotroski F-Score (single)</td>
+        <td class="num">20.7%</td>
+        <td class="num">11-15%</td>
+        <td>Lowest MaxDD ใน frameworks · defensive anchor</td>
+      </tr>
+      <tr>
+        <td>5%</td>
+        <td>Cash Reserve</td>
+        <td class="num">~5%</td>
+        <td class="num">3-5%</td>
+        <td>Reduced cash because longer horizon allows weathering drawdowns</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Expected Portfolio Profile:</strong> CAGR backtest 22-26% / honest 14-17% · MaxDD backtest -28% ถึง -35% / realistic -38% ถึง -45% · Sharpe ~1.05 honest</p>
+
+  <h2>Profile C — Conservative Income (อายุ 55+, capital preservation focus)</h2>
+
+  <p>ลักษณะ: รับ MaxDD ไม่เกิน -20% ถึง -25% · ต้องการรายได้ปันผล · holding period 10+ ปี · prioritize stability over growth</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Weight</th>
+        <th>Strategy</th>
+        <th>Backtest CAGR</th>
+        <th>Honest CAGR</th>
+        <th>Rationale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td>30%</td>
+        <td>Dividend Growth</td>
+        <td class="num">18.7%</td>
+        <td class="num">10-13%</td>
+        <td>Outperformed SPY 5/5 windows (only 100% consistent strategy) · income</td>
+      </tr>
+      <tr class="highlight">
+        <td>25%</td>
+        <td>C1 Quality + Piotroski</td>
+        <td class="num">29.0%</td>
+        <td class="num">17-20%</td>
+        <td>Lowest MaxDD ของ combinations · sized down for this profile</td>
+      </tr>
+      <tr>
+        <td>20%</td>
+        <td>Piotroski F-Score (single)</td>
+        <td class="num">20.7%</td>
+        <td class="num">11-15%</td>
+        <td>Lowest single-framework MaxDD -30.6%</td>
+      </tr>
+      <tr>
+        <td>15%</td>
+        <td>Quality Compounder (single)</td>
+        <td class="num">23.9%</td>
+        <td class="num">13-17%</td>
+        <td>Tax-efficient compounding · low turnover</td>
+      </tr>
+      <tr>
+        <td>10%</td>
+        <td>Low Volatility (single)</td>
+        <td class="num">13.0%</td>
+        <td class="num">8-11%</td>
+        <td>Explicit accept lower return for lower volatility · defensive</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Expected Portfolio Profile:</strong> CAGR backtest 18-22% / honest 11-14% · MaxDD backtest -25% ถึง -32% / realistic -32% ถึง -40% · Sharpe ~1.10 honest</p>
+
+  <div class="warning-box">
+    <div class="warning-label">⚠ Conservative Profile Reality Check</div>
+    <p class="warning-text">
+      <strong>ไม่มี allocation ในงานวิจัยนี้ที่จะให้ "MaxDD < -20%"</strong> ในตลาด bear ของจริง — ถ้าเป็น Profile C ที่ต้องการ capital preservation อย่างเข้ม ต้องเพิ่ม <em>asset class diversification</em> (bonds, gold) หรือ <em>options-based hedging</em> หรือ <em>trend-following overlay</em> (exit equity เมื่อ SPY < 200d MA) — สิ่งเหล่านี้ไม่อยู่ในงานวิจัย ต้องสร้างเพิ่ม
+    </p>
+  </div>
+
+  <h2>3 กฎเหล็กสำหรับทุก Profile</h2>
+
+  <div class="action-card">
+    <div class="action-card-title">⬩ Rules Engraved in Stone</div>
+    <ol class="checklist">
+      <li><strong>ห้าม allocate เกิน 35% ในกลยุทธ์เดียว</strong> — ไม่ว่าจะดูดีแค่ไหน เพราะ Volume III เตือนเราว่าแม้แต่ "consensus" ของหลาย frameworks ยังเป็น tech bet ที่ใส่หน้ากาก strategy เดียวยิ่งง่ายต่อการ fail</li>
+      <li><strong>ใช้ tax-advantaged account ให้มากที่สุด</strong> — quarterly rebalancing สร้าง short-term capital gains; ในบัญชีเสีย tax อาจกินกำไร 8-12 percentage points</li>
+      <li><strong>Pre-commit ระยะเวลาทบทวน</strong> — ถ้าเลือก strategy แล้วต้องให้เวลา <em>อย่างน้อย 3 ปี</em>ก่อนตัดสินใจเปลี่ยน เพราะตลาดมี random variation; การเปลี่ยนหลัง 1 ปีของ underperformance คือการ chase recent performance ที่จะทำลายผลตอบแทน</li>
+      <li><strong>ตั้งกฎ rebalancing ล่วงหน้า</strong> — quarterly (ทุก 3 เดือน) ในวันที่ 15 ของเดือน Feb/May/Aug/Nov; ห้ามรอ "จังหวะดี" หรือเลื่อนตามอารมณ์ตลาด</li>
+      <li><strong>ห้ามใช้ leverage</strong> — strategies เหล่านี้ทดสอบเฉพาะ long-only ไม่มี leverage; portfolio ที่ MaxDD -30% ถึง -45% ถ้า leverage 2x = MaxDD -60% ถึง -90% = forced liquidation</li>
+      <li><strong>Track vs SPY annually</strong> — ถ้า portfolio underperforms SPY > 10 pp 3 ปีติด ให้พิจารณาเปลี่ยนกลับมา SPY ETF; ความซื่อสัตย์ต่อตัวเองสำคัญกว่าการยึดติดกับ thesis</li>
+      <li><strong>Drawdown protocol</strong> — ที่ -20% ลด position size 20%, ที่ -30% หยุดซื้อใหม่, ที่ -40% suspend strategy 1 quarter, ทบทวนเมื่อตลาดฟื้น 50%</li>
+    </ol>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">⬩ Reflection · ก่อนวาง real money</div>
+    <p class="reflection-q">คุณรับ MaxDD ขนาดไหนได้จริง? — คำตอบที่ "ในใจ" มักโกหก คำตอบที่ "ลองคำนวณว่าหุ้น $100,000 ลงไป $55,000 จะรู้สึกยังไง" คือคำตอบที่ใกล้ความจริงมากกว่า</p>
+    <p class="reflection-q">บัญชีของคุณเป็น tax-advantaged หรือ taxable? — การตอบผิดคำถามนี้ทำให้เลือก strategy ผิด: high-turnover strategies (CANSLIM, Momentum, M2) ใน taxable account = -3 ถึง -8 pp ของ CAGR หายไปทันที</p>
+    <p class="reflection-q">คุณวางแผนติดตาม portfolio ทุกกี่เดือน? — คำตอบที่ดีคือ "ทุก 3 เดือน ในวันที่กำหนดล่วงหน้า" คำตอบที่ไม่ดีคือ "ทุกวัน" หรือ "เมื่อรู้สึกว่าควรดู"</p>
+  </div>
+</div>
+
+
+<!-- ============================================
+     CHAPTER 05 — TEN CRITICAL QUESTIONS
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">05</div>
+  <div class="ch-label">Part IV · The Gaps</div>
+  <h1 class="ch-title">Ten <em>Critical</em> Questions</h1>
+  <p class="ch-essence">
+    คำถาม 10 ข้อที่ผม — ในฐานะนักลงทุน 20 ปี — เห็นเป็นช่องโหว่ในงานวิจัย ทุกคำถามคือเข็มทิศนำไปสู่ V4
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Critical Inquiry · ตั้งคำถามเพื่อพัฒนาต่อ</div>
+  <h1>10 ช่องโหว่ที่ต้องอุด ก่อนเชื่อมั่นในผลวิจัย</h1>
+
+  <p>งานวิจัย 3 เล่มนี้ทำได้ดีมากในระดับ academic — แต่ในมุมมองของคนที่จะเอาเงินไปลงจริง ยังมี <strong>10 คำถามสำคัญ</strong>ที่ยังไม่มีคำตอบที่ชัดเจน แต่ละคำถามไม่ใช่การตำหนิ — แต่คือเข็มทิศชี้ทิศทางสำหรับ V4 และเป็นจุดที่นักลงทุนต้องคิดเองเพื่อปกป้อง portfolio</p>
+
+  <!-- Q1 -->
+  <div class="question-card">
+    <div class="question-num">Question · 01</div>
+    <h3 class="question-title">Tech Concentration Trap — sector-neutralize ได้แล้ว consensus ยังทำงานหรือเปล่า?</h3>
+    <p class="question-body">
+      Volume III พิสูจน์ว่า <strong>multi-framework consensus = tech bet</strong> ในข้อมูล 2014-2024 — แต่งานวิจัยไม่ได้ทำการทดลองที่สำคัญที่สุด: <em>ถ้าบังคับให้ portfolio เป็น sector-neutral (เช่น แต่ละ sector ต้องไม่เกิน 15% ของ portfolio) — convergence signal จะยังให้ alpha หรือเปล่า?</em>
+    </p>
+    <p class="question-body">
+      ถ้า sector-neutral consensus ยังให้ Sharpe > 1.0 — แสดงว่ามี genuine multi-factor alpha ที่ซ่อนอยู่ใต้ tech bet; ถ้า Sharpe ตกลงเหลือ < 0.5 — แปลว่า "consensus signal" เป็นเพียง <em>tech momentum proxy</em> และไม่มีอะไรลึกกว่านั้น
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 8a</strong>
+      Re-run convergence backtest ด้วย sector-neutral constraint (max 15% per GICS sector) สำหรับ FamilyDiverse, P3, P5; เปรียบเทียบ Sharpe ratio และ concentration diagnostic; ตรวจ counterfactual: sector-neutral C1 Quality+Piotroski จะมี Sharpe เท่าไหร่?
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="question-card">
+    <div class="question-num">Question · 02</div>
+    <h3 class="question-title">Drawdown Floor Problem — ทำไมไม่มี strategy ใดที่ MaxDD < -28%?</h3>
+    <p class="question-body">
+      ทุก strategy ที่ Sharpe สูงในงานวิจัยมี MaxDD <strong>-28% หรือแย่กว่า</strong> แม้แต่ C1 Quality+Piotroski ที่ MaxDD -30.1% ก็ยังเกินที่นักลงทุน Profile C จะรับได้ คำถามคือ: <em>มี structural ceiling ของ drawdown หรือไม่ — และจะทะลุเพดานนี้ได้อย่างไร?</em>
+    </p>
+    <p class="question-body">
+      งานวิจัยทั้งหมดเป็น <strong>long-only equity, no leverage, no hedging</strong> — ในระบบนี้ MaxDD ระดับ -25% ถึง -35% อาจเป็น <em>fundamental floor</em> ที่หลีกเลี่ยงไม่ได้ในตลาด equity การจะลงต่ำกว่านี้ต้องเพิ่ม component ใหม่: <strong>tail-risk overlay (put options), trend-following exit (SPY < 200 SMA), หรือ asset class diversification (bonds, gold)</strong>
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 9</strong>
+      ทดสอบ "Hybrid Strategy = C1 (90%) + Long-dated SPY puts (10%)" — measure Sharpe trade-off (เสียเท่าไร) vs MaxDD reduction (ได้เท่าไร); ทดสอบ trend-following exit rule ที่ exit equity เมื่อ SPY < 200d MA — re-enter เมื่อ > 200d MA; วัดผลทั้ง CAGR drag และ MaxDD improvement
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="question-card">
+    <div class="question-num">Question · 03</div>
+    <h3 class="question-title">The Sharpe Ceiling — ทำไม Sharpe สูงสุดอยู่ที่ 1.26 และจะทะลุได้อย่างไร?</h3>
+    <p class="question-body">
+      งานวิจัยทั้งหมดแตะเพดาน Sharpe ที่ <strong>1.26 (M2 Balanced)</strong> และ "honest forward-looking Sharpe" น่าจะอยู่ที่ <strong>0.8-1.0</strong> เท่านั้น — เพดานนี้สูงที่สุดที่ <em>static portfolio approach</em> จะทำได้ การทะลุไปที่ Sharpe > 1.5 ต้องการ <em>dynamic component</em> ที่ปรับตัวตามสภาพตลาด
+    </p>
+    <p class="question-body">
+      C10 Regime Adaptive ทำ Sharpe ได้แค่ 1.01 — แสดงว่า <em>simple regime-switching</em> (ใช้ rule-based switch) ไม่พอ ที่ต้องการคือ <strong>continuous regime weighting</strong> ที่ปรับ allocation อย่างต่อเนื่องตาม macroeconomic regime, sector rotation, และ volatility regime — ใกล้กับ <em>conditional expected return models</em>
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 11</strong>
+      สร้าง ML meta-allocator ที่ใช้ macro features (yield curve slope, VIX, credit spread, breadth, earnings revision breadth) เป็น input → predict ว่าใน 1Q ข้างหน้า framework ใดจะ outperform; ทดสอบ vs static M2 Balanced; เป้า Sharpe > 1.5 (honest) — ถ้าไม่ถึงแสดงว่า dynamic approach ไม่ work ในระดับ practical
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="question-card">
+    <div class="question-num">Question · 04</div>
+    <h3 class="question-title">The Bear Market Test — ทุก strategy ยังไม่เคยถูกทดสอบใน 2008 หรือ 2000-2002</h3>
+    <p class="question-body">
+      ช่วงทดสอบ 2014-2024 มี SPY ลงสูงสุดเพียง -33.7% (COVID, V-shape recovery) และ -19.4% (rate hike 2022) — <strong>ไม่มี sustained bear market</strong> ที่ลึกและยาว เช่น 2000-2002 (SPY -47% ใน 3 ปี) หรือ 2007-2009 (SPY -55% ใน 17 เดือน) ในตลาดเหล่านั้น value/quality frameworks ที่จัดเป็น "defensive" อาจไม่ defensive เลย
+    </p>
+    <p class="question-body">
+      โดยเฉพาะ <strong>Magic Formula, Fama-French SMV, Acquirer's Multiple</strong> ที่ exposure ต่อ small-cap value — ในช่วง GFC (2007-2009) factor นี้ underperformed อย่างรุนแรง การทดสอบ V4 บนข้อมูล 2004-2013 จะเปลี่ยน ranking ของ frameworks อย่างมีนัยสำคัญ
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 8 — Highest Priority</strong>
+      Out-of-sample validation ใน 2004-2013 (ครอบคลุม GFC + recovery) สำหรับทุก strategy ใน Volume I และ II — โดยเฉพาะ M2 Balanced, C1 Quality+Piotroski; ต้องดู: (1) Sharpe ranking เปลี่ยนแค่ไหน (2) MaxDD ที่แท้จริงเป็นเท่าไร (3) "defensive" frameworks ยังคง defensive หรือไม่ (4) recovery time จาก MaxDD นานแค่ไหน
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="question-card">
+    <div class="question-num">Question · 05</div>
+    <h3 class="question-title">Tax Alpha vs Pre-Tax Alpha — strategy ใดดีจริงในบัญชี taxable?</h3>
+    <p class="question-body">
+      งานวิจัยทุกเล่มรายงาน <em>pre-tax CAGR</em> — แต่นักลงทุนรายย่อยจริงเสีย short-term capital gains tax 22-37% ในส่วนที่ถือ < 1 ปี ส่วน long-term tax 0-20% หลัง 1 ปี Strategies ที่ <strong>quarterly rebalance</strong> สร้าง short-term gains เกือบทั้งหมด — กิน CAGR ไป 8-12 percentage points ในนักลงทุนกลุ่มภาษีสูง
+    </p>
+    <p class="question-body">
+      คำถามที่งานวิจัยไม่ตอบ: <strong>ถ้าเปลี่ยน rebalance freq เป็น semi-annual หรือ annual</strong> — Sharpe ลดลงเท่าไหร่ vs tax saving ได้เท่าไหร่? และ <em>strategy ที่ดีที่สุดก่อน tax อาจไม่ใช่ strategy ที่ดีที่สุดหลัง tax</em>
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 13</strong>
+      Tax-aware backtesting framework ที่: (1) compute realized gains ระหว่างช่วง holding (2) classify short-term vs long-term (3) apply tax rate ตาม bracket assumption (24%, 32%, 37%) (4) report after-tax CAGR และ Sharpe; ทดสอบ rebalance frequency: monthly / quarterly / semi-annual / annual / "tax-aware" (รอให้ครบ 1 ปีก่อนขายเพื่อ qualify long-term)
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="question-card">
+    <div class="question-num">Question · 06</div>
+    <h3 class="question-title">Capacity & Liquidity — strategy เหล่านี้รองรับเงินได้แค่ไหน?</h3>
+    <p class="question-body">
+      Backtest ทั้งหมดถือว่า <em>execution ไม่มี market impact</em> ซึ่งเป็นจริงสำหรับ portfolio < $1M เท่านั้น — สำหรับ Piotroski หรือ Magic Formula ที่ holdings มี small/mid-cap หลายตัว เมื่อขนาด portfolio > $50M เริ่มกระทบราคา (ADV ของหุ้นเล็กบางตัวอาจเพียง $5M/day)
+    </p>
+    <p class="question-body">
+      คำถาม: <strong>strategy แต่ละตัวมี capacity ceiling ที่เท่าไร</strong>? ที่ขนาดเงินกี่ million ที่ Sharpe ratio เริ่มลดลงอย่างมีนัยสำคัญ? นี่ไม่ใช่ปัญหาของ retail แต่สำคัญถ้าจะ scale ขึ้น family office หรือ small fund (>$10M)
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 14</strong>
+      Capacity stress test: backtest ทุก strategy ที่ ADV constraint ที่แตกต่างกัน — (1) ห้ามถือหุ้นที่ ADV < $5M (2) limit position size = 5% of 30-day ADV (3) include realistic slippage model: 50 bps for ADV $5M-50M, 25 bps for $50M-500M, 10 bps for >$500M; เปรียบเทียบ Sharpe ที่ portfolio sizes: $1M, $10M, $100M, $500M
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="question-card">
+    <div class="question-num">Question · 07</div>
+    <h3 class="question-title">Behavioral Feasibility — ใครจะถือ strategy ที่ MaxDD -45% ได้จริง?</h3>
+    <p class="question-body">
+      งานวิจัยชี้ <strong>C8 Momentum+Quality MaxDD -45.5%</strong> และ <strong>M2 Balanced MaxDD -37.1%</strong> — แต่ในชีวิตจริงนักลงทุนรายย่อยส่วนใหญ่<em>ขายที่จุดต่ำสุด</em>ก่อนการฟื้นตัว (Barber & Odean 2000 documented this extensively) ดังนั้น "expected return" ที่ realistic ต้องคำนึงถึง <em>panic-sell probability</em>
+    </p>
+    <p class="question-body">
+      มีงานวิจัยใดทดสอบ <strong>"behavioral-adjusted CAGR"</strong> ที่ assume probability ของการ panic sell ที่ MaxDD ต่างๆ? เช่น P(sell | DD = -20%) = 10%, P(sell | DD = -35%) = 40%, P(sell | DD = -50%) = 75% — เมื่อ apply โอกาสเหล่านี้ <em>strategies ที่ดูดีในงานวิจัยอาจให้ผลตอบแทนจริงต่ำกว่า SPY buy-and-hold</em>
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 12</strong>
+      Behavioral simulation: เพิ่ม panic-sell model ใน backtest — สมมติ probability ของการ exit strategy ตาม current drawdown level; รายงาน "behavioral-adjusted CAGR" และ "expected investor experience" — เปรียบเทียบกับ buy-and-hold SPY; เป้าหมาย: ระบุ strategy ที่ <em>ทั้ง backtest ดี และ behaviorally feasible</em> (น่าจะเป็น Dividend Growth + Quality Compounder ที่ MaxDD ต่ำกว่า)
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="question-card">
+    <div class="question-num">Question · 08</div>
+    <h3 class="question-title">The "Why" Black Box — เข้าใจกลไกแต่ละ combination ลึกพอหรือยัง?</h3>
+    <p class="question-body">
+      Volume II รายงาน <em>"3 จาก 10 combinations beats components"</em> — แต่ <strong>ไม่ได้อธิบายว่าทำไม C1 ดี แต่ C2 ไม่ดี</strong>ในเชิง factor structure อย่างละเอียด นักวิจัยยอมรับเองว่า "hypothesis prediction was LOW" — แสดงว่า <em>ความเข้าใจเชิงทฤษฎีของแต่ละ framework ยังไม่ดีพอ</em>
+    </p>
+    <p class="question-body">
+      เราต้อง <strong>factor decomposition ของแต่ละ framework</strong> — บอกว่ามันโหลด factor (Fama-French 5-factor + momentum + quality) อะไรบ้าง? และที่ระดับเท่าไร? เมื่อรวม 2 frameworks → factor exposure รวมคือเท่าไร? Combinations ที่ "beats components" คือ combinations ที่ <em>เพิ่ม factor exposure ที่ไม่ overlap</em> — และถ้าเข้าใจกลไกนี้จะทำนาย combinations อนาคตได้ดีขึ้น
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 10</strong>
+      Factor regression analysis: Fama-French 5-factor + momentum + quality + low-vol → regress strategy returns เพื่อดู factor loadings; map combinations ที่ "beats components" กับ factor exposure ที่เพิ่มขึ้น; สร้าง <em>factor exposure compatibility matrix</em> ที่ทำนายว่า combination ใหม่จะดีหรือไม่ก่อนทดสอบจริง
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="question-card">
+    <div class="question-num">Question · 09</div>
+    <h3 class="question-title">Framework Independence Illusion — เลือก frameworks ที่ทดสอบมีอคติหรือเปล่า?</h3>
+    <p class="question-body">
+      Volume III แสดงว่า 11 frameworks ที่ "TRUE_ROBUST" มี <em>hidden common exposure</em> ต่อ growth/quality factor — เพราะเมื่อบังคับให้เห็นพ้องกัน หุ้นที่ผ่านคือ tech ทั้งหมด คำถามต่อไป: <strong>การที่เลือก 15 frameworks เริ่มต้นจาก literature นั้นมี selection bias หรือเปล่า?</strong>
+    </p>
+    <p class="question-body">
+      Frameworks ส่วนใหญ่ที่ทดสอบเป็น <em>long-bias growth/quality/value</em> — ไม่มี <strong>contrarian, mean-reversion (short-horizon), volatility risk premium, carry, หรือ macro-overlay strategies</strong> ในตะกร้า การเพิ่ม frameworks ที่ <em>structurally different</em> เช่น short-term reversal (1-week), volatility selling, หรือ economic surprise indices อาจให้ multi-factor consensus ที่ <em>genuinely independent</em>
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 7B</strong>
+      ขยาย framework universe เพิ่มอย่างน้อย 5 frameworks ที่ structurally different จากเดิม: (1) Short-term reversal 1-week (2) Earnings announcement drift (PEAD long-only) (3) Long volatility risk premium (long VIX put spreads) (4) Insider buying signal (5) Buyback yield strategy; ทำ correlation matrix ของ daily returns; ใช้ frameworks ที่ correlation < 0.4 เป็น "true independent" set; re-run convergence test
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="question-card">
+    <div class="question-num">Question · 10</div>
+    <h3 class="question-title">The Pre-Registration Paradox — LOW prediction accuracy บอกอะไร?</h3>
+    <p class="question-body">
+      Volume II รายงานว่า hypothesis prediction accuracy เป็น <strong>LOW</strong> — แปลว่าผู้วิจัยทำนายผิดบ่อย นักวิจัยตีความนี้เป็น "feature" (แสดงว่าตลาดไม่ได้ทำนายได้) แต่ผมตีความต่าง: <em>"LOW prediction accuracy แสดงว่า theoretical framework ที่ใช้ในการตั้ง hypothesis ยังไม่ดีพอ"</em>
+    </p>
+    <p class="question-body">
+      ถ้าเรามี <strong>better theoretical framework</strong> — เราควรทำนายได้ดีกว่า "random" สิ่งที่ขาดในงานวิจัยคือ <em>structural model ที่อธิบายว่าทำไม factor X ทำงานในสภาวะใด</em> ไม่ใช่แค่ "factor X ผ่าน statistical test" — เราต้องการ "factor X ทำงานเมื่อ inflation อยู่ที่ระดับ Y และ rate environment เป็น Z"
+    </p>
+    <div class="question-action">
+      <strong>V4 Action · Phase 15 (Long-term)</strong>
+      สร้าง "Factor Conditional Performance Map" ที่อธิบายว่าแต่ละ factor (value, momentum, quality, size) ทำงานในสภาวะใด: ใช้ regression ระหว่าง factor returns กับ macro state variables (CPI YoY, 10Y yield, term premium, credit spread, USD index); ทดสอบ hypothesis ใหม่: "X factor outperforms when condition Y holds" → predict forward-looking performance based on current macro state; <em>ถ้า prediction accuracy ของ V4 hypotheses สูงกว่า V2 — แสดงว่าเรากำลังเข้าใจตลาดดีขึ้น</em>
+    </div>
+  </div>
+
+  <h2>The Meta-Question</h2>
+
+  <p>หลังจากตั้ง 10 คำถาม — มีคำถามที่ใหญ่กว่าและสำคัญกว่า: <strong>"งานวิจัย systematic equity ที่ทำในตลาด US ในช่วง zero interest rate + tech dominance + AI boom + post-COVID stimulus มี external validity แค่ไหน?"</strong> ถ้ายุคของ low-rate + tech-led + passive-flow ผ่านไปแล้ว — strategies ที่ผ่าน 13/13 ใน 2014-2024 อาจไม่ได้แสดงถึงทักษะเลย แต่แสดงถึง <em>การจับ macro regime ที่ favorable</em> เท่านั้น</p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"In 1999, every long-tech strategy beat the market. In 2009, every long-financial strategy crashed. The lesson is not that we picked the wrong strategy — it is that we mistook a regime for skill."</p>
+    <p class="blockquote-full-th">"ในปี 1999 ทุก strategy ที่ long tech ชนะตลาด ในปี 2009 ทุก strategy ที่ long financial พังเละ บทเรียนไม่ใช่ว่าเราเลือก strategy ผิด — แต่คือเราเข้าใจผิดว่า regime คือ skill"</p>
+    <p class="blockquote-full-attr">The Wisdom of Cycles · Author's Note</p>
+  </div>
+</div>
+
+
+<!-- ============================================
+     CHAPTER 06 — THE V4 ROADMAP
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">06</div>
+  <div class="ch-label">Part V · The Path Forward</div>
+  <h1 class="ch-title">The V4 <em>Roadmap</em></h1>
+  <p class="ch-essence">
+    7 phases ที่ต้องทำ — เรียงตาม impact × feasibility — เพื่อยกระดับงานวิจัยจาก "academically interesting" สู่ "investably trustworthy"
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">V4 Master Plan · จาก Hypothesis สู่ Battle-Tested Strategy</div>
+  <h1>เส้นทาง V4 — จากความรู้สู่ความเชื่อมั่น</h1>
+
+  <p>10 คำถามใน Chapter 05 แปลงเป็น <strong>7 phases ที่ทำได้จริง</strong> โดยเรียงตามหลัก <em>impact × feasibility</em> — phase ที่ <span style="color:var(--copper); font-weight:700;">CRITICAL</span> ต้องทำก่อน เพราะเป็นพื้นฐานที่ผลของทุก phase ต่อจากนี้พึ่งพา phase ที่ <span style="color:var(--accent); font-weight:700;">HIGH</span> สำคัญแต่ทำตามได้ และ <span style="color:var(--ink-faint); font-weight:700;">MEDIUM</span> เป็นการขยายผลที่ดีแต่ไม่ใช่ blocker</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Roadmap Logic</div>
+    <p class="insight-text">
+      <strong>ทำไมต้อง Phase 8 (OOS validation) ก่อนทุกอย่าง?</strong> — เพราะถ้า strategy ทั้งหมดที่ค้นพบใน 2014-2024 ไม่ทำงานใน 2004-2013 (ที่มี dot-com aftermath, GFC, recovery) — งานวิจัยทั้งหมดอาจเป็นแค่ <em>regime-specific phenomenon</em> และทุก phase ต่อจากนี้คือการสร้างบนทรายดูด การลงทุน $50K ในการ pull historical data + re-run 36 strategies คือ <em>cheapest insurance</em> ก่อนเอาเงินจริงลงสนาม
+    </p>
+  </div>
+
+  <div class="roadmap">
+
+    <!-- Phase 8 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">8</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          OOS Validation: 2004-2013 Backtest
+          <span class="roadmap-priority critical">Critical</span>
+        </h3>
+        <p class="roadmap-desc">
+          ทำซ้ำ V1 (15 frameworks) + V2 (14 combinations) + V3 (3 viable consensus portfolios) บน <strong>ข้อมูล 2004-2013</strong> ซึ่งครอบคลุม dot-com tail, GFC 2008, recovery 2009-2010, European crisis 2011, taper tantrum 2013 — ถ้า champion strategies (M2, C1, FamilyDiverse) ยัง Sharpe > 0.8 ในยุคนี้ — เราเชื่อมั่นได้ว่ามันคือ skill ไม่ใช่ regime; ถ้า Sharpe ตก < 0.5 — ต้อง <em>reject</em> สมมติฐานว่ามันใช้ได้กับ all weather
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: SEC EDGAR XBRL pre-2014 (manual munging required), CRSP daily returns, sector classification fixes for old GICS codes; Estimated effort: 2 senior researchers × 8 weeks
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 9 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">9</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          Live Paper Trading — 24-Month Forward Tracking
+          <span class="roadmap-priority high">High</span>
+        </h3>
+        <p class="roadmap-desc">
+          deploy M2, C1, FamilyDiverse บน <strong>paper trading account</strong> เริ่ม Q1 2026; track ผลลัพธ์ทุก quarter โดย <em>ห้ามเปลี่ยน rules</em> เป็นเวลา 8 quarters; หากเฉลี่ย Sharpe live ≥ 70% ของ backtest Sharpe — ยืนยันความน่าเชื่อถือ; หากต่ำกว่า 50% — ต้องสงสัย overfitting อย่างจริงจัง นี่คือ <em>"truth in time"</em> ที่ academic backtest ไม่สามารถให้ได้
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: Interactive Brokers paper account (API automated), monthly rebalance triggers, performance attribution dashboard; Estimated effort: 1 engineer × 4 weeks setup + ongoing monitoring
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 10 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">10</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          Sector-Neutral Consensus Rebuild
+          <span class="roadmap-priority high">High</span>
+        </h3>
+        <p class="roadmap-desc">
+          แก้ปัญหา <strong>Concentration FAIL</strong> ของ Volume III โดย: (1) บังคับ max 15% ต่อ GICS sector ใน FamilyDiverse / P3 / P5; (2) re-rank stocks ภายในแต่ละ sector แทนที่จะ rank ทั่ว universe; (3) test ว่า sector-neutral consensus ยังให้ Sharpe > 1.0 หรือไม่; ถ้าใช่ — เราพบ <em>genuine multi-factor alpha</em>; ถ้าไม่ — ยืนยันว่า "consensus" คือ tech bet ตามที่กลัว
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: GICS Level 2 mapping, sector-neutral portfolio constructor, factor decomposition (Fama-French 5 + momentum + quality); Estimated effort: 1 quant × 6 weeks
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 11 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">11</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          ML Meta-Allocator with Macro Regime Features
+          <span class="roadmap-priority medium">Medium</span>
+        </h3>
+        <p class="roadmap-desc">
+          ทะลุ Sharpe ceiling 1.26 ของ M2 ด้วย <strong>continuous regime weighting</strong> — train gradient-boosted model ที่รับ inputs: VIX level, term spread, credit spread, USD index, CPI YoY, ISM PMI, S&P trailing P/E; output คือ optimal weight ของแต่ละ framework component (Quality / Piotroski / CANSLIM / Acquirers / Magic / Momentum); ใช้ purged k-fold cross-validation เพื่อป้องกัน look-ahead; benchmark vs static M2 (50/30/20)
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: FRED API (macro data), scikit-learn or XGBoost, walk-forward CV with embargo, SHAP for interpretability; Estimated effort: 1 ML engineer × 12 weeks
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 12 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">12</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          Tail-Risk Options Overlay
+          <span class="roadmap-priority medium">Medium</span>
+        </h3>
+        <p class="roadmap-desc">
+          เป้าหมาย: <strong>ทำลายเพดาน MaxDD -28%</strong> ที่กักขังทุก strategy โดยเพิ่ม overlay: (1) ซื้อ SPY 5% OTM put options 6-month tenor, roll quarterly (ค่าใช้จ่าย ~1.5% ของ NAV ต่อปี); (2) ทดสอบ alternative: SPY 200-day SMA exit ที่ขาย 50% เมื่อ price < SMA, return ทันทีเมื่อ > SMA; เปรียบเทียบ MaxDD reduction กับ CAGR cost — เป้าหมายคือ MaxDD < -20% โดย CAGR ลดไม่เกิน 3 percentage points
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: CBOE historical option chains (or OptionMetrics), implied vol surface modeling, transaction cost model สำหรับ options; Estimated effort: 1 derivatives quant × 8 weeks
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 13 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">13</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          Tax-Aware Rebalancing Optimizer
+          <span class="roadmap-priority medium">Medium</span>
+        </h3>
+        <p class="roadmap-desc">
+          ทำสิ่งที่ทุกงาน academic ไม่เคยทำ: <strong>backtest after-tax CAGR</strong>; รัน strategies เดิมแต่เปลี่ยน rebalance frequency: monthly / quarterly / semi-annual / annual / "tax-aware" (รอครบ 365 วันก่อนขายเพื่อ qualify long-term cap gains); apply tax brackets 24% / 32% / 37% สำหรับ short-term, 15% / 20% สำหรับ long-term; report <em>after-tax CAGR และ Sharpe</em> — ค้นพบว่า strategy ที่ดีที่สุดก่อน tax อาจไม่ใช่ strategy ที่ดีที่สุดหลัง tax
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: lot-level tax accounting (FIFO / specific identification), wash sale rules, state tax overlay (CA, NY); Estimated effort: 1 quant + 1 tax expert × 6 weeks
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 14 -->
+    <div class="roadmap-item">
+      <div>
+        <div class="roadmap-phase">14</div>
+        <div class="roadmap-phase-label">Phase</div>
+      </div>
+      <div class="roadmap-content">
+        <h3 class="roadmap-title">
+          Capacity & Liquidity Stress Test
+          <span class="roadmap-priority medium">Medium</span>
+        </h3>
+        <p class="roadmap-desc">
+          backtest ทุก strategy ด้วย <strong>realistic ADV constraints</strong>: (1) ห้ามถือหุ้นที่ ADV < $5M; (2) limit position size = 5% ของ 30-day ADV; (3) include slippage model: 50 bps สำหรับ ADV $5-50M, 25 bps สำหรับ $50-500M, 10 bps สำหรับ >$500M; report <em>Sharpe ratio ที่ portfolio sizes ต่างกัน</em>: $1M / $10M / $100M / $500M; ค้นหา capacity ceiling ของแต่ละ strategy เพื่อเตรียม scale-up จาก retail สู่ family office
+        </p>
+        <div class="roadmap-tools">
+          Tools needed: Daily volume data (CRSP), bid-ask spread historical (TAQ), market impact model (Almgren-Chriss); Estimated effort: 1 execution quant × 6 weeks
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="warning-box">
+    <div class="insight-label" style="color: var(--copper);">The Honest Cost of V4</div>
+    <p class="insight-text">
+      ทำครบทั้ง 7 phases = ประมาณ <strong>50 person-weeks</strong> หรือ ~$200-300K ใน senior quant labor (งบประมาณ family office / boutique fund) — ดูแพง แต่เปรียบเทียบกับ <em>การ deploy $5M ใน strategy ที่ overfit</em> และพบว่า real-world Sharpe เหลือ 0.3 (ขาดทุน $1.5M ใน 2 ปี) — V4 budget คือ <strong>insurance ที่คุ้มค่าที่สุด</strong> ในประวัติศาสตร์การลงทุน systematic
+    </p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · Before You Commit Capital</div>
+    <p class="reflection-q">ระหว่าง "ลงเงินจริงตาม backtest ทันที" กับ "ทำ Phase 8 OOS validation ก่อน 8 สัปดาห์" — คุณเลือกอะไร และทำไม?</p>
+    <p class="reflection-q">ถ้า Phase 8 พิสูจน์ว่า strategy ทั้งหมด Sharpe ตก > 50% ใน 2004-2013 — คุณยังจะ deploy หรือยอมรับว่างานวิจัยเป็น regime artifact?</p>
+    <p class="reflection-q">budget $200K ของ V4 vs deploy เงิน $5M ทันทีในกลยุทธ์ที่ยังไม่ validated — คำถามคือคุณกำลังประหยัดอะไร และเสี่ยงอะไร?</p>
+  </div>
+</div>
+
+<!-- ============================================
+     CHAPTER 07 — SYNTHESIS & COMMITMENT
+============================================ -->
+<div class="chapter-open">
+  <div class="ch-num-big">07</div>
+  <div class="ch-label">Part VI · The Crystallization</div>
+  <h1 class="ch-title">Synthesis &amp; <em>Commitment</em></h1>
+  <p class="ch-essence">
+    ตกผลึกบทเรียนสำคัญที่สุดในประโยคเดียว · พิธีกรรมก่อนลงเงินจริง · และคำเตือนสุดท้ายจากผู้ที่ผ่าน 4 cycles
+  </p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Master One-Liner · ตกผลึกในประโยคเดียว</div>
+  <h1>The Single Sentence That Captures Everything</h1>
+
+  <p>หลังจากอ่านงานวิจัย 3 เล่ม รวม 1,010 หุ้น, 36 strategies, 10 ปีของข้อมูล — มีบทเรียนเดียวที่ใหญ่ที่สุด ตกผลึกได้ในประโยคเดียว ที่ผมขอให้คุณ<em>เขียนติดผนังหน้าโต๊ะทำงาน</em>:</p>
+
+  <div class="blockquote-full">
+    <p class="blockquote-full-text">"Combinations beat singles only when they capture <em>independent</em> dimensions. Beware consensus that hides as concentration — and beware backtests that hide as skill."</p>
+    <p class="blockquote-full-th">"การจับคู่ดีกว่าตัวเดี่ยว — เฉพาะเมื่อจับคู่กันแบบที่จับ <em>มิติคนละแบบ</em> ของตลาดได้ ระวัง 'ความเห็นพ้อง' ที่จริงๆ คือ 'การกระจุกตัว' และระวัง backtest ที่ปลอมตัวเป็น skill"</p>
+    <p class="blockquote-full-attr">The Master Synthesis · From V1 → V2 → V3</p>
+  </div>
+
+  <h2>3 บทเรียนรองที่ตามมาจากประโยคเดียวนั้น</h2>
+
+  <div class="ladder">
+    <div class="ladder-item">
+      <div class="ladder-label">Lesson 01 · Independence Beats Intelligence</div>
+      <p class="ladder-text">
+        C1 (Quality + Piotroski) ชนะเพราะมัน combine <strong>level (current quality) × change (improving fundamentals)</strong> — สองมิติที่ไม่ overlap; C2 (CANSLIM + Quality) แพ้เพราะทั้งคู่จับ "growth" — แม้ทฤษฎีน่าสนใจแต่ <em>information ซ้ำกัน</em> บทเรียน: เลือก partner ที่ "เสริมจุดบอด" ไม่ใช่ "ขยายจุดเด่น"
+      </p>
+    </div>
+    <div class="ladder-item">
+      <div class="ladder-label">Lesson 02 · Concentration Diagnostic Is Sacred</div>
+      <p class="ladder-text">
+        ถ้าลบ Top 5 stocks แล้ว Sharpe ตก > 50% — strategy ของคุณ <em>ไม่ใช่ multi-factor strategy</em> มันคือ <strong>concentrated bet ที่ใช้ multi-factor framework เป็นข้ออ้าง</strong>; ทุก strategy ที่ผมจะ deploy ต้องผ่าน concentration test นี้ก่อน — ไม่ผ่าน = ไม่ลง
+      </p>
+    </div>
+    <div class="ladder-item">
+      <div class="ladder-label">Lesson 03 · The Floor Of Drawdown Is Your Real Limit</div>
+      <p class="ladder-text">
+        Sharpe เป็นตัวเลขใน paper, MaxDD เป็นตัวเลขใน <em>กระเป๋าสตางค์ของคุณ</em>; ทุก strategy ในงานวิจัยมี MaxDD floor ที่ -28% หรือเลวกว่า — ถ้าคุณรู้ว่าตัวเอง panic-sell ที่ -25% → ทุก strategy ใน paper นี้ <strong>ไม่ใช่ของคุณ</strong>; ต้อง overlay tail-risk hedge หรือยอมรับ Profile C ที่ MaxDD ต่ำกว่า
+      </p>
+    </div>
+  </div>
+
+  <h2>Pre-Action Ritual — พิธีกรรม 7 ข้อก่อน Deploy Capital</h2>
+
+  <p>ก่อนที่คุณจะส่งเงินใดๆ เข้า strategy จากงานวิจัยนี้ — ผมขอให้คุณทำพิธีกรรม 7 ข้อนี้ <em>ในลำดับที่กำหนด</em> ห้ามข้าม ห้ามรีบ การปฏิเสธความ disciplined ของพิธีกรรมนี้คือสัญญาณแรกของ undisciplined investor:</p>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:60px;">#</th>
+          <th>The Ritual Step</th>
+          <th>The Question To Answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num"><strong>01</strong></td>
+          <td><strong>Honest Profile Check</strong> — ระบุ profile ตัวเอง: A (Aggressive, MaxDD ทน -45%), B (Balanced, ทน -30%), C (Conservative, ทน -20%)</td>
+          <td>คุณเคยถือ portfolio ผ่าน drawdown ระดับนั้นจริงๆ มาแล้วหรือเปล่า? ถ้ายังไม่เคย — ลด level ลงหนึ่งขั้น</td>
+        </tr>
+        <tr>
+          <td class="num"><strong>02</strong></td>
+          <td><strong>Apply The Honest Discount</strong> — ลด backtest CAGR ลง 10-20 percentage points สำหรับ overfitting + transaction cost + tax + slippage</td>
+          <td>หาก honest CAGR ยังคงสูงกว่า SPY (ประมาณ 10-12%) — strategy นี้ <em>มีคุณค่าจริง</em>; หากต่ำกว่า — แค่ซื้อ SPY ก็พอ</td>
+        </tr>
+        <tr>
+          <td class="num"><strong>03</strong></td>
+          <td><strong>Run Concentration Diagnostic</strong> — ตรวจ portfolio: ลบ Top 5 holdings แล้วคำนวณ Sharpe ที่เหลือ</td>
+          <td>Sharpe ตก > 50%? → ปฏิเสธ strategy หรือเพิ่ม sector cap; Sharpe ตก < 30%? → ผ่าน, deploy ได้</td>
+        </tr>
+        <tr>
+          <td class="num"><strong>04</strong></td>
+          <td><strong>Define The Stop Rule</strong> — เขียนเงื่อนไข exit ล่วงหน้า: "ถ้า rolling 12-month underperformance vs SPY > 15 pp → ลด allocation ครึ่งหนึ่ง"</td>
+          <td>คุณจะรู้ได้อย่างไรว่า strategy "broken" vs แค่ "going through normal drawdown"? เขียนกฎไว้ก่อนใจเริ่มหวั่น</td>
+        </tr>
+        <tr>
+          <td class="num"><strong>05</strong></td>
+          <td><strong>Position-Size for Reality</strong> — เริ่มที่ 25-50% ของ target allocation, ไม่ใช่ 100% ทันที</td>
+          <td>หากคุณตื่นเช้ามา portfolio ตก -25% — อยากเห็น $50K ลอยหายหรือ $250K? answer ตัดสินทุกอย่าง</td>
+        </tr>
+        <tr>
+          <td class="num"><strong>06</strong></td>
+          <td><strong>Pre-Mortem Visualization</strong> — เขียนบรรยายว่า "strategy นี้ล้มเหลวอย่างไร" 3 scenarios: (a) tech crash, (b) inflation shock, (c) regime change</td>
+          <td>คุณยังพร้อมจะ deploy เมื่อจินตนาการความล้มเหลวของมันได้ชัดเจนหรือไม่? หากกลัวเกินไป — strategy นี้ไม่ใช่ของคุณ</td>
+        </tr>
+        <tr>
+          <td class="num"><strong>07</strong></td>
+          <td><strong>The 30-Day Rule</strong> — รออีก 30 วันก่อน deploy แม้คุณจะมั่นใจแล้ว</td>
+          <td>หากหลัง 30 วัน คุณยังเชื่อเหมือนเดิม → deploy; หากเริ่มลังเล → คุณตอบตัวเองอยู่แล้ว ฟังเสียงนั้น</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">The Discipline Hidden In The Ritual</div>
+    <p class="insight-text">
+      พิธีกรรม 7 ข้อนี้ไม่ใช่ <em>checklist</em> — มันคือ <strong>filter ที่ออกแบบมาเพื่อกรอง overconfidence ออกจาก decision making</strong>; ที่สำคัญที่สุดคือข้อ 7 — <em>30-day rule</em> — ที่ทดสอบว่าความเชื่อมั่นของคุณคือ <em>conviction</em> หรือเป็น <em>recency bias</em> (เพิ่งอ่าน paper จบและรู้สึกตื่นเต้น) นักลงทุน 20 ปีแบบผมเรียนรู้ว่า: ทุกครั้งที่ผม <em>ข้าม 30-day rule</em> — ผมขาดทุน
+    </p>
+  </div>
+
+  <h2>3 Books — ต่อยอดความเข้าใจ</h2>
+
+  <p>หากคุณต้องการต่อยอดความเข้าใจที่งานวิจัยนี้เริ่มไว้ — ผมขอแนะนำ 3 เล่มนี้ตามลำดับ ทุกเล่มเปลี่ยนวิธีคิดของผมเอง:</p>
+
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Author</th>
+          <th>Why It Matters For You</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Quantitative Momentum</strong></td>
+          <td>Wesley Gray, Jack Vogel (2016)</td>
+          <td>เล่มที่ดีที่สุดเพื่อเข้าใจ <em>ทำไม momentum ทำงาน, เมื่อไรพัง, และจะรวมกับ value/quality อย่างไร</em> — เติมเต็ม Volume II ที่ไม่ได้ลงลึกในกลไก factor structure</td>
+        </tr>
+        <tr>
+          <td><strong>Advances in Financial Machine Learning</strong></td>
+          <td>Marcos López de Prado (2018)</td>
+          <td>กฎทอง: ห้ามทำ ML ในการเงินจน<em>กว่าจะอ่านเล่มนี้</em>; อธิบาย overfitting, walk-forward CV with embargo, meta-labeling — <strong>essential reading ก่อน Phase 11</strong> ของ V4</td>
+        </tr>
+        <tr>
+          <td><strong>Trillions</strong></td>
+          <td>Robin Wigglesworth (2021)</td>
+          <td>ประวัติศาสตร์การเติบโตของ index investing และ passive flow — เล่มที่ทำให้คุณตระหนักว่า <em>ผลของ tech mega-cap dominance ในข้อมูล 2014-2024 ส่วนหนึ่งเป็น flow-driven phenomenon ไม่ใช่ fundamental</em>; กลับเข้าใจคำเตือนของ Volume III ลึกขึ้น</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Final Commitment Ritual</h2>
+
+  <p>เราเดินทางผ่าน 1,010 หุ้น 36 strategies และ 10 ปี ของข้อมูล มาถึงจุดที่ความรู้ต้องแปลงเป็น <em>การปฏิบัติ</em> ผมขอให้คุณเลือก <strong>หนึ่งใน 3 commitment</strong> ต่อไปนี้ — เลือกเฉพาะที่คุณ <em>ทำได้จริง</em> ไม่ใช่ที่อยากให้ตัวเองทำได้:</p>
+
+  <div class="dialogue-row">
+    <div class="dialogue-cell after" style="background: var(--paper-mid); border-left-color: var(--accent);">
+      <div class="dialogue-label" style="color: var(--accent-deep);">Commitment A · The Investor Path</div>
+      <p class="dialogue-text">
+        <strong>ผม commit ที่จะ:</strong> deploy 25% ของ target allocation บน C1 Quality+Piotroski หรือ M2 Balanced บัญชี real-money เริ่ม Q1 2026 — โดยทำพิธีกรรม 7 ข้อครบก่อน, ใช้ Honest Discount Framework ตั้งความคาดหวัง, และ track 24 เดือน ก่อนตัดสินใจ scale-up
+      </p>
+    </div>
+    <div class="dialogue-cell after" style="background: var(--paper-mid); border-left-color: var(--accent);">
+      <div class="dialogue-label" style="color: var(--accent-deep);">Commitment B · The Builder Path</div>
+      <p class="dialogue-text">
+        <strong>ผม commit ที่จะ:</strong> ทำ Phase 8 (OOS validation 2004-2013) ภายใน 12 สัปดาห์ ด้วยตัวเองหรือ partner กับนักวิจัย — ก่อนลงทุนเงินใดๆ; เผยแพร่ผลแบบ open-source เพื่อให้ชุมชนตรวจสอบ; ใช้ผลของ Phase 8 เป็น go/no-go สำหรับเงินจริง
+      </p>
+    </div>
+  </div>
+
+  <div class="dialogue-row" style="grid-template-columns: 1fr;">
+    <div class="dialogue-cell" style="background: var(--paper-deep); border-left: 3px solid var(--copper);">
+      <div class="dialogue-label" style="color: var(--copper);">Commitment C · The Honest Path</div>
+      <p class="dialogue-text">
+        <strong>ผม commit ที่จะ:</strong> ยอมรับว่าตัวเองยังไม่พร้อมสำหรับ systematic strategy — และจะอยู่กับ index investing (75% VTI + 25% VXUS, rebalance annually) จนกว่าจะทำพิธีกรรม 7 ข้อได้ครบและ Phase 8 ของชุมชนเสร็จ; <em>ไม่มีอะไรน่าอายในความซื่อสัตย์นี้ — มีแต่นักลงทุนที่ assume ว่าตัวเองพร้อมและขาดทุนเท่านั้นที่น่าเสียใจ</em>
+      </p>
+    </div>
+  </div>
+
+  <div class="pullquote">
+    <p>"The investor who knows what he does not know is wealthier than the investor who pretends to know what he doesn't."</p>
+    <span class="pullquote-attr">— Investor's Wisdom · Final Synthesis</span>
+  </div>
+
+  <div class="author-box">
+    <div class="author-avatar">α</div>
+    <div class="author-content">
+      <div class="author-meta">Final Word · From The Author</div>
+      <p class="author-text">
+        งานวิจัย 3 เล่มนี้ดีพอที่จะเปลี่ยน mindset แต่ยังไม่ดีพอที่จะ deploy เงินทันที — และ <em>นี่คือสภาพปกติ</em> ของงานวิจัย honest research ทุกครั้ง ความรู้ที่แท้จริงไม่ใช่ "ผม backtested แล้วได้ Sharpe 1.26" แต่คือ "ผมรู้ว่า Sharpe 1.26 ของผมมี caveats อะไรบ้าง" — ขอให้คุณเป็นนักลงทุนที่ <strong>รู้ขอบเขตของความรู้ตัวเอง</strong> ดีพอที่จะข้ามความผิดพลาดที่นักลงทุน 90% ทำซ้ำในทุกรุ่น
+      </p>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">The Final Reflection · Before You Close This Document</div>
+    <p class="reflection-q">หลังอ่านงานวิจัยทั้งหมดและบทวิเคราะห์นี้ — คุณรู้สึก <em>มั่นใจมากขึ้น</em> หรือ <em>ระมัดระวังมากขึ้น</em>? คำตอบ "ระมัดระวัง" คือคำตอบที่ถูกต้อง</p>
+    <p class="reflection-q">หากคุณ deploy strategy ตอนนี้ และล้มเหลวใน 12 เดือน — คุณจะ blame งานวิจัย, ตลาด, หรือการตัดสินใจของตัวเองที่ <em>ข้ามพิธีกรรม 7 ข้อ</em>?</p>
+    <p class="reflection-q">"ความรู้ใหม่" ที่งานวิจัยนี้มอบให้คุณ — มันเป็นเข็มทิศนำทาง หรือเป็นภาพลวงตาของความเชี่ยวชาญที่ยังไม่มีจริง?</p>
+  </div>
+
+</div>
+
+<!-- ============================================
+     BOOK FOOTER
+============================================ -->
+<div class="book-footer">
+  <div class="book-footer-mark">α · Ω</div>
+  <p class="book-footer-text">
+    <strong>Master Synthesis Edition</strong><br>
+    การตกผลึกงานวิจัย Systematic Equity Research V1 → V2 → V3<br>
+    1,010 หุ้น · 36 strategies · 10 ปีของข้อมูล · 1 บทเรียนเดียวที่สำคัญที่สุด<br>
+    <em>"Combinations beat singles only when they capture independent dimensions.<br>
+    Beware consensus that hides as concentration."</em>
+  </p>
+  <div class="book-footer-author">From Foundation to Wisdom · 2026</div>
+</div>
+
+</div>
+<!-- end .book -->
+
+</body>
+</html>
