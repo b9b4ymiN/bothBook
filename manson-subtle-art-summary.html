@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Subtle Art of Not Giving a F*ck — Mark Manson · Premium Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── ORANGE PALETTE (ตรงปกหนังสือ) ── */
+  --accent:       #E8590A;
+  --accent-deep:  #B84308;
+  --accent-light: #FF8A3D;
+  --accent-rule:  rgba(232,89,10,0.30);
+  --accent-bg:    rgba(232,89,10,0.08);
+
+  /* ── PAPER TONES ── */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+
+  /* ── INK ── */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+
+  /* ── SEMANTIC ── */
+  --red:          #7A1A1A;
+  --red-bg:       #FBF3F0;
+  --green:        #355E40;
+  --green-bg:     #F1F6EE;
+
+  /* ── LAYOUT ── */
+  --page-pad-h:   76px;
+  --page-pad-v:   84px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #1A0E06;
+  padding: 40px 16px;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+}
+
+.book {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.12),
+    0 4px 40px rgba(0,0,0,.50),
+    0 0 120px rgba(232,89,10,.12);
+}
+
+/* ════════════════════════════════
+   COVER
+════════════════════════════════ */
+.cover {
+  background: #E8590A;
+  min-height: 620px;
+  padding: 64px var(--page-pad-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 30px,
+      rgba(0,0,0,.04) 30px,
+      rgba(0,0,0,.04) 31px
+    );
+}
+
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  right: -80px;
+  width: 320px;
+  height: 320px;
+  border: 40px solid rgba(0,0,0,.08);
+  border-radius: 50%;
+}
+
+.cover-top {
+  position: relative;
+  z-index: 2;
+}
+
+.cover-eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.55);
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #0D0D0D;
+  margin-bottom: 8px;
+}
+
+.cover-title em {
+  font-style: italic;
+  color: rgba(0,0,0,.75);
+  font-size: 42px;
+}
+
+.cover-title span {
+  display: block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(0,0,0,.60);
+  margin-top: 16px;
+  text-transform: none;
+  font-style: normal;
+}
+
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  color: rgba(0,0,0,.70);
+  font-style: italic;
+  line-height: 1.6;
+  margin-top: 20px;
+  max-width: 440px;
+  font-weight: 500;
+}
+
+.cover-bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cover-author {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: rgba(0,0,0,.80);
+}
+
+.cover-author span {
+  display: block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.50);
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-style: normal;
+}
+
+.cover-badge {
+  background: rgba(0,0,0,.12);
+  border: 1px solid rgba(0,0,0,.20);
+  padding: 10px 16px;
+  text-align: center;
+}
+
+.cover-badge-text {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.60);
+  font-weight: 700;
+  display: block;
+}
+
+.cover-badge-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-style: italic;
+  color: rgba(0,0,0,.75);
+  line-height: 1;
+}
+
+/* ════════════════════════════════
+   PAGES
+════════════════════════════════ */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-top: 1px solid var(--paper-shadow);
+}
+
+.page-toc { background: var(--paper-mid); }
+.chapter-open { background: var(--paper-mid); }
+
+/* ════════════════════════════════
+   TYPOGRAPHY
+════════════════════════════════ */
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--accent-rule);
+}
+
+h1 {
+  font-family: 'Noto Serif Thai', 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 28px;
+}
+
+h2 {
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: 44px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+
+h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin: 28px 0 12px;
+}
+
+p {
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+
+p:last-child { margin-bottom: 0; }
+
+strong { color: var(--ink); font-weight: 600; }
+em { font-style: italic; }
+
+/* ════════════════════════════════
+   TOC
+════════════════════════════════ */
+.toc-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--ink);
+  margin-bottom: 44px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--accent-rule);
+}
+
+.ch-card {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  align-items: flex-start;
+}
+.ch-card:last-child { border-bottom: none; }
+
+.ch-card-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1;
+  min-width: 52px;
+  padding-top: 4px;
+}
+
+.ch-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.ch-card-title-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.ch-card-one-liner {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.ch-card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.ch-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  padding: 3px 8px;
+  font-weight: 600;
+}
+
+/* ════════════════════════════════
+   CHAPTER OPENING
+════════════════════════════════ */
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.ch-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 130px;
+  color: var(--accent);
+  line-height: 0.9;
+  opacity: 0.15;
+  position: absolute;
+  right: var(--page-pad-h);
+  top: 48px;
+}
+
+.chapter-open { position: relative; overflow: hidden; }
+
+.ch-title-block {
+  max-width: 520px;
+}
+
+.ch-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.ch-title em {
+  font-style: italic;
+  color: var(--accent-deep);
+  display: block;
+  font-size: 28px;
+  font-weight: 400;
+  margin-top: 6px;
+}
+
+.ch-divider {
+  width: 48px;
+  height: 3px;
+  background: var(--accent);
+  margin: 24px 0;
+}
+
+.ch-essence {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+/* ════════════════════════════════
+   COMPONENTS
+════════════════════════════════ */
+
+/* Insight Box */
+.insight-box {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-rule);
+  border-left: 4px solid var(--accent);
+  padding: 24px 28px;
+  margin: 32px 0;
+}
+
+.insight-box-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.insight-box p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+/* Pullquote */
+.pullquote {
+  border-left: 3px solid var(--accent);
+  padding: 4px 0 4px 24px;
+  margin: 32px 0;
+}
+
+.pullquote-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+
+.pullquote-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+
+/* Blockquote Full (dark) */
+.blockquote-full {
+  background: var(--ink);
+  padding: 56px var(--page-pad-h);
+  margin: 40px calc(-1 * var(--page-pad-h));
+  text-align: center;
+}
+
+.blockquote-full-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  color: var(--accent);
+  line-height: 0.8;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.blockquote-full-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.6;
+  color: var(--paper);
+  margin-bottom: 8px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.blockquote-full-text-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--paper-shadow);
+  font-style: italic;
+  max-width: 500px;
+  margin: 12px auto 0;
+}
+
+.blockquote-full-source {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+/* Ladder */
+.ladder { margin: 32px 0; }
+.ladder-step { padding: 18px 24px; margin: 0; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.ladder-arrow { text-align: center; padding: 6px; color: var(--ink-faint); font-size: 20px; }
+
+/* Author Box */
+.author-box {
+  display: flex;
+  gap: 18px;
+  padding: 24px 28px;
+  background: var(--paper-mid);
+  border-left: 3px solid var(--accent);
+  margin: 28px 0;
+}
+
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-deep);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.author-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.author-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Contrast Table */
+.contrast-table { width: 100%; border-collapse: collapse; margin: 28px 0; }
+.contrast-table thead tr th {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 10px 16px;
+  text-align: left;
+}
+.contrast-table thead th:first-child {
+  background: var(--red-bg);
+  color: var(--red);
+}
+.contrast-table thead th:last-child {
+  background: var(--green-bg);
+  color: var(--green);
+}
+.contrast-table tbody tr td {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 12px 16px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.contrast-table tbody tr td:first-child {
+  background: var(--red-bg);
+  color: var(--ink-mid);
+}
+.contrast-table tbody tr td:last-child {
+  background: var(--green-bg);
+  color: var(--ink-mid);
+}
+
+/* Signal Box */
+.signal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+.signal-box {
+  padding: 20px 20px;
+}
+.signal-box.dont { background: var(--red-bg); border-top: 3px solid var(--red); }
+.signal-box.do { background: var(--green-bg); border-top: 3px solid var(--green); }
+.signal-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.signal-box.dont .signal-label { color: var(--red); }
+.signal-box.do .signal-label { color: var(--green); }
+.signal-box ul { list-style: none; }
+.signal-box ul li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  display: flex;
+  gap: 8px;
+}
+.signal-box ul li:last-child { border-bottom: none; }
+.signal-box.dont ul li::before { content: '✗'; color: var(--red); font-weight: 700; }
+.signal-box.do ul li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+/* Reflection Box */
+.reflection {
+  background: var(--paper-deep);
+  border: 1px solid var(--paper-shadow);
+  padding: 28px 32px;
+  margin: 40px 0 0;
+}
+
+.reflection-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.reflection ol {
+  list-style: none;
+  counter-reset: q-counter;
+}
+
+.reflection ol li {
+  counter-increment: q-counter;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-mid);
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--paper-shadow);
+  display: flex;
+  gap: 14px;
+}
+.reflection ol li:last-child { border-bottom: none; }
+.reflection ol li::before {
+  content: counter(q-counter);
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--accent);
+  line-height: 1.5;
+  min-width: 20px;
+}
+
+/* Checklist */
+.checklist { list-style: none; margin: 20px 0; }
+.checklist li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 12px 0 12px 40px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent);
+  background: var(--paper);
+}
+
+/* Stat Row */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 32px 0; background: var(--paper-shadow); }
+.stat-box { background: var(--paper-mid); padding: 24px 20px; text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 40px;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--ink-muted);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Numbered list */
+.num-list { list-style: none; counter-reset: num; margin: 20px 0; }
+.num-list li {
+  counter-increment: num;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  padding: 12px 0 12px 52px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.num-list li:last-child { border-bottom: none; }
+.num-list li::before {
+  content: counter(num);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Foreword */
+.foreword-drop {
+  font-family: 'Playfair Display', serif;
+  font-size: 80px;
+  font-weight: 800;
+  color: var(--accent);
+  float: left;
+  line-height: 0.85;
+  margin: 8px 16px 0 0;
+}
+
+/* Divider line */
+.divider {
+  border: none;
+  border-top: 1px solid var(--paper-shadow);
+  margin: 40px 0;
+}
+
+.divider-accent {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  margin: 40px 0;
+}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+.book-footer {
+  background: var(--ink);
+  padding: 56px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--paper-deep);
+  font-style: italic;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 20px;
+}
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--accent-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 780px) {
+  :root {
+    --page-pad-h: 28px;
+    --page-pad-v: 56px;
+  }
+  body { padding: 16px 8px; }
+  .cover-title { font-size: 36px; }
+  .cover-title em { font-size: 28px; }
+  .ch-num { font-size: 96px; right: 16px; }
+  .stat-row { grid-template-columns: 1fr; }
+  .signal-row { grid-template-columns: 1fr; }
+  .blockquote-full {
+    padding: 40px 24px;
+    margin-left: -28px;
+    margin-right: -28px;
+  }
+  h1 { font-size: 26px; }
+  .ch-title { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ══════════════════════════════
+     1. COVER
+══════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-eyebrow">Premium Book Summary · ฉบับตกผลึก</div>
+    <div class="cover-title">
+      The Subtle Art<br>
+      <em>of Not Giving a F*ck</em>
+      <span>ศิลปะอันแยบยลของการไม่แยแส</span>
+    </div>
+    <div class="cover-subtitle">
+      ไม่ใช่ไม่สนใจอะไรเลย — แต่คือการเลือกสนใจเฉพาะสิ่งที่ควรค่า<br>
+      และปล่อยให้ทุกอย่างอื่นผ่านไปด้วยความสงบ
+    </div>
+  </div>
+  <div class="cover-bottom">
+    <div class="cover-author">
+      <span>Written by</span>
+      Mark Manson
+    </div>
+    <div class="cover-badge">
+      <span class="cover-badge-text">บทสรุป</span>
+      <div class="cover-badge-num">9</div>
+      <span class="cover-badge-text">บท</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     2. TABLE OF CONTENTS
+══════════════════════════════ -->
+<div class="page page-toc">
+  <div class="eyebrow">Contents · สารบัญ</div>
+  <div class="toc-title">เนื้อหาทั้งหมด</div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">I</div>
+    <div>
+      <div class="ch-card-title-en">Don't Try · อย่าพยายาม</div>
+      <div class="ch-card-title">ยิ่งไล่ตาม ยิ่งหนีไกล</div>
+      <div class="ch-card-one-liner">ความปรารถนาที่จะมีชีวิตดีขึ้น คือสัญญาณว่าชีวิตยังไม่ดีพอ</div>
+      <div class="ch-card-tags"><span class="ch-tag">Mindset</span><span class="ch-tag">Values</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">II</div>
+    <div>
+      <div class="ch-card-title-en">Happiness is a Problem · ความสุขคือปัญหา</div>
+      <div class="ch-card-title">ทุกข์ไม่ใช่ศัตรู</div>
+      <div class="ch-card-one-liner">ชีวิตที่ดีไม่ใช่ชีวิตที่ไม่มีปัญหา แต่คือการเลือกปัญหาที่คุ้มค่า</div>
+      <div class="ch-card-tags"><span class="ch-tag">Happiness</span><span class="ch-tag">Problem</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">III</div>
+    <div>
+      <div class="ch-card-title-en">You Are Not Special · คุณไม่ได้พิเศษ</div>
+      <div class="ch-card-title">ความพิเศษที่แท้จริงอยู่ในความธรรมดา</div>
+      <div class="ch-card-one-liner">สังคมหลอกเราว่าทุกคนพิเศษ จนเราลืมว่าความธรรมดาก็มีคุณค่า</div>
+      <div class="ch-card-tags"><span class="ch-tag">Ego</span><span class="ch-tag">Identity</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">IV</div>
+    <div>
+      <div class="ch-card-title-en">The Value of Suffering · คุณค่าของความทุกข์</div>
+      <div class="ch-card-title">ปัญหาที่ใช่ vs. ปัญหาที่ไม่ใช่</div>
+      <div class="ch-card-one-liner">คนที่มีชีวิตดีไม่ได้ไม่มีปัญหา แต่เลือกปัญหาที่คุ้มค่ากับเวลาตัวเอง</div>
+      <div class="ch-card-tags"><span class="ch-tag">Suffering</span><span class="ch-tag">Meaning</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">V</div>
+    <div>
+      <div class="ch-card-title-en">You Are Always Choosing · คุณเลือกเสมอ</div>
+      <div class="ch-card-title">ความรับผิดชอบ ≠ ความผิด</div>
+      <div class="ch-card-one-liner">คุณอาจไม่ได้ผิด แต่ปัญหาในชีวิตคุณก็ยังเป็นความรับผิดชอบของคุณ</div>
+      <div class="ch-card-tags"><span class="ch-tag">Responsibility</span><span class="ch-tag">Choice</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">VI</div>
+    <div>
+      <div class="ch-card-title-en">You're Wrong About Everything · คุณผิดเรื่องทุกอย่าง</div>
+      <div class="ch-card-title">ความไม่แน่ใจคือพลัง</div>
+      <div class="ch-card-one-liner">คนที่มั่นใจ 100% มักหยุดเติบโต เพราะไม่เปิดรับสิ่งใหม่</div>
+      <div class="ch-card-tags"><span class="ch-tag">Certainty</span><span class="ch-tag">Growth</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">VII</div>
+    <div>
+      <div class="ch-card-title-en">Failure is the Way Forward · ความล้มเหลวคือทางไป</div>
+      <div class="ch-card-title">ทำก่อน รู้สึกทีหลัง</div>
+      <div class="ch-card-one-liner">แรงจูงใจไม่ได้นำไปสู่การกระทำ แต่การกระทำต่างหากที่สร้างแรงจูงใจ</div>
+      <div class="ch-card-tags"><span class="ch-tag">Action</span><span class="ch-tag">Failure</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">VIII</div>
+    <div>
+      <div class="ch-card-title-en">The Importance of Saying No · ความสำคัญของการปฏิเสธ</div>
+      <div class="ch-card-title">ขอบเขตสร้างความสัมพันธ์ที่ดี</div>
+      <div class="ch-card-one-liner">ความสัมพันธ์ที่ดีไม่ได้เกิดจากการตอบสนองทุกอย่าง แต่จากการรู้ว่าตัวเองต้องการอะไร</div>
+      <div class="ch-card-tags"><span class="ch-tag">Relationships</span><span class="ch-tag">Boundaries</span></div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">IX</div>
+    <div>
+      <div class="ch-card-title-en">…And Then You Die · แล้วก็ตาย</div>
+      <div class="ch-card-title">ความตายคือครูที่ดีที่สุด</div>
+      <div class="ch-card-one-liner">เมื่อยอมรับความตาย เราถึงจะรู้ว่าอะไรที่ควรค่ากับการให้ความสนใจจริงๆ</div>
+      <div class="ch-card-tags"><span class="ch-tag">Mortality</span><span class="ch-tag">Legacy</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     3. FOREWORD / LETTER
+══════════════════════════════ -->
+<div class="page">
+  <div class="eyebrow">Foreword · คำนำ</div>
+  <h1>ก่อนเริ่ม — สิ่งที่หนังสือเล่มนี้ไม่ได้บอก</h1>
+
+  <p>
+    <span class="foreword-drop">ห</span>นังสือเล่มนี้ไม่ใช่ตำราสอนให้คุณเป็นคนไม่แยแสโลก ไม่ใช่คู่มือสอนให้คุณกลายเป็นคนขี้เกียจหรือเย็นชา และแน่นอนว่าไม่ใช่หนังสือที่บอกให้คุณหยุดใส่ใจทุกอย่าง
+  </p>
+
+  <p>
+    ชื่อหนังสือหลอกคุณ — และ Manson ตั้งใจให้มันหลอก เพราะถ้าชื่อหนังสือตรงไปตรงมา มันคงอ่านประมาณว่า <em>"คู่มือการจัดลำดับความสำคัญในชีวิตอย่างมีสติ"</em> ซึ่งไม่มีใครอยากหยิบขึ้นมาอ่าน
+  </p>
+
+  <div class="author-box">
+    <div class="author-avatar">M</div>
+    <div>
+      <div class="author-meta">Mark Manson — The Subtle Art</div>
+      <p class="author-text">"ชีวิตที่ดีไม่ได้หมายความว่าคุณต้องรู้สึกดีตลอดเวลา มันหมายความว่าคุณกำลังทุ่มเทกับสิ่งที่ควรค่ากับเวลาและพลังงานของคุณจริงๆ"</p>
+    </div>
+  </div>
+
+  <p>
+    แก่นของหนังสือเล่มนี้คือ: <strong>ในชีวิตนี้เราทุกคนมีพลังงานจำกัด — จะสนใจอะไร จะห่วงอะไร จะกังวลอะไร มันต้องใช้ทรัพยากรชีวิตของเรา</strong> คำถามจึงไม่ใช่ "จะสนใจอะไร?" แต่คือ "สิ่งนั้นคุ้มค่ากับชีวิตของเราไหม?"
+  </p>
+
+  <p>
+    เอกสารนี้สกัดแก่นทั้ง 9 บทออกมาในแบบที่อ่านแล้วเอาไปใช้ได้ทันที ไม่ใช่แค่รู้ แต่เปลี่ยนวิธีคิดและลงมือทำ
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">224</div>
+      <div class="stat-label">หน้าในหนังสือ</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">9</div>
+      <div class="stat-label">บทหลัก</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">1</div>
+      <div class="stat-label">แก่นที่เปลี่ยนชีวิต</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 1
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">I</div>
+  <div class="ch-label">Chapter 1</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      Don't Try
+      <em>อย่าพยายาม — ยิ่งไล่ตาม ยิ่งหนีไกล</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      "การไม่แยแส" ที่แท้จริงไม่ใช่ความเฉยเมย แต่คือการเลือกสนใจสิ่งที่มีคุณค่าจริงๆ อย่างตั้งใจ
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ปัญหาของการ "พยายาม" ที่ไม่หยุด</h1>
+
+  <p>
+    Charles Bukowski เป็นนักเขียนขี้เหล้า ขี้แพ้ และล้มเหลวซ้ำแล้วซ้ำเล่า เขาส่งงานไปหลายร้อยชิ้น ถูกปฏิเสธซ้ำๆ กว่า 20 ปี แต่กลับกลายเป็นนักเขียนที่ได้รับการยอมรับมากที่สุดคนหนึ่งในศตวรรษที่ 20 บนหลุมศพของเขาเขียนว่า "Don't Try" — ไม่ใช่เพราะเขาไม่ใส่ใจ แต่เพราะเขาสอนว่าการไล่ตามสิ่งต่างๆ อย่างสิ้นหวังทำให้เราไม่มีวันได้มัน
+  </p>
+
+  <p>
+    Manson ใช้เรื่องนี้เปิดบทแรก เพื่อบอกว่า <strong>การสนใจทุกอย่างอย่างเท่ากันคือการไม่ได้อะไรเลย</strong> สังคมสมัยใหม่บอกเราว่า "ต้องพยายามในทุกด้าน" "ต้องมีความสุขตลอดเวลา" "ต้องประสบความสำเร็จในทุกอย่าง" — แต่นั่นกลับเป็นสูตรของความทุกข์
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Core Insight</div>
+    <p>ปัญหาไม่ใช่ว่าเราสนใจน้อยเกินไป แต่คือเราสนใจ<strong>มากเกินไป</strong> กับสิ่งที่ไม่ควรค่า ทุก F*ck ที่เราให้กับชีวิตมีต้นทุน เพราะมันต้องใช้พลังงาน ความคิด และเวลา — สิ่งที่เราทั้งหมดมีจำกัด</p>
+  </div>
+
+  <h2>The Backwards Law — กฎย้อนกลับ</h2>
+
+  <p>
+    Manson หยิบแนวคิดจากนักปรัชญา Alan Watts มาอธิบายว่า: <strong>ยิ่งไล่ตามสิ่งที่ต้องการมากเท่าไหร่ ยิ่งย้ำว่าเราขาดสิ่งนั้น</strong> เหมือนคนที่พยายาม "มีความสุข" — การพยายามมีความสุขทุกวินาทีคือการบอกตัวเองว่าตอนนี้ยังไม่มีความสุข ซึ่งยิ่งทำให้ไม่มีความสุขขึ้นไปอีก
+  </p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">ยิ่งพยายามมาก ยิ่งได้มาก — ดังนั้นต้องสนใจและพยายามทุกอย่างให้มากที่สุด</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง (Backwards Law)</div>
+      <div class="ladder-text">การ "อยากได้" สิ่งหนึ่งอย่างสิ้นหวังคือการย้ำว่าตัวเองขาดสิ่งนั้น ซึ่งทำให้ห่างจากมันมากขึ้น</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">เลือกสนใจเฉพาะสิ่งที่สอดคล้องกับคุณค่าที่เราเชื่อจริงๆ แล้วปล่อยให้ผลลัพธ์เกิดขึ้นเอง</div>
+    </div>
+  </div>
+
+  <h2>F*cks คืออะไร และทำไมมันมีจำกัด</h2>
+
+  <p>
+    "F*ck" ในที่นี้คือ <strong>ความสนใจ ความห่วงใย และพลังงานทางอารมณ์</strong> ที่เราให้กับสิ่งต่างๆ เมื่ออายุน้อย เราให้กับทุกอย่าง — คำพูดคนอื่น การแต่งกาย เพื่อน เกรด แต่เมื่ออายุมากขึ้น คนที่โตจริงๆ จะเริ่มรู้ว่าอะไรที่ควรค่ากับพลังงานของตัวเอง
+  </p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"The key to a good life is not giving a f*ck about more; it's giving a f*ck about less, giving a f*ck about only what is true and immediate and important."</div>
+    <div class="pullquote-meta">Mark Manson — กุญแจสู่ชีวิตที่ดีไม่ใช่การสนใจให้มากขึ้น แต่คือการสนใจให้น้อยลง สนใจเฉพาะสิ่งที่จริง ด่วน และสำคัญ</div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>ในชีวิตตอนนี้ มีเรื่องอะไรที่คุณกังวลอยู่แต่รู้ในใจว่ามันไม่ได้สำคัญขนาดนั้น?</li>
+      <li>ถ้าคุณมีพลังงานแค่ 3 เรื่องที่จะใส่ใจในชีวิตนี้ คุณจะเลือกอะไร?</li>
+      <li>มีเรื่องอะไรที่คุณไล่ตามอยู่เพราะอยากได้จริงๆ vs. เพราะกลัวจะ "ไม่มี"?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 2
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">II</div>
+  <div class="ch-label">Chapter 2</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      Happiness is a Problem
+      <em>ความสุขคือปัญหา — ทุกข์ไม่ใช่ศัตรู</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      ชีวิตที่ดีไม่ใช่ชีวิตที่ไม่มีปัญหา แต่คือชีวิตที่เลือกปัญหาที่คุ้มค่าได้
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ความสุขที่คุณไล่ตามกำลังหลอกคุณ</h1>
+
+  <p>
+    เจ้าชายสิทธัตถะในตำนานพุทธศาสนาเกิดในความสุขสมบูรณ์ มีทุกอย่าง ไม่เคยเห็นความทุกข์จนวันหนึ่งได้เห็นความแก่ ความเจ็บ และความตาย — แล้วพบว่าความสุขที่ผ่านมาทั้งหมดเป็นภาพลวงตา Manson ใช้เรื่องนี้เพื่อบอกว่า <strong>ชีวิตดีไม่ใช่ชีวิตที่ไม่มีปัญหา มันเป็นชีวิตที่เต็มไปด้วยปัญหาดีๆ</strong>
+  </p>
+
+  <p>
+    ทุกอารมณ์เชิงบวกล้วนชั่วคราว — ความสุข ความตื่นเต้น ความพึงพอใจ ต่างก็หายไปแล้วก็กลับมา <strong>ถ้าเราไล่ตามความสุขด้วยการพยายามกำจัดทุกอย่างที่ไม่ดี เรากำลังไล่ตามสิ่งที่ไม่มีอยู่จริง</strong>
+  </p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">"</div>
+    <div class="blockquote-full-text">Don't hope for a life without problems. Hope for a life with good problems.</div>
+    <div class="blockquote-full-text-th">อย่าหวังว่าชีวิตจะไม่มีปัญหา แต่จงหวังว่าชีวิตจะมีแต่ปัญหาดีๆ</div>
+    <div class="blockquote-full-source">Mark Manson</div>
+  </div>
+
+  <h2>ปัญหาที่ดี vs. ปัญหาที่ไม่ดี</h2>
+
+  <p>
+    นักธุรกิจที่ประสบความสำเร็จมีปัญหาของตัวเอง — จะจัดการทีม 200 คนยังไง? จะขยายธุรกิจไปต่างประเทศยังไง? นี่คือปัญหาที่คุ้มค่า คนที่ไม่ทำอะไรก็มีปัญหาเหมือนกัน — จะอธิบายกับตัวเองยังไงว่าทำไมชีวิตถึงไม่ก้าวหน้า? ทั้งสองคนมีปัญหา แต่คุณภาพปัญหาต่างกัน
+  </p>
+
+  <table class="contrast-table">
+    <thead>
+      <tr>
+        <th>❌ ปัญหาที่ไม่คุ้มค่า</th>
+        <th>✅ ปัญหาที่คุ้มค่า</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>กังวลว่าคนอื่นคิดอะไรกับเรา</td>
+        <td>จะพัฒนาทักษะที่เราต้องการยังไง</td>
+      </tr>
+      <tr>
+        <td>เปรียบตัวเองกับคนอื่นบน Social Media</td>
+        <td>จะสร้างชีวิตที่เราพอใจได้ยังไง</td>
+      </tr>
+      <tr>
+        <td>ทำยังไงถึงจะไม่รู้สึกเจ็บปวดเลย</td>
+        <td>จะเรียนรู้อะไรได้จากความเจ็บปวดนี้</td>
+      </tr>
+      <tr>
+        <td>ทำยังไงถึงจะได้รับการยอมรับจากทุกคน</td>
+        <td>ความสัมพันธ์ที่มีความหมายของเราคืออะไร</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Hedonic Treadmill — ลู่วิ่งที่ไม่มีที่สิ้นสุด</h2>
+
+  <p>
+    <strong>Hedonic Treadmill</strong> (ลู่วิ่งแห่งความสุข) คือปรากฏการณ์ทางจิตวิทยาที่นักวิทยาศาสตร์ค้นพบว่า: ไม่ว่าเราจะได้รับสิ่งดีขนาดไหน ระดับความสุขของเราจะกลับสู่ระดับพื้นฐานเดิมเสมอ ซื้อรถใหม่ได้ 3 เดือน ก็รู้สึกธรรมดา ได้งานใหม่ก็ยังรู้สึกแบบเดิม
+  </p>
+
+  <p>
+    วิธีเดียวที่หลุดพ้นไม่ใช่การ "ได้มากขึ้น" แต่คือการ <strong>เปลี่ยนว่าเราตั้งคำถามกับปัญหายังไง</strong>
+  </p>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>ปัญหาอะไรในชีวิตตอนนี้ที่คุณ "เลือก" ที่จะมีเพราะมันนำไปสู่สิ่งที่คุณต้องการ?</li>
+      <li>ความสุขอะไรที่คุณไล่ตามอยู่ที่ถ้าได้มาแล้วก็น่าจะหายไปเร็วๆ?</li>
+      <li>ปัญหาในชีวิตตอนนี้ที่ "ดี" ที่สุดของคุณคืออะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 3
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">III</div>
+  <div class="ch-label">Chapter 3</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      You Are Not Special
+      <em>คุณไม่ได้พิเศษ — และนั่นโอเคมาก</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      การยอมรับว่าตัวเองธรรมดาคือก้าวแรกสู่การเป็นคนที่ดีจริงๆ
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ยุคแห่งความยิ่งใหญ่พิเศษ — และปัญหาที่มันสร้าง</h1>
+
+  <p>
+    คนรุ่นเราเติบโตมากับการถูกบอกว่า "คุณพิเศษ" "คุณทำได้ทุกอย่าง" "คุณมีความสามารถพิเศษ" รางวัล "เข้าร่วม" กลายเป็นเรื่องปกติ ไม่มีใครแพ้ ทุกคนชนะ แต่ผลที่เกิดขึ้นคือ Manson เรียกว่า <strong>"Entitlement Culture"</strong> หรือวัฒนธรรมของคนที่รู้สึกว่าตัวเองสมควรได้สิ่งต่างๆ โดยไม่ต้องทำอะไร
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Core Insight</div>
+    <p>มีสองแบบของ Entitlement: แบบแรกคือคนที่คิดว่าตัวเองพิเศษกว่าคนอื่นและสมควรได้รับทุกอย่าง แบบสองคือคนที่คิดว่าตัวเองแย่กว่าคนอื่นและสมควรได้รับความเห็นใจ — <strong>ทั้งสองแบบมีต้นตอเดียวกัน: ความต้องการที่จะรู้สึกพิเศษ</strong></p>
+  </div>
+
+  <h2>Manson's Feedback Loop of Horror — วงจรแห่งความหวาดกลัว</h2>
+
+  <p>
+    คนที่ไม่รู้สึกดีพอมักหันมาแสวงหาความรู้สึกพิเศษ พอไม่ได้มา ก็รู้สึกแย่ลงไปอีก จึงพยายามมากขึ้น ซึ่งทำให้รู้สึกแย่มากขึ้นอีก นี่คือ <strong>วงจรย้อนกลับของความสยองขวัญ</strong> ที่ดึงคนลงต่ำไปเรื่อยๆ
+  </p>
+
+  <p>
+    ทางออกที่ Manson แนะนำไม่ใช่การพยายามรู้สึกดีขึ้นหรือพิเศษขึ้น แต่คือ <strong>ยอมรับว่าตัวเองธรรมดา และเริ่มจาก baseline นั้น</strong>
+  </p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"The vast majority of your life will be mundane and mediocre — and that's okay."</div>
+    <div class="pullquote-meta">Mark Manson — ชีวิตส่วนใหญ่จะธรรมดาและปานกลาง — และนั่นโอเค</div>
+  </div>
+
+  <h2>ทำไมการยอมรับ "ธรรมดา" ถึงปลดปล่อยเรา</h2>
+
+  <p>
+    เมื่อเราเลิกใช้พลังงานกับการพิสูจน์ตัวเองว่าพิเศษ เราจะมีพลังงานเหลือสำหรับสิ่งที่สำคัญจริงๆ นักกีฬาที่เก่งที่สุดไม่ได้คิดตลอดเวลาว่าตัวเองเก่ง พวกเขาแค่ฝึก เรียนรู้ และพัฒนา <strong>ความยิ่งใหญ่ไม่ได้มาจากการคิดว่าตัวเองยิ่งใหญ่ แต่มาจากการทำสิ่งที่ยิ่งใหญ่ซ้ำๆ</strong>
+  </p>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>มีด้านไหนในชีวิตที่คุณรู้สึก "สมควรได้" โดยที่ยังไม่ได้ทำอะไรพิเศษ?</li>
+      <li>ถ้าคุณยอมรับว่าตัวเองธรรมดาในเรื่องนั้น ชีวิตจะเปลี่ยนไปยังไง?</li>
+      <li>ความพิเศษของคุณอยู่ที่ไหน — และมันมาจากการทำซ้ำๆ หรือจากโชค?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 4
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">IV</div>
+  <div class="ch-label">Chapter 4</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      The Value of Suffering
+      <em>คุณค่าของความทุกข์ — เลือกปัญหาของตัวเอง</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      คำถามที่ถูกไม่ใช่ "จะมีความสุขยังไง" แต่คือ "ความทุกข์แบบไหนที่คุ้มค่า?"
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ทุกคนอยากสำเร็จ แต่ไม่ใช่ทุกคนพร้อมรับทุกข์ที่มากับมัน</h1>
+
+  <p>
+    Manson ถามคำถามที่เปลี่ยนทุกอย่าง: <strong>"What pain do you want in your life? What are you willing to struggle for?"</strong> — ความเจ็บปวดอะไรที่คุณต้องการในชีวิต? อะไรที่คุณยินดีจะต่อสู้เพื่อมัน?
+  </p>
+
+  <p>
+    ทุกคนอยากมีร่างกายแข็งแรง แต่ไม่ใช่ทุกคนอยากตื่นเช้าไปออกกำลังกายเมื่อเหนื่อย ทุกคนอยากเป็นนักดนตรีชื่อดัง แต่ไม่ใช่ทุกคนอยากฝึกซ้อม 6 ชั่วโมงทุกวัน <strong>สิ่งที่คุณยินดี "ทุกข์" เพื่อมัน คือนั้นแหละที่คุณจะได้มัน</strong>
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">The Real Question</div>
+    <p>อย่าถามว่า "ฉันอยากได้อะไร?" แต่ถามว่า <strong>"ฉันยินดีจะต้องทุกข์กับอะไร?"</strong> เพราะคำตอบของคำถามที่สองคือสิ่งที่จะกำหนดชีวิตคุณจริงๆ</p>
+  </div>
+
+  <h2>Dave Mustaine และ Kurt Cobain — สองชีวิต หนึ่งบทเรียน</h2>
+
+  <p>
+    Dave Mustaine ถูกไล่ออกจาก Metallica ก่อนที่วงจะดัง เขาพิสูจน์ตัวเองด้วยการตั้งวง Megadeth ซึ่งขายอัลบั้มได้กว่า 25 ล้านชุด แต่เขายังรู้สึกล้มเหลวตลอดชีวิตเพราะ Metallica ดังกว่า ในขณะที่ Kurt Cobain นำ Nirvana ไปสู่จุดสูงสุดของดนตรีโลก แต่ก็รู้สึกว่าชีวิตไม่มีความหมาย
+  </p>
+
+  <p>
+    บทเรียนคือ: <strong>ปัญหาไม่ได้อยู่ที่ความสำเร็จหรือความล้มเหลว แต่อยู่ที่ว่าคุณวัดคุณค่าตัวเองด้วยอะไร</strong>
+  </p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"Who you are is defined by what you're willing to struggle for."</div>
+    <div class="pullquote-meta">Mark Manson — ตัวตนของคุณถูกนิยามด้วยสิ่งที่คุณยินดีต่อสู้เพื่อมัน</div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>ความทุกข์อะไรในชีวิตที่คุณยินดีรับเพราะมันนำไปสู่สิ่งที่มีความหมาย?</li>
+      <li>มีความสำเร็จอะไรที่คุณ "อยากได้" แต่ไม่อยากรับกระบวนการที่ต้องผ่านไปเพื่อได้มัน?</li>
+      <li>คุณวัดคุณค่าตัวเองด้วยอะไร — และมันขึ้นกับสิ่งที่คุณควบคุมได้หรือไม่?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 5
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">V</div>
+  <div class="ch-label">Chapter 5</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      You Are Always Choosing
+      <em>คุณเลือกเสมอ — ความรับผิดชอบไม่ใช่ความผิด</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      แม้คุณไม่ได้ทำให้ปัญหาเกิดขึ้น แต่คุณก็ยังต้องรับผิดชอบต่อสิ่งที่จะทำต่อไป
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ความแตกต่างระหว่าง "ความผิด" กับ "ความรับผิดชอบ"</h1>
+
+  <p>
+    ชายคนหนึ่งตื่นเช้ามาพบว่าหน้าบ้านมีอุจจาระสุนัข เขาไม่ได้ทำมัน แต่มันอยู่หน้าบ้านเขา <strong>เขาไม่ผิด แต่เขาก็ต้องเก็บมันเอง</strong> นี่คือสาระสำคัญของบทนี้: ความผิดกับความรับผิดชอบเป็นคนละเรื่อง
+  </p>
+
+  <p>
+    Manson เรียก concept นี้ว่า <strong>"Fault vs Responsibility"</strong> — หลายคนเจ็บปวดจากสิ่งที่คนอื่นทำกับพวกเขา แต่ถ้าพวกเขาไม่รับผิดชอบต่อสิ่งที่จะเกิดขึ้นต่อไป พวกเขาก็จะวนซ้ำอยู่ในความเจ็บปวดนั้นตลอดไป
+  </p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">ถ้าฉันไม่ผิด ฉันก็ไม่ต้องรับผิดชอบ — "มันเป็นความผิดของเขา ดังนั้นเขาต้องแก้"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">แม้คุณไม่ผิด คุณก็ยังเป็นคนเดียวที่สามารถเปลี่ยนสถานการณ์ในชีวิตของคุณได้ รอให้คนอื่นมาแก้ = ยกอำนาจชีวิตให้คนอื่น</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">เลือกรับผิดชอบต่อการตอบสนองและการกระทำของตัวเอง โดยไม่คาดหวังให้คนอื่นมาแก้ปัญหา</div>
+    </div>
+  </div>
+
+  <h2>Victimhood — ความน่าสงสารที่ดูเหมือนพลัง</h2>
+
+  <p>
+    Manson พูดถึงปรากฏการณ์ที่น่าสนใจ: <strong>การเป็น "เหยื่อ" ให้อำนาจบางอย่าง</strong> เพราะมันทำให้เราไม่ต้องรับผิดชอบ คนรอบข้างเห็นใจ และเราไม่ต้องเปลี่ยนอะไร แต่แลกมาด้วยการสูญเสียอำนาจในการเปลี่ยนชีวิตตัวเอง
+  </p>
+
+  <p>
+    การรับผิดชอบชีวิตตัวเองแม้ในสถานการณ์ที่ไม่ยุติธรรม คือการ <strong>เลือกกลับมามีอำนาจเหนือชีวิตตัวเอง</strong>
+  </p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"We don't always control what happens to us. But we always control how we interpret what happens to us."</div>
+    <div class="pullquote-meta">Mark Manson — เราไม่สามารถควบคุมทุกสิ่งที่เกิดขึ้น แต่เราควบคุมได้เสมอว่าจะตีความมันยังไง</div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>มีปัญหาในชีวิตที่คุณรอให้คนอื่นมาแก้อยู่หรือไม่?</li>
+      <li>ถ้าคุณรับผิดชอบต่อปัญหานั้น 100% — แม้ไม่ได้เป็นคนสร้าง — ชีวิตจะเปลี่ยนยังไง?</li>
+      <li>มีเรื่องอะไรที่คุณรู้สึกว่าตัวเองเป็น "เหยื่อ" ที่ทำให้คุณรู้สึกสบายใจที่จะไม่เปลี่ยนแปลง?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 6
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">VI</div>
+  <div class="ch-label">Chapter 6</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      You're Wrong About Everything
+      <em>คุณผิดเรื่องทุกอย่าง — และควรดีใจกับมัน</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      ความไม่แน่ใจไม่ใช่จุดอ่อน แต่คือเครื่องมือที่ทรงพลังที่สุดในการเติบโต
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>สมองของเราถูกสร้างมาเพื่อ "มั่นใจ" ไม่ใช่เพื่อ "ถูก"</h1>
+
+  <p>
+    งานวิจัยทางจิตวิทยาพบว่าสมองมนุษย์ไม่ได้ถูกออกแบบมาเพื่อค้นหาความจริง แต่ออกแบบมาเพื่อ <strong>ค้นหาหลักฐานที่ยืนยันความเชื่อที่มีอยู่แล้ว</strong> (Confirmation Bias หรืออคติยืนยันความเชื่อ) ซึ่งหมายความว่าเราทั้งหมดกำลังเดินบนโลกด้วยแผนที่ที่ผิดเพี้ยน และมันปกติมาก
+  </p>
+
+  <p>
+    Manson แนะนำว่า แทนที่จะกลัวการผิด ให้เปลี่ยนมุมมองเป็น: <strong>"ฉันอาจผิดเรื่องนี้ และนั่นหมายความว่าฉันสามารถเติบโตได้"</strong>
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">The Mantra of Growth</div>
+    <p>คนที่มั่นใจ 100% ในทุกความเชื่อของตัวเองไม่ได้เปิดรับข้อมูลใหม่ ไม่ได้เรียนรู้ และหยุดนิ่ง ในขณะที่คนที่ <strong>"ไม่แน่ใจ"</strong> อยู่เสมอคือคนที่เติบโตตลอดเวลา</p>
+  </div>
+
+  <h2>ระดับของความแน่ใจ (และปัญหาของแต่ละระดับ)</h2>
+
+  <p>
+    <strong>ระดับที่ 1:</strong> ไม่รู้ว่าตัวเองไม่รู้ — อันตรายที่สุด คิดว่าตัวเองรู้ทุกอย่างแล้ว<br>
+    <strong>ระดับที่ 2:</strong> รู้ว่าตัวเองไม่รู้บางอย่าง — เริ่มตั้งคำถาม เริ่มเรียนรู้<br>
+    <strong>ระดับที่ 3:</strong> รู้ว่าสิ่งที่คิดว่ารู้ก็อาจผิดได้ — นี่คือระดับที่เติบโตเร็วที่สุด
+  </p>
+
+  <div class="signal-row">
+    <div class="signal-box dont">
+      <div class="signal-label">❌ อย่าทำ</div>
+      <ul>
+        <li>ปกป้องความเชื่อเดิมทุกราคา</li>
+        <li>มองคนที่เห็นต่างว่า "ผิด"</li>
+        <li>หลีกเลี่ยงข้อมูลที่ท้าทายความเชื่อ</li>
+        <li>เชื่อมั่นใน identity ตัวเองมากเกินไป</li>
+      </ul>
+    </div>
+    <div class="signal-box do">
+      <div class="signal-label">✅ ทำแบบนี้</div>
+      <ul>
+        <li>ตั้งคำถามกับความเชื่อที่มั่นใจที่สุด</li>
+        <li>มองคนเห็นต่างว่า "อาจจะถูก"</li>
+        <li>หาข้อมูลที่ขัดแย้งกับสิ่งที่เชื่อ</li>
+        <li>ยึด actions ไม่ใช่ identity</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>ความเชื่ออะไรที่คุณมั่นใจ 100% ที่ถ้าผิดจะเปลี่ยนชีวิตคุณอย่างมาก?</li>
+      <li>ครั้งสุดท้ายที่คุณเปลี่ยนใจจากความเชื่อเดิมเพราะมีหลักฐานใหม่คือเมื่อไหร่?</li>
+      <li>มีเรื่องอะไรที่คุณ "รู้สึก" ว่าถูก แต่ยังไม่ได้ทดสอบจริงๆ?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 7
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">VII</div>
+  <div class="ch-label">Chapter 7</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      Failure is the Way Forward
+      <em>ความล้มเหลวคือทางไป — ทำก่อน รู้สึกทีหลัง</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      แรงจูงใจไม่ได้นำไปสู่การกระทำ แต่การกระทำต่างหากที่สร้างแรงจูงใจ
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ตำนาน "รอจนพร้อม" — ที่ไม่มีวันพร้อม</h1>
+
+  <p>
+    Manson เล่าเรื่อง Picasso ในช่วงบั้นปลายชีวิตที่นั่งในร้านกาแฟ ผู้หญิงคนหนึ่งขอให้เขาวาดภาพเธอบนกระดาษเศษหนึ่ง เขาวาดเสร็จในไม่กี่วินาที แล้วบอกราคา 1 ล้านฟรังก์ ผู้หญิงตกใจและถามว่า "วาดแค่ไม่กี่วินาทีแล้วจะคิดราคาขนาดนั้นได้ยังไง?" Picasso ตอบว่า <em>"ไม่ใช่ไม่กี่วินาที มันใช้เวลา 40 ปี"</em>
+  </p>
+
+  <p>
+    ปัญหาของคนส่วนใหญ่คือ <strong>รอให้แรงจูงใจมาก่อนแล้วค่อยลงมือทำ</strong> แต่ Manson บอกว่าสูตรนั้นย้อนกลับหัว
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">The Action → Inspiration Loop</div>
+    <p>สูตรที่ถูกคือ: <strong>ลงมือทำ → ได้ feedback → เรียนรู้ → มีแรงบันดาลใจ → ลงมือทำต่อ</strong> ไม่ใช่รอให้ inspired แล้วค่อยทำ</p>
+  </div>
+
+  <h2>ทำไมความล้มเหลวถึงสำคัญ</h2>
+
+  <p>
+    VH1 มีรายการที่เรียกว่า "Behind the Music" ที่ติดตามชีวิตนักดนตรีชื่อดัง สิ่งที่น่าสนใจคือ <strong>แทบทุกคนต้องผ่านช่วง "ล้มเหลวอย่างน่าอาย" ก่อนที่จะสำเร็จ</strong> แต่คนที่สำเร็จไม่ได้มีสูตรวิเศษ พวกเขาแค่ทำต่อหลังจากล้มเหลว
+  </p>
+
+  <p>
+    <strong>Pain + Reflection = Progress</strong> — ความเจ็บปวดบวกกับการไตร่ตรองเท่ากับความก้าวหน้า แต่ความเจ็บปวดโดยไม่มีการเรียนรู้ก็แค่ความเจ็บปวด
+  </p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">"</div>
+    <div class="blockquote-full-text">If you're stuck on a problem, don't sit there and think about it; just start working on it. Even if you don't know what you're doing, the act of working on it will eventually cause the right ideas to show up in your head.</div>
+    <div class="blockquote-full-text-th">ถ้าติดปัญหา อย่านั่งคิด ให้ลงมือทำทันที แม้จะยังไม่รู้ว่าต้องทำอะไร แต่การกระทำจะดึงไอเดียที่ถูกต้องออกมาเอง</div>
+    <div class="blockquote-full-source">Mark Manson</div>
+  </div>
+
+  <h2>ปัญหาของ "Do Something" Principle</h2>
+
+  <p>
+    Manson เรียกหลักการนี้ว่า <strong>"Do Something" Principle</strong> — เวลาที่ไม่รู้จะทำอะไร ให้ทำอะไรก็ได้สักอย่าง แม้จะดูเล็กน้อย การเริ่ม (แม้เล็กน้อย) จะสร้างโมเมนตัมที่ดึงให้ทำต่อไปเรื่อยๆ
+  </p>
+
+  <ul class="num-list">
+    <li><strong>เริ่มจากขั้นที่เล็กที่สุดที่เป็นไปได้</strong> — อยากเขียนหนังสือ? เขียนแค่ 100 คำวันนี้</li>
+    <li><strong>อย่ารอ inspiration</strong> — นักเขียนทุกคนมีวันที่ไม่อยากเขียน แต่พวกเขาก็ยังนั่งลงและเขียน</li>
+    <li><strong>รับ feedback เร็ว</strong> — ยิ่งล้มเร็ว ยิ่งเรียนรู้เร็ว และยิ่งปรับตัวได้เร็ว</li>
+    <li><strong>ยกย่องกระบวนการ ไม่ใช่ผลลัพธ์</strong> — คนที่ชอบกระบวนการจะอยู่ได้นานกว่า</li>
+  </ul>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>มีเรื่องอะไรที่คุณ "รอให้พร้อม" อยู่ ที่ถ้าเริ่มทำวันนี้ได้เลยจะดีกว่า?</li>
+      <li>ความล้มเหลวที่ผ่านมาสอนอะไรคุณบ้าง ที่ถ้าไม่ล้มเหลวก็ไม่มีวันรู้?</li>
+      <li>"Do Something" ที่เล็กที่สุดที่คุณทำได้ใน 24 ชั่วโมงนี้ในเรื่องที่ผัดวันประกันพรุ่งอยู่คืออะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 8
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">VIII</div>
+  <div class="ch-label">Chapter 8</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      The Importance of Saying No
+      <em>ความสำคัญของการปฏิเสธ — ขอบเขตสร้างความสัมพันธ์</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      ความสัมพันธ์ที่ดีไม่ได้เกิดจากการ "ใช่" ทุกอย่าง แต่จากการรู้ว่า "ไม่" คืออะไร
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ความผูกพัน vs. การพึ่งพา — เส้นบางๆ ที่เปลี่ยนทุกอย่าง</h1>
+
+  <p>
+    Manson พูดถึงความสัมพันธ์สองประเภท: <strong>แบบแรกคือความสัมพันธ์ที่ทั้งสองคนมีเอกลักษณ์ของตัวเองและเลือกอยู่ด้วยกัน แบบสองคือความสัมพันธ์ที่ทั้งสองพยายามเติมเต็มความบกพร่องของกันและกัน</strong>
+  </p>
+
+  <p>
+    ความสัมพันธ์ที่ดีไม่ได้เกิดจากคนสองคนที่ต้องการกัน แต่เกิดจากคนสองคนที่ <em>เลือก</em> อยู่ด้วยกัน ความแตกต่างนั้นเปลี่ยนทุกอย่าง
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">คุณค่าและขอบเขต</div>
+    <p>คนที่รู้ว่าตัวเองต้องการอะไร สามารถปฏิเสธสิ่งที่ไม่ใช่ได้ — และนั่นทำให้ความสัมพันธ์ที่เหลืออยู่มีความหมายมากขึ้น ทั้งในความสัมพันธ์ส่วนตัวและชีวิตทั่วไป</p>
+  </div>
+
+  <h2>Boundaries — ขอบเขตไม่ใช่กำแพง</h2>
+
+  <p>
+    หลายคนเข้าใจผิดว่า "ขอบเขต" คือการสร้างกำแพง แต่ Manson อธิบายว่ามันตรงกันข้าม ขอบเขตที่ชัดเจนคือสิ่งที่ <strong>เปิดให้ความใกล้ชิดที่แท้จริงเกิดขึ้น</strong> เพราะเมื่อทุกคนรู้ว่าอะไรโอเคและอะไรไม่โอเค ความไว้ใจจะสูงขึ้น
+  </p>
+
+  <table class="contrast-table">
+    <thead>
+      <tr>
+        <th>❌ ขอบเขตที่ไม่ดี</th>
+        <th>✅ ขอบเขตที่ดี</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ตอบตกลงทุกอย่างเพราะกลัวคนอื่นไม่ชอบ</td>
+        <td>ตอบตกลงเฉพาะสิ่งที่สอดคล้องกับคุณค่าของตัวเอง</td>
+      </tr>
+      <tr>
+        <td>ยอมทนกับการถูกปฏิบัติไม่ดีเพราะ "รักกัน"</td>
+        <td>บอกชัดว่าการปฏิบัติแบบไหนที่ยอมรับไม่ได้</td>
+      </tr>
+      <tr>
+        <td>เสียสละตัวเองทุกอย่างเพื่อความสัมพันธ์</td>
+        <td>รักษาตัวตนตัวเองไว้ขณะที่อยู่ในความสัมพันธ์</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Freedom Through Commitment — อิสรภาพผ่านการผูกพัน</h2>
+
+  <p>
+    Manson มีแนวคิดที่ฟังดูขัดแย้ง: <strong>การเลือกผูกพันกับบางอย่างอย่างลึกซึ้ง จะให้อิสรภาพมากกว่าการมีตัวเลือกทุกอย่างเปิดอยู่</strong> คนที่ "เปิดกว้าง" ทุกอย่างมักไม่มีความสุขกับอะไรเลย ในขณะที่คนที่เลือกและผูกพันอย่างตั้งใจจะมีความหมายที่ลึกกว่า
+  </p>
+
+  <div class="pullquote">
+    <div class="pullquote-text">"Commitment gives you freedom because you're no longer distracted by the unimportant and frivolous."</div>
+    <div class="pullquote-meta">Mark Manson — ความผูกพันให้อิสรภาพ เพราะทำให้เราไม่ถูกรบกวนจากสิ่งที่ไม่สำคัญ</div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>มีความสัมพันธ์ไหนในชีวิตที่คุณพูดว่า "ใช่" ทั้งที่ข้างในรู้สึกว่า "ไม่"?</li>
+      <li>ขอบเขตที่ชัดเจนที่สุดที่คุณต้องการตั้งกับตัวเองหรือคนอื่นในตอนนี้คืออะไร?</li>
+      <li>ถ้าคุณปฏิเสธ "ใช่" บางอย่างออกไป ชีวิตจะมีพื้นที่สำหรับ "ใช่" ที่สำคัญกว่ายังไง?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CHAPTER 9
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-num">IX</div>
+  <div class="ch-label">Chapter 9</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      …And Then You Die
+      <em>แล้วก็ตาย — ครูที่ดีที่สุด</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      การยอมรับความตายไม่ได้ทำให้ชีวิตน่ากลัว แต่ทำให้เห็นชัดว่าอะไรสำคัญจริงๆ
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ความตายในฐานะครูผู้สอนการใช้ชีวิต</h1>
+
+  <p>
+    นักปรัชญาในประวัติศาสตร์ทุกยุค ตั้งแต่นักปราชญ์กรีกโบราณ, นักบวชพุทธ, ไปจนถึง Steve Jobs ล้วนพูดถึงสิ่งเดียวกัน: <strong>การตระหนักว่าเราจะตายคือสิ่งที่ทำให้ชีวิตมีความหมาย</strong>
+  </p>
+
+  <p>
+    Manson เล่าถึง Ernest Becker นักมานุษยวิทยาผู้เขียน "The Denial of Death" ที่โต้แย้งว่า <strong>ทุกอย่างที่มนุษย์ทำล้วนมีแรงขับเคลื่อนมาจากความกลัวความตาย</strong> สร้างอนุสาวรีย์ สร้างลูก เขียนหนังสือ ล้วนเป็นวิธีที่เราบอกตัวเองว่า "ฉันจะอยู่ต่อไปแม้จะตายแล้ว"
+  </p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">Immortality Projects</div>
+    <p>Becker เรียกสิ่งเหล่านี้ว่า <strong>"Immortality Projects"</strong> หรือโครงการแห่งความเป็นอมตะ — สิ่งที่เราทำเพื่อให้รู้สึกว่าตัวเองจะไม่ถูกลืม ไม่ว่าจะเป็นการสร้างครอบครัว, สร้างธุรกิจ, หรือมีชื่อเสียง ปัญหาคือถ้าเราทำสิ่งเหล่านี้จากความกลัว ไม่ใช่ความรัก ผลลัพธ์จะกลวงเปล่า</p>
+  </div>
+
+  <h2>The Paradox of Immortality — ความขัดแย้งของความอมตะ</h2>
+
+  <p>
+    เมื่อเรายึดติดกับ "immortality projects" มากเกินไป เราจะกลายเป็นคนที่ปกป้อง legacy ของตัวเองมากกว่าใช้ชีวิตจริงๆ เราจะโกรธคนที่ไม่ยอมรับสิ่งที่เราสร้าง เพราะนั่นเท่ากับบอกว่า "ชีวิตของคุณไม่มีความหมาย"
+  </p>
+
+  <p>
+    ทางออกคือ <strong>ทำสิ่งต่างๆ เพราะมันมีคุณค่าในตัวเอง ไม่ใช่เพราะมันจะทำให้เราอยู่ต่อไป</strong>
+  </p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">"</div>
+    <div class="blockquote-full-text">The fear of death follows from the fear of life. A man who lives fully is prepared to die at any time.</div>
+    <div class="blockquote-full-text-th">ความกลัวตายมาจากความกลัวชีวิต คนที่ใช้ชีวิตอย่างเต็มที่พร้อมตายได้ทุกเวลา</div>
+    <div class="blockquote-full-source">Mark Twain — อ้างโดย Mark Manson</div>
+  </div>
+
+  <h2>ความตายทำให้ชีวิตชัดขึ้น</h2>
+
+  <p>
+    Steve Jobs พูดในสุนทรพจน์ Stanford ปี 2005 ว่าทุกเช้าเขาถามตัวเองว่า <em>"ถ้าวันนี้เป็นวันสุดท้ายของชีวิต ฉันอยากทำสิ่งที่วางแผนไว้ไหม?"</em> ถ้าคำตอบว่า "ไม่" มาหลายวันติดกัน เขารู้ว่าต้องเปลี่ยนอะไรบางอย่าง
+  </p>
+
+  <p>
+    Manson ไม่ได้บอกให้คิดถึงความตายทุกวัน แต่บอกว่า <strong>การยอมรับว่าชีวิตมีขีดจำกัด จะทำให้เราใช้มันอย่างมีสติมากขึ้น</strong> เพราะของที่มีจำนวนจำกัดย่อมมีคุณค่ามากกว่า
+  </p>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection Questions · คำถามสำหรับไตร่ตรอง</div>
+    <ol>
+      <li>ถ้าคุณรู้ว่าจะมีชีวิตอยู่อีก 5 ปี คุณจะใช้เวลาต่างจากตอนนี้ยังไง?</li>
+      <li>"Immortality Project" ของคุณคืออะไร — และคุณทำมันเพราะรัก หรือเพราะกลัว?</li>
+      <li>สิ่งที่คุณยึดติดอยู่ตอนนี้ที่ถ้าปล่อยวางได้จะทำให้ชีวิตเบาลงคืออะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SYNTHESIS CHAPTER
+══════════════════════════════ -->
+<div class="chapter-open page">
+  <div class="ch-label">Synthesis · บทสรุป</div>
+  <div class="ch-title-block">
+    <div class="ch-title">
+      Your F*ck Budget
+      <em>งบประมาณแห่งความสนใจ — ใช้ให้คุ้มค่า</em>
+    </div>
+    <div class="ch-divider"></div>
+    <div class="ch-essence">
+      ถ้าจำได้แค่อย่างเดียวจากหนังสือเล่มนี้ ขอให้เป็นคำถามนี้: "สิ่งนี้คุ้มค่ากับชีวิตของฉันไหม?"
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Master One-Liner · แก่นที่สุดของหนังสือ</div>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">∞</div>
+    <div class="blockquote-full-text">Not giving a f*ck does not mean being indifferent. It means being comfortable with being different.</div>
+    <div class="blockquote-full-text-th">"ไม่แยแส" ไม่ใช่การไม่สนใจอะไรเลย แต่คือการสบายใจที่จะแตกต่างจากสิ่งที่สังคมคาดหวัง</div>
+    <div class="blockquote-full-source">Mark Manson — The Subtle Art</div>
+  </div>
+
+  <h1>สิ่งที่ทั้ง 9 บทสอน — รวมในที่เดียว</h1>
+
+  <p>
+    ทั้งหมดที่ Manson เขียนในหนังสือ 224 หน้านี้สามารถสรุปได้ในความคิดเดียว: <strong>ชีวิตที่ดีไม่ได้หมายถึงชีวิตที่มีทุกอย่าง แต่คือชีวิตที่เลือกได้ว่าจะให้ความสำคัญกับอะไร</strong>
+  </p>
+
+  <p>
+    เราทุกคนมีพลังงาน ความสนใจ และเวลาจำกัด ทุกครั้งที่เราเลือกสนใจเรื่องหนึ่ง เราก็เลือกที่จะไม่สนใจเรื่องอื่นโดยปริยาย ดังนั้น <strong>คำถามที่สำคัญที่สุดในชีวิตไม่ใช่ "จะได้อะไรเพิ่ม?" แต่คือ "จะปล่อยอะไรออกไป?"</strong>
+  </p>
+
+  <hr class="divider-accent">
+
+  <h2>สรุป 9 บท ใน 9 ประโยค</h2>
+
+  <ul class="num-list">
+    <li><strong>Don't Try:</strong> เลือกสนใจน้อยลง แต่สนใจสิ่งที่สำคัญให้ลึกกว่า</li>
+    <li><strong>Happiness is a Problem:</strong> อย่าหนีปัญหา แต่เลือกปัญหาที่คุ้มค่า</li>
+    <li><strong>You Are Not Special:</strong> ยอมรับความธรรมดา แล้วเริ่มจากตรงนั้น</li>
+    <li><strong>The Value of Suffering:</strong> ถามว่าอะไรที่คุ้มค่าพอที่จะทุกข์เพื่อมัน</li>
+    <li><strong>You Are Always Choosing:</strong> รับผิดชอบชีวิตตัวเอง แม้ไม่ใช่ความผิดคุณ</li>
+    <li><strong>You're Wrong About Everything:</strong> ตั้งคำถามกับสิ่งที่มั่นใจที่สุด</li>
+    <li><strong>Failure is the Way Forward:</strong> ลงมือทำก่อน แรงบันดาลใจจะตามมาเอง</li>
+    <li><strong>The Importance of Saying No:</strong> ขอบเขตที่ชัดคือรากฐานของความสัมพันธ์ที่ดี</li>
+    <li><strong>…And Then You Die:</strong> ใช้ชีวิตอย่างมีสติ เพราะมันมีขีดจำกัด</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>🎯 Your F*ck Budget — Pre-Action Checklist</h2>
+
+  <p>ก่อนจะสนใจหรือกังวลกับเรื่องอะไร ถามตัวเองก่อนด้วย 7 คำถามนี้:</p>
+
+  <ul class="checklist">
+    <li><strong>มันอยู่ในการควบคุมของฉันไหม?</strong> ถ้าไม่ใช่ ปล่อยวาง</li>
+    <li><strong>มันสอดคล้องกับคุณค่าที่ฉันเชื่อจริงๆ หรือเป็นแค่ความคาดหวังของคนอื่น?</strong></li>
+    <li><strong>ถ้าฉันสนใจเรื่องนี้ ฉันต้องไม่สนใจอะไร?</strong> และการแลกเปลี่ยนนั้นคุ้มค่าไหม?</li>
+    <li><strong>ความทุกข์ที่ต้องผ่านเพื่อได้มันคืออะไร?</strong> และฉันยินดีรับมันไหม?</li>
+    <li><strong>ฉันกำลังกระทำจากความรัก หรือจากความกลัว?</strong></li>
+    <li><strong>ถ้าฉันผิดเรื่องนี้ ฉันจะยอมรับได้ไหม?</strong></li>
+    <li><strong>5 ปีจากนี้ เรื่องนี้ยังสำคัญอยู่ไหม?</strong></li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2>📚 หนังสือแนะนำเพื่อต่อยอด</h2>
+
+  <table class="contrast-table">
+    <thead>
+      <tr>
+        <th>หนังสือ + ผู้เขียน</th>
+        <th>ต่อยอดจาก Subtle Art ยังไง</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Man's Search for Meaning</strong><br>Viktor Frankl</td>
+        <td>ความหมายของชีวิตแม้ในความทุกข์ที่สุด — รากฐานทางจิตวิทยาของ Manson</td>
+      </tr>
+      <tr>
+        <td><strong>Meditations</strong><br>Marcus Aurelius</td>
+        <td>ปรัชญา Stoic ที่ Manson อ้างถึง — ควบคุมสิ่งที่ควบคุมได้เท่านั้น</td>
+      </tr>
+      <tr>
+        <td><strong>The Denial of Death</strong><br>Ernest Becker</td>
+        <td>หนังสือที่ Manson อ้างถึงในบทสุดท้าย — ลึกกว่ามากในเรื่องความตายและความหมาย</td>
+      </tr>
+      <tr>
+        <td><strong>Everything Is F*cked</strong><br>Mark Manson</td>
+        <td>ภาคต่อของหนังสือเล่มนี้ — ขยายไปสู่ "ความหวัง" และทำไมมันก็เป็นปัญหา</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <h2>💡 One-Liners ที่จดจำได้</h2>
+
+  <div class="author-box">
+    <div class="author-avatar">M</div>
+    <div>
+      <div class="author-meta">Mark Manson — One-Liner #1</div>
+      <p class="author-text">"The desire for more positive experience is itself a negative experience. And, paradoxically, the acceptance of one's negative experience is itself a positive experience."<br><br>— การปรารถนาประสบการณ์ดีเป็นประสบการณ์เชิงลบในตัวมันเอง และการยอมรับประสบการณ์แย่ๆ ต่างหากที่เป็นประสบการณ์เชิงบวก</p>
+    </div>
+  </div>
+
+  <div class="author-box">
+    <div class="author-avatar">M</div>
+    <div>
+      <div class="author-meta">Mark Manson — One-Liner #2</div>
+      <p class="author-text">"You and everyone you love will one day die. And in the short amount of time left, what do you want to do and who do you want to be?"<br><br>— คุณและทุกคนที่รักจะต้องตายสักวัน ในเวลาที่เหลืออยู่ คุณต้องการทำอะไรและเป็นคนแบบไหน?</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<div class="book-footer">
+  <div class="book-footer-mark">✗</div>
+  <div class="book-footer-text">
+    "ชีวิตที่ดีไม่ได้หมายถึงชีวิตที่ไม่มีปัญหา แต่คือชีวิตที่เลือกได้ว่าจะให้ความสำคัญกับอะไร และปล่อยให้ทุกอย่างอื่นผ่านไปด้วยความสงบ"
+  </div>
+  <div class="book-footer-author">The Subtle Art of Not Giving a F*ck · Mark Manson · Personal Edition</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>

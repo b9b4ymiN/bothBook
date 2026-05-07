@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crucial Conversations — เมื่อบทสนทนาสำคัญที่สุดในชีวิต</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Crucial Conversations — Steel Teal Palette */
+      --accent:        #1A6B8A;
+      --accent-deep:   #124F68;
+      --accent-light:  #3D9AB5;
+      --accent-rule:   rgba(26, 107, 138, 0.28);
+      --accent-bg:     rgba(26, 107, 138, 0.08);
+
+      /* Paper Tones */
+      --paper:         #F2EFE4;
+      --paper-mid:     #EAE5D2;
+      --paper-deep:    #DDD7BD;
+      --paper-shadow:  #C8C0A0;
+
+      /* Ink Tones */
+      --ink:           #14110B;
+      --ink-soft:      #2A261C;
+      --ink-mid:       #46402F;
+      --ink-muted:     #7C7460;
+      --ink-faint:     #ABA48C;
+
+      /* Semantic */
+      --red:           #7A1A1A;
+      --red-bg:        #FBF3F0;
+      --green:         #355E40;
+      --green-bg:      #F1F6EE;
+      --amber:         #8A6A00;
+      --amber-bg:      #FBF7E8;
+
+      /* Layout */
+      --book-width:    760px;
+      --page-pad-h:    76px;
+      --page-pad-v:    84px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0D1B24;
+      padding: 40px 16px;
+      font-family: 'Noto Serif Thai', serif;
+    }
+
+    .book {
+      max-width: var(--book-width);
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.12), 0 4px 60px rgba(0,0,0,.50), 0 0 140px rgba(26,107,138,.15);
+    }
+
+    /* ─── COVER ─── */
+    .cover {
+      background: linear-gradient(165deg, #0A2A38 0%, #1A4A5E 40%, #1A6B8A 80%, #0E3345 100%);
+      padding: 80px var(--page-pad-h) 70px;
+      position: relative;
+      overflow: hidden;
+      min-height: 540px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(61,154,181,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(26,107,138,0.20) 0%, transparent 60%);
+    }
+
+    .cover-ornament {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .cover-ornament::before,
+    .cover-ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(61,154,181,0.35);
+    }
+
+    .cover-ornament-inner {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(61,154,181,0.7);
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    .cover-category {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(61,154,181,0.75);
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: #F2EFE4;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .cover-title em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .cover-subtitle {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 18px;
+      color: rgba(242,239,228,0.65);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      position: relative;
+      font-weight: 300;
+    }
+
+    .cover-rule {
+      width: 60px;
+      height: 3px;
+      background: var(--accent-light);
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .cover-bottom {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover-authors {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 12px;
+      color: rgba(242,239,228,0.55);
+      letter-spacing: 1px;
+      font-weight: 400;
+      line-height: 1.8;
+    }
+
+    .cover-authors strong {
+      display: block;
+      font-size: 13px;
+      color: rgba(242,239,228,0.8);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cover-badge {
+      background: rgba(26,107,138,0.3);
+      border: 1px solid rgba(61,154,181,0.4);
+      padding: 10px 16px;
+      text-align: center;
+    }
+
+    .cover-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+
+    .cover-badge-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(242,239,228,0.5);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .cover-corner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      opacity: 0.3;
+    }
+    .cover-corner.tl { top: 24px; left: 28px; border-top: 2px solid var(--accent-light); border-left: 2px solid var(--accent-light); }
+    .cover-corner.tr { top: 24px; right: 28px; border-top: 2px solid var(--accent-light); border-right: 2px solid var(--accent-light); }
+    .cover-corner.bl { bottom: 24px; left: 28px; border-bottom: 2px solid var(--accent-light); border-left: 2px solid var(--accent-light); }
+    .cover-corner.br { bottom: 24px; right: 28px; border-bottom: 2px solid var(--accent-light); border-right: 2px solid var(--accent-light); }
+
+    /* ─── PAGE BASE ─── */
+    .page {
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-deep);
+      position: relative;
+    }
+
+    .page-mid {
+      background: var(--paper-mid);
+      padding: var(--page-pad-v) var(--page-pad-h);
+      border-bottom: 1px solid var(--paper-shadow);
+      position: relative;
+    }
+
+    /* ─── CHAPTER OPENING ─── */
+    .chapter-open {
+      background: var(--paper-mid);
+      padding: 72px var(--page-pad-h) 60px;
+      border-bottom: 1px solid var(--paper-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ch-num {
+      position: absolute;
+      right: 28px;
+      top: 16px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 140px;
+      color: rgba(26,107,138,0.08);
+      line-height: 1;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    .ch-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .ch-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .ch-title em {
+      font-style: italic;
+      color: var(--accent-deep);
+    }
+
+    .ch-title-th {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 20px;
+      color: var(--ink-mid);
+      font-weight: 400;
+      margin-bottom: 28px;
+    }
+
+    .ch-essence {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      color: var(--ink-mid);
+      line-height: 1.9;
+      max-width: 480px;
+      padding-left: 20px;
+      border-left: 3px solid var(--accent);
+      font-style: italic;
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    .eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+
+    h1 em { font-style: italic; color: var(--accent-deep); }
+
+    h2 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      margin-top: 48px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--accent-rule);
+    }
+
+    h3 {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      line-height: 1.95;
+      color: var(--ink-soft);
+      margin-bottom: 20px;
+    }
+
+    strong { font-weight: 700; color: var(--ink); }
+    em { font-style: italic; }
+
+    /* ─── TOC ─── */
+    .toc-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .toc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 12px;
+    }
+
+    .toc-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .toc-rule-line {
+      width: 60px;
+      height: 1px;
+      background: var(--accent-rule);
+    }
+
+    .toc-rule-diamond {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    .ch-card {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--paper-shadow);
+      align-items: flex-start;
+    }
+
+    .ch-card:last-child { border-bottom: none; }
+
+    .ch-card-num {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 36px;
+      color: var(--accent);
+      font-weight: 400;
+      line-height: 1;
+      min-width: 52px;
+      padding-top: 4px;
+    }
+
+    .ch-card-body { flex: 1; }
+
+    .ch-card-title {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .ch-card-en {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      color: var(--accent-deep);
+      font-style: italic;
+      margin-bottom: 6px;
+    }
+
+    .ch-card-one-liner {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .ch-tag {
+      display: inline-block;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: var(--accent-bg);
+      color: var(--accent-deep);
+      padding: 3px 8px;
+      margin-right: 6px;
+      font-weight: 700;
+    }
+
+    /* ─── STAT ROW ─── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--paper-shadow);
+      margin: 32px 0;
+    }
+
+    .stat-cell {
+      padding: 24px 20px;
+      text-align: center;
+      border-right: 1px solid var(--paper-shadow);
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--ink-muted);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ─── INSIGHT BOX ─── */
+    .insight-box {
+      background: var(--accent-bg);
+      border-left: 4px solid var(--accent);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .insight-box-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .insight-box p {
+      margin-bottom: 0;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--ink-soft);
+    }
+
+    /* ─── PULLQUOTE ─── */
+    .pullquote {
+      padding: 28px 36px;
+      margin: 36px 0;
+      position: relative;
+    }
+
+    .pullquote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      color: var(--accent);
+      opacity: 0.25;
+      position: absolute;
+      top: -8px;
+      left: 8px;
+      line-height: 1;
+    }
+
+    .pullquote-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 19px;
+      font-style: italic;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 12px;
+      padding-left: 20px;
+    }
+
+    .pullquote-attr {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      color: var(--ink-faint);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    /* ─── BLOCKQUOTE FULL (dark) ─── */
+    .blockquote-full {
+      background: var(--ink);
+      padding: 56px var(--page-pad-h);
+      margin-left: calc(-1 * var(--page-pad-h));
+      margin-right: calc(-1 * var(--page-pad-h));
+      margin-top: 48px;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .bqf-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 48px;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 20px;
+      opacity: 0.6;
+    }
+
+    .bqf-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--paper);
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto 12px;
+      font-weight: 400;
+    }
+
+    .bqf-text-th {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      color: rgba(242,239,228,0.55);
+      font-style: italic;
+      max-width: 480px;
+      margin: 0 auto 20px;
+      line-height: 1.75;
+    }
+
+    .bqf-attr {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      font-weight: 600;
+      opacity: 0.7;
+    }
+
+    /* ─── LADDER ─── */
+    .ladder { margin: 32px 0; }
+
+    .ladder-step { padding: 18px 24px; margin: 0; }
+    .ladder-step.wrong  { background: var(--red-bg);    border-left: 3px solid var(--red); }
+    .ladder-step.truth  { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+    .ladder-step.action { background: var(--green-bg);  border-left: 3px solid var(--green); }
+
+    .ladder-tag {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .ladder-step.wrong  .ladder-tag { color: var(--red); }
+    .ladder-step.truth  .ladder-tag { color: var(--accent-deep); }
+    .ladder-step.action .ladder-tag { color: var(--green); }
+
+    .ladder-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    .ladder-arrow { text-align: center; padding: 6px; color: var(--ink-faint); font-size: 20px; }
+
+    /* ─── AUTHOR BOX ─── */
+    .author-box {
+      display: flex;
+      gap: 18px;
+      padding: 24px 28px;
+      background: var(--paper-mid);
+      border-left: 3px solid var(--accent);
+      margin: 28px 0;
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent-deep);
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-style: italic;
+      flex-shrink: 0;
+    }
+
+    .author-meta {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .author-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+
+    /* ─── SIGNAL BOX (Do/Don't) ─── */
+    .signal-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .signal-box { padding: 20px 22px; }
+    .signal-box.do   { background: var(--green-bg); border-top: 3px solid var(--green); }
+    .signal-box.dont { background: var(--red-bg);   border-top: 3px solid var(--red); }
+
+    .signal-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .signal-box.do   .signal-label { color: var(--green); }
+    .signal-box.dont .signal-label { color: var(--red); }
+
+    .signal-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .signal-list li {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--paper-shadow);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin: 0;
+    }
+
+    .signal-list li:last-child { border-bottom: none; }
+    .signal-list li::before { flex-shrink: 0; padding-top: 1px; }
+    .signal-box.do   .signal-list li::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .signal-box.dont .signal-list li::before { content: '✗'; color: var(--red);   font-weight: 700; }
+
+    /* ─── FRAMEWORK BOX ─── */
+    .framework-box {
+      border: 1px solid var(--accent-rule);
+      margin: 32px 0;
+      overflow: hidden;
+    }
+
+    .framework-header {
+      background: var(--accent-deep);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .framework-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--paper);
+      font-weight: 600;
+    }
+
+    .framework-abbr {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-light);
+      letter-spacing: 8px;
+    }
+
+    .framework-row {
+      display: flex;
+      border-bottom: 1px solid var(--paper-shadow);
+    }
+
+    .framework-row:last-child { border-bottom: none; }
+
+    .framework-letter {
+      width: 52px;
+      min-width: 52px;
+      background: var(--accent-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--accent-deep);
+      font-weight: 700;
+      border-right: 1px solid var(--accent-rule);
+    }
+
+    .framework-content {
+      padding: 16px 20px;
+      flex: 1;
+    }
+
+    .framework-word {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .framework-desc {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    /* ─── REFLECTION ─── */
+    .reflection {
+      background: var(--paper-deep);
+      padding: 28px 32px;
+      margin-top: 48px;
+      border-top: 2px solid var(--accent);
+    }
+
+    .reflection-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .reflection ol {
+      padding-left: 20px;
+    }
+
+    .reflection ol li {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--ink-mid);
+      margin-bottom: 10px;
+    }
+
+    /* ─── CHECKLIST ─── */
+    .checklist { margin: 28px 0; }
+
+    .checklist-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--paper-shadow);
+      align-items: flex-start;
+    }
+
+    .checklist-item:last-child { border-bottom: none; }
+
+    .check-box {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      border: 2px solid var(--accent);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .check-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink-soft);
+    }
+
+    .check-text strong {
+      display: block;
+      color: var(--ink);
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .check-sub {
+      font-size: 13px;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-top: 2px;
+      display: block;
+    }
+
+    /* ─── COMPARISON TABLE ─── */
+    .cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 28px 0;
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+    }
+
+    .cmp-table th {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 12px 16px;
+      text-align: left;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .cmp-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--paper-shadow);
+      color: var(--ink-soft);
+      line-height: 1.7;
+      vertical-align: top;
+    }
+
+    .cmp-table tr:last-child td { border-bottom: none; }
+
+    .cmp-table tr:nth-child(even) td { background: var(--paper-mid); }
+
+    .cmp-table .td-book {
+      font-weight: 700;
+      color: var(--accent-deep);
+      font-style: italic;
+    }
+
+    /* ─── PATH MODEL ─── */
+    .path-model {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0;
+      padding: 20px 24px;
+      background: var(--paper-mid);
+      border: 1px solid var(--paper-shadow);
+    }
+
+    .path-step {
+      background: var(--accent-bg);
+      border: 1px solid var(--accent-rule);
+      padding: 8px 14px;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-deep);
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .path-arrow {
+      font-size: 18px;
+      color: var(--ink-faint);
+    }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 48px 0 40px;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--accent-rule);
+    }
+
+    .section-divider-text {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      white-space: nowrap;
+    }
+
+    /* ─── BOOK FOOTER ─── */
+    .book-footer {
+      background: var(--ink);
+      padding: 56px var(--page-pad-h);
+      text-align: center;
+    }
+
+    .book-footer-mark {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 32px;
+      color: var(--accent-light);
+      margin-bottom: 16px;
+    }
+
+    .book-footer-text {
+      font-family: 'Noto Serif Thai', serif;
+      font-size: 14px;
+      color: var(--paper-deep);
+      font-style: italic;
+      line-height: 1.75;
+      max-width: 480px;
+      margin: 0 auto 20px;
+    }
+
+    .book-footer-author {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 11px;
+      color: var(--accent-light);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+
+    /* ─── AMBER BOX (Warning/Note) ─── */
+    .amber-box {
+      background: var(--amber-bg);
+      border-left: 4px solid var(--amber);
+      padding: 22px 26px;
+      margin: 28px 0;
+    }
+
+    .amber-box-label {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .amber-box p {
+      font-size: 14px;
+      color: var(--ink-mid);
+      margin: 0;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 780px) {
+      :root {
+        --page-pad-h: 28px;
+        --page-pad-v: 56px;
+      }
+
+      body { padding: 16px 8px; }
+
+      .cover { padding: 56px 28px 48px; min-height: 420px; }
+      .cover-title { font-size: 44px; }
+      .ch-num { font-size: 96px; right: 12px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .signal-row { grid-template-columns: 1fr; }
+      .blockquote-full { padding: 40px 24px; margin-left: -28px; margin-right: -28px; }
+      .path-model { flex-direction: column; align-items: flex-start; }
+      .path-arrow { transform: rotate(90deg); align-self: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="book">
+
+  <!-- ════════════════════════════════ COVER ════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-corner tl"></div>
+    <div class="cover-corner tr"></div>
+    <div class="cover-corner bl"></div>
+    <div class="cover-corner br"></div>
+
+    <div>
+      <div class="cover-ornament">
+        <div class="cover-ornament-inner">◆ &nbsp; Personal Edition &nbsp; ◆</div>
+      </div>
+
+      <div class="cover-category">Communication · Psychology · Self-Mastery</div>
+
+      <div class="cover-title">Crucial<br><em>Conversations</em></div>
+      <div class="cover-subtitle">
+        เมื่อประเด็นสำคัญ อารมณ์แรง และความเห็นไม่ตรงกัน<br>
+        เราจะคุยยังไงให้ไม่กลายเป็นปะทะ
+      </div>
+      <div class="cover-rule"></div>
+    </div>
+
+    <div class="cover-bottom">
+      <div class="cover-authors">
+        <strong>Patterson · Grenny · McMillan · Switzler</strong>
+        Kerry Patterson, Joseph Grenny<br>
+        Ron McMillan, Al Switzler<br>
+        <span style="opacity:0.5; font-size:11px;">Tools for Talking When Stakes Are High</span>
+      </div>
+      <div class="cover-badge">
+        <div class="cover-badge-num">4M+</div>
+        <div class="cover-badge-label">Copies Sold</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════ FOREWORD ════════════════════════════════ -->
+  <div class="page">
+    <div class="eyebrow">Foreword · คำนำ</div>
+    <h1>ทุกอย่างเปลี่ยนแปลงได้ใน<em>บทสนทนาเดียว</em></h1>
+
+    <p>มีช่วงเวลาในชีวิตที่บทสนทนานั้น "สำคัญกว่าทุกครั้ง" — อาจเป็นตอนที่เราต้องแจ้งข่าวร้ายให้หัวหน้าฟัง บอกพ่อแม่เรื่องที่พวกเขาไม่อยากได้ยิน หรือเผชิญหน้ากับเพื่อนที่ทำให้เราเจ็บปวด ในช่วงเวลาเหล่านั้น ร่างกายสูบฉีด อารมณ์ขึ้นสูง และคำพูดออกมาผิดพลาด — หรือเราเลือกที่จะไม่พูดอะไรเลย</p>
+
+    <p>Kerry Patterson และทีมผู้เขียนได้ใช้เวลากว่า <strong>25 ปี</strong> ศึกษาว่าคนที่ "เก่งในการสื่อสาร" นั้นทำอะไรแตกต่างออกไป สิ่งที่พวกเขาค้นพบไม่ใช่ว่าคนเหล่านี้หลีกเลี่ยงบทสนทนาที่ยากลำบาก — แต่พวกเขา <strong>เชี่ยวชาญในการเข้าสู่บทสนทนาเหล่านั้น</strong> และเปลี่ยนมันให้เกิดผลลัพธ์ที่ดีสำหรับทุกฝ่าย</p>
+
+    <p>หนังสือเล่มนี้ไม่ได้สอนให้เราพูดเก่งขึ้น — มันสอนให้เราคิดและรู้สึกแตกต่างออกไป ก่อนที่จะเปิดปากพูด</p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">แก่นของหนังสือเล่มนี้</div>
+      <p>ความสามารถในการ "พูดในสิ่งที่ต้องพูด กับคนที่ต้องพูด ในเวลาที่ต้องพูด" คือทักษะที่สามารถฝึกได้ — และมันส่งผลต่อทุกมิติในชีวิต ตั้งแต่ความสัมพันธ์ สุขภาพ ความก้าวหน้าในอาชีพ ไปจนถึงความสุขส่วนตัว</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">ปีที่วิจัย<br>พฤติกรรมการสื่อสาร</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">4M+</div>
+        <div class="stat-label">เล่มที่ขายได้<br>ทั่วโลก</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">8</div>
+        <div class="stat-label">ทักษะหลัก<br>ที่ฝึกได้ในเล่มนี้</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════ TABLE OF CONTENTS ════════════════════════════════ -->
+  <div class="page-mid">
+    <div class="toc-header">
+      <div class="toc-title">สารบัญ</div>
+      <div class="toc-rule">
+        <div class="toc-rule-line"></div>
+        <div class="toc-rule-diamond"></div>
+        <div class="toc-rule-line"></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">01</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">What Is a Crucial Conversation?</div>
+        <div class="ch-card-title">บทสนทนาสำคัญคืออะไร — และทำไมมันถึงพัง?</div>
+        <div class="ch-card-one-liner">เมื่อประเด็นสำคัญ + อารมณ์แรง + ความเห็นต่าง มาเจอกัน คือจุดที่ทุกอย่างเปลี่ยนแปลงได้</div>
+        <div><span class="ch-tag">Definition</span><span class="ch-tag">Stakes</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">02</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Start with Heart</div>
+        <div class="ch-card-title">เริ่มต้นที่ใจ — ถามตัวเองก่อนว่าเราต้องการอะไร</div>
+        <div class="ch-card-one-liner">คนเดียวที่เราควบคุมได้ในบทสนทนาคือตัวเราเอง — เริ่มที่นั่น</div>
+        <div><span class="ch-tag">Mindset</span><span class="ch-tag">Motive</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">03</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Learn to Look</div>
+        <div class="ch-card-title">เรียนรู้การสังเกต — รู้จักสัญญาณก่อนสายเกินไป</div>
+        <div class="ch-card-one-liner">เมื่อบทสนทนาออกนอกทาง มีสัญญาณให้เห็นเสมอ ถ้าเรารู้จักมอง</div>
+        <div><span class="ch-tag">Awareness</span><span class="ch-tag">Safety</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">04</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Make It Safe</div>
+        <div class="ch-card-title">สร้างพื้นที่ปลอดภัย — เงื่อนไขแรกที่ทุกอย่างต้องการ</div>
+        <div class="ch-card-one-liner">คนจะพูดความจริงได้ก็ต่อเมื่อรู้สึกปลอดภัยพอที่จะพูด</div>
+        <div><span class="ch-tag">Safety</span><span class="ch-tag">Trust</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">05</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Master Your Story</div>
+        <div class="ch-card-title">ควบคุมเรื่องราวในหัว — หยุดก่อนที่อารมณ์จะเข้าควบคุม</div>
+        <div class="ch-card-one-liner">ระหว่างสิ่งที่เกิดขึ้นกับความรู้สึกเรา มีเรื่องราวที่เราแต่งขึ้นมาเอง</div>
+        <div><span class="ch-tag">Emotions</span><span class="ch-tag">Stories</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">06</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">STATE Your Path</div>
+        <div class="ch-card-title">พูดความจริงของคุณ — กรอบ STATE ที่ใช้ได้จริง</div>
+        <div class="ch-card-one-liner">พูดความในใจได้โดยที่อีกฝ่ายยังรู้สึกดีและพร้อมฟัง</div>
+        <div><span class="ch-tag">Framework</span><span class="ch-tag">Delivery</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">07</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Explore Others' Paths</div>
+        <div class="ch-card-title">เข้าใจเส้นทางของอีกฝ่าย — ฟังเพื่อเข้าใจ ไม่ใช่รอโต้</div>
+        <div class="ch-card-one-liner">คนที่ดูเหมือน "ยาก" มักแค่มีบริบทที่เราไม่เข้าใจ</div>
+        <div><span class="ch-tag">Listening</span><span class="ch-tag">Empathy</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">08</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Move to Action</div>
+        <div class="ch-card-title">นำสู่การลงมือทำ — เปลี่ยนบทสนทนาให้เป็นผลลัพธ์</div>
+        <div class="ch-card-one-liner">บทสนทนาที่ดีต้องจบด้วยความชัดเจน ไม่ใช่แค่ความรู้สึกดี</div>
+        <div><span class="ch-tag">Decision</span><span class="ch-tag">Action</span></div>
+      </div>
+    </div>
+
+    <div class="ch-card">
+      <div class="ch-card-num">✦</div>
+      <div class="ch-card-body">
+        <div class="ch-card-en">Synthesis · บทสรุปลงมือ</div>
+        <div class="ch-card-title">ชุดเครื่องมือก่อนบทสนทนาครั้งสำคัญ</div>
+        <div class="ch-card-one-liner">รวมทุกทักษะเข้าด้วยกัน พร้อม checklist ที่ใช้ได้ทันที</div>
+        <div><span class="ch-tag">Synthesis</span><span class="ch-tag">Checklist</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 1 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">01</div>
+    <div class="ch-label">บทที่หนึ่ง</div>
+    <div class="ch-title">What Is a Crucial<br><em>Conversation?</em></div>
+    <div class="ch-title-th">บทสนทนาสำคัญคืออะไร — และทำไมมันถึงพัง?</div>
+    <div class="ch-essence">"ไม่ใช่ว่าบทสนทนาสำคัญมักเกิดขึ้นน้อย แต่เราไม่เคยรู้จักมันพอที่จะรับมือได้"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>เมื่อทั้ง 3 ปัจจัยมาเจอกัน — <em>ทุกอย่างเปลี่ยน</em></h1>
+
+    <p>ผู้เขียนนิยาม "Crucial Conversation" หรือ <strong>บทสนทนาสำคัญ</strong> ว่าคือบทสนทนาที่เกิดขึ้นเมื่อ 3 สิ่งมาประจวบกัน: <strong>ประเด็นที่มีความสำคัญสูง + อารมณ์ที่ร้อนแรง + ความเห็นที่แตกต่างกัน</strong> มันไม่ได้หมายถึงแค่การทะเลาะ — บทสนทนาสำคัญอาจเป็นแค่การบอกความจริงง่ายๆ ที่รู้สึกว่า "พูดออกไปไม่ได้"</p>
+
+    <p>ตัวอย่างที่พบในชีวิตประจำวัน: บอกเพื่อนร่วมงานที่ทำงานได้ต่ำกว่ามาตรฐาน, คุยกับคู่รักเรื่องปัญหาในความสัมพันธ์, เผชิญหน้าเจ้านายที่ใช้อำนาจเกินขอบเขต — ทุกสถานการณ์เหล่านี้มีสิ่งเหมือนกันคือ <strong>เราจะพูดหรือไม่พูดมีผลต่อชีวิตเรา</strong></p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">Core Insight</div>
+      <p>ระดับสุขภาพของความสัมพันธ์ องค์กร และชีวิตของเราวัดได้จาก <strong>คุณภาพของบทสนทนาสำคัญที่เกิดขึ้น</strong> — ไม่ใช่จากการหลีกเลี่ยงมัน คนที่เก่งในชีวิตไม่ได้มีบทสนทนาที่ยากน้อยกว่าคนอื่น พวกเขาแค่เก่งกว่าในการรับมือกับมัน</p>
+    </div>
+
+    <h2>ทำไมเราถึงจัดการมันได้แย่นัก?</h2>
+
+    <p>เมื่อเจอบทสนทนาสำคัญ สมองมนุษย์หลั่ง adrenaline (สารที่กระตุ้นการตื่นตัวของร่างกาย) ทำให้เราสวิตช์ไปสู่โหมด "fight or flight" — หรือที่เราเรียกง่ายๆ ว่า <strong>สู้ หรือ หนี</strong> ในโหมดนี้ เลือดไหลไปหล่อเลี้ยงกล้ามเนื้อมากขึ้น แต่ไปหล่อเลี้ยงสมองส่วนที่คิดได้อย่างมีเหตุผลน้อยลง ผลคือ: เราพูดในสิ่งที่ไม่ควรพูด หรือไม่พูดในสิ่งที่ควรจะพูด</p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">สิ่งที่เราทำปกติ</div>
+        <div class="ladder-text">หลีกเลี่ยงบทสนทนาที่ยาก หรือเข้าสู่มันโดยไม่เตรียมพร้อม → ทำให้สถานการณ์แย่ลง สะสมความไม่พอใจ และปัญหาไม่ถูกแก้</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ความจริงที่ค้นพบ</div>
+        <div class="ladder-text">บทสนทนาสำคัญที่จัดการได้ดีคือทักษะ ไม่ใช่พรสวรรค์ มีรูปแบบที่ฝึกได้ และมีเครื่องมือที่ใช้ได้จริง</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">สิ่งที่เปลี่ยนได้</div>
+        <div class="ladder-text">เรียนรู้สังเกตเมื่อบทสนทนากลายเป็น "crucial" → ชะลอ → ใช้เครื่องมือที่ถูกต้อง → ได้ผลลัพธ์ที่ดีสำหรับทุกฝ่าย</div>
+      </div>
+    </div>
+
+    <h2>ผลที่ตามมาของการหลีกเลี่ยง</h2>
+
+    <p>งานวิจัยของผู้เขียนพบว่าองค์กรที่มีพนักงานที่สามารถพูดความจริงต่อกันได้อย่างเปิดเผยมีประสิทธิผลสูงกว่าองค์กรที่ไม่มีความสามารถนี้อย่างมีนัยสำคัญ ในระดับส่วนตัว การหลีกเลี่ยงบทสนทนาสำคัญทำให้เกิด <strong>ความเครียดสะสม ความสัมพันธ์ที่เสื่อมลงทีละน้อย และปัญหาที่ใหญ่ขึ้นในระยะยาว</strong></p>
+
+    <div class="blockquote-full">
+      <div class="bqf-mark">"</div>
+      <div class="bqf-text">The single biggest problem in communication is the illusion that it has taken place.</div>
+      <div class="bqf-text-th">ปัญหาใหญ่ที่สุดในการสื่อสารคือความเข้าใจผิดว่าการสื่อสารได้เกิดขึ้นแล้ว — ทั้งที่จริงๆ ยังไม่มีอะไรถูกพูดออกมาเลย</div>
+      <div class="bqf-attr">Crucial Conversations · Patterson et al.</div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>บทสนทนาสำคัญที่เราหลีกเลี่ยงมานานที่สุดในชีวิตตอนนี้คืออะไร? กับใคร? เกี่ยวกับเรื่องอะไร?</li>
+        <li>เมื่อเราเจอบทสนทนาที่ยาก เรามักจะ "สู้" (พูดรุนแรงขึ้น) หรือ "หนี" (หุบปาก หรือเปลี่ยนเรื่อง)?</li>
+        <li>มีเรื่องอะไรที่เราไม่ได้พูดมานานแล้ว และมันส่งผลต่อชีวิตเราอย่างไร?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 2 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">02</div>
+    <div class="ch-label">บทที่สอง</div>
+    <div class="ch-title">Start with<br><em>Heart</em></div>
+    <div class="ch-title-th">เริ่มต้นที่ใจ — ก่อนพูดคำแรก รู้ว่าตัวเองต้องการอะไร</div>
+    <div class="ch-essence">"คำถามที่ทรงพลังที่สุดในบทสนทนาสำคัญคือ: ฉันต้องการอะไรจริงๆ จากบทสนทนานี้?"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>คนเดียวที่เราควบคุมได้<em>คือตัวเราเอง</em></h1>
+
+    <p>ผู้เขียนบอกว่าความผิดพลาดที่พบบ่อยที่สุดก่อนเข้าสู่บทสนทนาสำคัญคือ <strong>การโฟกัสไปที่อีกฝ่าย</strong> — "ฉันจะทำให้เขาเข้าใจ" "ฉันจะทำให้เธอเปลี่ยนใจ" "ฉันต้องชนะการโต้เถียงนี้" แต่ความจริงคือ เราไม่มีทางควบคุมสิ่งที่อีกฝ่ายคิด รู้สึก หรือตัดสินใจได้เลย สิ่งเดียวที่ควบคุมได้คือตัวเราเอง</p>
+
+    <p>วิธีเริ่ม "Start with Heart" คือการถามตัวเองให้ชัดก่อนว่า: <strong>เราต้องการอะไรจริงๆ จากบทสนทนานี้?</strong> — สำหรับตัวเอง สำหรับอีกฝ่าย และสำหรับความสัมพันธ์โดยรวม</p>
+
+    <div class="author-box">
+      <div class="author-avatar">K</div>
+      <div>
+        <div class="author-meta">Kerry Patterson — Crucial Conversations</div>
+        <div class="author-text">"ก่อนพูดแม้แต่คำแรก หยุดถามตัวเองว่า: ฉันกำลังเข้าสู่บทสนทนานี้ด้วยจุดประสงค์อะไร? ถ้าคำตอบคือ 'เพื่อชนะ' หรือ 'เพื่อลงโทษ' — นั่นคือสัญญาณที่ต้องหยุดก่อน"</div>
+      </div>
+    </div>
+
+    <h2>กับดัก "And" — เปลี่ยน Or เป็น And</h2>
+
+    <p>ผู้เขียนพบว่าคนส่วนใหญ่มักตกอยู่ใน "กับดักของการเลือก" ที่ว่า "ฉันจะพูดความจริง <em>หรือ</em> รักษาความสัมพันธ์" "ฉันจะยืนหยัด <em>หรือ</em> หลีกเลี่ยงความขัดแย้ง" ทั้งที่ในความเป็นจริง ทางเลือกที่ดีคือ "ฉันจะพูดความจริง <em>และ</em> รักษาความสัมพันธ์" ในเวลาเดียวกัน</p>
+
+    <div class="ladder">
+      <div class="ladder-step wrong">
+        <div class="ladder-tag">กับดักที่พบบ่อย</div>
+        <div class="ladder-text">คิดว่าต้องเลือกระหว่าง "พูดความจริง" หรือ "รักษาความสัมพันธ์" → เลยไม่พูดอะไร หรือพูดออกมาแบบทำร้ายกัน</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step truth">
+        <div class="ladder-tag">ทางที่ 3 ที่มีอยู่จริง</div>
+        <div class="ladder-text">คนที่เก่งในบทสนทนาสำคัญปฏิเสธ "การเลือก" นี้ พวกเขาหาวิธีที่ทำให้ทั้งสองสิ่งเกิดขึ้นพร้อมกัน</div>
+      </div>
+      <div class="ladder-arrow">↓</div>
+      <div class="ladder-step action">
+        <div class="ladder-tag">วิธีคิดที่ถูก</div>
+        <div class="ladder-text">ถามตัวเองว่า "ฉันจะพูดสิ่งที่ต้องพูด AND รักษาสิ่งที่ต้องรักษาได้อย่างไร?" — เริ่มจากคำถามนี้</div>
+      </div>
+    </div>
+
+    <h2>3 คำถามที่ต้องถามก่อนเข้าสู่บทสนทนาสำคัญ</h2>
+
+    <div class="framework-box">
+      <div class="framework-header">
+        <div class="framework-title">The Three "What Do I Want" Questions</div>
+        <div class="framework-abbr">3Q</div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">1</div>
+        <div class="framework-content">
+          <div class="framework-word">For Myself</div>
+          <div class="framework-desc">เราต้องการอะไรสำหรับตัวเองจากบทสนทนานี้? — ต้องการให้อีกฝ่ายรับรู้ความรู้สึกเรา? ต้องการเปลี่ยนแปลงพฤติกรรม? ต้องการข้อมูล?</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">2</div>
+        <div class="framework-content">
+          <div class="framework-word">For Others</div>
+          <div class="framework-desc">เราต้องการอะไรสำหรับอีกฝ่าย? — เราห่วงใยพวกเขาในฐานะคน ไม่ใช่แค่คู่กรณีในข้อพิพาท ถ้าเราไม่ห่วงใยพวกเขาเลย บทสนทนานี้จะพังเอง</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">3</div>
+        <div class="framework-content">
+          <div class="framework-word">For the Relationship</div>
+          <div class="framework-desc">เราต้องการให้ความสัมพันธ์นี้เป็นอย่างไรหลังจากบทสนทนาจบ? — ถ้าคำตอบคือ "อยากให้แย่ลง" นั่นคือสัญญาณที่ต้องหยุดและเริ่มใหม่</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <div class="pullquote-text">ผู้เขียนพบว่าสัญญาณอันตรายที่ชัดที่สุดว่าเรากำลัง "หลงทาง" คือเมื่อเราเริ่มพูดเพื่อ "ลงโทษ" หรือ "พิสูจน์ว่าตัวเองถูก" แทนที่จะพูดเพื่อ "แก้ปัญหาร่วมกัน"</div>
+      <div class="pullquote-attr">Patterson et al. — Crucial Conversations</div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>ในบทสนทนาที่ยากที่ผ่านมา เราเข้าสู่มันด้วยจุดประสงค์อะไร? และนั่นส่งผลต่อผลลัพธ์อย่างไร?</li>
+        <li>มีบทสนทนาที่เราต้องทำในอนาคตอันใกล้ไหม? ลองถามตัวเองสามคำถามข้างต้น</li>
+        <li>เราเคยตกอยู่ในกับดัก "OR" ไหม? และสุดท้ายเลือกอะไร?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 3 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">03</div>
+    <div class="ch-label">บทที่สาม</div>
+    <div class="ch-title">Learn to<br><em>Look</em></div>
+    <div class="ch-title-th">เรียนรู้การสังเกต — รู้จักสัญญาณก่อนสายเกินไป</div>
+    <div class="ch-essence">"บทสนทนาไม่ได้พังในทันที — มันพังทีละนิด ถ้าเรารู้จักสัญญาณเตือน เราสามารถเลี้ยวกลับได้ก่อนที่มันจะสายเกินไป"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>บทสนทนาออกนอกทางเมื่อ<em>ความปลอดภัยหายไป</em></h1>
+
+    <p>ผู้เขียนค้นพบว่าสาเหตุที่บทสนทนาสำคัญพังมักเหมือนกันเสมอ — <strong>ความรู้สึกปลอดภัยหายไป</strong> เมื่อคนรู้สึกว่าตัวเองถูกโจมตี ถูกตัดสิน หรืออยู่ในอันตราย (แม้แต่อันตรายทางสังคม เช่น ถูกมองว่าโง่หรือไม่ดี) พวกเขาจะสวิตช์ออกจากการพูดคุยที่มีเหตุผล และเข้าสู่โหมดป้องกันตัวเอง</p>
+
+    <p>ทักษะที่ต้องฝึกคือ <strong>การมองออกว่าเมื่อไหร่บทสนทนากำลังออกนอกทาง</strong> — ก่อนที่มันจะแย่เกินกว่าจะดึงกลับมาได้</p>
+
+    <h2>สัญญาณที่ต้องมองหา: Silence vs. Violence</h2>
+
+    <p>เมื่อคนรู้สึกไม่ปลอดภัย พวกเขาจะทำหนึ่งใน 2 อย่าง คือ <strong>เงียบ (Silence)</strong> หรือ <strong>รุนแรง (Violence)</strong> — ทั้งสองแบบนี้คือสัญญาณที่บอกว่า "ตอนนี้ไม่มีความปลอดภัยในบทสนทนานี้"</p>
+
+    <div class="signal-row">
+      <div class="signal-box dont">
+        <div class="signal-label">🔇 Silence — เงียบ (หนี)</div>
+        <ul class="signal-list">
+          <li>Masking: พูดเรื่องอื่นแทน หรือพูดแค่ครึ่งเดียว</li>
+          <li>Avoiding: เปลี่ยนเรื่อง หรือหลีกเลี่ยงการตอบตรงๆ</li>
+          <li>Withdrawing: หยุดพูดอย่างสิ้นเชิง หรือออกจากที่</li>
+        </ul>
+      </div>
+      <div class="signal-box do" style="border-top-color: var(--red); background: var(--red-bg);">
+        <div class="signal-label" style="color: var(--red);">⚡ Violence — รุนแรง (สู้)</div>
+        <ul class="signal-list" style="">
+          <li>Controlling: บังคับให้อีกฝ่ายยอมรับ ตัดคำพูด</li>
+          <li>Labeling: ตัดสิน หรือกล่าวหาอีกฝ่ายอย่างรุนแรง</li>
+          <li>Attacking: วิจารณ์ตัวตน ไม่ใช่แค่พฤติกรรม</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="amber-box">
+      <div class="amber-box-label">⚠️ สิ่งสำคัญที่ต้องรู้</div>
+      <p>ในขณะที่อยู่ในบทสนทนา เรามักจะมองเห็นสัญญาณเหล่านี้ในตัวอีกฝ่ายได้ง่าย แต่ยากมากที่จะสังเกตเห็นในตัวเราเอง ผู้เขียนแนะนำให้ฝึก "dual awareness" — มองทั้งบทสนทนาที่กำลังเกิดขึ้น และมองตัวเราเองในบทสนทนานั้นพร้อมกัน</p>
+    </div>
+
+    <h2>สังเกตที่ตัวเองก่อน — สัญญาณจากร่างกาย</h2>
+
+    <p>ก่อนที่เราจะพูดอะไรออกไปผิดพลาด ร่างกายมักส่งสัญญาณก่อนเสมอ: หัวใจเต้นแรงขึ้น กล้ามเนื้อตึง เสียงสูงขึ้น หรือรู้สึกอยากพูดแรงๆ ขึ้น สัญญาณเหล่านี้คือ <strong>cue ที่บอกว่า "ระวัง ตอนนี้อยู่ในโหมดป้องกันตัวเอง"</strong></p>
+
+    <div class="insight-box">
+      <div class="insight-box-label">Core Insight</div>
+      <p>ทักษะที่ดีที่สุดในบทสนทนาสำคัญไม่ใช่การพูดเก่ง แต่คือการ <strong>"รู้ว่ากำลังออกนอกทาง"</strong> และหยุดได้ก่อนที่ความเสียหายจะเกิดขึ้น ครั้งต่อไปที่รู้สึกว่าอยากพูดแรงหรืออยากเงียบ — นั่นคือสัญญาณให้หยุดและรีเซ็ต</p>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>เราเป็นคนแบบ "Silence" หรือ "Violence" มากกว่า? หรือขึ้นอยู่กับสถานการณ์?</li>
+        <li>ร่างกายเราส่งสัญญาณอะไรเมื่อเริ่มรู้สึกไม่ปลอดภัยในบทสนทนา?</li>
+        <li>ลองนึกถึงบทสนทนาครั้งล่าสุดที่พังไป — มีสัญญาณเตือนอะไรที่เราเห็นหรือน่าจะเห็น แต่ไม่ได้สังเกต?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 4 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">04</div>
+    <div class="ch-label">บทที่สี่</div>
+    <div class="ch-title">Make It<br><em>Safe</em></div>
+    <div class="ch-title-th">สร้างพื้นที่ปลอดภัย — เงื่อนไขแรกที่ทุกอย่างต้องการ</div>
+    <div class="ch-essence">"ก่อนที่บทสนทนาสำคัญจะเกิดขึ้นได้ ต้องมีความรู้สึกว่า 'พูดได้โดยไม่ต้องกลัว'"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>คนพูดความจริงเมื่อรู้สึก<em>ปลอดภัยพอ</em></h1>
+
+    <p>ผู้เขียนค้นพบว่า <strong>ความปลอดภัยไม่ใช่ "บรรยากาศ" ที่เกิดขึ้นเอง — มันคือสิ่งที่ต้องสร้าง</strong> และเมื่อความปลอดภัยหายไป สิ่งแรกที่ควรทำไม่ใช่ "พูดให้มากขึ้น" แต่คือ "ถอยออกมาก่อน และซ่อมแซมความปลอดภัย"</p>
+
+    <p>การสร้างความปลอดภัยอยู่บนรากฐาน 2 ประการคือ: <strong>Mutual Purpose</strong> (เป้าหมายร่วมกัน) — อีกฝ่ายรู้สึกว่าเราพูดเพื่อประโยชน์ร่วมกัน ไม่ใช่แค่เพื่อตัวเอง และ <strong>Mutual Respect</strong> (การให้เกียรติ) — อีกฝ่ายรู้สึกว่าเราเห็นคุณค่าของเขาในฐานะมนุษย์คนหนึ่ง</p>
+
+    <div class="stat-row">
+      <div class="stat-cell">
+        <div class="stat-num" style="font-size:28px;">Purpose</div>
+        <div class="stat-label">ต้องการผลลัพธ์<br>เพื่อทุกฝ่าย ไม่ใช่แค่ตัวเอง</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">+</div>
+        <div class="stat-label"></div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" style="font-size:28px;">Respect</div>
+        <div class="stat-label">ให้เกียรติคนที่<br>กำลังคุยด้วยเสมอ</div>
+      </div>
+    </div>
+
+    <h2>Contrasting — เครื่องมือที่ทรงพลังที่สุดในการซ่อมแซมความปลอดภัย</h2>
+
+    <p><strong>Contrasting</strong> คือการพูดให้ชัดว่าเรา "ไม่ได้ตั้งใจอะไร" ก่อน แล้วค่อยบอกว่า "ตั้งใจอะไร" — เพื่อป้องกันการตีความผิด ตัวอย่างเช่น:</p>
+
+    <div class="author-box">
+      <div class="author-avatar">J</div>
+      <div>
+        <div class="author-meta">Joseph Grenny — ตัวอย่างการใช้ Contrasting</div>
+        <div class="author-text">"ฉันไม่ได้ตั้งใจจะบอกว่างานของคุณไม่ดี (ไม่ตั้งใจอะไร) — ฉันแค่อยากพูดถึงโปรเจกต์นี้โดยเฉพาะ เพราะฉันอยากให้มันออกมาดีที่สุดสำหรับเราทั้งคู่ (ตั้งใจอะไร)"</div>
+      </div>
+    </div>
+
+    <h2>เมื่อต้องขอโทษ — ทำเมื่อสมควรทำ</h2>
+
+    <p>ถ้าเราเป็นคนทำให้ความปลอดภัยหายไป ไม่ว่าจะด้วยคำพูดรุนแรง การตัดสิน หรือน้ำเสียงที่แย่ — <strong>การขอโทษที่จริงใจคือวิธีที่เร็วที่สุดในการซ่อมแซม</strong> แต่ต้องเป็นการขอโทษที่แท้จริง ไม่ใช่แค่พูดว่า "ขอโทษ" เพื่อให้บทสนทนาเดินหน้าต่อ</p>
+
+    <div class="signal-row">
+      <div class="signal-box dont">
+        <div class="signal-label">❌ สร้างความไม่ปลอดภัย</div>
+        <ul class="signal-list">
+          <li>พูดด้วยน้ำเสียงดูถูก หรือเย้ยหยัน</li>
+          <li>ขัดคำพูดก่อนอีกฝ่ายพูดจบ</li>
+          <li>ตีความเจตนาอีกฝ่ายในแง่ร้าย</li>
+          <li>ใช้คำว่า "แต่" เพื่อลบล้างทุกสิ่งก่อนหน้า</li>
+        </ul>
+      </div>
+      <div class="signal-box do">
+        <div class="signal-label">✅ สร้างความปลอดภัย</div>
+        <ul class="signal-list">
+          <li>พูดให้ชัดว่าเจตนาของเราคืออะไร</li>
+          <li>ถามคำถามก่อนที่จะสรุปเจตนาอีกฝ่าย</li>
+          <li>ใช้ Contrasting เพื่อป้องกันความเข้าใจผิด</li>
+          <li>ขอโทษเมื่อทำให้ความปลอดภัยหายไป</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>ในบทสนทนาที่ผ่านมา เราเคยทำสิ่งที่ทำลายความปลอดภัยโดยไม่รู้ตัวไหม?</li>
+        <li>มีใครในชีวิตที่เราต้องขอโทษก่อนที่บทสนทนาสำคัญจะเกิดขึ้นได้?</li>
+        <li>ลองฝึกพูด Contrasting ในสถานการณ์ที่เราต้องพูดเรื่องยากกับใครสักคน</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 5 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">05</div>
+    <div class="ch-label">บทที่ห้า</div>
+    <div class="ch-title">Master Your<br><em>Story</em></div>
+    <div class="ch-title-th">ควบคุมเรื่องราวในหัว — ก่อนอารมณ์เข้าควบคุมเรา</div>
+    <div class="ch-essence">"ระหว่างสิ่งที่เกิดขึ้นกับอารมณ์ที่เรารู้สึก มีเรื่องราวที่เราแต่งขึ้นมาเองอยู่เสมอ — และเรื่องราวนั้นมักผิด"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>ความรู้สึกไม่ได้เกิดจากเหตุการณ์ —<br>แต่เกิดจาก<em>เรื่องที่เราเล่าให้ตัวเองฟัง</em></h1>
+
+    <p>บทนี้คือหนึ่งในข้อค้นพบที่ทรงพลังที่สุดของหนังสือเล่มนี้ ผู้เขียนอธิบายว่าระหว่างที่เหตุการณ์เกิดขึ้น กับที่เรารู้สึกอารมณ์นั้น มีขั้นตอนที่เรามักข้ามไปคือ <strong>เรา "แต่งเรื่อง" ขึ้นมาในหัวก่อนเสมอ</strong> แล้วค่อยรู้สึกตามเรื่องนั้น</p>
+
+    <p>เช่น: เพื่อนร่วมงานไม่ตอบ email เรา → เราแต่งเรื่องว่า "เขาคงไม่สนใจ" หรือ "เขาคงดูถูกเรา" → เราโกรธ ทั้งที่ความจริงอาจเป็นแค่ว่าเขายุ่งมากในวันนั้น</p>
+
+    <div class="path-model">
+      <div class="path-step">เหตุการณ์<br>(ข้อเท็จจริง)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">เรื่องราวที่<br>เราแต่งขึ้น</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">ความรู้สึก<br>และอารมณ์</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">พฤติกรรม<br>ที่แสดงออก</div>
+    </div>
+
+    <div class="insight-box">
+      <div class="insight-box-label">Core Insight — Path to Action</div>
+      <p>ถ้าเราต้องการเปลี่ยนพฤติกรรมในบทสนทนาสำคัญ ต้องเริ่มที่การเปลี่ยน "เรื่องราวที่แต่งขึ้น" ก่อน — เพราะนั่นคือต้นเหตุของความรู้สึกและพฤติกรรมทั้งหมด</p>
+    </div>
+
+    <h2>Victim, Villain, Helpless — สามเรื่องที่เราชอบแต่ง</h2>
+
+    <p>ผู้เขียนพบว่ามีเรื่องราวที่คนมักแต่งให้ตัวเองฟัง 3 แบบหลักๆ ที่พบบ่อยที่สุด:</p>
+
+    <div class="framework-box">
+      <div class="framework-header">
+        <div class="framework-title">3 Clever Stories ที่ทำให้เราพ้นผิดตัวเอง</div>
+        <div class="framework-abbr">3S</div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">V</div>
+        <div class="framework-content">
+          <div class="framework-word">Victim Story — "ฉันเป็นเหยื่อ"</div>
+          <div class="framework-desc">เน้นสิ่งที่อีกฝ่ายทำกับเรา โดยละทิ้งสิ่งที่เราทำในสถานการณ์นั้น ทำให้รู้สึกว่าตัวเองไม่มีส่วนผิด และสมเหตุสมผลที่จะโกรธ</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">V</div>
+        <div class="framework-content">
+          <div class="framework-word">Villain Story — "เขาคนนั้นเลวมาก"</div>
+          <div class="framework-desc">ขยายความผิดพลาดของอีกฝ่ายจนใหญ่โต ตีความเจตนาของเขาในแง่ร้ายที่สุด ทำให้รู้สึกว่าอีกฝ่ายไม่ดีพอที่จะฟัง</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">H</div>
+        <div class="framework-content">
+          <div class="framework-word">Helpless Story — "ฉันทำอะไรไม่ได้"</div>
+          <div class="framework-desc">บอกตัวเองว่าไม่มีทางออกอื่น เพื่อหลีกเลี่ยงความรับผิดชอบในการเปลี่ยนแปลง — "ฉันพูดแบบนี้เพราะไม่มีทางเลือกอื่น"</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>วิธีออกจากเรื่องราวที่เราแต่งขึ้น</h2>
+
+    <p>ผู้เขียนแนะนำให้ถามตัวเองว่า <strong>"คนที่มีเหตุผลที่ดีและมีน้ำใจ จะทำสิ่งที่อีกฝ่ายทำได้ไหม?"</strong> ถ้าคำตอบคือ "ได้" — นั่นหมายความว่าอาจมีบริบทที่เราไม่รู้ และเรื่องราวที่เราแต่งขึ้นอาจผิดพลาด</p>
+
+    <div class="blockquote-full">
+      <div class="bqf-mark">"</div>
+      <div class="bqf-text">Others don't make you mad. You make you mad. You can act in ways that are consistent with your values.</div>
+      <div class="bqf-text-th">คนอื่นไม่ได้ทำให้คุณโกรธ — คุณทำตัวเองให้โกรธ ระหว่างเหตุการณ์กับอารมณ์ มีการตัดสินใจของคุณอยู่เสมอ</div>
+      <div class="bqf-attr">Patterson et al. — Crucial Conversations</div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>ลองนึกถึงสถานการณ์ล่าสุดที่เราโกรธหรือเสียใจ — เรื่องราวที่เราแต่งขึ้นในหัวคืออะไร?</li>
+        <li>เรามักแต่ง "Victim Story" "Villain Story" หรือ "Helpless Story" มากกว่ากัน?</li>
+        <li>ถ้าคนที่มีเหตุผลดีทำสิ่งนั้น เขาอาจมีเหตุผลอะไร?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 6 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">06</div>
+    <div class="ch-label">บทที่หก</div>
+    <div class="ch-title">STATE Your<br><em>Path</em></div>
+    <div class="ch-title-th">พูดความจริงของคุณ — กรอบ STATE ที่ใช้ได้จริง</div>
+    <div class="ch-essence">"ความกล้าที่จะพูดความจริงและความฉลาดที่จะพูดมันอย่างปลอดภัย — คือทักษะสองอย่างที่ต้องพัฒนาพร้อมกัน"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>กรอบ <em>STATE</em> — พูดความจริงโดยไม่ทำให้บทสนทนาพัง</h1>
+
+    <p>บทนี้คือ "หัวใจ" ของทักษะการสื่อสารในหนังสือ — มันคือกรอบที่ช่วยให้เราพูดสิ่งที่ยากที่สุดโดยที่อีกฝ่ายยังรู้สึกปลอดภัยพอที่จะรับฟัง <strong>STATE</strong> คือตัวย่อของ 5 ขั้นตอน:</p>
+
+    <div class="framework-box">
+      <div class="framework-header">
+        <div class="framework-title">กรอบ STATE — วิธีพูดความจริงที่คนฟัง</div>
+        <div class="framework-abbr">STATE</div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">S</div>
+        <div class="framework-content">
+          <div class="framework-word">Share your facts — แบ่งปันข้อเท็จจริง</div>
+          <div class="framework-desc">เริ่มด้วยข้อเท็จจริงที่สังเกตได้ ไม่ใช่การตีความ เช่น "คุณมาสาย 3 ครั้งในสัปดาห์นี้" ไม่ใช่ "คุณไม่ซีเรียสกับงาน" — ข้อเท็จจริงไม่โต้ได้ การตีความโต้ได้</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">T</div>
+        <div class="framework-content">
+          <div class="framework-word">Tell your story — บอกเรื่องราวที่คิด</div>
+          <div class="framework-desc">บอกว่าเราตีความข้อเท็จจริงนั้นอย่างไร แต่นำเสนอเป็น "ความคิดที่ตรวจสอบได้" ไม่ใช่ "ความจริงแท้แน่นอน" เช่น "ฉันเริ่มคิดว่า..." หรือ "ฉันเป็นห่วงว่า..."</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">A</div>
+        <div class="framework-content">
+          <div class="framework-word">Ask for others' paths — ถามเส้นทางของอีกฝ่าย</div>
+          <div class="framework-desc">ถามให้อีกฝ่ายแบ่งปันมุมมองของตัวเอง ด้วยความสนใจที่แท้จริง ไม่ใช่แค่รอพูดต่อ — "คุณมองเรื่องนี้ยังไง?" "ฉันมองพลาดตรงไหนไหม?"</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">T</div>
+        <div class="framework-content">
+          <div class="framework-word">Talk tentatively — พูดแบบไม่ฟันธง</div>
+          <div class="framework-desc">ใช้ภาษาที่แสดงว่าเรายังเปิดรับการเปลี่ยนแปลง ไม่ใช่การตัดสิน ตัวอย่าง: "ฉันคิดว่า..." "บางที..." "ดูเหมือนว่า..." แต่ต้องไม่เบาจนกลายเป็นไม่ชัดเจน</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">E</div>
+        <div class="framework-content">
+          <div class="framework-word">Encourage testing — ชวนให้โต้แย้ง</div>
+          <div class="framework-desc">บอกอีกฝ่ายชัดๆ ว่าเราต้องการฟังมุมมองของเขาจริงๆ ไม่ใช่แค่พูดตามน้ำ เช่น "ถ้าฉันเข้าใจอะไรผิด บอกฉันด้วย" หรือ "ฉันอยากรู้ว่าคุณมองเรื่องนี้ยังไง"</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>ตัวอย่างการใช้ STATE ในชีวิตจริง</h2>
+
+    <div class="author-box">
+      <div class="author-avatar">R</div>
+      <div>
+        <div class="author-meta">ตัวอย่างสถานการณ์ — Ron McMillan</div>
+        <div class="author-text">"ฉันสังเกตว่าในการประชุม 3 ครั้งล่าสุด คุณไม่ได้พูดอะไรเลย (S) ฉันเริ่มเป็นห่วงว่าบางทีมีเรื่องที่รู้สึกไม่สบายใจในทีม (T) ฉันอยากเข้าใจว่าคุณมองสถานการณ์นี้ยังไง (A+E) — ถ้าฉันมองพลาด ยินดีฟังมากๆ"</div>
+      </div>
+    </div>
+
+    <div class="signal-row">
+      <div class="signal-box dont">
+        <div class="signal-label">❌ พูดแบบที่ทำให้พัง</div>
+        <ul class="signal-list">
+          <li>"คุณไม่เคยฟังฉันเลย" (การตีความ ไม่ใช่ข้อเท็จจริง)</li>
+          <li>"ชัดเจนมากว่าคุณไม่แคร์" (ตัดสินเจตนา)</li>
+          <li>"ฉันรู้แน่ว่าคุณทำเพราะ..." (ฟันธง)</li>
+          <li>พูดแล้วไม่ให้โอกาสอีกฝ่ายตอบ</li>
+        </ul>
+      </div>
+      <div class="signal-box do">
+        <div class="signal-label">✅ พูดแบบ STATE</div>
+        <ul class="signal-list">
+          <li>เริ่มด้วยสิ่งที่เห็น ได้ยิน สังเกตได้จริง</li>
+          <li>บอกว่า "ฉันคิดว่า..." ไม่ใช่ "มันชัดเจนว่า..."</li>
+          <li>ถามให้อีกฝ่ายแบ่งปันมุมมอง</li>
+          <li>แสดงให้เห็นว่าพร้อมเปลี่ยนใจถ้าข้อมูลใหม่มา</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>เลือกบทสนทนาสำคัญที่จะเกิดขึ้นในชีวิต แล้วลองเขียน script โดยใช้กรอบ STATE</li>
+        <li>เราเริ่มด้วย S (ข้อเท็จจริง) บ่อยพอไหม? หรือมักเริ่มด้วยการตีความทันที?</li>
+        <li>ขั้นตอน E (Encourage testing) เป็นสิ่งที่เราทำจริงในบทสนทนาไหม?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 7 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">07</div>
+    <div class="ch-label">บทที่เจ็ด</div>
+    <div class="ch-title">Explore Others'<br><em>Paths</em></div>
+    <div class="ch-title-th">เข้าใจเส้นทางของอีกฝ่าย — ฟังเพื่อเข้าใจ ไม่ใช่รอโต้</div>
+    <div class="ch-essence">"คนที่ดูเหมือนไม่มีเหตุผลที่สุด มักแค่กำลังอธิบายโลกจากมุมมองที่เราไม่เข้าใจ"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>กรอบ <em>AMPP</em> — เปิดประตูให้อีกฝ่ายพูด</h1>
+
+    <p>หลังจากพูดความจริงของตัวเองแล้ว ขั้นตอนสำคัญที่สุดที่คนมักข้ามคือ <strong>การฟังอย่างแท้จริง</strong> ผู้เขียนพบว่าการฟังที่ดีไม่ใช่แค่ "ไม่พูดขณะที่อีกฝ่ายพูด" แต่คือการสร้างพื้นที่ให้อีกฝ่ายรู้สึกปลอดภัยพอที่จะพูดความจริงออกมา</p>
+
+    <p>กรอบ <strong>AMPP</strong> คือชุดเครื่องมือที่ช่วยให้เราฟังได้ดีขึ้น:</p>
+
+    <div class="framework-box">
+      <div class="framework-header">
+        <div class="framework-title">กรอบ AMPP — เปิดใจรับฟัง</div>
+        <div class="framework-abbr">AMPP</div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">A</div>
+        <div class="framework-content">
+          <div class="framework-word">Ask — ถาม</div>
+          <div class="framework-desc">ถามคำถามที่แสดงว่าเราสนใจมุมมองของอีกฝ่ายจริงๆ เช่น "ช่วยบอกเพิ่มเติมได้ไหม?" "คุณมองเรื่องนี้ยังไง?" — การถามที่ดีคือการถามเพื่อ "เข้าใจ" ไม่ใช่เพื่อ "โต้แย้ง"</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">M</div>
+        <div class="framework-content">
+          <div class="framework-word">Mirror — สะท้อนกลับ</div>
+          <div class="framework-desc">สะท้อนสิ่งที่เห็นหรือได้ยินกลับไป เพื่อให้อีกฝ่ายรู้ว่าเรากำลังรับฟัง เช่น "ดูเหมือนคุณรู้สึกหงุดหน่ายเรื่องนี้มาก — ใช่ไหม?" ไม่ใช่การตัดสิน แต่เป็นการยืนยันว่าได้ยิน</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">P</div>
+        <div class="framework-content">
+          <div class="framework-word">Paraphrase — สรุปความ</div>
+          <div class="framework-desc">สรุปสิ่งที่อีกฝ่ายพูดด้วยคำพูดของเราเอง เพื่อยืนยันว่าเข้าใจถูกต้อง เช่น "ถ้าฉันเข้าใจถูก คุณกังวลเรื่อง... ใช่ไหม?" — ทำให้อีกฝ่ายรู้สึกว่าถูกรับฟัง</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">P</div>
+        <div class="framework-content">
+          <div class="framework-word">Prime — เดาช่วย</div>
+          <div class="framework-desc">ถ้าอีกฝ่ายยังไม่พูด ลองเดาสิ่งที่พวกเขาอาจรู้สึกอยู่ เช่น "ฉันเดาว่าบางทีคุณอาจรู้สึกว่า... — ถูกต้องไหม?" การ Prime ที่ดีเปิดประตูให้อีกฝ่ายแก้ไขหรือยืนยัน ไม่ใช่การบอกว่าเราคิดแทนเขา</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="amber-box">
+      <div class="amber-box-label">⚠️ ระวัง: การเห็นด้วยกับทุกอย่างไม่ใช่การฟังที่ดี</div>
+      <p>การฟังที่ดีไม่ได้หมายความว่าต้องเห็นด้วยกับทุกสิ่งที่อีกฝ่ายพูด หรือละทิ้งมุมมองของตัวเอง มันหมายถึงการให้พื้นที่อีกฝ่ายพูดความจริงออกมาอย่างครบถ้วน ก่อนที่เราจะตอบสนอง</p>
+    </div>
+
+    <div class="pullquote">
+      <div class="pullquote-text">คนที่เก่งที่สุดในบทสนทนาสำคัญคือคนที่สามารถถือความเชื่อของตัวเองไว้อย่างแน่วแน่ ในขณะที่ยังเปิดใจรับฟังความเชื่อของคนอื่นได้อย่างแท้จริง</div>
+      <div class="pullquote-attr">Patterson et al. — Crucial Conversations</div>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>ในบทสนทนาที่ผ่านมา เราฟังเพื่อ "เข้าใจ" หรือฟังเพื่อ "รอโต้แย้ง" มากกว่า?</li>
+        <li>มีใครในชีวิตที่เราไม่เคยให้พื้นที่พูดออกมาอย่างเต็มที่ก่อนที่เราจะตอบ?</li>
+        <li>ลองใช้ AMPP ในบทสนทนาเล็กๆ ในชีวิตประจำวันก่อนนำไปใช้ในบทสนทนาสำคัญ</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER 8 ═══════════════════ -->
+  <div class="chapter-open">
+    <div class="ch-num">08</div>
+    <div class="ch-label">บทที่แปด</div>
+    <div class="ch-title">Move to<br><em>Action</em></div>
+    <div class="ch-title-th">นำสู่การลงมือทำ — บทสนทนาที่ดีต้องมีผลลัพธ์ที่ชัดเจน</div>
+    <div class="ch-essence">"บทสนทนาที่ดีที่จบแบบคลุมเครือ ไม่ดีไปกว่าบทสนทนาที่ไม่เคยเกิดขึ้น"</div>
+  </div>
+
+  <div class="page">
+    <div class="eyebrow">The Core Idea · แก่นสาร</div>
+    <h1>บทสนทนาที่ดีต้องจบด้วย<em>ความชัดเจน</em> ไม่ใช่แค่ความรู้สึกดี</h1>
+
+    <p>ข้อผิดพลาดสุดท้ายที่พบบ่อยคือ หลังจากผ่านบทสนทนาที่ยากมาแล้ว บางคนคิดว่าบทสนทนา "จบ" แล้ว ทั้งที่ยังไม่ได้ตกลงกันให้ชัดเจนว่า "ใครทำอะไร เมื่อไหร่ และจะรู้ได้อย่างไรว่าทำสำเร็จ"</p>
+
+    <p>ผู้เขียนย้ำว่า บทสนทนาสำคัญที่ดีต้องจบด้วย <strong>การตัดสินใจที่ชัดเจน</strong> ว่าจะดำเนินการอย่างไรต่อไป</p>
+
+    <h2>4 รูปแบบการตัดสินใจ</h2>
+
+    <div class="framework-box">
+      <div class="framework-header">
+        <div class="framework-title">Who Decides? — ใครตัดสินใจ และอย่างไร?</div>
+        <div class="framework-abbr">4D</div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">C</div>
+        <div class="framework-content">
+          <div class="framework-word">Command — คนเดียวตัดสิน</div>
+          <div class="framework-desc">ผู้มีอำนาจตัดสินใจเองโดยไม่ขอ input — ใช้เมื่อมีเหตุฉุกเฉิน หรือเรื่องที่มีความเชี่ยวชาญเฉพาะทาง</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">C</div>
+        <div class="framework-content">
+          <div class="framework-word">Consult — ฟังแล้วค่อยตัดสิน</div>
+          <div class="framework-desc">ผู้ตัดสินใจฟัง input จากคนอื่นก่อน แต่ยังตัดสินใจเองในท้ายที่สุด — ต้องบอกให้ชัดว่าจะ "ฟัง" ไม่ใช่ "โหวต"</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">V</div>
+        <div class="framework-content">
+          <div class="framework-word">Vote — โหวต</div>
+          <div class="framework-desc">ใช้เมื่อทุกฝ่ายมีสิทธิ์เท่ากัน และต้องการการตัดสินใจที่รวดเร็ว — เหมาะสำหรับทางเลือกที่ทุกคนพอรับได้</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">C</div>
+        <div class="framework-content">
+          <div class="framework-word">Consensus — ตกลงร่วมกัน</div>
+          <div class="framework-desc">ทุกคนคุยจนหาทางออกที่ทุกฝ่ายยอมรับได้ — ใช้เมื่อเรื่องสำคัญมากและต้องการ commitment จากทุกคน แต่ใช้เวลา</div>
+        </div>
+      </div>
+    </div>
+
+    <h2>WWWF — กรอบจบบทสนทนาที่ชัดเจน</h2>
+
+    <p>หลังจากตัดสินใจได้แล้ว ต้องให้ทุกคนชัดเจนใน 4 ประเด็นที่เรียกว่า <strong>WWWF</strong>:</p>
+
+    <div class="framework-box">
+      <div class="framework-header">
+        <div class="framework-title">WWWF — จบบทสนทนาให้ครบ</div>
+        <div class="framework-abbr">WWWF</div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">W</div>
+        <div class="framework-content">
+          <div class="framework-word">Who — ใคร?</div>
+          <div class="framework-desc">ระบุชัดว่าใครเป็นคนรับผิดชอบในสิ่งที่ตัดสินใจ "ทุกคน" มักหมายความว่า "ไม่มีใคร"</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">W</div>
+        <div class="framework-content">
+          <div class="framework-word">What — ทำอะไร?</div>
+          <div class="framework-desc">ระบุให้ชัดว่าสิ่งที่ต้องทำคืออะไรกันแน่ ไม่ใช่แค่ "จะพยายามดีขึ้น"</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">W</div>
+        <div class="framework-content">
+          <div class="framework-word">When — ภายในเมื่อไหร่?</div>
+          <div class="framework-desc">ระบุ deadline ที่ชัดเจน — ไม่มี deadline มักหมายความว่าไม่เกิดขึ้น</div>
+        </div>
+      </div>
+      <div class="framework-row">
+        <div class="framework-letter">F</div>
+        <div class="framework-content">
+          <div class="framework-word">Follow-up — ติดตามอย่างไร?</div>
+          <div class="framework-desc">ตกลงว่าจะรู้ได้อย่างไรว่าทำสำเร็จ และจะ check-in กันเมื่อไหร่ — ขั้นตอนนี้คือที่มาของ accountability ที่แท้จริง</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <div class="insight-box-label">Core Insight</div>
+      <p>บทสนทนาสำคัญที่จบโดยไม่มี WWWF มักต้องทำซ้ำอีกครั้ง เพราะไม่มีความรับผิดชอบที่ชัดเจน ขั้นตอนสุดท้ายของบทสนทนาทุกครั้งควรถามว่า <strong>"เราตกลงกันได้ว่าใครจะทำอะไร ภายในเมื่อไหร่?"</strong></p>
+    </div>
+
+    <div class="reflection">
+      <div class="reflection-label">🔍 Reflection · ไตร่ตรองก่อนไปบทถัดไป</div>
+      <ol>
+        <li>บทสนทนาที่ผ่านมาที่ "ดูเหมือนจบดี" แต่ไม่มีผลลัพธ์จริงๆ — มันจบโดยขาดอะไรในกรอบ WWWF?</li>
+        <li>เรามักใช้ Decision Mode แบบไหน? และมันเหมาะกับสถานการณ์ที่เราใช้อยู่ไหม?</li>
+        <li>ลองนึกถึง action item จากบทสนทนาที่ผ่านมาที่ยังไม่เกิดขึ้น — ขาด W ตัวไหน?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SYNTHESIS ═══════════════════ -->
+  <div class="chapter-open" style="background: var(--accent-deep); border-bottom: none;">
+    <div class="ch-num" style="color: rgba(255,255,255,0.07);">✦</div>
+    <div class="ch-label" style="color: rgba(61,154,181,0.8);">Synthesis · บทสรุปลงมือ</div>
+    <div class="ch-title" style="color: #F2EFE4;">Your Crucial<br><em style="color: var(--accent-light);">Conversation Kit</em></div>
+    <div class="ch-title-th" style="color: rgba(242,239,228,0.65);">ชุดเครื่องมือก่อนบทสนทนาครั้งสำคัญ — รวมทุกอย่างให้ใช้ได้ทันที</div>
+    <div class="ch-essence" style="border-left-color: var(--accent-light); color: rgba(242,239,228,0.7);">"ทักษะไม่ได้เกิดจากการอ่าน — แต่เกิดจากการฝึกใช้ครั้งแล้วครั้งเล่าจนเป็นธรรมชาติ"</div>
+  </div>
+
+  <div class="page">
+    <div class="blockquote-full">
+      <div class="bqf-mark">◆</div>
+      <div class="bqf-text">The key to real change is not information — it's practice in the moments that matter most.</div>
+      <div class="bqf-text-th">กุญแจสู่การเปลี่ยนแปลงที่แท้จริงไม่ใช่ข้อมูล — แต่คือการฝึกฝนในช่วงเวลาที่สำคัญที่สุดในชีวิต</div>
+      <div class="bqf-attr">Patterson, Grenny, McMillan, Switzler — Crucial Conversations</div>
+    </div>
+
+    <div class="eyebrow">The Master One-Liner · ประโยคสรุปทั้งเล่ม</div>
+    <h1>เมื่อประเด็นสำคัญ อารมณ์แรง และเห็นไม่ตรงกัน —<br><em>ความปลอดภัยคือทางออกเสมอ</em></h1>
+
+    <p>ถ้าจำได้แค่หนึ่งอย่างจากหนังสือเล่มนี้คือ: <strong>บทสนทนาทุกครั้งที่พังล้วนพังเพราะความรู้สึกปลอดภัยหายไป</strong> — และบทสนทนาทุกครั้งที่ประสบความสำเร็จล้วนเริ่มต้นจากการสร้างพื้นที่ที่ทุกฝ่ายรู้สึกว่า "พูดได้โดยไม่ต้องกลัว"</p>
+
+    <p>ทักษะทั้งหมดในหนังสือนี้ — Start with Heart, Learn to Look, Make It Safe, Master Your Story, STATE, AMPP, Move to Action — ล้วนเป็นเครื่องมือที่มุ่งไปสู่จุดเดียวกันคือ <strong>การสร้างและรักษาความปลอดภัยในบทสนทนา</strong> จนทุกฝ่ายสามารถพูดความจริงและได้ยินความจริงได้</p>
+
+    <div class="section-divider">
+      <div class="section-divider-text">Pre-Conversation Checklist</div>
+    </div>
+
+    <h2>✅ Checklist ก่อนบทสนทนาสำคัญทุกครั้ง</h2>
+    <p style="color: var(--ink-muted); font-size:14px; font-style:italic; margin-bottom:24px;">ใช้ checklist นี้ก่อนเข้าสู่บทสนทนาที่รู้สึกว่า "ยาก" หรือ "สำคัญ" ทุกครั้ง</p>
+
+    <div class="checklist">
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>🎯 ชัดเจนใน "ต้องการอะไร"</strong>
+          <span class="check-sub">ฉันต้องการอะไรสำหรับตัวเอง อีกฝ่าย และความสัมพันธ์? (Start with Heart)</span>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>🔍 ตรวจสอบ "เรื่องราวที่แต่งขึ้น"</strong>
+          <span class="check-sub">เรากำลังแต่ง Victim / Villain / Helpless Story อยู่ไหม? ข้อเท็จจริงจริงๆ คืออะไร? (Master Your Story)</span>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>🛡️ วางแผนสร้างความปลอดภัย</strong>
+          <span class="check-sub">เราจะพูด Contrasting อะไรเพื่อป้องกันความเข้าใจผิด? มีอะไรต้องขอโทษก่อนไหม? (Make It Safe)</span>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>📋 เตรียม "ข้อเท็จจริง" ไม่ใช่ "การตีความ"</strong>
+          <span class="check-sub">เราจะเริ่มด้วยสิ่งที่สังเกตได้ ไม่ใช่สิ่งที่สรุปเอง? (STATE — Share Facts)</span>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>💬 เตรียมคำถามเพื่อเปิดพื้นที่</strong>
+          <span class="check-sub">เราจะถามอะไรให้อีกฝ่ายพูดมุมมองของตัวเอง? (AMPP — Ask)</span>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>🚦 รู้จักสัญญาณเตือน</strong>
+          <span class="check-sub">ถ้าเราหรืออีกฝ่ายเริ่ม Silence หรือ Violence — หยุด ซ่อมแซมความปลอดภัยก่อน (Learn to Look)</span>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <div class="check-box"></div>
+        <div class="check-text">
+          <strong>📌 วางแผนจบบทสนทนา</strong>
+          <span class="check-sub">เราต้องการผลลัพธ์อะไร? ใครทำอะไร เมื่อไหร่? จะติดตามผลอย่างไร? (WWWF)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-text">ภาพรวมทักษะทั้งหมด</div>
+    </div>
+
+    <h2>🗺️ แผนที่ทักษะ Crucial Conversations</h2>
+
+    <div class="path-model" style="flex-direction: column; gap: 0; padding: 0; background: transparent; border: none;">
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+        <div class="path-step" style="flex: 1; padding: 12px 16px;">🎯 Start with Heart<br><span style="font-size:11px; font-weight:400;">รู้ว่าตัวเองต้องการอะไร</span></div>
+        <div class="path-arrow">↓</div>
+        <div class="path-step" style="flex: 1; padding: 12px 16px;">👁️ Learn to Look<br><span style="font-size:11px; font-weight:400;">สังเกตสัญญาณเตือน</span></div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+        <div class="path-step" style="flex: 1; padding: 12px 16px; background: var(--green-bg); border-color: var(--green); color: var(--green);">🛡️ Make It Safe<br><span style="font-size:11px; font-weight:400;">สร้างพื้นที่ปลอดภัย</span></div>
+        <div class="path-arrow">↓</div>
+        <div class="path-step" style="flex: 1; padding: 12px 16px;">📖 Master Your Story<br><span style="font-size:11px; font-weight:400;">ควบคุมเรื่องราวในหัว</span></div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+        <div class="path-step" style="flex: 1; padding: 12px 16px;">🗣️ STATE Your Path<br><span style="font-size:11px; font-weight:400;">พูดความจริงอย่างปลอดภัย</span></div>
+        <div class="path-arrow">↓</div>
+        <div class="path-step" style="flex: 1; padding: 12px 16px;">👂 Explore Paths (AMPP)<br><span style="font-size:11px; font-weight:400;">ฟังเพื่อเข้าใจ</span></div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="path-step" style="flex: 2; padding: 12px 16px; background: var(--accent-bg); border-color: var(--accent-deep); color: var(--accent-deep); text-align: center;">✅ Move to Action (WWWF)<br><span style="font-size:11px; font-weight:400;">ใคร ทำอะไร เมื่อไหร่ ติดตามอย่างไร</span></div>
+      </div>
+    </div>
+
+    <div class="section-divider">
+      <div class="section-divider-text">หนังสือแนะนำ</div>
+    </div>
+
+    <h2>📚 อ่านต่อยอดจากที่นี่</h2>
+
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>หนังสือ</th>
+          <th>เกี่ยวกับอะไร</th>
+          <th>เหมาะถ้า...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-book">Never Split the Difference<br><span style="font-weight:400; font-size:12px;">— Chris Voss</span></td>
+          <td>การเจรจาต่อรองในระดับสูง โดยอดีต FBI Hostage Negotiator</td>
+          <td>อยากฝึกทักษะ "ฟัง" และ "ถาม" ให้ลึกขึ้น</td>
+        </tr>
+        <tr>
+          <td class="td-book">Difficult Conversations<br><span style="font-weight:400; font-size:12px;">— Stone, Patton, Heen</span></td>
+          <td>วิเคราะห์บทสนทนาที่ยากจาก Harvard Negotiation Project</td>
+          <td>อยากเข้าใจ "โครงสร้าง" ของบทสนทนาที่ยากให้ลึกขึ้น</td>
+        </tr>
+        <tr>
+          <td class="td-book">Nonviolent Communication<br><span style="font-weight:400; font-size:12px;">— Marshall Rosenberg</span></td>
+          <td>การสื่อสารโดยไม่ใช้ความรุนแรง — พูดจากความต้องการ ไม่ใช่การตัดสิน</td>
+          <td>อยากฝึกพูดจากใจโดยไม่ทำให้อีกฝ่ายรับไม่ได้</td>
+        </tr>
+        <tr>
+          <td class="td-book">Emotional Intelligence<br><span style="font-weight:400; font-size:12px;">— Daniel Goleman</span></td>
+          <td>พื้นฐานทางวิทยาศาสตร์ของการจัดการอารมณ์และความสัมพันธ์</td>
+          <td>อยากเข้าใจต้นเหตุทางจิตวิทยาของทุกทักษะในเล่มนี้</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-divider">
+      <div class="section-divider-text">คำถามสุดท้าย</div>
+    </div>
+
+    <h2>🔮 คำถามสำหรับ 7 วันข้างหน้า</h2>
+
+    <div class="reflection">
+      <div class="reflection-label">✦ Take Action This Week</div>
+      <ol>
+        <li><strong>วันนี้:</strong> ระบุบทสนทนาสำคัญหนึ่งบทที่เราหลีกเลี่ยงอยู่ — เราหลีกเลี่ยงเพราะกลัวอะไร?</li>
+        <li><strong>3 วันข้างหน้า:</strong> ใช้กรอบ WWWF กับบทสนทนาเล็กๆ สักหนึ่งครั้ง เพื่อฝึกจบอย่างชัดเจน</li>
+        <li><strong>สัปดาห์นี้:</strong> ครั้งต่อไปที่รู้สึกว่า "อยากเงียบ" หรือ "อยากพูดแรงๆ" — หยุดและถามว่า "เรากำลังแต่งเรื่องอะไรอยู่?"</li>
+        <li><strong>เดือนนี้:</strong> เลือกบทสนทนาสำคัญหนึ่งบทที่ค้างคาใจ แล้วเตรียม checklist ก่อนเข้าสู่มัน</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════ FOOTER ════════════════════════════════ -->
+  <div class="book-footer">
+    <div class="book-footer-mark">◆</div>
+    <div class="book-footer-text">
+      "The conversation is the relationship. And the quality of your life is the sum total of the conversations you've had and failed to have."
+      <br><br>
+      <em style="font-size:13px; opacity:0.7;">บทสนทนาคือความสัมพันธ์ และคุณภาพชีวิตของเราคือผลรวมของบทสนทนาที่เราได้พูด — และที่เราเลือกไม่พูด</em>
+    </div>
+    <div class="book-footer-author">Crucial Conversations · Patterson · Grenny · McMillan · Switzler · Personal Edition</div>
+  </div>
+
+</div><!-- end .book -->
+</body>
+</html>
