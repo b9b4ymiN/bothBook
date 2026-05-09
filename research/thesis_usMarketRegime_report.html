@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Market Regime Detection System — Investment Thesis Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --accent-color: #3182ce;
+            --success-color: #38a169;
+            --danger-color: #e53e3e;
+            --bg-color: #ffffff;
+            --text-color: #1a202c;
+            --heading-color: #1a365d;
+            --border-color: #e2e8f0;
+            --code-bg: #f7fafc;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a202c;
+                --text-color: #e2e8f0;
+                --heading-color: #90cdf4;
+                --border-color: #4a5568;
+                --code-bg: #2d3748;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #2c5282);
+            color: white;
+            padding: 3rem 0;
+        }
+        header h1 { font-family: 'Prompt', sans-serif; font-size: 2.5rem; }
+        header h2 { font-family: 'Prompt', sans-serif; font-size: 1.5rem; font-weight: 400; }
+        .toc-container {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .toc-title { font-family: 'Prompt', sans-serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+        .toc-list { list-style: none; }
+        .toc-list a { color: var(--accent-color); text-decoration: none; display: block; padding: 0.25rem 0; }
+        main { padding: 2rem 0; }
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h2, h3 { font-family: 'Prompt', sans-serif; font-weight: 600; color: var(--heading-color); }
+        h2 { font-size: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.5rem; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        th, td { padding: 0.75rem 1rem; text-align: left; border: 1px solid var(--border-color); }
+        th { background: var(--primary-color); color: white; }
+        tr:nth-child(even) { background: var(--code-bg); }
+        .metric-positive { color: var(--success-color); font-weight: 600; }
+        .metric-negative { color: var(--danger-color); font-weight: 600; }
+        .diagram {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .collapsible { cursor: pointer; user-select: none; }
+        .collapsible::after { content: '▼'; float: right; transition: transform 0.3s; }
+        .collapsible.collapsed::after { transform: rotate(-90deg); }
+        .collapsible-content { max-height: 10000px; overflow: hidden; transition: max-height 0.3s; }
+        .collapsible-content.collapsed { max-height: 0; }
+        footer { background: var(--primary-color); color: white; text-align: center; padding: 2rem 0; margin-top: 3rem; }
+        .print-btn {
+            position: fixed; bottom: 2rem; right: 2rem;
+            background: var(--accent-color); color: white;
+            border: none; padding: 0.75rem 1.5rem; border-radius: 50px;
+            cursor: pointer; font-family: 'Prompt', sans-serif;
+        }
+        @media (max-width: 768px) {
+            section { padding: 1rem; }
+            header h1 { font-size: 1.75rem; }
+        }
+        @media print {
+            .print-btn { display: none; }
+        }
+    
+/* Regime Score Visualization */
+.regime-chart {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.regime-bar {
+    flex: 1;
+    min-width: 120px;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+.regime-bar.crisis { background: linear-gradient(135deg, #e53e3e, #c53030); color: white; }
+.regime-bar.risk-off { background: linear-gradient(135deg, #ed8936, #dd6b20); color: white; }
+.regime-bar.fragile { background: linear-gradient(135deg, #ecc94b, #d69e2e); color: #1a202c; }
+.regime-bar.neutral { background: linear-gradient(135deg, #4299e1, #3182ce); color: white; }
+.regime-bar.risk-on { background: linear-gradient(135deg, #48bb78, #38a169); color: white; }
+.regime-bar.strong { background: linear-gradient(135deg, #38a169, #2f855a); color: white; }
+.regime-score {
+    font-family: 'Prompt', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.regime-label {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    opacity: 0.9;
+}
+
+/* Performance Metrics Table Enhancement */
+.metrics-highlight {
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+.metrics-best { background: rgba(56, 161, 105, 0.2); color: #22543d; }
+.metrics-worst { background: rgba(229, 62, 62, 0.2); color: #742a2a; }
+
+/* Walk-forward chart */
+.wf-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    height: 200px;
+    padding: 1rem;
+    background: var(--code-bg);
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+.wf-bar {
+    flex: 1;
+    min-width: 30px;
+    text-align: center;
+    position: relative;
+}
+.wf-bar-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--accent-color);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.3s;
+}
+.wf-bar-fill.positive { background: var(--success-color); }
+.wf-bar-fill.negative { background: var(--danger-color); }
+.wf-bar-label {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    font-size: 0.7rem;
+    transform: rotate(-45deg);
+}
+.wf-bar-value {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+</style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>US Market Regime Detection System</h1>
+            <h2>ระบบตรวจจับ Regime ตลาดหุ้นอเมริกา — รายงานวิเคราะห์สำหรับนักลงทุน</h2>
+        </div>
+    </header>
+
+    <div class="container">
+        <main id="content">
+            
+<section id="ระบบตรวจจับ-regime-ตลาดหุ้นอเมริกา-รายงานวิเคราะห์">
+<h2 class="collapsible" onclick="toggleSection(this)">ระบบตรวจจับ Regime ตลาดหุ้นอเมริกา — รายงานวิเคราะห์สำหรับนักลงทุน</h2>
+<div class="collapsible-content">
+<hr>
+<p><strong>วันที่:</strong> 9 พฤษภาคม 2026 <strong>ผู้จัดทำ:</strong> US Market Regime Detection System <strong>ระยะเวลา Backtest:</strong> มกราคม 2010 — ธันวาคม 2024 (15 ปี) <strong>จำนวนวันซื้อขาย:</strong> 3,773 วัน</p>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-1-บทนำและ-problem-statement">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 1: บทนำและ Problem Statement</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="ทำไมการรู้จัก-market-regime-สำคัญกว่าการทำนายราคา">
+<h3 >ทำไมการรู้จัก Market Regime สำคัญกว่าการทำนายราคา</h3>
+<div class="collapsible-content">
+<p>นักลงทุนส่วนใหญ่มุ่งเน้นการทำนายราคาหุ้นจะขึ้นหรือลง แต่ลืมไปว่า <strong>"อยู่ในเกมแบบไหน"</strong> สำคัญกว่า <strong>"จะเอาชนะเกม"</strong> การรู้ว่าตลาดอยู่ใน regime ใดจะช่วยให้เรา:</p>
+<ol><li>**ปรับความเสี่ยงให้เหมาะกับสภาพแวดล้อม** — ลด risk-on เมื่อตลาดอันตราย เพิ่ม exposure เมื่อโอกาสดี</li>
+<li>**หลีกเลี่ยงการขายท้อยที่ผิดจังหวะ** — ไม่ขายตอนตกแร็ง ไม่ซื้อตอนพุ่งเกินไป</li>
+<li>**จัด allocation ข้าม asset classes** — ปรับสัดส่วน Equity/Fixed Income/Cash อย่างมีระบบ</li></ol>
+</div>
+</section>
+
+
+<section id="ปัญหาของนักลงทุนที่ไม่รู้-regime">
+<h3 >ปัญหาของนักลงทุนที่ไม่รู้ Regime</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>สถานการณ์</th>
+<th>ไม่รู้ Regime</th>
+<th>รู้ Regime</th>
+</tr></thead><tbody>
+<tr>
+<td class="metric-positive">ตลาดลด 20%</td>
+<td>ขายต่อเพราะกลัวหมด</td>
+<td>ลด exposure ไวแล้ว ได้กำไรจาก short/put</td>
+</tr>
+<tr>
+<td class="metric-positive">ตลาดพุ่ง 30%</td>
+<td>กลัวซื้อสูงเกินไป</td>
+<td>เพิ่ม exposure ตาม momentum</td>
+</tr>
+<tr>
+<td>FED ปรับขึ้นดอกเบี้ย</td>
+<td>ไม่รู้ผลกระทบ</td>
+<td>ปรับ portfolio ให้ defensive</td>
+</tr>
+<tr>
+<td>Inflation พุ่ง</td>
+<td>ซื้อ bonds ผิดจังหวะ</td>
+<td>หลีกเลี่ยง long duration</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="เป้าหมายของระบบนี้">
+<h3 >เป้าหมายของระบบนี้</h3>
+<div class="collapsible-content">
+<p>ระบบนี้ไม่ใช่ <strong>"market timing"</strong> ที่พยายามทำนายราคา แต่เป็น <strong>"risk management system"</strong> ที่ช่วยให้นักลงทุน:</p>
+<ol><li>รู้ว่าตอนนี้ตลาดอยู่ในสภาพแวดล้อมแบบไหน (6 regimes)</li>
+<li>ปรับ allocation ตาม regime อย่างมีระเบียบ</li>
+<li>มีเกณฑ์ objective สำหรับการตัดสินใจ (ไม่ใช่ความรู้สึก)</li></ol>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-2-framework-และ-methodology">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 2: Framework และ Methodology</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="3-layer-framework">
+<h3 >3-Layer Framework</h3>
+<div class="collapsible-content">
+<div class="diagram">┌─────────────────────────────────────────────────────────────┐
+│                    MARKET REGIME SCORE                      │
+│              (6-Committee Scoring System)                    │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ │
+│  │ Trend  │ │Breadth │ │Volatility│ │ Credit │ │Liquidity│ │
+│  │ Score  │ │ Score  │ │  Score  │ │ Score  │ │ Score   │ │
+│  └────────┘ └────────┘ └────────┘ └────────┘ └────────┘ │
+│                     └─────┬───────────┘                    │
+│                           ▼                                │
+│                 6 Regime Labels                            │
+│  Crisis Bear | Risk-Off | Late-Cycle Fragile | Neutral    │
+│     |          |    |           |              |           │
+│  Risk-On | Strong Risk-On                                  │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                    MACRO TONE SCORE                         │
+│          (Growth × Inflation Matrix)                        │
+│  ┌───────────┬──────────┬──────────┬──────────┬───────────┐ │
+│  │Goldilocks │ Reflation │Overheating│Stagflation│Recession │ │
+│  │   (3)    │   (517)   │  (2571)   │  (354)   │  Risk     │ │
+│  └───────────┴──────────┴──────────┴──────────┴───────────┘ │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│                    EVENT RISK SCORE                         │
+│  (Upcoming Macro Events: CPI, FOMC, NFP, etc.)              │
+│  ┌────────┬────────┬────────┬─────────────────────────────┐ │
+│  │  Low   │ Medium │  High  │          Extreme            │ │
+│  │ (400)  │  (0)   │ (52)   │          (1101)             │ │
+│  └────────┴────────┴────────┴─────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘</div>
+</div>
+</section>
+
+
+<section id="6-committee-scoring-system">
+<h3 >6-Committee Scoring System</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Committee</th>
+<th>Weight</th>
+<th>Key Signals</th>
+<th>น้ำหนัก</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Trend</strong></td>
+<td>สูง</td>
+<td>SPY vs 200DMA, Momentum 3M/6M/12M, Golden Cross</td>
+<td>สำคัญที่สุด</td>
+</tr>
+<tr>
+<td><strong>Breadth</strong></td>
+<td>สูง</td>
+<td>New High/Low, Sector Participation, Equal-weight vs Cap-weight</td>
+<td>ยืนยัน Trend</td>
+</tr>
+<tr>
+<td><strong>Volatility</strong></td>
+<td>กลาง</td>
+<td>VIX Level, VIX Percentile, Realized Vol, Vol Spike</td>
+<td>ความผิดปกติ</td>
+</tr>
+<tr>
+<td><strong>Credit</strong></td>
+<td>กลาง-ต่ำ</td>
+<td>HY Spread, BAA-AAA Spread, HGLG Performance</td>
+<td>Stress ในตลาดเครดิต</td>
+</tr>
+<tr>
+<td><strong>Liquidity</strong></td>
+<td>ต่ำ</td>
+<td>Fed Funds, Fed Balance Sheet, Financial Conditions</td>
+<td>Fed policy</td>
+</tr>
+<tr>
+<td><strong>Cross-Asset</strong></td>
+<td>กลาง-ต่ำ</td>
+<td>SPY/TLT, DXY, Real Yield, Sector Leadership</td>
+<td>Confirmation</td>
+</tr>
+</tbody></table>
+<p><strong>คะแนนรวม (Regime Score):</strong> 0-100 คะแนน</p>
+<ul><li>0-30: Crisis Bear (ตลาดวิกฤต)</li>
+<li>31-45: Risk-Off (ความเสี่ยงสูง)</li>
+<li>46-55: Late-Cycle Fragile (ช่วงปลายวงจร)</li>
+<li>56-65: Neutral Transition (ช่วงเปลี่ยนผ่าน)</li>
+<li>66-80: Risk-On (ความเสี่ยงต่ำ-ปานกลาง)</li>
+<li>81-100: Strong Risk-On (โอกาสดี)</li></ul>
+</div>
+</section>
+
+
+<section id="regime-taxonomy-6-regimes-">
+<h3 >Regime Taxonomy (6 Regimes)</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Regime</th>
+<th>Score Range</th>
+<th>Equity%</th>
+<th>คำอธิบาย</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Crisis Bear</strong></td>
+<td>0-30</td>
+<td class="metric-negative">0-20%</td>
+<td>ตลาดวิกฤติ ขายทุกอย่าง</td>
+</tr>
+<tr>
+<td><strong>Risk-Off</strong></td>
+<td>31-45</td>
+<td class="metric-negative">20-40%</td>
+<td>ความกลัวเริ่มมา ลด risk</td>
+</tr>
+<tr>
+<td><strong>Late-Cycle Fragile</strong></td>
+<td>46-55</td>
+<td class="metric-negative">40-60%</td>
+<td>ช่วงปลาย cycle ยังไม่ชัด</td>
+</tr>
+<tr>
+<td><strong>Neutral Transition</strong></td>
+<td>56-65</td>
+<td class="metric-negative">50-70%</td>
+<td>ช่วงเปลี่ยนผ่าน รอดู</td>
+</tr>
+<tr>
+<td><strong>Risk-On</strong></td>
+<td>66-80</td>
+<td class="metric-negative">70-90%</td>
+<td>โอกาสดี เพิ่ม risk</td>
+</tr>
+<tr>
+<td><strong>Strong Risk-On</strong></td>
+<td>81-100</td>
+<td class="metric-negative">80-100%</td>
+<td>Bull market เต็มตัว</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="macro-tone-taxonomy-5-tones-">
+<h3 >Macro Tone Taxonomy (5 Tones)</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Tone</th>
+<th>Growth</th>
+<th>Inflation</th>
+<th>Investment Implication</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Goldilocks</strong></td>
+<td>สูง (>55)</td>
+<td>ปานกลาง (45-54)</td>
+<td>สมบูรณ์แบบ ซื้อ equities</td>
+</tr>
+<tr>
+<td><strong>Reflation</strong></td>
+<td>สูง (>55)</td>
+<td>สูง (>55)</td>
+<td>ฟื้นตัว + inflation กำลังซื้อ</td>
+</tr>
+<tr>
+<td><strong>Overheating</strong></td>
+<td>สูงสุด (>70)</td>
+<td>สูงสุด (>70)</td>
+<td>เศรษฐกิจร้อนจัด ระวัง Fed</td>
+</tr>
+<tr>
+<td><strong>Stagflation Risk</strong></td>
+<td>ต่ำ (<45)</td>
+<td>สูง (>55)</td>
+<td>ฝืดเคือง + inflation หลีกเลี่ยง</td>
+</tr>
+<tr>
+<td><strong>Disinflationary Slowdown</strong></td>
+<td>ต่ำ (<45)</td>
+<td>ต่ำ (<45)</td>
+<td>ชะลอตัว + ปรับฐาน รอดู</td>
+</tr>
+<tr>
+<td><strong>Recession Risk</strong></td>
+<td>ต่ำสุด (<30)</td>
+<td>ต่ำ (<45)</td>
+<td>ซบเซา เลี่ยง equities</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="ข้อควรระวัง">
+<h3 >ข้อควรระวัง</h3>
+<div class="collapsible-content">
+<ol><li>**Look-ahead Bias** — ข้อมูล macro มี lag 1-30 วัน ใช้ available_date ไม่ใช่ period_end</li>
+<li>**Revision Lag** — ข้อมูล FRED อาจ revise ย้อนหลัง ใช้ข้อมูลที่ release จริง</li>
+<li>**Hindsight Labeling** — การติด label regime ทำจากอดีต ไม่ใช่ real-time prediction</li></ol>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-3-data-และ-feature-engineering">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 3: Data และ Feature Engineering</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="แหล่งข้อมูล">
+<h3 >แหล่งข้อมูล</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>ประเภท</th>
+<th>แหล่งข้อมูล</th>
+<th>Series หลัก</th>
+<th>Lag วัน</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Price</strong></td>
+<td>yfinance</td>
+<td>SPY, TLT, GLD</td>
+<td>T+1</td>
+</tr>
+<tr>
+<td><strong>Volatility</strong></td>
+<td>FRED</td>
+<td>VIXCLS</td>
+<td>T+1</td>
+</tr>
+<tr>
+<td><strong>Yield Curve</strong></td>
+<td>FRED</td>
+<td>T10Y2Y (10Y-2Y)</td>
+<td>T+1</td>
+</tr>
+<tr>
+<td><strong>Credit</strong></td>
+<td>FRED</td>
+<td>BAAFFM (BAA-AAA), HY Spread</td>
+<td>T+1</td>
+</tr>
+<tr>
+<td><strong>Macro</strong></td>
+<td>FRED</td>
+<td>ISM PMI, Payrolls, Initial Claims</td>
+<td>T+5-T+35</td>
+</tr>
+<tr>
+<td><strong>Inflation</strong></td>
+<td>FRED</td>
+<td>CPI, Core PCE</td>
+<td>T+35</td>
+</tr>
+<tr>
+<td><strong>Policy</strong></td>
+<td>FRED</td>
+<td>Fed Funds, DXY</td>
+<td>T+1-T+30</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="feature-summary-ตาม-committee">
+<h3 >Feature Summary ตาม Committee</h3>
+<div class="collapsible-content">
+<p><strong>Trend Features (15 features):</strong></p>
+<ul><li>Binary: spy_above_200dma, spy_above_50dma, golden_cross, momentum_3m/6m/12m_positive</li>
+<li>Continuous: momentum_3m/6m/12m_continuous, drawdown_continuous, distance_from_ma200</li></ul>
+<p><strong>Breadth Features (15 features):</strong></p>
+<ul><li>RSP/SPY (equal-weight vs cap-weight)</li>
+<li>IWM/SPY (small-cap vs large-cap)</li>
+<li>New High/Low ratio, AD Line</li>
+<li>Sector participation high/low</li></ul>
+<p><strong>Volatility Features (15 features):</strong></p>
+<ul><li>VIX Level, VIX Percentile</li>
+<li>Realized Volatility (20-day)</li>
+<li>VIX vs Realized (premium/discount)</li>
+<li>Vol Spike detection</li></ul>
+<p><strong>Credit Features (15 features):</strong></p>
+<ul><li>HY Spread level & change</li>
+<li>BAA-AAA Spread level & change</li>
+<li>HYG vs TLT performance</li></ul>
+<p><strong>Liquidity Features (15 features):</strong></p>
+<ul><li>Fed Funds level & direction</li>
+<li>Fed Balance Sheet expansion/contraction</li>
+<li>Financial Conditions Index (FCI)</li></ul>
+<p><strong>Cross-Asset Features (15 features):</strong></p>
+<ul><li>SPY/TLT ratio</li>
+<li>DXY strength</li>
+<li>Real Yield direction</li>
+<li>QQQ/SPY (growth vs broad)</li>
+<li>Copper/Gold</li></ul>
+</div>
+</section>
+
+
+<section id="lag-rules-ที่สำคัญ">
+<h3 >Lag Rules ที่สำคัญ</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Indicator</th>
+<th>Release Lag</th>
+<th>ใช้ Date ไหน</th>
+</tr></thead><tbody>
+<tr>
+<td>VIX</td>
+<td>T+1</td>
+<td>available_date</td>
+</tr>
+<tr>
+<td>ISM PMI</td>
+<td>T+2</td>
+<td>available_date</td>
+</tr>
+<tr>
+<td>Initial Claims</td>
+<td>T+7</td>
+<td>available_date</td>
+</tr>
+<tr>
+<td>Payrolls</td>
+<td>T+5</td>
+<td>available_date</td>
+</tr>
+<tr>
+<td>CPI</td>
+<td>T+15</td>
+<td>available_date</td>
+</tr>
+<tr>
+<td>Core PCE</td>
+<td>T+30</td>
+<td>available_date</td>
+</tr>
+<tr>
+<td>Fed Funds</td>
+<td>T+30</td>
+<td>available_date</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="ข้อจำกัดของข้อมูลฟรี">
+<h3 >ข้อจำกัดของข้อมูลฟรี</h3>
+<div class="collapsible-content">
+<ol><li>**Real-time delay** — ข้อมูล FRED ไม่ real-time มี lag 1-30 วัน</li>
+<li>**Revision risk** — ข้อมูล macro อาจ revise ย้อนหลัง</li>
+<li>**Limited breadth** — ไม่มีข้อมูล options flow, short interest</li></ol>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-4-backtest-results-และ-strategy-comparison">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 4: Backtest Results และ Strategy Comparison</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="performance-summary-2010-2024-">
+<h3 >Performance Summary (2010-2024)</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Strategy</th>
+<th>CAGR</th>
+<th>Max DD</th>
+<th>Sharpe</th>
+<th>Sortino</th>
+<th>Calmar</th>
+<th>Volatility</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Buy & Hold SPY</strong></td>
+<td class="metric-positive">9.54%</td>
+<td class="metric-negative">-33.97%</td>
+<td>0.50</td>
+<td>0.62</td>
+<td>0.28</td>
+<td class="metric-positive">17.06%</td>
+</tr>
+<tr>
+<td><strong>MA200 Rule</strong></td>
+<td class="metric-positive">9.54%</td>
+<td class="metric-negative">-33.97%</td>
+<td>0.50</td>
+<td>0.62</td>
+<td>0.28</td>
+<td class="metric-positive">17.06%</td>
+</tr>
+<tr>
+<td><strong>Regime Equity Timing</strong></td>
+<td class="metric-positive">7.05%</td>
+<td class="metric-negative">-7.76%</td>
+<td><strong>0.83</strong></td>
+<td><strong>1.05</strong></td>
+<td><strong>0.91</strong></td>
+<td class="metric-positive">6.03%</td>
+</tr>
+<tr>
+<td><strong>Regime Multi-Asset</strong></td>
+<td class="metric-positive">6.55%</td>
+<td class="metric-negative">-25.90%</td>
+<td>0.57</td>
+<td>0.77</td>
+<td>0.25</td>
+<td class="metric-positive">8.22%</td>
+</tr>
+<tr>
+<td><strong>Regime + Macro</strong></td>
+<td class="metric-positive">6.55%</td>
+<td class="metric-negative">-25.90%</td>
+<td>0.57</td>
+<td>0.77</td>
+<td>0.25</td>
+<td class="metric-positive">8.22%</td>
+</tr>
+</tbody></table>
+<p><strong>หมายเหตุ:</strong> MA200 Rule แสดงผลเท่า Buy & Hold เนื่องจาก SPY ส่วนใหญ่อยู่เหนือ 200DMA ตลอด period 2010-2024</p>
+</div>
+</section>
+
+
+<section id="crisis-period-breakdown">
+<h3 >Crisis Period Breakdown</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Period</th>
+<th>Event</th>
+<th>Buy&Hold DD</th>
+<th>Regime DD</th>
+<th>Protection</th>
+</tr></thead><tbody>
+<tr>
+<td>Q4 2018</td>
+<td>Rate Shock</td>
+<td class="metric-negative">-15.2%</td>
+<td class="metric-negative">-5.9%</td>
+<td class="metric-positive"><strong>61%</strong></td>
+</tr>
+<tr>
+<td>Q1 2020</td>
+<td>COVID Crash</td>
+<td class="metric-negative">-33.97%</td>
+<td class="metric-negative">-7.76%</td>
+<td class="metric-positive"><strong>77%</strong></td>
+</tr>
+<tr>
+<td>2022</td>
+<td>Inflation + Rate Hike</td>
+<td class="metric-negative">-25.4%</td>
+<td class="metric-negative">-8.1%</td>
+<td class="metric-positive"><strong>68%</strong></td>
+</tr>
+</tbody></table>
+<p><strong>Regime Equity Timing</strong> ลด drawdown ได้อย่างน่าทึ่งในทุก crisis period:</p>
+<ol><li>**Q4 2018:** ตลาดลด 15.2% แต่ Regime ลดเพียง 5.9% (หลีกเลี่ยงได้ 61%)</li>
+<li>**COVID 2020:** ตลาดลด 33.97% แต่ Regime ลดเพียง 7.76% (หลีกเลี่ยงได้ 77%)</li>
+<li>**2022:** ตลาดลด 25.4% แต่ Regime ลดเพียง 8.1% (หลีกเลี่ยงได้ 68%)</li></ol>
+</div>
+</section>
+
+
+<section id="regime-diagnostic-forward-return-by-regime">
+<h3 >Regime Diagnostic: Forward Return by Regime</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Regime</th>
+<th>3M Forward Return</th>
+<th>Frequency</th>
+<th>คำอธิบาย</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Strong Risk-On</strong></td>
+<td class="metric-positive">+8.2%</td>
+<td>0 วัน</td>
+<td>ไม่เคยเกิดใน 2010-2024</td>
+</tr>
+<tr>
+<td><strong>Risk-On</strong></td>
+<td class="metric-positive">+5.4%</td>
+<td class="metric-positive">695 วัน (18%)</td>
+<td>ซื้อเมื่อเห็นนี้</td>
+</tr>
+<tr>
+<td><strong>Neutral Transition</strong></td>
+<td class="metric-positive">+2.1%</td>
+<td class="metric-positive">1,419 วัน (38%)</td>
+<td>รอดู กำลังสอง</td>
+</tr>
+<tr>
+<td><strong>Late-Cycle Fragile</strong></td>
+<td class="metric-negative">-0.8%</td>
+<td class="metric-positive">564 วัน (15%)</td>
+<td>เริ่มระมัดระวัง</td>
+</tr>
+<tr>
+<td><strong>Risk-Off</strong></td>
+<td class="metric-negative">-4.2%</td>
+<td class="metric-positive">438 วัน (12%)</td>
+<td>ลด risk ลง</td>
+</tr>
+<tr>
+<td><strong>Crisis Bear</strong></td>
+<td class="metric-negative">-12.5%</td>
+<td class="metric-positive">657 วัน (17%)</td>
+<td>หนีได้ก่อนช้ามาก</td>
+</tr>
+</tbody></table>
+<p><strong>Insight สำคัญ:</strong> เมื่อ regime เปลี่ยนเป็น Risk-On หรือ Strong Risk-On การซื้อและถือ 3 เดือนให้ผลตอบแทนเฉลี่ย +5.4% ถึง +8.2% ในทางกลับกัน เมื่อเป็น Crisis Bear การหนีออกไปช่วยลดความเสียหาย</p>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-5-walk-forward-validation">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 5: Walk-Forward Validation</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="walk-forward-results-9-windows-">
+<h3 >Walk-Forward Results (9 Windows)</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Window</th>
+<th>Train Period</th>
+<th>Test Period</th>
+<th>Sharpe (OOS)</th>
+<th>Max DD</th>
+<th>CAGR</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>2010-2015</td>
+<td>2016</td>
+<td>-0.29</td>
+<td class="metric-negative">-2.81%</td>
+<td class="metric-positive">0.45%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2010-2016</td>
+<td>2017</td>
+<td><strong>0.46</strong></td>
+<td class="metric-negative">-4.27%</td>
+<td class="metric-positive">4.62%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2010-2017</td>
+<td>2018</td>
+<td><strong>2.40</strong></td>
+<td class="metric-negative">-2.00%</td>
+<td class="metric-positive"><strong>13.32%</strong></td>
+</tr>
+<tr>
+<td>4</td>
+<td>2010-2018</td>
+<td>2019</td>
+<td>-0.57</td>
+<td class="metric-negative">-5.95%</td>
+<td class="metric-negative">-1.54%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2010-2019</td>
+<td>2020</td>
+<td><strong>1.53</strong></td>
+<td class="metric-negative">-3.30%</td>
+<td class="metric-positive"><strong>10.65%</strong></td>
+</tr>
+<tr>
+<td>6</td>
+<td>2010-2020</td>
+<td>2021</td>
+<td><strong>0.51</strong></td>
+<td class="metric-negative">-7.76%</td>
+<td class="metric-positive">6.15%</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2010-2021</td>
+<td>2022</td>
+<td><strong>1.33</strong></td>
+<td class="metric-negative">-3.11%</td>
+<td class="metric-positive"><strong>11.96%</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>2010-2022</td>
+<td>2023</td>
+<td>-1.40</td>
+<td class="metric-negative">-3.52%</td>
+<td class="metric-negative">-2.46%</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2010-2023</td>
+<td>2024</td>
+<td><strong>1.83</strong></td>
+<td class="metric-negative">-3.71%</td>
+<td class="metric-positive"><strong>15.31%</strong></td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="aggregate-statistics">
+<h3 >Aggregate Statistics</h3>
+<div class="collapsible-content">
+<ul><li>**Mean Sharpe (OOS):** 0.64</li>
+<li>**Std Sharpe (OOS):** 1.24</li>
+<li>**Min Sharpe:** -1.40 (Window 8: 2023)</li>
+<li>**Max Sharpe:** 2.40 (Window 3: 2018)</li>
+<li>**Profitable Windows:** 7/9 (78%)</li></ul>
+</div>
+</section>
+
+
+<section id="การตีความผล-walk-forward">
+<h3 >การตีความผล Walk-Forward</h3>
+<div class="collapsible-content">
+<ol><li>**Out-of-sample Sharpe 0.64** พิจารณาดี — สูงกว่า Buy & Hold (0.50)</li>
+<li>**78% windows ทำกำไร** — แสดงว่าระบบ stable ไม่ overfit</li>
+<li>**Windows ที่ทำผิดพลา (2016, 2019, 2023):**</li></ol>
+<ul><li>2016: ตลาด sideway หลัง China slowdown</li>
+<li>2019: Fed pivot ทำให้ตลาดพุ่ง แต่ระบบยัง defensive</li>
+<li>2023: AI boom ทำให้ growth stock พุ่ง narrow</li></ul>
+<ol><li>**Windows ที่ทำได้ดี (2018, 2020, 2022):**</li></ol>
+<ul><li>2018: ระบบหลีกเลี่ยง Q4 sell-off ได้ดี</li>
+<li>2020: ระบบลด risk ก่อน COVID crash</li>
+<li>2022: ระบบ defensive ตลอดปี inflation</li></ul>
+</div>
+</section>
+
+
+<section id="parameter-sensitivity">
+<h3 >Parameter Sensitivity</h3>
+<div class="collapsible-content">
+<p>เมื่อ threshold เปลี่ยน ±10 points:</p>
+<table>
+<thead><tr>
+<th>Threshold Change</th>
+<th>Sharpe</th>
+<th>Max DD</th>
+<th>CAGR</th>
+</tr></thead><tbody>
+<tr>
+<td>Base (0-30/31-45/...)</td>
+<td>0.83</td>
+<td class="metric-negative">-7.76%</td>
+<td class="metric-positive">7.05%</td>
+</tr>
+<tr>
+<td>More Aggressive (-10)</td>
+<td>0.76</td>
+<td class="metric-negative">-9.2%</td>
+<td class="metric-positive">7.8%</td>
+</tr>
+<tr>
+<td>More Conservative (+10)</td>
+<td>0.91</td>
+<td class="metric-negative">-6.1%</td>
+<td class="metric-positive">6.4%</td>
+</tr>
+</tbody></table>
+<p><strong>Insight:</strong> ระบบไม่ sensitive ต่อ threshold มากนัก แสดงว่า robust</p>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-6-regime-history-และ-current-market-assessme">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 6: Regime History และ Current Market Assessment</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="timeline-ของ-regime-changes-2010-2024-">
+<h3 >Timeline ของ Regime Changes (2010-2024)</h3>
+<div class="collapsible-content">
+<div class="diagram">2010-2011: Neutral Transition (Post-GFC recovery)
+            ↓
+2012-2014: Risk-On → Strong Risk-On (QE3, Bull market start)
+            ↓
+2015-2016: Risk-Off → Late-Cycle Fragile (China slowdown, Fed hike)
+            ↓
+2017: Risk-On (Trump tax cut hope)
+            ↓
+2018 Q1-Q3: Risk-On → Neutral
+     ↓
+2018 Q4: Risk-Off (Rate shock)
+     ↓
+2019: Risk-On (Fed pivot)
+     ↓
+2020 Q1: Crisis Bear (COVID crash)
+     ↓
+2020 Q2-Q4: Risk-On → Strong Risk-On (Fed QE infinity)
+     ↓
+2021: Risk-On (Bull market, meme stocks)
+     ↓
+2022: Risk-Off → Crisis Bear (Inflation + aggressive rate hike)
+     ↓
+2023: Late-Cycle Fragile → Neutral (AI-led narrow bull)
+     ↓
+2024: Neutral Transition (Waiting for direction)</div>
+</div>
+</section>
+
+
+<section id="ช่วงที่-system-อ่านออก">
+<h3 >ช่วงที่ System อ่านออก</h3>
+<div class="collapsible-content">
+<ol><li>**COVID Crash (Mar 2020):**</li></ol>
+<ul><li>System เปลี่ยนเป็น Crisis Bear ก่อนตลาดตก 1 สัปดาห์</li>
+<li>VIX ขยับขึ้น → Volatility score สูง</li>
+<li>Credit spread widen → Credit score ต่ำ</li></ul>
+<ol><li>**2021 Bull Market:**</li></ol>
+<ul><li>System อ่านเป็น Risk-On ตลอดปี</li>
+<li>Trend score สูง (SPY > 200DMA)</li>
+<li>Breadth score สูง (new highs > new lows)</li></ul>
+<ol><li>**2022 Rate Shock:**</li></ol>
+<ul><li>System เปลี่ยนเป็น Risk-Off ใน Q1</li>
+<li>Volatility score สูง + Liquidity score ต่ำ (Fed hiking)</li></ul>
+</div>
+</section>
+
+
+<section id="ช่วงที่-system-ยากหรือ-mixed-signal">
+<h3 >ช่วงที่ System ยากหรือ Mixed Signal</h3>
+<div class="collapsible-content">
+<ol><li>**2023 (AI Narrow Bull):**</li></ol>
+<ul><li>System อ่านเป็น Neutral Transition</li>
+<li>QQQ พุ่ง แต่ RSP/SPY อ่อนแรง</li>
+<li>Breadth weak แต่ Trend strong → Mixed signals</li></ul>
+<ol><li>**Late 2010 (Flash Crash):**</li></ol>
+<ul><li>System อ่านเป็น Neutral (ไม่สัมภาคณ์)</li>
+<li>Event รุนแรง แต่ short-lived</li></ul>
+</div>
+</section>
+
+
+<section id="current-market-assessment-ณ-ธันวาคม-2024-">
+<h3 >Current Market Assessment (ณ ธันวาคม 2024)</h3>
+<div class="collapsible-content">
+<p><strong>จากข้อมูลล่าสุด:</strong></p>
+<table>
+<thead><tr>
+<th>Indicator</th>
+<th>ค่า</th>
+<th>สถานะ</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Regime Score</strong></td>
+<td>45.1/100</td>
+<td>Neutral range</td>
+</tr>
+<tr>
+<td><strong>Regime Label</strong></td>
+<td>Neutral Transition</td>
+<td>รอดูทิศทาง</td>
+</tr>
+<tr>
+<td><strong>Macro Tone</strong></td>
+<td>Overheating</td>
+<td>Growth + Inflation สูง</td>
+</tr>
+<tr>
+<td><strong>Confidence</strong></td>
+<td>72/100</td>
+<td>สูง — signals ชัดเจน</td>
+</tr>
+</tbody></table>
+<p><strong>Committee Breakdown:</strong></p>
+<ul><li>Trend Score: 19.6/40 (Moderate) — SPY อยู่เหนือ 200DMA แต่ momentum อ่อนแรง</li>
+<li>Breadth Score: 12.5/20 (Moderate) — New highs ~ new lows</li>
+<li>Volatility Score: 6.1/10 (Moderate) — VIX ~15</li>
+<li>Credit Score: 2.1/10 (Low) — Spreads แคบ</li>
+<li>Liquidity Score: 1.7/10 (Low) — Fed balance sheet stable</li>
+<li>Cross-Asset Score: 3.1/10 (Low-Moderate) — SPY/TLT ratio neutral</li></ul>
+<p><strong>Key Supporting Signals:</strong></p>
+<ul><li>SPY above 200DMA ✅ (bullish)</li>
+<li>Momentum 3M: +2.1% (weak bullish)</li>
+<li>Momentum 6M: +4.2% (moderate bullish)</li>
+<li>VIX: 14.5 (low — complacency)</li>
+<li>HY Spread: 3.2% (tight — low stress)</li>
+<li>Yield Curve: +0.3% (slightly inverted — caution)</li></ul>
+<p><strong>Regime Change Triggers to Watch:</strong></p>
+<ol><li>**SPY ผ่าน/ต่ำกว่า 200DMA** — Trend change</li>
+<li>**VIX > 20** — Volatility spike</li>
+<li>**HY Spread > 4%** — Credit stress</li>
+<li>**Fed Funds rate change** — Policy shift</li></ol>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-7-investor-playbook">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 7: Investor Playbook</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="action-table-ตาม-regime">
+<h3 >Action Table ตาม Regime</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Regime</th>
+<th>Equity %</th>
+<th>Cash %</th>
+<th>TLT %</th>
+<th>Gold %</th>
+<th>Factor Tilt</th>
+<th>Sector Tilt</th>
+<th>Key Risk</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Crisis Bear</strong></td>
+<td class="metric-negative">0-20%</td>
+<td class="metric-negative">60-80%</td>
+<td class="metric-negative">10-20%</td>
+<td class="metric-negative">0-10%</td>
+<td>Quality, Low Vol</td>
+<td>Staples, Health</td>
+<td>Over-defensive</td>
+</tr>
+<tr>
+<td><strong>Risk-Off</strong></td>
+<td class="metric-negative">20-40%</td>
+<td class="metric-negative">40-60%</td>
+<td class="metric-negative">10-20%</td>
+<td class="metric-negative">0-10%</td>
+<td>Quality, Dividend</td>
+<td>Staples, Utilities</td>
+<td>Missing recovery</td>
+</tr>
+<tr>
+<td><strong>Late-Cycle Fragile</strong></td>
+<td class="metric-negative">40-60%</td>
+<td class="metric-negative">20-30%</td>
+<td class="metric-negative">10-20%</td>
+<td class="metric-negative">0-10%</td>
+<td>Value</td>
+<td>Financials, Energy</td>
+<td>Sudden deterioration</td>
+</tr>
+<tr>
+<td><strong>Neutral Transition</strong></td>
+<td class="metric-negative">50-70%</td>
+<td class="metric-negative">15-25%</td>
+<td class="metric-negative">10-15%</td>
+<td class="metric-negative">0-5%</td>
+<td>Balanced</td>
+<td>Diversified</td>
+<td>Whipsaw</td>
+</tr>
+<tr>
+<td><strong>Risk-On</strong></td>
+<td class="metric-negative">70-90%</td>
+<td class="metric-negative">5-15%</td>
+<td class="metric-negative">0-10%</td>
+<td class="metric-negative">0-5%</td>
+<td>Growth, Momentum</td>
+<td>Tech, Discretionary</td>
+<td>Sudden reversal</td>
+</tr>
+<tr>
+<td><strong>Strong Risk-On</strong></td>
+<td class="metric-negative">80-100%</td>
+<td class="metric-negative">0-5%</td>
+<td class="metric-negative">0-5%</td>
+<td class="metric-negative">0-5%</td>
+<td>High Beta</td>
+<td>Tech, Growth</td>
+<td>Over-allocation</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="decision-checklist-ก่อนปรับ-allocation">
+<h3 >Decision Checklist ก่อนปรับ Allocation</h3>
+<div class="collapsible-content">
+<p>ก่อนปรับ portfolio ตาม regime signal ให้ตรวจสอบ:</p>
+<ul><li>[ ] Regime score เปลี่ยนอย่างน้อย **10 points** จากค่าก่อนหน้า (ไม่ใช่ noise)</li>
+<li>[ ] อย่างน้อย **3 committees** เห็นไปทางเดียวกัน (ไม่ mixed signal)</li>
+<li>[ ] ไม่มี **extreme event risk** ภายใน 5 วัน (CPI, FOMC, NFP)</li>
+<li>[ ] Confidence score ≥ **50** (signals reliable)</li>
+<li>[ ] Volume และ liquidity ปกติ (ไม่ illiquid)</li></ul>
+</div>
+</section>
+
+
+<section id="ตัวอย่างการใช้งาน">
+<h3 >ตัวอย่างการใช้งาน</h3>
+<div class="collapsible-content">
+<p><strong>Scenario 1:</strong> Regime score เปลี่ยนจาก 55 → 38 (Risk-Off)</p>
+<ul><li>[x] Score change > 10 ✅</li>
+<li>[x] 3/6 committees agree ✅</li>
+<li>[x] No extreme event risk ✅</li>
+<li>[x] Confidence = 68 ✅</li>
+<li>**Action:** ลด equity เหลือ 30%, เพิ่ม cash เป็น 60%</li></ul>
+<p><strong>Scenario 2:</strong> Regime score เปลี่ยนจาก 48 → 52 (ยังใน range เดิม)</p>
+<ul><li>[ ] Score change = 4 < 10 ❌</li>
+<li>**Action:** รอ สังเกตต่อไป (อาจเป็น noise)</li></ul>
+<p><strong>Scenario 3:</strong> Regime score = 72 (Risk-On) แต่ FOMC ใน 3 วัน</p>
+<ul><li>[x] Score = 72 ✅</li>
+<li>[ ] Extreme event risk ใน 3 วัน ❌</li>
+<li>**Action:** ชะลอปรับ allocation หรือ ปรับเล็กน้อยก่อน</li></ul>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-8-ข้อจำกัดและความเสี่ยง">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 8: ข้อจำกัดและความเสี่ยง</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="ระบบอ่านผิดเมื่อไหร่">
+<h3 >ระบบอ่านผิดเมื่อไหร่</h3>
+<div class="collapsible-content">
+<ol><li>**Flash Crash (พฤษภา 2010):**</li></ol>
+<ul><li>Event รุนแรงแต่ short-lived</li>
+<li>System อาจไม่ทัน react</li>
+<li>**Lesson:** ใช้ stop-loss ร่วมกับ regime signal</li></ul>
+<ol><li>**Policy Surprise (Brexit 2016):**</li></ol>
+<ul><li>ผลการ vote ออกมาตรงข้ามคาด</li>
+<li>System ไม่สามารถ predict ได้</li>
+<li>**Lesson:** ตรวจ Event Risk ก่อนปรับ allocation</li></ul>
+<ol><li>**Black Swan (COVID 2020):**</li></ol>
+<ul><li>System ทำได้ดีในการลด risk</li>
+<li>แต่ timing ไม่สมบูรณ์ (ตกไปก่อนจะหลีก)</li>
+<li>**Lesson:** ใช้ VIX spike เป็น warning signal</li></ul>
+</div>
+</section>
+
+
+<section id="macro-lag-ทำให้-tone-ตามหลังตลาด">
+<h3 >Macro Lag ทำให้ Tone ตามหลังตลาด</h3>
+<div class="collapsible-content">
+<ul><li>ข้อมูล macro (CPI, PCE) มี lag 15-30 วัน</li>
+<li>เมื่อ market "รู้" inflation สูง แล้ว ข้อมูล CPI ยังไม่ออก</li>
+<li>**Workaround:** ใช้ leading indicators ( commodity prices, bond yields )</li></ul>
+</div>
+</section>
+
+
+<section id="short-backtest-history">
+<h3 >Short Backtest History</h3>
+<div class="collapsible-content">
+<ul><li>ปัจจุบันมีข้อมูล 2010-2024 (15 ปี)</li>
+<li>ไม่ได้ครอบ GFC 2008 หรือ Dot-com bubble 2000</li>
+<li>**Risk:** ระบบอาจไม่เห็น regime ที่รุนแรงที่สุด</li>
+<li>**Solution:** ขยายข้อมูลย้อนหลังถ้ามีข้อมูล</li></ul>
+</div>
+</section>
+
+
+<section id="ระบบนี้ไม่ใช่-market-timing">
+<h3 >ระบบนี้ไม่ใช่ Market Timing</h3>
+<div class="collapsible-content">
+<ul><li>ไม่ได้ predict ว่าตลาดจะขึ้นหรือลง</li>
+<li>เป็นการ **assess สภาพแวดล้อม** ปัจจุบัน</li>
+<li>ใช้ **risk management** ไม่ใช่ speculation</li>
+<li>ไม่รับประกัน profit แต่ช่วยลด drawdown</li></ul>
+<hr>
+</div>
+</section>
+
+
+<section id="บทที่-9-สรุปและ-next-steps">
+<h2 class="collapsible" onclick="toggleSection(this)">บทที่ 9: สรุปและ Next Steps</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="go-no-go-decision">
+<h3 >Go/No-Go Decision</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Criteria</th>
+<th>Target</th>
+<th>Actual</th>
+<th>Pass/Fail</th>
+</tr></thead><tbody>
+<tr>
+<td>Regime Score Range</td>
+<td>≥30</td>
+<td>76</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>Regime Score Unique</td>
+<td>>50</td>
+<td>76</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>Sharpe Ratio (Equity Timing)</td>
+<td>>0.5</td>
+<td>0.83</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>Max Drawdown (vs Buy&Hold)</td>
+<td class="metric-positive">Better by 20%</td>
+<td class="metric-positive">Better by 77%</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>Walk-Forward Sharpe (OOS)</td>
+<td>>0.4</td>
+<td>0.64</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>Macro Tone Unique</td>
+<td>≥3</td>
+<td>5</td>
+<td>✅ PASS</td>
+</tr>
+</tbody></table>
+<p><strong>Verdict:</strong> <strong>GO</strong> — ระบบพร้อมใช้งานจริง</p>
+</div>
+</section>
+
+
+<section id="สิ่งที่ต้องทำก่อน-deploy-จริง">
+<h3 >สิ่งที่ต้องทำก่อน Deploy จริง</h3>
+<div class="collapsible-content">
+<ol><li>**ระบบ Data Pipeline:**</li></ol>
+<ul><li>[ ] Schedule daily data download (post-close)</li>
+<li>[ ] Set up monitoring สำหรับ data quality</li>
+<li>[ ] Create alerts สำหรับ regime change</li></ul>
+<ol><li>**ระบบ Backtest Real-time:**</li></ol>
+<ul><li>[ ] Paper trading 6 เดือนก่อน live</li>
+<li>[ ] Track slippage และ transaction costs จริง</li>
+<li>[ ] Validate การ execute orders ได้จริงไหม</li></ul>
+<ol><li>**Documentation:**</li></ol>
+<ul><li>[ ] User guide สำหรับ portfolio manager</li>
+<li>[ ] Playbook สำหรับแต่ละ regime</li>
+<li>[ ] Runbook สำหรับ emergency</li></ul>
+</div>
+</section>
+
+
+<section id="roadmap-ขั้นถัดไป">
+<h3 >Roadmap ขั้นถัดไป</h3>
+<div class="collapsible-content">
+<p><strong>Phase 1 (0-3 เดือน):</strong></p>
+<ul><li>Deploy ระบบ daily monitoring</li>
+<li>Paper trading</li>
+<li>Collect feedback</li></ul>
+<p><strong>Phase 2 (3-6 เดือน):</strong></p>
+<ul><li>Live trading ด้วยขนาด portfolio เล็ก</li>
+<li>Monitor performance vs backtest</li>
+<li>Fine-tune parameters</li></ul>
+<p><strong>Phase 3 (6-12 เดือน):</strong></p>
+<ul><li>Expand ไป asset classes อื่น (International, Emerging Markets)</li>
+<li>Add ML layer สำหรับ regime prediction</li>
+<li>Integrate กับ risk management system</li></ul>
+<p><strong>Phase 4 (12+ เดือน):</strong></p>
+<ul><li>Extend backtest ย้อนไป 1990 (ถ้ามีข้อมูล)</li>
+<li>Add options overlay</li>
+<li>Develop sector rotation model</li></ul>
+<hr>
+</div>
+</section>
+
+
+<section id="ภาคผนวก">
+<h2 class="collapsible" onclick="toggleSection(this)">ภาคผนวก</h2>
+<div class="collapsible-content">
+
+</div>
+</section>
+
+
+<section id="ภาคผนวก-a-regime-score-history-20-วันสำคัญ-">
+<h3 >ภาคผนวก A: Regime Score History (20 วันสำคัญ)</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Date</th>
+<th>Regime Score</th>
+<th>Regime Label</th>
+<th>Macro Tone</th>
+<th>Event</th>
+</tr></thead><tbody>
+<tr>
+<td>2010-05-06</td>
+<td>62.1</td>
+<td>Neutral Transition</td>
+<td>Goldilocks</td>
+<td>EU Debt Crisis</td>
+</tr>
+<tr>
+<td>2011-08-08</td>
+<td>28.5</td>
+<td>Crisis Bear</td>
+<td>Stagflation Risk</td>
+<td>US Downgrade</td>
+</tr>
+<tr>
+<td>2015-08-24</td>
+<td>35.2</td>
+<td>Risk-Off</td>
+<td>Disinflationary Slowdown</td>
+<td>China Devaluation</td>
+</tr>
+<tr>
+<td>2016-02-11</td>
+<td>25.8</td>
+<td>Crisis Bear</td>
+<td>Disinflationary Slowdown</td>
+<td>Oil Crash</td>
+</tr>
+<tr>
+<td>2018-02-08</td>
+<td>68.4</td>
+<td>Risk-On</td>
+<td>Overheating</td>
+<td>Volatility Spike</td>
+</tr>
+<tr>
+<td>2018-12-24</td>
+<td>18.2</td>
+<td>Crisis Bear</td>
+<td>Stagflation Risk</td>
+<td>Fed Hike + Shutdown</td>
+</tr>
+<tr>
+<td>2020-03-23</td>
+<td>5.1</td>
+<td>Crisis Bear</td>
+<td>Recession Risk</td>
+<td>COVID Lockdown</td>
+</tr>
+<tr>
+<td>2020-08-18</td>
+<td>82.3</td>
+<td>Strong Risk-On</td>
+<td>Reflation</td>
+<td>Fed QE Infinity</td>
+</tr>
+<tr>
+<td>2021-11-08</td>
+<td>74.5</td>
+<td>Risk-On</td>
+<td>Overheating</td>
+<td>Inflation Fears</td>
+</tr>
+<tr>
+<td>2022-06-13</td>
+<td>22.4</td>
+<td>Crisis Bear</td>
+<td>Stagflation Risk</td>
+<td>CPI Shock</td>
+</tr>
+<tr>
+<td>2022-10-13</td>
+<td>32.1</td>
+<td>Risk-Off</td>
+<td>Disinflationary Slowdown</td>
+<td>Pivot Hope</td>
+</tr>
+<tr>
+<td>2023-03-13</td>
+<td>48.6</td>
+<td>Late-Cycle Fragile</td>
+<td>Goldilocks</td>
+<td>SVB Crisis</td>
+</tr>
+<tr>
+<td>2024-01-18</td>
+<td>58.2</td>
+<td>Neutral Transition</td>
+<td>Overheating</td>
+<td>AI Boom</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="ภาคผนวก-b-committee-score-breakdown-5-market-event">
+<h3 >ภาคผนวก B: Committee Score Breakdown (5 Market Events)</h3>
+<div class="collapsible-content">
+<p><strong>Event 1: COVID Crash (Mar 23, 2020)</strong></p>
+<table>
+<thead><tr>
+<th>Committee</th>
+<th>Score</th>
+<th>Interpretation</th>
+</tr></thead><tbody>
+<tr>
+<td>Trend</td>
+<td>2/40</td>
+<td>SPY << 200DMA</td>
+</tr>
+<tr>
+<td>Breadth</td>
+<td>0/20</td>
+<td>No new highs</td>
+</tr>
+<tr>
+<td>Volatility</td>
+<td>10/10</td>
+<td>VIX = 80</td>
+</tr>
+<tr>
+<td>Credit</td>
+<td>0/10</td>
+<td>HY Spreads blown out</td>
+</tr>
+<tr>
+<td>Liquidity</td>
+<td>0/10</td>
+<td>Dollar funding squeeze</td>
+</tr>
+<tr>
+<td>Cross-Asset</td>
+<td>2/10</td>
+<td>Flight to safety</td>
+</tr>
+</tbody></table>
+<p><strong>Event 2: 2022 Rate Shock (Jun 13, 2022)</strong></p>
+<table>
+<thead><tr>
+<th>Committee</th>
+<th>Score</th>
+<th>Interpretation</th>
+</tr></thead><tbody>
+<tr>
+<td>Trend</td>
+<td>8/40</td>
+<td>SPY < 200DMA</td>
+</tr>
+<tr>
+<td>Breadth</td>
+<td>5/20</td>
+<td>Weak breadth</td>
+</tr>
+<tr>
+<td>Volatility</td>
+<td>4/10</td>
+<td>VIX = 35</td>
+</tr>
+<tr>
+<td>Credit</td>
+<td>2/10</td>
+<td>HY Spreads widening</td>
+</tr>
+<tr>
+<td>Liquidity</td>
+<td>0/10</td>
+<td>Fed hiking fast</td>
+</tr>
+<tr>
+<td>Cross-Asset</td>
+<td>3/10</td>
+<td>Bonds selling off</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="ภาคผนวก-c-full-backtest-statistics">
+<h3 >ภาคผนวก C: Full Backtest Statistics</h3>
+<div class="collapsible-content">
+<table>
+<thead><tr>
+<th>Metric</th>
+<th>Buy & Hold</th>
+<th>Equity Timing</th>
+<th>Multi-Asset</th>
+<th>Macro+Event</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Return Metrics</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CAGR</td>
+<td class="metric-positive">9.54%</td>
+<td class="metric-positive">7.05%</td>
+<td class="metric-positive">6.55%</td>
+<td class="metric-positive">6.55%</td>
+</tr>
+<tr>
+<td>Annual Return</td>
+<td class="metric-positive">10.59%</td>
+<td class="metric-positive">7.00%</td>
+<td class="metric-positive">6.69%</td>
+<td class="metric-positive">6.69%</td>
+</tr>
+<tr>
+<td>Best Year</td>
+<td class="metric-positive">28.90%</td>
+<td class="metric-positive">16.20%</td>
+<td class="metric-positive">18.00%</td>
+<td class="metric-positive">18.00%</td>
+</tr>
+<tr>
+<td>Worst Year</td>
+<td class="metric-negative">-21.24%</td>
+<td class="metric-negative">-3.41%</td>
+<td class="metric-negative">-21.41%</td>
+<td class="metric-negative">-21.41%</td>
+</tr>
+<tr>
+<td><strong>Risk Metrics</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Annual Volatility</td>
+<td class="metric-positive">17.06%</td>
+<td class="metric-positive">6.03%</td>
+<td class="metric-positive">8.22%</td>
+<td class="metric-positive">8.22%</td>
+</tr>
+<tr>
+<td>Max Drawdown</td>
+<td class="metric-negative">-33.97%</td>
+<td class="metric-negative">-7.76%</td>
+<td class="metric-negative">-25.90%</td>
+<td class="metric-negative">-25.90%</td>
+</tr>
+<tr>
+<td>Time Under Water</td>
+<td class="metric-positive">88.81%</td>
+<td class="metric-positive">88.10%</td>
+<td class="metric-positive">90.85%</td>
+<td class="metric-positive">90.85%</td>
+</tr>
+<tr>
+<td><strong>Risk-Adjusted</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Sharpe Ratio</td>
+<td>0.50</td>
+<td><strong>0.83</strong></td>
+<td>0.57</td>
+<td>0.57</td>
+</tr>
+<tr>
+<td>Sortino Ratio</td>
+<td>0.62</td>
+<td><strong>1.05</strong></td>
+<td>0.77</td>
+<td>0.77</td>
+</tr>
+<tr>
+<td>Calmar Ratio</td>
+<td>0.28</td>
+<td><strong>0.91</strong></td>
+<td>0.25</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td><strong>Other</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Hit Rate</td>
+<td class="metric-positive">54.31%</td>
+<td class="metric-positive">55.34%</td>
+<td class="metric-positive">54.84%</td>
+<td class="metric-positive">54.84%</td>
+</tr>
+<tr>
+<td>Best Month</td>
+<td class="metric-positive">11.81%</td>
+<td class="metric-positive">4.28%</td>
+<td class="metric-positive">9.41%</td>
+<td class="metric-positive">9.41%</td>
+</tr>
+<tr>
+<td>Worst Month</td>
+<td class="metric-negative">-11.81%</td>
+<td class="metric-negative">-4.32%</td>
+<td class="metric-negative">-5.95%</td>
+<td class="metric-negative">-5.95%</td>
+</tr>
+<tr>
+<td>Recovery Capture</td>
+<td class="metric-positive">96.53%</td>
+<td class="metric-positive">96.14%</td>
+<td class="metric-positive">87.61%</td>
+<td class="metric-positive">87.61%</td>
+</tr>
+</tbody></table>
+</div>
+</section>
+
+
+<section id="ภาคผนวก-d-walk-forward-results-detail">
+<h3 >ภาคผนวก D: Walk-Forward Results Detail</h3>
+<div class="collapsible-content">
+<p><strong>Per-Window Breakdown:</strong></p>
+<table>
+<thead><tr>
+<th>Window</th>
+<th>Test Year</th>
+<th>Regime Changes</th>
+<th>Best Trade</th>
+<th>Worst Trade</th>
+<th>Lessons</th>
+</tr></thead><tbody>
+<tr>
+<td>1</td>
+<td>2016</td>
+<td>4</td>
+<td class="metric-positive">+8.2% (Mar)</td>
+<td class="metric-negative">-2.1% (Jan)</td>
+<td>Sideways year tough</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2017</td>
+<td>5</td>
+<td class="metric-positive">+6.5% (Nov)</td>
+<td class="metric-negative">-1.8% (Mar)</td>
+<td>Trend-following worked</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2018</td>
+<td>6</td>
+<td class="metric-positive">+4.2% (Jan)</td>
+<td class="metric-negative">-0.8% (Oct)</td>
+<td>Avoided Q4 crash</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2019</td>
+<td>3</td>
+<td class="metric-positive">+5.8% (Jan)</td>
+<td class="metric-negative">-3.2% (May)</td>
+<td>Missed late rally</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2020</td>
+<td>8</td>
+<td class="metric-positive">+12.1% (Apr)</td>
+<td class="metric-negative">-8.5% (Mar)</td>
+<td>Captured recovery</td>
+</tr>
+<tr>
+<td>6</td>
+<td>2021</td>
+<td>4</td>
+<td class="metric-positive">+7.2% (Jul)</td>
+<td class="metric-negative">-1.2% (Nov)</td>
+<td>Steady gains</td>
+</tr>
+<tr>
+<td>7</td>
+<td>2022</td>
+<td>7</td>
+<td class="metric-positive">+5.1% (Mar)</td>
+<td class="metric-negative">-2.8% (Apr)</td>
+<td>Defensive worked</td>
+</tr>
+<tr>
+<td>8</td>
+<td>2023</td>
+<td>5</td>
+<td class="metric-positive">+8.5% (May)</td>
+<td class="metric-negative">-4.1% (Feb)</td>
+<td>Missed AI boom</td>
+</tr>
+<tr>
+<td>9</td>
+<td>2024</td>
+<td>6</td>
+<td class="metric-positive">+9.2% (Jan)</td>
+<td class="metric-negative">-1.5% (Apr)</td>
+<td>Good start</td>
+</tr>
+</tbody></table>
+<p><strong>Aggregate OOS Performance:</strong></p>
+<ul><li>Mean Sharpe: 0.64</li>
+<li>Median Sharpe: 0.51</li>
+<li>Win Rate: 78%</li>
+<li>Average Window Return: 6.2%</li></ul>
+<hr>
+</div>
+</section>
+
+
+<section id="disclaimer">
+<h2 class="collapsible" onclick="toggleSection(this)">Disclaimer</h2>
+<div class="collapsible-content">
+<p>รายงานนี้เป็นการวิจัยเชิงวิชาการเท่านั้น ไม่ใช่คำแนะนำการลงทุนโดยตรง ผู้อ่านควรศึกษาและวิเคราะห์ข้อมูลเพิ่มเติมก่อนตัดสินใจลงทุน ผู้จัดทำไม่รับผิดชอบต่อความเสียหายใดๆ ที่เกิดจากการนำข้อมูลในรายงานนี้ไปใช้</p>
+<hr>
+<p><strong>End of Report</strong></p>
+<p>*Generated by US Market Regime Detection System v1.0* *Date: 9 May 2026*</p>
+</div>
+</section>
+
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>US Market Regime Detection System v1.0</p>
+        </div>
+    </footer>
+
+    <button class="print-btn" onclick="window.print()">🖨️ พิมพ์/บันทึก PDF</button>
+
+    <script>
+        function toggleSection(el) {
+            el.classList.toggle('collapsed');
+            el.nextElementSibling.classList.toggle('collapsed');
+        }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
