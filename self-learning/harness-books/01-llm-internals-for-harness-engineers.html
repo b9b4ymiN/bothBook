@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+
+:root {
+  --paper: #F2EFE4;
+  --paper-mid: #EAE5D2;
+  --paper-deep: #DDD7BD;
+  --paper-shadow: #C8C0A0;
+  --ink: #14110B;
+  --ink-soft: #2A261C;
+  --ink-mid: #46402F;
+  --ink-muted: #7C7460;
+  --ink-faint: #ABA48C;
+  --red: #7A1A1A;
+  --red-bg: #FBF3F0;
+  --green: #355E40;
+  --green-bg: #F1F6EE;
+  --book-width: 760px;
+  --page-pad-h: 76px;
+  --page-pad-v: 84px;
+  --accent: #2D6A9F;
+  --accent-deep: #1A4F7A;
+  --accent-light: #6C9FC7;
+  --accent-rule: rgba(45, 106, 159, 0.30);
+  --accent-bg: rgba(45, 106, 159, 0.08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #1A1610;
+  padding: 40px 16px;
+  color: var(--ink);
+  font-family: 'Noto Serif Thai', 'Sarabun', serif;
+}
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+}
+.cover,.page,.chapter-open,.toc,.footer-page {
+  position: relative;
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cover { min-height: 100vh; background: linear-gradient(180deg, var(--paper-mid) 0%, var(--paper) 100%); }
+.cover::before,.cover::after,.chapter-open::before,.chapter-open::after {
+  content: '';
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--accent-rule);
+}
+.cover::before,.chapter-open::before { top: 18px; left: 18px; border-right: none; border-bottom: none; }
+.cover::after,.chapter-open::after { right: 18px; bottom: 18px; border-left: none; border-top: none; }
+.kicker,.chapter-label,.eyebrow,.meta-label,.panel-title,.author-meta,.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+.kicker { font-size: 11px; margin-bottom: 28px; }
+.title,.toc-title,.chapter-title,.page h1,.page h2,.refs-title,.synthesis-title {
+  font-family: 'Playfair Display', 'Noto Serif Thai', serif;
+}
+.title { font-size: 46px; line-height: 1.12; margin: 0 0 18px; }
+.subtitle { font-size: 20px; line-height: 1.8; color: var(--ink-mid); margin: 0 0 28px; }
+.deck,.page p,.page li,.toc p,.cover p,.footer-page p { font-size: 16px; line-height: 1.95; color: var(--ink-soft); }
+.meta-grid,.grid-two { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.meta-card,.panel { border: 1px solid var(--paper-shadow); padding: 18px 20px; background: rgba(255,255,255,0.24); }
+.meta-grid { margin: 32px 0; }
+.meta-value,.panel p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); margin: 0; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.tag,.topic-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  padding: 5px 9px;
+  font-weight: 700;
+}
+.toc-title,.refs-title,.synthesis-title { font-size: 28px; margin: 0 0 24px; line-height: 1.3; }
+.toc-list { display: grid; gap: 18px; }
+.ch-card { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--paper-shadow); align-items: flex-start; }
+.ch-card-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 34px; color: var(--accent); min-width: 52px; line-height: 1; }
+.ch-card-title { font-family: 'Noto Serif Thai', serif; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.ch-card-one-liner { font-size: 14px; line-height: 1.8; color: var(--ink-muted); font-style: italic; }
+.author-box {
+  display: flex; gap: 18px; padding: 24px 28px; background: var(--paper-mid); border-left: 3px solid var(--accent); margin: 28px 0;
+}
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--accent-deep); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; flex-shrink: 0;
+}
+.author-text { font-size: 16px; line-height: 1.9; color: var(--ink-soft); font-style: italic; margin: 0; }
+.chapter-open { background: var(--paper-mid); }
+.chapter-label { font-size: 11px; margin-bottom: 18px; }
+.chapter-title { font-size: 34px; line-height: 1.2; margin: 0 0 16px; }
+.chapter-essence { font-size: 18px; line-height: 1.9; color: var(--ink-mid); margin: 0; }
+.eyebrow { font-size: 10px; margin-bottom: 14px; }
+.page h1 { font-size: 30px; margin: 0 0 18px; line-height: 1.3; }
+.page h2 { font-size: 24px; margin: 34px 0 14px; line-height: 1.35; }
+.insight-box { padding: 22px 24px; background: var(--accent-bg); border-left: 3px solid var(--accent); margin: 26px 0; }
+.insight-box strong { display: block; margin-bottom: 8px; color: var(--accent-deep); }
+.study-list,.goal-list,.next-list,.checklist,.reflection-list,.reference-list { margin: 0; padding-left: 22px; }
+.study-list li,.goal-list li,.next-list li,.checklist li,.reflection-list li,.reference-list li { margin-bottom: 10px; }
+.topic-stack { display: grid; gap: 18px; margin-top: 20px; }
+.topic-card { padding: 18px 20px; border: 1px solid var(--paper-shadow); background: rgba(255,255,255,0.22); }
+.topic-title { font-family: 'Noto Serif Thai', serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.topic-card p { margin: 0 0 12px; }
+.ladder { margin: 32px 0; }
+.ladder-step { padding: 18px 24px; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
+.ladder-arrow { text-align: center; padding: 8px; color: var(--ink-faint); font-size: 22px; }
+.blockquote-full { background: var(--ink); color: var(--paper); padding: 48px 52px; margin: 36px -76px; }
+.blockquote-full p { color: var(--paper); font-family: 'Playfair Display', 'Noto Serif Thai', serif; font-size: 28px; line-height: 1.55; margin: 0; }
+.blockquote-full small { display: block; margin-top: 16px; font-family: 'Sarabun', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light); font-size: 11px; }
+.refs-grid { display: grid; gap: 22px; }
+.refs-group { border-top: 1px solid var(--paper-shadow); padding-top: 18px; }
+.refs-group h3 { font-family: 'Playfair Display', 'Noto Serif Thai', serif; font-size: 20px; margin: 0 0 14px; }
+.book-footer { background: var(--ink); padding: 56px var(--page-pad-h); text-align: center; }
+.book-footer-mark { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--accent); margin-bottom: 16px; }
+.book-footer-text { font-size: 14px; color: var(--paper-deep); font-style: italic; line-height: 1.8; max-width: 480px; margin: 0 auto 20px; }
+hr.rule { border: none; border-top: 1px solid var(--paper-shadow); margin: 34px 0; }
+.note { font-size: 14px; color: var(--ink-muted); font-style: italic; }
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .meta-grid,.grid-two { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 40px 24px; margin-left: -28px; margin-right: -28px; }
+  .title,.chapter-title,.page h1 { font-size: 28px; }
+}
+
+
+pre.code-block {
+  background: #16130f;
+  color: #efe9d9;
+  padding: 20px 22px;
+  overflow-x: auto;
+  line-height: 1.7;
+  font-size: 13px;
+  border-left: 3px solid var(--accent);
+  white-space: pre-wrap;
+}
+table.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 10px;
+  font-size: 14px;
+}
+table.matrix th, table.matrix td {
+  border: 1px solid var(--paper-shadow);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+table.matrix th {
+  background: var(--paper-mid);
+  font-family: 'Sarabun', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="book">
+    <section class="cover">
+      <div class="kicker">AI Harness Engineering · Chapter Book</div>
+      <h1 class="title">LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</h1>
+      <p class="subtitle">เข้าใจกลไกพอที่จะออกแบบ harness รอบโมเดลอย่างมีเหตุผล ไม่ใช่เดาจากอาการ</p>
+      <p class="deck">บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+      <div class="meta-grid">
+        <div class="meta-card"><div class="meta-label">Part</div><div class="meta-value">Part 1 · Foundations — รู้จักโมเดลและบริบทอย่างแท้จริง</div></div>
+        <div class="meta-card"><div class="meta-label">Chapter</div><div class="meta-value">บทที่ 01</div></div>
+        <div class="meta-card"><div class="meta-label">Why this matters</div><div class="meta-value">บทนี้ปู mental model ให้คุณอธิบายได้ว่าทำไม context ยาวขึ้นแล้วช้าลง ทำไม tool calling เปราะเมื่อ sampling สูงเกินไป และทำไม hallucination ไม่ใช่บั๊กที่แก้ด้วย prompt อย่างเดียว.</div></div>
+        <div class="meta-card"><div class="meta-label">Capstone lens</div><div class="meta-value">ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</div></div>
+      </div>
+      <div class="tag-row"><span class="tag">Harness Engineer</span><span class="tag">Detailed Chapter</span><span class="tag">Operational Teaching</span></div>
+      <p class="note">บทนี้อยู่ในลำดับตาม reference-article curriculum variant ที่ผู้ใช้กำหนดสำหรับชุดเอกสารนี้ ซึ่งอาจต่างจาก repo default backbone ในบางจุดของการจัด Part/บท.</p>
+    </section>
+    <section class="toc">
+      <h2 class="toc-title">Table of Contents · สารบัญของบท</h2>
+      <p>บทนี้ตั้งใจให้อ่านได้แบบ standalone แต่ยังต้องเชื่อมกลับไปยัง capstone และระบบจริงได้เสมอ ทุกหัวข้อในสารบัญด้านล่างจึงไม่ได้มีแค่ชื่อเรื่อง แต่มีภารกิจเชิงวิศวกรรมที่ซ่อนอยู่เบื้องหลัง.</p>
+      <div class="toc-list"><div class="ch-card">  <div class="ch-card-num">01</div>  <div>    <div class="ch-card-title">Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token</div>    <div class="ch-card-one-liner">เริ่มจาก artifact แบบ model profile config, token budget worksheet, telemetry field ด้าน token/cost เพื่อทำให้หัวข้อนี้ไม่ลอยจากงานจริง.</div>  </div></div><div class="ch-card">  <div class="ch-card-num">02</div>  <div>    <div class="ch-card-title">Transformer attention — intuition, KV cache, attention pattern</div>    <div class="ch-card-one-liner">หัวข้อนี้มักเผยตัวผ่านสัญญาณอย่าง session ยาวแล้วคุณภาพตก, context overflow, repeated forgetting, cost พุ่ง ก่อนที่ทีมจะรู้ว่าปัญหาอยู่ที่ไหน.</div>  </div></div><div class="ch-card">  <div class="ch-card-num">03</div>  <div>    <div class="ch-card-title">Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง</div>    <div class="ch-card-one-liner">คำถาม review สำคัญคือ: ข้อมูลชิ้นนี้จำเป็นต้องอยู่ in-context ตอนนี้จริงหรือควรถูกสรุปหรือโหลดเมื่อจำเป็นเท่านั้น</div>  </div></div><div class="ch-card">  <div class="ch-card-num">04</div>  <div>    <div class="ch-card-title">Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability</div>    <div class="ch-card-one-liner">เริ่มจาก artifact แบบ JSON schema, tool registry, permission metadata, concise/raw result modes เพื่อทำให้หัวข้อนี้ไม่ลอยจากงานจริง.</div>  </div></div><div class="ch-card">  <div class="ch-card-num">05</div>  <div>    <div class="ch-card-title">Logprobs — เอาไปใช้ทำ confidence scoring, classifier</div>    <div class="ch-card-one-liner">หัวข้อนี้มักเผยตัวผ่านสัญญาณอย่าง schema-valid rate ลดลง, latency โตขึ้น, output drift เมื่อเปลี่ยน model settings ก่อนที่ทีมจะรู้ว่าปัญหาอยู่ที่ไหน.</div>  </div></div><div class="ch-card">  <div class="ch-card-num">06</div>  <div>    <div class="ch-card-title">Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร</div>    <div class="ch-card-one-liner">คำถาม review สำคัญคือ: ถ้าถอดหัวข้อนี้ออกจากระบบวันนี้ จุดไหนจะเริ่มพังก่อน</div>  </div></div><div class="ch-card">  <div class="ch-card-num">07</div>  <div>    <div class="ch-card-title">Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร</div>    <div class="ch-card-one-liner">เริ่มจาก artifact แบบ JSON schema, tool registry, permission metadata, concise/raw result modes เพื่อทำให้หัวข้อนี้ไม่ลอยจากงานจริง.</div>  </div></div></div>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Foreword · อ่านก่อนเริ่ม</div>
+      <h1>คุณควรอ่านบทนี้เหมือน design review ไม่ใช่เหมือน note summary</h1>
+      <p>บทนี้ปู mental model ให้คุณอธิบายได้ว่าทำไม context ยาวขึ้นแล้วช้าลง ทำไม tool calling เปราะเมื่อ sampling สูงเกินไป และทำไม hallucination ไม่ใช่บั๊กที่แก้ด้วย prompt อย่างเดียว.</p>
+      <p>บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+      <p>ตัวอย่างคลาสสิกคือ coding agent ที่เลือก model route ไม่เหมาะ: ใช้ sampling สูงกับงาน tool calling แล้วได้ argument แปลก ๆ หรือใช้ context ยาวเกินโดยไม่ compact จน latency บวมโดยไม่มีคุณค่าจริงเพิ่มขึ้น.</p>
+      <div class="author-box">
+        <div class="author-avatar">HE</div>
+        <div>
+          <div class="author-meta">Harness Engineer · Mentor framing</div>
+          <p class="author-text">เวลาคุณอ่านเอกสารชุดนี้ อย่าถามเพียงว่าเข้าใจแนวคิดหรือยัง แต่ให้ถามว่าแนวคิดนี้จะถูก encode เป็น policy, artifact หรือ signal แบบไหนในระบบของฉัน. นี่คือจุดที่ความรู้เริ่มเปลี่ยนเป็น leverage.</p>
+        </div>
+      </div>
+      <h2>เรื่องที่ต้องเรียน</h2>
+      <ul class="study-list">
+  <li>Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token</li>
+  <li>Transformer attention — intuition, KV cache, attention pattern</li>
+  <li>Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง</li>
+  <li>Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability</li>
+  <li>Logprobs — เอาไปใช้ทำ confidence scoring, classifier</li>
+  <li>Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร</li>
+  <li>Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร</li>
+</ul>
+      <h2>เป้าหมายเมื่อจบบท</h2>
+      <ul class="goal-list">
+  <li>อ่าน release note ของโมเดลใหม่แล้วแปลผลต่อระบบได้</li>
+  <li>ตอบได้ว่าทำไมโมเดลลืมเมื่อ context ยาว</li>
+  <li>เลือก sampling profile ให้เหมาะกับงานได้</li>
+</ul>
+      <h2>การเอาไปใช้ต่อ</h2>
+      <ul class="next-list">
+  <li>ใช้ mental model นี้ไปออกแบบ context budget</li>
+  <li>debug hallucination และ tool misuse จากรากของปัญหา</li>
+  <li>ตัดสินใจ smaller model + better harness vs bigger model</li>
+</ul>
+    </section>
+    <section class="chapter-open">
+      <div class="chapter-label">บทที่ 01 / Chapter 01</div>
+      <h2 class="chapter-title">LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</h2>
+      <p class="chapter-essence">บทนี้ไม่ได้ต้องการให้คุณจำศัพท์ได้มากขึ้น แต่ต้องการให้คุณเริ่มตัดสินใจเชิงระบบได้แม่นขึ้นเมื่อสร้างหรือรีวิว harness ของจริง.</p>
+    </section>
+    <section class="page">
+      <div class="eyebrow">The Core Idea · แก่นของบท</div>
+      <h1>สิ่งที่บทนี้กำลังเปลี่ยนในวิธีคิดของคุณ</h1>
+      <p>บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+      <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+      <p>การเรียนบทนี้ให้เข้าใจง่ายที่สุดคืออ่านผ่านคำถามสามข้อ: หนึ่ง ปัญหานี้เกิดจาก layer ไหนกันแน่; สอง ถ้าปล่อยไว้จะไหลไปกระทบ reliability, safety, cost หรือ operator experience อย่างไร; และสาม เราจะเก็บหลักฐานอะไรเพื่อพิสูจน์ว่าการออกแบบใหม่ดีกว่าเดิม. ถ้าคุณตอบสามข้อนี้ได้ บทนี้จะไม่เป็นแค่ความรู้ แต่จะกลายเป็นเครื่องมือในการตัดสินใจ.</p>
+      <div class="insight-box"><strong>Harness implication</strong><p>เอกสารที่ดีสำหรับสายนี้ต้องทำให้ผู้อ่านแปลแนวคิดออกมาเป็น implementation shape ได้. ถ้าบทหนึ่งยังไม่ทำให้คุณเห็นว่าจะไปลงใน code, config, tool boundary, eval หรือ trace ตรงไหน แปลว่าบทยังไม่ลงลึกพอ.</p></div>
+      <h2>Common confusions ที่ควรเคลียร์ก่อนอ่านต่อ</h2>
+      <ul class="checklist">
+        <li>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</li>
+        <li>อย่าปล่อยให้คำว่า model capability กลบคำถามเรื่อง environment design, privilege boundaries และ runtime policy.</li>
+        <li>อย่าตัดสินจากเดโมครั้งเดียว เพราะบทนี้เกี่ยวกับพฤติกรรมที่ต้องเสถียรเมื่อ workload โตขึ้นและเงื่อนไขแย่ลง.</li>
+        <li>อย่าถือว่าการอธิบาย intuition เพียงพอ ถ้ายังไม่มีตัวอย่างว่าระบบจริงจะเปลี่ยนอย่างไรหลังนำแนวคิดนี้ไปใช้.</li>
+      </ul>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Anchor artifact · สิ่งที่ควรจับต้องได้</div>
+      <h1>หนึ่ง artifact ที่ช่วยให้บทนี้ไม่ลอย</h1>
+      <p>แทนที่จะปล่อยให้บทนี้อยู่ในระดับคำอธิบายอย่างเดียว ส่วนนี้ตั้งใจให้เป็นตัวอย่าง artifact ที่ผู้อ่านสามารถใช้เป็นแบบฝึกคิดหรือดัดแปลงเข้ากับ capstone ได้ทันที. มันไม่จำเป็นต้องเป็น implementation สุดท้าย แต่ควรพอให้เห็นรูปทรงของการออกแบบจริง.</p>
+      <p>Artifact นี้ช่วยให้ผู้อ่านเห็นว่า internals ไม่ได้มีไว้เพื่อคุยเก่ง แต่มีไว้เพื่อคุม behavior และ cost ของระบบ.</p>
+<pre class="code-block"># model profiles
+tool_calling:
+  temperature: 0.1
+  top_p: 0.9
+  max_output_tokens: 1200
+  reason: ลดโอกาส argument drift
+
+creative_drafting:
+  temperature: 0.8
+  top_p: 0.95
+  max_output_tokens: 2400
+  reason: เปิดพื้นที่ให้ exploration
+
+long_session_guard:
+  prompt_token_warn: 32000
+  prompt_token_hard_stop: 42000
+  expected_output_reserve: 4000</pre>
+      <p>เวลาคุณอ่าน artifact นี้ ให้ถามต่อว่าในระบบของคุณอะไรคือ version ที่เล็กที่สุดของมันที่ควรเกิดขึ้นภายในสัปดาห์นี้. การหาคำตอบข้อนี้ได้คือจุดที่บทเรียนเริ่มเปลี่ยนจาก reading material เป็น engineering momentum.</p>
+    </section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 01</div>
+  <h1>Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token</h1>
+  <p>หัวข้อนี้สำคัญในบท <strong>LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</strong> เพราะมันบอกว่าทีมกำลังใช้ระบบแบบมีข้อจำกัดที่ชัดเจน หรือยังปล่อยให้โมเดลเดาในพื้นที่ที่ควรถูกออกแบบไว้ล่วงหน้า. บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+  <p>ถ้าคุณกำลังสร้างของจริง สิ่งแรกที่ควรถามไม่ใช่แค่ 'Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token คืออะไร' แต่คือมันควรไปนั่งอยู่ในชั้นไหนของระบบ และควรทิ้งสัญญาณอะไรไว้เมื่อเริ่มล้มเหลว. สำหรับหัวข้อนี้ สัญญาณที่มักโผล่ก่อนคือ <strong>schema-valid rate ลดลง, latency โตขึ้น, output drift เมื่อเปลี่ยน model settings</strong>.</p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>ตัวอย่างในระบบจริง</h2>
+  <p>ตัวอย่างคลาสสิกคือ coding agent ที่เลือก model route ไม่เหมาะ: ใช้ sampling สูงกับงาน tool calling แล้วได้ argument แปลก ๆ หรือใช้ context ยาวเกินโดยไม่ compact จน latency บวมโดยไม่มีคุณค่าจริงเพิ่มขึ้น.</p>
+  <p>ให้ใช้ภาพนี้เป็นจุดยึดเวลาคุณคิดถึง Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token: ถ้าคุณยังไม่เห็นว่ามันเปลี่ยน trace, config, schema, memory rule หรือ approval flow ตรงไหน แปลว่าหัวข้อนี้ยังถูกเก็บไว้ในชั้นคำอธิบายมากกว่าชั้น implementation.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: model profile config, token budget worksheet, telemetry field ด้าน token/cost.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: schema-valid rate ลดลง, latency โตขึ้น, output drift เมื่อเปลี่ยน model settings.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>เราแยก runtime settings ตามชนิดงานหรือยัง หรือยังใช้ค่าเดียวทั้งระบบ</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 02</div>
+  <h1>Transformer attention — intuition, KV cache, attention pattern</h1>
+  <p>เวลาระบบเริ่มโต หัวข้ออย่าง <strong>Transformer attention — intuition, KV cache, attention pattern</strong> มักเป็นจุดที่แยกระหว่างเดโมที่ดูฉลาดกับ harness ที่ใช้งานได้จริง. ตัวอย่างคลาสสิกคือ coding agent ที่เลือก model route ไม่เหมาะ: ใช้ sampling สูงกับงาน tool calling แล้วได้ argument แปลก ๆ หรือใช้ context ยาวเกินโดยไม่ compact จน latency บวมโดยไม่มีคุณค่าจริงเพิ่มขึ้น.</p>
+  <p>ในภาษาของวิศวกร หัวข้อนี้กำลังถามว่าคุณจะย้ายความกำกวมออกจากหัวของโมเดลไปอยู่ใน artifact แบบไหน: <strong>context budget table, compaction trigger rules, re-injection policy</strong>. ถ้า artifact นี้ยังไม่เกิด ความเสี่ยงจะสะสมแบบเงียบ ๆ จนวันหนึ่งโผล่มาเป็น incident.</p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Transformer attention — intuition, KV cache, attention pattern</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>สิ่งที่มักพังก่อนใน production</h2>
+  <p>เมื่อหัวข้อนี้ถูกมองข้าม ระบบมักไม่พังทันทีในเดโม แต่จะเริ่มเผยอาการในรูปของ Transformer attention — intuition, KV cache, attention pattern ที่แปลผลยากขึ้นเรื่อย ๆ. คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>นี่คือเหตุผลที่ Harness Engineer ต้องจับสัญญาณเร็วและ encode บทเรียนกลับเข้า runtime หรือ workflow แทนการปล่อยให้ทีมแก้แบบเฉพาะหน้าไปเรื่อย ๆ.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: context budget table, compaction trigger rules, re-injection policy.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: session ยาวแล้วคุณภาพตก, context overflow, repeated forgetting, cost พุ่ง.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>ข้อมูลชิ้นนี้จำเป็นต้องอยู่ in-context ตอนนี้จริงหรือควรถูกสรุปหรือโหลดเมื่อจำเป็นเท่านั้น</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Transformer attention — intuition, KV cache, attention pattern มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Transformer attention — intuition, KV cache, attention pattern แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 03</div>
+  <h1>Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง</h1>
+  <p>ให้มอง <strong>Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง</strong> เป็นการบังคับให้ทีมตัดสินใจในเรื่องที่มักถูกผลักทิ้งไว้ท้ายสุด ไม่ว่าจะเป็น boundary, budget, review surface หรือ recovery path. คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>ความต่างของทีมที่อ่านหัวข้อนี้แล้วได้ผลกับทีมที่อ่านแล้วไม่ได้ผล อยู่ที่การกล้าแปลมันเป็นกติกาที่ตรวจได้. สำหรับหัวข้อนี้ คำถามที่ช่วยมากที่สุดคือ: <strong>ข้อมูลชิ้นนี้จำเป็นต้องอยู่ in-context ตอนนี้จริงหรือควรถูกสรุปหรือโหลดเมื่อจำเป็นเท่านั้น</strong></p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>มุมมองแบบผู้รีวิวระบบ</h2>
+  <p>เวลาอ่านหัวข้อนี้ ให้ลองสมมติว่าคุณเป็น reviewer ที่ต้องอนุมัติ design ของทีม. คุณจะไม่ถามแค่ว่าเข้าใจคำศัพท์นี้ไหม แต่จะถามว่า boundary ถูกวางไว้ถูกชั้นหรือยัง และ evidence ที่จะพิสูจน์การตัดสินใจนี้อยู่ตรงไหน.</p>
+  <p>วิธีคิดแบบ reviewer นี้ทำให้ Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง กลายเป็นเครื่องมือในการตั้งคำถามที่ดีขึ้น ไม่ใช่แค่เนื้อหาสำหรับจดจำ.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: context budget table, compaction trigger rules, re-injection policy.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: session ยาวแล้วคุณภาพตก, context overflow, repeated forgetting, cost พุ่ง.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>ข้อมูลชิ้นนี้จำเป็นต้องอยู่ in-context ตอนนี้จริงหรือควรถูกสรุปหรือโหลดเมื่อจำเป็นเท่านั้น</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 04</div>
+  <h1>Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability</h1>
+  <p>หัวข้อนี้สำคัญในบท <strong>LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</strong> เพราะมันบอกว่าทีมกำลังใช้ระบบแบบมีข้อจำกัดที่ชัดเจน หรือยังปล่อยให้โมเดลเดาในพื้นที่ที่ควรถูกออกแบบไว้ล่วงหน้า. บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+  <p>ถ้าคุณกำลังสร้างของจริง สิ่งแรกที่ควรถามไม่ใช่แค่ 'Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability คืออะไร' แต่คือมันควรไปนั่งอยู่ในชั้นไหนของระบบ และควรทิ้งสัญญาณอะไรไว้เมื่อเริ่มล้มเหลว. สำหรับหัวข้อนี้ สัญญาณที่มักโผล่ก่อนคือ <strong>tool misuse, malformed arguments, retries เพิ่ม, output ใหญ่เกิน context</strong>.</p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>ตัวอย่างในระบบจริง</h2>
+  <p>ตัวอย่างคลาสสิกคือ coding agent ที่เลือก model route ไม่เหมาะ: ใช้ sampling สูงกับงาน tool calling แล้วได้ argument แปลก ๆ หรือใช้ context ยาวเกินโดยไม่ compact จน latency บวมโดยไม่มีคุณค่าจริงเพิ่มขึ้น.</p>
+  <p>ให้ใช้ภาพนี้เป็นจุดยึดเวลาคุณคิดถึง Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability: ถ้าคุณยังไม่เห็นว่ามันเปลี่ยน trace, config, schema, memory rule หรือ approval flow ตรงไหน แปลว่าหัวข้อนี้ยังถูกเก็บไว้ในชั้นคำอธิบายมากกว่าชั้น implementation.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: JSON schema, tool registry, permission metadata, concise/raw result modes.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: tool misuse, malformed arguments, retries เพิ่ม, output ใหญ่เกิน context.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>ชื่อและ description ของ interface นี้บอกโมเดลชัดพอหรือยังว่าควรใช้เมื่อไรและไม่ควรใช้เมื่อไร</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 05</div>
+  <h1>Logprobs — เอาไปใช้ทำ confidence scoring, classifier</h1>
+  <p>เวลาระบบเริ่มโต หัวข้ออย่าง <strong>Logprobs — เอาไปใช้ทำ confidence scoring, classifier</strong> มักเป็นจุดที่แยกระหว่างเดโมที่ดูฉลาดกับ harness ที่ใช้งานได้จริง. ตัวอย่างคลาสสิกคือ coding agent ที่เลือก model route ไม่เหมาะ: ใช้ sampling สูงกับงาน tool calling แล้วได้ argument แปลก ๆ หรือใช้ context ยาวเกินโดยไม่ compact จน latency บวมโดยไม่มีคุณค่าจริงเพิ่มขึ้น.</p>
+  <p>ในภาษาของวิศวกร หัวข้อนี้กำลังถามว่าคุณจะย้ายความกำกวมออกจากหัวของโมเดลไปอยู่ใน artifact แบบไหน: <strong>model profile config, token budget worksheet, telemetry field ด้าน token/cost</strong>. ถ้า artifact นี้ยังไม่เกิด ความเสี่ยงจะสะสมแบบเงียบ ๆ จนวันหนึ่งโผล่มาเป็น incident.</p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Logprobs — เอาไปใช้ทำ confidence scoring, classifier</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>สิ่งที่มักพังก่อนใน production</h2>
+  <p>เมื่อหัวข้อนี้ถูกมองข้าม ระบบมักไม่พังทันทีในเดโม แต่จะเริ่มเผยอาการในรูปของ Logprobs — เอาไปใช้ทำ confidence scoring, classifier ที่แปลผลยากขึ้นเรื่อย ๆ. คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>นี่คือเหตุผลที่ Harness Engineer ต้องจับสัญญาณเร็วและ encode บทเรียนกลับเข้า runtime หรือ workflow แทนการปล่อยให้ทีมแก้แบบเฉพาะหน้าไปเรื่อย ๆ.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: model profile config, token budget worksheet, telemetry field ด้าน token/cost.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: schema-valid rate ลดลง, latency โตขึ้น, output drift เมื่อเปลี่ยน model settings.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>เราแยก runtime settings ตามชนิดงานหรือยัง หรือยังใช้ค่าเดียวทั้งระบบ</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Logprobs — เอาไปใช้ทำ confidence scoring, classifier มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Logprobs — เอาไปใช้ทำ confidence scoring, classifier แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 06</div>
+  <h1>Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร</h1>
+  <p>ให้มอง <strong>Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร</strong> เป็นการบังคับให้ทีมตัดสินใจในเรื่องที่มักถูกผลักทิ้งไว้ท้ายสุด ไม่ว่าจะเป็น boundary, budget, review surface หรือ recovery path. คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>ความต่างของทีมที่อ่านหัวข้อนี้แล้วได้ผลกับทีมที่อ่านแล้วไม่ได้ผล อยู่ที่การกล้าแปลมันเป็นกติกาที่ตรวจได้. สำหรับหัวข้อนี้ คำถามที่ช่วยมากที่สุดคือ: <strong>ถ้าถอดหัวข้อนี้ออกจากระบบวันนี้ จุดไหนจะเริ่มพังก่อน</strong></p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>มุมมองแบบผู้รีวิวระบบ</h2>
+  <p>เวลาอ่านหัวข้อนี้ ให้ลองสมมติว่าคุณเป็น reviewer ที่ต้องอนุมัติ design ของทีม. คุณจะไม่ถามแค่ว่าเข้าใจคำศัพท์นี้ไหม แต่จะถามว่า boundary ถูกวางไว้ถูกชั้นหรือยัง และ evidence ที่จะพิสูจน์การตัดสินใจนี้อยู่ตรงไหน.</p>
+  <p>วิธีคิดแบบ reviewer นี้ทำให้ Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร กลายเป็นเครื่องมือในการตั้งคำถามที่ดีขึ้น ไม่ใช่แค่เนื้อหาสำหรับจดจำ.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: design note, checklist, metric, หรือ policy ที่ตรวจได้จริง.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: คุณภาพแกว่ง, การตัดสินใจอธิบายยาก, ทีมต้องแก้ด้วยมือบ่อย.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>ถ้าถอดหัวข้อนี้ออกจากระบบวันนี้ จุดไหนจะเริ่มพังก่อน</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+<section class="page">
+  <div class="eyebrow">Topic deep dive · 07</div>
+  <h1>Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร</h1>
+  <p>หัวข้อนี้สำคัญในบท <strong>LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</strong> เพราะมันบอกว่าทีมกำลังใช้ระบบแบบมีข้อจำกัดที่ชัดเจน หรือยังปล่อยให้โมเดลเดาในพื้นที่ที่ควรถูกออกแบบไว้ล่วงหน้า. บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+  <p>ถ้าคุณกำลังสร้างของจริง สิ่งแรกที่ควรถามไม่ใช่แค่ 'Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร คืออะไร' แต่คือมันควรไปนั่งอยู่ในชั้นไหนของระบบ และควรทิ้งสัญญาณอะไรไว้เมื่อเริ่มล้มเหลว. สำหรับหัวข้อนี้ สัญญาณที่มักโผล่ก่อนคือ <strong>tool misuse, malformed arguments, retries เพิ่ม, output ใหญ่เกิน context</strong>.</p>
+  <h2>ทำไมคนจำนวนมากพลาดตรงนี้</h2>
+  <p>คนจำนวนมากสับสนระหว่างความสามารถของ base model กับพฤติกรรมที่ถูกขัดเกลาหลัง post-training และเลยคาดหวังว่าการเปลี่ยน model รุ่นจะไม่กระทบ workflow เดิม.</p>
+  <p>เมื่อทีมยังไม่แยกเรื่องนี้ออกมาอย่างชัดเจน หัวข้ออย่าง <em>Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร</em> มักถูกฝังอยู่ใน prompt prose, ความเคยชินของคนใช้เครื่องมือ, หรือการตัดสินใจเฉพาะหน้าของ runtime. ผลคือระบบดูเหมือนทำงานได้ แต่เมื่อ workload โตขึ้น ปัญหาจะโผล่ในรูปของต้นทุนที่พุ่ง คุณภาพที่แกว่ง หรือพฤติกรรมที่อธิบายไม่ได้.</p>
+  <h2>ตัวอย่างในระบบจริง</h2>
+  <p>ตัวอย่างคลาสสิกคือ coding agent ที่เลือก model route ไม่เหมาะ: ใช้ sampling สูงกับงาน tool calling แล้วได้ argument แปลก ๆ หรือใช้ context ยาวเกินโดยไม่ compact จน latency บวมโดยไม่มีคุณค่าจริงเพิ่มขึ้น.</p>
+  <p>ให้ใช้ภาพนี้เป็นจุดยึดเวลาคุณคิดถึง Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร: ถ้าคุณยังไม่เห็นว่ามันเปลี่ยน trace, config, schema, memory rule หรือ approval flow ตรงไหน แปลว่าหัวข้อนี้ยังถูกเก็บไว้ในชั้นคำอธิบายมากกว่าชั้น implementation.</p>
+  <h2>สิ่งที่ Harness Engineer ต้องตัดสินใจ</h2>
+  <ul class="checklist">
+    <li>หัวข้อนี้ควรถูก encode เป็น artifact แบบใดก่อน: JSON schema, tool registry, permission metadata, concise/raw result modes.</li>
+    <li>จุดใดคือ trust boundary หรือ cost boundary ที่หัวข้อนี้กำลังแตะอยู่.</li>
+    <li>ถ้าระบบพังเพราะเรื่องนี้ ทีมจะรู้จากสัญญาณใดก่อน: tool misuse, malformed arguments, retries เพิ่ม, output ใหญ่เกิน context.</li>
+    <li>อะไรคือ deterministic control ขั้นต่ำที่ควรมี และอะไรคือส่วนที่ปล่อยให้ model reasoning ช่วยตัดสินใจได้.</li>
+  </ul>
+  <h2>ตัวอย่างคำถาม review ที่ควรถามใน PR หรือ design doc</h2>
+  <ul class="checklist">
+    <li>ชื่อและ description ของ interface นี้บอกโมเดลชัดพอหรือยังว่าควรใช้เมื่อไรและไม่ควรใช้เมื่อไร</li>
+    <li>เรากำลังพึ่งพาให้โมเดลเดาเรื่อง Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร มากเกินไปหรือไม่.</li>
+    <li>ข้อมูลหรืออำนาจที่เกี่ยวกับหัวข้อนี้อยู่ใน layer ที่เหมาะสมหรือยัง.</li>
+    <li>ถ้า workload โตขึ้น 10 เท่า หัวข้อนี้จะกลายเป็น bottleneck เรื่องใดก่อน.</li>
+    <li>เรามีหลักฐานใดบ้างที่จะใช้พิสูจน์ว่าการเปลี่ยนแปลงตรงนี้ทำให้ระบบดีขึ้นจริง.</li>
+  </ul>
+  <h2>แปลเป็น capstone วันนี้</h2>
+  <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+  <p>ถ้าคุณอ่านบทนี้เพื่อเอาไปใช้จริงทันที ให้เลือกเพียงหนึ่ง artifact ที่เกี่ยวกับ Tool use / Function calling จาก native model perspective — โมเดลรู้จัก tool ได้อย่างไร แล้วลงมือแก้ภายในวันนี้. ความเข้าใจจะเริ่มนิ่งเมื่อมันเปลี่ยนสิ่งที่อยู่ใน repo, dashboard, runtime หรือ review process ของคุณ.</p>
+</section>
+    <section class="page">
+      <div class="blockquote-full">
+        <p>บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>
+        <small>Chapter one-liner · Harness Engineer lens</small>
+      </div>
+      <h1 class="synthesis-title">Synthesis · ถ้าจะเอาบทนี้ไปใช้วันนี้</h1>
+      <p>ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>
+      <p>วิธีที่ดีที่สุดในการเรียนบทนี้คือเลือกหนึ่ง workflow จริงแล้วบังคับให้บทนี้ฝากร่องรอยไว้ในระบบของคุณ. บางบทควรลงเป็น schema หรือ budget table, บางบทควรลงเป็น metric หรือ eval, และบางบทควรลงเป็น runtime rule หรือ approval surface. ถ้าทำเช่นนี้ครบทุกบท คุณจะได้ capstone ที่เป็นผลรวมของการตัดสินใจที่มีหลักฐานรองรับ ไม่ใช่เพียงเดโมที่ร้อยด้วยความรู้สึก.</p>
+      <div class="grid-two">
+        <div class="panel"><div class="panel-title">Mentor ritual</div><p>ก่อน merge การเปลี่ยนแปลงที่แตะบทนี้ ให้ถามว่าเราเพิ่มความชัดของ boundary หรือเพียงเพิ่มความสามารถโดยไม่ได้เพิ่มการควบคุม.</p></div>
+        <div class="panel"><div class="panel-title">Capstone tie-in</div><p>ผูกบทนี้กับ artifact อย่างน้อยหนึ่งชิ้นใน capstone: config, ADR, metric, eval case, workflow note, or CLI behavior.</p></div>
+      </div>
+      <h2>Reflection questions</h2>
+      <ul class="reflection-list">
+        <li>ถ้าคุณต้องสอนบท 01 ให้เพื่อนร่วมทีมใน 5 นาที คุณจะย้ำว่าปัญหาหลักอยู่ที่ layer ไหน.</li>
+        <li>ในระบบของคุณตอนนี้ มีส่วนไหนที่ยังใช้การเดาแทน policy ในเรื่อง LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer อยู่บ้าง.</li>
+        <li>หลักฐานชิ้นแรกที่คุณอยากเก็บหลังนำบทนี้ไปใช้คืออะไร และทำไมหลักฐานนั้นถึงมีน้ำหนักพอจะใช้ตัดสินใจรอบหน้า.</li>
+      </ul>
+    </section>
+    <section class="page">
+      <div class="eyebrow">References · แหล่งอ้างอิง</div>
+      <h1 class="refs-title">Reference Harvest for This Chapter</h1>
+      <p>รายการอ้างอิงด้านล่างยังคงยึด canonical article seed เดิม และเรียงตาม evidence hierarchy ของโปรเจค: Official Docs → Books → Papers → Blogs. เมื่อจะใช้งานภายนอก ควรทำ verification รอบสุดท้ายต่อบทเสมอ.</p>
+      <div class="refs-grid">
+<div class="refs-group">
+  <h3>Official Docs</h3>
+  <ul class="reference-list">
+  <li>Anthropic — Building effective agents</li>
+</ul>
+</div>
+<div class="refs-group">
+  <h3>Books</h3>
+  <ul class="reference-list">
+  <li>Build a Large Language Model (from Scratch) — Sebastian Raschka</li>
+  <li>Hands-On Large Language Models — Jay Alammar &amp; Maarten Grootendorst</li>
+</ul>
+</div>
+<div class="refs-group">
+  <h3>Papers</h3>
+  <ul class="reference-list">
+  <li>The Illustrated Transformer — Jay Alammar</li>
+</ul>
+</div>
+<div class="refs-group">
+  <h3>Blogs</h3>
+  <ul class="reference-list">
+  <li>Karpathy — Let&#x27;s build the GPT tokenizer</li>
+</ul>
+</div>
+      </div>
+      <hr class="rule" />
+      <p class="note">เป้าหมายของ references ไม่ใช่เพียงให้ลิงก์อ่านต่อ แต่เพื่อทำให้ผู้อ่านเห็นว่าหัวข้อย่อยแต่ละข้อควรถูก grounded ด้วยหลักฐานระดับใดก่อนจะถูกยกระดับเป็นคำอธิบายเชิงสอน.</p>
+    </section>
+    <div class="book-footer">
+      <div class="book-footer-mark">◆</div>
+      <div class="book-footer-text">Harness Engineer ที่ดีไม่ใช่คนที่มีคำตอบทุกอย่าง แต่คือคนที่รู้ว่าควรบังคับข้อจำกัดตรงไหนเพื่อให้ระบบเรียนรู้และทำงานได้จริง.</div>
+      <div class="book-footer-author">AI Harness Engineering · Chapter 01</div>
+    </div>
+  </div>
+</body>
+</html>

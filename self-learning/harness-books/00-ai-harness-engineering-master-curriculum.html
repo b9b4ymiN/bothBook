@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Harness Engineering — แผนการเรียนรู้ฉบับสมบูรณ์</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+
+:root {
+  --paper: #F2EFE4;
+  --paper-mid: #EAE5D2;
+  --paper-deep: #DDD7BD;
+  --paper-shadow: #C8C0A0;
+  --ink: #14110B;
+  --ink-soft: #2A261C;
+  --ink-mid: #46402F;
+  --ink-muted: #7C7460;
+  --ink-faint: #ABA48C;
+  --red: #7A1A1A;
+  --red-bg: #FBF3F0;
+  --green: #355E40;
+  --green-bg: #F1F6EE;
+  --book-width: 760px;
+  --page-pad-h: 76px;
+  --page-pad-v: 84px;
+  --accent: #2D6A9F;
+  --accent-deep: #1A4F7A;
+  --accent-light: #6C9FC7;
+  --accent-rule: rgba(45, 106, 159, 0.30);
+  --accent-bg: rgba(45, 106, 159, 0.08);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #1A1610;
+  padding: 40px 16px;
+  color: var(--ink);
+  font-family: 'Noto Serif Thai', 'Sarabun', serif;
+}
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+}
+.cover,.page,.chapter-open,.toc,.footer-page {
+  position: relative;
+  padding: var(--page-pad-v) var(--page-pad-h);
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cover { min-height: 100vh; background: linear-gradient(180deg, var(--paper-mid) 0%, var(--paper) 100%); }
+.cover::before,.cover::after,.chapter-open::before,.chapter-open::after {
+  content: '';
+  position: absolute;
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--accent-rule);
+}
+.cover::before,.chapter-open::before { top: 18px; left: 18px; border-right: none; border-bottom: none; }
+.cover::after,.chapter-open::after { right: 18px; bottom: 18px; border-left: none; border-top: none; }
+.kicker,.chapter-label,.eyebrow,.meta-label,.panel-title,.author-meta,.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+.kicker { font-size: 11px; margin-bottom: 28px; }
+.title,.toc-title,.chapter-title,.page h1,.page h2,.refs-title,.synthesis-title {
+  font-family: 'Playfair Display', 'Noto Serif Thai', serif;
+}
+.title { font-size: 46px; line-height: 1.12; margin: 0 0 18px; }
+.subtitle { font-size: 20px; line-height: 1.8; color: var(--ink-mid); margin: 0 0 28px; }
+.deck,.page p,.page li,.toc p,.cover p,.footer-page p { font-size: 16px; line-height: 1.95; color: var(--ink-soft); }
+.meta-grid,.grid-two { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.meta-card,.panel { border: 1px solid var(--paper-shadow); padding: 18px 20px; background: rgba(255,255,255,0.24); }
+.meta-grid { margin: 32px 0; }
+.meta-value,.panel p { font-size: 15px; line-height: 1.8; color: var(--ink-soft); margin: 0; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+.tag,.topic-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  padding: 5px 9px;
+  font-weight: 700;
+}
+.toc-title,.refs-title,.synthesis-title { font-size: 28px; margin: 0 0 24px; line-height: 1.3; }
+.toc-list { display: grid; gap: 18px; }
+.ch-card { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--paper-shadow); align-items: flex-start; }
+.ch-card-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 34px; color: var(--accent); min-width: 52px; line-height: 1; }
+.ch-card-title { font-family: 'Noto Serif Thai', serif; font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.ch-card-one-liner { font-size: 14px; line-height: 1.8; color: var(--ink-muted); font-style: italic; }
+.author-box {
+  display: flex; gap: 18px; padding: 24px 28px; background: var(--paper-mid); border-left: 3px solid var(--accent); margin: 28px 0;
+}
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--accent-deep); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; flex-shrink: 0;
+}
+.author-text { font-size: 16px; line-height: 1.9; color: var(--ink-soft); font-style: italic; margin: 0; }
+.chapter-open { background: var(--paper-mid); }
+.chapter-label { font-size: 11px; margin-bottom: 18px; }
+.chapter-title { font-size: 34px; line-height: 1.2; margin: 0 0 16px; }
+.chapter-essence { font-size: 18px; line-height: 1.9; color: var(--ink-mid); margin: 0; }
+.eyebrow { font-size: 10px; margin-bottom: 14px; }
+.page h1 { font-size: 30px; margin: 0 0 18px; line-height: 1.3; }
+.page h2 { font-size: 24px; margin: 34px 0 14px; line-height: 1.35; }
+.insight-box { padding: 22px 24px; background: var(--accent-bg); border-left: 3px solid var(--accent); margin: 26px 0; }
+.insight-box strong { display: block; margin-bottom: 8px; color: var(--accent-deep); }
+.study-list,.goal-list,.next-list,.checklist,.reflection-list,.reference-list { margin: 0; padding-left: 22px; }
+.study-list li,.goal-list li,.next-list li,.checklist li,.reflection-list li,.reference-list li { margin-bottom: 10px; }
+.topic-stack { display: grid; gap: 18px; margin-top: 20px; }
+.topic-card { padding: 18px 20px; border: 1px solid var(--paper-shadow); background: rgba(255,255,255,0.22); }
+.topic-title { font-family: 'Noto Serif Thai', serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.topic-card p { margin: 0 0 12px; }
+.ladder { margin: 32px 0; }
+.ladder-step { padding: 18px 24px; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text { font-size: 15px; line-height: 1.8; color: var(--ink-soft); }
+.ladder-arrow { text-align: center; padding: 8px; color: var(--ink-faint); font-size: 22px; }
+.blockquote-full { background: var(--ink); color: var(--paper); padding: 48px 52px; margin: 36px -76px; }
+.blockquote-full p { color: var(--paper); font-family: 'Playfair Display', 'Noto Serif Thai', serif; font-size: 28px; line-height: 1.55; margin: 0; }
+.blockquote-full small { display: block; margin-top: 16px; font-family: 'Sarabun', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light); font-size: 11px; }
+.refs-grid { display: grid; gap: 22px; }
+.refs-group { border-top: 1px solid var(--paper-shadow); padding-top: 18px; }
+.refs-group h3 { font-family: 'Playfair Display', 'Noto Serif Thai', serif; font-size: 20px; margin: 0 0 14px; }
+.book-footer { background: var(--ink); padding: 56px var(--page-pad-h); text-align: center; }
+.book-footer-mark { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--accent); margin-bottom: 16px; }
+.book-footer-text { font-size: 14px; color: var(--paper-deep); font-style: italic; line-height: 1.8; max-width: 480px; margin: 0 auto 20px; }
+hr.rule { border: none; border-top: 1px solid var(--paper-shadow); margin: 34px 0; }
+.note { font-size: 14px; color: var(--ink-muted); font-style: italic; }
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .meta-grid,.grid-two { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 40px 24px; margin-left: -28px; margin-right: -28px; }
+  .title,.chapter-title,.page h1 { font-size: 28px; }
+}
+
+
+pre.code-block {
+  background: #16130f;
+  color: #efe9d9;
+  padding: 20px 22px;
+  overflow-x: auto;
+  line-height: 1.7;
+  font-size: 13px;
+  border-left: 3px solid var(--accent);
+  white-space: pre-wrap;
+}
+table.matrix {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0 10px;
+  font-size: 14px;
+}
+table.matrix th, table.matrix td {
+  border: 1px solid var(--paper-shadow);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+table.matrix th {
+  background: var(--paper-mid);
+  font-family: 'Sarabun', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="book">
+    <section class="cover">
+      <div class="kicker">AI Harness Engineering · Master Curriculum</div>
+      <h1 class="title">AI Harness Engineering — แผนการเรียนรู้ฉบับสมบูรณ์</h1>
+      <p class="subtitle">แผนแม่บทสำหรับสร้างหนังสือเรียน 18 บทในมุมของ Harness Engineer ที่ต้องลงมือสร้างของจริงได้</p>
+      <p class="deck">เอกสารนี้ทำหน้าที่เป็น spine ของทั้งชุด: มันนิยามบทบาท Harness Engineer, เหตุผลที่ตำแหน่งนี้เกิดขึ้น, โครงสร้าง 6 Part / 18 บท, หนังสืออ่านประกอบ, roadmap 6 เดือน, และ readiness checklist ที่ใช้วัดความพร้อม.</p>
+      <div class="meta-grid">
+        <div class="meta-card"><div class="meta-label">Curriculum shape</div><div class="meta-value">6 Parts · 18 Chapters · 6-Month Roadmap</div></div>
+        <div class="meta-card"><div class="meta-label">Primary audience</div><div class="meta-value">Software Developers ที่ใช้ AI APIs ได้อยู่แล้วและต้องการขยับจากการใช้โมเดลเป็น ไปสู่การออกแบบ harness และ agent systems ได้จริง.</div></div>
+        <div class="meta-card"><div class="meta-label">Why this document exists</div><div class="meta-value">เมื่อ curriculum ยาวและเชื่อมกันหลายส่วน คุณต้องมีเอกสารแม่บทที่ล็อกลำดับการเรียน ความคาดหวัง และภาษากลางของทั้งโปรเจค.</div></div>
+        <div class="meta-card"><div class="meta-label">Curriculum track</div><div class="meta-value">This document intentionally follows the user-specified reference-article variant used in this delivery, even where that sequencing differs from the repo default backbone.</div></div>
+      </div>
+      <div class="tag-row"><span class="tag">Curriculum Spine</span><span class="tag">Harness Engineer</span><span class="tag">18 Detailed Docs</span></div>
+    </section>
+    <section class="toc">
+      <h2 class="toc-title">How to use this curriculum</h2>
+      <p>เอกสารเล่มนี้ไม่ใช่แค่สารบัญของทั้งชุด แต่เป็นคู่มือการอ่าน การฝึก และการเชื่อมเนื้อหาทุกบทเข้ากับ capstone หนึ่งชิ้นที่เติบโตไปตลอด 6 เดือน. ถ้าคุณใช้เล่มนี้ถูก มันจะทำหน้าที่เหมือน mentor map มากกว่า reading list.</p>
+      <div class="toc-list">
+        <div class="ch-card"><div class="ch-card-num">01</div><div><div class="ch-card-title">Role framing</div><div class="ch-card-one-liner">เข้าใจว่าทำไม Harness Engineer จึงเป็น role ที่ชัดขึ้นในยุคโมเดล commodity.</div></div></div>
+        <div class="ch-card"><div class="ch-card-num">02</div><div><div class="ch-card-title">Learning path</div><div class="ch-card-one-liner">เห็นลำดับจาก foundations ไปสู่ capstone อย่างเป็นระบบ ไม่กระโดดไปเล่นของยากก่อนเห็นปัญหาจริง.</div></div></div>
+        <div class="ch-card"><div class="ch-card-num">03</div><div><div class="ch-card-title">Chapter atlas</div><div class="ch-card-one-liner">อ่าน mini-brief ของทั้ง 18 บทเพื่อรู้ว่าบทไหนจะเปลี่ยน capstone ของคุณตรงไหน.</div></div></div>
+        <div class="ch-card"><div class="ch-card-num">04</div><div><div class="ch-card-title">Roadmap and readiness</div><div class="ch-card-one-liner">เปลี่ยนหลักสูตรให้กลายเป็นการเดินจริงที่ประเมินตัวเองได้ด้วยหลักฐาน.</div></div></div>
+      </div>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Foreword · คำจาก mentor</div>
+      <h1>หลักสูตรนี้ไม่ได้สอนให้คุณเก่ง prompt อย่างเดียว</h1>
+      <p>Harness Engineer คือคนที่ยืนอยู่ตรงจุดเชื่อมระหว่าง model behavior กับ production discipline. เขาต้องคิดเรื่อง tools, loops, memory, safety, cost, observability, build pipeline และ operator experience พร้อมกัน. นั่นคือเหตุผลที่หลักสูตรนี้ต้องถูกอ่านแบบระบบ ไม่ใช่แบบเก็บศัพท์ทีละคำ.</p>
+      <p>ถ้าคุณเป็น Software Developer ที่ใช้ AI APIs ได้อยู่แล้ว จุดเปลี่ยนสำคัญไม่ใช่การรู้จัก framework ใหม่เพิ่มอีกตัว แต่คือการเริ่มมองว่าปัญหาไหนควรแก้ที่ prompt, ปัญหาไหนควรแก้ที่ context, ปัญหาไหนควรแก้ที่ tool boundary, และปัญหาไหนควรแก้ที่ eval หรือ policy layer. หลักสูตรนี้ถูกสร้างมาเพื่อฝึกสายตาแบบนั้น.</p>
+      <p class="note">หมายเหตุด้าน curriculum contract: ชุดเอกสารนี้ยึดโครง 6 Part / 18 บทจากบทความอ้างอิงที่ผู้ใช้ส่งมาเป็น canonical delivery spine สำหรับงานนี้ จึงอาจไม่ตรง 1:1 กับ backbone เริ่มต้นของ repo เดิมในบางจุดลำดับ.</p>
+      <div class="author-box"><div class="author-avatar">HC</div><div><div class="author-meta">Harness Curriculum · Mentor note</div><p class="author-text">ทุกบทควรถูกอ่านพร้อมคำถามเดียวกัน: ถ้าฉันสร้าง agent หรือ harness ของจริง เนื้อหาบทนี้จะเปลี่ยน component ไหนของระบบ และฉันจะเก็บหลักฐานอะไรเพื่อยืนยันว่ามันดีขึ้น.</p></div></div>
+      <h2>โครง Parts</h2>
+      <ul class="study-list">
+        <li><strong>Part 1</strong> — Foundations — รู้จักโมเดลและบริบทอย่างแท้จริง · 3 บท · 2-3 สัปดาห์</li>
+        <li><strong>Part 2</strong> — Building Blocks of a Harness · 4 บท · 3-4 สัปดาห์</li>
+        <li><strong>Part 3</strong> — Advanced Orchestration · 3 บท · 2-3 สัปดาห์</li>
+        <li><strong>Part 4</strong> — Reliability &amp; Production · 4 บท · 3-4 สัปดาห์</li>
+        <li><strong>Part 5</strong> — Engineering Craft · 3 บท · 2 สัปดาห์</li>
+        <li><strong>Part 6</strong> — Capstone Project · 1 บท · 2-4 สัปดาห์</li>
+      </ul>
+    </section>
+    <section class="chapter-open">
+      <div class="chapter-label">Curriculum atlas / 6 Parts · 18 Chapters</div>
+      <h2 class="chapter-title">AI Harness Engineering — แผนการเรียนรู้ฉบับสมบูรณ์</h2>
+      <p class="chapter-essence">เป้าหมายของทั้งชุดคือพาคุณจากผู้ใช้โมเดลที่ทำ prototype ได้ ไปสู่คนที่ออกแบบ engineered scaffolding รอบโมเดลได้อย่างเป็นระบบ มีหลักฐาน และอธิบาย trade-offs ของตัวเองได้.</p>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Roadmap · วิธีเดิน</div>
+      <h1>วิธีใช้หลักสูตรนี้ให้ได้ผลจริง</h1>
+      <p>เดือนแรกควรเลือก capstone หนึ่งอันก่อน แล้วใช้ทุกบทเป็นแรงกดให้ capstone โตขึ้นอย่างมีชั้นเชิง. ถ้าไม่มีระบบจริงให้ผูก เนื้อหาจำนวนมากจะกลายเป็นความรู้ที่จำได้แต่ตัดสินใจไม่เป็น. ในทางกลับกัน ถ้าคุณมี capstone ตั้งแต่แรก บทต่าง ๆ จะกลายเป็น decision material ทันที.</p>
+      <p>ลำดับการอ่านที่แนะนำสำหรับคนมีพื้นฐาน SWE + AI อยู่แล้วคือเริ่มจาก Context Engineering เพื่อเห็นแก่นของข้อจำกัดก่อน แล้วค่อยย้อนอ่าน LLM internals กับ Prompt Engineering อย่างเป็นระบบ. หลังจากนั้นให้เดินตามโครงของหลักสูตรเพื่อไม่ให้วิ่งไป multi-agent หรือ MCP ก่อนจะมีรากเรื่อง tool, loop และ memory ที่แน่นพอ.</p>
+      <h2>Roadmap 6 เดือน</h2>
+      <ul class="study-list">
+  <li>เดือน 1 — Part 1 + project เล็กคู่ขนาน</li>
+  <li>เดือน 2 — Part 2 + เริ่ม capstone scaffolding</li>
+  <li>เดือน 3 — Part 3 + integrate เข้ากับ capstone</li>
+  <li>เดือน 4 — Part 4 + harden capstone</li>
+  <li>เดือน 5 — Part 5 + finalize และเขียน blog</li>
+  <li>เดือน 6 — polish capstone + apply jobs / open-source contribution</li>
+</ul>
+      <h2>Checklist ความพร้อม</h2>
+      <ul class="checklist">
+  <li>อธิบายความต่างของ prompt engineering, context engineering, harness engineering ได้</li>
+  <li>เขียน MCP server ที่ผ่าน security review ได้</li>
+  <li>ออกแบบ 3-layer memory ของ agent ใหม่ได้ตั้งแต่ศูนย์</li>
+  <li>รู้ว่าเมื่อไหร่ไม่ควร multi-agent</li>
+  <li>เขียน eval ก่อนเขียน feature ได้เป็นนิสัย</li>
+  <li>อธิบาย compaction strategies ของ Claude Code ได้</li>
+  <li>ตอบได้ว่า cost ของ harness ตัวเองเป็นเท่าไหร่ต่อ task</li>
+  <li>อ่าน source code ของ Aider/Cline/Continue ได้ใน 2 ชั่วโมง</li>
+  <li>ออกแบบ permission system ที่ context-aware ได้</li>
+  <li>มี capstone project ใน GitHub พร้อม eval report และ architecture doc</li>
+</ul>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Chapter atlas · แผนที่ 18 บท</div>
+      <h1>Mini-brief ของทุกบทในชุด</h1>
+      <p>ส่วนนี้มีไว้สำหรับสองสถานการณ์: หนึ่ง คุณกำลังเรียนและอยากรู้ว่าบทไหนสำคัญต่อ capstone ของคุณที่สุด; สอง คุณกำลังเขียน/รีวิวเอกสารรายบทและต้องการ chapter brief ที่ย้ำแก่น ความยาก และการแปลสู่ implementation. ให้ถือว่าทุกบล็อกด้านล่างคือสัญญาเชิงสอนของแต่ละเล่ม.</p>
+      <div class="topic-stack"><div class="topic-card">  <div class="topic-tag">Chapter 01</div>  <div class="topic-title">LLM Internals ที่จำเป็นต้องรู้สำหรับ Harness Engineer</div>  <p><strong>Part:</strong> Part 1 · Foundations — รู้จักโมเดลและบริบทอย่างแท้จริง</p>  <p><strong>Why this chapter exists:</strong> บทนี้ปู mental model ให้คุณอธิบายได้ว่าทำไม context ยาวขึ้นแล้วช้าลง ทำไม tool calling เปราะเมื่อ sampling สูงเกินไป และทำไม hallucination ไม่ใช่บั๊กที่แก้ด้วย prompt อย่างเดียว.</p>  <p><strong>Mentor lens:</strong> บทนี้ทำให้คุณหยุดมองโมเดลเป็นกล่องดำ และเริ่มมองมันเป็นระบบที่มีข้อจำกัดชัดเจนเรื่อง token, attention, sampling และพฤติกรรมหลัง post-training.</p>  <p><strong>Capstone translation:</strong> ใน capstone คุณควรเปลี่ยนบทนี้ให้เป็น model selection note, token budget policy, และ sampling profiles ที่แยกตามชนิดงาน.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Tokenization — BPE, tiktoken, ทำไม 1 คำไทย ≠ 1 token</li>
+  <li>Transformer attention — intuition, KV cache, attention pattern</li>
+  <li>Context window จริงๆ คืออะไร — physical limit, ทำไมยิ่งใหญ่ยิ่งช้าและแพง</li>
+  <li>Sampling parameters — temperature, top_p, top_k และผลต่อ tool calling reliability</li>
+  <li>Logprobs — เอาไปใช้ทำ confidence scoring, classifier</li>
+  <li>Pre-training vs Post-training (RLHF, DPO) — ส่งผลต่อ behavior อย่างไร</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>อ่าน release note ของโมเดลใหม่แล้วแปลผลต่อระบบได้</li>
+  <li>ตอบได้ว่าทำไมโมเดลลืมเมื่อ context ยาว</li>
+  <li>เลือก sampling profile ให้เหมาะกับงานได้</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 02</div>  <div class="topic-title">Prompt Engineering ระดับ Production</div>  <p><strong>Part:</strong> Part 1 · Foundations — รู้จักโมเดลและบริบทอย่างแท้จริง</p>  <p><strong>Why this chapter exists:</strong> ใน harness จริง prompt ถูกเรียกใช้ซ้ำจำนวนมหาศาล ความคลุมเครือเล็กน้อยจึงแปลเป็นค่าใช้จ่าย ความไม่สม่ำเสมอ และ incident ได้ทันที.</p>  <p><strong>Mentor lens:</strong> บทนี้สอนให้คุณมอง prompt เป็น policy artifact ที่ต้อง review, test, version และ rollback ได้ ไม่ใช่ข้อความยาว ๆ ที่ฝากไว้ในโค้ดแล้วหวังว่าทุกอย่างจะดีเอง.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้ให้กลายเป็น prompt registry, prompt review checklist และ regression eval สำหรับ prompts สำคัญ.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Anatomy of a system prompt — role, instructions, examples, constraints, output format</li>
+  <li>Few-shot vs zero-shot และเมื่อไหร่ few-shot ทำให้แย่ลง</li>
+  <li>Chain-of-Thought / Reasoning prompts — extended thinking, scratchpad</li>
+  <li>Structured output — JSON mode, schema enforcement</li>
+  <li>Negative instructions — ทำไมการบอกอย่าทำ X ได้ผลน้อยกว่า ทำ Y แทน</li>
+  <li>Prompt injection และวิธีป้องกันเชิงสถาปัตยกรรม</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>เขียน system prompt ที่เสถียรพอสำหรับ production</li>
+  <li>ออกแบบ prompt ให้ทนต่อ input แบบ adversarial</li>
+  <li>รู้ว่าจุดไหนควรหยุดแก้ด้วย prompt แล้วไปแก้ที่ harness</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 03</div>  <div class="topic-title">Context Engineering</div>  <p><strong>Part:</strong> Part 1 · Foundations — รู้จักโมเดลและบริบทอย่างแท้จริง</p>  <p><strong>Why this chapter exists:</strong> นี่คือทักษะที่แยก AI engineer ทั่วไปออกจาก Harness Engineer เพราะระบบ agent จะชนข้อจำกัด context เร็วกว่าที่คนส่วนใหญ่คิด.</p>  <p><strong>Mentor lens:</strong> บทนี้คือแกนของสาย Harness Engineer เพราะมันสอนให้คุณบริหารพื้นที่รับรู้ของโมเดลอย่างจงใจ แทนการโยนทุกอย่างเข้า context แล้วค่อยหวังว่าจะไม่พัง.</p>  <p><strong>Capstone translation:</strong> ใน capstone บทนี้ควรเปลี่ยนเป็น context budget table, trigger rules สำหรับ compaction และ policy ว่าอะไรอยู่ in-context อะไรอยู่ external memory.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Context window เป็น scarce resource — คิดเหมือน CPU cache ไม่ใช่ disk</li>
+  <li>Context budget allocation — system, history, tool defs, output</li>
+  <li>Lost in the middle problem</li>
+  <li>Just-in-time context loading</li>
+  <li>Context compaction strategies — micro/auto/full compact</li>
+  <li>Caching — prompt caching, KV cache</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ออกแบบ context layout ของ session ยาวได้</li>
+  <li>รู้ว่าเมื่อไหร่ต้อง compact และเมื่อไหร่ต้อง offload</li>
+  <li>ประมาณ cost ของ session ได้ก่อนรันจริง</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 04</div>  <div class="topic-title">Tool / Function Calling Design</div>  <p><strong>Part:</strong> Part 2 · Building Blocks of a Harness</p>  <p><strong>Why this chapter exists:</strong> Agent จะฉลาดขึ้นจริงก็ต่อเมื่อเครื่องมือของมันชัด ปลอดภัย และสื่อความหมายดีพอให้โมเดลใช้ถูกตั้งแต่ครั้งแรก.</p>  <p><strong>Mentor lens:</strong> บทนี้เปลี่ยนวิธีคิดจากมอง tool เป็น feature ไปสู่การมอง tool เป็น interface contract ที่มี privilege, context cost และ failure mode ของตัวเอง.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้เป็น tool registry พร้อม schema tests, permission metadata และ result shaping modes ที่มี concise/raw ชัดเจน.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Tool schema design — JSON Schema, additionalProperties: false สำคัญอย่างไร</li>
+  <li>Tool description writing — เขียนแบบไหนให้โมเดลเลือกใช้ถูก</li>
+  <li>Few but powerful vs many specific tools — tradeoff</li>
+  <li>Tool composition</li>
+  <li>Permission tiers per tool</li>
+  <li>Tool result formatting — output ใหญ่ ๆ ฆ่า context</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ออกแบบ tool ใหม่ได้แบบ eval-driven</li>
+  <li>เขียน tool description ที่โมเดลใช้ถูกตั้งแต่ครั้งแรก</li>
+  <li>เข้าใจว่า power tool ต้องมาคู่กับ permission และ output discipline</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 05</div>  <div class="topic-title">The Agentic Loop / Query Engine</div>  <p><strong>Part:</strong> Part 2 · Building Blocks of a Harness</p>  <p><strong>Why this chapter exists:</strong> Query engine คือจุดรวมของ prompt, tools, memory, context, permissions และ recovery logic ถ้าลูปนี้ออกแบบไม่ดี ทุกชั้นที่เหลือจะโดนลากลง.</p>  <p><strong>Mentor lens:</strong> บทนี้สอนให้คุณมองระบบ agent เป็นวงจรการตัดสินใจ ไม่ใช่ข้อความโต้ตอบเดี่ยว ๆ และช่วยให้คุณรู้ว่า failure จำนวนมากเกิดที่ loop design ไม่ใช่ที่ model intelligence อย่างเดียว.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรถูก encode เป็น state diagram, finish reason taxonomy, recovery matrix และ loop guardrails ใน runtime ของคุณ.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Agentic patterns พื้นฐาน: ReAct, Reflection, Plan-and-Execute, Tree-of-Thought</li>
+  <li>Stop conditions — explicit mechanism ของ task done</li>
+  <li>Token budget exhaustion handling</li>
+  <li>Tool failure recovery</li>
+  <li>Step limits และ circuit breakers</li>
+  <li>State machine vs free-form loop</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ออกแบบ loop ที่ไม่หลุด ไม่วน และ recover ได้</li>
+  <li>รู้ว่าเมื่อไหร่ใช้ ReAct vs Plan-and-Execute vs Reflection</li>
+  <li>ซ่อนความวุ่นวายภายในจากผู้ใช้ด้วย recovery ที่ดี</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 06</div>  <div class="topic-title">Memory Architecture</div>  <p><strong>Part:</strong> Part 2 · Building Blocks of a Harness</p>  <p><strong>Why this chapter exists:</strong> เมื่อ session ข้ามวัน ข้าม repo หรือข้ามโปรเจค ความต่างระหว่าง toy agent กับใช้งานจริงอยู่ที่ memory layer แทบทั้งหมด.</p>  <p><strong>Mentor lens:</strong> บทนี้บอกชัดว่า memory ไม่ใช่ magic feature ของโมเดล แต่เป็นวิธีที่ harness จัดการสิ่งที่ควรอยู่ในหัวของระบบต่อเนื่องข้าม turn และข้าม session.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้ให้เป็น memory map, write discipline, consolidation rules และ source-of-truth policy สำหรับข้อมูลแต่ละชนิด.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>3-layer memory model ของ Claude Code: in-context, file-based, static config</li>
+  <li>Self-healing memory — treating memory as hint, not truth</li>
+  <li>Episodic vs Semantic vs Procedural memory</li>
+  <li>AutoDream / Memory consolidation</li>
+  <li>Append-only logs</li>
+  <li>Vector memory / RAG — เมื่อไหร่ใช้, เมื่อไหร่ไม่ใช้</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ออกแบบ memory system ที่ persistent ข้าม session ได้</li>
+  <li>อธิบายได้ว่าทำไมใส่ทุกอย่างลง vector DB คือ anti-pattern</li>
+  <li>เขียน memory layer ที่ทำงานร่วมกับ context budget จำกัดได้</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 07</div>  <div class="topic-title">Context Management &amp; Compaction</div>  <p><strong>Part:</strong> Part 2 · Building Blocks of a Harness</p>  <p><strong>Why this chapter exists:</strong> ทุก session ที่ยาวพอจะชน context window และถ้าไม่มี context manager ที่ดี agent จะค่อย ๆ เลอะจนทำงานต่อไม่ได้.</p>  <p><strong>Mentor lens:</strong> บทนี้สอนว่าสิ่งสำคัญไม่ใช่แค่ย่อ conversation แต่คือการรักษาความต่อเนื่องของงานหลังย่อเสร็จ และรู้ว่าอะไรคือแก่นที่ห้ามหาย.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรกลายเป็น compaction tiers, token thresholds, re-injection classes และ post-compact sanity checks.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>MicroCompact — แก้ cached content in-place</li>
+  <li>AutoCompact — structured summary, reserve token buffer</li>
+  <li>Full Compact — บีบ conversation ทั้งก้อน</li>
+  <li>Selective re-injection — file caps, plan, skill schemas</li>
+  <li>Compaction triggers — token threshold, idle time, user command</li>
+  <li>Circuit breakers — กัน compact loop infinite</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>เขียน context manager ที่ตรวจ token budget ได้แบบ real-time</li>
+  <li>ออกแบบ compaction ที่ไม่ทำให้ agent ลืมสิ่งสำคัญ</li>
+  <li>รู้ว่าเมื่อไหร่ควร compact vs spawn sub-agent ใหม่</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 08</div>  <div class="topic-title">Multi-Agent Systems &amp; Sub-agents</div>  <p><strong>Part:</strong> Part 3 · Advanced Orchestration</p>  <p><strong>Why this chapter exists:</strong> ปัญหาบางอย่างใหญ่เกิน agent เดียว แต่หลายปัญหากลับแย่ลงเมื่อใช้หลาย agent เพราะ cost, coordination overhead และ context corruption สูงขึ้น.</p>  <p><strong>Mentor lens:</strong> บทนี้ทำให้คุณไม่ตกหลุม &#x27;หลาย agent ต้องดีกว่า&#x27; และสอนให้ใช้การแตกงานเมื่อมันเพิ่ม throughput หรือ isolation จริงเท่านั้น.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้ให้เป็น delegation policy, child-brief template, per-lane budgets และ merge criteria.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Single-agent vs Multi-agent — เมื่อไหร่ที่ multi-agent ทำให้ระบบแย่ลง</li>
+  <li>Manager pattern — orchestrator เรียก worker</li>
+  <li>Decompose-Solve-Merge</li>
+  <li>Critic / Evaluator-Optimizer pattern</li>
+  <li>Sub-agent execution models: Fork, Teammate, Worktree</li>
+  <li>Context firewall</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>รู้ว่าเมื่อไหร่ไม่ควร multi-agent</li>
+  <li>ออกแบบ sub-agent ที่ scope แคบ ปลอดภัย และรวมผลได้</li>
+  <li>เข้าใจ trade-off ของ cost, throughput, และ safety</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 09</div>  <div class="topic-title">MCP (Model Context Protocol) &amp; External Integrations</div>  <p><strong>Part:</strong> Part 3 · Advanced Orchestration</p>  <p><strong>Why this chapter exists:</strong> ถ้าจะเป็น Harness Engineer มืออาชีพ คุณต้องอ่าน spec ได้ ออกแบบ tool surface ได้ และเขียน MCP server เองได้.</p>  <p><strong>Mentor lens:</strong> บทนี้ทำให้คุณมอง MCP เป็น protocol boundary และ control surface ไม่ใช่เพียงทางลัดในการต่อของเข้ากับโมเดล.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรลงท้ายที่ MCP server MVP หนึ่งตัว พร้อม capability map, threat model และ contract tests.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>MCP architecture — host, client, server, JSON-RPC 2.0 over stdio/HTTP</li>
+  <li>Three primitives: Tools, Resources, Prompts</li>
+  <li>Capability discovery</li>
+  <li>Transport — stdio (local), HTTP/SSE (remote)</li>
+  <li>MCP security model — treat all tool inputs as untrusted</li>
+  <li>Threats: rug-pull attacks, prompt injection ผ่าน tool result, lookalike tools</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>เขียน MCP server ที่พร้อมใช้งานจริงได้</li>
+  <li>ออกแบบ tool surface ให้ปลอดภัยและประหยัด context</li>
+  <li>เข้าใจว่าทำไม MCP แก้ N×M integration problem</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 10</div>  <div class="topic-title">Permission, Sandboxing &amp; Security</div>  <p><strong>Part:</strong> Part 3 · Advanced Orchestration</p>  <p><strong>Why this chapter exists:</strong> Harness Engineer ต้องคิดเรื่อง security ตั้งแต่ design stage เพราะเมื่อระบบมี tool use แล้ว attack surface จะขยายทันที.</p>  <p><strong>Mentor lens:</strong> บทนี้ย้ำว่าทุกครั้งที่ agent มีอำนาจเพิ่ม คุณกำลังสร้าง security boundary ใหม่ และต้องคิดเรื่อง blast radius ควบคู่กับ convenience เสมอ.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้เป็น threat model, permission matrix, sandbox profile และ approval UX ที่อธิบายความเสี่ยงได้ชัด.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Threat model สำหรับ AI agent — prompt injection, tool poisoning, exfiltration via tool composition</li>
+  <li>Permission tiers per tool — read-only / state-changing / dangerous</li>
+  <li>Allowlist vs context-aware permission</li>
+  <li>Critic pattern for permission</li>
+  <li>Sandboxing — container, VM, seccomp, restricted filesystem</li>
+  <li>Dangerous flags — --yolo, --accept-all</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>เขียน permission layer ที่ adaptive และ context-aware</li>
+  <li>รู้จัก attack vectors หลักของ tool-using agents</li>
+  <li>ออกแบบ sandbox ที่บาลานซ์ usability กับ safety</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 11</div>  <div class="topic-title">Evaluation-Driven Development</div>  <p><strong>Part:</strong> Part 4 · Reliability &amp; Production</p>  <p><strong>Why this chapter exists:</strong> Eval คือ methodology หลักของการพัฒนา agent เพราะพฤติกรรมจำนวนมาก non-deterministic และ open-ended กว่า software ปกติ.</p>  <p><strong>Mentor lens:</strong> บทนี้เปลี่ยนการพัฒนา agent จากการชิม output ด้วยตา ไปสู่การตัดสินด้วยพฤติกรรมที่วัดซ้ำได้และรองรับ regression.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรกลายเป็น dataset slices, judge policy, deterministic assertions และ regression dashboard ของคุณ.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>ทำไม eval ของ agent ≠ unit test ปกติ</li>
+  <li>Three-layer eval stack: what you evaluate, how you grade, what grounds it</li>
+  <li>Deterministic checks — unit tests สำหรับ agent</li>
+  <li>LLM-as-a-Judge — เมื่อไหร่ใช้ได้, bias ที่ต้องระวัง</li>
+  <li>Error analysis as development methodology</li>
+  <li>Online vs Offline eval</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>เขียน eval ก่อนเขียน feature ได้เป็นนิสัย</li>
+  <li>มี test pyramid สำหรับ agent</li>
+  <li>รู้ข้อจำกัดของ LLM-as-a-Judge และใช้อย่างมีวินัย</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 12</div>  <div class="topic-title">Observability &amp; Telemetry</div>  <p><strong>Part:</strong> Part 4 · Reliability &amp; Production</p>  <p><strong>Why this chapter exists:</strong> Production harness แยกจาก toy project ตรงที่มันไม่เพียงรันได้ แต่บอกได้ด้วยว่ากำลังเกิดอะไรขึ้น ทำไมเกิด และกระทบผู้ใช้อย่างไร.</p>  <p><strong>Mentor lens:</strong> บทนี้สอนให้คุณมอง traces, logs และ metrics เป็นวิธีทำให้ระบบ agent เล่าเรื่องตัวเองได้เวลาเก่งขึ้นหรือเริ่มหลุดทาง.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้เป็น trace tree, key metrics, privacy-aware logging policy และ replay workflow.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Tracing for agent — span สำหรับ LLM call, tool call, sub-agent</li>
+  <li>Three pillars: Logs, Metrics, Traces ในบริบท agent</li>
+  <li>OpenTelemetry สำหรับ LLM — semantic conventions</li>
+  <li>Token accounting — input/output/cached tokens, cost per session</li>
+  <li>Quality metrics — task success rate, retries, recovery rate</li>
+  <li>UX metrics — frustration signals, stall detection</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ติด observability ตั้งแต่วันแรกของระบบ</li>
+  <li>มี dashboard ที่ตอบได้ว่า agent วันนี้ทำงานดีแค่ไหน</li>
+  <li>debug ปัญหา rare cases ได้จาก trace และ replay</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 13</div>  <div class="topic-title">Failure Recovery &amp; Self-Healing</div>  <p><strong>Part:</strong> Part 4 · Reliability &amp; Production</p>  <p><strong>Why this chapter exists:</strong> ความอึดของ agent ไม่ได้วัดจากจำนวนฟีเจอร์ แต่วัดจากวิธีที่มันตอบสนองเมื่อโลกจริงไม่เป็นไปตามแผน.</p>  <p><strong>Mentor lens:</strong> บทนี้ฝึกให้คุณเปลี่ยน failure ให้กลายเป็น design input ของรอบถัดไป แทนที่จะปล่อยให้มันเป็นเหตุบังเอิญที่คอยย้อนมารบกวนผู้ใช้อีก.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรถูกบันทึกเป็น failure taxonomy, recovery matrix, degraded modes และ postmortem template.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Failure modes ของ agent: tool error, token exhaustion, hallucinated tool call, infinite loop, context drift</li>
+  <li>Recovery strategies — retry, exponential backoff, fallback tool, ask for help</li>
+  <li>Mitchell Hashimoto&#x27;s principle — engineer the environment so the agent physically cannot make the mistake again</li>
+  <li>Update AGENTS.md / CLAUDE.md as feedback loop</li>
+  <li>Computational vs inferential controls</li>
+  <li>Back-pressure verification</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>เขียน harness ที่อึดและ absorb failures ได้ดี</li>
+  <li>เปลี่ยน recurring failures เป็น engineering fixes ถาวร</li>
+  <li>ออกแบบ controls หลายชั้นก่อนผลลัพธ์ถึงผู้ใช้</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 14</div>  <div class="topic-title">Cost &amp; Performance Optimization</div>  <p><strong>Part:</strong> Part 4 · Reliability &amp; Production</p>  <p><strong>Why this chapter exists:</strong> Agent ที่ทำงานได้แต่แพงหรือช้าเกินไปคือ prototype ที่ยังไม่ผ่านเกณฑ์ productization.</p>  <p><strong>Mentor lens:</strong> บทนี้สอนให้คุณรักข้อจำกัดของ token budget แทนการใช้โมเดลแพงสุดทุกครั้ง เพราะระบบจะ scale ได้จริงก็ต่อเมื่อ economics และ latency อยู่ในระดับที่ยอมรับได้.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้เป็น route policy, cache plan, cost ledger, latency waterfall และ budget alerts.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Token economics — input vs output cost, cached vs fresh</li>
+  <li>Model routing — เล็กก่อน, ใหญ่เมื่อจำเป็น</li>
+  <li>Prompt caching at scale</li>
+  <li>Latency optimization — streaming, parallel tool calls, speculative execution</li>
+  <li>Batch API — สำหรับงานที่ไม่ realtime</li>
+  <li>Result caching — semantic cache, exact match cache</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ลด cost ลงอย่างมีวินัยโดยไม่เสียคุณภาพหลัก</li>
+  <li>มี cost dashboard per-feature และ per-user</li>
+  <li>เข้าใจ trade-off ระหว่าง compute time กับ accuracy</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 15</div>  <div class="topic-title">CLI / UX Engineering for AI Agents</div>  <p><strong>Part:</strong> Part 5 · Engineering Craft</p>  <p><strong>Why this chapter exists:</strong> แม้ backend จะแข็งแรง แต่ถ้า UI/CLI ทำให้ผู้ใช้ไม่เข้าใจว่าระบบกำลังทำอะไรหรือจะกระทบอะไร ระบบนั้นก็ไม่ถูกใช้อยู่ดี.</p>  <p><strong>Mentor lens:</strong> บทนี้ย้ำว่า UX คือส่วนหนึ่งของ harness เพราะสิ่งที่ผู้ใช้เห็นคือสิ่งที่ทำให้เขาเชื่อระบบหรือหยุดใช้ระบบ ไม่ว่าหลังบ้านจะฉลาดแค่ไหนก็ตาม.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรลงเป็น output modes, confirmation patterns, command surface, frustration metrics และ demo narrative.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Streaming UX — token streaming, tool call streaming, intermediate state</li>
+  <li>Interruptibility — กดยกเลิกแล้วอะไรเกิดขึ้น</li>
+  <li>Progressive disclosure — แสดง plan ก่อน execute</li>
+  <li>Confirmation patterns — เมื่อไหร่ถาม, เมื่อไหร่ทำเลย</li>
+  <li>Diff display — ก่อน apply changes</li>
+  <li>Slash commands — /plan, /compact, /init</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ออกแบบ agent UX ที่ทำให้ผู้ใช้ trust และไม่หงุดหงิด</li>
+  <li>รู้ว่าเมื่อไหร่ CLI ดีกว่า GUI และเมื่อไหร่ไม่ใช่</li>
+  <li>ทำ interaction surface ที่รองรับทั้ง plan mode และ auto mode</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 16</div>  <div class="topic-title">Build, Feature Flags &amp; Distribution</div>  <p><strong>Part:</strong> Part 5 · Engineering Craft</p>  <p><strong>Why this chapter exists:</strong> การปล่อย source maps, feature flags ที่คุมไม่ได้, หรือ auto-update ที่ตรวจสอบยาก ล้วนเป็นปัญหา build discipline ไม่ใช่ปัญหาโมเดล.</p>  <p><strong>Mentor lens:</strong> บทนี้ทำให้คุณกลับมาจำว่า Harness Engineer ต้องเป็นวิศวกรที่ปล่อยของขึ้นโลกจริงได้ด้วย ไม่ใช่แค่คนทำ prompt หรือ agent loop ได้เก่ง.</p>  <p><strong>Capstone translation:</strong> เปลี่ยนบทนี้เป็น release checklist, flag inventory, artifact inspection step และ distribution story ของโปรเจคคุณ.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Compile-time feature elimination</li>
+  <li>Feature flag systems — GrowthBook, LaunchDarkly, custom</li>
+  <li>Compile-time vs runtime flags — security implication</li>
+  <li>Source map management</li>
+  <li>Bundle minification &amp; obfuscation — ไม่ใช่ security</li>
+  <li>Distribution channels — npm, brew, docker, native installer</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>ออก release ได้โดยไม่ leak artifacts ที่ไม่ควรออกไป</li>
+  <li>จัดการ feature lifecycle ได้ตั้งแต่ experimental ถึง deprecated</li>
+  <li>กระจาย agent ไปหลายแพลตฟอร์มอย่างมีวินัย</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 17</div>  <div class="topic-title">Case Studies — Reading Real Harnesses</div>  <p><strong>Part:</strong> Part 5 · Engineering Craft</p>  <p><strong>Why this chapter exists:</strong> Harness Engineer ต้องอ่าน source code ขนาดใหญ่ให้เป็น เพราะหลายระบบไม่มีเอกสารครบและ pattern สำคัญมักซ่อนอยู่ในรายละเอียด implementation.</p>  <p><strong>Mentor lens:</strong> บทนี้ฝึกกล้ามเนื้อสำคัญของสายนี้: การอ่านระบบจริงให้เร็วและจับ pattern ที่ยืมได้ โดยไม่จมหายไปกับ implementation details ที่ไม่สำคัญต่อโจทย์ของคุณ.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรกลายเป็น reading worksheet, borrowed-pattern notes และ architecture comparison table ของ repo ที่คุณศึกษา.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>LangGraph examples</li>
+  <li>OpenAI Agents SDK / Swarm</li>
+  <li>Aider</li>
+  <li>OpenCode / opencoder</li>
+  <li>Cline</li>
+  <li>Continue.dev</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>อ่าน harness ใดก็ได้แล้วเข้าใจ architecture ระดับสูงได้ภายใน 1-2 ชั่วโมง</li>
+  <li>คัดลอก pattern ที่ดีไปใช้ในระบบของตัวเองอย่างมีวิจารณญาณ</li>
+  <li>สร้างทักษะ reading code at scale</li>
+</ul></div><div class="topic-card">  <div class="topic-tag">Chapter 18</div>  <div class="topic-title">Build Your Own Harness — Capstone Project</div>  <p><strong>Part:</strong> Part 6 · Capstone Project</p>  <p><strong>Why this chapter exists:</strong> Capstone คือ portfolio, proof of work และสนามซ้อมจริงสำหรับบทบาท Harness Engineer.</p>  <p><strong>Mentor lens:</strong> บทนี้คือจุดที่ความรู้ทั้งหมดต้องกลายเป็นระบบหนึ่งระบบที่คุณสร้าง อธิบาย วัด และนำเสนอได้อย่างซื่อสัตย์ต่อ trade-offs ของมัน.</p>  <p><strong>Capstone translation:</strong> บทนี้ควรลงท้ายที่ source code, architecture doc, eval report, cost report, demo video และ public write-up ที่เล่า failure ได้ด้วย.</p>  <h2>เรื่องที่ต้องเรียน</h2>  <ul class="checklist">
+  <li>Option A: Domain-specific Coding Harness</li>
+  <li>Option B: Personal Knowledge Agent</li>
+  <li>Option C: DevOps Co-pilot</li>
+  <li>Deliverables: source code, architecture doc, eval report, cost report, demo video, blog post</li>
+  <li>เลือก 1 โปรเจคแบบ depth &gt; breadth</li>
+  <li>เชื่อมทุกบทเข้ากับระบบเดียว</li>
+</ul>  <h2>What the learner should be able to do</h2>  <ul class="checklist">
+  <li>มี portfolio ที่ใช้คุยงานสาย AI Harness Engineer ได้</li>
+  <li>เชื่อมทุกบทในหลักสูตรเข้ากับระบบจริงหนึ่งระบบ</li>
+  <li>แสดงทั้งความสามารถในการสร้างและความสามารถในการอธิบาย trade-offs</li>
+</ul></div></div>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Reading order · หนังสือประกอบ</div>
+      <h1>หนังสือที่ควรอ่านควบคู่</h1>
+      <p>หนังสือชุดนี้ทำหน้าที่คนละแบบ: บางเล่มให้ intuition เรื่อง internals, บางเล่มให้ discipline เรื่อง production, บางเล่มให้วิธีคิดเรื่อง evaluation และ observability. อย่าอ่านเพื่อสะสมชื่อหนังสือ แต่ให้อ่านเพื่อเสริม mental model ของบทที่คุณกำลังทำอยู่ใน capstone.</p>
+      <ul class="study-list">
+  <li>1. AI Engineering — Chip Huyen</li>
+  <li>2. Build a Large Language Model from Scratch — Sebastian Raschka</li>
+  <li>3. Hands-On Large Language Models — Jay Alammar &amp; Maarten Grootendorst</li>
+  <li>4. Designing Machine Learning Systems — Chip Huyen</li>
+  <li>5. Evals for AI Engineers — Shreya Shankar &amp; Hamel Husain</li>
+  <li>6. LLM Engineer&#x27;s Handbook — Paul Iusztin &amp; Maxime Labonne</li>
+  <li>7. Building Agentic AI Systems</li>
+  <li>8. Context Engineering for Multi-Agent Systems</li>
+  <li>9. Designing Data-Intensive Applications — Martin Kleppmann</li>
+  <li>10. Observability Engineering — Charity Majors et al.</li>
+</ul>
+      <div class="insight-box"><strong>Reading advice</strong><p>ใช้หนังสือเป็นเครื่องมือเสริมจุดอ่อน ไม่ใช่ทำเป็น side quest ทั้งหมดพร้อมกัน. ถ้าคุณกำลังติดเรื่อง eval ให้หยิบ Evals for AI Engineers; ถ้าติดเรื่อง context/memory ให้กลับไปอ่าน internals และ context engineering ควบคู่กัน.</p></div>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Reader profiles · เลือกทางเดินให้เหมาะกับตัวเอง</div>
+      <h1>ถ้าคุณมาจากพื้นหลังต่างกัน ควรเริ่มไม่เหมือนกัน</h1>
+      <p>แม้หลักสูตรนี้มีลำดับหลัก แต่คนอ่านจริงไม่ได้เริ่มจากจุดเดียวกันเสมอ. ถ้าคุณเป็น SWE ที่เพิ่งทำ chatbot หรือ RAG prototype ได้ ให้เริ่มจากบท Context Engineering แล้วค่อยย้อนเก็บ internals และ prompt อย่างเป็นระบบ. ถ้าคุณเคยทำ automation หรือ coding agent เล็ก ๆ มาแล้ว ให้รีบลงบท Tool Design, Agentic Loop และ Security เพื่อหยุดการพึ่ง improvisation. ถ้าคุณมาจาก MLOps หรือ platform background อยู่แล้ว ให้ใช้ Part 4 และ Part 5 เป็นจุดเร่งเพื่อเชื่อม reliability/cost thinking เข้ากับโลก agent โดยตรง.</p>
+      <table class="matrix">
+        <tr><th>Reader profile</th><th>Best starting emphasis</th><th>Why</th></tr>
+        <tr><td>SWE + basic AI API use</td><td>Chapter 03 → 01 → 02</td><td>เห็นข้อจำกัดของ context ก่อน แล้วค่อยเสริม mental model ของโมเดลและ prompt</td></tr>
+        <tr><td>Already built a toy agent</td><td>Chapter 04 → 05 → 10</td><td>ปัญหาจริงมักอยู่ที่ tool boundaries, loop discipline และ permission design</td></tr>
+        <tr><td>Platform / DevOps leaning</td><td>Chapter 11 → 12 → 14 → 16</td><td>ใช้จุดแข็งด้าน systems thinking มาปิดลูปเรื่อง eval, telemetry, cost และ release quality</td></tr>
+      </table>
+      <p>การเลือกจุดเริ่มที่เหมาะไม่ได้แปลว่าข้ามส่วนที่เหลือ แต่ช่วยให้คุณได้แรงส่งเร็วขึ้น เพราะคุณจะเห็น pain point ของตัวเองถูกอธิบายด้วยภาษาที่เข้าถึงก่อน แล้วค่อยย้อนกลับมาเก็บรากฐานให้ครบ.</p>
+    </section>
+    <section class="page">
+      <div class="eyebrow">Synthesis · บทสรุปลงมือ</div>
+      <h1>ถ้าจะจำจากเล่มนี้แค่อย่างเดียว</h1>
+      <p>Harness Engineer ไม่ได้ถูกนิยามด้วยจำนวน prompt tricks ที่รู้ แต่ด้วยความสามารถในการออกแบบระบบรอบโมเดลให้เชื่อถือได้ ปลอดภัย คุ้มค่า และปรับปรุงได้จากหลักฐาน. ทุกบทในชุดนี้จึงต้องจบลงที่คำถามว่าแนวคิดนั้นจะถูก encode เป็นอะไรในระบบจริง.</p>
+      <div class="grid-two"><div class="panel"><div class="panel-title">Pre-action ritual</div><p>ก่อนเริ่มบทใหม่ ให้เขียนหนึ่งบรรทัดว่าเนื้อหาบทนี้จะเปลี่ยน capstone ของคุณตรง component ไหน.</p></div><div class="panel"><div class="panel-title">Stop reading, start building</div><p>ห้ามปล่อยให้บทใดบทหนึ่งจบลงโดยไม่มี artifact ใหม่ในระบบของคุณ ไม่ว่าจะเป็น config, metric, test, ADR หรือ workflow note.</p></div></div>
+      <h2>Reflection questions</h2>
+      <ul class="reflection-list">
+        <li>ตอนนี้คุณยังแก้ปัญหาด้วย prompt เพื่อชดเชยปัญหา architecture อยู่กี่จุด.</li>
+        <li>สามบทแรกที่คุณควรลงมือก่อนเพื่อดัน capstone ของตัวเองคือบทไหน และเพราะอะไร.</li>
+        <li>ถ้าต้องอธิบายคุณค่าของสาย Harness Engineer ให้คนในทีมที่ไม่ใช่ AI specialist ฟัง คุณจะเริ่มจาก pain point ไหนของงานจริง.</li>
+      </ul>
+    </section>
+    <div class="book-footer">
+      <div class="book-footer-mark">∞</div>
+      <div class="book-footer-text">หลักสูตรนี้ถูกออกแบบเพื่อเปลี่ยนผู้ใช้โมเดลให้กลายเป็นคนออกแบบระบบรอบโมเดลอย่างมีสติ มีหลักฐาน และมีภาษาทางวิศวกรรมพอจะส่งต่อให้ทีมได้.</div>
+      <div class="book-footer-author">AI Harness Engineering · Master Curriculum</div>
+    </div>
+  </div>
+</body>
+</html>
