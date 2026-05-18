@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thinking in Bets — Annie Duke · Personal Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ CSS TOKENS ============ */
+:root {
+  /* Paper tones */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+
+  /* Ink */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+
+  /* Accent — Poker Red (จากปกหนังสือ Thinking in Bets) */
+  --accent:       #A8202C;
+  --accent-deep:  #7B1620;
+  --accent-light: #C44855;
+  --accent-rule:  rgba(168, 32, 44, 0.30);
+  --accent-bg:    rgba(168, 32, 44, 0.08);
+
+  /* Semantic */
+  --red: #7A1A1A;
+  --red-bg: #FBF3F0;
+  --green: #355E40;
+  --green-bg: #F1F6EE;
+  --gold: #A8782A;
+  --gold-bg: #FAF4E5;
+
+  --book-width: 760px;
+  --page-pad-h: 76px;
+  --page-pad-v: 84px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #1A1610;
+  padding: 40px 16px;
+  font-family: 'Noto Serif Thai', 'Noto Serif', serif;
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.10),
+    0 4px 40px rgba(0,0,0,.40),
+    0 0 120px rgba(0,0,0,.25);
+}
+
+/* ============ COVER ============ */
+.cover {
+  background: var(--paper);
+  padding: 80px 60px;
+  min-height: 720px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cover::before, .cover::after {
+  content: '';
+  position: absolute;
+  width: 60px; height: 60px;
+  border: 1.5px solid var(--accent);
+}
+.cover::before { top: 32px; left: 32px; border-right: none; border-bottom: none; }
+.cover::after  { bottom: 32px; right: 32px; border-left: none; border-top: none; }
+
+.cover-top {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.cover-chip {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin: 24px auto 32px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow:
+    inset 0 0 0 6px var(--paper),
+    inset 0 0 0 7px var(--accent),
+    inset 0 0 0 14px var(--accent),
+    0 6px 20px rgba(168,32,44,0.30);
+}
+.cover-chip::before {
+  content: ''; position: absolute;
+  inset: 14px; border-radius: 50%;
+  background: var(--accent-deep);
+  border: 2px dashed rgba(242,239,228,0.30);
+}
+.cover-chip-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--paper);
+  position: relative;
+  z-index: 2;
+}
+
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 0.95;
+  color: var(--ink);
+  text-align: center;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.cover-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.cover-sub {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  color: var(--ink-mid);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-style: italic;
+}
+.cover-divider {
+  width: 80px; height: 1px;
+  background: var(--accent);
+  margin: 40px auto;
+}
+.cover-author {
+  text-align: center;
+}
+.cover-author-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.cover-author-role {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+.cover-bottom {
+  text-align: center;
+  border-top: 1px solid var(--paper-shadow);
+  padding-top: 24px;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+}
+
+/* ============ PAGE BASE ============ */
+.page {
+  padding: var(--page-pad-v) var(--page-pad-h);
+  background: var(--paper);
+  position: relative;
+}
+.page-mid { background: var(--paper-mid); }
+
+/* ============ CHAPTER OPEN ============ */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 120px var(--page-pad-h) 100px;
+  border-top: 1px solid var(--paper-shadow);
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.ch-num-bg {
+  position: absolute;
+  right: 40px; top: 40px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 200px;
+  font-weight: 400;
+  color: rgba(168,32,44,0.06);
+  line-height: 1;
+  z-index: 1;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 24px;
+  position: relative; z-index: 2;
+}
+.ch-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 12px;
+  letter-spacing: -1.5px;
+  position: relative; z-index: 2;
+}
+.ch-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+  display: block;
+  font-size: 28px;
+  margin-top: 8px;
+  letter-spacing: -0.5px;
+}
+.ch-essence {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  color: var(--ink-mid);
+  font-style: italic;
+  line-height: 1.7;
+  max-width: 540px;
+  margin-top: 32px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  position: relative; z-index: 2;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.page h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 28px;
+  letter-spacing: -0.8px;
+}
+.page h1 em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.page h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 44px 0 18px;
+  line-height: 1.4;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--accent-rule);
+}
+.page h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin: 28px 0 10px;
+}
+.page p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.page p strong { color: var(--ink); font-weight: 600; }
+.page p em { color: var(--accent-deep); font-style: italic; }
+
+.lead {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 18px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin-bottom: 28px;
+  padding-left: 18px;
+  border-left: 3px solid var(--accent);
+}
+
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  font-weight: 700;
+  float: left;
+  line-height: 0.9;
+  margin: 4px 8px -4px 0;
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* ============ COMPONENTS ============ */
+
+/* Insight Box */
+.insight-box {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+.insight-box-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.insight-box p {
+  font-size: 15.5px;
+  font-style: italic;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.75;
+}
+
+/* Pullquote */
+.pullquote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.45;
+  color: var(--ink);
+  text-align: center;
+  padding: 36px 32px;
+  margin: 36px 0;
+  border-top: 1px solid var(--accent-rule);
+  border-bottom: 1px solid var(--accent-rule);
+  position: relative;
+}
+.pullquote::before {
+  content: '"';
+  font-size: 80px;
+  color: var(--accent);
+  position: absolute;
+  top: -10px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--paper);
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+.pullquote-th {
+  display: block;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-style: normal;
+  color: var(--ink-muted);
+  margin-top: 14px;
+}
+
+/* Blockquote Full (dark) */
+.blockquote-full {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 64px var(--page-pad-h);
+  margin: 56px calc(-1 * var(--page-pad-h));
+  text-align: center;
+  position: relative;
+}
+.blockquote-full-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 56px;
+  color: var(--accent-light);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.blockquote-full p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.4;
+  color: var(--paper);
+  margin: 0 auto;
+  max-width: 520px;
+}
+.blockquote-full .bq-th {
+  display: block;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-style: normal;
+  color: var(--paper-deep);
+  margin-top: 20px;
+  font-weight: 300;
+}
+.blockquote-full .bq-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-weight: 600;
+  margin-top: 28px;
+  display: block;
+}
+
+/* Author Voice Box */
+.author-box {
+  display: flex;
+  gap: 18px;
+  padding: 24px 28px;
+  background: var(--paper-mid);
+  border-left: 3px solid var(--accent);
+  margin: 28px 0;
+}
+.author-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--accent-deep);
+  color: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+.author-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.author-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Insight Ladder */
+.ladder { margin: 32px 0; }
+.ladder-step {
+  padding: 18px 24px;
+  margin: 0;
+}
+.ladder-step.wrong  { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth  { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ladder-step.wrong .ladder-tag  { color: var(--red); }
+.ladder-step.truth .ladder-tag  { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.ladder-arrow {
+  text-align: center;
+  padding: 6px;
+  color: var(--ink-faint);
+  font-size: 22px;
+}
+
+/* Chapter Card (TOC) */
+.ch-card {
+  display: flex;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  align-items: flex-start;
+}
+.ch-card:last-child { border-bottom: none; }
+.ch-card-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 40px;
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1;
+  min-width: 58px;
+  padding-top: 4px;
+}
+.ch-card-body { flex: 1; }
+.ch-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.ch-card-one-liner {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--ink-muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.ch-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  padding: 3px 9px;
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+/* Signal box (buy/sell/warning) */
+.signal-box {
+  background: var(--paper-mid);
+  border: 1px solid var(--paper-shadow);
+  border-left: 4px solid var(--accent);
+  padding: 22px 26px;
+  margin: 24px 0;
+}
+.signal-box.warn { border-left-color: var(--red); background: var(--red-bg); }
+.signal-box.go { border-left-color: var(--green); background: var(--green-bg); }
+.signal-box.gold-tone { border-left-color: var(--gold); background: var(--gold-bg); }
+.signal-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--accent-deep);
+}
+.signal-box.warn .signal-label { color: var(--red); }
+.signal-box.go .signal-label { color: var(--green); }
+.signal-box.gold-tone .signal-label { color: var(--gold); }
+.signal-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.signal-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+/* Formula Block */
+.formula-block {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 28px 32px;
+  margin: 28px 0;
+  text-align: center;
+  border-radius: 2px;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.formula {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--paper);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.formula-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--paper-deep);
+  font-style: italic;
+}
+
+/* Comparison Table */
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 28px 0;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+}
+.cmp-table th {
+  background: var(--paper-mid);
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--accent);
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+.cmp-table th.bad  { color: var(--red); }
+.cmp-table th.good { color: var(--green); }
+.cmp-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--paper-shadow);
+  vertical-align: top;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+
+/* Checklist */
+.checklist {
+  background: var(--paper-mid);
+  padding: 32px 36px;
+  margin: 32px 0;
+  border: 1px solid var(--paper-shadow);
+}
+.checklist-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.checklist-sub {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.check-item {
+  display: flex;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--paper-shadow);
+  align-items: flex-start;
+}
+.check-item:last-child { border-bottom: none; }
+.check-box {
+  width: 20px; height: 20px;
+  border: 1.5px solid var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+  position: relative;
+}
+.check-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.check-text strong { color: var(--ink); display: block; margin-bottom: 4px; }
+
+/* Reflection Questions */
+.reflection {
+  background: var(--paper);
+  border: 1px dashed var(--accent-rule);
+  padding: 28px 32px;
+  margin: 36px 0 0;
+}
+.reflection-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.reflection-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.reflection-list {
+  list-style: none;
+  padding: 0;
+}
+.reflection-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  padding: 10px 0 10px 32px;
+  position: relative;
+  font-style: italic;
+}
+.reflection-list li::before {
+  content: counter(reflect, decimal-leading-zero);
+  counter-increment: reflect;
+  position: absolute;
+  left: 0; top: 8px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.reflection-list { counter-reset: reflect; }
+
+/* Stat Row */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 32px 0;
+  border-top: 1px solid var(--accent-rule);
+  border-bottom: 1px solid var(--accent-rule);
+}
+.stat-cell {
+  padding: 24px 16px;
+  text-align: center;
+  border-right: 1px solid var(--paper-shadow);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 42px;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+/* Case Study Box */
+.case-box {
+  background: var(--paper);
+  border: 1px solid var(--paper-shadow);
+  padding: 28px 32px;
+  margin: 32px 0;
+  position: relative;
+}
+.case-box::before {
+  content: 'CASE';
+  position: absolute;
+  top: -10px; left: 24px;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  padding: 4px 12px;
+}
+.case-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  padding-top: 6px;
+}
+.case-sub {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* Bet Sizing Tier */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+.tier {
+  background: var(--paper-mid);
+  padding: 20px 18px;
+  border-top: 3px solid var(--accent);
+  text-align: center;
+}
+.tier.low { border-top-color: var(--ink-faint); }
+.tier.mid { border-top-color: var(--accent); }
+.tier.high { border-top-color: var(--accent-deep); }
+.tier-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.tier-percent {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 38px;
+  color: var(--accent);
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.tier-low .tier-percent { color: var(--ink-mid); }
+.tier-name {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.tier-desc {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Page Number */
+.page-num {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--ink-faint);
+  font-size: 14px;
+  padding: 24px 0 0;
+  margin-top: 40px;
+  border-top: 1px solid var(--paper-shadow);
+}
+
+/* Footer */
+.book-footer {
+  background: var(--ink);
+  padding: 64px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--accent-light);
+  margin-bottom: 16px;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--paper-deep);
+  font-style: italic;
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--accent-light);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .cover { padding: 56px 28px; min-height: 600px; }
+  .cover-title { font-size: 52px; letter-spacing: -1px; }
+  .ch-title { font-size: 38px; }
+  .ch-title em { font-size: 22px; }
+  .ch-num-bg { font-size: 130px; right: 16px; top: 24px; }
+  .chapter-open { padding: 84px 28px 64px; }
+  .page h1 { font-size: 28px; }
+  .pullquote { font-size: 20px; padding: 28px 16px; }
+  .blockquote-full {
+    padding: 44px 24px;
+    margin-left: calc(-1 * var(--page-pad-h));
+    margin-right: calc(-1 * var(--page-pad-h));
+  }
+  .blockquote-full p { font-size: 22px; }
+  .stat-row { grid-template-columns: 1fr; }
+  .stat-cell { border-right: none; border-bottom: 1px solid var(--paper-shadow); }
+  .stat-cell:last-child { border-bottom: none; }
+  .tier-grid { grid-template-columns: 1fr; }
+  .ch-card { gap: 14px; }
+  .ch-card-num { font-size: 32px; min-width: 44px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div>
+    <div class="cover-top" style="text-align:center;">A Personal Edition · ฉบับสรุปเฉพาะคุณ</div>
+    <div class="cover-chip">
+      <span class="cover-chip-text">$</span>
+    </div>
+    <h1 class="cover-title">Thinking<br><em>in Bets</em></h1>
+    <p class="cover-sub">การตัดสินใจในโลกที่ไม่มีอะไรแน่นอน 100% —<br>ทำไมนักโป๊กเกอร์ตัดสินใจได้ดีกว่านักหมากรุก</p>
+  </div>
+  <div>
+    <div class="cover-divider"></div>
+    <div class="cover-author">
+      <div class="cover-author-name">Annie Duke</div>
+      <div class="cover-author-role">Former World Series of Poker Champion · Cognitive Scientist</div>
+    </div>
+    <div class="cover-divider"></div>
+    <div class="cover-bottom">
+      <div class="cover-edition">For the Investor Who Saw Z.AI Early</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOC ============ -->
+<div class="page">
+  <div class="eyebrow">Table of Contents · สารบัญ</div>
+  <h1>Six Lessons from <em>the Felt</em></h1>
+  <p class="lead">ก่อนเข้าไปอ่าน — มาดูภาพรวมก่อนว่าเราจะเดินผ่านอะไรบ้าง หกบทนี้ผมเรียงจาก "เปลี่ยน frame ความคิด" ไปสู่ "ลงมือทำในตลาดจริง" เพื่อให้คุณไม่พลาดโอกาสครั้งต่อไป</p>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-num">~1,200%</div>
+      <div class="stat-label">โอกาส Z.AI ที่ผ่านไป</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">0%</div>
+      <div class="stat-label">ความแน่นอนที่ตลาดให้</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">โอกาสในอนาคต</div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;">
+    <div class="ch-card">
+      <div class="ch-card-num">01</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Life is Poker, Not Chess</div>
+        <div class="ch-card-one-liner">ทำไมโลกการลงทุนเหมือนโป๊กเกอร์ — ไม่ใช่หมากรุก</div>
+        <span class="ch-tag">Uncertainty</span>
+        <span class="ch-tag">Information</span>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">02</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Resulting — กับดักที่ทำให้คุณพลาด Z.AI</div>
+        <div class="ch-card-one-liner">ตัดสินใจดี ≠ ผลลัพธ์ดี และผลลัพธ์แย่ ≠ ตัดสินใจผิด</div>
+        <span class="ch-tag">Decision Quality</span>
+        <span class="ch-tag">Hindsight Bias</span>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">03</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Wanna Bet? — แปลงทุกความเชื่อเป็นเดิมพัน</div>
+        <div class="ch-card-one-liner">ถ้ามั่นใจจริง ทำไมไม่ลง? ถ้าไม่ลง แสดงว่ามั่นใจแค่ไหน?</div>
+        <span class="ch-tag">Belief Audit</span>
+        <span class="ch-tag">Calibration</span>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">04</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Bet Sizing — ทางออกจาก "ต้องมั่นใจ 100%"</div>
+        <div class="ch-card-one-liner">ลงไม้แรกคือซื้อสิทธิ์ในการเรียนรู้ ไม่ใช่ all-in หาคำตอบ</div>
+        <span class="ch-tag">Position Sizing</span>
+        <span class="ch-tag">Learning Capital</span>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">05</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Mental Time Travel — คุณในอนาคตช่วยคุณตอนนี้</div>
+        <div class="ch-card-one-liner">10-10-10 Rule และ Pre-mortem ก่อนกดซื้อ</div>
+        <span class="ch-tag">10-10-10</span>
+        <span class="ch-tag">Pre-mortem</span>
+      </div>
+    </div>
+    <div class="ch-card">
+      <div class="ch-card-num">06</div>
+      <div class="ch-card-body">
+        <div class="ch-card-title">Synthesis · The Decision Stack</div>
+        <div class="ch-card-one-liner">Pre-Trade Ritual ที่จะใช้ทุกครั้งก่อนลงทุน</div>
+        <span class="ch-tag">Synthesis</span>
+        <span class="ch-tag">Pre-Trade Ritual</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">— iii —</div>
+</div>
+
+<!-- ============ FOREWORD ============ -->
+<div class="page page-mid">
+  <div class="eyebrow">Foreword · จดหมายจากผู้เขียนถึงคุณ</div>
+  <h1>The Hand <em>You Folded</em></h1>
+
+  <p class="lead">ผมเดาว่าคุณกำลังเจ็บ — ไม่ใช่เพราะขาดทุน แต่เพราะ "ดูคนอื่นได้กำไรจากสิ่งที่คุณเห็นก่อนเขา"</p>
+
+  <p class="drop-cap">คุณใช้ Z.AI จริง คุณเห็น GLM ทำงานจริง คุณติดตาม Knowledge Atlas ตั้งแต่ตอนยังไม่ถึง 100 บาท แต่คุณรอ "ความมั่นใจ 100%" ที่ไม่มีวันมา และตอนนี้ราคาอยู่ที่ 1,200 — เพิ่มขึ้นกว่า 12 เท่า โดยที่คุณนั่งดูอยู่ข้างสนาม</p>
+
+  <p>ก่อนที่คุณจะตำหนิตัวเอง ผมอยากบอกอะไรคุณก่อน: <strong>คุณไม่ได้พลาดเพราะคุณโง่ คุณพลาดเพราะคุณใช้ framework ผิด</strong> — คุณกำลังเล่นโป๊กเกอร์ แต่ใช้กติกาของหมากรุก</p>
+
+  <p>ในหมากรุก ถ้าคุณคิดให้ลึกพอ คุณจะรู้คำตอบที่ถูกต้องเสมอ ไม่มีลูกเต๋า ไม่มีไพ่ปิด ทุกอย่างอยู่บนกระดาน คนเก่งกว่าชนะเสมอ แต่ในโป๊กเกอร์ — และในตลาดหุ้น — แม้คุณจะเล่นได้สมบูรณ์แบบ คุณก็ยังแพ้ได้ และคนที่เล่นแย่ก็ยังชนะได้ เพราะมีสิ่งหนึ่งที่หมากรุกไม่มี: <em>ความไม่แน่นอน</em></p>
+
+  <div class="author-box">
+    <div class="author-avatar">AD</div>
+    <div class="author-content">
+      <div class="author-meta">Annie Duke — ในฐานะนักโป๊กเกอร์ที่ผันมาเป็นที่ปรึกษาการตัดสินใจ</div>
+      <p class="author-text">"ผมเสียเงินไป 100,000 ดอลลาร์ในมือเดียวที่ผมเล่นได้ถูกทุกการตัดสินใจ — และผมก็เคยชนะเงิน 100,000 ดอลลาร์จากมือที่ผมเล่นได้แย่มาก สิ่งที่ผมเรียนรู้คือ: ถ้าคุณตัดสินใจจากผลลัพธ์ คุณจะกลายเป็นนักเล่นที่แย่ที่สุดในโลกอย่างรวดเร็ว"</p>
+    </div>
+  </div>
+
+  <p>หนังสือเล่มนี้ไม่ได้สอนคุณให้ทายตลาดถูก เพราะไม่มีใครทำได้ — และคนที่บอกว่าทำได้ คือคนที่คุณควรหลีกเลี่ยง หนังสือเล่มนี้สอนคุณสิ่งที่สำคัญกว่า: <strong>วิธีตัดสินใจให้ดีในโลกที่คุณไม่มีวันรู้ผลลัพธ์ล่วงหน้า</strong></p>
+
+  <p>เพราะในระยะยาว คนที่ตัดสินใจดีคือคนที่ชนะ — ไม่ใช่คนที่ทายถูกครั้งเดียว ส่วนเคส Z.AI ที่คุณพลาด — เราจะกลับมาคุยกันในบทที่ 2 ผมจะแสดงให้คุณเห็นว่ามันเกิดอะไรขึ้นจริงๆ ในหัวของคุณวันนั้น</p>
+
+  <div class="page-num">— v —</div>
+</div>
+
+
+<!-- ============ CHAPTER 1 ============ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">01</div>
+  <div class="ch-label">Chapter One · บทที่หนึ่ง</div>
+  <h2 class="ch-title">Life is Poker,<br>Not Chess
+    <em>ชีวิตคือโป๊กเกอร์ ไม่ใช่หมากรุก</em>
+  </h2>
+  <p class="ch-essence">การลงทุนไม่มี "คำตอบที่ถูก" ที่รอให้คุณค้นพบ — มีแค่ "การเดิมพันที่ดีกว่า" ภายใต้ข้อมูลที่คุณมี</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คุณกำลังเล่นผิดเกม</h1>
+
+  <p class="drop-cap">นักลงทุนส่วนใหญ่เข้าตลาดด้วยความเข้าใจผิดพื้นฐาน — เขาคิดว่าถ้าวิเคราะห์ให้ดีพอ ขุดข้อมูลให้ลึกพอ อ่านงบให้แม่นพอ จะมี "คำตอบที่ถูก" ปรากฏขึ้นมา และเมื่อมั่นใจ 100% แล้วค่อยซื้อ</p>
+
+  <p>นี่คือวิธีคิดแบบ <strong>หมากรุก</strong> — เกมที่ทุกหมากมองเห็น ไม่มีอะไรซ่อน ไม่มีลูกเต๋า ถ้าคุณคิดลึกพอ คุณจะหาทางชนะได้เสมอ Garry Kasparov แพ้ Deep Blue เพราะคอมพิวเตอร์คำนวณได้เร็วกว่า — ไม่ใช่เพราะ Deep Blue โชคดี</p>
+
+  <p>แต่ตลาดหุ้นไม่ใช่หมากรุก ตลาดหุ้นคือ <em>โป๊กเกอร์</em> — เกมที่ไพ่บางใบถูกคว่ำไว้ตลอดเวลา ผู้เล่นคนอื่นมีข้อมูลที่คุณไม่มี และแม้คุณจะตัดสินใจถูกทุกครั้ง คุณก็ยังแพ้ได้ในระยะสั้น เพราะมีปัจจัยที่ควบคุมไม่ได้: <strong>โชค</strong></p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">แก่นของบทนี้</div>
+    <p>การตัดสินใจที่ดีคือกระบวนการ ไม่ใช่ผลลัพธ์ ในโลกที่มีความไม่แน่นอน คุณต้องยอมรับว่าผลลัพธ์มาจาก 2 ปัจจัย: คุณภาพของการตัดสินใจ + โชค และคุณควบคุมได้แค่อันแรก</p>
+  </div>
+
+  <h2>สมการที่ทุกนักลงทุนต้องท่อง</h2>
+
+  <p>Annie Duke สรุปไว้ในประโยคเดียวที่ผมอยากให้คุณเขียนติดข้างจอเทรด:</p>
+
+  <div class="formula-block">
+    <div class="formula-label">The Outcome Equation</div>
+    <div class="formula">Outcome = Decision Quality + Luck</div>
+    <div class="formula-th">ผลลัพธ์ = คุณภาพการตัดสินใจ + โชค</div>
+  </div>
+
+  <p>หมายความว่า: <strong>คุณภาพการตัดสินใจของคุณกับผลลัพธ์ที่คุณได้ — สามารถเป็นคนละเรื่องกันได้ทั้งหมด</strong></p>
+
+  <p>ถ้าคุณซื้อหุ้นจากการวิเคราะห์ฟันด์ดาเมนทัลที่ละเอียดที่สุด แต่บังเอิญพรุ่งนี้ CEO ถูกจับเข้าคุก คุณขาดทุน — คุณตัดสินใจผิดเหรอ? ไม่เลย คุณแค่โชคไม่ดี</p>
+
+  <p>ในทางกลับกัน ถ้าเพื่อนคุณซื้อหุ้นเพราะ "เห็นในกลุ่มไลน์" แล้วราคาขึ้น 3 เท่า เขาตัดสินใจฉลาดเหรอ? ไม่เลย เขาแค่โชคดี — และถ้าเขาทำซ้ำ 100 ครั้ง เขาจะหมดตัว</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม (Chess Thinking)</div>
+      <div class="ladder-text">"ถ้าผมวิเคราะห์ให้แม่นพอ ผมจะรู้ว่าหุ้นนี้จะขึ้นแน่ๆ ผมจะรอจนมั่นใจ 100% แล้วค่อยซื้อ"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง (Poker Thinking)</div>
+      <div class="ladder-text">"ไม่มีหุ้นไหนที่มั่นใจได้ 100% แม้แต่ Buffett ก็พลาด สิ่งที่ผมทำได้คือประเมินความน่าจะเป็น และเลือกขนาดเดิมพันที่เหมาะกับความมั่นใจของผม"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">เลิกถามว่า "หุ้นนี้จะขึ้นมั้ย?" เริ่มถามว่า "ที่ข้อมูลผมมีตอนนี้ ความน่าจะเป็นที่จะขึ้นคือกี่เปอร์เซ็นต์? และผมควรลงเท่าไหร่ที่จะไม่เจ็บถ้าผิด?"</div>
+    </div>
+  </div>
+
+  <h2>ทำไมสมองเราเกิดมาเป็นนักหมากรุก</h2>
+
+  <p>วิวัฒนาการสร้างสมองเราให้ <strong>เกลียดความไม่แน่นอน</strong> เพราะในสมัยล่าสัตว์ ความไม่แน่นอน = ความเสี่ยงต่อชีวิต ถ้าคุณไม่แน่ใจว่าในพุ่มไม้มีเสือหรือไม่ คุณจะคิดว่ามีเสือก่อนเสมอ — เพราะถ้าผิด คุณแค่วิ่งหนีโดยไม่จำเป็น แต่ถ้าถูกแล้วไม่หนี คุณตาย</p>
+
+  <p>แต่ในตลาดหุ้น สมองโบราณนี้กลายเป็นภาระ มันบอกคุณว่า "อย่าซื้อจนกว่าจะแน่ใจ" — และเพราะคุณไม่มีวันแน่ใจ คุณจึงไม่ซื้อเลย คุณกลายเป็นคนที่ <em>"ฉลาดมาก แต่ไม่เคยรวย"</em></p>
+
+  <div class="pullquote">
+    What makes a decision great is not that it has a great outcome.<br>A great decision is the result of a good process.
+    <span class="pullquote-th">การตัดสินใจที่ยอดเยี่ยมไม่ใช่การตัดสินใจที่ให้ผลลัพธ์ที่ดี — แต่คือผลของกระบวนการที่ดี</span>
+  </div>
+
+  <h2>โป๊กเกอร์สอนอะไรที่หมากรุกไม่สอน</h2>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th class="bad">หมากรุก (Chess Mindset)</th>
+        <th class="good">โป๊กเกอร์ (Poker Mindset)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ข้อมูลครบ — ทุกอย่างมองเห็น</td>
+        <td>ข้อมูลไม่ครบเสมอ — ไพ่บางใบถูกปิด</td>
+      </tr>
+      <tr>
+        <td>มีคำตอบที่ถูกที่สุด</td>
+        <td>มีแค่ "คำตอบที่ดีที่สุด ณ ข้อมูลที่มี"</td>
+      </tr>
+      <tr>
+        <td>ผลลัพธ์ = ทักษะ</td>
+        <td>ผลลัพธ์ = ทักษะ + โชค</td>
+      </tr>
+      <tr>
+        <td>รอจนกว่าจะแน่ใจ 100%</td>
+        <td>ตัดสินใจที่ 60-70% ก็เริ่มลงได้</td>
+      </tr>
+      <tr>
+        <td>กลัวพลาด → ไม่เล่น</td>
+        <td>ยอมพลาดบางครั้ง → เล่นเยอะๆ</td>
+      </tr>
+      <tr>
+        <td>วัดผลจากเกมเดียว</td>
+        <td>วัดผลจากค่าเฉลี่ยระยะยาว</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>นักโป๊กเกอร์ระดับโลกไม่ได้ชนะเพราะทายไพ่ถูกทุกมือ — เขาแพ้บ่อยมาก แต่เมื่อชนะ เขาชนะใหญ่ และเมื่อแพ้ เขาแพ้น้อย ความลับของเขาคือ <strong>ขนาดเดิมพัน</strong> ที่ปรับตามความน่าจะเป็น</p>
+
+  <p>นักลงทุนระดับโลกก็เหมือนกัน เขาไม่ได้ทายตลาดถูกทุกครั้ง แต่เขารู้ว่าเมื่อไหร่ควรลงหนัก เมื่อไหร่ควรลงเบา และเมื่อไหร่ควรพับมือ — นี่คือสิ่งที่หมากรุกไม่เคยสอน</p>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · คำถามก่อนข้ามไปบทถัดไป</div>
+    <div class="reflection-title">หยุดสักครู่ แล้วถามตัวเอง:</div>
+    <ol class="reflection-list">
+      <li>ครั้งสุดท้ายที่ผมรอ "ความมั่นใจ 100%" แล้วพลาดโอกาส — เกิดขึ้นเมื่อไหร่?</li>
+      <li>ผมเคยตัดสินใจดีแต่ผลลัพธ์แย่กี่ครั้ง? และผมเอามาโทษตัวเองโดยไม่จำเป็นกี่ครั้ง?</li>
+      <li>ถ้าตลาดคือโป๊กเกอร์ — ผมยังเล่นเหมือนเล่นหมากรุกอยู่หรือเปล่า?</li>
+    </ol>
+  </div>
+
+  <div class="page-num">— 1 —</div>
+</div>
+
+
+<!-- ============ CHAPTER 2 ============ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">02</div>
+  <div class="ch-label">Chapter Two · บทที่สอง</div>
+  <h2 class="ch-title">Resulting
+    <em>กับดักที่ทำให้คุณพลาด Z.AI</em>
+  </h2>
+  <p class="ch-essence">"Resulting" คือนิสัยตัดสินคุณภาพการตัดสินใจจากผลลัพธ์เพียงอย่างเดียว — และมันคือสาเหตุที่คุณจะพลาดโอกาสต่อไปเรื่อยๆ</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Trap · กับดักที่มองไม่เห็น</div>
+  <h1>คุณไม่ได้พลาด Z.AI<br>เพราะ<em>คุณโง่</em></h1>
+
+  <p class="lead">มันมีคำศัพท์เฉพาะในวงโป๊กเกอร์ที่ทุกนักลงทุนต้องเรียนรู้ คำนั้นคือ "Resulting" — และมันอธิบายว่าทำไมคุณถึงเจ็บกับเคส Z.AI ในวันนี้</p>
+
+  <p class="drop-cap">"Resulting" หมายถึง <strong>การตัดสินคุณภาพของการตัดสินใจจากผลลัพธ์เพียงอย่างเดียว</strong> เช่น คุณเห็นเพื่อนซื้อเหรียญ Memecoin แล้วได้กำไร 50 เท่า คุณจึงคิดว่า "เขาฉลาดจัง" — นี่คือ resulting และนี่คือกับดักที่อันตรายที่สุดของนักลงทุน</p>
+
+  <p>เพราะอะไร? เพราะเมื่อคุณตัดสินจากผลลัพธ์ คุณจะเรียนรู้ผิดบทเรียน — คุณจะกลัวการตัดสินใจที่ดีเพียงเพราะมันเคยให้ผลลัพธ์แย่ และคุณจะเลียนแบบการตัดสินใจที่แย่เพียงเพราะมันเคยให้ผลลัพธ์ดี</p>
+
+  <h2>เกิดอะไรขึ้นจริงๆ ในหัวคุณวันนั้น</h2>
+
+  <div class="case-box">
+    <div class="case-title">Z.AI / Knowledge Atlas — Hand Analysis</div>
+    <div class="case-sub">เกมที่คุณ "พับมือ" ทั้งๆ ที่มีไพ่ดี</div>
+
+    <p>มาดูไพ่ที่คุณถืออยู่ในมือนั้น:</p>
+
+    <p><strong>ไพ่ใบที่ 1 — ใช้งานจริง:</strong> คุณใช้ Z.AI และ GLM จริง คุณรู้ว่ามันทำงาน คุณรู้ว่ามันมีคุณค่า — นี่คือสิ่งที่นักวิเคราะห์ที่ไม่เคยใช้ผลิตภัณฑ์ไม่มี</p>
+
+    <p><strong>ไพ่ใบที่ 2 — เห็น narrative:</strong> คุณเห็นกระแส AI ในจีน คุณเห็นว่ารัฐบาลจีนสนับสนุน คุณเห็นว่าตลาดเริ่มสนใจ — มี macro tailwind ชัดเจน</p>
+
+    <p><strong>ไพ่ใบที่ 3 — ราคา IPO ต่ำ:</strong> ราคาไม่ถึง 100 ที่ตอน IPO หมายความว่า downside จำกัด upside มาก — risk/reward เอนเอียงเข้าข้างคุณ</p>
+
+    <p><strong>ไพ่ใบที่ 4 — ติดตามอย่างต่อเนื่อง:</strong> คุณไม่ใช่คนที่ "เพิ่งได้ยินชื่อ" คุณตามมาตลอด — คุณมี information edge เหนือคนทั่วไป</p>
+  </div>
+
+  <p>นี่คือไพ่ที่ดีพอสมควรในเกมโป๊กเกอร์ — ไม่ใช่ Royal Flush แต่เป็นมือที่คนเล่นเก่งจะ "เปิดเดิมพัน" ไม่ใช่ "พับ"</p>
+
+  <p>แล้วทำไมคุณถึงพับ? เพราะคุณกำลังถามคำถามผิด — คุณถามว่า <em>"ผมมั่นใจ 100% หรือยัง?"</em> ในเมื่อคำตอบไม่มีวันเป็น "ใช่" คุณจึงไม่เคยลงไม้แรก</p>
+
+  <div class="author-box">
+    <div class="author-avatar">AD</div>
+    <div class="author-content">
+      <div class="author-meta">Annie Duke — On the cost of waiting for certainty</div>
+      <p class="author-text">"ในโป๊กเกอร์ ถ้าคุณรอจนกว่าจะแน่ใจว่าจะชนะ คุณจะไม่มีวันเล่น คนที่ไม่เล่นคือคนเดียวที่แน่นอนว่าจะแพ้ — เพราะอย่างน้อยคนที่เล่นยังมีโอกาสชนะ"</p>
+    </div>
+  </div>
+
+  <h2>4 อาการของ Resulting ที่คุณต้องระวัง</h2>
+
+  <p>Annie Duke เตือนว่า resulting จะปรากฏใน 4 รูปแบบ — และทุกรูปแบบทำให้คุณเรียนรู้ผิด:</p>
+
+  <div class="signal-box warn">
+    <div class="signal-label">Trap 1 · ตำหนิตัวเอง (Self-blame Trap)</div>
+    <div class="signal-title">"ผมโง่ที่ไม่ซื้อตอน 100"</div>
+    <div class="signal-text">ความจริง: คุณตัดสินใจด้วยข้อมูลที่คุณมีตอนนั้น ราคา 1,200 วันนี้ไม่ได้แปลว่าคุณ "ควรรู้" ตอน 100 — มันแค่แปลว่าตลาดเฉลยหนึ่งใน <em>หลาย</em> ความเป็นไปได้ที่อาจเกิดขึ้น</div>
+  </div>
+
+  <div class="signal-box warn">
+    <div class="signal-label">Trap 2 · เลียนแบบคนโชคดี (Lucky Idiot Trap)</div>
+    <div class="signal-title">"เพื่อนผมรวย ผมต้องทำตามเขา"</div>
+    <div class="signal-text">ความจริง: คนที่ได้กำไรจาก Z.AI ตอนนี้อาจเป็นคนที่ "all-in ทุกอย่าง" และครั้งนี้บังเอิญถูก — แต่ครั้งต่อไปเขาอาจหมดตัว คุณไม่รู้ว่าเขาฉลาดหรือโชคดี อย่าเลียนแบบจนกว่าจะเห็นกระบวนการ</div>
+  </div>
+
+  <div class="signal-box warn">
+    <div class="signal-label">Trap 3 · กลัวซ้ำ (Once-bitten Trap)</div>
+    <div class="signal-title">"ครั้งหน้าผมจะรอให้ชัวร์กว่านี้"</div>
+    <div class="signal-text">ความจริง: ถ้าคุณตอบสนองต่อความเจ็บปวดด้วยการ "รอนานขึ้น" คุณจะพลาดโอกาสต่อไปเรื่อยๆ ปัญหาไม่ใช่ว่าคุณรอน้อยไป — ปัญหาคือคุณไม่มี <em>กติกา</em> ว่าเมื่อไหร่ควรเริ่ม</div>
+  </div>
+
+  <div class="signal-box warn">
+    <div class="signal-label">Trap 4 · ไล่เก็บ (FOMO Trap)</div>
+    <div class="signal-title">"ขึ้นมา 12 เท่าแล้ว ผมต้องรีบเข้าก่อนพลาดอีก"</div>
+    <div class="signal-text">ความจริง: นี่คือ resulting ในทิศตรงกันข้าม คุณไม่ได้ซื้อเพราะวิเคราะห์ คุณซื้อเพราะกลัวพลาด — และนี่คือจุดที่คนที่เข้าก่อนเขากำลังขายให้คุณ</div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">"</div>
+    <p>The world is structured to give us lots of opportunities to feel bad about being wrong if we want to measure ourselves by outcomes.</p>
+    <span class="bq-th">โลกถูกออกแบบมาให้เรารู้สึกแย่กับการ "ผิด" ได้ตลอด — ถ้าเราเลือกตัดสินคุณค่าตัวเองจากผลลัพธ์</span>
+    <span class="bq-author">— Annie Duke</span>
+  </div>
+
+  <h2>วิธีแก้: แยก Decision จาก Outcome</h2>
+
+  <p>ทางออกของ Annie Duke คือเครื่องมือง่ายๆ ที่เรียกว่า <strong>Decision-Outcome Matrix</strong> — ทุกครั้งหลังลงทุนเสร็จ ให้ประเมิน 2 มิติแยกกัน:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="good">ผลลัพธ์ดี</th>
+        <th class="bad">ผลลัพธ์แย่</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ตัดสินใจดี</strong></td>
+        <td>ดี + ฉลาด = <em>เรียนรู้กระบวนการ</em></td>
+        <td>ดี + ซวย = <em>อย่าโทษตัวเอง</em></td>
+      </tr>
+      <tr>
+        <td><strong>ตัดสินใจแย่</strong></td>
+        <td>แย่ + โชคดี = <em>อย่าหลงระเริง</em></td>
+        <td>แย่ + ซวย = <em>เรียนจากความผิดพลาด</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>เคส Z.AI ของคุณ — คุณตัดสินใจแบบไหน? คำตอบคือ คุณ <strong>ไม่ได้ตัดสินใจเลย</strong> คุณ "พับมือ" โดยอ้อม ผ่านการรอ — และนั่นคือการตัดสินใจที่แย่ ไม่ว่าผลลัพธ์จะเป็นอย่างไร</p>
+
+  <p>เพราะถ้าราคา Z.AI ไม่ขึ้น คุณก็ยังไม่ได้เรียนรู้อะไร และถ้าราคาขึ้น (อย่างที่เกิดขึ้น) คุณก็พลาดโอกาส — สูตรนี้แพ้ทั้งสองทาง</p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">บทเรียนจากบทนี้</div>
+    <p>การไม่ตัดสินใจ ก็คือการตัดสินใจ — และมันคือการตัดสินใจที่เลือกผลลัพธ์เพียงด้านเดียว: ไม่มีโอกาสได้กำไร อย่ายอมให้ความกลัวพลาดทำให้คุณ "ไม่ได้เล่น" ในทุกเกม</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · คำถามก่อนข้ามไปบทถัดไป</div>
+    <div class="reflection-title">เปิดสมุดจดแล้วเขียนคำตอบ:</div>
+    <ol class="reflection-list">
+      <li>3 ครั้งล่าสุดที่ผม "ไม่ได้ตัดสินใจ" เพราะรอความมั่นใจ — แต่ละครั้งมีจุดร่วมอะไร?</li>
+      <li>ถ้าผมต้องประเมินตัวเองในเคส Z.AI โดยไม่ดูราคาวันนี้ ผมจะให้คะแนนการตัดสินใจของตัวเองเท่าไหร่จาก 10?</li>
+      <li>ผมเคยตำหนิตัวเองสำหรับผลลัพธ์ที่ผมควบคุมไม่ได้กี่ครั้งในปีที่ผ่านมา?</li>
+    </ol>
+  </div>
+
+  <div class="page-num">— 2 —</div>
+</div>
+
+
+<!-- ============ CHAPTER 3 ============ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">03</div>
+  <div class="ch-label">Chapter Three · บทที่สาม</div>
+  <h2 class="ch-title">Wanna Bet?
+    <em>แปลงทุกความเชื่อให้เป็นเดิมพัน</em>
+  </h2>
+  <p class="ch-essence">"คุณอยากเดิมพันเท่าไหร่กับเรื่องนี้?" — คำถามเดียวที่จะแยกความเชื่อจริงๆ ออกจากความคิดเฉยๆ</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Belief Audit · ตรวจสอบความเชื่อตัวเอง</div>
+  <h1>ถ้ามั่นใจจริง<br><em>ทำไมไม่ลง?</em></h1>
+
+  <p class="lead">มีคำถามมหัศจรรย์อยู่หนึ่งคำที่ Annie Duke ใช้กับตัวเองทุกวัน — และมันจะเปลี่ยนวิธีคิดของคุณตลอดไป คำถามนั้นคือ: "Wanna bet?"</p>
+
+  <p class="drop-cap">สมมติคุณกำลังคุยกับเพื่อน เขาบอก "Tesla จะร่วงปีนี้แน่นอน" คุณเชื่อเขาแค่ไหน? คุณอาจพยักหน้าเห็นด้วย แต่ลองถามเขาว่า <strong>"อยากเดิมพันมั้ย?"</strong> — แล้วดูว่าเขาตอบยังไง</p>
+
+  <p>ถ้าเขาบอก "เอ้อ ก็ไม่ได้แน่นอนขนาดนั้น" คุณจะรู้ทันทีว่าความเชื่อของเขามีน้ำหนักแค่ไหน — น้อยกว่าที่เขาแสดงออก คำว่า "แน่นอน" ของเขาแปลว่า "ผมคิดว่ามีโอกาสประมาณ 60%" เท่านั้น</p>
+
+  <p>นี่คือเครื่องมือที่ทรงพลังที่สุดในหนังสือเล่มนี้ — และมันใช้กับตัวคุณเองได้ด้วย</p>
+
+  <h2>การประมูลความเชื่อกับตัวเอง</h2>
+
+  <p>กลับมาที่เคส Z.AI ของคุณ ก่อนหุ้นจะขึ้น — สมมติคุณกำลังคิดว่า "บริษัทนี้น่าสนใจ" ลองถามตัวเองว่า:</p>
+
+  <div class="formula-block">
+    <div class="formula-label">The Wanna Bet? Question</div>
+    <div class="formula">"ผมจะเดิมพันเท่าไหร่กับความเชื่อนี้?"</div>
+    <div class="formula-th">ไม่ใช่ "ผมเชื่อมั้ย" แต่คือ "ผมเชื่อมากแค่ไหน — เป็นเงิน"</div>
+  </div>
+
+  <p>เมื่อคุณตั้งคำถามแบบนี้ ความเชื่อที่เคยลอยๆ จะกลายเป็นตัวเลขที่ชัดเจน:</p>
+
+  <ul style="list-style:none; padding:0; margin:24px 0;">
+    <li style="padding: 10px 0; border-bottom: 1px dashed var(--paper-shadow); font-family:'Noto Serif Thai',serif;">
+      ❍ "ผมเชื่อ Z.AI 90%" → ลงทุน 30-40% ของพอร์ตได้
+    </li>
+    <li style="padding: 10px 0; border-bottom: 1px dashed var(--paper-shadow); font-family:'Noto Serif Thai',serif;">
+      ❍ "ผมเชื่อ Z.AI 70%" → ลงทุน 10-15% ของพอร์ต
+    </li>
+    <li style="padding: 10px 0; border-bottom: 1px dashed var(--paper-shadow); font-family:'Noto Serif Thai',serif;">
+      ❍ "ผมเชื่อ Z.AI 50%" → ลงทุนเล็กๆ เพื่อ "เปิดเกม" 3-5%
+    </li>
+    <li style="padding: 10px 0; font-family:'Noto Serif Thai',serif;">
+      ❍ "ผมเชื่อ Z.AI 30%" → ไม่ลง รอข้อมูลเพิ่ม
+    </li>
+  </ul>
+
+  <p>เห็นมั้ยว่ามันแก้ปัญหา "รอ 100%" ทันที? เพราะคุณไม่ได้ถามว่า "แน่ใจมั้ย" แต่คุณถามว่า "<em>มั่นใจแค่ไหน — และจะลงเท่าไหร่ตามนั้น</em>"</p>
+
+  <div class="pullquote">
+    Saying "I'm not sure" allows for shades of grey.<br>It opens the door to the truth.
+    <span class="pullquote-th">การพูดว่า "ผมไม่แน่ใจ" คือการยอมรับว่ามีระดับเทาๆ — และนั่นคือประตูสู่ความจริง</span>
+  </div>
+
+  <h2>Calibration — ฝึกประมาณการให้แม่น</h2>
+
+  <p>คำที่อาจฟังดูแปลก — <strong>Calibration</strong> หรือ "การปรับเทียบ" หมายถึง <em>ความสามารถในการประมาณการความน่าจะเป็นให้ใกล้ความจริง</em></p>
+
+  <p>เช่น ถ้าคุณบอกว่า "เรื่องนี้มีโอกาส 70%" ในระยะยาว มันควรจะเกิดขึ้นจริงประมาณ 70 ครั้งใน 100 ครั้งที่คุณพูดแบบนี้ — ถ้ามันเกิดขึ้นแค่ 40 ครั้ง แสดงว่าคุณ "มั่นใจเกินจริง" (overconfident) ถ้าเกิดขึ้น 90 ครั้ง แสดงว่าคุณ "มั่นใจน้อยเกินไป" (underconfident)</p>
+
+  <p>นักโป๊กเกอร์อาชีพและนักลงทุนระดับโลกฝึก calibration จนเป็นธรรมชาติ พวกเขารู้ความแตกต่างระหว่าง "ค่อนข้างแน่ใจ" (75%) กับ "เกือบจะแน่ใจ" (85%) กับ "แทบจะแน่ใจ" (95%) — และพวกเขาปรับขนาดเดิมพันตามนั้น</p>
+
+  <div class="signal-box gold-tone">
+    <div class="signal-label">Try This · ลองทำดู</div>
+    <div class="signal-title">Calibration Exercise — 1 สัปดาห์</div>
+    <div class="signal-text">ทุกครั้งที่คุณคิดว่า "เรื่องนี้แน่ๆ" ให้ใส่ตัวเลขความน่าจะเป็นกำกับเสมอ เช่น "ผมว่าหุ้นนี้ขึ้นแน่ — 75%" หรือ "ผมว่าฝนตกพรุ่งนี้ — 60%" บันทึกในสมุด หลัง 1 สัปดาห์ ดูว่าคุณเป็นคน <em>overconfident</em> หรือ <em>underconfident</em> นี่คือก้าวแรกของการเป็นนักตัดสินใจที่ดี</div>
+  </div>
+
+  <h2>คนรอบตัวคุณ = ตลาดที่คุณกำลังเดิมพันด้วย</h2>
+
+  <p>Annie Duke ชี้ให้เห็นจุดที่ทรงพลังอีกจุด: เมื่อคุณ "เดิมพัน" คุณกำลังบอกว่าความเชื่อของคุณดีกว่าคนอื่นในตลาด — เพราะมีคนอีกฝั่งที่เดิมพันตรงข้ามคุณ ถามตัวเองว่า: <em>"คนที่ขายให้ผม รู้อะไรที่ผมไม่รู้หรือเปล่า?"</em></p>
+
+  <p>กลับมาที่ Z.AI — ตอน IPO ที่ราคาไม่ถึง 100 คนอีกฝั่ง (คนขาย) คิดอะไรอยู่? อาจเป็น early investor ที่อยากเข้าถึงเงินสด หรือคนที่ไม่เข้าใจ AI หรือคนที่ไม่เห็นโอกาสในจีน — <strong>เหตุผลที่เขาขายไม่ได้แปลว่าหุ้นแย่</strong></p>
+
+  <p>นี่คือจุดที่ <em>ความได้เปรียบของคุณ (edge)</em> เริ่มมีค่า: คุณใช้ผลิตภัณฑ์จริง คุณเห็นในสิ่งที่ตลาดอาจมองข้าม — และ Annie Duke จะบอกคุณว่านี่คือเหตุผลที่คุณ <strong>ควร</strong> เดิมพัน ไม่ใช่ "รอ"</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ที่คุณทำกับ Z.AI</div>
+      <div class="ladder-text">"ผมเห็นว่ามันน่าสนใจ แต่ขอรอข้อมูลเพิ่ม" — แล้วก็ดูราคาขึ้นทุกวัน จนสุดท้ายไม่ได้ซื้อเลย</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ที่ควรทำ (Wanna Bet?)</div>
+      <div class="ladder-text">"ผมมั่นใจประมาณ 65-70% ในเรื่องนี้ ดังนั้นผมจะลง 10% ของ position size สูงสุดที่ตั้งใจไว้ ถ้าราคาขึ้น + ข้อมูลใหม่ดี ค่อยเพิ่ม"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">กฎสำหรับครั้งต่อไป</div>
+      <div class="ladder-text">ทุกครั้งที่เห็นโอกาส บังคับตัวเองให้ใส่ "ตัวเลขความมั่นใจ" และ "ขนาดเดิมพัน" ลงในสมุดก่อนคิดต่อ — ห้ามใช้คำว่า "รอดูก่อน" อีก</div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-box-label">หัวใจของบทนี้</div>
+    <p>"Wanna bet?" ไม่ใช่แค่คำถาม — มันคือ <em>การบังคับให้ความเชื่อของคุณมีต้นทุน</em> ถ้าคุณไม่ยอมเดิมพัน แสดงว่าคุณไม่เชื่อจริง และถ้าคุณไม่เชื่อจริง — คุณต้องการข้อมูลอะไรเพิ่ม เพื่อให้เชื่อมากพอที่จะเดิมพัน?</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · คำถามก่อนข้ามไปบทถัดไป</div>
+    <div class="reflection-title">ลองตอบโดยใช้ตัวเลข:</div>
+    <ol class="reflection-list">
+      <li>ความเชื่อหลัก 3 ข้อในพอร์ตของผมตอนนี้ — ความมั่นใจของผมคือกี่ % แต่ละข้อ?</li>
+      <li>ถ้ามีคนเสนอให้ผมเดิมพัน 1 ล้านบาทกับความเชื่อของผม — ผมจะรับมั้ย? ถ้าไม่ แสดงว่าผม "มั่นใจ" กี่ % กันแน่?</li>
+      <li>มีความเชื่อข้อไหนที่ผมพูดออกมาบ่อย แต่ไม่เคยใส่เงินตามจริง — ทำไม?</li>
+    </ol>
+  </div>
+
+  <div class="page-num">— 3 —</div>
+</div>
+
+
+<!-- ============ CHAPTER 4 ============ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">04</div>
+  <div class="ch-label">Chapter Four · บทที่สี่</div>
+  <h2 class="ch-title">Bet Sizing
+    <em>ทางออกจาก "ต้องมั่นใจ 100%"</em>
+  </h2>
+  <p class="ch-essence">ลงไม้แรกไม่ใช่การ "ตอบคำถามว่าจะรวยมั้ย" — มันคือการ "ซื้อสิทธิ์ในการเรียนรู้จากตลาดจริง"</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The System · ระบบที่จะปลดล็อกคุณ</div>
+  <h1>เลิก All-in<br>เริ่ม <em>เล่นเป็นระบบ</em></h1>
+
+  <p class="lead">นี่คือบทที่สำคัญที่สุดสำหรับคุณ — เพราะมันคือทางออกจากกับดัก "ต้องมั่นใจ 100% ก่อนซื้อ" ที่ทำให้คุณพลาด Z.AI</p>
+
+  <p class="drop-cap">ความเข้าใจผิดที่นักลงทุนมือใหม่มีคือ การคิดว่า "ซื้อ" หรือ "ไม่ซื้อ" เป็นการตัดสินใจแบบ binary — ดำ/ขาว, 0/1, ใช่/ไม่ใช่ แต่นักโป๊กเกอร์อาชีพไม่คิดแบบนี้เลย — เขาคิดเป็น <em>spectrum</em></p>
+
+  <p>นักโป๊กเกอร์ไม่เคยถามว่า "เล่นหรือไม่เล่น" เขาถามว่า <strong>"จะลงเท่าไหร่ดี?"</strong> และคำตอบมีตั้งแต่ ฝากน้อย, ค่อยๆ ขึ้น, ลงหนัก, ไปจน all-in — แต่ละระดับมีเหตุผลของมัน</p>
+
+  <p>ในตลาดหุ้นก็ต้องคิดแบบเดียวกัน <strong>การไม่ซื้อเลย</strong> กับ <strong>การ all-in</strong> ไม่ใช่ทางเลือกเดียวที่คุณมี — มี spectrum ตรงกลางที่คุณยังไม่ได้ใช้</p>
+
+  <h2>3 ระดับของการเดิมพันที่คุณต้องมี</h2>
+
+  <p>Annie Duke เรียกระบบนี้ว่า <strong>Tiered Position Sizing</strong> — แบ่งขนาดเดิมพันตามระดับความมั่นใจ + ข้อมูลที่มี</p>
+
+  <div class="tier-grid">
+    <div class="tier low">
+      <div class="tier-tag">Tier 1</div>
+      <div class="tier-percent">2-5%</div>
+      <div class="tier-name">Exploration Bet</div>
+      <div class="tier-desc">มั่นใจ 40-60% มี thesis แต่ยังต้องการข้อมูลตลาดจริง</div>
+    </div>
+    <div class="tier mid">
+      <div class="tier-tag">Tier 2</div>
+      <div class="tier-percent">10-20%</div>
+      <div class="tier-name">Conviction Bet</div>
+      <div class="tier-desc">มั่นใจ 65-80% มี thesis + ข้อมูลจริง + เห็น momentum</div>
+    </div>
+    <div class="tier high">
+      <div class="tier-tag">Tier 3</div>
+      <div class="tier-percent">25-40%</div>
+      <div class="tier-name">High Conviction</div>
+      <div class="tier-desc">มั่นใจ 85%+ มีหลักฐานชัด + เข้าใจลึก + ตรวจสอบจากหลายมุม</div>
+    </div>
+  </div>
+
+  <p>กลับมาที่เคส Z.AI ของคุณ — ถ้าคุณมีระบบนี้ตั้งแต่ต้น เกิดอะไรขึ้น?</p>
+
+  <div class="case-box">
+    <div class="case-title">Z.AI Revisited — ถ้าคุณมี Bet Sizing System</div>
+    <div class="case-sub">การเดิมพันแบบที่ "ไม่ต้องมั่นใจ 100%"</div>
+
+    <p><strong>เดือน 0 (IPO ราคา &lt;100):</strong> คุณใช้ผลิตภัณฑ์จริง คุณเห็น narrative ความมั่นใจประมาณ 60% — <em>Tier 1 Exploration Bet: ลง 3% ของพอร์ต</em> ที่ราคา 80 บาท</p>
+
+    <p><strong>เดือน 3 (ราคา 200-300):</strong> ราคาขยับขึ้น มีข่าวสารใหม่ทำให้ thesis แข็งขึ้น ความมั่นใจขึ้นเป็น 70% — <em>เพิ่มเป็น Tier 2: รวมเป็น 12% ของพอร์ต</em></p>
+
+    <p><strong>เดือน 6 (ราคา 600+):</strong> Trend ชัดเจน + รัฐบาลจีนสนับสนุน + revenue เริ่มเห็น — <em>หาก thesis ยังแข็งและไม่ overheated เพิ่มเป็น Tier 3: 25%</em></p>
+
+    <p><strong>ผลลัพธ์:</strong> ที่ราคา 1,200 — คุณได้ผลกำไรจากการลงทุนแบบ "เพิ่มทีละน้อย" ที่ตลาดยืนยัน thesis ของคุณ ไม่ใช่การ all-in ที่อาจหมดตัวถ้าผิด</p>
+  </div>
+
+  <p>เห็นความต่างมั้ย? คุณไม่ต้อง "มั่นใจ 100% ตั้งแต่วันแรก" — คุณแค่ต้อง "มั่นใจพอที่จะเริ่ม" และให้ตลาดสอนคุณว่าจะเพิ่มหรือลด</p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">"</div>
+    <p>The smaller bet is the cost of admission to keep playing — and learning.</p>
+    <span class="bq-th">เดิมพันก้อนเล็กคือค่าตั๋วเข้าเล่นต่อ — และค่าเรียนรู้</span>
+    <span class="bq-author">— Annie Duke</span>
+  </div>
+
+  <h2>ทำไม Exploration Bet เปลี่ยนทุกอย่าง</h2>
+
+  <p>การลงไม้แรกเล็กๆ (Tier 1) ไม่ใช่เรื่องของกำไร — มันคือการ <strong>ซื้อข้อมูล</strong> ที่คุณจะไม่ได้รับถ้าไม่มี skin in the game:</p>
+
+  <h3>1. คุณจะติดตามจริงจัง</h3>
+  <p>เพราะมีเงินอยู่ในเกม คุณจะอ่านข่าวบริษัทนี้ทุกวัน คุณจะเข้าใจ market reaction คุณจะรู้สึก rhythm ของหุ้น — สิ่งที่ไม่มีใครสอนได้</p>
+
+  <h3>2. คุณจะรู้ว่าตัวเองรับ volatility ได้แค่ไหน</h3>
+  <p>คนส่วนใหญ่ไม่รู้ว่าตัวเองจะตื่นตระหนกแค่ไหนเมื่อหุ้นลง 30% — จนกว่าจะถือจริง ลงน้อยๆ ก่อน คุณจะเรียนรู้ "ตัวคุณเอง" ในฐานะนักลงทุน</p>
+
+  <h3>3. คุณจะมี baseline เปรียบเทียบ</h3>
+  <p>ถ้าราคาขึ้น 50% คุณรู้ว่า thesis ของคุณถูก คุณเพิ่ม position ได้ ถ้าราคานิ่งหรือลง คุณรู้ว่าต้องทบทวน thesis — แต่ถ้าไม่ลง คุณจะไม่มีข้อมูลพวกนี้</p>
+
+  <div class="signal-box">
+    <div class="signal-label">หลักทอง · Pyramid Up, Not Down</div>
+    <div class="signal-title">เพิ่มเมื่อถูก — ไม่ใช่เพิ่มเมื่อผิด</div>
+    <div class="signal-text">เริ่มเล็ก ถ้า thesis ถูก (ราคาขึ้น + ข่าวยืนยัน) → เพิ่ม ถ้า thesis ผิด (ราคาลง + ข่าวลบ) → <strong>ลด ไม่ใช่เพิ่ม</strong> "การเฉลี่ยขาดทุน" คือสิ่งที่นักโป๊กเกอร์เรียกว่า "Throwing good money after bad" — มันคือกับดัก ไม่ใช่กลยุทธ์</div>
+  </div>
+
+  <h2>กฎเดิมพันที่จะเปลี่ยนชีวิตการลงทุนของคุณ</h2>
+
+  <p>นี่คือกฎ 5 ข้อที่ Annie Duke สอนนักวิเคราะห์ Wall Street ที่ปรึกษา และที่ผมอยากให้คุณท่องจำ:</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>กฎ</th>
+        <th>เหตุผล</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1. ไม่มีการเดิมพัน &gt; 50% ในอันเดียว</strong></td>
+        <td>แม้คุณจะมั่นใจ 95% — ความซวยยังเกิดได้ 5% และ 5% นั้นพอจะทำลายคุณได้ถ้าลงหมด</td>
+      </tr>
+      <tr>
+        <td><strong>2. เริ่มที่ Tier 1 เสมอ ยกเว้นมี edge ชัดมาก</strong></td>
+        <td>ไม่มีคำว่า "all-in ตั้งแต่แรก" สำหรับนักเล่นที่อยากอยู่ในเกมระยะยาว</td>
+      </tr>
+      <tr>
+        <td><strong>3. ขนาดต้องเป็น % ของพอร์ต ไม่ใช่จำนวนเงิน</strong></td>
+        <td>"ลง 100,000 บาท" ไม่มีความหมาย — "ลง 5% ของพอร์ต" คือกฎที่ใช้ได้ตลอดชีวิต</td>
+      </tr>
+      <tr>
+        <td><strong>4. ตั้ง exit rule ก่อนเข้า</strong></td>
+        <td>"ถ้าลง X% ผมขาย" — เขียนไว้ก่อน เพื่อไม่ให้อารมณ์ตัดสิน ณ จุดที่ต้องตัดสินใจ</td>
+      </tr>
+      <tr>
+        <td><strong>5. เพิ่ม position ต่อเมื่อ thesis ยืนยัน</strong></td>
+        <td>ไม่ใช่เพิ่มเพราะ FOMO ไม่ใช่เพิ่มเพราะอยากเฉลี่ย — เพิ่มเพราะ <em>หลักฐานใหม่บอกว่าคุณคิดถูก</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="author-box">
+    <div class="author-avatar">AD</div>
+    <div class="author-content">
+      <div class="author-meta">Annie Duke — to the investor who keeps waiting</div>
+      <p class="author-text">"ถ้าคุณบอกผมว่า 'รอข้อมูลเพิ่ม' ครั้งหน้า — ผมจะถามคุณกลับว่า ข้อมูลอะไรบ้างที่จะทำให้คุณตัดสินใจได้? เขียนรายการมาให้ผมดู ถ้าคุณเขียนไม่ออก แสดงว่าคุณไม่ได้รอข้อมูล — คุณกำลังรอความกล้า และความกล้าไม่ได้มาจากการรอ มันมาจากการเริ่มลงไม้แรกเล็กๆ"</p>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-box-label">แก่นของบทนี้</div>
+    <p>คุณไม่จำเป็นต้องมั่นใจ 100% เพื่อจะเริ่ม — คุณแค่ต้อง <em>มั่นใจพอที่จะลงเล็กๆ</em> ขนาดเดิมพันคือเครื่องมือที่ทำให้คุณ "เล่นต่อ" ในขณะที่เรียนรู้ ไม่ใช่ "เดาคำตอบ" ก่อนเล่น</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · คำถามก่อนข้ามไปบทถัดไป</div>
+    <div class="reflection-title">ออกแบบระบบของตัวเอง:</div>
+    <ol class="reflection-list">
+      <li>Tier 1 ของผมคือกี่ % ของพอร์ต? Tier 2? Tier 3? ผมจะเขียนกฎนี้ไว้ที่ไหนเพื่อให้เห็นทุกครั้งที่เทรด?</li>
+      <li>ครั้งสุดท้ายที่ผมเพิ่ม position — ผมเพิ่มเพราะ thesis ยืนยัน หรือเพราะอารมณ์?</li>
+      <li>ในพอร์ตของผมตอนนี้ มีตัวไหนที่ผม "ใหญ่เกินไป" สำหรับระดับความมั่นใจจริงๆ ของผม?</li>
+    </ol>
+  </div>
+
+  <div class="page-num">— 4 —</div>
+</div>
+
+
+<!-- ============ CHAPTER 5 ============ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">05</div>
+  <div class="ch-label">Chapter Five · บทที่ห้า</div>
+  <h2 class="ch-title">Mental Time Travel
+    <em>คุณในอนาคต ช่วยคุณตอนนี้</em>
+  </h2>
+  <p class="ch-essence">การตัดสินใจที่ดีไม่ได้เกิดจากการคิดให้ลึกในวินาทีนั้น — มันเกิดจากการ "เดินทางในเวลา" ไปดูตัวเองในอนาคต แล้วถามว่า "เขาจะคิดยังไงกับเรื่องนี้?"</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Decision Tools · เครื่องมือลับของนักโป๊กเกอร์</div>
+  <h1>กฎ 10-10-10<br>และ <em>Pre-mortem</em></h1>
+
+  <p class="lead">นักลงทุนแย่ตัดสินใจในวินาทีปัจจุบัน นักลงทุนดีตัดสินใจในมุมมองของตัวเองใน 10 นาที / 10 เดือน / 10 ปีข้างหน้า — นี่คือ Mental Time Travel</p>
+
+  <p class="drop-cap">ปัญหาใหญ่ที่สุดของการตัดสินใจในตลาดคือ คุณกำลังตัดสินใจในขณะที่อารมณ์ขึ้นสูงสุด — เห็นข่าวดี ราคาขึ้น คุณรู้สึก FOMO เห็นข่าวร้าย ราคาลง คุณรู้สึก panic ทั้งสองอารมณ์ทำให้คุณตัดสินใจแย่</p>
+
+  <p>Suzy Welch เสนอเครื่องมือที่ Annie Duke ชอบมาก เรียกว่า <strong>กฎ 10-10-10</strong>: ก่อนตัดสินใจสำคัญ ถามตัวเอง 3 คำถาม</p>
+
+  <div class="formula-block">
+    <div class="formula-label">The 10-10-10 Rule</div>
+    <div class="formula">10 minutes · 10 months · 10 years</div>
+    <div class="formula-th">การตัดสินใจนี้ ผมจะรู้สึกยังไงใน 10 นาที / 10 เดือน / 10 ปี</div>
+  </div>
+
+  <h3>ใน 10 นาทีข้างหน้า — ผมจะรู้สึกยังไง?</h3>
+  <p>เพราะอยากกดซื้อตอนเห็นราคาวิ่ง — ใน 10 นาที ความตื่นเต้นอาจจางไปแล้ว และคุณจะนึกได้ว่า "เออ จริงๆ ผมยังไม่ได้ดูงบเลย"</p>
+
+  <h3>ใน 10 เดือนข้างหน้า — ผมจะรู้สึกยังไง?</h3>
+  <p>ถ้าหุ้นที่กำลังจะซื้อขึ้น 30% ใน 10 เดือน — ผมจะดีใจ แต่ถ้าลง 30% ผมจะทนได้มั้ย? คำตอบนี้บอกขนาดเดิมพันที่เหมาะกับผม</p>
+
+  <h3>ใน 10 ปีข้างหน้า — ผมจะรู้สึกยังไง?</h3>
+  <p>นี่คือคำถามที่จะ "ละลายเสียงรบกวน" ทั้งหมด — ใน 10 ปี ราคาวันนี้ที่ดูสูงเหลือเกิน อาจกลายเป็นต่ำมาก ใน 10 ปี การไม่ซื้อ Z.AI วันนี้อาจไม่สำคัญเลยถ้าคุณยังมีโอกาสอื่น</p>
+
+  <div class="pullquote">
+    Our problem is that we're ferocious about not wanting to make decisions we'll regret — and we forget that not deciding is also a decision.
+    <span class="pullquote-th">ปัญหาเราคือ เรากลัวการตัดสินใจที่จะเสียใจมาก — จนลืมไปว่า "การไม่ตัดสินใจ" ก็เป็นการตัดสินใจอย่างหนึ่ง</span>
+  </div>
+
+  <h2>Pre-mortem — ทำพิธีศพให้แผนของคุณก่อนเริ่ม</h2>
+
+  <p>เครื่องมือที่สองที่ทรงพลังที่สุดในบทนี้ — และเป็น <em>signature move</em> ของ Annie Duke — คือ <strong>Pre-mortem</strong></p>
+
+  <p>หลักการง่ายๆ: ก่อนตัดสินใจสำคัญ ให้เดินทางในจินตนาการไปอนาคต 1 ปีข้างหน้า สมมติว่าการตัดสินใจนี้ <em>ล้มเหลวอย่างยับเยิน</em> แล้วถามตัวเองว่า: <strong>"อะไรเป็นสาเหตุที่ทำให้มันพัง?"</strong></p>
+
+  <p>เปรียบเทียบกับ "post-mortem" (การชันสูตรหลังเสียชีวิต) — pre-mortem คือ "การชันสูตรก่อนเสียชีวิต" คุณ <em>จินตนาการความล้มเหลว</em> เพื่อหาทางป้องกัน <strong>ก่อน</strong> เกิดจริง</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">วิธีคิดทั่วไป (Optimistic Mode)</div>
+      <div class="ladder-text">"ผมคิดว่าหุ้นนี้จะขึ้นเพราะ A, B, C..." → คุณเห็นแต่ด้านบวก ตาบอดด้านลบ</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">วิธีคิดแบบ Pre-mortem</div>
+      <div class="ladder-text">"สมมติ 1 ปีจากนี้ ผมขาดทุน 60% กับหุ้นตัวนี้ — อะไรคือสาเหตุที่เป็นไปได้?" → คุณเห็น risk ที่จริงจัง ก่อนมันเกิด</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">สำหรับทุก risk ที่ระบุได้ ตั้ง exit rule หรือ position sizing ที่จะปกป้องคุณถ้ามันเกิดจริง — และอย่าซื้อจนกว่าจะทำลิสต์นี้เสร็จ</div>
+    </div>
+  </div>
+
+  <h2>Pre-mortem สำหรับ Z.AI ของคุณ</h2>
+
+  <p>ลองทำดูตอนนี้เลย — สมมติคุณกำลังจะซื้อ Z.AI ที่ราคา 1,200 ในวันนี้ Pre-mortem คุณคืออะไร?</p>
+
+  <div class="signal-box warn">
+    <div class="signal-label">Pre-mortem · ความล้มเหลวที่อาจเกิดขึ้น</div>
+    <div class="signal-title">"สมมติ 1 ปีจากนี้ Z.AI ราคา 400 บาท เหตุผลคืออะไร?"</div>
+    <div class="signal-text">
+      ❍ จีนออกกฎควบคุม AI ที่จำกัดบริษัทเอกชน<br>
+      ❍ คู่แข่งจากตะวันตก (OpenAI, Anthropic) เปิดตัวในจีน<br>
+      ❍ Revenue ไม่โตตามที่ตลาดคาด — multiple compression<br>
+      ❍ ตลาดหุ้นจีนโดยรวมตกหนัก — risk-off mode<br>
+      ❍ Founder/CEO ลาออก หรือมีข่าวลบเรื่อง corporate governance<br>
+      ❍ AI bubble แตก — sentiment พลิก
+    </div>
+  </div>
+
+  <p>ตอนนี้คุณมีลิสต์ของ <em>สิ่งที่ต้องเฝ้าดู</em> — และคุณรู้แล้วว่าถ้าเหตุการณ์ไหนเกิดขึ้น คุณต้องลดหรือออก ไม่ใช่ "หวังว่ามันจะดีขึ้น"</p>
+
+  <p>นี่คือความแตกต่างระหว่างนักลงทุนที่ "ซื้อแล้วลืม" กับ "ซื้อด้วยแผน" — คนแรกหวังให้ดี คนหลังเตรียมรับมือทุกฉาก</p>
+
+  <h2>Backcasting — เดินทางจากอนาคตกลับมา</h2>
+
+  <p>เครื่องมือที่สาม — และอาจจะเป็นเครื่องมือที่ทรงพลังที่สุด — คือ <strong>Backcasting</strong> สิ่งที่ตรงข้ามกับ Forecasting</p>
+
+  <p><strong>Forecasting</strong> (พยากรณ์): เริ่มจากปัจจุบัน คาดเดาว่าจะเกิดอะไรในอนาคต — นี่คือสิ่งที่ทุกคนทำ และมันมักผิด</p>
+
+  <p><strong>Backcasting</strong> (ย้อนการคำนวณ): เริ่มจากผลลัพธ์ที่ต้องการในอนาคต แล้วถามว่า "ต้องเกิดอะไรบ้างเพื่อมาถึงจุดนั้น?"</p>
+
+  <div class="case-box">
+    <div class="case-title">Z.AI Backcasting — สมมติราคาขึ้นเป็น 2,500 ใน 2 ปี</div>
+    <div class="case-sub">ย้อนถามว่า ต้องเกิดอะไรบ้างเพื่อมาถึงจุดนั้น?</div>
+
+    <p><strong>เงื่อนไขที่ต้องเกิด:</strong></p>
+    <p>1. Revenue ต้องโต 100%+ ต่อปี<br>
+    2. ตลาด AI จีนต้องยังเติบโต ไม่มี regulatory shock<br>
+    3. Z.AI ต้องชนะ market share ที่จีน<br>
+    4. P/E expansion จาก narrative AI ที่ยังร้อน<br>
+    5. ตลาดหุ้นจีนไม่ crash</p>
+
+    <p><strong>คำถามที่ตามมา:</strong> ผมเชื่อทั้ง 5 ข้อนี้ที่กี่ %? ถ้าคูณเข้าด้วยกัน probability ที่ราคาจะถึง 2,500 จริงๆ คือเท่าไหร่?</p>
+
+    <p>ถ้าแต่ละข้อมีโอกาส 70% → ความน่าจะเป็นรวม = 0.7⁵ = <strong>16.8%</strong> — ดังนั้นต่อให้ "ทุกอย่างต้องไปได้ดี" คุณก็มีโอกาสแค่ 1 ใน 6 ที่จะถึงเป้า นี่บอกอะไรเกี่ยวกับ position size ที่เหมาะสม?</p>
+  </div>
+
+  <p>Backcasting ทำให้คุณเห็นว่า optimistic case ที่ทุกคนพูดถึง — มันต้องการ <em>หลายเงื่อนไขเกิดพร้อมกัน</em> และนั่นทำให้ความน่าจะเป็นต่ำกว่าที่คุณคิด</p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">"</div>
+    <p>Imagine you're successful — what got you there? Now imagine you failed — what went wrong? Plan for both.</p>
+    <span class="bq-th">จินตนาการว่าคุณสำเร็จ — อะไรพาคุณไปถึง? จินตนาการว่าคุณล้มเหลว — อะไรทำให้พัง? เตรียมแผนสำหรับทั้งสองอย่าง</span>
+    <span class="bq-author">— Annie Duke</span>
+  </div>
+
+  <h2>เครื่องมือสุดท้าย: ลายเซ็นในอนาคต</h2>
+
+  <p>เครื่องมือที่ผมอยากให้คุณใช้ทุกครั้งก่อนกดซื้อ — สำหรับการตัดสินใจสำคัญ — คือ <strong>Future Self Letter</strong></p>
+
+  <p>เขียนจดหมายให้ตัวคุณเองในอีก 1 ปีข้างหน้า อธิบายว่า:</p>
+
+  <ol style="font-family:'Noto Serif Thai',serif; font-size:15px; line-height:1.85; color:var(--ink-soft); padding-left:20px; margin: 20px 0;">
+    <li style="margin-bottom: 8px;">ทำไมผมตัดสินใจซื้อ/ไม่ซื้อหุ้นตัวนี้</li>
+    <li style="margin-bottom: 8px;">ผมคิดว่ามีโอกาสกี่ % ที่ผมจะถูก</li>
+    <li style="margin-bottom: 8px;">ผมจะออกเมื่อไหร่ (ทั้งกำไรและขาดทุน)</li>
+    <li style="margin-bottom: 8px;">สิ่งที่ผมเฝ้าดู — และเงื่อนไขที่จะทำให้ผมเปลี่ยนใจ</li>
+    <li>ผมรู้สึกยังไงตอนนี้ — มั่นใจหรือลังเล? ทำไม?</li>
+  </ol>
+
+  <p>1 ปีให้หลัง เปิดอ่านจดหมายนี้ คุณจะเห็นชัดเจนว่าตัวคุณวันนี้ <em>คิดยังไง</em> และ <em>คิดถูกหรือผิดเพราะอะไร</em> — ไม่มีอะไรสอนคุณได้ดีกว่านี้ในการเป็นนักลงทุน</p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">หัวใจของบทนี้</div>
+    <p>การตัดสินใจที่ดีไม่ได้เกิดในปัจจุบัน — มันเกิดจากการที่คุณ "ออกจากตัวเอง" ไปดูจากมุมมองคุณในอนาคต Mental Time Travel ทำให้อารมณ์ของวินาทีนี้ ไม่กลายเป็นเหตุผลของชีวิตคุณ</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Reflection · คำถามก่อนข้ามไปบทถัดไป</div>
+    <div class="reflection-title">ลองทำเลยตอนนี้:</div>
+    <ol class="reflection-list">
+      <li>เลือกหุ้นที่ผมกำลังพิจารณา 1 ตัว — ทำ Pre-mortem ในใจ 5 นาที สาเหตุที่อาจทำให้พังคืออะไร?</li>
+      <li>หุ้นในพอร์ตของผมตอนนี้ — ถ้าผมตื่นมาพรุ่งนี้แล้วราคาลง 40% ผมจะตกใจไหม? ถ้าใช่ position ใหญ่เกินไป</li>
+      <li>การตัดสินใจที่ผมเสียใจที่สุดในชีวิต — ถ้าผมใช้กฎ 10-10-10 ตอนนั้น ผมจะตัดสินใจต่างไปมั้ย?</li>
+    </ol>
+  </div>
+
+  <div class="page-num">— 5 —</div>
+</div>
+
+
+<!-- ============ SYNTHESIS CHAPTER ============ -->
+<div class="chapter-open">
+  <div class="ch-num-bg">06</div>
+  <div class="ch-label">Synthesis · บทสรุป</div>
+  <h2 class="ch-title">The Decision Stack
+    <em>Pre-Trade Ritual ของคุณ</em>
+  </h2>
+  <p class="ch-essence">ความรู้ทั้งเล่มจะไร้ค่า ถ้าคุณไม่มีพิธีกรรมที่ทำซ้ำได้ทุกครั้ง — นี่คือ checklist 7 ข้อที่จะอยู่กับคุณตลอดชีวิตการลงทุน</p>
+</div>
+
+<div class="page page-mid">
+  <div class="eyebrow">The Master Idea · ประโยคเดียวที่ต้องท่อง</div>
+  <h1>ถ้าจำได้แค่อย่างเดียว<br><em>จากหนังสือเล่มนี้</em></h1>
+
+  <p class="lead">ก่อนคุณปิดเอกสารนี้ — มีประโยคเดียวที่ผมอยากให้คุณเขียนติดข้างจอ ติดในกระเป๋าเงิน ติดในหัว ถ้าจำได้แค่บรรทัดเดียวจากทั้งเล่ม — นี่คือบรรทัดนั้น:</p>
+
+  <div class="blockquote-full">
+    <div class="blockquote-full-mark">$</div>
+    <p>Don't bet on outcomes.<br>Bet on decision quality.</p>
+    <span class="bq-th">อย่าเดิมพันที่ผลลัพธ์ — เดิมพันที่คุณภาพของการตัดสินใจ</span>
+    <span class="bq-author">— The Annie Duke Principle</span>
+  </div>
+
+  <p>ประโยคนี้เปลี่ยนทุกอย่าง เพราะมันบอกว่า:</p>
+
+  <ul style="list-style:none; padding:0; margin:24px 0;">
+    <li style="padding: 14px 20px; margin-bottom: 12px; background:var(--accent-bg); border-left:3px solid var(--accent); font-family:'Noto Serif Thai',serif;">
+      <strong>ผลลัพธ์ที่ดี ไม่ได้พิสูจน์ว่าคุณตัดสินใจดี</strong> — คุณอาจแค่โชคดี
+    </li>
+    <li style="padding: 14px 20px; margin-bottom: 12px; background:var(--accent-bg); border-left:3px solid var(--accent); font-family:'Noto Serif Thai',serif;">
+      <strong>ผลลัพธ์ที่แย่ ไม่ได้พิสูจน์ว่าคุณตัดสินใจแย่</strong> — คุณอาจแค่ซวย
+    </li>
+    <li style="padding: 14px 20px; margin-bottom: 12px; background:var(--accent-bg); border-left:3px solid var(--accent); font-family:'Noto Serif Thai',serif;">
+      <strong>การไม่ตัดสินใจ ก็เป็นการตัดสินใจ</strong> — และมักเป็นการตัดสินใจที่แย่ที่สุด
+    </li>
+    <li style="padding: 14px 20px; background:var(--accent-bg); border-left:3px solid var(--accent); font-family:'Noto Serif Thai',serif;">
+      <strong>คุณภาพการตัดสินใจวัดได้</strong> — จากกระบวนการ ไม่ใช่ผลลัพธ์
+    </li>
+  </ul>
+
+  <p>เคส Z.AI ที่ทำให้คุณเจ็บใจ — มันสอนคุณบทเรียนนี้ คุณไม่ได้พลาดเพราะคุณโง่ คุณพลาดเพราะคุณ <em>"ตัดสินใจที่จะไม่ตัดสินใจ"</em> และนั่นคือการตัดสินใจที่ไม่มีกระบวนการรองรับ</p>
+
+  <p>ครั้งหน้าจะต่างออกไป เพราะคุณจะมีพิธีกรรมที่ทำซ้ำได้ทุกครั้ง — และนั่นคือสิ่งที่ผมจะมอบให้คุณในหน้าถัดไป</p>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Pre-Trade Ritual · พิธีกรรมก่อนกดซื้อ</div>
+  <h1>The 7-Step <em>Decision Stack</em></h1>
+
+  <p>ก่อนกดซื้อทุกครั้ง — โดยเฉพาะถ้าเป็นเดิมพันที่มีขนาดเกิน 5% ของพอร์ต — ให้เดินผ่าน 7 ขั้นตอนนี้ ไม่มีข้อยกเว้น ไม่ว่าจะมั่นใจแค่ไหน ไม่ว่าจะรีบแค่ไหน</p>
+
+  <p>เพราะถ้าคุณเร่งเร็วเกินไปจนทำ ritual นี้ไม่ได้ — แสดงว่าโอกาสนั้นไม่ใช่ของคุณตั้งแต่แรก</p>
+
+  <div class="checklist">
+    <div class="checklist-title">Pre-Trade Decision Stack</div>
+    <div class="checklist-sub">ทำทุกข้อ ก่อนกดซื้อ — เขียนคำตอบลงสมุด</div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>1. ระบุ Thesis ในประโยคเดียว</strong>
+        ผมเชื่อว่าอะไร และทำไม? ถ้าเขียนไม่ออกใน 1 ประโยค แสดงว่าผมยังไม่เข้าใจดีพอ — กลับไปอ่านอีก
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>2. ใส่ตัวเลขความมั่นใจ (Calibration)</strong>
+        ผมมั่นใจกี่ %? (40, 60, 75, 85?) ห้ามใช้คำว่า "มั่นใจมาก" — ต้องเป็นตัวเลข
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>3. กำหนด Bet Size ตาม Tier</strong>
+        จากความมั่นใจในข้อ 2 — Tier 1 (3-5%), Tier 2 (10-20%), หรือ Tier 3 (25-40%)? ห้ามเกิน 50% ของพอร์ตในตัวเดียว
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>4. ทำ Pre-mortem (5 นาที)</strong>
+        สมมติ 1 ปีจากนี้ การลงทุนนี้พังยับเยิน — สาเหตุที่เป็นไปได้คืออะไร? เขียนลิสต์อย่างน้อย 3 ข้อ
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>5. ตั้ง Exit Rules (ทั้งสองทาง)</strong>
+        ถ้าลง X% → ขาย (Stop loss) / ถ้าขึ้น Y% → ทำอย่างไร (เพิ่ม / ขายบางส่วน / ถือต่อ)? เขียนก่อน ไม่ใช่ตอนเจอจริง
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>6. ระบุ Signals ที่จะเพิ่ม Position</strong>
+        ถ้า thesis ยืนยัน — เหตุการณ์ไหนจะทำให้ผมเพิ่มจาก Tier 1 → Tier 2? ระบุชัด เพื่อไม่ให้อารมณ์ตัดสิน
+      </div>
+    </div>
+
+    <div class="check-item">
+      <div class="check-box"></div>
+      <div class="check-text">
+        <strong>7. เขียน Future Self Letter</strong>
+        จดหมายถึงตัวเองใน 1 ปี: ผมตัดสินใจอย่างไรและทำไม จะอ่านอีกครั้งเมื่อมีผลลัพธ์ — เพื่อแยก decision quality ออกจาก outcome
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top: 28px;">เมื่อคุณทำครบ 7 ข้อแล้ว — กดซื้อได้เลย ไม่ต้องลังเล เพราะคุณได้ทำสิ่งที่ Annie Duke เรียกว่า "การตัดสินใจที่ดี" ผลลัพธ์จะเป็นยังไง ไม่ใช่เรื่องของคุณ — มันคือเรื่องของตลาด + โชค</p>
+
+  <p>หน้าที่ของคุณคือ <strong>ทำซ้ำพิธีกรรมนี้กับทุกการตัดสินใจ</strong> — และในระยะยาว ค่าเฉลี่ยจะเข้าข้างคุณ</p>
+
+  <div class="author-box">
+    <div class="author-avatar">AD</div>
+    <div class="author-content">
+      <div class="author-meta">Annie Duke — Final Words</div>
+      <p class="author-text">"คุณจะไม่ชนะทุกครั้ง คุณจะไม่ทายถูกทุกครั้ง แต่ถ้าคุณทำตามพิธีกรรมนี้ทุกครั้ง — ในระยะยาว คุณจะเป็นคนที่อยู่ในเกม และในตลาด การอยู่ในเกมคือทุกอย่าง เพราะคนที่เลิกเล่นคือคนเดียวที่แพ้แน่นอน"</p>
+    </div>
+  </div>
+
+  <h2>ต่อยอด · หนังสือที่ต้องอ่านต่อ</h2>
+
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>หนังสือ</th>
+        <th>เรียนรู้อะไรเพิ่ม</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Fooled by Randomness</strong><br>Nassim Taleb</td>
+        <td>เข้าใจ "โชค" ลึกขึ้น — และทำไมเราชอบยกเครดิตให้ทักษะของเราในเรื่องที่จริงๆ คือความบังเอิญ</td>
+      </tr>
+      <tr>
+        <td><strong>Superforecasting</strong><br>Philip Tetlock</td>
+        <td>วิทยาศาสตร์ของการพยากรณ์ — และทำไม "ผู้เชี่ยวชาญ" มักทายผิดกว่าคนทั่วไป</td>
+      </tr>
+      <tr>
+        <td><strong>The Psychology of Money</strong><br>Morgan Housel</td>
+        <td>ด้านอารมณ์ของการลงทุน — เพราะการตัดสินใจดีไร้ค่าถ้าจิตวิทยาแย่</td>
+      </tr>
+      <tr>
+        <td><strong>Thinking, Fast and Slow</strong><br>Daniel Kahneman</td>
+        <td>ทำไมสมองของเรา wire ไว้ให้ตัดสินใจผิดในตลาด — และวิธีแก้</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>การฝึก 30 วัน · เริ่มต้นวันนี้</h2>
+
+  <div class="signal-box go">
+    <div class="signal-label">30-Day Practice</div>
+    <div class="signal-title">ฝึก Decision Journal ทุกวัน</div>
+    <div class="signal-text">
+      <strong>Week 1:</strong> ใส่ตัวเลขความน่าจะเป็นในทุกคำพยากรณ์ที่คุณพูด (ไม่ใช่แค่หุ้น — รวมทั้งสภาพอากาศ, ทีมกีฬา, อะไรก็ได้)<br><br>
+      <strong>Week 2:</strong> ทำ Pre-mortem 5 นาทีก่อนตัดสินใจสำคัญทุกครั้ง (ไม่ใช่แค่การเทรด)<br><br>
+      <strong>Week 3:</strong> ใช้กฎ 10-10-10 ทุกครั้งที่คุณรู้สึก FOMO หรือ panic<br><br>
+      <strong>Week 4:</strong> รวบรวมพิธีกรรม Pre-Trade 7 ข้อมาเป็น checklist ส่วนตัว — และใช้กับทุก trade
+    </div>
+  </div>
+
+  <p>ใน 30 วัน คุณจะไม่ใช่นักลงทุนคนเดิม — และเมื่อโอกาสแบบ Z.AI ผ่านมาครั้งต่อไป (มันจะมา เสมอ) คุณจะ "ลงไม้แรก" แทนการ "รอความมั่นใจ"</p>
+
+  <div class="insight-box">
+    <div class="insight-box-label">คำส่งท้าย</div>
+    <p>เคส Z.AI ที่คุณพลาด — มันเจ็บ แต่อย่าให้มันเปลี่ยนคุณให้กลายเป็นคน "ไล่ตามโอกาส" หรือ "หลีกเลี่ยงโอกาส" — ให้มันเปลี่ยนคุณให้กลายเป็นคน <em>"มีระบบเพื่อจัดการโอกาส"</em> นั่นคือสิ่งที่ Annie Duke จะภูมิใจในตัวคุณ และนั่นคือนักลงทุนที่จะยังอยู่ในเกมในอีก 20 ปีข้างหน้า</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-label">Final Reflection · คำถามสุดท้าย</div>
+    <div class="reflection-title">ก่อนปิดเอกสารนี้:</div>
+    <ol class="reflection-list">
+      <li>ผมจะเอา Decision Stack 7 ข้อนี้ไปติดที่ไหน เพื่อให้เห็นทุกครั้งก่อนกดซื้อ?</li>
+      <li>การลงทุนครั้งต่อไปของผม — ผมจะใช้ Tier ไหน และทำไม?</li>
+      <li>ถ้าตัวผมใน 1 ปีข้างหน้าอ่านเอกสารนี้ — ผมอยากให้เขาขอบคุณผมเรื่องอะไรที่ผม "เริ่มทำวันนี้"?</li>
+    </ol>
+  </div>
+
+  <div class="page-num">— Final —</div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div class="book-footer">
+  <div class="book-footer-mark">$</div>
+  <div class="book-footer-text">"In the long run, you'll be a better poker player — and a better investor — if you focus on the quality of decisions, not the size of the outcome."<br><br>"ในระยะยาว คุณจะเป็นนักโป๊กเกอร์ที่ดีกว่า — และนักลงทุนที่ดีกว่า — ถ้าคุณโฟกัสที่คุณภาพการตัดสินใจ ไม่ใช่ขนาดของผลลัพธ์"</div>
+  <div class="book-footer-author">Thinking in Bets · Personal Edition</div>
+</div>
+
+</div>
+</body>
+</html>
