@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#6e86c5" />
+  <title>bothBook Reader</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./assets/icons/panda-favicon-32.png" type="image/png" />
+  <link rel="apple-touch-icon" href="./assets/icons/panda-apple-touch-icon.png" />
+  <style>
+    :root {
+      --ink: #202433;
+      --ink-soft: #4d5569;
+      --muted: #7e879c;
+      --blue: #6e86c5;
+      --blue-deep: #4c68a9;
+      --line: rgba(110, 134, 197, .22);
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse 28rem 22rem at 100% 0%, rgba(255, 224, 164, .72), transparent 64%),
+        linear-gradient(135deg, #eef2fb 0%, #f8f7f4 100%);
+    }
+
+    .reader-shell {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .reader-bar {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      min-height: calc(58px + var(--safe-top));
+      padding: calc(10px + var(--safe-top)) 12px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, .66);
+      background: rgba(255, 255, 255, .82);
+      box-shadow: 0 12px 34px rgba(70, 82, 118, .12);
+      backdrop-filter: blur(18px);
+    }
+
+    .reader-title {
+      min-width: 0;
+    }
+
+    .reader-title strong {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .reader-title span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .reader-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reader-button {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 8px 12px;
+      color: var(--blue-deep);
+      background: rgba(255, 255, 255, .74);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .reader-button.primary {
+      color: #fff;
+      border-color: var(--blue);
+      background: var(--blue);
+    }
+
+    .reader-button.icon {
+      width: 40px;
+      padding: 0;
+      border-radius: 14px;
+      font-size: 22px;
+    }
+
+    .reader-frame-wrap {
+      position: relative;
+      min-height: 0;
+      background: #121212;
+    }
+
+    .reader-frame {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+      background: #fff;
+    }
+
+    .reader-error {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: #eef2fb;
+    }
+
+    .reader-error-card {
+      max-width: 420px;
+      border: 1px solid rgba(255, 255, 255, .72);
+      border-radius: 24px;
+      padding: 22px;
+      background: rgba(255, 255, 255, .78);
+      box-shadow: 0 18px 48px rgba(70, 82, 118, .14);
+    }
+
+    .reader-error-card h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .reader-error-card p {
+      margin: 10px 0 0;
+      color: var(--ink-soft);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 620px) {
+      .reader-bar {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 8px;
+      }
+
+      .reader-button {
+        min-height: 36px;
+        padding: 8px 10px;
+      }
+
+      .reader-actions .reader-button:not(.primary) {
+        display: none;
+      }
+
+      .reader-button.primary span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="reader-shell">
+    <header class="reader-bar">
+      <button class="reader-button icon" id="backBtn" type="button" aria-label="ย้อนกลับ">‹</button>
+      <div class="reader-title">
+        <strong id="readerTitle">bothBook Reader</strong>
+        <span id="readerSubtitle">กำลังเปิดเอกสาร</span>
+      </div>
+      <div class="reader-actions">
+        <a class="reader-button" id="originalLink" href="./" target="_blank" rel="noopener">Original</a>
+        <a class="reader-button primary" href="./index.html" aria-label="กลับหน้าแรก">⌂ <span>Home</span></a>
+      </div>
+    </header>
+
+    <main class="reader-frame-wrap">
+      <iframe class="reader-frame" id="readerFrame" title="bothBook document"></iframe>
+      <div class="reader-error" id="readerError">
+        <div class="reader-error-card">
+          <h1>เปิดเอกสารไม่ได้</h1>
+          <p>ลิงก์นี้ไม่มีชื่อเอกสาร หรือชื่อเอกสารไม่อยู่ในรูปแบบที่ปลอดภัยสำหรับเปิดใน reader</p>
+          <p><a class="reader-button primary" href="./index.html">กลับหน้าแรก</a></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const frame = document.getElementById("readerFrame");
+    const errorEl = document.getElementById("readerError");
+    const titleEl = document.getElementById("readerTitle");
+    const subtitleEl = document.getElementById("readerSubtitle");
+    const originalLink = document.getElementById("originalLink");
+    const backBtn = document.getElementById("backBtn");
+
+    function safeDocumentPath(value) {
+      const doc = (value || "").trim();
+      if (!doc || doc.startsWith("/") || doc.includes("..") || /^[a-z][a-z0-9+.-]*:/i.test(doc)) {
+        return "";
+      }
+      if (!doc.toLowerCase().endsWith(".html")) {
+        return "";
+      }
+      return doc;
+    }
+
+    function titleFromFilename(filename) {
+      return filename
+        .replace(/\.html$/i, "")
+        .replace(/[_-]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .replace(/\b[a-z]/g, char => char.toUpperCase());
+    }
+
+    const params = new URLSearchParams(location.search);
+    const doc = safeDocumentPath(params.get("doc"));
+
+    if (!doc) {
+      errorEl.style.display = "grid";
+      frame.hidden = true;
+    } else {
+      const src = `./${doc.split("/").map(encodeURIComponent).join("/")}`;
+      frame.src = src;
+      originalLink.href = src;
+      titleEl.textContent = titleFromFilename(doc.split("/").pop());
+      subtitleEl.textContent = doc;
+      localStorage.setItem("bothbook.lastOpened.v1", JSON.stringify({
+        name: doc,
+        title: titleEl.textContent,
+        date: new Date().toISOString()
+      }));
+    }
+
+    backBtn.addEventListener("click", () => {
+      if (history.length > 1) {
+        history.back();
+      } else {
+        location.href = "./index.html";
+      }
+    });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
