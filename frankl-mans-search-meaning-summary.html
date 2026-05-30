@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Man's Search for Meaning — หัวใจที่เปลี่ยนชีวิตคน</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ===== ACCENT — inspired by the book cover's warm amber→peach→lavender gradient ===== */
+  --accent:       #C0632E;          /* terracotta amber (cover bottom) */
+  --accent-deep:  #98461C;          /* darker burnt amber */
+  --accent-light: #D98A55;          /* lighter peach */
+  --accent-rule:  rgba(192,99,46,0.30);
+  --accent-bg:    rgba(192,99,46,0.08);
+
+  /* secondary tone — soft lavender/rose from cover top */
+  --rose:         #9A7B97;
+  --rose-bg:      rgba(154,123,151,0.10);
+
+  /* ===== PAPER ===== */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+
+  /* ===== SEMANTIC ===== */
+  --red:    #7A1A1A; --red-bg:   #FBF3F0;
+  --green:  #355E40; --green-bg: #F1F6EE;
+
+  --book-width: 760px;
+  --page-pad-h: 76px;
+  --page-pad-v: 84px;
+}
+
+*{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  background:#1A1610;
+  padding:40px 16px;
+  font-family:'Noto Serif Thai', serif;
+  color:var(--ink-soft);
+  line-height:1.85;
+}
+.book{
+  max-width:var(--book-width);
+  margin:0 auto;
+  background:var(--paper);
+  box-shadow:0 0 0 1px rgba(0,0,0,.10),0 4px 40px rgba(0,0,0,.40),0 0 120px rgba(0,0,0,.25);
+  overflow:hidden;
+}
+
+/* ============ GENERIC PAGE ============ */
+.page{ padding:var(--page-pad-v) var(--page-pad-h); position:relative; }
+.page + .page{ border-top:1px solid var(--paper-deep); }
+
+.eyebrow{
+  font-family:'Sarabun',sans-serif;
+  font-size:11px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--accent-deep); font-weight:600;
+  margin:0 0 18px;
+}
+h1{
+  font-family:'Noto Serif Thai',serif; font-weight:700;
+  font-size:30px; line-height:1.35; color:var(--ink);
+  margin:0 0 24px; letter-spacing:-.2px;
+}
+h2{
+  font-family:'Noto Serif Thai',serif; font-weight:600;
+  font-size:22px; line-height:1.45; color:var(--ink);
+  margin:46px 0 16px; position:relative; padding-top:18px;
+}
+h2::before{
+  content:""; position:absolute; top:0; left:0;
+  width:38px; height:3px; background:var(--accent);
+}
+h3{
+  font-family:'Noto Serif Thai',serif; font-weight:600;
+  font-size:17px; color:var(--ink-soft); margin:30px 0 10px;
+}
+p{ font-size:16.5px; line-height:1.92; color:var(--ink-soft); margin:0 0 18px; }
+.lead{ font-size:18px; color:var(--ink-mid); }
+em{ font-style:italic; }
+strong{ font-weight:700; color:var(--ink); }
+.en{ font-family:'Noto Serif',serif; font-style:italic; }
+
+/* ============ COVER ============ */
+.cover{
+  position:relative; padding:0; min-height:780px;
+  background:
+    linear-gradient(165deg,
+      #E9B7C4 0%,
+      #D9A9B8 16%,
+      #B79DB0 34%,
+      #C99A7E 54%,
+      #D4824A 74%,
+      #C0632E 90%,
+      #A8521F 100%);
+  overflow:hidden;
+}
+/* sketchy cross-hatch texture echoing cover */
+.cover::before{
+  content:""; position:absolute; inset:0; opacity:.22; mix-blend-mode:multiply;
+  background-image:
+    repeating-linear-gradient(48deg, rgba(40,30,30,.5) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(-42deg, rgba(40,30,30,.4) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(8deg, rgba(70,40,40,.3) 0 1px, transparent 1px 14px);
+}
+.cover-inner{ position:relative; z-index:2; padding:64px 56px 72px; height:100%; display:flex; flex-direction:column; }
+.cover-corner{ position:absolute; width:42px; height:42px; z-index:3; border-color:rgba(20,17,11,.55); }
+.cover-corner.tl{ top:26px; left:26px; border-top:2px solid; border-left:2px solid; }
+.cover-corner.tr{ top:26px; right:26px; border-top:2px solid; border-right:2px solid; }
+.cover-corner.bl{ bottom:26px; left:26px; border-bottom:2px solid; border-left:2px solid; }
+.cover-corner.br{ bottom:26px; right:26px; border-bottom:2px solid; border-right:2px solid; }
+
+.cover-author{
+  font-family:'Playfair Display',serif; font-weight:800;
+  font-size:46px; line-height:1.02; letter-spacing:1px;
+  color:#1A140F; text-transform:uppercase; margin:8px 0 0;
+}
+.cover-title{
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:74px; line-height:.98; letter-spacing:1px;
+  color:#FBF6EE; text-transform:uppercase; margin-top:auto;
+  text-shadow:0 2px 18px rgba(80,40,20,.35);
+}
+.cover-th{
+  font-family:'Noto Serif Thai',serif; font-weight:600;
+  font-size:21px; line-height:1.55; color:#2A1B14;
+  margin:30px 0 0; max-width:90%;
+}
+.cover-badge{
+  display:inline-block; margin-top:22px;
+  font-family:'Sarabun',sans-serif; font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; color:#FBF6EE; font-weight:600;
+  border:1.5px solid rgba(251,246,238,.7); padding:8px 16px; border-radius:2px;
+  align-self:flex-start;
+}
+.cover-seal{
+  position:absolute; right:48px; bottom:150px; z-index:3;
+  width:104px; height:104px; border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, #F2C94C, #C99A2A 78%);
+  box-shadow:0 4px 14px rgba(60,30,0,.35), inset 0 0 0 3px rgba(255,255,255,.35);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:'Sarabun',sans-serif; font-weight:700; font-size:11px; line-height:1.3;
+  color:#4A2E08; letter-spacing:.5px; transform:rotate(-8deg);
+}
+
+/* ============ CHAPTER OPEN ============ */
+.chapter-open{
+  background:var(--paper-mid);
+  padding:96px var(--page-pad-h) 84px;
+  position:relative; overflow:hidden;
+  border-top:1px solid var(--paper-deep);
+}
+.ch-num{
+  position:absolute; top:30px; right:46px;
+  font-family:'Playfair Display',serif; font-style:italic; font-weight:400;
+  font-size:150px; line-height:1; color:var(--accent);
+  opacity:.16; z-index:0; pointer-events:none;
+}
+.ch-label{
+  font-family:'Sarabun',sans-serif; font-size:12px; letter-spacing:5px;
+  text-transform:uppercase; color:var(--accent-deep); font-weight:600;
+  margin:0 0 22px; position:relative; z-index:1;
+}
+.ch-title{
+  font-family:'Playfair Display',serif; font-weight:700;
+  font-size:42px; line-height:1.1; color:var(--ink);
+  margin:0 0 8px; position:relative; z-index:1;
+}
+.ch-title .em{
+  display:block; font-family:'Noto Serif Thai',serif; font-style:normal;
+  font-weight:600; font-size:23px; color:var(--accent-deep); margin-top:14px;
+}
+.ch-essence{
+  font-family:'Noto Serif Thai',serif; font-style:italic;
+  font-size:18px; line-height:1.8; color:var(--ink-mid);
+  margin:30px 0 0; max-width:90%; position:relative; z-index:1;
+  padding-left:22px; border-left:3px solid var(--accent);
+}
+
+/* ============ INSIGHT BOX ============ */
+.insight-box{
+  background:var(--accent-bg); border:1px solid var(--accent-rule);
+  border-left:4px solid var(--accent); padding:24px 28px; margin:30px 0;
+}
+.insight-box .ib-label{
+  font-family:'Sarabun',sans-serif; font-size:10px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--accent-deep); font-weight:700; margin-bottom:10px;
+}
+.insight-box p{ margin:0; font-size:16px; color:var(--ink-soft); }
+
+/* ============ PULLQUOTE ============ */
+.pullquote{
+  font-family:'Noto Serif Thai',serif; font-weight:600;
+  font-size:23px; line-height:1.6; color:var(--ink);
+  text-align:center; margin:40px 0; padding:0 20px; position:relative;
+}
+.pullquote::before{
+  content:"“"; font-family:'Playfair Display',serif; font-size:64px;
+  color:var(--accent); display:block; line-height:.4; margin-bottom:18px;
+}
+
+/* ============ BLOCKQUOTE FULL (dark) ============ */
+.blockquote-full{
+  background:var(--ink); color:var(--paper);
+  margin:48px calc(-1 * var(--page-pad-h));
+  padding:64px var(--page-pad-h); text-align:center; position:relative;
+}
+.blockquote-full .bq-en{
+  font-family:'Noto Serif',serif; font-style:italic; font-weight:400;
+  font-size:24px; line-height:1.5; color:var(--paper); margin:0 0 18px;
+}
+.blockquote-full .bq-th{
+  font-family:'Noto Serif Thai',serif; font-size:19px; line-height:1.7;
+  color:var(--accent-light); margin:0 auto; max-width:560px;
+}
+.blockquote-full .bq-cite{
+  font-family:'Sarabun',sans-serif; font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; color:var(--paper-shadow); margin-top:26px; font-weight:600;
+}
+
+/* ============ AUTHOR VOICE BOX ============ */
+.author-box{ display:flex; gap:18px; padding:24px 28px; background:var(--paper-mid); border-left:3px solid var(--accent); margin:30px 0; }
+.author-avatar{ width:46px; height:46px; border-radius:50%; background:var(--accent-deep); color:var(--paper); display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:19px; font-style:italic; flex-shrink:0; }
+.author-meta{ font-family:'Sarabun',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--accent-deep); margin-bottom:8px; font-weight:600; }
+.author-text{ font-family:'Noto Serif Thai',serif; font-size:16.5px; line-height:1.85; color:var(--ink-soft); font-style:italic; margin:0; }
+
+/* ============ INSIGHT LADDER ============ */
+.ladder{ margin:34px 0; }
+.ladder-step{ padding:18px 24px; }
+.ladder-step.wrong{ background:var(--red-bg); border-left:3px solid var(--red); }
+.ladder-step.truth{ background:var(--accent-bg); border-left:3px solid var(--accent-deep); }
+.ladder-step.action{ background:var(--green-bg); border-left:3px solid var(--green); }
+.ladder-tag{ font-family:'Sarabun',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:700; margin-bottom:6px; }
+.ladder-step.wrong .ladder-tag{ color:var(--red); }
+.ladder-step.truth .ladder-tag{ color:var(--accent-deep); }
+.ladder-step.action .ladder-tag{ color:var(--green); }
+.ladder-text{ font-family:'Noto Serif Thai',serif; font-size:15.5px; line-height:1.75; color:var(--ink-soft); }
+.ladder-arrow{ text-align:center; padding:6px; color:var(--ink-faint); font-size:20px; }
+
+/* ============ CHAPTER CARD (TOC) ============ */
+.ch-card{ display:flex; gap:20px; padding:22px 0; border-bottom:1px solid var(--paper-shadow); align-items:flex-start; }
+.ch-card-num{ font-family:'Playfair Display',serif; font-style:italic; font-size:36px; color:var(--accent); font-weight:400; line-height:1; min-width:54px; padding-top:4px; }
+.ch-card-title{ font-family:'Noto Serif Thai',serif; font-size:17px; font-weight:600; color:var(--ink); margin-bottom:5px; }
+.ch-card-one-liner{ font-family:'Noto Serif Thai',serif; font-size:14px; color:var(--ink-muted); font-style:italic; line-height:1.6; margin-bottom:11px; }
+.ch-tag{ display:inline-block; font-family:'Sarabun',sans-serif; font-size:10px; letter-spacing:1px; text-transform:uppercase; background:var(--accent-bg); color:var(--accent-deep); padding:3px 9px; margin-right:6px; margin-bottom:4px; font-weight:600; }
+
+/* ============ STAT ROW ============ */
+.stat-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin:34px 0; }
+.stat-cell{ text-align:center; padding:22px 12px; background:var(--paper-mid); border-top:3px solid var(--accent); }
+.stat-num{ font-family:'Playfair Display',serif; font-weight:700; font-size:34px; color:var(--accent-deep); line-height:1; }
+.stat-cap{ font-family:'Sarabun',sans-serif; font-size:12px; color:var(--ink-muted); margin-top:10px; line-height:1.5; }
+
+/* ============ SIGNAL BOX (do / don't) ============ */
+.signal-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:32px 0; }
+.signal-box{ padding:20px 22px; }
+.signal-box.do{ background:var(--green-bg); border-left:3px solid var(--green); }
+.signal-box.dont{ background:var(--red-bg); border-left:3px solid var(--red); }
+.signal-head{ font-family:'Sarabun',sans-serif; font-size:11px; letter-spacing:2px; text-transform:uppercase; font-weight:700; margin-bottom:12px; }
+.signal-box.do .signal-head{ color:var(--green); }
+.signal-box.dont .signal-head{ color:var(--red); }
+.signal-box ul{ margin:0; padding-left:18px; }
+.signal-box li{ font-family:'Noto Serif Thai',serif; font-size:14.5px; line-height:1.7; color:var(--ink-soft); margin-bottom:8px; }
+
+/* ============ CHECKLIST ============ */
+.checklist{ margin:30px 0; }
+.check-item{ display:flex; gap:14px; padding:14px 0; border-bottom:1px dashed var(--paper-shadow); align-items:flex-start; }
+.check-box{ width:22px; height:22px; border:2px solid var(--accent); border-radius:4px; flex-shrink:0; margin-top:3px; position:relative; }
+.check-box::after{ content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:14px; font-weight:700; opacity:.0; }
+.check-text{ font-family:'Noto Serif Thai',serif; font-size:15.5px; line-height:1.7; color:var(--ink-soft); }
+.check-text b{ color:var(--ink); }
+
+/* ============ REFLECTION ============ */
+.reflection{ background:var(--rose-bg); border:1px solid rgba(154,123,151,.28); padding:28px 30px; margin:40px 0 8px; }
+.reflection-head{ font-family:'Sarabun',sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--rose); font-weight:700; margin-bottom:18px; }
+.reflection ol{ margin:0; padding-left:20px; }
+.reflection li{ font-family:'Noto Serif Thai',serif; font-size:16px; line-height:1.85; color:var(--ink-soft); margin-bottom:14px; font-style:italic; }
+
+/* ============ COMPARISON TABLE ============ */
+.cmp-table{ width:100%; border-collapse:collapse; margin:30px 0; font-family:'Noto Serif Thai',serif; }
+.cmp-table th{ background:var(--ink); color:var(--paper); font-weight:600; font-size:13px; padding:14px 16px; text-align:left; letter-spacing:.5px; }
+.cmp-table td{ padding:14px 16px; border-bottom:1px solid var(--paper-deep); font-size:14.5px; line-height:1.65; color:var(--ink-soft); vertical-align:top; }
+.cmp-table tr:nth-child(even) td{ background:var(--paper-mid); }
+.cmp-table td b{ color:var(--accent-deep); }
+
+/* ============ DIVIDER ============ */
+.divider{ display:flex; align-items:center; gap:16px; margin:40px 0; color:var(--accent); }
+.divider::before,.divider::after{ content:""; flex:1; height:1px; background:var(--accent-rule); }
+.divider span{ font-family:'Playfair Display',serif; font-style:italic; font-size:20px; }
+
+/* ============ KEY TERM (inline glossary) ============ */
+.term{ background:var(--paper-deep); border-radius:3px; padding:1px 6px; font-weight:600; color:var(--accent-deep); }
+
+.note-mini{ font-family:'Sarabun',sans-serif; font-size:13px; color:var(--ink-muted); line-height:1.7; background:var(--paper-mid); padding:14px 18px; border-left:3px solid var(--paper-shadow); margin:22px 0; }
+
+/* ============ FOOTER ============ */
+.book-footer{ background:var(--ink); padding:60px var(--page-pad-h); text-align:center; }
+.book-footer-mark{ font-family:'Playfair Display',serif; font-style:italic; font-size:34px; color:var(--accent); margin-bottom:18px; }
+.book-footer-text{ font-family:'Noto Serif Thai',serif; font-size:14.5px; color:var(--paper-deep); font-style:italic; line-height:1.8; max-width:500px; margin:0 auto 22px; }
+.book-footer-author{ font-family:'Sarabun',sans-serif; font-size:11px; color:var(--accent-light); letter-spacing:3px; text-transform:uppercase; font-weight:600; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:780px){
+  :root{ --page-pad-h:28px; --page-pad-v:56px; }
+  body{ padding:16px 8px; }
+  .cover{ min-height:640px; }
+  .cover-inner{ padding:48px 30px 56px; }
+  .cover-author{ font-size:34px; }
+  .cover-title{ font-size:50px; }
+  .cover-th{ font-size:18px; }
+  .cover-seal{ width:84px; height:84px; right:28px; bottom:120px; font-size:9px; }
+  .ch-num{ font-size:96px; right:16px; }
+  .ch-title{ font-size:32px; }
+  .stat-row,.signal-grid{ grid-template-columns:1fr; }
+  .blockquote-full{ padding:44px 28px; margin-left:calc(-1 * var(--page-pad-h)); margin-right:calc(-1 * var(--page-pad-h)); }
+  .blockquote-full .bq-en{ font-size:20px; }
+  h1{ font-size:25px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+<!-- ============ 1. COVER ============ -->
+<section class="cover">
+  <span class="cover-corner tl"></span><span class="cover-corner tr"></span>
+  <span class="cover-corner bl"></span><span class="cover-corner br"></span>
+  <div class="cover-inner">
+    <div class="cover-author">Viktor E.<br>Frankl</div>
+    <div class="cover-title">Man's<br>Search<br>for<br>Meaning</div>
+    <div class="cover-th">หัวใจที่เปลี่ยนชีวิตคน — ความหมายไม่ใช่สิ่งที่รอให้มาหาเรา แต่เป็นสิ่งที่เราต้องสร้างขึ้นเอง และมันไม่เหมือนกันสำหรับแต่ละคน</div>
+    <span class="cover-badge">Premium Distillation · ฉบับตกผลึก</span>
+  </div>
+  <div class="cover-seal">Over<br>16 Million<br>Copies</div>
+</section>
+
+<!-- ============ 2. TOC ============ -->
+<section class="page">
+  <div class="eyebrow">Table of Contents · สารบัญ</div>
+  <h1>หนังสือเล่มนี้พาเราไปไหน</h1>
+  <p class="lead">เรื่องเล่าจากค่ายกักกันนาซี ที่ไม่ได้บันทึกความโหดร้าย แต่บันทึกคำตอบของคำถามเดียว — “อะไรทำให้คนหนึ่งคนรอด ในขณะที่อีกคนยอมแพ้?”</p>
+
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-num">9 วัน</div><div class="stat-cap">เวลาที่ Frankl ใช้เขียนต้นฉบับแรกหลังได้รับอิสรภาพ</div></div>
+    <div class="stat-cell"><div class="stat-num">3 ปี</div><div class="stat-cap">ที่เขาอยู่ในค่ายกักกัน รวมถึง Auschwitz และ Dachau</div></div>
+    <div class="stat-cell"><div class="stat-num">16M+</div><div class="stat-cap">จำนวนเล่มที่ขายทั่วโลก ใน 50+ ภาษา</div></div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">I</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Experiences in a Concentration Camp · ประสบการณ์ในค่ายกักกัน</div>
+      <div class="ch-card-one-liner">สามระยะของจิตใจมนุษย์เมื่อทุกสิ่งถูกพรากไป — และสิ่งสุดท้ายที่พรากไม่ได้</div>
+      <span class="ch-tag">เสรีภาพภายใน</span><span class="ch-tag">ความหวัง</span><span class="ch-tag">การเลือก</span>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">II</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Logotherapy in a Nutshell · โลโกเทอราพีโดยย่อ</div>
+      <div class="ch-card-one-liner">วิชาบำบัดที่บอกว่า แรงขับลึกที่สุดของมนุษย์ไม่ใช่ความสุขหรืออำนาจ แต่คือ “ความหมาย”</div>
+      <span class="ch-tag">Will to Meaning</span><span class="ch-tag">Existential Vacuum</span>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">III</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">The Case for Tragic Optimism · การมองโลกในแง่ดีท่ามกลางโศกนาฏกรรม</div>
+      <div class="ch-card-one-liner">จะพูดว่า “ใช่” กับชีวิตได้อย่างไร ทั้งที่รู้ว่ามีความทุกข์ ความผิด และความตายรออยู่</div>
+      <span class="ch-tag">Tragic Optimism</span><span class="ch-tag">ความหมายจากทุกข์</span>
+    </div>
+  </div>
+  <div class="ch-card">
+    <div class="ch-card-num">IV</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Synthesis · สร้างความหมายของคุณเอง</div>
+      <div class="ch-card-one-liner">พิธีกรรมและเครื่องมือที่นำแก่นทั้งเล่มมาใช้กับวันธรรมดาของเราได้ตั้งแต่วันนี้</div>
+      <span class="ch-tag">Action</span><span class="ch-tag">Checklist</span><span class="ch-tag">Reflection</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. FOREWORD ============ -->
+<section class="page">
+  <div class="eyebrow">Foreword · คำนำจากผู้เขียน (ในจินตนาการ)</div>
+  <h1>ผมไม่ได้เขียนเรื่องนี้เพื่อให้คุณสงสาร</h1>
+
+  <p>ผมเป็นจิตแพทย์ ก่อนสงครามผมมีคลินิก มีครอบครัว มีต้นฉบับหนังสือเล่มหนึ่งเย็บซ่อนอยู่ในซับเสื้อโค้ต แล้ววันหนึ่งทุกอย่างก็หายไป — บ้าน อาชีพ พ่อ แม่ พี่ชาย และภรรยาที่ผมรัก สิ่งที่เหลืออยู่บนตัวผมคือร่างที่ผอมโซและหมายเลขที่เขาสักไว้แทนชื่อ</p>
+
+  <p>ในค่ายกักกัน ผมเฝ้าสังเกตเพื่อนนักโทษด้วยสายตาสองคู่พร้อมกัน — คู่หนึ่งคือคนที่กำลังทุกข์ อีกคู่หนึ่งคือนักวิทยาศาสตร์ที่อยากเข้าใจว่า <strong>ทำไมบางคนถึงยังลุกขึ้นในเช้าวันที่หนาวเหน็บ ในขณะที่บางคนนอนนิ่งรอความตาย</strong> ทั้งที่กินอาหารเท่ากัน หนาวเท่ากัน ถูกทุบตีเท่ากัน</p>
+
+  <div class="author-box">
+    <div class="author-avatar">VF</div>
+    <div class="author-content">
+      <div class="author-meta">Viktor E. Frankl · Man's Search for Meaning</div>
+      <p class="author-text">"คนที่มี ‘เหตุผลที่จะมีชีวิตอยู่’ จะทนต่อ ‘เกือบทุกวิธีของการมีชีวิตอยู่’ ได้"</p>
+    </div>
+  </div>
+
+  <p>คำตอบที่ผมพบ ไม่ได้อยู่ในอาหารหรือร่างกาย แต่อยู่ใน<strong>สิ่งที่คนคนนั้นยังเชื่อมโยงตัวเองไว้</strong> — ภาพของคนที่รอเขาอยู่ งานที่ยังทำไม่เสร็จ หรือแม้แต่ท่าทีที่เขาเลือกจะแบกความทุกข์ เอกสารฉบับนี้คือการตกผลึกสิ่งที่ผมได้เรียนรู้ ไม่ใช่เพื่อเล่าอดีต แต่เพื่อให้คุณนำไปใช้กับชีวิตที่ยังมีลมหายใจของคุณ</p>
+
+  <div class="note-mini"><b>หมายเหตุสำหรับผู้อ่าน:</b> เนื้อหานี้แตะประเด็นความทุกข์ ความสูญเสีย และความตายอย่างตรงไปตรงมา หาก ณ ตอนนี้คุณกำลังเผชิญความรู้สึกหนักหน่วงอยู่ การหยุดพักหรือคุยกับคนที่ไว้ใจ ก็เป็นทางเลือกที่ดีเสมอ</div>
+</section>
+
+<!-- ============ CHAPTER I — OPEN ============ -->
+<section class="chapter-open">
+  <div class="ch-num">I</div>
+  <div class="ch-label">บทที่ 1 / Chapter One</div>
+  <div class="ch-title">Experiences in a Concentration Camp
+    <span class="em">ประสบการณ์ในค่ายกักกัน — สิ่งสุดท้ายที่ไม่มีใครพรากไปได้</span>
+  </div>
+  <div class="ch-essence">เมื่อเขาพรากทุกอย่างไปจากเรา — เสื้อผ้า ชื่อ ครอบครัว อนาคต — ยังเหลืออยู่อย่างหนึ่งที่ไม่มีใครแตะได้ นั่นคือ “อิสระที่จะเลือกว่าเราจะเป็นคนแบบไหนในสถานการณ์ที่เราเลือกไม่ได้”</div>
+</section>
+
+<!-- ============ CHAPTER I — BODY ============ -->
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>เสรีภาพสุดท้ายของมนุษย์</h1>
+
+  <p>เมื่อรถไฟพาผมมาถึง Auschwitz สิ่งแรกที่พวกเขาทำคือลบความเป็นคนออกจากตัวเรา โกนผมทั้งตัว ยึดเสื้อผ้า ยึดแม้กระทั่งต้นฉบับหนังสือที่ผมอุตส่าห์ซ่อนมา จากนั้นแทนชื่อของผมด้วยตัวเลข ในสายตาของผู้คุม ผมไม่ใช่ Viktor อีกต่อไป ผมคือหมายเลขหนึ่ง</p>
+
+  <p>แต่ในความว่างเปล่านั้นเอง ผมค้นพบความจริงที่กลายเป็นรากของทุกสิ่งที่ผมสอนต่อมา — <strong>มีบางอย่างที่เขาพรากไปไม่ได้ ไม่ว่าจะใช้กำลังเท่าไหร่</strong> นั่นคือเสรีภาพที่จะเลือกท่าทีของเราต่อสิ่งที่เกิดขึ้น เพื่อนนักโทษบางคนเดินผ่านกระท่อมแจกขนมปังก้อนสุดท้ายให้คนอื่น พวกเขามีน้อยนิด แต่ยังเลือกที่จะเป็นมนุษย์</p>
+
+  <div class="insight-box">
+    <div class="ib-label">หัวใจของบทนี้</div>
+    <p>ระหว่างสิ่งที่เกิดขึ้นกับเรา (stimulus) และปฏิกิริยาของเรา (response) มี “ช่องว่าง” อยู่เสมอ และในช่องว่างนั้นคืออำนาจของเราในการเลือก — นี่คือเสรีภาพที่ไม่มีค่ายกักกันใดยึดไปได้</p>
+  </div>
+
+  <h2>สามระยะของจิตใจ เมื่อทุกอย่างพังทลาย</h2>
+  <p>ผมสังเกตเห็นว่าจิตใจของนักโทษเกือบทุกคนเดินทางผ่านสามช่วงเหมือนกัน เข้าใจสามระยะนี้ แล้วคุณจะเข้าใจปฏิกิริยาของตัวเองยามเผชิญวิกฤตได้ดีขึ้น — ไม่ว่าจะเป็นการตกงาน การสูญเสีย หรือโรคภัย</p>
+
+  <table class="cmp-table">
+    <thead><tr><th>ระยะ</th><th>เกิดอะไรขึ้นในใจ</th><th>บทเรียนสำหรับเรา</th></tr></thead>
+    <tbody>
+      <tr><td><b>1. ช็อก</b><br>(เพิ่งเข้าค่าย)</td><td>ปฏิเสธความจริง เกาะความหวังลมๆ แล้งๆ ว่า “เดี๋ยวมันคงไม่เลวร้ายขนาดนั้น”</td><td>ช่วงแรกของวิกฤต ใจจะปฏิเสธ — เป็นเรื่องปกติ อย่าตัดสินใจใหญ่ๆ ตอนนี้</td></tr>
+      <tr><td><b>2. ด้านชา</b><br>(อยู่ไปสักพัก)</td><td>อารมณ์ตายด้าน ไม่รู้สึกอะไรแม้เห็นความตายตรงหน้า เป็นเกราะป้องกันใจ</td><td>การ “ชา” คือกลไกเอาตัวรอดของใจ ไม่ใช่ความใจร้าย — ให้อภัยตัวเองเมื่อรู้สึกแบบนี้</td></tr>
+      <tr><td><b>3. ปลดปล่อย</b><br>(หลังได้อิสระ)</td><td>ความขมขื่นและความรู้สึกแปลกแยก กลับสู่โลกปกติไม่ได้ทันที</td><td>การฟื้นตัวต้องใช้เวลา อิสรภาพภายนอกไม่เท่ากับการเยียวยาภายใน</td></tr>
+    </tbody>
+  </table>
+
+  <div class="blockquote-full">
+    <p class="bq-en">"Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances."</p>
+    <p class="bq-th">“ทุกสิ่งถูกพรากจากมนุษย์ได้ ยกเว้นสิ่งเดียว — เสรีภาพสุดท้ายของความเป็นมนุษย์ คือการเลือกท่าทีของตนในทุกสถานการณ์”</p>
+    <p class="bq-cite">Viktor E. Frankl</p>
+  </div>
+
+  <h2>ทำไมบางคนรอด — เรื่องของ “ทำไม”</h2>
+  <p>ผมสังเกตเห็นรูปแบบที่ชัดเจน นักโทษที่หมดความหวัง — มักจะหยุดลุกในตอนเช้า เอาบุหรี่ที่ซ่อนไว้ออกมาสูบ (บุหรี่คือสกุลเงินที่ใช้แลกอาหาร การสูบมันคือการยอมแพ้) แล้วไม่กี่วันต่อมาเขาก็จากไป ร่างกายของเขาไม่ได้ตายก่อนใจ <strong>ใจของเขาตายก่อน เพราะเขาไม่เห็น “เหตุผลที่จะมีชีวิตอยู่” อีกต่อไป</strong></p>
+
+  <p>ผมเองก็เกือบหมดแรง จนวันหนึ่งระหว่างเดินฝ่าหิมะไปทำงาน ผมจินตนาการเห็นภาพภรรยา เห็นใบหน้าเธอชัดราวกับเธออยู่ตรงหน้า และผมเข้าใจเป็นครั้งแรกว่า <em>ความรัก คือเป้าหมายสูงสุดที่มนุษย์ใฝ่หา</em> — แม้ในตอนนั้นผมไม่รู้ด้วยซ้ำว่าเธอยังมีชีวิตอยู่หรือไม่ (ภายหลังผมจึงรู้ว่าเธอเสียชีวิตแล้ว) แต่ภาพของเธอก็ยังพยุงผมให้เดินต่อได้</p>
+
+  <div class="pullquote">คนที่มี ‘ทำไม’ ที่จะมีชีวิตอยู่ จะทนต่อ ‘อย่างไร’ เกือบทุกแบบได้</div>
+
+  <p>นี่คือคำของ Nietzsche ที่ผมท่องในใจทุกวัน <span class="en">"He who has a why to live for can bear almost any how."</span> — ความทุกข์ที่ไม่มีความหมาย คือสิ่งที่บดขยี้คนได้ แต่ความทุกข์ที่เรามองเห็นความหมายในนั้น กลายเป็นภาระที่แบกไหว</p>
+
+  <h2>นำมาใช้กับชีวิตเราได้อย่างไร</h2>
+  <p>คุณอาจไม่ได้อยู่ในค่ายกักกัน แต่ทุกคนมี “ค่าย” ของตัวเอง — งานที่บีบคั้น ความสัมพันธ์ที่พัง โรคที่รักษาไม่หาย สิ่งที่บทนี้มอบให้คุณ ไม่ใช่วิธีหนีออกจากค่าย แต่คือวิธี<strong>เลือกว่าจะเป็นใครในค่ายนั้น</strong></p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">“สถานการณ์มันแย่ขนาดนี้ ฉันก็ต้องรู้สึกแย่และทำอะไรไม่ได้เป็นธรรมดา”</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">สถานการณ์กำหนดสิ่งที่เกิดกับเรา แต่ไม่ได้กำหนด “เราเป็นใคร” ในสถานการณ์นั้น — ระหว่างเหตุการณ์กับปฏิกิริยา มีช่องว่างของการเลือกเสมอ</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">วันนี้ เลือกหนึ่งสถานการณ์ที่คุณควบคุมไม่ได้ แล้วถามตัวเองว่า “ฉันจะเลือกตอบสนองต่อมันแบบไหน ที่ฉันจะภูมิใจเมื่อมองย้อนกลับมา?”</div>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-head">Reflection · ก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ในวิกฤตครั้งล่าสุดของคุณ คุณอยู่ในระยะไหนของสามระยะ — ช็อก ด้านชา หรือกำลังฟื้นตัว?</li>
+      <li>“ทำไม” ของคุณคืออะไร — อะไรคือเหตุผลที่ทำให้คุณลุกขึ้นในเช้าวันที่ไม่อยากลุก?</li>
+      <li>มีท่าทีใดในอดีตที่คุณเคยเลือก แล้วทำให้คุณภูมิใจในความเป็นมนุษย์ของตัวเอง?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ CHAPTER II — OPEN ============ -->
+<section class="chapter-open">
+  <div class="ch-num">II</div>
+  <div class="ch-label">บทที่ 2 / Chapter Two</div>
+  <div class="ch-title">Logotherapy in a Nutshell
+    <span class="em">โลโกเทอราพีโดยย่อ — วิชาบำบัดด้วย “ความหมาย”</span>
+  </div>
+  <div class="ch-essence">แรงขับลึกที่สุดของมนุษย์ไม่ใช่ความสุข (อย่างที่ Freud ว่า) และไม่ใช่อำนาจ (อย่างที่ Adler ว่า) แต่คือ “การไขว่คว้าหาความหมาย” — และความหมายนั้น ไม่มีสูตรสำเร็จที่ใช้ได้กับทุกคน</div>
+</section>
+
+<!-- ============ CHAPTER II — BODY ============ -->
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>มนุษย์ไม่ได้ตามหาความสุข เขาตามหาความหมาย</h1>
+
+  <p>เมื่อผมกลับมาเป็นจิตแพทย์อีกครั้ง ผมตั้งชื่อวิธีบำบัดของผมว่า <span class="term">Logotherapy</span> — คำว่า “logos” ในภาษากรีกแปลว่า “ความหมาย” ฉะนั้นมันคือ <em>การบำบัดผ่านความหมาย</em> หลักของมันเรียบง่ายแต่พลิกความเข้าใจเดิม: คนเราป่วยใจไม่ใช่เพราะขาดความสุข แต่เพราะ<strong>ชีวิตของเขารู้สึกว่างเปล่า ไม่มีความหมาย</strong></p>
+
+  <div class="insight-box">
+    <div class="ib-label">คำศัพท์ที่ต้องเข้าใจ</div>
+    <p><b>Will to Meaning (ความมุ่งมั่นหาความหมาย):</b> แรงขับพื้นฐานที่ทำให้เราอยากให้ชีวิตมีความหมาย เป็นเครื่องยนต์ที่แรงกว่าความอยากมีความสุขหรืออำนาจ &nbsp;|&nbsp; <b>Existential Vacuum (ความว่างเปล่าของชีวิต):</b> ความรู้สึกเบื่อหน่าย ว่างเปล่า ไร้จุดหมาย ที่เกิดเมื่อ Will to Meaning ไม่ได้รับการเติมเต็ม — มักแสดงออกเป็นความเบื่อ การเสพติด หรือการไล่ตามความสุขชั่ววูบ</p>
+  </div>
+
+  <h2>ความสุขเป็นสิ่งที่ “ตามมา” ไม่ใช่สิ่งที่ “ไล่ล่า”</h2>
+  <p>นี่คือความเข้าใจผิดที่ใหญ่ที่สุดของยุคสมัยเรา ยิ่งคุณไล่ล่าความสุขโดยตรงเท่าไหร่ มันยิ่งหนีคุณเท่านั้น ความสุขไม่ใช่เป้าที่เล็งได้ มันคือ<strong>ผลพลอยได้</strong>ที่เกิดขึ้นเองเมื่อคุณทุ่มเทให้กับบางสิ่งที่ใหญ่กว่าตัวคุณ เหมือนเสียงหัวเราะ — คุณบังคับให้ตัวเองหัวเราะไม่ได้ มันเกิดเมื่อมีเรื่องตลกจริงๆ</p>
+
+  <div class="pullquote">อย่าเล็งที่ความสำเร็จ — ยิ่งเล็ง ยิ่งพลาด เพราะความสำเร็จเหมือนความสุข มันต้องเกิดตามมาเอง</div>
+
+  <h2>ความหมายไม่เหมือนกันสำหรับแต่ละคน</h2>
+  <p>นี่คือจุดที่คนเข้าใจผิดบ่อยที่สุด มีคนถามผมเสมอว่า “แล้วความหมายของชีวิตคืออะไร?” คำถามนี้เหมือนถามแชมป์หมากรุกว่า “ท่าเดินที่ดีที่สุดในโลกคืออะไร?” — มันไม่มี ท่าที่ดีที่สุดขึ้นอยู่กับ<strong>กระดานเฉพาะหน้าและคู่ต่อสู้เฉพาะคน</strong> เช่นเดียวกัน ความหมายของชีวิตไม่ใช่คำถามนามธรรมลอยๆ แต่คือคำถามที่เป็นรูปธรรมมากๆ ว่า <em>“ชีวิตกำลังเรียกร้องอะไรจากคุณ ณ ขณะนี้ ในสถานการณ์นี้”</em></p>
+
+  <div class="insight-box">
+    <div class="ib-label">พลิกมุมที่เปลี่ยนทุกอย่าง</div>
+    <p>อย่าถามว่า “ชีวิตมีความหมายอะไรให้ฉัน” แต่จงเข้าใจว่า <strong>ชีวิตกำลังถามคุณ</strong> และคุณต้องตอบมันด้วยการกระทำ ไม่ใช่ด้วยคำพูด — คุณไม่ใช่ผู้ตั้งคำถาม คุณคือผู้ตอบ</p>
+  </div>
+
+  <h2>สามทางสู่ความหมาย</h2>
+  <p>แล้วเราจะค้นพบความหมายได้จากที่ไหน? จากประสบการณ์ของผมทั้งในและนอกค่าย ผมพบว่ามีสามประตูเสมอ ไม่ว่าคุณจะอยู่ในสถานการณ์ใด อย่างน้อยหนึ่งในสามประตูนี้เปิดให้คุณเสมอ</p>
+
+  <table class="cmp-table">
+    <thead><tr><th>ประตูสู่ความหมาย</th><th>หมายความว่าอย่างไร</th><th>ตัวอย่างจริง</th></tr></thead>
+    <tbody>
+      <tr><td><b>1. การสร้างสรรค์</b><br>(Creative)</td><td>ผ่านงานที่เราทำ หรือสิ่งที่เรามอบให้โลก</td><td>งานอาชีพ งานศิลปะ การเลี้ยงลูก การสร้างบางสิ่ง</td></tr>
+      <tr><td><b>2. การสัมผัสประสบการณ์</b><br>(Experiential)</td><td>ผ่านสิ่งที่เรารับเข้ามา — ความงาม ความจริง หรือการรักใครสักคน</td><td>การรักและถูกรัก การชื่นชมธรรมชาติ ศิลปะ ดนตรี</td></tr>
+      <tr><td><b>3. ท่าทีต่อความทุกข์</b><br>(Attitudinal)</td><td>ผ่านการเลือกท่าทีอย่างมีศักดิ์ศรี ต่อความทุกข์ที่หลีกเลี่ยงไม่ได้</td><td>เผชิญโรคร้าย ความสูญเสีย หรือชะตากรรมที่เปลี่ยนไม่ได้ ด้วยความกล้าหาญ</td></tr>
+    </tbody>
+  </table>
+
+  <p>ประตูที่สามสำคัญที่สุด เพราะมันบอกว่า <strong>แม้ในสถานการณ์ที่สิ้นหวังที่สุด เมื่อเราเปลี่ยนอะไรไม่ได้เลย เราก็ยังหาความหมายได้</strong> — ผ่านวิธีที่เราเลือกจะแบกมัน นี่คือเหตุผลที่ชายชราคนหนึ่งที่มาหาผม จมอยู่ในความเศร้าหลังภรรยาเสีย กลับลุกขึ้นได้ เมื่อผมถามเขาว่า “ถ้าคุณตายก่อน แล้วภรรยาต้องอยู่ทนทุกข์แบบนี้แทนล่ะ?” เขาตอบว่ามันคงทรมานเธอเหลือเกิน ผมจึงบอกว่า — เห็นไหม ความทุกข์ของคุณตอนนี้ คือราคาที่คุณจ่ายแทนเธอ มันมีความหมาย</p>
+
+  <div class="author-box">
+    <div class="author-avatar">VF</div>
+    <div class="author-content">
+      <div class="author-meta">Viktor E. Frankl · Logotherapy</div>
+      <p class="author-text">"ความทุกข์ทรมานหยุดเป็นความทุกข์ทรมานในวินาทีที่มันมีความหมาย"</p>
+    </div>
+  </div>
+
+  <h2>นำมาใช้: รักษา “ความว่างเปล่า” ของตัวเอง</h2>
+  <p>ถ้าคุณรู้สึกเบื่อหน่าย ว่างเปล่า ไม่รู้จะตื่นมาทำไม — นั่นคือ Existential Vacuum กำลังส่งสัญญาณ มันไม่ใช่ความอ่อนแอ แต่คือเสียงเรียกให้คุณเติมความหมายเข้าไป</p>
+
+  <div class="signal-grid">
+    <div class="signal-box dont">
+      <div class="signal-head">✕ สิ่งที่ทำให้ว่างเปล่ายิ่งขึ้น</div>
+      <ul>
+        <li>ไล่ล่าความสุขโดยตรง (เสพ ช้อป ไถจอ)</li>
+        <li>รอให้ “แรงบันดาลใจ” มาก่อนแล้วค่อยทำ</li>
+        <li>ถามแต่ว่า “ฉันจะได้อะไร”</li>
+        <li>เปรียบเทียบความหมายของตัวเองกับคนอื่น</li>
+      </ul>
+    </div>
+    <div class="signal-box do">
+      <div class="signal-head">✓ สิ่งที่เติมความหมาย</div>
+      <ul>
+        <li>ทุ่มเทให้งานหรือคนที่ใหญ่กว่าตัวเรา</li>
+        <li>ลงมือทำก่อน แล้วความหมายจะตามมา</li>
+        <li>ถามว่า “สถานการณ์นี้เรียกร้องอะไรจากฉัน”</li>
+        <li>หาความหมายเฉพาะของ “วันนี้” ของเราเอง</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-head">Reflection · ก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ตอนนี้ในชีวิตคุณ ประตูไหนเปิดอยู่มากที่สุด — การสร้างสรรค์ การรัก หรือท่าทีต่อความทุกข์?</li>
+      <li>มีช่วงไหนที่คุณ “ไล่ล่าความสุข” จนมันหนีหายไป? เกิดอะไรขึ้นถ้าคุณหันไปทุ่มเทกับบางสิ่งแทน?</li>
+      <li>ถ้าชีวิตกำลัง “ถามคุณ” ในสัปดาห์นี้ คุณคิดว่ามันถามว่าอะไร และคุณจะตอบด้วยการกระทำอย่างไร?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ CHAPTER III — OPEN ============ -->
+<section class="chapter-open">
+  <div class="ch-num">III</div>
+  <div class="ch-label">บทที่ 3 / Chapter Three</div>
+  <div class="ch-title">The Case for Tragic Optimism
+    <span class="em">การมองโลกในแง่ดีท่ามกลางโศกนาฏกรรม</span>
+  </div>
+  <div class="ch-essence">จะพูด “ใช่” กับชีวิตได้อย่างไร ทั้งที่รู้ว่าชีวิตมีสามสิ่งที่หนีไม่พ้น — ความทุกข์ ความผิดพลาด และความตาย? คำตอบคือ เปลี่ยนทั้งสามให้กลายเป็นเชื้อเพลิง</div>
+</section>
+
+<!-- ============ CHAPTER III — BODY ============ -->
+<section class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>พูดว่า “ใช่” กับชีวิต แม้รู้ว่ามันจะทำให้เจ็บ</h1>
+
+  <p>หลายปีหลังจากหนังสือออก ผมเพิ่มบทนี้เข้าไป เพราะผมอยากตอบคำถามที่ยากที่สุด — เราจะยังมองโลกในแง่ดีได้อย่างไร เมื่อเรารู้ดีว่าชีวิตเต็มไปด้วยความเจ็บปวด? ผมเรียกท่าทีนี้ว่า <span class="term">Tragic Optimism</span> — การมองโลกในแง่ดี <em>ทั้งที่ตระหนัก</em>ถึงด้านมืดของชีวิต ไม่ใช่การหลับตาข้างหนึ่งแล้วแกล้งว่าทุกอย่างดี</p>
+
+  <div class="insight-box">
+    <div class="ib-label">นิยามที่ต้องเข้าใจ</div>
+    <p><b>Tragic Optimism (การมองโลกในแง่ดีอย่างรู้ทันโศกนาฏกรรม):</b> ความสามารถที่จะพูด “ใช่” กับชีวิต ทั้งๆ ที่เผชิญหน้ากับ “สามเหลี่ยมแห่งโศกนาฏกรรม” คือ ความทุกข์ (pain) ความผิด (guilt) และความตาย (death) — มันไม่ใช่การปฏิเสธความมืด แต่คือการหาแสงในความมืดนั้น</p>
+  </div>
+
+  <h2>เปลี่ยนสามสิ่งที่หนีไม่พ้น ให้เป็นพลัง</h2>
+  <p>Tragic Optimism ที่แท้จริง คือการเปลี่ยนสามด้านมืดนี้ ให้กลายเป็นบางสิ่งที่สร้างสรรค์ ไม่ใช่ปล่อยให้มันบดขยี้เรา</p>
+
+  <table class="cmp-table">
+    <thead><tr><th>โศกนาฏกรรม</th><th>เปลี่ยนให้เป็น</th><th>วิธีคิด</th></tr></thead>
+    <tbody>
+      <tr><td><b>ความทุกข์</b><br>(Pain)</td><td>การเติบโตและการเปลี่ยนแปลงตัวเอง</td><td>ความทุกข์ที่เปลี่ยนไม่ได้ ให้เปลี่ยน “เรา” แทน — ใช้มันหล่อหลอมให้เป็นคนที่ลึกขึ้น</td></tr>
+      <tr><td><b>ความผิด</b><br>(Guilt)</td><td>โอกาสที่จะเปลี่ยนตัวเองให้ดีขึ้น</td><td>ความรู้สึกผิด แปลว่าเรายังมีมโนธรรม ใช้มันเป็นเข็มทิศไปสู่การกระทำที่ดีกว่า</td></tr>
+      <tr><td><b>ความตาย</b><br>(Death)</td><td>แรงผลักให้ลงมือทำอย่างมีความรับผิดชอบ</td><td>เพราะเวลามีจำกัด ทุกการกระทำจึงมีน้ำหนัก — ความตายทำให้ชีวิตมีค่า ไม่ใช่ไร้ค่า</td></tr>
+    </tbody>
+  </table>
+
+  <h2>“นาฬิกาทราย” ของความหมาย</h2>
+  <p>คนมักกลัวความตาย เพราะคิดว่ามันทำให้ทุกอย่างไร้ความหมาย แต่ผมมองตรงกันข้าม ลองคิดดู — ถ้าเรามีชีวิตอยู่ชั่วนิรันดร์ เราจะผัดวันทุกอย่างได้ตลอดไป ไม่มีอะไรเร่งด่วน ไม่มีอะไรสำคัญ <strong>ความตายต่างหากที่ทำให้แต่ละวันมีความหมาย</strong> เพราะมันบอกเราว่า โอกาสนี้จะไม่กลับมาอีก</p>
+
+  <div class="blockquote-full">
+    <p class="bq-en">"Live as if you were living already for the second time and as if you had acted the first time as wrongly as you are about to act now."</p>
+    <p class="bq-th">“จงใช้ชีวิตราวกับว่าคุณกำลังมีชีวิตเป็นครั้งที่สอง และราวกับว่าครั้งแรกคุณได้ทำผิดแบบเดียวกับที่คุณกำลังจะทำตอนนี้”</p>
+    <p class="bq-cite">หลักการสูงสุดของ Logotherapy</p>
+  </div>
+
+  <p>นี่คือเครื่องมือที่ทรงพลังที่สุดที่ผมมอบให้คนไข้ — จินตนาการว่าวันนี้คือการเล่นซ้ำของอดีต และคุณมีโอกาสแก้ไขความผิดพลาดก่อนที่มันจะเกิด ทันใดนั้น เรื่องเล็กๆ ที่เราเคยมองข้ามจะมีน้ำหนักขึ้นมาทันที</p>
+
+  <h2>เรื่องของ “สิ่งที่ทำไปแล้ว” ในยุ้งฉางของอดีต</h2>
+  <p>คนหนุ่มสาวมักอิจฉาความเป็นไปได้ที่ยังเปิดกว้างของตัวเอง และสงสารคนแก่ที่ดูเหมือนไม่เหลืออะไรนอกจากอดีต แต่ผมมองว่ากลับกัน คนแก่มีบางสิ่งที่คนหนุ่มไม่มี — <strong>เขามีความจริงในมือ ไม่ใช่แค่ความเป็นไปได้</strong> ความรักที่เคยรัก ความทุกข์ที่เคยผ่าน งานที่เคยทำ — ทั้งหมดถูกเก็บไว้อย่างปลอดภัยในอดีต ไม่มีใครพรากไปได้ อดีตที่ผ่านไปแล้ว คือรูปแบบของการคงอยู่ที่มั่นคงที่สุด</p>
+
+  <div class="pullquote">สิ่งที่เราเคยมีประสบการณ์ ไม่มีอำนาจใดในโลกพรากไปจากเราได้</div>
+
+  <h2>นำมาใช้: การมองโลกแบบรู้ทันความจริง</h2>
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">“มองโลกในแง่ดี = แกล้งทำเป็นว่าทุกอย่างโอเค และปฏิเสธความเจ็บปวด”</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">การมองโลกในแง่ดีที่แท้จริง คือการมองเห็นความทุกข์ ความผิด และความตายอย่างชัดเจน — แล้วยังเลือกพูด “ใช่” กับชีวิต โดยเปลี่ยนทั้งสามให้เป็นเชื้อเพลิง</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">คืนนี้ เขียนความทุกข์ที่คุณเปลี่ยนไม่ได้ลงมา 1 ข้อ แล้วเขียนต่อว่า “ความทุกข์นี้กำลังหล่อหลอมฉันให้เป็นคนแบบไหน?”</div>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-head">Reflection · ก่อนไปบทสรุป</div>
+    <ol>
+      <li>ในสามเหลี่ยมแห่งโศกนาฏกรรม (ทุกข์ / ผิด / ตาย) สิ่งใดที่คุณกำลังเผชิญอยู่ตอนนี้?</li>
+      <li>ถ้าวันนี้คือ “การเล่นซ้ำ” ของอดีต คุณจะเปลี่ยนการกระทำอะไรในวันนี้?</li>
+      <li>มีประสบการณ์งดงามอะไรในอดีต ที่ถูกเก็บไว้อย่างปลอดภัยในยุ้งฉางของคุณแล้ว — และไม่มีใครพรากไปได้?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ SYNTHESIS — OPEN ============ -->
+<section class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">Synthesis · บทสรุปลงมือ</div>
+  <div class="ch-title">Your Daily Meaning
+    <span class="em">พิธีกรรมสร้างความหมายของคุณเอง</span>
+  </div>
+  <div class="ch-essence">ทั้งเล่มสรุปลงในความจริงเดียว — ความหมายไม่ได้รออยู่ให้เราเจอ มันเกิดขึ้นเมื่อเราตอบคำถามที่ชีวิตถามเรา ในแบบเฉพาะของเราเอง ทุกๆ วัน</div>
+</section>
+
+<!-- ============ SYNTHESIS — BODY ============ -->
+<section class="page">
+  <div class="eyebrow">The Master Idea · แก่นเดียวของทั้งเล่ม</div>
+  <h1>ถ้าจำได้แค่อย่างเดียว ให้จำสิ่งนี้</h1>
+
+  <div class="blockquote-full">
+    <p class="bq-en">"Those who have a 'why' to live can bear with almost any 'how'."</p>
+    <p class="bq-th">“ความหมายไม่ใช่สิ่งที่รอให้มาหาเรา — แต่เป็นสิ่งที่เราสร้างขึ้นเอง ด้วยการตอบคำถามที่ชีวิตถามเรา และคำตอบของแต่ละคนไม่เหมือนกัน”</p>
+    <p class="bq-cite">หัวใจของ Man's Search for Meaning</p>
+  </div>
+
+  <p>หนังสือเล่มนี้ไม่ได้บอกว่า “ความหมายของชีวิตคืออะไร” เพราะผมไม่มีสิทธิ์บอกคุณ — เหมือนหมอไม่มีสิทธิ์บอกว่าท่าหมากรุกไหนดีที่สุดสำหรับทุกกระดาน สิ่งที่ผมทำได้ คือเปลี่ยนทิศทางที่คุณมองหา <strong>จากการ “ตามหา” ความหมาย ไปสู่การ “สร้าง” ความหมายในทุกการกระทำของวันนี้</strong></p>
+
+  <p>เมื่อคุณหยุดถามว่า “ทำไมต้องเป็นฉัน” แล้วเริ่มถามว่า “ชีวิตกำลังขออะไรจากฉันตอนนี้” — ทุกอย่างเปลี่ยนไป คุณจากเหยื่อของสถานการณ์ กลายเป็นผู้ตอบรับที่มีศักดิ์ศรี นี่คือเสรีภาพสุดท้ายที่ไม่มีใครพรากไปได้</p>
+
+  <h2>พิธีกรรม 7 ข้อ ก่อนเริ่มวันใหม่</h2>
+  <p>ทำเครื่องหมายในใจ หรือพิมพ์เก็บไว้ ใช้ทบทวนทุกเช้า หรือทุกครั้งที่รู้สึกว่างเปล่า ไร้ทิศทาง</p>
+
+  <div class="checklist">
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>ถาม “ทำไม” ของวันนี้</b> — วันนี้อะไรคือเหตุผลที่ทำให้ฉันลุกขึ้น? (คน งาน หรือคุณค่าที่ฉันยึดถือ)</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>กลับคำถามเรื่องความหมาย</b> — แทนที่จะถามว่า “ฉันจะได้อะไร” ให้ถามว่า “สถานการณ์นี้เรียกร้องอะไรจากฉัน”</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>เลือกท่าทีต่อสิ่งที่เปลี่ยนไม่ได้</b> — มีอะไรในวันนี้ที่ฉันควบคุมไม่ได้? ฉันจะเลือกตอบสนองต่อมันอย่างมีศักดิ์ศรีอย่างไร</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>เปิดหนึ่งในสามประตู</b> — วันนี้ฉันจะหาความหมายผ่าน การสร้างสรรค์ (งาน) การรัก (คน) หรือท่าทีต่อความทุกข์ — ประตูไหน</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>อย่าไล่ล่าความสุขโดยตรง</b> — ทุ่มเทให้บางสิ่งที่ใหญ่กว่าตัวเอง แล้วปล่อยให้ความสุขตามมาเอง</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>ใช้กฎ “ครั้งที่สอง”</b> — ใช้ชีวิตวันนี้ราวกับเป็นการเล่นซ้ำ และฉันมีโอกาสแก้ไขสิ่งที่เคยทำผิด</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><b>ฝากความดีไว้ในยุ้งฉาง</b> — ทำหนึ่งสิ่งวันนี้ ที่เมื่อมันกลายเป็นอดีตแล้ว จะไม่มีใครพรากไปจากฉันได้</div></div>
+  </div>
+
+  <div class="divider"><span>❦</span></div>
+
+  <h2>อ่านต่อยอด — ถ้าแนวคิดนี้โดนใจคุณ</h2>
+  <p>หากเอกสารนี้จุดประกายบางอย่างในใจคุณ นี่คือเส้นทางการอ่านที่ต่อยอดจากแก่นของ Frankl ได้ดี</p>
+
+  <table class="cmp-table">
+    <thead><tr><th>หนังสือ</th><th>ผู้เขียน</th><th>ทำไมควรอ่านต่อ</th></tr></thead>
+    <tbody>
+      <tr><td><b>The Will to Meaning</b></td><td>Viktor Frankl</td><td>เจาะลึก Logotherapy เชิงทฤษฎีมากขึ้น สำหรับคนที่อยากเข้าใจวิชานี้เต็มรูปแบบ</td></tr>
+      <tr><td><b>Meditations</b><br>(บันทึกแห่งสติ)</td><td>Marcus Aurelius</td><td>ปรัชญา Stoic ที่เป็นรากเดียวกับ “เสรีภาพในการเลือกท่าที”</td></tr>
+      <tr><td><b>When Breath Becomes Air</b></td><td>Paul Kalanithi</td><td>หมอที่เผชิญมะเร็งระยะสุดท้าย และค้นหาความหมายในเวลาที่เหลือ — Tragic Optimism ในชีวิตจริง</td></tr>
+      <tr><td><b>The Untethered Soul</b></td><td>Michael A. Singer</td><td>ต่อยอดเรื่อง “ช่องว่างระหว่างเหตุการณ์กับปฏิกิริยา” ในเชิงปฏิบัติทางจิตใจ</td></tr>
+    </tbody>
+  </table>
+
+  <div class="author-box">
+    <div class="author-avatar">VF</div>
+    <div class="author-content">
+      <div class="author-meta">Viktor E. Frankl · คำส่งท้าย</div>
+      <p class="author-text">"ในที่สุดแล้ว มนุษย์ไม่ควรถามว่าความหมายของชีวิตคืออะไร แต่ควรตระหนักว่า เขาเองคือผู้ที่ถูกถาม ชีวิตตั้งคำถามกับเขาทุกวัน และเขาตอบได้ทางเดียว — ด้วยการรับผิดชอบชีวิตของตน"</p>
+    </div>
+  </div>
+
+  <div class="note-mini"><b>ถ้าวันนี้ใจหนักเกินไป:</b> แก่นของหนังสือเล่มนี้ไม่ได้บอกให้เราแบกทุกอย่างคนเดียว การมีคนเดินเคียงข้าง — เพื่อน คนในครอบครัว หรือผู้เชี่ยวชาญด้านสุขภาพใจ — ก็เป็นส่วนหนึ่งของการ “พูดใช่กับชีวิต” เช่นกัน</div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<div class="book-footer">
+  <div class="book-footer-mark">∞</div>
+  <div class="book-footer-text">“เมื่อเราเปลี่ยนสถานการณ์ไม่ได้อีกต่อไป เราถูกท้าทายให้เปลี่ยนตัวเราเอง”</div>
+  <div class="book-footer-author">Man's Search for Meaning · Personal Edition</div>
+</div>
+
+</div>
+</body>
+</html>
