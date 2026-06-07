@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>หุ่นยนต์ฮาร์ดแวร์จีน — งานวิจัยการลงทุน ฉบับอิงข้อมูลจริง (v2.0)</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.68;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:33px;letter-spacing:-.01em;margin:0;line-height:1.18;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  h4{font-family:var(--sans);font-weight:600;font-size:14.5px;margin:18px 0 6px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  ul,ol{margin:0 0 14px;padding-left:22px;} li{margin:4px 0;}
+  strong{font-weight:600;}
+  .shell{max-width:1160px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:250px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;max-height:calc(100vh - 64px);overflow:auto;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:840px;min-width:0;}
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:10px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:10px;}
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat.badl{border-left:4px solid var(--bad);}
+  .stat.goodl{border-left:4px solid var(--good);}
+  .stat .v{font-family:var(--serif);font-size:33px;font-weight:500;line-height:1.05;margin-bottom:8px;}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);line-height:1.4;}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:13px;margin:8px 0 0;}
+  thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+           color:var(--gray-500);background:var(--gray-100);padding:11px 13px;border-bottom:var(--rule);}
+  tbody td{padding:11px 13px;border-bottom:1px solid var(--gray-100);vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  tfoot td{padding:11px 13px;font-weight:600;background:var(--gray-100);}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+  .tag.fact{background:#eef0ea;color:#566b3f;}
+  .tag.ana{background:#f6ece7;color:#a8543f;}
+  .tag.asm{background:#efece4;color:#7a6f57;}
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout.bad{background:var(--white);border-left:4px solid var(--bad);}
+  .callout.good{background:var(--white);border-left:4px solid var(--good);}
+  .callout h3{margin-top:0;}
+  .spark{width:120px;height:30px;display:block;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;max-height:none;border-bottom:var(--rule);padding-bottom:16px;margin-bottom:32px;}
+    .toc ol{column-count:2;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){.band{grid-template-columns:repeat(2,1fr);}}
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="toc" aria-label="สารบัญ">
+    <div class="eyebrow">สารบัญ</div>
+    <ol>
+      <li><a href="#summary">บทสรุปผู้บริหาร &amp; คำตัดสิน</a></li>
+      <li><a href="#s1">1 · กรอบใหม่: "ราคาได้คิดอะไรไว้แล้ว"</a></li>
+      <li><a href="#s2">2 · ตัวเลขอุตสาหกรรม (ตรวจสอบแล้ว)</a></li>
+      <li><a class="sub" href="#s2-1">2.1 ตลาดโลก &amp; รันเวย์จีน</a></li>
+      <li><a class="sub" href="#s2-2">2.2 ตลาด reducer &amp; การแข่งขัน</a></li>
+      <li><a class="sub" href="#s2-3">2.3 humanoid: ช่วงพยากรณ์ vs ของจริง</a></li>
+      <li><a href="#s3">3 · งบการเงินจริงของสองตัวเด่น</a></li>
+      <li><a class="sub" href="#s3-1">3.1 Leaderdrive (688017)</a></li>
+      <li><a class="sub" href="#s3-2">3.2 Inovance (300124)</a></li>
+      <li><a href="#s4">4 · คุณภาพ: ROIC vs WACC</a></li>
+      <li><a href="#s5">5 · Valuation</a></li>
+      <li><a class="sub" href="#s5-1">5.1 เทียบมัลติเปิลคู่เทียบ</a></li>
+      <li><a class="sub" href="#s5-2">5.2 Reverse-DCF: ราคาคิดอะไรไว้</a></li>
+      <li><a href="#s6">6 · ฉากทัศน์ &amp; มูลค่าคาดหวัง</a></li>
+      <li><a href="#s7">7 · ความเสี่ยง</a></li>
+      <li><a href="#s8">8 · คำตัดสิน &amp; สิ่งที่จะเปลี่ยนมุมมอง</a></li>
+      <li><a href="#appendix">ภาคผนวก · ข้อมูล &amp; ที่มา</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <h1>หุ่นยนต์ฮาร์ดแวร์จีน<br>งานวิจัยการลงทุน ฉบับอิงข้อมูลจริง</h1>
+        <span class="pill">งานวิจัยเชิงวิเคราะห์ · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">เวอร์ชัน 2.0 — แทนที่ "สมมติฐาน" ด้วยตัวเลขจริงให้มากที่สุด แล้วประเมินมูลค่าแบบ Damodaran: สร้าง WACC จริง · Reverse-DCF · เทียบคู่เทียบจริง · ฉากทัศน์ถ่วงน้ำหนัก</div>
+      <div class="meta mono">ธีม: ชิ้นส่วนหุ่นยนต์จีน · ตัวอย่าง: Leaderdrive 688017.SH, Inovance 300124.SZ · สกุล CN&yen; / JP&yen; · ข้อมูล ณ 7 มิ.ย. 2026</div>
+    </header>
+
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร &amp; คำตัดสิน</h2></div>
+      <hr class="div">
+      <div class="band">
+        <div class="stat warn"><div class="v">~43%</div><div class="k">CAGR กำไรสุทธิ 10 ปี ที่ "ราคาปัจจุบันเรียกร้อง" (Leaderdrive)</div><div class="d down">เพื่อให้ได้ผลตอบแทนแค่เท่าต้นทุนทุน</div></div>
+        <div class="stat goodl"><div class="v">+1.4pp</div><div class="k">ส่วนต่าง ROIC &minus; WACC ของ Inovance</div><div class="d up">สร้างมูลค่า "เล็กน้อย" (แก้จากเดิม)</div></div>
+        <div class="stat badl"><div class="v">~10&times;</div><div class="k">ส่วนต่างมัลติเปิล: ผู้ทำ reducer (~450&times;) vs ผู้ทำหุ่นยนต์ (~20&ndash;46&times;)</div><div class="d down">= ราคาออปชัน humanoid ล้วน ๆ</div></div>
+        <div class="stat warn"><div class="v">รอ</div><div class="k">คำตัดสินสุทธิ — ณ ราคา/จังหวะปัจจุบัน</div><div class="d flat">ราคา ≈ ฉาก Bull · มูลค่าคาดหวังต่ำกว่าราคา</div></div>
+      </div>
+
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>คำตัดสินในหนึ่งย่อหน้า (ฉบับอิงข้อมูลจริง)</h3>
+        <p>หลังแทนที่สมมติฐานด้วยตัวเลขจริง ผลสรุปยัง<strong>ไม่เปลี่ยน แต่ "สมดุล" ขึ้น</strong> และมีจุดที่ต้อง<strong>แก้ให้ถูกต้อง</strong>: (1) Bull case ของ humanoid <em>มีน้ำหนักกว่าที่ผมเคยให้</em> — Goldman/Morgan Stanley/Citi ต่างปรับประมาณการ<strong>ขึ้น</strong> (Goldman ฐาน 250,000 ตัวปี 2030, 1.4 ล้านตัวปี 2035); (2) Inovance จริง ๆ <strong>สร้างมูลค่าเล็กน้อย</strong> (ROIC 9.4% &gt; WACC ~8%) ไม่ใช่ "ทำลายมูลค่า" อย่างที่ภาษาในฉบับก่อนสื่อ — แต่ก็ไม่ใช่ moat ⭐⭐⭐⭐⭐; (3) ที่ <em>ไม่</em>เปลี่ยนคือ <strong>ราคาของ Leaderdrive สะท้อนฉาก Bull เกือบเต็ม</strong> — ราคาปัจจุบันเรียกร้องการเติบโตกำไร ~43%/ปี ติดต่อกัน 10 ปี <em>พร้อม</em>รักษามาร์จิ้น ~22% (ขณะที่ผู้นำ moat อย่าง HDSI มาร์จิ้นเหลือ 2.7%) อัตราส่วนความเสี่ยง-ผลตอบแทนจึงเอียงลง</p>
+        <p class="small muted">วิธีคิดมูลค่าใน <a href="#s5">&sect;5</a> · ฉากทัศน์ถ่วงน้ำหนักใน <a href="#s6">&sect;6</a> · ความเสี่ยงใน <a href="#s7">&sect;7</a> · คำตัดสินเต็มใน <a href="#s8">&sect;8</a></p>
+      </div>
+
+      <h3>การอัปเกรดข้อมูล: "สมมติฐานเดิม" &rarr; "ตัวเลขที่ตรวจสอบแล้ว"</h3>
+      <p class="small muted" style="margin-bottom:2px;">หัวใจของงานชิ้นนี้ — สิ่งที่เคยเป็นการประมาณ ถูกแทนด้วยตัวเลขจริงจากงบบริษัท บทวิเคราะห์โบรกเกอร์ และข้อมูลตลาด</p>
+      <table>
+        <thead><tr><th>ประเด็น</th><th>เดิม (สมมติฐาน/ประมาณ)</th><th>ใหม่ (ตรวจสอบแล้ว)</th><th>ผลต่อข้อสรุป</th></tr></thead>
+        <tbody>
+          <tr><td>WACC ของหุ้นจีนกลุ่มนี้</td><td class="muted">"~9&ndash;11%" (เดา)</td><td><strong>~8.0&ndash;8.5%</strong> (Rf จีน 1.8% + ERP 5.7% + &beta;~1.15)</td><td class="small">ต่ำกว่าที่คิด เพราะดอกเบี้ยจีนต่ำมาก</td></tr>
+          <tr><td>Inovance: ROIC vs WACC</td><td class="muted">"&asymp; WACC / แทบไม่สร้างมูลค่า"</td><td><strong>ROIC 9.4% &gt; WACC ~8% (+1.4pp)</strong></td><td class="small"><span class="chip"><span class="dot good"></span>แก้ให้ถูก: สร้างมูลค่าเล็กน้อย</span></td></tr>
+          <tr><td>Inovance: สัดส่วนหุ่นยนต์</td><td class="muted">"~20&ndash;30% ของรายได้"</td><td><strong>~5&ndash;14%</strong> (IA 53% / NEV 33% / หุ่นยนต์+ลิฟต์+อื่น 14%)</td><td class="small">เป็นบริษัท automation+EV เป็นหลัก</td></tr>
+          <tr><td>humanoid forecast</td><td class="muted">อ้างเลขโปรโมต 7.24M ชุด reducer</td><td><strong>Goldman 250K ตัว(2030)/1.4M(2035); MS 13M ติดตั้ง(2035)</strong></td><td class="small"><span class="chip"><span class="dot watch"></span>Bull case น่าเชื่อกว่าที่เคยให้เครดิต</span></td></tr>
+          <tr><td>Leaderdrive: งบจริง</td><td class="muted">"รายได้ ~¥570M, มาร์จิ้น ~22%"</td><td><strong>2025E รายได้ ¥557&ndash;570M; กรอสมาร์จิ้น 36.6% (ลดจาก 39%)</strong></td><td class="small">มาร์จิ้นเริ่มถูกกดจริง แม้ในตัวผู้นำ</td></tr>
+          <tr><td>มัลติเปิลคู่เทียบ</td><td class="muted">"Fanuc ~25&ndash;40&times;" (ประมาณ)</td><td><strong>Fanuc 46&times;/ROIC 12.2%; Yaskawa 21&times;/ROIC 5.8%; HDSI ~450&times;/มาร์จิ้น 2.7%</strong></td><td class="small">ยืนยันฟองสบู่กระจุกที่ผู้ทำ reducer</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted" style="margin-top:10px;"><span class="tag fact">FACT</span> ข้อเท็จจริง &nbsp; <span class="tag ana">ANALYSIS</span> การวิเคราะห์ &nbsp; <span class="tag asm">ASSUMP</span> สมมติฐาน — กำกับตลอดเอกสาร</p>
+    </section>
+
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>กรอบใหม่: นี่คือโจทย์ "ราคาได้คิดอะไรไว้แล้ว"</h2></div>
+      <hr class="div">
+      <p>เมื่อหุ้นเทรดที่ P/E 400&ndash;500&times; การถาม "แพงไปไหม" แทบไม่มีความหมาย — เพราะทุกคนรู้ว่าแพงเมื่อเทียบกำไรวันนี้ คำถามแบบ Damodaran ที่ถูกต้องคือ <strong>"ราคานี้กำลังคิด (price in) อนาคตแบบไหนไว้ และอนาคตนั้น <em>น่าจะเกิด</em> (probable) หรือแค่ <em>เป็นไปได้</em> (possible)?"</strong> นี่คือการลงทุนแบบ <em>expectations investing</em> — ถอดสมการกลับ (reverse-DCF) เพื่อดูว่าราคาเรียกร้องอะไร</p>
+      <div class="callout">
+        <p style="margin:0 0 8px;"><span class="tag ana">ANALYSIS</span> งานชิ้นนี้จึงไม่ตัดสินด้วย "ถูก/แพง" แต่ตอบ 3 คำถามด้วยตัวเลขจริง:</p>
+        <ol style="margin-bottom:0;">
+          <li><strong>ราคาเรียกร้องการเติบโต/มาร์จิ้นเท่าไร?</strong> (&sect;5.2 reverse-DCF)</li>
+          <li><strong>ธุรกิจ <em>สร้างมูลค่า</em> จริงไหม?</strong> วัดด้วย ROIC &minus; WACC ที่สร้างจากตัวเลขจริง (&sect;4)</li>
+          <li><strong>เมื่อถ่วงน้ำหนักทุกฉาก มูลค่าคาดหวังอยู่ตรงไหนเทียบราคา?</strong> (&sect;6)</li>
+        </ol>
+      </div>
+      <p style="margin-top:14px;"><span class="tag asm">ASSUMP</span> ข้อควรระวังเชิงวิธี (Damodaran consistency): ดอกเบี้ยปลอดความเสี่ยงของจีนต่ำมาก (~1.8%) ทำให้ WACC ต่ำ &rarr; <em>ดัน</em> มูลค่า DCF ให้สูงโดยอัตโนมัติ แต่ดอกเบี้ยต่ำสะท้อนเงินเฟ้อ/การเติบโตเชิงนามที่ต่ำด้วย ดังนั้นห้ามใช้ "WACC ต่ำ" คู่กับ "การเติบโตปลายทางสูง" พร้อมกัน — ต้องสอดคล้องกัน เราจึงตรึง terminal growth ไว้ที่ ~2&ndash;3% (ใกล้ GDP เชิงนามของจีนที่กำลังชะลอ)</p>
+    </section>
+
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>ตัวเลขอุตสาหกรรม (ตรวจสอบแล้ว)</h2></div>
+      <hr class="div">
+
+      <h3 id="s2-1">2.1 ตลาดโลก &amp; รันเวย์ของจีน</h3>
+      <p><span class="tag fact">FACT</span> ตลาดหุ่นยนต์โลก ~USD 73.6B (2025) &rarr; 88.3B (2026) เติบโต ~19.9% CAGR (ฐานมูลค่า รวม software) · <strong>จีน = 54% ของยอดติดตั้งโลก</strong> (295K/546K ตัว ปี 2024) สต็อกใช้งานสะสม ~2 ล้านตัว · <strong>robot density จีน = 166 ตัว/หมื่นแรงงาน</strong> (อันดับ ~22) เทียบเกาหลี 1,220 / สิงคโปร์ 818 / เยอรมนี 449 / ญี่ปุ่น 446 / สหรัฐ 307 (IFR)</p>
+      <div class="grid2">
+        <div class="callout" style="background:var(--white);border:var(--border);">
+          <div class="eyebrow" style="margin-bottom:8px;">robot density จีน (ตัว/หมื่นแรงงาน)</div>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true" style="width:100%;height:56px;">
+            <polyline fill="none" stroke="var(--good)" stroke-width="2.5" points="0,26 30,20 60,13 90,8 120,4"/>
+          </svg>
+          <p class="small muted" style="margin:8px 0 0;">2019: 97 &rarr; 2024: 166 (CAGR ~12&ndash;14%) · <span class="chip"><span class="dot good"></span>รันเวย์อุตสาหกรรมระยะยาวเป็นจริง</span></p>
+        </div>
+        <div class="callout" style="background:var(--white);border:var(--border);">
+          <div class="eyebrow" style="margin-bottom:8px;">นัยเชิงลงทุน</div>
+          <p class="small" style="margin:0;"><span class="tag ana">ANALYSIS</span> ช่องว่าง density จีน 166 vs เกาหลี 1,220 = ดีมานด์หุ่นยนต์<strong>อุตสาหกรรม</strong>โตได้อีกหลายสิบปี <em>โดยไม่ต้องพึ่ง humanoid</em> นี่คือ "พื้น" ที่แท้จริงของธีม — และเป็นเหตุผลให้ humanoid ควรเป็น "ออปชันแถม" ไม่ใช่หัวใจของมูลค่า</p>
+        </div>
+      </div>
+
+      <h3 id="s2-2">2.2 ตลาด harmonic reducer &amp; โครงสร้างการแข่งขัน</h3>
+      <p><span class="tag fact">FACT</span> ตลาด harmonic reducer เป็น duopoly: HDSI (ญี่ปุ่น) + Leaderdrive (จีน) ครองรายได้รวมกัน <strong>&gt;63%</strong> (Top 10 = 89%) โดย Leaderdrive ส่วนแบ่งโลกราว 20&ndash;25% และเป็น<strong>ผู้นำในจีน</strong> · แต่มีคลื่นผู้เล่นจีนหน้าใหม่ที่รัฐหนุนจำนวนมาก (Laifual, Han's Motion, CTKM, Shuanghuan 002472, ZHAOWEI, kofon ฯลฯ)</p>
+      <p><span class="tag fact">FACT</span> หลักฐานสงครามราคาที่ <em>มองเห็นได้ในงบของผู้นำเอง</em>: กรอสมาร์จิ้นของ Leaderdrive ลดจาก ~39% (2024) เหลือ <strong>36.6%</strong> (9 เดือนแรก 2025, &minus;2.9pp) และบทวิเคราะห์โบรกเกอร์ระบุชัดว่า "ราคาเฉลี่ยสินค้าลดลงเพื่อแย่งส่วนแบ่ง" <span class="tag ana">ANALYSIS</span> นี่คือวงจรเดิมของโซลาร์/EV/LED ที่ลามขึ้น "อีกหนึ่งชั้น" สู่ระดับชิ้นส่วน — ชิ้นส่วน<strong>ไม่ภูมิคุ้มกัน</strong> เพียงตามหลังหนึ่งวงจร</p>
+
+      <h3 id="s2-3">2.3 humanoid: ช่วงพยากรณ์ (ที่น่าเชื่อ) เทียบของจริงวันนี้</h3>
+      <p><span class="tag fact">FACT</span> ต่างจากฉบับก่อนที่ผมอ้างเลขโปรโมตตัวเดียว ครั้งนี้ใช้ช่วงพยากรณ์จาก<strong>วาณิชธนกิจที่ทยอยปรับขึ้น</strong>:</p>
+      <table>
+        <thead><tr><th>แหล่ง</th><th>ภาพปี 2030</th><th>ภาพปี 2035</th><th>ระยะยาว</th></tr></thead>
+        <tbody>
+          <tr><td>Goldman Sachs (ฐาน)</td><td class="num">~250,000 ตัว/ปี</td><td class="num">~1.4 ล้านตัว/ปี</td><td class="small muted">TAM $38B (2035); blue-sky $154B</td></tr>
+          <tr><td>Morgan Stanley</td><td class="small muted">โตช้าจนกลางทศวรรษ 2030</td><td class="num">~13 ล้านตัว (ติดตั้ง)</td><td class="small muted">~1 พันล้านตัว, TAM $5T (2050); จีนมากสุด 302M</td></tr>
+          <tr><td>Citi</td><td class="small muted">—</td><td class="small muted">—</td><td class="small muted">TAM ~$7T (2050)</td></tr>
+          <tr><td><strong>ของจริง 2025</strong></td><td class="num" colspan="2"><strong>Unitree ~5,500 ตัว (ผู้นำโลก)</strong></td><td class="small muted">Tesla "หลักร้อย" (มัสก์: ยังไม่ทำงานมีประโยชน์); Figure/Agility หลักหน่วย</td></tr>
+        </tbody>
+      </table>
+      <div class="callout" style="margin-top:14px;">
+        <p style="margin:0;"><span class="tag ana">ANALYSIS</span> <strong>การประเมินใหม่อย่างเป็นธรรม:</strong> Bull case <em>น่าเชื่อกว่า</em>ที่ฉบับก่อนให้เครดิต เพราะแบงก์ใหญ่ปรับขึ้น (Goldman ขึ้น TAM 6 เท่า) และเลขโปรโมต "7.24M ชุด reducer ปี 2031" เมื่อหารด้วย ~20 ชุด/ตัว = ~360,000 ตัว ซึ่ง<em>ใกล้</em>ฐาน Goldman (250K ปี 2030) จริง — <strong>ไม่ได้เพ้อฝัน</strong> แต่ 3 ข้อยังคงอยู่: (1) ต้องวิ่งจาก ~5,500 (2025) ไป 250,000 (2030) = ~45 เท่าใน 5 ปี (ขึ้นกับ AI/ต้นทุน/กฎกำกับ); (2) แม้แบงก์เองบอก "โตช้าจนกลางทศวรรษ 2030" &rarr; กระแสเงินสดที่ <em>ค้ำราคาวันนี้</em> อยู่หลังปี 2030 เกือบทั้งหมด; (3) <strong>ปริมาณ &ne; กำไร</strong> — คำถามตัวจริงคือ <em>ใครเก็บมูลค่าได้ที่มาร์จิ้นเท่าไร</em> (ดู &sect;4&ndash;5)</p>
+      </div>
+    </section>
+
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>งบการเงินจริงของสองตัวเด่น</h2></div>
+      <hr class="div">
+
+      <h3 id="s3-1">3.1 Leaderdrive (688017.SH) — ผู้ทำ harmonic reducer</h3>
+      <p><span class="tag fact">FACT</span> ตัวเลขจริง + ประมาณการโบรกเกอร์ (Dongwu/Guoyuan Securities, พ.ย. 2025) — แทนที่การประมาณคร่าว ๆ ในฉบับก่อน:</p>
+      <table>
+        <thead><tr><th>ปี</th><th class="num">รายได้ (¥M)</th><th class="num">โต %</th><th class="num">กำไรสุทธิ (¥M)</th><th class="num">EPS (¥)</th><th class="num">P/E*</th></tr></thead>
+        <tbody>
+          <tr><td>2023A</td><td class="num">356</td><td class="num">&minus;20%</td><td class="num">84</td><td class="num">0.46</td><td class="num">~720&times;</td></tr>
+          <tr><td>2024A</td><td class="num">387</td><td class="num">+9%</td><td class="num">56</td><td class="num">0.31</td><td class="num">~1,060&times;</td></tr>
+          <tr><td>9M2025A</td><td class="num">407</td><td class="num">+47%</td><td class="num">94</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
+          <tr><td>2025E</td><td class="num">557&ndash;570</td><td class="num">+44&ndash;47%</td><td class="num">120&ndash;138</td><td class="num">0.65&ndash;0.75</td><td class="num">~440&ndash;500&times;</td></tr>
+          <tr><td>2026E</td><td class="num">827&ndash;835</td><td class="num">+48&ndash;50%</td><td class="num">179&ndash;212</td><td class="num">0.97&ndash;1.15</td><td class="num">~290&ndash;340&times;</td></tr>
+          <tr><td>2027E</td><td class="num">1,197&ndash;1,255</td><td class="num">+50%</td><td class="num">257&ndash;322</td><td class="num">1.40&ndash;1.76</td><td class="num">~190&ndash;230&times;</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted" style="margin-top:8px;">*P/E คำนวณที่ราคา ~CN¥327.5 (ปิด 5 มิ.ย. 2026) · ราคา 52 สัปดาห์ ¥113.59&ndash;383.88 · มาร์เก็ตแคป ~¥60B (ปิด) ถึง ~¥72B (จุดสูงสุด) · หุ้น ~183M · P/S ~100&ndash;126&times; · กรอสมาร์จิ้น 9M2025 = 36.6% (ลดจาก ~39%) · เป้านักวิเคราะห์ ¥196.80 (&minus;50%) — เป็นข้อมูลตลาด ไม่ใช่เป้าของรายงานนี้</p>
+      <div class="callout" style="background:var(--white);border:var(--border);">
+        <p style="margin:0;"><span class="tag ana">ANALYSIS</span> จุดที่ตัวเลขจริงเปิดเผย: <strong>(ก)</strong> แม้กำไรจะโตแรง (+146% ปี 2025E จากฐานต่ำที่กำไรเคยหดในปี 2024) <strong>P/E ปี 2027E ที่โบรกเกอร์มองโลกในแง่ดี (รายได้โตเป็น ~2.2 เท่าใน 2 ปี) ก็ยังสูงถึง ~190&ndash;230&times;</strong> <strong>(ข)</strong> กรอสมาร์จิ้นที่ลดลง 2.9pp ขณะแย่งส่วนแบ่ง = หลักฐานตรงว่าการแข่งขันกัดมาร์จิ้นแม้ในผู้นำ <strong>(ค)</strong> โบรกเกอร์เองเตือนความเสี่ยง "สงครามราคารุนแรง / humanoid ผลิตจริงต่ำกว่าคาด"</p>
+      </div>
+
+      <h3 id="s3-2">3.2 Inovance (300124.SZ) — automation + EV เป็นหลัก</h3>
+      <p><span class="tag fact">FACT</span> โครงสร้างรายได้จริง (FY2024) แก้ความเข้าใจผิดสำคัญ: <strong>Inovance ไม่ใช่ "หุ้นหุ่นยนต์บริสุทธิ์"</strong></p>
+      <table>
+        <thead><tr><th>กลุ่มธุรกิจ</th><th class="num">สัดส่วนรายได้ (FY2024)</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>ระบบอัตโนมัติทั่วไป (General Automation)</td><td class="num">~53%</td><td class="small muted">แกนหลัก — servo, PLC, inverter; โต +17% (H1/25)</td></tr>
+          <tr><td>ยานยนต์ไฟฟ้า (NEV powertrain)</td><td class="num">~33%</td><td class="small muted"><strong>เครื่องยนต์การเติบโต</strong> — โต ~+50% (H1/25)</td></tr>
+          <tr><td>หุ่นยนต์ + ลิฟต์ + อื่น ๆ</td><td class="num">~14%</td><td class="small muted">หุ่นยนต์เองเป็นเพียงส่วนน้อย (~5&ndash;14%)</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px;"><span class="tag fact">FACT</span> ผลประกอบการ: 9M2025 รายได้ ¥31.7B (+25%), กำไรสุทธิ ¥4.3B (+27%), <strong>กรอสมาร์จิ้น 29.3% (&minus;1pp)</strong>, R&amp;D 9.5% ของรายได้ · เป้ามาร์จิ้นสุทธิบริษัทตั้งไว้แค่ 13&ndash;14% · มาร์เก็ตแคป ~¥184B, P/E ~38&ndash;41&times; (forward ~30&ndash;32&times;), PEG ~2.1, ROE 19.5%, <strong>ROIC 9.4%</strong>, D/E 0.16 · <strong>Q1 2026 กำไรประจำ &minus;15%</strong> ทั้งที่รายได้ +13% (จุดเปลี่ยนมาร์จิ้นล่าสุด)</p>
+      <p><span class="tag ana">ANALYSIS</span> Inovance เป็นบริษัทคุณภาพดี-ปานกลาง กระจายธุรกิจ มัลติเปิลสมเหตุสมผลกว่า Leaderdrive มาก แต่ (ก) เป็น proxy ของ capex จีน + วงจร EV จีน มากกว่าจะเป็น "humanoid play"; (ข) มาร์จิ้นถูกบีบ (กรอส &minus;1pp, กำไร Q1/26 &minus;15%) สะท้อนภาวะ involution; (ค) ถ้าจะเล่นหุ่นยนต์ผ่าน Inovance คุณกำลังซื้อ "ส่วนน้อย" ของบริษัท</p>
+    </section>
+
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>คุณภาพ: ROIC เทียบ WACC (สร้างจากตัวเลขจริง)</h2></div>
+      <hr class="div">
+      <p>หัวใจเกณฑ์ Damodaran: ธุรกิจสร้างมูลค่าก็ต่อเมื่อ <strong>ROIC &gt; WACC อย่างยั่งยืน</strong> ฉบับก่อนใช้ WACC แบบเดา (~9&ndash;11%) ครั้งนี้ผมสร้าง WACC จากองค์ประกอบจริง:</p>
+      <div class="grid2">
+        <div class="callout" style="background:var(--white);border:var(--border);">
+          <div class="eyebrow" style="margin-bottom:10px;">การสร้าง WACC (สกุล CN¥)</div>
+          <table style="margin:0;border:none;">
+            <tbody>
+              <tr><td>อัตราปลอดความเสี่ยง (พันธบัตรจีน 10 ปี)</td><td class="num">~1.8%</td></tr>
+              <tr><td>Equity Risk Premium จีน (mature 4.5% + CRP ~1.2%)</td><td class="num">~5.7%</td></tr>
+              <tr><td>Beta (bottom-up อุตสาหกรรมเครื่องจักร/หุ่นยนต์)</td><td class="num">~1.15</td></tr>
+              <tr><td><strong>ต้นทุนส่วนทุน (Cost of Equity)</strong></td><td class="num"><strong>~8.3%</strong></td></tr>
+              <tr><td>ต้นทุนหนี้หลังภาษี (AAA จีน ~2.7%, ภาษี 15&ndash;25%)</td><td class="num">~2.2%</td></tr>
+              <tr><td>โครงสร้างทุน (หนี้น้อย ~8%)</td><td class="num">E~92% / D~8%</td></tr>
+              <tr><td><strong>WACC โดยประมาณ</strong></td><td class="num"><strong>~8.0%</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="background:var(--white);border:var(--border);">
+          <div class="eyebrow" style="margin-bottom:10px;">ทำไมต่ำกว่าที่เคยเดา</div>
+          <p class="small" style="margin:0 0 8px;"><span class="tag ana">ANALYSIS</span> ดอกเบี้ยจีน 10 ปีอยู่แค่ ~1.8% (ต่ำสุดในรอบหลายปี จากภาวะเงินฝืด) ทำให้ WACC ออกมา ~8% ไม่ใช่ ~10%</p>
+          <p class="small muted" style="margin:0;"><strong>ดาบสองคม:</strong> WACC ต่ำ "ดัน" มูลค่า DCF ขึ้น — แต่ต้องจับคู่กับ terminal growth ต่ำ (~2&ndash;3%) ให้สอดคล้องกับเงินเฟ้อ/GDP เชิงนามที่ต่ำ มิฉะนั้นจะได้มูลค่าเฟ้อเกินจริง</p>
+        </div>
+      </div>
+
+      <h4>ตารางคุณภาพ: ส่วนต่าง ROIC &minus; WACC (การกระจายตัวที่เผยตัวจริง)</h4>
+      <table>
+        <thead><tr><th>บริษัท</th><th class="num">ROIC</th><th class="num">WACC (โดยประมาณ)</th><th class="num">ส่วนต่าง</th><th>คุณภาพ (เกณฑ์ Damodaran)</th></tr></thead>
+        <tbody>
+          <tr><td>Fanuc (6954, ญี่ปุ่น)</td><td class="num">12.2%</td><td class="num">~6&ndash;7%</td><td class="num">+5&ndash;6pp</td><td><span class="chip"><span class="dot good"></span>moat จริง (สร้างมูลค่าชัด)</span></td></tr>
+          <tr><td>Inovance (300124, จีน)</td><td class="num">9.4%</td><td class="num">~8.0%</td><td class="num">+1.4pp</td><td><span class="chip"><span class="dot good"></span>สร้างมูลค่า "เล็กน้อย" (แก้จากเดิม)</span></td></tr>
+          <tr><td>Yaskawa (6506, ญี่ปุ่น)</td><td class="num">5.8%</td><td class="num">~6&ndash;7%</td><td class="num">~&minus;0.5pp</td><td><span class="chip"><span class="dot watch"></span>เฉียดศูนย์/ต่ำกว่าเล็กน้อย</span></td></tr>
+          <tr><td>HDSI (6324, ญี่ปุ่น)</td><td class="num">ตกต่ำ</td><td class="num">~6&ndash;7%</td><td class="num">ติดลบ</td><td><span class="chip"><span class="dot bad"></span>มาร์จิ้นพังเหลือ 2.7% &rarr; ต่ำกว่า WACC</span></td></tr>
+          <tr><td>Leaderdrive (688017, จีน)</td><td class="num">สูง (ฐานเล็ก)</td><td class="num">~8.0%</td><td class="num">+ (ตอนนี้)</td><td><span class="chip"><span class="dot watch"></span>บวกตอนนี้ แต่กรอสมาร์จิ้นกำลังลด</span></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:14px;"><span class="tag ana">ANALYSIS</span> <strong>บทเรียนจากตารางนี้:</strong> "ผู้นำ" ไม่เท่ากับ "สร้างมูลค่า" — Fanuc คือ moat จริง (ROIC 12.2% &gt;&gt; WACC) ส่วน Yaskawa/HDSI ปัจจุบัน <em>ไม่</em>สร้างมูลค่า แม้เป็นแบรนด์ระดับโลก · <strong>Inovance สร้างมูลค่าเล็กน้อย (+1.4pp)</strong> — นี่คือการแก้ให้ถูกต้องจากฉบับก่อน: ไม่ใช่ "ทำลายมูลค่า" แต่ก็ห่างไกล moat ⭐⭐⭐⭐⭐ · <strong>Leaderdrive</strong> ROIC สูงตอนนี้แต่บนฐานรายได้ ~¥570M และกรอสมาร์จิ้นกำลังลด — ความเสี่ยงคือ "มาร์จิ้นกลับสู่ค่าเฉลี่ย" แบบที่เกิดกับ HDSI แล้ว (2.7%)</p>
+    </section>
+
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>Valuation</h2></div>
+      <hr class="div">
+
+      <h3 id="s5-1">5.1 เทียบมัลติเปิลคู่เทียบ (ตัวเลขปัจจุบันจริง)</h3>
+      <table>
+        <thead><tr><th>บริษัท</th><th class="num">P/E (TTM)</th><th class="num">P/E (fwd)</th><th class="num">EV/EBITDA</th><th class="num">Op margin</th><th class="num">ROIC</th><th class="num">โตรายได้</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ผู้ทำ reducer (ฟองสบู่กระจุก)</strong></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+          <tr><td>Leaderdrive (688017)</td><td class="num">~440&ndash;500&times;</td><td class="num">~290&times;</td><td class="num">สูงมาก</td><td class="num">~30%&dagger;</td><td class="num">สูง*</td><td class="num">+47%</td></tr>
+          <tr><td>Harmonic Drive Sys. (6324)</td><td class="num">~420&ndash;470&times;</td><td class="num">~145&times;</td><td class="num">สูงมาก</td><td class="num">~4%</td><td class="num">ต่ำ</td><td class="num">+7%</td></tr>
+          <tr><td><strong>ผู้ทำหุ่นยนต์/automation (ปกติกว่า)</strong></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num"></td></tr>
+          <tr><td>Fanuc (6954)</td><td class="num">~46&times;</td><td class="num">~39&times;</td><td class="num">~26&times;</td><td class="num">21%</td><td class="num">12.2%</td><td class="num">+8%</td></tr>
+          <tr><td>Inovance (300124)</td><td class="num">~38&ndash;41&times;</td><td class="num">~31&times;</td><td class="num">~36&times;</td><td class="num">~14%</td><td class="num">9.4%</td><td class="num">+25%</td></tr>
+          <tr><td>Yaskawa (6506)</td><td class="num">~21&times;</td><td class="num">~29&times;</td><td class="num">~18&times;</td><td class="num">9%</td><td class="num">5.8%</td><td class="num">flat</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted" style="margin-top:8px;">&dagger;กรอสมาร์จิ้น 36.6%; *ROIC สูงบนฐานเล็ก · Nabtesco (6268) = ผู้นำ RV reducer ~60% โลก (เทรด ~15&ndash;20&times; โดยทั่วไป) · สกุล: 688017/300124 = CN¥; 6324/6954/6506/6268 = JP¥</p>
+      <div class="callout bad" style="margin-top:6px;">
+        <p style="margin:0;"><span class="tag ana">ANALYSIS</span> <strong>หลักฐานที่ชัดที่สุดว่าฟองสบู่อยู่ตรงไหน:</strong> ผู้ทำ <em>reducer</em> (Leaderdrive, HDSI) เทรด ~420&ndash;500&times; ขณะที่ผู้ทำ <em>หุ่นยนต์/automation</em> (Fanuc 46&times;, Inovance 38&times;, Yaskawa 21&times;) เทรดเพียง 20&ndash;46&times; — ส่วนต่าง ~10 เท่าคือ <strong>"ราคาออปชัน humanoid" ล้วน ๆ</strong> ที่กระจุกในตัว reducer และที่น่าสังเกต: HDSI มาร์จิ้นเหลือ 4% แต่ยังเทรด ~450&times; = ราคา<strong>หลุดจากกำไรปัจจุบันโดยสิ้นเชิง</strong> จ่ายเพื่ออนาคต humanoid 100%</p>
+      </div>
+
+      <h3 id="s5-2">5.2 Reverse-DCF: "ราคาปัจจุบันเรียกร้องอะไร?"</h3>
+      <p>แทนที่จะทาย "มูลค่าที่แท้จริง" (ซึ่งจะเป็นความแม่นยำลวง) เราถอดสมการกลับ: ที่ราคา ~CN¥327.5 (มาร์เก็ตแคป ~¥60B) และกำไรปี 2025E ~¥130M ราคานี้เรียกร้องการเติบโตเท่าไร?</p>
+      <div class="callout" style="background:var(--white);border:var(--border);">
+        <div class="eyebrow" style="margin-bottom:10px;">การคำนวณเชิงอธิบาย (illustrative — ไม่ใช่เป้าราคา)</div>
+        <p class="small" style="margin:0 0 6px;">สมมติผู้ลงทุนต้องการผลตอบแทน = ต้นทุนส่วนทุน ~8.3%/ปี เป็นเวลา 10 ปี แล้วหุ้นไปเทรดที่ P/E "อิ่มตัว" ~30&times; (แบบ Fanuc):</p>
+        <ul class="small" style="margin:0 0 6px;">
+          <li>มาร์เก็ตแคปที่ต้องมีในปี 2036 = ¥60B &times; (1.083)<sup>10</sup> ≈ <strong>¥134B</strong></li>
+          <li>กำไรสุทธิที่ต้องทำได้ (ที่ 30&times;) ≈ <strong>¥4.5B</strong> เทียบ ¥130M วันนี้</li>
+          <li>&rarr; ต้องโตกำไร ~35 เท่าใน 10 ปี = <strong>CAGR ~43%/ปี ติดต่อกัน 10 ปี</strong></li>
+        </ul>
+        <p class="small muted" style="margin:0;">นี่คือ "ราคาตั๋ว" ของหุ้นวันนี้: เติบโตกำไร ~43%/ปี ทศวรรษ <em>พร้อม</em>รักษามาร์จิ้น ~22% (ขณะที่ผู้นำ moat HDSI เหลือ 2.7%) — เพียงเพื่อให้ได้ผลตอบแทน "เท่าต้นทุนทุน" เท่านั้น ยังไม่นับ "ส่วนเผื่อความปลอดภัย"</p>
+      </div>
+      <p style="margin-top:14px;"><span class="tag ana">ANALYSIS</span> เทียบกับความเป็นจริง: Goldman ฐาน (250K ตัวปี 2030, ~70% CAGR ของ <em>อุตสาหกรรม</em>) อาจหนุนการเติบโต<em>รายได้</em>ที่สูงได้ — แต่การเติบโต<strong>กำไร</strong> ~43%/ปี ติดต่อกัน 10 ปี <em>พร้อมรักษามาร์จิ้น</em> เป็นเดิมพันที่ต้องชนะทั้งสองด้าน (ปริมาณ <em>และ</em> มาร์จิ้น) ขณะที่หลักฐานมาร์จิ้น (HDSI 2.7%, กรอส Leaderdrive ลด, คลื่นคู่แข่งจีน) ชี้ความเสี่ยงด้านมาร์จิ้นชัดเจน</p>
+    </section>
+
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>ฉากทัศน์ &amp; มูลค่าคาดหวัง (ถ่วงน้ำหนัก)</h2></div>
+      <hr class="div">
+      <p>หัวใจของเรื่องคือ "ส้อมทาง humanoid" เราจึงวางสามฉากทัศน์เชิงอธิบายสำหรับ Leaderdrive (ค่าเป็น <em>มูลค่าเชิงอธิบาย</em> ไม่ใช่เป้าราคา) แล้วถ่วงน้ำหนักด้วยความน่าจะเป็น</p>
+      <table>
+        <thead><tr><th>ฉากทัศน์</th><th class="num">น้ำหนัก</th><th>สมมติฐานหลัก</th><th class="num">มูลค่าเชิงอธิบาย/หุ้น</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bull</strong> — humanoid super-cycle</td><td class="num">30%</td><td class="small muted">Goldman+ ฐานเป็นจริง, Leaderdrive เก็บส่วนแบ่งที่มาร์จิ้น ~20%, exit ~50&times;</td><td class="num">~¥330&ndash;400</td></tr>
+          <tr><td><strong>Base</strong> — โตจริงแต่มาร์จิ้นถูกบีบ</td><td class="num">45%</td><td class="small muted">อุตสาหกรรมโตตาม Goldman ฐาน แต่สงครามราคากดมาร์จิ้นเหลือ ~12&ndash;15%, exit ~40&times;</td><td class="num">~¥180&ndash;220</td></tr>
+          <tr><td><strong>Bear</strong> — humanoid ช้า + involution</td><td class="num">25%</td><td class="small muted">humanoid เลื่อน, ตีมูลค่าแบบผู้ทำชิ้นส่วนปกติที่ ~35&ndash;40&times; บนกำไรอุตสาหกรรม</td><td class="num">~¥50&ndash;90</td></tr>
+        </tbody>
+        <tfoot><tr><td>มูลค่าคาดหวัง (ถ่วงน้ำหนัก)</td><td class="num">100%</td><td class="small">≈ 0.30&times;365 + 0.45&times;200 + 0.25&times;70</td><td class="num"><strong>~¥215</strong></td></tr></tfoot>
+      </table>
+      <div class="callout accent" style="margin-top:14px;">
+        <p style="margin:0;"><span class="tag ana">ANALYSIS</span> <strong>ข้อสรุปเชิงตัวเลข:</strong> มูลค่าคาดหวังถ่วงน้ำหนัก ~¥215 เทียบราคาปัจจุบัน ~¥327&ndash;368 &rarr; ส่วนต่าง ~&minus;35% ถึง &minus;40% และน่าสังเกตว่า <strong>ราคาปัจจุบัน ≈ ฉาก Bull</strong> (¥330&ndash;400) ส่วนฉันทามตินักวิเคราะห์ (¥196.80) ≈ ฉาก Base — แปลว่าตลาดกำลัง<strong>คิดราคาฉาก Bull ไว้แล้วเกือบเต็ม</strong> คุณจึงแทบไม่ได้ "ส่วนเผื่อ" หาก Bull เกิดจริง แต่รับ downside เต็มหาก Base/Bear เกิด — นี่คือ<strong>ความไม่สมมาตรเชิงลบ</strong></p>
+      </div>
+      <p class="small muted" style="margin-top:12px;">หมายเหตุ: น้ำหนักและมูลค่าเป็นการประมาณเชิงอธิบายเพื่อกรอบความคิด สะท้อนความไม่แน่นอนสูงของจังหวะ humanoid ผู้อ่านควรปรับด้วยมุมมองตนเอง — ไม่ใช่เป้าราคาหรือคำพยากรณ์</p>
+    </section>
+
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+      <table>
+        <thead><tr><th>ความเสี่ยง</th><th class="num">โอกาส</th><th class="num">ผลกระทบ</th><th>คำอธิบาย (อิงข้อมูลจริง)</th></tr></thead>
+        <tbody>
+          <tr><td>มาร์จิ้นกลับสู่ค่าเฉลี่ย</td><td class="num">สูง</td><td class="num">สูง</td><td class="small muted">HDSI 2.7%, กรอส Leaderdrive ลด 2.9pp, Inovance Q1/26 &minus;15% = สัญญาณนำชัด</td></tr>
+          <tr><td>ฟองสบู่มัลติเปิลแตก</td><td class="num">สูง</td><td class="num">สูง</td><td class="small muted">ทั้งกลุ่ม reducer (รวม HDSI) ~450&times; พร้อมกัน; การ de-rate กระทบทั้งกลุ่ม</td></tr>
+          <tr><td>overcapacity/involution ในชิ้นส่วน</td><td class="num">สูง</td><td class="num">กลาง-สูง</td><td class="small muted">Dallas Fed: กลุ่ม MiC2025 (รวมหุ่นยนต์) เงินฝืดผู้ผลิตแรงสุด (&minus;2.2%)</td></tr>
+          <tr><td>humanoid เลื่อนไทม์ไลน์</td><td class="num">กลาง-สูง</td><td class="num">สูง</td><td class="small muted">ของจริง ~5,500 ตัว/ปี; แบงก์เองบอกโตช้าจนกลางทศวรรษ 2030</td></tr>
+          <tr><td>ลูกค้า (ผู้ทำหุ่นยนต์) ล้ม/ควบรวม</td><td class="num">กลาง</td><td class="num">กลาง</td><td class="small muted">100+ ราย &rarr; 20&ndash;30 ราย; ความเสี่ยงลูกหนี้ + แรงกดราคาไหลย้อนขึ้น</td></tr>
+          <tr><td>ภูมิรัฐศาสตร์ (สองคม)</td><td class="num">กลาง</td><td class="num">สูง</td><td class="small muted">บวก: จีนคุมแม่เหล็กแร่หายาก (วัตถุดิบ servo); ลบ: เพดานชิป + ส่งออกถูกจำกัด; ดีลพัก ~พ.ย. 2026</td></tr>
+          <tr><td>ความขัดแย้งใหญ่ (ไต้หวัน)</td><td class="num">ต่ำ-กลาง</td><td class="num">สูงมาก</td><td class="small muted">ความเสี่ยงเชิงระบบ ป้องกันไม่ได้</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="s8">
+      <div class="sec-h"><span class="sec-no">8</span><h2>คำตัดสิน &amp; สิ่งที่จะเปลี่ยนมุมมอง</h2></div>
+      <hr class="div">
+      <div class="grid2">
+        <div class="callout good">
+          <h3 style="margin-top:0;">สิ่งที่จะทำให้ "บวกขึ้น" (de-risking)</h3>
+          <ul style="margin-bottom:0;">
+            <li class="small"><strong>มาร์จิ้น HDSI/Inovance ทรงตัว/ฟื้น</strong> 2&ndash;3 ไตรมาส = สงครามราคาคลาย</li>
+            <li class="small"><strong>ยอดส่งมอบ humanoid "ทำงานจริง"</strong> ทะลุหลักหมื่น/แพลตฟอร์ม</li>
+            <li class="small"><strong>ราคาปรับฐาน</strong> สู่ระดับที่ reverse-DCF เรียกร้องการเติบโต "สมเหตุสมผล" (เช่น &lt;25%/ปี)</li>
+            <li class="small"><strong>PPI/กำไรอุตสาหกรรมจีนฟื้น</strong> ต่อเนื่องเชิงคุณภาพ + ดีลพักภาษีต่ออายุ</li>
+          </ul>
+        </div>
+        <div class="callout bad">
+          <h3 style="margin-top:0;">สิ่งที่ยืนยัน "ระวัง" (thesis-confirming)</h3>
+          <ul style="margin-bottom:0;">
+            <li class="small">งบ Q2/2026 (HDSI ~11 ส.ค. · Leaderdrive ~17 ส.ค.) <strong>กรอสมาร์จิ้นลดต่อ</strong></li>
+            <li class="small">คู่แข่ง reducer จีนหน้าใหม่<strong>ตัดราคา</strong>เพิ่ม</li>
+            <li class="small">humanoid <strong>เลื่อน</strong> เป้าผลิตอีกครั้ง (เช่น Tesla)</li>
+            <li class="small">ดีลพักมาตรการสหรัฐ-จีน <strong>ปะทุ</strong> ~พ.ย. 2026</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>คำตัดสินสุดท้าย</h3>
+        <p>หลังอิงข้อมูลจริง ผมยืนยัน<strong>จุดยืนแบบมีเงื่อนไข: "รอ"</strong> (ไม่ใช่ "ธีมนี้แย่") — เพราะ (1) ธีมระยะยาวจริง (รันเวย์ density + Bull case humanoid ที่แบงก์หนุนมากขึ้น), (2) แต่<strong>ราคาของ Leaderdrive สะท้อนฉาก Bull ไว้แล้วเกือบเต็ม</strong> (เรียกร้องกำไรโต ~43%/ปี ทศวรรษ + รักษามาร์จิ้น ~22%) ทำให้มูลค่าคาดหวังถ่วงน้ำหนัก (~¥215) ต่ำกว่าราคา (~¥327&ndash;368) อย่างมีนัย และ (3) หลักฐานมาร์จิ้น (HDSI 2.7%, กรอส Leaderdrive ลด) คือความเสี่ยงด้านที่ราคาไม่ได้เผื่อไว้</p>
+        <p style="margin-bottom:0;">กรอบที่สมเหตุสมผลกว่า (เพื่อการศึกษา): ให้ humanoid เป็น <strong>"ออปชันแถมฟรี"</strong> — จ่ายราคาแบบ "ระบบอัตโนมัติอุตสาหกรรม" (ที่รันเวย์ density ค้ำ) แล้วได้ humanoid แถม ตรงข้ามกับการจ่าย ~450&times; เพื่อ <em>ซื้อ</em> ออปชันนั้น · ถ้าต้องการ exposure ควรพิจารณา <strong>ROIC &gt; WACC + มัลติเปิลสมเหตุสมผล</strong> และตระหนักว่าแม้ผู้นำโลก (Fanuc/HDSI) ก็ไม่ถูกในตอนนี้ — "เงินสด + ความอดทน" คือสถานะหนึ่ง</p>
+      </div>
+    </section>
+
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก · ข้อมูล แหล่งอ้างอิง &amp; คำเตือน</h2></div>
+      <hr class="div">
+      <h3>ตารางข้อมูลที่ตรวจสอบแล้ว (ณ ต้น มิ.ย. 2026)</h3>
+      <table>
+        <thead><tr><th>รายการ</th><th class="num">ค่า</th><th>ที่มา</th></tr></thead>
+        <tbody>
+          <tr><td>Leaderdrive 2023A/2024A รายได้</td><td class="num">¥356M / ¥387M</td><td class="small muted">บทวิเคราะห์ Dongwu/Guoyuan (CNINFO filings)</td></tr>
+          <tr><td>Leaderdrive 9M2025 รายได้/กำไร</td><td class="num">¥407M (+47%) / ¥94M (+59%)</td><td class="small muted">รายงานไตรมาส 3/2025</td></tr>
+          <tr><td>Leaderdrive กรอสมาร์จิ้น 9M2025</td><td class="num">36.6% (&minus;2.9pp)</td><td class="small muted">บทวิเคราะห์โบรกเกอร์</td></tr>
+          <tr><td>Leaderdrive 2025E&ndash;2027E กำไร</td><td class="num">¥120&ndash;138M &rarr; ¥257&ndash;322M</td><td class="small muted">Dongwu/Guoyuan Securities (พ.ย. 2025)</td></tr>
+          <tr><td>Leaderdrive ราคา/52wk/มาร์เก็ตแคป</td><td class="num">¥327.5 / 113.59&ndash;383.88 / ~¥60&ndash;72B</td><td class="small muted">Investing.com/Morningstar (5 มิ.ย. 2026)</td></tr>
+          <tr><td>Leaderdrive เป้านักวิเคราะห์</td><td class="num">¥196.80 (&minus;50%)</td><td class="small muted">ฉันทามติ — ข้อมูลตลาด</td></tr>
+          <tr><td>Inovance โครงสร้างรายได้ FY2024</td><td class="num">IA 53% / NEV 33% / อื่น 14%</td><td class="small muted">MatrixBCG / รายงานบริษัท</td></tr>
+          <tr><td>Inovance 9M2025</td><td class="num">รายได้ ¥31.7B(+25%) / กำไร ¥4.3B(+27%)</td><td class="small muted">Earnings call Q3 2025 (Investing.com)</td></tr>
+          <tr><td>Inovance กรอสมาร์จิ้น / ROIC / ROE</td><td class="num">29.3% / 9.4% / 19.5%</td><td class="small muted">Stockanalysis / earnings call; Q1/26 กำไร &minus;15%</td></tr>
+          <tr><td>HDSI 6324 FY2026</td><td class="num">รายได้ ¥59.6B(+7%) / OP &minus;94% / NM 2.7%</td><td class="small muted">รายงานบริษัท; P/E ~420&ndash;470&times;</td></tr>
+          <tr><td>Fanuc 6954</td><td class="num">P/E ~46&times; / ROIC 12.2% / op 21%</td><td class="small muted">Stockanalysis (TYO)</td></tr>
+          <tr><td>Yaskawa 6506</td><td class="num">P/E ~21&times; / ROIC 5.8% / op 9%</td><td class="small muted">Stockanalysis (TYO)</td></tr>
+          <tr><td>humanoid forecast</td><td class="num">GS 250K(2030)/1.4M(2035); MS 13M(2035)</td><td class="small muted">Goldman Sachs, Morgan Stanley, Citi</td></tr>
+          <tr><td>humanoid ของจริง 2025</td><td class="num">Unitree ~5,500</td><td class="small muted">VaaSBlock/Humanoid.press; Tesla "หลักร้อย"</td></tr>
+          <tr><td>WACC inputs (จีน)</td><td class="num">Rf 1.8% · ERP ~5.7% · &beta; ~1.15</td><td class="small muted">TradingEconomics/ChinaBond; Damodaran ctry premiums</td></tr>
+          <tr><td>robot density จีน / ส่วนแบ่งติดตั้ง</td><td class="num">166 / 54%</td><td class="small muted">IFR World Robotics 2025</td></tr>
+        </tbody>
+      </table>
+      <h3>แหล่งข้อมูล</h3>
+      <p class="small muted">งบ/บทวิเคราะห์: CNINFO, Dongwu Securities, Guoyuan Securities, Futubull, Xueqiu, Stockanalysis, Investing.com, Morningstar, TipRanks · ตลาด/มหภาค: IFR World Robotics 2025, Statista, TradingEconomics, ChinaBond, Dallas Fed · humanoid: Goldman Sachs Research, Morgan Stanley Research, Citi, VaaSBlock, Humanoid.press, mlq.ai · ต้นทุนทุน: Damodaran (NYU Stern) country risk premiums · ชุดงานวิจัยต้นฉบับที่ผู้ใช้อัปโหลด</p>
+      <p class="small muted">ข้อจำกัด: ตัวเลข 2025E&ndash;2027E เป็น<strong>ประมาณการของโบรกเกอร์</strong> · P/E เคลื่อนตามราคารายวันที่ผันผวนสูง · มูลค่าฉากทัศน์/น้ำหนักความน่าจะเป็นเป็นการประมาณ<strong>เชิงอธิบาย</strong> · ควรตรวจสอบกับเอกสารยื่นต้นทาง (annual report) ก่อนตัดสินใจจริง · WACC/ERP เป็นค่าประมาณตามกรอบ Damodaran ปรับได้ตามมุมมอง</p>
+      <h3>คำเตือนความเสี่ยง (Disclaimer)</h3>
+      <p class="small"><strong>เอกสารนี้เป็นงานวิจัยเชิงวิเคราะห์เพื่อการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่คำแนะนำให้ซื้อหรือขายหลักทรัพย์ใด ไม่ใช่เป้าราคา และไม่ได้ปรับให้เหมาะกับสถานการณ์เฉพาะบุคคล ตัวเลขเป้าหมายนักวิเคราะห์และมูลค่าฉากทัศน์ที่อ้างถึงเป็นข้อมูล/การประมาณเชิงอธิบาย มิใช่คำพยากรณ์ การลงทุนมีความเสี่ยง ผลตอบแทนไม่มีการรับประกัน ผู้ลงทุนควรศึกษาข้อมูลและตรวจสอบด้วยตนเอง (Do Your Own Research) ก่อนตัดสินใจ</p>
+    </section>
+
+    <footer>
+      หุ่นยนต์ฮาร์ดแวร์จีน · งานวิจัยการลงทุน ฉบับอิงข้อมูลจริง v2.0 · จัดทำ 7 มิ.ย. 2026 · งานวิจัยเพื่อการศึกษา — ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a = map[e.target.id]; if(a) a.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+    document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+  })();
+</script>
+</body>
+</html>
