@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eastern Polymer Group (EPG.BK) — บทวิเคราะห์การลงทุน</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI','Noto Sans Thai',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc>summary{display:none;}
+  .toc .toc-desk{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:6px 0 6px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+  .insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+           border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+  .insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:36px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;letter-spacing:.02em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 0;}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);white-space:nowrap;}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);white-space:nowrap;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:16px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout.good-callout{background:var(--white);border-left:4px solid var(--good);}
+  .callout.bad-callout{background:var(--white);border-left:4px solid var(--bad);}
+  .callout h3{margin-top:0;}
+
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-scale .seg.on-watch{background:var(--watch);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);padding:9px 12px;}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;padding:9px 12px;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;}
+
+  .chart{margin:10px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+  .chart svg{width:100%;height:auto;display:block;}
+  .chart figcaption{margin-bottom:8px;font-size:13px;color:var(--gray-700);}
+
+  .highlight-row td{background:#FFF8F0 !important;}
+
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:28px;}
+    .toc .toc-desk{display:none;}
+    .toc>summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);list-style:none;}
+    .toc>summary::-webkit-details-marker{display:none;}
+    details.toc:not([open])>ol{display:none;}
+    .toc ol{margin-top:12px;}
+    .grid2{grid-template-columns:1fr;}
+    .grid3{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:720px){
+    .shell{padding:28px 16px 80px;}
+    h1{font-size:28px;} h2{font-size:20px;} h3{font-size:16px;}
+    .insight-lead{font-size:18px;}
+    .stat .v{font-size:28px;}
+    .band{grid-template-columns:repeat(2,1fr);}
+    table{font-size:13px;} thead th,tbody td{padding:10px 11px;}
+    .grid3{grid-template-columns:1fr;}
+  }
+  @media(max-width:420px){.band{grid-template-columns:1fr;}}
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<details class="toc" open>
+  <summary>สารบัญ · Contents ▾</summary>
+  <div class="eyebrow toc-desk">สารบัญ</div>
+  <ol>
+    <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+    <li><a href="#s1">1 · ธุรกิจและเรื่องราว</a></li>
+    <li><a class="sub" href="#s1-1">1.1 รูปแบบธุรกิจ 3 ขา</a></li>
+    <li><a class="sub" href="#s1-2">1.2 Moat &amp; ความได้เปรียบ</a></li>
+    <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; TAM</a></li>
+    <li><a class="sub" href="#s1-4">1.4 Aeroflex USA &amp; การเติบโต</a></li>
+    <li><a class="sub" href="#s1-5">1.5 วงจรชีวิต &amp; 3P</a></li>
+    <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+    <li><a class="sub" href="#s2-norm">2.1 กำไรปกติ (ex-ECL/FX)</a></li>
+    <li><a class="sub" href="#s2-sga">2.2 ผลกระทบ SG&amp;A/Sales</a></li>
+    <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+    <li><a href="#s4">4 · ผลประกอบการ &amp; Sentiment</a></li>
+    <li><a href="#s5">5 · เทคนิค &amp; แผนการลงทุน</a></li>
+    <li><a class="sub" href="#s5-1">5.1 เทคนิคอล &amp; Timing</a></li>
+    <li><a class="sub" href="#s5-2">5.2 Scenarios</a></li>
+    <li><a class="sub" href="#s5-3">5.3 แผนการลงทุน</a></li>
+    <li><a href="#s6">6 · ความเสี่ยงหลัก</a></li>
+    <li><a href="#appendix">ภาคผนวก</a></li>
+  </ol>
+</details>
+
+<main class="doc">
+
+<header class="rep-head">
+  <div class="head-top">
+    <h1>Eastern Polymer Group</h1>
+    <span class="pill">งานวิจัย · ไม่ใช่คำแนะนำการลงทุน</span>
+  </div>
+  <div class="descriptor">ผู้ผลิตฉนวนความร้อน EPDM (Aeroflex) · อุปกรณ์ตกแต่งรถยนต์ (Aeroklas) · บรรจุภัณฑ์พลาสติก (Eastern Polypack)</div>
+  <div class="meta mono">EPG.BK · SET · THB · ณ 11 มิถุนายน 2569 · ราคา 5.55 THB</div>
+</header>
+
+<!-- ===== บทสรุปผู้บริหาร ===== -->
+<section id="summary">
+  <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+  <hr class="div">
+
+  <div class="insight">
+    <div class="eyebrow">ข้อมูลเชิงลึกการลงทุนหลัก · Key Investment Insight</div>
+    <p class="insight-lead">เงินง่ายถูกเก็บไปแล้ว — หุ้น EPG ขึ้น +86% ใน 5 เดือน สะท้อน Recovery Story ไปมากแล้ว Catalyst ที่เหลือคือโรงงาน Aeroflex USA แห่งใหม่ (ส.ค. 2569) ซึ่งยังไม่เต็มสะท้อนในราคา</p>
+    <p class="small muted">ราคา 5.55 บาทเทียบเท่า P/E ราว 12x EPS FY25/26E (~0.46 บาท) — ถือว่าสมเหตุสมผล แต่ไม่ถูกอีกต่อไป โรงงาน Aeroflex USA แห่งใหม่ที่จะเริ่มเดินสายการผลิตในเดือน ส.ค. 2569 คือ Catalyst ที่ยังคงหลงเหลืออยู่ หากโรงงานใหม่ดำเนินงานเต็มกำลัง จะเพิ่ม Revenue +300–400 ล้านบาท และ Net Profit +50–80 ล้านบาท ดัน EPS FY26/27 ไปสู่ ~0.50+ บาท ซึ่งที่ P/E 12–13x คิดเป็น Fair Value ~6.0–6.5 บาท</p>
+  </div>
+
+  <div class="band">
+    <div class="stat warn">
+      <div class="v">5.55</div>
+      <div class="k">ราคาปัจจุบัน (THB)</div>
+      <div class="d up">+3.74% วันนี้ | 52W: 2.20–6.30</div>
+    </div>
+    <div class="stat">
+      <div class="v">~5.5</div>
+      <div class="k">มูลค่าพื้นฐาน Base Case (THB)</div>
+      <div class="d flat">Blended DCF + P/E + SOTP</div>
+    </div>
+    <div class="stat">
+      <div class="v">~0%</div>
+      <div class="k">Upside/Downside vs Base</div>
+      <div class="d watch">Fair valued ที่ราคาปัจจุบัน</div>
+    </div>
+    <div class="stat">
+      <div class="v">12.0x</div>
+      <div class="k">P/E FY25/26E</div>
+      <div class="d watch">EPS ~0.46 บาท (เบื้องต้น)</div>
+    </div>
+  </div>
+
+  <div class="callout accent">
+    <h3>วิทยานิพนธ์การลงทุน</h3>
+    <p>EPG เป็นบริษัทที่ขับเคลื่อนโดย Aeroflex — ธุรกิจฉนวน EPDM ที่มี Moat แคบ–กลาง จากสิทธิบัตรและสถานะ Sole Manufacturer at Scale ซึ่งกำลังได้รับแรงส่งจากความต้องการ Data Center, Semiconductor Plant, และ Reshoring ในสหรัฐฯ ราคาที่ 5.55 บาทสะท้อน Recovery Story ไปส่วนใหญ่แล้ว (จาก 2.20 ต่ำสุด 52W) — กำไรปกติที่ไม่รวม ECL/FX ยืนที่ ~1,200–1,300 ล้านบาท สอดคล้องกับที่ตลาดรับรู้แล้ว Aeroklas ยังเป็นแรงถ่วงจาก TJM Australia (-270–330 ล้านบาท ต่อปี) แต่กำลังฟื้นตัวทีละน้อย Bull Case ขึ้นกับโรงงาน Aeroflex USA ใหม่และการลดขาดทุน TJM อย่างต่อเนื่อง <a href="#s3">รายละเอียด Valuation ใน §3</a> · <a href="#s5-2">Scenarios ใน §5.2</a></p>
+  </div>
+</section>
+
+<!-- ===== §1 ธุรกิจและเรื่องราว ===== -->
+<section id="s1">
+  <div class="sec-h"><span class="sec-no">01</span><h2>ธุรกิจและเรื่องราว</h2></div>
+  <hr class="div">
+
+  <p>Eastern Polymer Group (EPG) เป็น Holding Company ที่ดำเนินธุรกิจผ่าน 3 แขนงหลัก ก่อตั้งปี 2521 ฐานการผลิตในไทย ออสเตรเลีย สหรัฐฯ จีน และมีเครือข่ายการจำหน่ายกว่า 100 ประเทศทั่วโลก EPG ใช้กลยุทธ์ "Advance–Defend–Retreat" โดยประเมินสภาวะตลาดในแต่ละธุรกิจแยกกัน</p>
+
+  <section id="s1-1">
+    <h3>1.1 รูปแบบธุรกิจ 3 ขา — ผลกระทบต่อรายได้และกำไร</h3>
+
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ธุรกิจ</th>
+          <th>แบรนด์</th>
+          <th class="num">รายได้ FY24/25 (ล้าน THB)</th>
+          <th class="num">สัดส่วน %</th>
+          <th class="num">GPM (โดยประมาณ)</th>
+          <th>สถานะ</th>
+          <th>ผลกระทบต่อกำไรกลุ่ม</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td><strong>Aeroflex</strong><br><span class="small muted">ฉนวนความร้อน EPDM</span></td>
+          <td>Aeroflex</td>
+          <td class="num">4,214.8</td>
+          <td class="num">30.6%</td>
+          <td class="num"><span style="color:var(--good);font-weight:600;">47–48%</span></td>
+          <td><span class="chip"><span class="dot good"></span>แข็งแกร่งที่สุด</span></td>
+          <td>เครื่องยนต์หลักของกำไร — ส่วน Operating Profit สูงสุด แม้ Revenue น้อยกว่า Aeroklas</td>
+        </tr>
+        <tr>
+          <td><strong>Aeroklas</strong><br><span class="small muted">อุปกรณ์ตกแต่งรถยนต์</span></td>
+          <td>Aeroklas, TJM</td>
+          <td class="num">6,997.1</td>
+          <td class="num">50.7%</td>
+          <td class="num"><span style="color:var(--watch);font-weight:600;">~27%</span></td>
+          <td><span class="chip"><span class="dot bad"></span>อ่อนแอสุด (TJM)</span></td>
+          <td>Revenue ใหญ่สุด แต่ TJM Australia ดึงกำไรลง ~330 ล้านบาท/ปี (Peak); กำลังฟื้นตัว</td>
+        </tr>
+        <tr>
+          <td><strong>Eastern Polypack</strong><br><span class="small muted">บรรจุภัณฑ์พลาสติก</span></td>
+          <td>EPP</td>
+          <td class="num">2,578.0</td>
+          <td class="num">18.7%</td>
+          <td class="num"><span style="color:var(--gray-500);font-weight:600;">15–16%</span></td>
+          <td><span class="chip"><span class="dot watch"></span>เสถียรแต่ margin ต่ำ</span></td>
+          <td>Stable Base — กำไรต่อหน่วยต่ำที่สุด ปรับโครงสร้างต้นทุนอย่างต่อเนื่อง</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>รวม</strong></td>
+          <td class="num">13,789.9</td>
+          <td class="num">100%</td>
+          <td class="num">33.4%</td>
+          <td colspan="2"></td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+
+    <div class="callout good-callout" style="margin-top:16px;">
+      <strong>ขาที่แข็งแกร่งที่สุด: Aeroflex</strong><br>
+      แม้ Aeroflex สร้างรายได้เพียง 30.6% แต่มี GPM ~47–48% สูงกว่า Aeroklas (~27%) เกือบเท่าตัว หมายความว่า Aeroflex สร้าง Gross Profit ราว 2,000 ล้านบาท จาก Revenue เพียง 4,215 ล้านบาท ในขณะที่ Aeroklas สร้าง Gross Profit ~1,900 ล้านบาท จาก Revenue 6,997 ล้านบาท ความสำคัญของ Aeroflex ต่อกำไรสุทธิของกลุ่มจึงสูงกว่าสัดส่วน Revenue มาก
+    </div>
+
+    <!-- SVG Revenue Mix donut approximation as stacked bar -->
+    <div class="chart">
+      <figcaption>สัดส่วนรายได้ FY24/25 (แสดงเป็น stacked bar)</figcaption>
+      <svg viewBox="0 0 600 80" xmlns="http://www.w3.org/2000/svg" style="max-height:80px;">
+        <!-- Aeroflex 30.6% -->
+        <rect x="0" y="20" width="183.6" height="36" fill="#788C5D" rx="4"/>
+        <text x="91.8" y="44" text-anchor="middle" fill="white" font-size="13" font-family="system-ui">Aeroflex 30.6%</text>
+        <!-- Aeroklas 50.7% -->
+        <rect x="186.6" y="20" width="304.2" height="36" fill="#D97757" rx="0"/>
+        <text x="338.7" y="44" text-anchor="middle" fill="white" font-size="13" font-family="system-ui">Aeroklas 50.7%</text>
+        <!-- EPP 18.7% -->
+        <rect x="493.8" y="20" width="106.2" height="36" fill="#87867F" rx="4"/>
+        <text x="547" y="44" text-anchor="middle" fill="white" font-size="11" font-family="system-ui">EPP 18.7%</text>
+      </svg>
+    </div>
+  </section>
+
+  <section id="s1-2">
+    <h3>1.2 Moat และความได้เปรียบในการแข่งขัน</h3>
+    <p>Moat ของ EPG กระจุกตัวอยู่ที่ Aeroflex เกือบทั้งหมด</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+      <span class="tag">สิทธิบัตร EPDM</span>
+      <span class="tag">Sole Manufacturer Scale</span>
+      <span class="tag">ต้นทุนการเปลี่ยน (switching cost)</span>
+      <span class="tag">เครือข่ายจำหน่าย 100+ ประเทศ</span>
+    </div>
+
+    <div style="margin-bottom:8px;"><strong>Moat Strength — Aeroflex</strong></div>
+    <div class="moat-scale">
+      <div class="seg on"></div>
+      <div class="seg on"></div>
+      <div class="seg on-watch"></div>
+      <div class="seg"></div>
+      <div class="seg"></div>
+    </div>
+    <div class="moat-meta">
+      <span class="small muted">None · Narrow · <strong>Narrow–Wide</strong> · Wide · Deep</span>
+      <span class="chip"><span class="dot good"></span>ทิศทาง: กำลังขยาย (Aeroflex USA)</span>
+    </div>
+
+    <p style="margin-top:14px;">Aeroflex เป็นผู้ผลิตฉนวน EPDM (Ethylene Propylene Diene Monomer) ที่ใหญ่ที่สุดในโลกในแนว Thermal Insulation สำหรับอุตสาหกรรม HVAC โดยมีสิทธิบัตรที่ครอบคลุมทั้งด้านสูตรวัสดุและกระบวนการผลิต การที่ไม่มีคู่แข่งระดับโลกที่ผลิต EPDM Insulation ในขนาดเดียวกันทำให้ Switching Cost สูง เพราะผู้ใช้ต้องผ่านการทดสอบและขึ้นทะเบียนวัสดุใหม่ซึ่งใช้เวลาและเงิน ภัยคุกคามหลักคือคู่แข่งจากจีนที่อาจคัดลอกสูตรได้บางส่วนในระยะกลาง</p>
+    <p><strong>Aeroklas</strong> มี Moat ต่ำกว่า — ผลิต Pickup Truck Liner และอุปกรณ์เสริมในตลาดที่มีการแข่งขันสูง Moat ขึ้นอยู่กับความสัมพันธ์กับผู้ผลิตรถยนต์และการเป็นซัพพลายเออร์อนุมัติ (Approved Vendor) <strong>Eastern Polypack</strong> ไม่มี Moat เชิงโครงสร้าง แข่งกันด้วยราคาและความสัมพันธ์ลูกค้า</p>
+  </section>
+
+  <section id="s1-3">
+    <h3>1.3 อุตสาหกรรมและ TAM</h3>
+    <div class="grid2" style="gap:14px;">
+      <div class="callout">
+        <strong>Aeroflex — TAM ขยายตัวจาก Megatrend</strong><br>
+        ตลาด HVAC Insulation โลกเติบโต 5–7%/ปี ขับเคลื่อนโดย (1) Data Center &amp; AI — ความต้องการฉนวนสำหรับท่อ Chiller และระบบระบายความร้อนพุ่งสูง (2) Reshoring ในสหรัฐฯ — นโยบาย MAGA ดึงการผลิตกลับสหรัฐฯ สร้างโรงงานใหม่จำนวนมาก (3) การประหยัดพลังงาน — กฎระเบียบ ESG บังคับให้ใช้ฉนวนมาตรฐานสูง Aeroflex USA คาดว่าจะเห็นอุปสงค์เพิ่ม 20%/ปี ใน 3 ปีข้างหน้า
+      </div>
+      <div class="callout">
+        <strong>Aeroklas — TAM ขึ้นกับยอดขาย Pickup Truck</strong><br>
+        ตลาด Pickup Truck Accessories ผูกติดกับ Volume ของรถ 1 ตัน ตลาดออสเตรเลีย (TJM) ได้รับผลกระทบจากสภาวะเศรษฐกิจและการแข่งขัน รายได้ในไทยและ ASEAN เสถียรกว่า ตลาดแอฟริกาใต้อยู่ระหว่างปรับโครงสร้าง ความเสี่ยง: EV Pickup Truck อาจเปลี่ยน Ecosystem ในระยะ 5–10 ปี
+      </div>
+    </div>
+  </section>
+
+  <section id="s1-4">
+    <h3>1.4 Aeroflex USA และมุมมองการเติบโต</h3>
+
+    <div class="callout accent">
+      <strong>Aeroflex USA: Hero of Growth</strong><br>
+      Aeroflex USA Inc. เป็น Subsidiary ของ Aeroflex Co., Ltd. ดำเนินการผลิตและจัดจำหน่ายฉนวน EPDM ในตลาดสหรัฐฯ ซึ่งปัจจุบันเติบโต <strong>20% y/y</strong> — ถือเป็น Fastest Growing Segment ของกลุ่ม ปัจจัยขับเคลื่อน:
+      <ul style="margin:8px 0 0 16px;">
+        <li><strong>AI &amp; Data Center Boom:</strong> ความต้องการฉนวนสำหรับระบบ Cooling ในศูนย์ข้อมูลเติบโตต่อเนื่อง ผู้เชี่ยวชาญคาดการณ์อุปสงค์เพิ่ม 20%/ปีใน 3 ปีข้างหน้า</li>
+        <li><strong>Reshoring / MAGA Policy:</strong> โรงงาน Semiconductor และอุตสาหกรรมหนักที่กลับมาสร้างในสหรัฐฯ ต้องการฉนวนสำหรับระบบ HVAC จำนวนมาก</li>
+        <li><strong>โรงงานใหม่ (ส.ค. 2569):</strong> Aeroflex USA กำลังลงทุนสร้างโรงงานเพิ่มเพื่อรองรับอุปสงค์ที่เพิ่มขึ้น โดยมีกำหนดเริ่มดำเนินการเชิงพาณิชย์ในเดือน ส.ค. 2569 ซึ่งจะเพิ่มกำลังการผลิตและ Revenue อย่างมีนัยสำคัญในปีงบ FY26/27</li>
+      </ul>
+    </div>
+
+    <p>GPM ของ Aeroflex พุ่งสู่ ~48% ใน Q2 FY25/26 และมีแนวโน้มจะรักษาระดับ 46–48% ได้ในระยะกลาง เนื่องจาก Product Mix ที่ดีขึ้น (สัดส่วน USA ที่ Margin สูงกว่า) และ Pricing Power จากสิทธิบัตร ทั้งนี้ความเสี่ยงด้านต้นทุนมาจากราคา EPDM ที่ขยับขึ้น 3.6% ใน Q1/2569 แต่บริษัทสามารถส่งผ่าน 60–70% ของการเพิ่มขึ้นผ่านการปรับราคาขาย</p>
+  </section>
+
+  <section id="s1-5">
+    <h3>1.5 วงจรชีวิตและบททดสอบ 3P</h3>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <span class="tag">Mature</span>
+      <span class="tag" style="background:var(--watch);color:white;">Growth Segment: Aeroflex</span>
+      <span class="tag" style="background:var(--bad);color:white;">Restructuring: TJM/SA</span>
+    </div>
+    <div class="callout">
+      <strong>บททดสอบ Possible / Plausible / Probable (3P)</strong><br>
+      <p style="margin-top:10px;"><strong>Possible (เป็นไปได้):</strong> Aeroflex USA เติบโต 20–25%/ปีต่อเนื่อง 5 ปี จากคลื่น Data Center และ Reshoring ที่ยังแข็งแกร่ง TJM กลับมามีกำไรใน FY27/28 ราคา EPG แตะ 8–9 บาทในระยะ 3 ปี</p>
+      <p><strong>Plausible (น่าจะเป็น):</strong> Aeroflex USA เติบโต 15–20% โรงงานใหม่เริ่มสร้างรายได้ Q3/4 FY26/27 TJM ลดขาดทุนทีละน้อย ~50–70 ล้านบาท/ปี ราคา EPG 5.5–7.0 บาทในระยะ 18 เดือน</p>
+      <p style="margin-bottom:0;"><strong>Probable (น่าจะสะท้อนในราคาแล้ว):</strong> Recovery Story ปัจจุบันที่ตลาดรับรู้แล้ว — TJM ลดขาดทุน, ECL ไม่เกิดซ้ำ, Aeroflex เติบโต 10–15% ราคาปัจจุบัน 5.55 บาทสะท้อน Scenario นี้ไปแล้ว</p>
+    </div>
+  </section>
+</section>
+
+<!-- ===== §2 แดชบอร์ดการเงิน ===== -->
+<section id="s2">
+  <div class="sec-h"><span class="sec-no">02</span><h2>แดชบอร์ดการเงิน</h2></div>
+  <hr class="div">
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>ตัวชี้วัด</th>
+        <th class="num">FY22/23</th>
+        <th class="num">FY23/24</th>
+        <th class="num">FY24/25</th>
+        <th>แนวโน้ม 3 ปี</th>
+        <th>การอ่านผล</th>
+        <th>ประเมิน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="7" style="background:var(--gray-100);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gray-500);padding:10px 16px;">กำไรขาดทุน</td></tr>
+      <tr>
+        <td>รายได้จากการขาย (ล้าน THB)</td>
+        <td class="num">12,083.6</td>
+        <td class="num">13,169.7</td>
+        <td class="num">13,789.9</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,24 60,12 120,6" fill="none" stroke="#788C5D" stroke-width="2.5"/></svg></td>
+        <td>เติบโตสม่ำเสมอ +9.1% (FY24), +4.7% (FY25)</td>
+        <td><span class="chip"><span class="dot good"></span>ดี</span></td>
+      </tr>
+      <tr>
+        <td>Gross Profit Margin</td>
+        <td class="num">32.9%</td>
+        <td class="num">31.8%</td>
+        <td class="num">33.4%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,14 60,18 120,10" fill="none" stroke="#788C5D" stroke-width="2.5"/></svg></td>
+        <td>ฟื้นตัวใน FY25 จาก Aeroflex GPM ที่สูงขึ้น</td>
+        <td><span class="chip"><span class="dot good"></span>ดี</span></td>
+      </tr>
+      <tr>
+        <td>Net Profit Margin</td>
+        <td class="num">9.0%</td>
+        <td class="num">9.2%</td>
+        <td class="num">5.9%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,8 60,7 120,22" fill="none" stroke="#B04A3F" stroke-width="2.5"/></svg></td>
+        <td>ลดลงมากใน FY25 เพราะ TJM + ECL + FX</td>
+        <td><span class="chip"><span class="dot bad"></span>กังวล</span></td>
+      </tr>
+      <tr>
+        <td>กำไรสุทธิ (ล้าน THB)</td>
+        <td class="num">1,081.6</td>
+        <td class="num">1,210.7</td>
+        <td class="num">808.4</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,12 60,6 120,22" fill="none" stroke="#B04A3F" stroke-width="2.5"/></svg></td>
+        <td>ลดลง -33.2% เหตุรายการพิเศษหลายตัว</td>
+        <td><span class="chip"><span class="dot bad"></span>กังวล (One-off)</span></td>
+      </tr>
+      <tr>
+        <td>EPS (THB)</td>
+        <td class="num">0.39</td>
+        <td class="num">0.43</td>
+        <td class="num">0.29</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,11 60,6 120,22" fill="none" stroke="#B04A3F" stroke-width="2.5"/></svg></td>
+        <td>ลดลงจาก One-off; คาดฟื้นสู่ ~0.43–0.46 ใน FY25/26</td>
+        <td><span class="chip"><span class="dot watch"></span>สังเกต</span></td>
+      </tr>
+      <tr><td colspan="7" style="background:var(--gray-100);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gray-500);padding:10px 16px;">ผลตอบแทนต่อทุนและประสิทธิภาพ</td></tr>
+      <tr>
+        <td>ROE</td>
+        <td class="num">9.1%</td>
+        <td class="num">9.9%</td>
+        <td class="num">6.4%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,9 60,6 120,20" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>ลดลง; ฟื้นตัวเมื่อ One-off หายไป คาด ~9.4% FY26E</td>
+        <td><span class="chip"><span class="dot watch"></span>สังเกต</span></td>
+      </tr>
+      <tr>
+        <td>ROA</td>
+        <td class="num">7.3%</td>
+        <td class="num">7.4%</td>
+        <td class="num">5.3%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,9 60,8 120,18" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>ลดลงตาม Net Profit; สะท้อน Asset-heavy จาก TJM</td>
+        <td><span class="chip"><span class="dot watch"></span>สังเกต</span></td>
+      </tr>
+      <tr>
+        <td>ROIC (ประมาณ)</td>
+        <td class="num">~7.5%</td>
+        <td class="num">~8.0%</td>
+        <td class="num">~5.0%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,10 60,8 120,20" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>ROIC–WACC ติดลบใน FY25 (-2.6%); ปกติ Normalized ≈ 0%</td>
+        <td><span class="chip"><span class="dot bad"></span>กังวล</span></td>
+      </tr>
+      <tr>
+        <td>WACC (ประมาณ SET/THB)</td>
+        <td class="num">~7.6%</td>
+        <td class="num">~7.6%</td>
+        <td class="num">~7.6%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,15 60,15 120,15" fill="none" stroke="#87867F" stroke-width="2.5"/></svg></td>
+        <td>Rf 2.7% + Beta 1.1 × ERP 6.4% ≈ 9.7% Ke; Blended ~7.6%</td>
+        <td><span class="chip"><span class="dot flat"></span>–</span></td>
+      </tr>
+      <tr><td colspan="7" style="background:var(--gray-100);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gray-500);padding:10px 16px;">กระแสเงินสดและงานลงทุน</td></tr>
+      <tr>
+        <td>EBITDA (ล้าน THB)</td>
+        <td class="num">~1,720</td>
+        <td class="num">~1,718</td>
+        <td class="num">~1,762</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,13 60,13 120,12" fill="none" stroke="#788C5D" stroke-width="2.5"/></svg></td>
+        <td>เสถียรกว่า Net Profit; สะท้อนคุณภาพการดำเนินงานที่ดี</td>
+        <td><span class="chip"><span class="dot good"></span>ดี</span></td>
+      </tr>
+      <tr>
+        <td>Free Cash Flow (ล้าน THB)</td>
+        <td class="num">~1,500</td>
+        <td class="num">~1,861</td>
+        <td class="num">~1,371</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,16 60,6 120,18" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>FCF ยังเป็นบวก แต่ลดลงใน FY25 จากเงินทุนหมุนเวียนเพิ่ม</td>
+        <td><span class="chip"><span class="dot good"></span>ดี (บวก)</span></td>
+      </tr>
+      <tr><td colspan="7" style="background:var(--gray-100);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gray-500);padding:10px 16px;">ความแข็งแกร่งทางการเงิน</td></tr>
+      <tr>
+        <td>D/E Ratio</td>
+        <td class="num">0.56</td>
+        <td class="num">0.59</td>
+        <td class="num">0.58</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,15 60,13 120,14" fill="none" stroke="#788C5D" stroke-width="2.5"/></svg></td>
+        <td>ระดับหนี้ต่ำและเสถียร ไม่เป็นความเสี่ยง</td>
+        <td><span class="chip"><span class="dot good"></span>ดี</span></td>
+      </tr>
+      <tr>
+        <td>Net Debt (ล้าน THB)</td>
+        <td class="num">~1,800</td>
+        <td class="num">1,962</td>
+        <td class="num">1,629</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,12 60,14 120,10" fill="none" stroke="#788C5D" stroke-width="2.5"/></svg></td>
+        <td>Net Debt ลดลง บริษัทมีเงินสดเพิ่มขึ้น</td>
+        <td><span class="chip"><span class="dot good"></span>ดี</span></td>
+      </tr>
+      <tr><td colspan="7" style="background:var(--gray-100);font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--gray-500);padding:10px 16px;">Valuation Multiples</td></tr>
+      <tr>
+        <td>P/E (Trailing)</td>
+        <td class="num">~8.5x</td>
+        <td class="num">~9.4x</td>
+        <td class="num">~19.1x</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,18 60,15 120,3" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>สูงขึ้นเพราะ EPS ถูกกดใน FY25; Forward P/E ~12x สมเหตุสมผลกว่า</td>
+        <td><span class="chip"><span class="dot watch"></span>สังเกต</span></td>
+      </tr>
+      <tr>
+        <td>P/BV</td>
+        <td class="num">~0.9x</td>
+        <td class="num">~0.9x</td>
+        <td class="num">1.23x</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,16 60,16 120,8" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>ขยับเหนือ 1x แล้ว สะท้อน Premium จาก Aeroflex re-rating</td>
+        <td><span class="chip"><span class="dot watch"></span>สังเกต</span></td>
+      </tr>
+      <tr>
+        <td>Dividend Yield</td>
+        <td class="num">~6.5%</td>
+        <td class="num">~9.4%</td>
+        <td class="num">~4.9%</td>
+        <td><svg class="spark" viewBox="0 0 120 30"><polyline points="0,14 60,5 120,16" fill="none" stroke="#D97757" stroke-width="2.5"/></svg></td>
+        <td>ยิลด์ลดลงตามราคาที่พุ่งขึ้น DPS FY26E ~0.13 บาท (~2.3%)</td>
+        <td><span class="chip"><span class="dot watch"></span>ลดลง</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- §2.1 กำไรปกติ -->
+  <section id="s2-norm" style="margin-top:32px;">
+    <h3>2.1 กำไรปกติ (Normalized Profit) — ไม่รวม ECL และ FX</h3>
+
+    <div class="callout accent">
+      <strong>กำไรปกติ FY24/25 ≈ 1,200–1,300 ล้านบาท (EPS ~0.43–0.47 บาท)</strong> vs กำไรที่รายงาน 808 ล้านบาท (EPS 0.29 บาท)
+    </div>
+
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>รายการ</th>
+          <th class="num">จำนวน (ล้าน THB)</th>
+          <th>หมายเหตุ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>กำไรสุทธิที่รายงาน FY24/25</strong></td>
+          <td class="num"><strong>808.4</strong></td>
+          <td>งบการเงินรวม ณ 31 มี.ค. 2568</td>
+        </tr>
+        <tr>
+          <td>+ ขาดทุน TJM Australia (บวกกลับ)</td>
+          <td class="num" style="color:var(--good);">+230 ถึง +280</td>
+          <td>TJM Products Pty Ltd ขาดทุน Peak ~330 ล้านบาท (Standalone) รวมอยู่ใน Aeroklas ที่ Consolidate เต็ม 100% การกลับรายการส่วนที่ถือเป็น "Structural Turnaround" (ไม่ใช่ Operating Core)</td>
+        </tr>
+        <tr>
+          <td>+ ECL South Africa (บวกกลับ)</td>
+          <td class="num" style="color:var(--good);">+100 ถึง +150</td>
+          <td>ค่าเผื่อหนี้สงสัยจะสูญ (Expected Credit Loss) จากลูกค้า/ลูกหนี้ในแอฟริกาใต้ ที่ตั้งสำรองครั้งเดียว (One-time provision); Globlex ระบุ "Absence of ECL in South Africa" เป็น Key Catalyst FY26</td>
+        </tr>
+        <tr>
+          <td>± FX Translation (สุทธิ)</td>
+          <td class="num" style="color:var(--good);">+50 ถึง +80</td>
+          <td>รายได้ USD/AUD เมื่อแปลงเป็น THB หากค่าเงินบาทแข็งขึ้น จะมีผลขาดทุนจากการแปลงค่า (FX Translation Loss) ที่ไม่ใช่กระแสเงินสด ประมาณการสุทธิ</td>
+        </tr>
+        <tr style="background:var(--gray-100);">
+          <td><strong>กำไรปกติ (Normalized) โดยประมาณ</strong></td>
+          <td class="num"><strong>~1,190–1,320</strong></td>
+          <td>สอดคล้องกับ FY23/24 ที่ 1,210 ล้านบาท และ Globlex FY26E ที่ 1,203 ล้านบาท</td>
+        </tr>
+        <tr>
+          <td><strong>Normalized EPS</strong></td>
+          <td class="num"><strong>~0.42–0.47 บาท</strong></td>
+          <td>หาร 2,800 ล้านหุ้น</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p style="margin-top:12px;" class="small muted">หมายเหตุ: การคำนวณนี้เป็นการประมาณเพื่อความเข้าใจ ตัวเลขที่แน่นอนต้องอ้างอิงงบการเงินรายละเอียดและ MD&amp;A ซึ่ง ECL และผลขาดทุน TJM บางส่วนอาจถูกจัดประเภทไว้ในหัวข้อต่างๆ กัน</p>
+  </section>
+
+  <!-- §2.2 SG&A Impact -->
+  <section id="s2-sga" style="margin-top:32px;">
+    <h3>2.2 ผลกระทบ SG&amp;A/Sales ต่อราคาหุ้น</h3>
+
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ปีงบ</th>
+          <th class="num">SG&amp;A (ล้าน THB)</th>
+          <th class="num">Sales (ล้าน THB)</th>
+          <th class="num">SG&amp;A/Sales %</th>
+          <th>การเปลี่ยนแปลง</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FY22/23</td>
+          <td class="num">2,872.0</td>
+          <td class="num">12,083.6</td>
+          <td class="num">23.8%</td>
+          <td><span class="chip"><span class="dot good"></span>ระดับปกติ</span></td>
+        </tr>
+        <tr>
+          <td>FY23/24</td>
+          <td class="num">3,102.4</td>
+          <td class="num">13,169.7</td>
+          <td class="num">23.6%</td>
+          <td><span class="chip"><span class="dot good"></span>ยังปกติ</span></td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>FY24/25</strong></td>
+          <td class="num"><strong>3,510.5</strong></td>
+          <td class="num">13,789.9</td>
+          <td class="num"><strong style="color:var(--bad);">25.5%</strong></td>
+          <td><span class="chip"><span class="dot bad"></span>เพิ่มขึ้น +1.9%</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="callout bad-callout" style="margin-top:14px;">
+      <strong>ผลกระทบต่อราคาหุ้นจาก SG&amp;A ที่สูงขึ้น:</strong><br>
+      SG&amp;A/Sales เพิ่มขึ้น 1.9% บน Revenue 13.8 พันล้านบาท = ภาระค่าใช้จ่ายเพิ่ม ~<strong>262 ล้านบาท</strong> หลังหักภาษีราว 228 ล้านบาท หรือ <strong>EPS ลดลง ~0.08 บาท/หุ้น</strong> ที่ P/E 10–12x เทียบเท่า Fair Value ลดลง <strong>~0.80–0.96 บาท/หุ้น</strong><br><br>
+      สาเหตุของการเพิ่มขึ้น:<br>
+      (1) ต้นทุนการดำเนินงานของ TJM (ยังขาดทุน) ที่รวมอยู่ใน SG&amp;A ของ Aeroklas<br>
+      (2) ค่าใช้จ่ายในการขยายธุรกิจ Aeroflex USA (ก่อนรายได้จากโรงงานใหม่)<br>
+      (3) ECL Provision บางส่วนที่ถูกบันทึกในหมวด SG&amp;A<br>
+      (4) เงินเดือนและต้นทุนบุคลากรที่สูงขึ้นตามการขยายกิจการ<br><br>
+      <strong>มุมมอง:</strong> หาก SG&amp;A/Sales กลับสู่ระดับปกติ ~24% (ลดลง 1.5%) จะเพิ่ม EPS ได้ ~0.06 บาท = เพิ่ม Fair Value ราว 0.60–0.72 บาท ซึ่งจะเป็น Upside เพิ่มเติมในระยะกลาง
+    </div>
+  </section>
+</section>
+
+<!-- ===== §3 การประเมินมูลค่า ===== -->
+<section id="s3">
+  <div class="sec-h"><span class="sec-no">03</span><h2>การประเมินมูลค่า</h2></div>
+  <hr class="div">
+
+  <div class="callout accent" style="margin-bottom:18px;">
+    <strong>มูลค่าพื้นฐาน Blended: ~5.0–5.5 THB (Base) · ~7.0 THB (Bull) · ~3.5 THB (Bear)</strong><br>
+    ราคาปัจจุบัน 5.55 บาทอยู่ที่ขอบบน Base Case — ถือว่า Fair Valued ขึ้นกับว่า Aeroflex USA โรงงานใหม่จะ Deliver ตามแผนหรือไม่
+  </div>
+
+  <h3>วิธีประเมินมูลค่าและราคาเป้าหมาย</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>วิธีการ</th>
+        <th class="num">ราคาเป้าหมาย (THB)</th>
+        <th class="num">น้ำหนัก</th>
+        <th>เหตุผลหลัก</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>DCF (10Y, WACC 7.6%, g=3.0%)</td>
+        <td class="num">~8.5–9.0</td>
+        <td class="num">30%</td>
+        <td>ให้ค่าสูงเพราะ Terminal Value จาก Aeroflex USA และ FCF ที่ฟื้นตัว; ตัวเลขมีความอ่อนไหวต่อ WACC สูง</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>P/E Relative (10–12x FY26E EPS 0.46)</strong></td>
+        <td class="num"><strong>4.60–5.52</strong></td>
+        <td class="num"><strong>50%</strong></td>
+        <td>เทียบเคียงกับหุ้นอุตสาหกรรมไทยที่คล้ายกัน; 10x สอดคล้องกับ Globlex TP; 12x สะท้อน Premium จาก Aeroflex</td>
+      </tr>
+      <tr>
+        <td>SOTP (Aeroflex 12x EBITDA, Aeroklas 8x, EPP 7x)</td>
+        <td class="num">~4.3–4.8</td>
+        <td class="num">20%</td>
+        <td>Aeroklas ดึงค่า SOTP ลงจาก TJM ทำให้ได้ค่าต่ำกว่า DCF; Conglomerate Discount 10–15%</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><strong>Blended (Weighted)</strong></td>
+        <td class="num"><strong>~5.0–5.5</strong></td>
+        <td class="num">100%</td>
+        <td>สอดคล้องกับราคาปัจจุบัน 5.55 บาท — ไม่มีส่วนลด ไม่มี Margin of Safety</td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+
+  <h3>สมมติฐาน DCF หลัก</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>สมมติฐาน</th><th class="num">ค่า</th><th>อ้างอิง</th></tr></thead>
+    <tbody>
+      <tr><td>Risk-free Rate (Thai 10Y Bond)</td><td class="num">2.7%</td><td>พันธบัตรรัฐบาลไทย 10 ปี</td></tr>
+      <tr><td>Equity Risk Premium (ERP)</td><td class="num">5.5% + 0.9% CRP = 6.4%</td><td>Damodaran Thailand CRP</td></tr>
+      <tr><td>Beta (ประมาณ)</td><td class="num">1.1x</td><td>อุตสาหกรรม Industrial/Consumer ไทย</td></tr>
+      <tr><td>Cost of Equity</td><td class="num">~9.7%</td><td>2.7% + 1.1 × 6.4%</td></tr>
+      <tr><td>Cost of Debt (After-tax)</td><td class="num">~4.0%</td><td>Finance Cost FY25 / Net Debt</td></tr>
+      <tr><td>WACC</td><td class="num">~7.6%</td><td>D/Capital ~37%</td></tr>
+      <tr><td>Revenue Growth FY26–28E</td><td class="num">4–5% ต่อปี</td><td>Globlex Forecast</td></tr>
+      <tr><td>EBITDA Margin (Stable)</td><td class="num">~12.7–12.8%</td><td>ประวัติ 3 ปี</td></tr>
+      <tr><td>Terminal Growth Rate</td><td class="num">3.0%</td><td>≤ Thai Long-run Nominal GDP</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Sensitivity: Fair Value (THB) ที่ WACC × Terminal Growth ต่างกัน</h3>
+  <div class="table-wrap">
+  <table class="heat">
+    <thead>
+      <tr>
+        <th>WACC ↓ / g →</th>
+        <th class="num">2.0%</th>
+        <th class="num">2.5%</th>
+        <th class="num">3.0%</th>
+        <th class="num">3.5%</th>
+        <th class="num">4.0%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>6.5%</td>
+        <td style="background:#C8D9B8;" class="num">7.8</td>
+        <td style="background:#B8CC99;" class="num">8.9</td>
+        <td style="background:#A0B87A;" class="num">10.5</td>
+        <td style="background:#88A460;" class="num">13.0</td>
+        <td style="background:#70904A;" class="num">17.5</td>
+      </tr>
+      <tr>
+        <td>7.0%</td>
+        <td style="background:#D8E6C8;" class="num">6.5</td>
+        <td style="background:#C8D9B8;" class="num">7.3</td>
+        <td style="background:#B8CC99;" class="num">8.3</td>
+        <td style="background:#A8BF80;" class="num">9.7</td>
+        <td style="background:#90AB62;" class="num">11.8</td>
+      </tr>
+      <tr>
+        <td><strong>7.6%</strong></td>
+        <td style="background:#F0EEE0;" class="num">5.3</td>
+        <td style="background:#E8E4D0;" class="num">5.8</td>
+        <td class="num base" style="background:#E3DACC;">6.3</td>
+        <td style="background:#E8E4D0;" class="num">7.2</td>
+        <td style="background:#D8D4C4;" class="num">8.3</td>
+      </tr>
+      <tr>
+        <td>8.5%</td>
+        <td style="background:#F8E8E0;" class="num">4.2</td>
+        <td style="background:#F4DDD5;" class="num">4.5</td>
+        <td style="background:#EDD0C5;" class="num">4.9</td>
+        <td style="background:#E4BFAF;" class="num">5.4</td>
+        <td style="background:#D9AB9E;" class="num">6.1</td>
+      </tr>
+      <tr>
+        <td>9.5%</td>
+        <td style="background:#F0C8C4;" class="num">3.3</td>
+        <td style="background:#E8BCBA;" class="num">3.5</td>
+        <td style="background:#E0B0AC;" class="num">3.7</td>
+        <td style="background:#D4A098;" class="num">4.0</td>
+        <td style="background:#C89086;" class="num">4.4</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:8px;">กล่องขอบดำ = Base Case (WACC 7.6%, g 3.0%) ≈ 6.3 THB จาก DCF ล้วน ราคาปัจจุบัน 5.55 อยู่ที่ระหว่าง WACC 7.6–8.5% ซึ่งสมเหตุสมผล</p>
+
+  <h3>Peer Comparables (หุ้นอุตสาหกรรมไทยใกล้เคียง)</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>บริษัท</th>
+        <th class="num">P/E Fwd</th>
+        <th class="num">EV/EBITDA</th>
+        <th class="num">ROE</th>
+        <th class="num">Net Margin</th>
+        <th>หมายเหตุ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row">
+        <td><strong>EPG.BK (ปัจจุบัน)</strong></td>
+        <td class="num"><strong>~12.0x</strong></td>
+        <td class="num">~8.9x</td>
+        <td class="num">~9.4%E</td>
+        <td class="num">~8.2%E</td>
+        <td>FY26E; ฟื้นตัวจากระดับ Normalized</td>
+      </tr>
+      <tr>
+        <td>หุ้น Industrial Thai (Median)</td>
+        <td class="num">~10–12x</td>
+        <td class="num">~7–9x</td>
+        <td class="num">~10–12%</td>
+        <td class="num">~7–9%</td>
+        <td>ช่วงปกติ; EPG อยู่ในระดับ Premium เล็กน้อย</td>
+      </tr>
+      <tr>
+        <td>Global HVAC Insulation Peers</td>
+        <td class="num">~15–18x</td>
+        <td class="num">~10–13x</td>
+        <td class="num">~12–18%</td>
+        <td class="num">~8–12%</td>
+        <td>หาก EPG ได้รับ Re-rating เทียบ Global → Fair Value สูงกว่า</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ===== §4 ผลประกอบการและ Sentiment ===== -->
+<section id="s4">
+  <div class="sec-h"><span class="sec-no">04</span><h2>ผลประกอบการและ Sentiment</h2></div>
+  <hr class="div">
+
+  <h3>ข่าวดีที่ออกมา — สะท้อนในราคาไปแค่ไหนแล้ว?</h3>
+  <div class="callout bad-callout">
+    <strong>คำตอบสั้น: ส่วนใหญ่สะท้อนแล้ว — ราคาขึ้น +86% ใน 5 เดือน</strong><br>
+    Globlex ออก BUY Report (ม.ค. 2569) ที่ราคา 2.98 บาท TP 4.30 บาท ปัจจุบันราคาอยู่ที่ 5.55 บาท สูงกว่า TP เดิม 29% ตลาดรับรู้แล้วว่า: (1) Aeroflex GPM ดีขึ้น (2) TJM ลดขาดทุน (3) ECL ไม่เกิดซ้ำ (4) Aeroflex USA +20% y/y
+  </div>
+
+  <div class="table-wrap" style="margin-top:12px;">
+  <table>
+    <thead>
+      <tr>
+        <th>Catalyst / ข่าว</th>
+        <th>สะท้อนในราคา?</th>
+        <th>Upside ที่เหลือ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Aeroflex USA +20% growth (ปัจจุบัน)</td>
+        <td><span class="chip"><span class="dot bad"></span>สะท้อนแล้วส่วนใหญ่</span></td>
+        <td>เล็กน้อย — ตลาดรู้แล้วและ Price In</td>
+      </tr>
+      <tr>
+        <td>TJM ลดขาดทุน FY25/26</td>
+        <td><span class="chip"><span class="dot watch"></span>สะท้อนบางส่วน</span></td>
+        <td>ยังมีอีก หาก TJM กำไรเร็วกว่าคาด</td>
+      </tr>
+      <tr>
+        <td>ECL South Africa ไม่เกิดซ้ำ</td>
+        <td><span class="chip"><span class="dot bad"></span>สะท้อนแล้ว</span></td>
+        <td>น้อยมาก — คาดแล้วว่าไม่เกิดอีก</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>โรงงาน Aeroflex USA ใหม่ (ส.ค. 2569)</strong></td>
+        <td><span class="chip"><span class="dot good"></span>ยังไม่สะท้อนเต็มที่</span></td>
+        <td><strong>+300–400 ล้านบาท Revenue / +50–80 ล้านบาท Net Profit ใน FY26/27</strong></td>
+      </tr>
+      <tr>
+        <td>AI Data Center Demand สหรัฐฯ เร่งขึ้น</td>
+        <td><span class="chip"><span class="dot watch"></span>สะท้อนบางส่วน</span></td>
+        <td>หากอุปสงค์เกินคาด → Upside เพิ่มเติม</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>ผลประกอบการ FY25/26 (ปีงบสิ้นสุด มี.ค. 2569) — ข้อมูลเบื้องต้น</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>ตัวชี้วัด</th><th class="num">FY24/25 (จริง)</th><th class="num">FY25/26 (ประมาณ)</th><th class="num">เปลี่ยนแปลง</th></tr></thead>
+    <tbody>
+      <tr><td>รายได้จากการขาย (ล้าน THB)</td><td class="num">13,789.9</td><td class="num">~14,500–14,600</td><td class="num" style="color:var(--good);">+5.1%</td></tr>
+      <tr><td>กำไรสุทธิ (ล้าน THB)</td><td class="num">808.4</td><td class="num">~1,200–1,300</td><td class="num" style="color:var(--good);">+51%</td></tr>
+      <tr><td>EPS (THB)</td><td class="num">0.29</td><td class="num">~0.43–0.46</td><td class="num" style="color:var(--good);">+48–59%</td></tr>
+      <tr><td>Gross Margin</td><td class="num">33.4%</td><td class="num">~34–36%</td><td class="num" style="color:var(--good);">ดีขึ้น</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted">ข้อมูลเบื้องต้นจาก Simply Wall St ระบุ Net Income FY25/26 ~1.30 พันล้านบาท สอดคล้องกับการคาดการณ์ของ Globlex ที่ 1,203 ล้านบาท (EPS 0.43 บาท)</p>
+
+  <h3>Sentiment — ราคาสำหรับความสมบูรณ์แบบ หรือ สำหรับความผิดหวัง?</h3>
+  <div class="callout">
+    <p>ที่ราคา 5.55 บาท EPG ซื้อขายที่ <strong>P/E ~12x FY26E</strong> — ไม่แพงจนเกินไป แต่ก็ไม่ถูก ตลาดกำลัง Pricing Recovery Story เป็นหลัก เส้นทางสู่ Bull Case ต้องการ (1) โรงงาน Aeroflex USA ส่งมอบรายได้ตามแผน (2) TJM ลดขาดทุนต่อเนื่อง (3) EPDM ไม่พุ่งขึ้นแรง (4) THB ไม่แข็งค่าจนกระทบ USD Revenues แรง</p>
+    <p style="margin-bottom:0;">RSI รายสัปดาห์ที่ 76.5 (Overbought) บ่งชี้ว่าการขึ้นราคาช่วงนี้เร็วเกินไป — ความเสี่ยงของการพักตัวมีสูงก่อนโรงงานใหม่เปิดดำเนินการ</p>
+  </div>
+</section>
+
+<!-- ===== §5 เทคนิคอลและแผนการลงทุน ===== -->
+<section id="s5">
+  <div class="sec-h"><span class="sec-no">05</span><h2>เทคนิคอลและแผนการลงทุน</h2></div>
+  <hr class="div">
+
+  <section id="s5-1">
+    <h3>5.1 การวิเคราะห์ทางเทคนิคและ Timing</h3>
+
+    <!-- Annotated Price Chart (SVG) -->
+    <div class="chart">
+      <figcaption><strong>EPG.BK — แผนภูมิราคา Daily (แนวโน้มและระดับสำคัญ)</strong></figcaption>
+      <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" style="max-height:220px;">
+        <!-- background -->
+        <rect width="700" height="220" fill="#FAF9F5"/>
+        <!-- price line: from 2.20 low (x=20,y=190) climbing to 5.55 (x=680,y=55) -->
+        <!-- scale: y = 220 - ((price - 2.0) / 5.5) * 190 -->
+        <!-- 2.20→y=205, 3.0→y=177, 4.30→y=141, 5.14→y=112, 5.55→y=97 -->
+        
+        <!-- Horizontal reference lines -->
+        <!-- 52w high 6.30 = y=77 -->
+        <line x1="20" y1="77" x2="680" y2="77" stroke="#D1CFC5" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="685" y="81" font-size="10" fill="#87867F" font-family="monospace">6.30 (52W High)</text>
+        
+        <!-- R1 Resistance 6.81 = y=56 -->
+        <line x1="20" y1="56" x2="680" y2="56" stroke="#B04A3F" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="685" y="60" font-size="10" fill="#B04A3F" font-family="monospace">6.81 (R1)</text>
+        
+        <!-- Current price 5.55 = y=97 -->
+        <line x1="20" y1="97" x2="680" y2="97" stroke="#D97757" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="685" y="101" font-size="10" fill="#D97757" font-family="monospace">5.55 (ราคาปัจจุบัน)</text>
+        
+        <!-- EMA20 Daily 4.81 = y=127 -->
+        <line x1="20" y1="127" x2="680" y2="127" stroke="#788C5D" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="685" y="131" font-size="10" fill="#788C5D" font-family="monospace">4.81 (EMA20)</text>
+        
+        <!-- EMA50 Daily 4.12 = y=148 -->
+        <line x1="20" y1="148" x2="680" y2="148" stroke="#788C5D" stroke-width="1" stroke-dasharray="2,4"/>
+        <text x="685" y="152" font-size="10" fill="#788C5D" font-family="monospace">4.12 (EMA50)</text>
+        
+        <!-- Support 4.14 = y=148 ~same as EMA50 -->
+        <!-- Golden Cross label -->
+        <text x="200" y="165" font-size="10" fill="#788C5D" font-family="system-ui">▲ Golden Cross (EMA50>EMA200)</text>
+        
+        <!-- 52w low 2.20 = y=205 -->
+        <line x1="20" y1="205" x2="300" y2="205" stroke="#B04A3F" stroke-width="1" stroke-dasharray="2,4"/>
+        <text x="20" y="215" font-size="10" fill="#B04A3F" font-family="monospace">2.20 (52W Low)</text>
+        
+        <!-- Price path (simplified) -->
+        <polyline 
+          points="20,205 80,200 120,195 160,188 200,178 240,165 280,155 320,142 360,132 400,120 440,112 480,108 520,100 560,95 600,92 640,94 680,97"
+          fill="none" stroke="#141413" stroke-width="2.5" stroke-linejoin="round"/>
+        
+        <!-- Volume bars (simplified) -->
+        <rect x="20" y="170" width="8" height="8" fill="#D1CFC5" opacity="0.5"/>
+        <rect x="680" y="155" width="8" height="15" fill="#D97757" opacity="0.7"/>
+        
+        <!-- Entry zone shading: 4.80–5.20 -->
+        <rect x="0" y="107" width="700" height="22" fill="#788C5D" opacity="0.08"/>
+        <text x="20" y="121" font-size="10" fill="#788C5D" font-family="system-ui">Zone ซื้อ (Pullback): 4.80–5.20</text>
+        
+        <!-- Overbought annotation -->
+        <text x="580" y="85" font-size="10" fill="#B04A3F" font-family="system-ui">RSI 73.6 (Overbought)</text>
+        
+        <!-- ADX annotation -->
+        <text x="400" y="180" font-size="10" fill="#3D3D3A" font-family="system-ui">ADX 59.7 → แนวโน้มแข็งมาก</text>
+      </svg>
+    </div>
+
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>พารามิเตอร์</th>
+          <th>รายสัปดาห์ (Bias)</th>
+          <th>รายวัน (Setup)</th>
+          <th>สรุป</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bias</td>
+          <td><span class="chip"><span class="dot good"></span>Bullish</span></td>
+          <td><span class="chip"><span class="dot good"></span>Bullish (Very Strong)</span></td>
+          <td>ทุก Timeframe Bullish — แนวโน้มขาขึ้นชัดเจน</td>
+        </tr>
+        <tr>
+          <td>RSI (14)</td>
+          <td style="color:var(--bad);font-weight:600;">76.5 (Overbought, กำลังลด)</td>
+          <td style="color:var(--bad);font-weight:600;">73.6 (Overbought, กำลังขึ้น)</td>
+          <td><span class="chip"><span class="dot bad"></span>ระวัง — Overbought ทั้งสองกรอบ</span></td>
+        </tr>
+        <tr>
+          <td>MACD</td>
+          <td>Bullish Crossover</td>
+          <td>Bullish Crossover</td>
+          <td>Momentum ยังเป็นบวก</td>
+        </tr>
+        <tr>
+          <td>Golden Cross</td>
+          <td>EMA50 > EMA200 ✓</td>
+          <td>EMA50 (4.12) > EMA200 (3.49) ✓</td>
+          <td>ยืนยัน Uptrend Long-term</td>
+        </tr>
+        <tr>
+          <td>ADX</td>
+          <td>Strong Trend</td>
+          <td>59.7 (Very Strong)</td>
+          <td>Trend แข็งแกร่ง ไม่ใช่ Sideways</td>
+        </tr>
+        <tr>
+          <td>สภาพแผนภูมิ</td>
+          <td colspan="3"><strong>Pullback in Uptrend</strong> — ราคาขึ้นเร็วเกินไป กำลังอยู่ที่บริเวณ Overbought รอการพักตัวก่อน</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Risk Geometry — Entry / Stop / Target</h3>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>พารามิเตอร์</th><th class="num">ระดับ (THB)</th><th>หมายเหตุ</th></tr></thead>
+      <tbody>
+        <tr><td>Entry Zone (ที่แนะนำ)</td><td class="num">4.80–5.20</td><td>Pullback สู่ EMA20 Daily (~4.81) หรือ Zone แนวรับ</td></tr>
+        <tr><td>Stop Loss</td><td class="num">4.30</td><td>ต่ำกว่า Globlex TP เดิม / แนวรับแข็งแกร่ง</td></tr>
+        <tr><td>Target 1 (Short-term)</td><td class="num">6.30</td><td>52W High / แนวต้านแรก</td></tr>
+        <tr><td>Target 2 (Bull Case)</td><td class="num">6.80–7.00</td><td>R1 Pivot / Bull Case Fair Value (โรงงานใหม่ Deliver)</td></tr>
+        <tr><td>R-Multiple (ที่ Entry 4.80)</td><td class="num">~3.0R</td><td>(6.30 - 4.80) / (4.80 - 4.30) = 1.50/0.50 = 3R</td></tr>
+        <tr class="highlight-row"><td><strong>Timing Verdict</strong></td><td colspan="2"><strong>STAGE/WAIT — รอ Pullback ก่อน</strong> RSI Overbought ทั้ง Daily และ Weekly; ราคาขึ้น 86% ใน 5 เดือน; ควรรอราคาพักตัวลงสู่ Zone 4.80–5.20 ก่อนเข้าซื้อใหม่ หรือ รอ Catalyst โรงงาน ส.ค. 2569 ยืนยัน</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="s5-2">
+    <h3>5.2 Scenarios และ Expected Value</h3>
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th class="num">ความน่าจะเป็น</th>
+          <th>สมมติฐานหลัก</th>
+          <th class="num">ราคาเป้าหมาย 18 เดือน</th>
+          <th class="num">ผลตอบแทน vs 5.55</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🐂 Bull</strong></td>
+          <td class="num">25%</td>
+          <td>โรงงาน USA Deliver ตามแผน; TJM Break-even ใน FY27; EPDM ราคาคงที่; AI Demand เกินคาด</td>
+          <td class="num" style="color:var(--good);">7.0–8.0</td>
+          <td class="num" style="color:var(--good);">+26–44%</td>
+        </tr>
+        <tr class="highlight-row">
+          <td><strong>📊 Base</strong></td>
+          <td class="num">50%</td>
+          <td>โรงงาน USA เดินสายการผลิต Q4 FY26/27; TJM ลดขาดทุนช้า; EPS FY26/27 ~0.46–0.50</td>
+          <td class="num">5.5–6.5</td>
+          <td class="num">-1 ถึง +17%</td>
+        </tr>
+        <tr>
+          <td><strong>🐻 Bear</strong></td>
+          <td class="num">25%</td>
+          <td>EPDM ราคาพุ่ง +10%+; THB แข็งค่าเร็ว; TJM ไม่ฟื้น; Data Center Spend ลดลง</td>
+          <td class="num" style="color:var(--bad);">3.5–4.5</td>
+          <td class="num" style="color:var(--bad);">-37 ถึง -19%</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><strong>Expected Value (Probability-Weighted)</strong></td>
+          <td class="num"><strong>~5.6–5.9 THB</strong></td>
+          <td class="num">~+1–7% vs 5.55</td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+    <p class="small muted">Expected Value ใกล้เคียงราคาปัจจุบัน — ยืนยันว่า EPG ซื้อขายที่ Fair Value ไม่ใช่ Bargain หรือ Expensive อย่างชัดเจน</p>
+  </section>
+
+  <section id="s5-3">
+    <h3>5.3 แผนการลงทุน (แผนเงื่อนไข — ไม่ใช่คำแนะนำ)</h3>
+    <div class="callout">
+      <strong>Setup Archetype: GARP (Growth at Reasonable Price) + Turnaround Element</strong><br>
+      Aeroflex คือ Growth Engine ที่มี Reasonable P/E; Aeroklas/TJM คือ Turnaround ที่กำลังฟื้น
+    </div>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>หัวข้อ</th><th>รายละเอียด</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Entry Point</td>
+          <td>รอ Pullback สู่ 4.80–5.20 บาท (EMA20–EMA50 daily) — ณ ราคาปัจจุบัน 5.55 ไม่มี Margin of Safety ที่เพียงพอ</td>
+        </tr>
+        <tr>
+          <td>Margin of Safety</td>
+          <td>~0% ที่ราคาปัจจุบัน; ต้องการ Discount จาก Fair Value ~10% → Entry ที่ ~5.0 บาทหรือต่ำกว่า</td>
+        </tr>
+        <tr>
+          <td>Stop Loss (Technical)</td>
+          <td>ปิดตลาดต่ำกว่า 4.30 บาท — เส้นแนวรับสำคัญ</td>
+        </tr>
+        <tr>
+          <td>Thesis-Breakers (ออกถ้า)</td>
+          <td>(1) โรงงาน Aeroflex USA ล่าช้าเกิน Q1 FY27 (2) TJM ขาดทุนมากกว่า 350 ล้านบาท (3) EPDM ราคาขึ้น >10% ต่อปีและส่งผ่านราคาไม่ได้ (4) ECL เกิดซ้ำในแอฟริกาใต้หรือตลาดอื่น</td>
+        </tr>
+        <tr>
+          <td>Conviction-Builders (เพิ่มน้ำหนักถ้า)</td>
+          <td>(1) โรงงาน USA เปิดตามแผน ส.ค. 2569 และ Ramp Up รวดเร็ว (2) TJM ขาดทุนลดลงกว่าคาด (3) Gross Margin Aeroflex ยืนเหนือ 47% ต่อเนื่อง</td>
+        </tr>
+        <tr>
+          <td>Sizing &amp; Staging</td>
+          <td>ขนาดปกติ 50% ที่ Entry 4.80–5.20; เพิ่ม 50% เมื่อโรงงาน USA ยืนยัน Ramp Up; ห้ามเพิ่มที่ Overbought (RSI > 70)</td>
+        </tr>
+        <tr>
+          <td>Horizon</td>
+          <td>12–24 เดือน — รอ Full Delivery จากโรงงาน USA และ TJM Normalization</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+</section>
+
+<!-- ===== §6 ความเสี่ยงหลัก ===== -->
+<section id="s6">
+  <div class="sec-h"><span class="sec-no">06</span><h2>ความเสี่ยงหลัก</h2></div>
+  <hr class="div">
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>ความเสี่ยง</th>
+        <th>ผลกระทบ</th>
+        <th>ความน่าจะเป็น</th>
+        <th>ส่วนต่าง Fair Value</th>
+        <th>มาตรการลดความเสี่ยง</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row">
+        <td><strong>1. วัฏจักรราคาวัตถุดิบ EPDM</strong></td>
+        <td><span class="chip"><span class="dot bad"></span>สูง</span></td>
+        <td>ปานกลาง (EPDM ขึ้น 3.6% แล้ว)</td>
+        <td>-0.5 ถึง -1.5 THB</td>
+        <td>Pricing Power จากสิทธิบัตร ส่งผ่านได้ 60–70% แต่ Margin จะหดถ้าขึ้นเร็วเกิน</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><strong>2. ความเสี่ยง FX (THB แข็งค่า vs USD/AUD)</strong></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td>ปานกลาง–สูง (SET มีแรงซื้อต่างชาติ)</td>
+        <td>-0.3 ถึง -0.8 THB</td>
+        <td>รายได้ USD จาก Aeroflex USA และ Aeroklas ช่วย Hedge บางส่วน; แต่ถ้า THB แข็ง 5% กระทบ ~100 ล้านบาท Net Profit</td>
+      </tr>
+      <tr>
+        <td><strong>3. TJM Australia ขาดทุนต่อเนื่อง/เร่งขึ้น</strong></td>
+        <td><span class="chip"><span class="dot bad"></span>สูง</span></td>
+        <td>ต่ำ–ปานกลาง (กำลังพยักหน้า)</td>
+        <td>-0.5 ถึง -1.0 THB</td>
+        <td>แผนปรับโครงสร้างลด CapEx; ลดขาดทุน 50–70 ล้านบาท/ปี; ถ้าไม่ฟื้นใน 2 ปี ต้องตัดขาดทุนครั้งใหญ่</td>
+      </tr>
+      <tr>
+        <td><strong>4. โรงงาน Aeroflex USA ล่าช้า/Demand ต่ำกว่าคาด</strong></td>
+        <td><span class="chip"><span class="dot bad"></span>สูง</span></td>
+        <td>ต่ำ (กำหนด ส.ค. 2569 ชัดเจน)</td>
+        <td>-0.5 ถึง -1.0 THB</td>
+        <td>ติดตามประกาศ Operational Update ใน Q3 FY26/27</td>
+      </tr>
+      <tr>
+        <td><strong>5. Valuation Re-rating กลับลง</strong></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td>ปานกลาง (RSI Overbought)</td>
+        <td>-1.0 ถึง -2.0 THB</td>
+        <td>ราคาขึ้นเร็ว 86% ใน 5 เดือน; หาก Catalyst หายหรือ Earnings ไม่ Deliver ตามคาด ตลาดอาจ De-rate P/E กลับ 8–10x</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>ความเสี่ยง FX และ EPDM — เชิงปริมาณ</h3>
+  <div class="grid2">
+    <div class="callout">
+      <strong>EPDM Price Risk (วัฏจักรวัตถุดิบ)</strong><br>
+      ราคา EPDM ล่าสุด: ~2.61 USD/kg (Mar 2026) +3.6% จาก Dec 2025<br>
+      ถ้า EPDM ขึ้น 5% ต่อปี:<br>
+      - ต้นทุนวัตถุดิบ Aeroflex เพิ่ม ~105 ล้านบาท<br>
+      - ส่งผ่านราคา 65% = ลด Margin ~37 ล้านบาท<br>
+      - กระทบ EPS ~0.013 บาท/หุ้น = Fair Value -0.13 บาท (ที่ 10x P/E)<br>
+      <strong>ผลกระทบ: จัดการได้ แต่ไม่ควรมองข้าม</strong>
+    </div>
+    <div class="callout">
+      <strong>FX Risk (THB vs USD/AUD)</strong><br>
+      รายได้ USD จาก Aeroflex USA + Exports: ~40–45% ของ Revenue รวม<br>
+      ถ้า THB แข็งค่า 5% vs USD:<br>
+      - Revenue แปลงเป็น THB ลด ~250–300 ล้านบาท<br>
+      - Net Profit กระทบ ~100 ล้านบาท (หลังต้นทุน USD)<br>
+      - EPS ลด ~0.036 บาท/หุ้น = Fair Value -0.36 บาท (ที่ 10x P/E)<br>
+      <strong>ผลกระทบ: สำคัญกว่า EPDM — ต้องติดตามอัตราแลกเปลี่ยน</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ภาคผนวก ===== -->
+<section id="appendix">
+  <div class="sec-h"><span class="sec-no">A</span><h2>ภาคผนวก</h2></div>
+  <hr class="div">
+
+  <h3>ตารางสมมติฐานและแหล่งข้อมูล</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>สมมติฐาน/ข้อมูล</th><th>ค่า</th><th>แหล่งที่มา</th><th>วันที่</th></tr></thead>
+    <tbody>
+      <tr><td>ราคาหุ้น</td><td>5.55 THB</td><td>Yahoo Finance</td><td>11 มิ.ย. 2569</td></tr>
+      <tr><td>ข้อมูลงบการเงิน FY24/25</td><td>ตามตาราง</td><td>EPG Investor Relations (investor.epg.co.th)</td><td>FY สิ้นสุด 31 มี.ค. 2568</td></tr>
+      <tr><td>การคาดการณ์ FY26E–FY28E</td><td>ตามตาราง</td><td>Globlex Securities Research (Suwat Sinsadok, CFA) ม.ค. 2569</td><td>20 ม.ค. 2569</td></tr>
+      <tr><td>Thai 10Y Bond Yield</td><td>~2.7%</td><td>Bank of Thailand (ประมาณการ)</td><td>มิ.ย. 2569</td></tr>
+      <tr><td>Country Risk Premium Thailand</td><td>~0.9%</td><td>Damodaran NYU Stern Table</td><td>ปี 2569 (ล่าสุด)</td></tr>
+      <tr><td>EPDM Price</td><td>2.61 USD/kg</td><td>IMARC Group / Price-Watch.ai</td><td>มี.ค. 2569</td></tr>
+      <tr><td>Technical Analysis</td><td>ตามตาราง</td><td>TradingView MCP (Real-time)</td><td>11 มิ.ย. 2569</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout" style="margin-top:24px;background:var(--gray-100);">
+    <h3 style="margin-top:0;">⚠️ ข้อจำกัดความรับผิดชอบ</h3>
+    <p>เอกสารนี้จัดทำขึ้นเพื่อการวิจัยและการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ข้อมูล ตัวเลข และการคาดการณ์ที่ปรากฏในเอกสารนี้มาจากแหล่งข้อมูลสาธารณะที่เชื่อถือได้ แต่ไม่รับรองความถูกต้องสมบูรณ์ ผู้อ่านควรตรวจสอบข้อมูลจากงบการเงินฉบับเต็มของบริษัทก่อนตัดสินใจลงทุน ข้อมูลจาก Yahoo Finance เป็นข้อมูลไม่เป็นทางการ ควรอ้างอิงไฟล์แบบ 56-1 และรายงานประจำปีของ EPG เป็นหลัก</p>
+    <p style="margin-bottom:0;">การลงทุนมีความเสี่ยง ผู้ลงทุนอาจได้รับเงินคืนน้อยกว่าเงินลงทุน โปรดศึกษาข้อมูลให้รอบคอบก่อนตัดสินใจลงทุน</p>
+  </div>
+</section>
+
+<footer>
+  <span>EPG.BK · Eastern Polymer Group PCL · SET · THB</span> &nbsp;·&nbsp;
+  <span>ราคา ณ 11 มิ.ย. 2569: 5.55 THB</span> &nbsp;·&nbsp;
+  <span>งานวิจัยเพื่อการศึกษา — ไม่ใช่คำแนะนำการลงทุน</span>
+</footer>
+
+  </main>
+</div>
+
+<script>
+const links=document.querySelectorAll('.toc a[href^="#"]');
+const secs=[...document.querySelectorAll('section[id],section[id]')];
+function upd(){
+  let cur='';
+  secs.forEach(s=>{if(s.getBoundingClientRect().top<=80)cur=s.id;});
+  links.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});
+}
+window.addEventListener('scroll',upd,{passive:true});
+upd();
+</script>
+</body>
+</html>
