@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Japan Stock Library - bothBook" />
+  <meta name="theme-color" content="#6e86c5" />
+  <title>Japan Stock Library | bothBook</title>
+  <link rel="manifest" href="../../manifest.webmanifest" />
+  <link rel="icon" href="../../assets/icons/panda-favicon-32.png" type="image/png" />
+  <link rel="apple-touch-icon" href="../../assets/icons/panda-apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../market-library.css" />
+</head>
+<body>
+  <header class="shell">
+    <nav class="topbar" aria-label="Page navigation">
+      <a class="brand" href="../index.html">
+        <span class="mark">JP</span>
+        <span class="brand-copy"><strong>Japan Stock</strong><span class="brand-subtitle">bothBook</span></span>
+      </a>
+      <div class="nav-actions">
+        <a class="home-link" href="../index.html">Stock hub</a>
+        <a class="home-link" href="../../index.html">กลับหน้าหลัก</a>
+      </div>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">Stock / Japan</p>
+      <h1>คลังหุ้นญี่ปุ่น</h1>
+      <p>วางไฟล์ HTML หุ้นญี่ปุ่นไว้ใน stocks/japan/ แล้วหน้านี้จะดึงขึ้นมาแสดงอัตโนมัติ พร้อมเปิดอ่านผ่าน reader เดียวกับ bothBook.</p>
+      <div class="stats">
+        <div class="stat"><strong id="totalStat">0</strong><span>เอกสารใน Japan</span></div>
+        <div class="stat"><strong id="latestStat">-</strong><span>พร้อมอ่าน</span></div>
+        <div class="stat"><strong id="sourceStat">Auto</strong><span>แหล่งโหลดรายชื่อ</span></div>
+      </div>
+    </section>
+  </header>
+
+  <main class="shell">
+    <section class="panel" aria-label="Search and sort">
+      <input class="search" id="search" type="search" placeholder="ค้นหาหุ้นญี่ปุ่น เช่น Suzuki, Toyota, SoftBank..." autocomplete="off" />
+      <div class="controls">
+        <select class="select" id="sortSelect" aria-label="เรียงเอกสาร">
+          <option value="newest">ใหม่สุดก่อน</option>
+          <option value="oldest">เก่าสุดก่อน</option>
+          <option value="title">ชื่อ A-Z</option>
+        </select>
+        <button class="button" id="retryBtn" type="button">โหลดใหม่</button>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <div>
+        <h2>Japan Stock Documents</h2>
+        <p>Auto-load เฉพาะไฟล์ .html ที่อยู่ใน stocks/japan/</p>
+      </div>
+      <div class="count" id="resultCount">0 รายการ</div>
+    </div>
+
+    <section class="grid" id="docs" aria-live="polite"></section>
+    <div class="empty" id="emptyState">ยังไม่มีไฟล์ HTML ในโฟลเดอร์ Japan</div>
+  </main>
+
+  <footer class="shell">Powered by GitHub Pages · stocks/japan/</footer>
+
+  <script type="application/json" id="folderFiles">
+[
+{% assign folder_prefix = '/stocks/japan/' %}
+{% assign first_file = true %}
+{% for file in site.static_files %}
+  {% if file.path contains folder_prefix and file.extname == '.html' and file.name != 'index.html' %}
+    {% unless first_file %},{% endunless %}
+    {
+      "name": {{ file.name | jsonify }},
+      "size": {{ file.size | default: 0 | jsonify }},
+      "source": "jekyll"
+    }
+    {% assign first_file = false %}
+  {% endif %}
+{% endfor %}
+]
+  </script>
+  <script type="application/json" id="marketConfig">
+    {
+      "owner": "b9b4ymiN",
+      "repo": "bothBook",
+      "branch": "main",
+      "folder": "stocks/japan",
+      "label": "Japan Stock",
+      "assetRoot": "../../",
+      "localFiles": [
+        { "name": "suzuki_7269_thai_insight_report.html", "size": 24447, "source": "local" }
+      ]
+    }
+  </script>
+  <script src="../market-library.js"></script>
+</body>
+</html>

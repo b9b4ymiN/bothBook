@@ -1,4 +1,4 @@
-const CACHE_NAME = "bothbook-shell-v3";
+const CACHE_NAME = "bothbook-shell-v4";
 const SHELL_ASSETS = [
   "./",
   "./index.html",
@@ -9,6 +9,16 @@ const SHELL_ASSETS = [
   "./research/index.html",
   "./stocks/",
   "./stocks/index.html",
+  "./stocks/market-library.css",
+  "./stocks/market-library.js",
+  "./stocks/thai/",
+  "./stocks/thai/index.html",
+  "./stocks/us/",
+  "./stocks/us/index.html",
+  "./stocks/japan/",
+  "./stocks/japan/index.html",
+  "./stocks/china/",
+  "./stocks/china/index.html",
   "./manifest.webmanifest",
   "./assets/icons/icon.svg",
   "./assets/mascot-panda.png",
