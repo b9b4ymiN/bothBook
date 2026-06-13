@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NSL Foods (NSL) — บทวิเคราะห์การลงทุน V2</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI','Noto Sans Thai',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  ul{margin:0 0 14px;padding-left:20px;} li{margin:3px 0;}
+
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc>summary{display:none;}
+  .toc .toc-desk{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:6px 0 6px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+  .insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+           border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+  .insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:34px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;letter-spacing:.02em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 0;}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);white-space:nowrap;}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);white-space:nowrap;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout h3{margin-top:0;}
+
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-scale .seg.onw{background:var(--watch);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  .chart{margin:10px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+  .chart svg{width:100%;height:auto;display:block;}
+  .chart figcaption{margin-bottom:8px;}
+
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:28px;}
+    .toc .toc-desk{display:none;}
+    .toc>summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);list-style:none;}
+    .toc>summary::-webkit-details-marker{display:none;}
+    details.toc:not([open])>ol{display:none;}
+    .toc ol{margin-top:12px;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .shell{padding:28px 16px 80px;}
+    h1{font-size:30px;} h2{font-size:21px;} h3{font-size:16px;}
+    .insight-lead{font-size:19px;}
+    .stat .v{font-size:28px;}
+    .band{grid-template-columns:repeat(2,1fr);}
+    table{font-size:13px;} thead th,tbody td{padding:10px 12px;}
+  }
+  @media(max-width:420px){ .band{grid-template-columns:1fr;} }
+
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout,.insight{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <details class="toc" open>
+    <summary>สารบัญ · Contents &#9662;</summary>
+    <div class="eyebrow toc-desk">สารบัญ</div>
+    <ol>
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · ธุรกิจและเรื่องราว</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดล &amp; รายได้</a></li>
+      <li><a class="sub" href="#s1-2">1.2 Moat &amp; การแข่งขัน</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; TAM</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโต &amp; การลงทุนซ้ำ</a></li>
+      <li><a class="sub" href="#s1-5">1.5 วัฏจักร &amp; บททดสอบ 3P</a></li>
+      <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+      <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+      <li><a href="#s4">4 · ผลประกอบการ &amp; Sentiment</a></li>
+      <li><a href="#s5">5 · เทคนิค &amp; แผน</a></li>
+      <li><a class="sub" href="#s5-1">5.1 เทคนิค &amp; timing</a></li>
+      <li><a class="sub" href="#s5-2">5.2 ฉากทัศน์</a></li>
+      <li><a class="sub" href="#s5-3">5.3 แผนการลงทุน</a></li>
+      <li><a href="#s6">6 · ความเสี่ยงหลัก</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </details>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <h1>NSL Foods PCL</h1>
+        <span class="pill">งานวิจัย · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">ผู้ผลิตอาหารพร้อมรับประทาน เบเกอรี่ และแซนด์วิช ป้อนช่องทาง 7-Eleven (CP All) เป็นหลัก — ธุรกิจ ROIC สูงที่ "ผูก" กับการขยายตัวของร้านสะดวกซื้อ</div>
+      <div class="meta mono">NSL.BK · SET · THB · ณ 9 มิ.ย. 2026 · ราคา 21.30 · เวอร์ชัน V2 (เรียบเรียงใหม่จากข้อมูลที่ตรวจสอบแล้ว)</div>
+    </header>
+
+    <!-- ============ บทสรุปผู้บริหาร ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+
+      <div class="insight">
+        <div class="eyebrow">ข้อมูลเชิงลึกการลงทุนหลัก · Key Investment Insight</div>
+        <p class="insight-lead">ที่ราคา ฿21.30 ตลาด "ราคา-อิน" การเติบโตรายได้เกือบศูนย์ (reverse-DCF ชี้ราว &minus;5% ถึง +1% ก่อนลดเหลือ 3%) — ทั้งที่ NSL ยังเป็นธุรกิจ ROIC 24&ndash;31% และเพิ่งโต +9.5% ใน 1Q26</p>
+        <p class="small muted">กล่าวอีกแบบ: ตลาดตีราคา NSL เหมือนธุรกิจที่ "หยุดโต" หลัง de-rate จาก PE 29x เหลือ 10.7x (EV/EBITDA 16&rarr;7) มูลค่าเหมาะสมแบบผสม ~฿29 เทียบราคา ฿21.30 &rarr; upside ~36% และปันผล ~4.9%. แต่ <strong>edge นี้มีเงื่อนไขเดียว</strong>: คุณต้องเชื่อว่าการชะลอใน 1Q26 คือการ "ย่อย capex + ฐานสูง" (ชั่วคราว) ไม่ใช่จุดเริ่มของการอิ่มตัวเชิงโครงสร้างจากการพึ่ง CP All ถึง 86&ndash;91% ของรายได้ — catalyst ที่จะปิดส่วนต่างคือ มาร์จิ้นฟื้นกลับ &ge;10% และ FCF กลับเป็นบวกหลังเฟสลงทุน</p>
+      </div>
+
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">฿29</div><div class="k">มูลค่าเหมาะสม (blended)</div>
+          <div class="d up">+36% เทียบราคา</div>
+        </div>
+        <div class="stat"><div class="v">฿21.30</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">ณ 9 มิ.ย. 2026</div></div>
+        <div class="stat"><div class="v">บวก&shy;มีเงื่อนไข</div><div class="k">จุดยืน / ความเชื่อมั่น</div><div class="d flat">ปานกลาง</div></div>
+        <div class="stat"><div class="v">~25&ndash;30%</div><div class="k">Margin of safety ที่ต้องการ</div><div class="d flat">quality compounder ที่ราคาถูกลง</div></div>
+      </div>
+
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis การลงทุน</h3>
+        <p>NSL คือผู้ผลิตอาหารพร้อมทาน ROIC สูง (24&ndash;31% เทียบ WACC ~8.7% = สร้างมูลค่า 2&ndash;3 เท่าของต้นทุนทุน) ที่จุดแข็งและจุดเสี่ยงเป็นเหรียญเดียวกัน — ความสัมพันธ์ลึกกับ 7-Eleven และสัญญาความร่วมมือถึงปี 2031 แต่ 86&ndash;91% ของรายได้มาจาก CP All. ตลาด de-rate หุ้นจาก PE 29x เหลือ 10.7x หลัง 1Q26 ที่กำไรลดลงครั้งแรก &minus;4.6% และมาร์จิ้นหดจาก 10.0% เหลือ 8.7%. <strong>ที่ราคานี้คุณจ่าย ~10.7x กำไร</strong> เพื่อธุรกิจที่ยังโต ~10% สร้างผลตอบแทนเหนือต้นทุนทุนชัดเจน และจ่ายปันผล ~4.9%. <strong>สิ่งที่ต้องเป็นจริง:</strong> การชะลอเป็น capex digestion + ฐานสูง ไม่ใช่การสูญเสียโครงสร้าง และมาร์จิ้นฟื้นกลับ &ge;10.5%. <strong>ความไม่สมมาตร:</strong> กรณี bear &asymp; ราคาปัจจุบัน (downside จำกัด หาก margin ทรงที่ ~9%), base +50%, แต่ tail risk จาก CP All หากเกิดจริงรุนแรงและรวดเร็ว.</p>
+        <p class="small muted">รายละเอียดการประเมินมูลค่าอยู่ใน <a href="#s3">§3</a> · ฉากทัศน์และแผนใน <a href="#s5">§5</a> · ความเสี่ยงใน <a href="#s6">§6</a></p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · ธุรกิจและเรื่องราว ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและเรื่องราว</h2></div>
+      <hr class="div">
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจและโครงสร้างรายได้</h3>
+      <p>NSL ทำเงินจากการ "ผลิตอาหารพร้อมทานปริมาณมหาศาลด้วยต้นทุนต่ำ แล้วป้อนเข้าช่องทาง 7-Eleven" — ทั้งในฐานะ <strong>OEM</strong> ผลิตให้แบรนด์ของ CP All (Ezy Taste, Ezy Sweet, Ezy Bake, EZYGO) และในฐานะเจ้าของแบรนด์เองที่วางขายบนชั้น 7-Eleven. แกนกำไรจริงอยู่ที่กลุ่มเบเกอรี่/แซนด์วิช/อาหารรองท้องที่หมุนเวียนเร็ว (แซนด์วิชอบร้อนเคยขายระดับ 2 แสนชิ้น/วัน). มาร์จิ้นขั้นต้นรวม ~20% และกำไรสุทธิ ~8.7%.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ส่วนธุรกิจ (FY2024)</th><th class="num">รายได้ (฿ลบ.)</th><th class="num">% รายได้</th><th>มุมมอง</th></tr></thead>
+        <tbody>
+          <tr><td>เบเกอรี่ &amp; อาหารรองท้อง (แซนด์วิช/เบอร์เกอร์ — ส่วนใหญ่ OEM ให้ 7-Eleven)</td><td class="num">5,035</td><td class="num">85.8%</td><td class="small muted">เครื่องยนต์กำไรหลัก · มาร์จิ้นต่ำ-ปานกลาง ปริมาณสูง</td></tr>
+          <tr><td>สินค้าแบรนด์ตัวเอง (Rice Bar/ข้าวแท่ง, ปังไท, NSL Bakery, Natural Bite)</td><td class="num">~446</td><td class="num">7.6%</td><td class="small muted">โต +156% YoY · มาร์จิ้นสูงกว่า · ฐานยังเล็ก</td></tr>
+          <tr><td>Food Service (แปรรูปเนื้อ/อาหารทะเลให้โรงแรม-ร้านอาหาร: Zen, MK, Sukishi)</td><td class="num">307</td><td class="num">5.2%</td><td class="small muted">กระจายความเสี่ยงนอก CVS · เพิ่งลงทุนโรงงานใหม่</td></tr>
+          <tr><td>ค่าลิขสิทธิ์แฟรนไชส์ &amp; อื่น ๆ</td><td class="num">~78</td><td class="num">~1.4%</td><td class="small muted">เล็กแต่โตเร็ว</td></tr>
+        </tbody>
+        <tfoot><tr><td>รวม</td><td class="num">5,866</td><td class="num">100%</td><td class="small">~85&ndash;86% ของรายได้ไหลผ่านช่องทาง 7-Eleven</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">บริษัทย่อยที่เป็นเครื่องยนต์การกระจายความเสี่ยง: NSL Intertrade (ส่งออก, ถือ 80%), NSL Bake A Wish (เบเกอรี่แฟรนไชส์, 60%), NSL Inno Foods (ผลิตชีสเอง — vertical integration คุมต้นทุน, 79%), N.B. Value Link (น้ำมะพร้าว/ผลไม้กระป๋องเพื่อส่งออก).</p>
+
+      <h3 id="s1-2">1.2 ความได้เปรียบเชิงแข่งขัน (Moat)</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">switching costs</span> <span class="tag">scale</span>
+        <span class="tag">co-development</span> <span class="muted small">— moat ที่ใช้จริง: ต้นทุนการเปลี่ยน supplier ของ CP All + สเกลเฉพาะทาง</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="ความแข็งแรงของ moat: ปานกลาง (แคบเมื่อมองความเสี่ยงลูกค้ารายเดียว)">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg onw"></span><span class="seg"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">ปานกลาง / ผูกลูกค้าเดียว</span>
+          <span class="chip"><span class="dot watch"></span>ความทนทาน: ทรงตัว &rarr; (spread แคบลง)</span>
+          <span class="mono small">ROIC&minus;WACC: +15.7 pp</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,30 30,17.4 60,0 90,9.5 120,20.8"/>
+          </svg>
+        </div>
+      </div>
+      <p>หลักฐานเชิงบวก: NSL เป็นซัพพลายเออร์อาหารพร้อมทานรายใหญ่ที่สุดที่ฝังตัวในซัพพลายเชนของ 7-Eleven (~15,000 สาขา) — ร่วมพัฒนากว่า 60&ndash;70 SKU, มาตรฐานความปลอดภัยอาหาร, ส่งแบบ JIT รายวัน, และมีสัญญาความร่วมมือถึงปี <strong>2031</strong>. การเปลี่ยน supplier สำหรับ CP All จึงมีต้นทุนและความเสี่ยงสูง. <strong>หลักฐานเชิงตัวเลข:</strong> ส่วนต่าง ROIC&minus;WACC อยู่ที่ +15.7pp (เคยพีค +28pp ปี 2024) — กว้างและเป็นบวกต่อเนื่อง = moat มีจริงและทบต้น แต่ <strong>กำลังแคบลง</strong> เพราะ capex รอบใหม่เจือจางผลตอบแทน. <strong>ภัยคุกคามอันดับ 1:</strong> สัญญา "ไม่ผูกขาด/ไม่การันตีเป็นผู้ผลิตรายเดียว" — CP All สามารถ in-source หรือเพิ่ม dual-source ได้ ซึ่งจะกระทบรายได้ส่วนใหญ่ทันที.</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรมและ TAM</h3>
+      <p>ตลาดอาหารพร้อมรับประทาน (RTE) ไทยปี 2025 อยู่ที่ ~฿82,000 ลบ. คาดโต CAGR <strong>9.56%</strong> ถึงปี 2030 (ที่มา: Statista ผ่าน FynnCorp) หนุนโดยวิถีคนเมือง ครัวเรือนเดี่ยว และความสะดวก. ตัวขับเคลื่อนเชิงโครงสร้างที่ตรงที่สุดคือการขยายสาขาของ 7-Eleven (CP All เปิดเพิ่มหลายร้อยสาขา/ปี) + จำนวน SKU อาหารต่อสาขาที่เพิ่มขึ้น. โครงสร้างการผลิต RTE ยังกระจาย (ผู้เล่นหลายราย) แต่ NSL มีสเกลเฉพาะทางกับเชน CVS ที่ครองตลาด. ส่วนแบ่งของ NSL ในตลาด RTE รวม ~8&ndash;9% แต่ "ครอง" niche RTE ของ 7-Eleven. อุปสรรคเชิงกำกับ (มาตรฐานความปลอดภัยอาหาร) เป็นด่านที่เอื้อผู้เล่นรายใหญ่ที่อยู่มาก่อน.</p>
+
+      <h3 id="s1-4">1.4 การเติบโตและคุณภาพการลงทุนซ้ำ</h3>
+      <p>การเติบโตในอนาคตมาจาก 5 ทาง: (1) การขยายสาขา + เมนูใหม่ของ 7-Eleven; (2) แบรนด์ตัวเอง (โต +156% จากฐานเล็ก); (3) ส่งออกผ่าน NSL Intertrade (เป้า ~5% ของรายได้); (4) Food Service (โรงแรม/ร้านอาหาร); (5) vertical integration (โรงงานชีสลดต้นทุน COGS). <strong>คุณภาพการลงทุนซ้ำ:</strong> ในอดีตใช้ทุนอย่างมีประสิทธิภาพสูง (sales-to-capital ~2.5&ndash;2.7x) และ ROIC &raquo; WACC &rarr; การโตที่ผ่านมา "สร้างมูลค่า". แต่ปี 2025 capex ก้าวกระโดด (FCF ลดจาก ฿489 ลบ. เหลือ ฿155 ลบ.; capex โดยประมาณ ฿147&rarr;~฿396 ลบ.) จากการสร้างโรงงาน Food Service (บางเสาธง) + โรงงานชีส. <strong>คำถามชี้ขาด</strong> คือกำลังการผลิตใหม่จะทำ ROIC ได้เท่าเดิมไหม — สัญญาณเริ่มต้นชวนเฝ้าระวัง (ROIC ลดจาก 37%&rarr;24%, มาร์จิ้น 1Q26 หด). ข้อดีคือ <strong>ลงทุนด้วยเงินตัวเอง</strong> (net debt เพียง 0.26x EBITDA) ไม่ต้องเพิ่มทุน. ดูต่อ <a href="#s2">§2</a> และ <a href="#s3">§3</a>.</p>
+
+      <h3 id="s1-5">1.5 วัฏจักรธุรกิจและบททดสอบ 3P</h3>
+      <p><span class="tag">Growth &rarr; เริ่มอิ่มตัวเฟสแรก</span> — ระยะนี้ driver ที่สำคัญสุดคือ "คุณภาพการลงทุนซ้ำ + ความยั่งยืนของมาร์จิ้น" มากกว่าตัวเลขการเติบโตล้วน ๆ</p>
+      <div class="callout">
+        <h3>Possible &middot; Plausible &middot; Probable</h3>
+        <p class="small"><strong>Possible:</strong> NSL กลายเป็นบริษัทอาหารแบรนด์ที่กระจายตัว — ส่งออก + แบรนด์เองดึงสัดส่วนพึ่ง CP All ลงต่ำกว่า 70% &nbsp;·&nbsp; <strong>Plausible:</strong> ทบต้นรายได้ ~8&ndash;12% บนการโตของ 7-Eleven + แบรนด์/ส่งออกพอประมาณ มาร์จิ้น ~10&ndash;11% &nbsp;·&nbsp; <strong>Probable:</strong> โตชะลอเป็น high-single-digit, CP All ยังคุม ~85% ของรายได้, มาร์จิ้น ~9&ndash;10.5% — ยังสร้างมูลค่าแต่ช้าลง</p>
+        <p class="small muted">ธงเตือน "this time is different": แบรนด์เอง +156% และส่งออกยังโตจากฐานจิ๋วมาก — ต้องพิสูจน์ว่า "สเกลได้จริง" จนลด concentration ได้ ไม่ใช่แค่ตัวเลขเปอร์เซ็นต์สวย; และมาร์จิ้นพีคปี 2024 (จาก operating leverage) อาจไม่ใช่ระดับปกติใหม่</p>
+      </div>
+    </section>
+
+    <!-- ============ 2 · แดชบอร์ดการเงิน ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>แดชบอร์ดการเงิน</h2></div>
+      <hr class="div">
+      <p class="small muted">นำด้วย 3 ตัวชี้วัดที่ค้ำ thesis: ส่วนต่าง ROIC&minus;WACC (คุณภาพ vs ราคา), CapEx เทียบ FCF (จุดเฝ้าระวัง), และหนี้สิน · สี = การตัดสิน (ดีขึ้น/เฝ้าระวัง/แย่ลง) ไม่ใช่เครื่องหมายบวกลบ</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวชี้วัดนำ</th><th class="num">ล่าสุด</th><th>เทรนด์ 5 ปี</th><th>มุมมอง</th><th>การตัดสิน</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ROIC &minus; WACC spread</td><td class="num">+15.7 pp</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,30 30,17.4 60,0 90,9.5 120,20.8"/></svg></td>
+            <td class="small">สร้างมูลค่ามาก แต่ spread แคบลงจากพีค +28pp</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแรง (แต่แคบลง)</span></td>
+          </tr>
+          <tr>
+            <td>FCF margin (CapEx เทียบ FCF)</td><td class="num">2.2%</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,15.2 30,16.2 60,13.1 90,0 120,30"/></svg></td>
+            <td class="small">FCF ทรุดจาก 8.3% &rarr; 2.2% เพราะ capex ขยายกำลังผลิต</td>
+            <td><span class="chip"><span class="dot bad"></span>อ่อนแอชั่วคราว</span></td>
+          </tr>
+          <tr>
+            <td>หนี้สิน (Net debt/EBITDA)</td><td class="num">0.26x</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,28.7 30,26.9 60,30 90,4.0 120,0"/></svg></td>
+            <td class="small">จากเงินสดสุทธิ &rarr; หนี้สุทธิเล็กน้อย แต่ยังต่ำมาก</td>
+            <td><span class="chip"><span class="dot good"></span>ยังแข็งแกร่ง</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="grid2" style="margin-top:14px;">
+        <div class="table-wrap"><table>
+          <thead><tr><th>ความสามารถทำกำไร</th><th class="num">FY25</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>Gross margin</td><td class="num">19.95%</td><td><span class="chip"><span class="dot watch"></span>&darr; จากพีค 21.1%</span></td></tr>
+            <tr><td>Operating margin</td><td class="num">10.94%</td><td><span class="chip"><span class="dot watch"></span>&darr; จาก 11.7%</span></td></tr>
+            <tr><td>Net margin</td><td class="num">8.69%</td><td><span class="chip"><span class="dot watch"></span>&darr; (1Q26: 8.7%)</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ผลตอบแทน &amp; ประสิทธิภาพ</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>ROIC</td><td class="num">24.4%</td><td><span class="chip"><span class="dot good"></span>สูง (&darr; จาก 37%)</span></td></tr>
+            <tr><td>ROE</td><td class="num">26.5%</td><td><span class="chip"><span class="dot good"></span>สูง</span></td></tr>
+            <tr><td>WACC (ประเมิน)</td><td class="num">~8.7%</td><td><span class="chip"><span class="dot good"></span>ROIC &raquo; WACC</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>กระแสเงินสด</th><th class="num">FY25</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>OCF</td><td class="num">~฿551 ลบ.</td><td><span class="chip"><span class="dot good"></span>แข็งแรง</span></td></tr>
+            <tr><td>FCF</td><td class="num">฿155 ลบ.</td><td><span class="chip"><span class="dot bad"></span>&darr; จาก capex</span></td></tr>
+            <tr><td>FCF/กำไรสุทธิ (conversion)</td><td class="num">~26%</td><td><span class="chip"><span class="dot bad"></span>ต่ำ (เฟสลงทุน)</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>โครงสร้างทุน &amp; สภาพคล่อง</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>Debt/Equity</td><td class="num">0.27</td><td><span class="chip"><span class="dot good"></span>ต่ำ</span></td></tr>
+            <tr><td>Current ratio</td><td class="num">1.66</td><td><span class="chip"><span class="dot good"></span>เพียงพอ</span></td></tr>
+            <tr><td>Interest coverage</td><td class="num">สูงมาก</td><td><span class="chip"><span class="dot good"></span>ดอกเบี้ยน้อย</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Multiples (ปัจจุบัน)</th><th class="num">ค่า</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>P/E (Fwd)</td><td class="num">10.7 (9.9)</td><td><span class="chip"><span class="dot good"></span>ถูกเทียบประวัติ (29x)</span></td></tr>
+            <tr><td>EV/EBITDA</td><td class="num">7.2x</td><td><span class="chip"><span class="dot good"></span>ต่ำสุดในรอบ (จาก 16x)</span></td></tr>
+            <tr><td>P/B</td><td class="num">2.69x</td><td><span class="chip"><span class="dot watch"></span>สมเหตุผลกับ ROE สูง</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ปันผล &amp; ผู้ถือหุ้น</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>DPS / Yield</td><td class="num">฿1.05 / 4.9%</td><td><span class="chip"><span class="dot good"></span>โตต่อเนื่อง</span></td></tr>
+            <tr><td>Payout (กำไร)</td><td class="num">52%</td><td><span class="chip"><span class="dot good"></span>เหมาะสม</span></td></tr>
+            <tr><td>Cash payout (FCF)</td><td class="num">&gt;100%</td><td><span class="chip"><span class="dot watch"></span>ปันผลเกิน FCF ช่วง capex</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <p class="small muted" style="margin-top:12px;"><strong>Gut-check (คล้าย Piotroski):</strong> บวก — ROA สูง, OCF เป็นบวกแข็งแรง, ไม่มีการเพิ่มทุน, หนี้ต่ำ; ลบ — FCF/มาร์จิ้น/ROIC แผ่วลง และหนี้สุทธิเพิ่มเล็กน้อย &rarr; โดยรวม "คุณภาพดีที่กำลังถูกทดสอบในเฟสลงทุน" (~5&ndash;6/9)</p>
+      <h3>สรุปงบ 5 ปี (฿ ลบ.)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>รายการ</th><th class="num">FY21</th><th class="num">FY22</th><th class="num">FY23</th><th class="num">FY24</th><th class="num">FY25</th></tr></thead>
+        <tbody>
+          <tr><td>รายได้</td><td class="num">3,043</td><td class="num">4,010</td><td class="num">4,809</td><td class="num">5,866</td><td class="num">6,952</td></tr>
+          <tr><td>โตรายได้ (YoY)</td><td class="num">3.9%</td><td class="num">31.8%</td><td class="num">19.9%</td><td class="num">22.0%</td><td class="num">18.5%</td></tr>
+          <tr><td>EBIT</td><td class="num">249</td><td class="num">382</td><td class="num">437</td><td class="num">684</td><td class="num">761</td></tr>
+          <tr><td>กำไรสุทธิ</td><td class="num">191</td><td class="num">298</td><td class="num">333</td><td class="num">541</td><td class="num">604</td></tr>
+          <tr><td>EPS (฿)</td><td class="num">0.70</td><td class="num">0.99</td><td class="num">1.11</td><td class="num">1.80</td><td class="num">2.01</td></tr>
+          <tr><td>FCF</td><td class="num">159</td><td class="num">202</td><td class="num">272</td><td class="num">489</td><td class="num">155</td></tr>
+          <tr><td>ROIC</td><td class="num">18.8%</td><td class="num">26.0%</td><td class="num">26.5%</td><td class="num">37.1%</td><td class="num">31.3%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ที่มา: stockanalysis.com (ข้อมูล S&amp;P Global Market Intelligence) — ตรวจสอบกับ 56-1 One Report ก่อนตัดสินใจจริง</p>
+    </section>
+
+    <!-- ============ 3 · การประเมินมูลค่า ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>การประเมินมูลค่า</h2></div>
+      <hr class="div">
+      <p>มูลค่าเหมาะสมแบบผสม <strong>~฿29</strong> เทียบราคา ฿21.30 &rarr; upside ~36%. วิธี DCF ให้ค่าสูงสุด (฿33, เพราะ ROIC สูง + WACC ต่ำในสกุล THB) ส่วน Relative อนุรักษนิยมสุด (฿26 เพราะคู่เทียบทั้งกลุ่มก็ถูก de-rate). ทั้งสามวิธีบรรจบในกรอบ <strong>฿26&ndash;33</strong>.</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>วิธี</th><th class="num">ราคาโดยนัย</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>DCF (FCFF) — ถ่วงน้ำหนักฉากทัศน์</td><td class="num">฿33</td><td class="num">45%</td><td class="small muted">ROIC สูง + WACC ต่ำ + โต mid-single-digit &rarr; สร้างมูลค่า แต่ไวต่อ WACC</td></tr>
+          <tr><td>Relative (คู่เทียบ + ประวัติ)</td><td class="num">฿26</td><td class="num">35%</td><td class="small muted">P/E คู่เทียบ ~11.8x, ประวัติ NSL ~13&ndash;15x; กลุ่มถูก de-rate พร้อมกัน</td></tr>
+          <tr><td>Consensus นักวิเคราะห์ (4 ราย)</td><td class="num">฿28.6</td><td class="num">20%</td><td class="small muted">"Strong Buy" แต่เป้าถูกหั่นจาก ฿36</td></tr>
+        </tbody>
+        <tfoot><tr><td>มูลค่าเหมาะสม (blended)</td><td class="num">฿29</td><td class="num">100%</td><td>+36% เทียบราคา</td></tr></tfoot>
+      </table></div>
+
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>Reverse-DCF: ตลาดกำลังราคาอะไร?</h3>
+        <p class="small">ที่ราคา ฿21.30 ภายใต้สมมติฐานฐาน (มาร์จิ้น 10.5%, WACC 8.8%) ตลาดกำลังตีราคาการเติบโตรายได้ปีแรก <strong>ราว &minus;5%</strong> (และแม้ใช้สมมติฐานเสี่ยงสูง WACC 9.5% ก็ราว <strong>+1.3%</strong>) ก่อนลดเหลือ 3%. แปลว่าราคาปัจจุบันสมมติว่า NSL "เกือบหยุดโต" — ต่ำกว่าทั้งผลจริง 1Q26 (+9.5%) และการเติบโตของตลาด RTE (~9.6%). นี่คือแก่นของ upside: ราคาไม่ได้แค่ถูก แต่ฝังความมองร้ายไว้แล้ว</p>
+      </div>
+
+      <h3>สมมติฐาน DCF (ฐาน) และการประมาณการ FCFF</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปัจจัย</th><th class="num">ค่า</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>เส้นทางการเติบโตรายได้</td><td class="num">9% &rarr; 3%</td><td class="small muted">ลดเชิงเส้น 10 ปี สู่ terminal (อิง 1Q26 +9.5% และตลาด RTE)</td></tr>
+          <tr><td>Operating margin (เป้า)</td><td class="num">~10.5%</td><td class="small muted">หดเล็กน้อยจาก 10.9% แล้วทรงตัว</td></tr>
+          <tr><td>Sales-to-capital</td><td class="num">2.3x</td><td class="small muted">อนุรักษ์กว่าค่าในอดีต (2.5&ndash;2.7x) รับความเสี่ยง capex ใหม่</td></tr>
+          <tr><td>WACC</td><td class="num">8.8%</td><td class="small muted">Rf 2.28% + &beta;0.85 &times; ERP 7.5% (Thailand); CoD หลังภาษี ~3.5%</td></tr>
+          <tr><td>Terminal growth / ROIC</td><td class="num">3.0% / 15%</td><td class="small muted">&le; GDP ระยะยาว; reinvestment rate = g/ROIC</td></tr>
+        </tbody>
+      </table></div>
+      <div class="table-wrap" style="margin-top:12px;"><table>
+        <thead><tr><th>ประมาณการ (฿ลบ.)</th><th class="num">ปี1</th><th class="num">ปี2</th><th class="num">ปี3</th><th class="num">ปี4</th><th class="num">ปี5</th></tr></thead>
+        <tbody>
+          <tr><td>รายได้</td><td class="num">7,578</td><td class="num">8,209</td><td class="num">8,839</td><td class="num">9,457</td><td class="num">10,056</td></tr>
+          <tr><td>NOPAT</td><td class="num">658</td><td class="num">707</td><td class="num">755</td><td class="num">801</td><td class="num">845</td></tr>
+          <tr><td>การลงทุนซ้ำ</td><td class="num">272</td><td class="num">275</td><td class="num">274</td><td class="num">269</td><td class="num">260</td></tr>
+          <tr><td>FCFF</td><td class="num">386</td><td class="num">432</td><td class="num">481</td><td class="num">532</td><td class="num">584</td></tr>
+        </tbody>
+        <tfoot><tr><td>EV = PV(explicit ฿3,797) + PV(terminal ฿6,382) = ฿10,179 &minus; net debt ฿236 = equity ฿9,943 &divide; 300 หุ้น</td><td class="num" colspan="5">฿33.1 / หุ้น</td></tr></tfoot>
+      </table></div>
+
+      <h3>Sensitivity — WACC &times; Terminal growth (มูลค่า/หุ้น, ฿)</h3>
+      <div class="table-wrap"><table class="heat">
+        <thead><tr><th>WACC &#92; g</th><th>2.0%</th><th>2.5%</th><th>3.0%</th><th>3.5%</th><th>4.0%</th></tr></thead>
+        <tbody>
+          <tr><th>7.8%</th><td style="background:rgba(120,140,93,.40)">36.6</td><td style="background:rgba(120,140,93,.48)">38.5</td><td style="background:rgba(120,140,93,.55)">40.7</td><td style="background:rgba(120,140,93,.65)">43.5</td><td style="background:rgba(120,140,93,.75)">46.9</td></tr>
+          <tr><th>8.3%</th><td style="background:rgba(120,140,93,.28)">33.3</td><td style="background:rgba(120,140,93,.32)">34.8</td><td style="background:rgba(120,140,93,.40)">36.6</td><td style="background:rgba(120,140,93,.48)">38.7</td><td style="background:rgba(120,140,93,.58)">41.2</td></tr>
+          <tr><th>8.8%</th><td style="background:rgba(120,140,93,.18)">30.6</td><td style="background:rgba(120,140,93,.22)">31.8</td><td class="base" style="background:var(--white)">33.1</td><td style="background:rgba(120,140,93,.32)">34.7</td><td style="background:rgba(120,140,93,.40)">36.6</td></tr>
+          <tr><th>9.3%</th><td style="background:rgba(120,140,93,.10)">28.2</td><td style="background:rgba(120,140,93,.14)">29.2</td><td style="background:rgba(120,140,93,.18)">30.3</td><td style="background:rgba(120,140,93,.24)">31.5</td><td style="background:rgba(120,140,93,.30)">33.0</td></tr>
+          <tr><th>9.8%</th><td style="background:rgba(215,119,87,.10)">26.2</td><td style="background:rgba(215,119,87,.05)">26.9</td><td style="background:rgba(120,140,93,.08)">27.8</td><td style="background:rgba(120,140,93,.12)">28.8</td><td style="background:rgba(120,140,93,.18)">29.9</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ทุกช่อง (แม้มุมอนุรักษ์สุด WACC 9.8%, g 2.0% = ฿26.2) ยังสูงกว่าราคา ฿21.30 — <strong>ภายใต้สมมติฐานมาร์จิ้น 10.5%</strong>. กรณีที่ทำให้ราคาปัจจุบัน "สมเหตุผล" ต้องอาศัยมาร์จิ้นหล่นกลับสู่ ~9% (ระดับปี 2023) <em>พร้อมกับ</em> WACC ~9.5&ndash;10% — ซึ่งเป็น bear case ที่ 1Q26 หนุนได้ แต่เป็นมุมที่มองร้ายที่สุด</p>
+
+      <h3>การประเมินแบบเทียบเคียง — คู่เทียบอาหาร/สแน็คไทย</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>คู่เทียบ</th><th class="num">P/E</th><th class="num">P/E Fwd</th><th class="num">โตรายได้ FY25</th><th class="num">โตกำไร FY25</th><th class="num">Yield</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NSL</strong> (RTE/7-Eleven)</td><td class="num">10.7</td><td class="num">9.9</td><td class="num">+18.5%</td><td class="num">+11.7%</td><td class="num">4.9%</td></tr>
+          <tr><td>TKN (สแน็คสาหร่าย/ส่งออก)</td><td class="num">13.8</td><td class="num">7.2</td><td class="num">&minus;6.8%</td><td class="num">&minus;51%</td><td class="num">6.0%</td></tr>
+          <tr><td>SAPPE (เครื่องดื่มฟังก์ชัน/ส่งออก)</td><td class="num">11.9</td><td class="num">11.3</td><td class="num">&minus;23.4%</td><td class="num">&minus;38%</td><td class="num">7.5%</td></tr>
+          <tr><td>ICHI (ชาพร้อมดื่ม)</td><td class="num">11.8</td><td class="num">11.9</td><td class="num">&minus;4.7%</td><td class="num">+1.6%</td><td class="num">9.6%</td></tr>
+        </tbody>
+        <tfoot><tr><td>มัธยฐานคู่เทียบ (ไม่รวม NSL)</td><td class="num">11.9</td><td class="num">11.3</td><td class="num">&minus;6.8%</td><td class="num">&minus;38%</td><td class="num">7.5%</td></tr></tfoot>
+      </table></div>
+      <p class="small muted"><strong>ข้อสังเกตเชิงเปรียบเทียบที่สำคัญ:</strong> NSL เป็นรายเดียวในกลุ่มที่ <em>ยังเติบโต</em> (รายได้ +18.5%, กำไร +11.7%) ขณะที่ TKN/SAPPE กำไรหด 38&ndash;51% และ ICHI ทรงตัว — แต่ NSL กลับเทรดที่ P/E ต่ำกว่าหรือเท่าคู่เทียบ. ทั้งกลุ่ม "อาหารส่งออก/ผู้บริโภคไทย" ถูก de-rate พร้อมกันจากการชะลอของส่งออกและกำลังซื้อ ดึง NSL ลงไปอยู่ระดับเดียวกับชื่อที่กำไรกำลังลดลงจริง. หาก NSL สมควรได้ premium เพราะยังโต ส่วนต่างนี้คือ mispricing; หากตลาดมองว่า NSL แค่ "ตามมาทีหลัง" ในวงจรเดียวกัน ส่วนลดนั้นก็สมเหตุผล — นี่คือคำถามชี้ขาดของเคส</p>
+    </section>
+
+    <!-- ============ 4 · ผลประกอบการ & Sentiment ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการและ Sentiment</h2></div>
+      <hr class="div">
+      <h3>ไตรมาสล่าสุด (1Q2026) — จุดเปลี่ยน</h3>
+      <p>รายได้ ฿1.88 พันลบ. <strong>+9.5% YoY</strong> (ในเกณฑ์คาด) แต่กำไรสุทธิ ฿163.3 ลบ. <strong>&minus;4.6% YoY</strong> — การลดลงของกำไรครั้งแรก, EPS ฿0.54 (จาก ฿0.57), มาร์จิ้นสุทธิหดจาก 10.0% เหลือ 8.7% "จากค่าใช้จ่ายที่สูงขึ้น". นี่คือไตรมาสที่ทำให้ตลาด re-rate: หุ้นร่วงจาก ~฿36 (กลางปี 2025) สู่ ~฿21 (&minus;32% ใน 1 ปี). ประเด็นคือการเติบโตชะลอจาก +27% (1Q25) เหลือ +9.5% พร้อมมาร์จิ้นหด — ตลาดจึงตั้งคำถามว่า "operating leverage จบรอบแล้วหรือไม่".</p>
+      <h3>แนวโน้มรายไตรมาส (YoY)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ไตรมาส</th><th class="num">โตรายได้</th><th class="num">โตกำไร</th><th class="num">มาร์จิ้นสุทธิ</th><th>มุมมอง</th></tr></thead>
+        <tbody>
+          <tr><td>1Q2025</td><td class="num">+27%</td><td class="num">+34%</td><td class="num">10.0%</td><td><span class="chip"><span class="dot good"></span>พีค</span></td></tr>
+          <tr><td>2Q2025</td><td class="num">+26%</td><td class="num">+25%</td><td class="num">9.2%</td><td><span class="chip"><span class="dot good"></span>แข็งแกร่ง</span></td></tr>
+          <tr><td>FY2025</td><td class="num">+18.5%</td><td class="num">+11.7%</td><td class="num">8.7%</td><td><span class="chip"><span class="dot watch"></span>เริ่มแผ่ว</span></td></tr>
+          <tr><td>1Q2026</td><td class="num">+9.5%</td><td class="num">&minus;4.6%</td><td class="num">8.7%</td><td><span class="chip"><span class="dot bad"></span>กำไรลดครั้งแรก</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ไตรมาสถัดไป: 2Q2026 กำหนดประกาศ ~17 ส.ค. 2026 — จุดที่ต้องจับตา: รายได้ทรงตัว &gt;8% ไหม, มาร์จิ้นฟื้นเข้าใกล้ 10% ไหม, สัดส่วนแบรนด์เอง/ส่งออก, และ FCF หลัง capex. นักวิเคราะห์ 4 ราย consensus "Strong Buy" เป้า ฿28.6 (หั่นจาก ฿36).</p>
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>มุมมอง Sentiment</h3>
+        <p>ราคาสะท้อน <strong>ความมองร้าย ไม่ใช่ความสมบูรณ์แบบ</strong>: P/E 10.7 / EV/EBITDA 7.2 เป็นระดับ trough เทียบประวัติบริษัทเอง (P/E เคย 29x). 1Q26 ที่อ่อนช่วยยืนยันความระมัดระวังของตลาด แต่ multiple ปัจจุบันฝัง "การเกือบหยุดโต" ไว้แล้ว ขณะที่ผลจริง (ยัง +9.5%) ขัดกับการตีราคานั้น — แม้เทรนด์มาร์จิ้นจะเข้าข้างฝั่ง bear. กล่าวคือ valuation ใน <a href="#s3">§3</a> ได้แรงหนุนจาก "ช่องว่างระหว่างราคาที่มองร้ายกับผลที่ยังโต".</p>
+      </div>
+    </section>
+
+    <!-- ============ 5 · เทคนิค ฉากทัศน์ และแผน ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>เทคนิค ฉากทัศน์ และแผนการลงทุน</h2></div>
+      <hr class="div">
+
+      <h3 id="s5-1">5.1 Technical Setup &amp; Timing (สัปดาห์ &rarr; วัน)</h3>
+      <p class="small muted">สภาพกราฟ: <strong>ขาลงยาวที่กำลังพยายามสร้างฐานใกล้จุดต่ำสุด 52 สัปดาห์</strong> (฿20.70) หลังร่วงจาก ~฿36 (ก.ค. 2025). ระดับสำคัญ: แนวรับ ฿20.7 (low) · แนวต้านชั้นแรก ฿24&ndash;25 · แนวต้านใหญ่ ฿29&ndash;30 (โครงสร้างเดิม) · ข้อจำกัดสำคัญ: <strong>สภาพคล่องบางมาก</strong> (วอลุ่มบางวันหลักพันหุ้น, free float 26.9%) — กราฟด้านล่างเป็น "แผนที่ระดับราคา" เชิงโครงสร้าง ไม่ใช่ tick-by-tick</p>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">รายสัปดาห์ (Weekly) · บริบทเทรนด์ — ขาลงจาก ฿36 สู่ฐาน ฿21</figcaption>
+        <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายสัปดาห์ NSL ขาลง">
+          <g fill="var(--gray-300)">
+            <rect x="60" y="250" width="7" height="30"></rect><rect x="110" y="248" width="7" height="32"></rect>
+            <rect x="160" y="245" width="7" height="35"></rect><rect x="210" y="255" width="7" height="25"></rect>
+            <rect x="260" y="252" width="7" height="28"></rect><rect x="320" y="244" width="7" height="36"></rect>
+            <rect x="380" y="246" width="7" height="34"></rect><rect x="440" y="240" width="7" height="40"></rect>
+            <rect x="520" y="238" width="7" height="42"></rect><rect x="600" y="242" width="7" height="38"></rect>
+          </g>
+          <line x1="40" y1="60" x2="700" y2="60" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="600" y="56" class="mono" font-size="10" fill="var(--gray-500)">฿34.25 (52w high)</text>
+          <line x1="40" y1="120" x2="700" y2="120" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="610" y="116" class="mono" font-size="10" fill="var(--gray-500)">฿29&ndash;30 แนวต้าน</text>
+          <line x1="40" y1="175" x2="700" y2="175" stroke="var(--gray-300)"/><text x="618" y="171" class="mono" font-size="10" fill="var(--gray-500)">฿24&ndash;25</text>
+          <line x1="40" y1="222" x2="700" y2="222" stroke="var(--good)" stroke-dasharray="4 4"/><text x="600" y="218" class="mono" font-size="10" fill="var(--good)">฿20.7 แนวรับ (52w low)</text>
+          <line x1="60" y1="70" x2="700" y2="210" stroke="var(--watch)" stroke-width="1.25"/><text x="150" y="92" class="mono" font-size="10" fill="var(--watch)">downtrend</text>
+          <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="60,86 160,78 260,150 360,168 440,200 520,210 600,206 700,205"/>
+        </svg>
+      </figure>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">รายวัน (Daily) · จุดเข้า — พยายามสร้างฐานเหนือ ฿20.7</figcaption>
+        <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายวัน NSL สร้างฐาน">
+          <g fill="var(--gray-300)">
+            <rect x="60" y="262" width="6" height="18"></rect><rect x="110" y="258" width="6" height="22"></rect>
+            <rect x="160" y="264" width="6" height="16"></rect><rect x="210" y="266" width="6" height="14"></rect>
+            <rect x="260" y="260" width="6" height="20"></rect><rect x="320" y="268" width="6" height="12"></rect>
+            <rect x="380" y="266" width="6" height="14"></rect><rect x="440" y="263" width="6" height="17"></rect>
+            <rect x="520" y="265" width="6" height="15"></rect><rect x="600" y="261" width="6" height="19"></rect>
+          </g>
+          <line x1="40" y1="96" x2="700" y2="96" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="600" y="92" class="mono" font-size="10" fill="var(--gray-500)">฿24&ndash;25 แนวต้าน</text>
+          <line x1="40" y1="150" x2="700" y2="150" stroke="var(--gray-500)" stroke-width="1.25"/><text x="600" y="146" class="mono" font-size="10" fill="var(--gray-500)">MA (เคารพ)</text>
+          <line x1="40" y1="200" x2="700" y2="200" stroke="var(--good)" stroke-dasharray="4 4"/><text x="560" y="196" class="mono" font-size="10" fill="var(--good)">โซนเข้า ฿20.5&ndash;22.0</text>
+          <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="60,150 140,176 220,196 300,200 380,190 460,198 540,188 620,182 700,178"/>
+          <circle cx="300" cy="200" r="4" fill="var(--good)"/><text x="250" y="216" class="mono" font-size="10" fill="var(--good)">ฐาน ~20.7</text>
+        </svg>
+      </figure>
+
+      <p>การอ่าน: เทรนด์หลัก <strong>ยังเป็นขาลงที่เพิ่งเริ่มแบนราบ</strong> ใกล้ ฿20.7 — ยังไม่มีสัญญาณกลับตัวเชิงโมเมนตัม. <strong>ยืนยัน (ถ้าจะเข้า):</strong> การยืนเหนือ ฿20.7 ได้ + วอลุ่มแห้งตรงฐาน. <strong>คำเตือน:</strong> (1) สภาพคล่องบางมาก เข้า/ออกขนาดใหญ่ยาก; (2) ยังไม่ผ่านแนวต้าน ฿24&ndash;25 จึงยังไม่ยืนยันการกลับเทรนด์; (3) "มีดร่วง" — ฐานอาจหลุดหาก 2Q26 (17 ส.ค.) อ่อนอีก. เป้าเชิงเทคนิคเป็น "โซน": ฿24&ndash;25 (เด้งแรก) &rarr; ฿29&ndash;30 (แม่เหล็ก fair value).</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Risk geometry</th><th>โซนเข้า</th><th>Stop</th><th>เป้า (รวม fair-value magnet)</th><th class="num">R</th></tr></thead>
+        <tbody><tr><td class="small muted">สร้างฐานใกล้ low / ทยอยสะสม</td><td>฿20.5&ndash;22.0</td><td>฿18.5 (ใต้ฐาน ~&minus;13%)</td><td>฿26 (เด้ง) · ฿29&ndash;33 (FV)</td><td class="num">~1.7&ndash;2.8R</td></tr></tbody>
+      </table></div>
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>Timing verdict</h3>
+        <p><strong>ทยอยสะสมบนฐาน (stage-in) ไม่ใช่เข้าทีเดียว</strong> — valuation ให้ MoS แล้ว (ราคา &le;฿22 ต่ำกว่า FV ~36%) แต่โมเมนตัมยังไม่ยืนยันและสภาพคล่องบาง. รอ trigger เชิงพื้นฐาน (มาร์จิ้นฟื้นใน 2Q26) ก่อนเพิ่มน้ำหนัก — ปล่อยให้ "ราคาถูก + การยืนยันผลประกอบการ" มาบรรจบกัน</p>
+      </div>
+
+      <h3 id="s5-2">5.2 ฉากทัศน์และผลตอบแทนคาดหวัง</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ฉากทัศน์</th><th>ปัจจัยขับเคลื่อน</th><th class="num">~12 ด.</th><th class="num">~24 ด.</th><th class="num">~36 ด.</th><th class="num">ผลตอบแทน*</th><th class="num">โอกาส</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot good"></span>Bull</span></td><td class="small muted">แบรนด์เอง+ส่งออกสเกล, มาร์จิ้น 11&ndash;11.5%, โตกลับ low-teens, re-rate 14&ndash;15x</td><td class="num">฿30</td><td class="num">฿40</td><td class="num">฿50</td><td class="num">+135%</td><td class="num">20%</td></tr>
+          <tr><td>Base</td><td class="small muted">โต ~8&ndash;10%, มาร์จิ้น ~10.5%, FCF ฟื้นหลัง capex, re-rate ~13x</td><td class="num">฿26</td><td class="num">฿30</td><td class="num">฿33</td><td class="num">+55%</td><td class="num">50%</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>Bear</span></td><td class="small muted">concentration กดดัน, มาร์จิ้นทรง ~9%, โต ~5%, multiple ทรง ~10x</td><td class="num">฿20</td><td class="num">฿20</td><td class="num">฿22</td><td class="num">&minus;3%*</td><td class="num">30%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="6">มูลค่าถ่วงน้ำหนักความน่าจะเป็น (DCF, Bear30/Base50/Bull20)</td><td class="num">฿33.6 (+58%)</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">*ผลตอบแทนรวมปันผล ~4.9%/ปี — กรณี Bear ราคาแทบไม่เปลี่ยนแต่ยังได้ปันผล (total return ใกล้ 0 ถึงบวกเล็กน้อย) ตราบใดที่ความสัมพันธ์ CP All ไม่ขาด; tail risk (CP All in-source) จะแย่กว่านี้มากและไม่รวมในกรณีฐาน Bear</p>
+
+      <h3 id="s5-3">5.3 แผนการลงทุน</h3>
+      <div class="callout" style="margin-top:6px;">
+        <h3>แผนการลงทุน <span class="small muted">— มีเงื่อนไข ไม่ใช่คำสั่งซื้อ/ขาย</span></h3>
+        <p class="small"><strong>รูปแบบ (archetype):</strong> Quality compounder ที่ถูก de-rate (GARP) — ซื้อธุรกิจ ROIC สูงตอนตลาดตีราคาเหมือนหยุดโต โดยยอมรับว่า "edge" ขึ้นกับการพิสูจน์ว่าการชะลอเป็นเรื่องชั่วคราว</p>
+        <p class="small"><strong>จุดเข้า &amp; margin of safety:</strong> ต้องการ MoS ~25&ndash;30% เพราะ concentration; FV ฿29 &rarr; โซน &le;฿22 ให้ MoS แล้ว</p>
+        <p class="small"><strong>เทคนิค — โซนเข้า · stop · R:</strong> ฿20.5&ndash;22.0 · stop ฿18.5 · ~1.7&ndash;2.8R (ดู <a href="#s5-1">§5.1</a>) — technical stop กับ MoS เป็นการคุมความเสี่ยงคู่กัน</p>
+        <p class="small"><strong>ขนาด &amp; การทยอย:</strong> ทยอย 3 ไม้ — 1/3 ที่ฐานปัจจุบัน, 1/3 เมื่อ 2Q26 ยืนยันมาร์จิ้นฟื้น (17 ส.ค.), 1/3 เมื่อมีหลักฐานแบรนด์เอง/ส่งออก หรือเบรกเหนือ ฿25. <strong>คุมขนาดตามสภาพคล่องที่บาง</strong> — ไม่เหมาะเป็นโพสิชันใหญ่</p>
+        <p class="small"><strong>สิ่งที่เพิ่มความเชื่อมั่น (เฝ้าทุกไตรมาส):</strong> มาร์จิ้นกลับ &ge;10% · FCF เป็นบวกหลัง capex · สัดส่วนแบรนด์เอง+ส่งออกเพิ่ม · ROIC ทรงตัว · การยืนยันสัญญา CP All</p>
+        <p class="small"><strong>สิ่งที่หักล้าง thesis (จุดออก):</strong> CP All in-source/dual-source หรือ concentration shock · มาร์จิ้นต่ำกว่า 9% เชิงโครงสร้าง · ROIC ไหลเข้าหา WACC · รายได้ติดลบ · ปันผลพึ่งหนี้ (cash payout &gt;100%) ต่อเนื่องหลายปี</p>
+        <p class="small"><strong>กรอบเวลา:</strong> 2&ndash;3 ปีให้กรณีฐานคลี่คลาย</p>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ความเสี่ยงหลัก ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+      <div class="table-wrap"><table>
+        <thead><tr><th>ความเสี่ยง</th><th>ทิศทาง</th><th class="num">มูลค่าที่เสี่ยง</th></tr></thead>
+        <tbody>
+          <tr><td><strong>การพึ่งลูกค้ารายเดียว (CP All/7-Eleven 86&ndash;91%)</strong> — สัญญาถึง 2031 แต่ไม่ผูกขาด</td><td class="small muted">หากสูญเสีย/ลดคำสั่งซื้อ = กระทบรุนแรงทันที</td><td class="num">~50&ndash;70%</td></tr>
+          <tr><td>มาร์จิ้นหดเชิงโครงสร้าง — ถ้าพีคปี 2024 ไม่ใช่ปกติใหม่ และกลับสู่ ~9%</td><td class="small muted">EBIT/กำไรต่ำกว่าฐาน</td><td class="num">~20&ndash;25%</td></tr>
+          <tr><td>การเติบโตอิ่มตัว — 7-Eleven channel โตช้าลง + แบรนด์เอง/ส่งออกสเกลไม่ทัน</td><td class="small muted">base &rarr; bear</td><td class="num">~20%</td></tr>
+          <tr><td>CapEx/FCF &amp; ความคุ้มครองปันผล — กำลังผลิตใหม่ใช้ไม่เต็ม, cash payout &gt;100%</td><td class="small muted">ROIC เจือจาง, ปันผลพึ่งหนี้</td><td class="num">~10&ndash;15%</td></tr>
+          <tr><td>สภาพคล่อง/ธรรมาภิบาล — free float 26.9%, วอลุ่มบาง, ครอบครัวคุม, related-party ในระบบนิเวศ CP</td><td class="small muted">ส่วนลด ไม่ใช่ตัวทำลายมูลค่า</td><td class="num">discount</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">เชื่อมกับ thesis-breakers ใน <a href="#s5-3">§5.3</a> และปัจจัยที่ sensitivity ใน <a href="#s3">§3</a> ไวที่สุด (มาร์จิ้น &times; WACC). หมายเหตุ Damodaran: ความเสี่ยง concentration เป็น "truncation risk" (โอกาสที่กระแสเงินสดถูกตัดขาด) ที่ DCF เชิงกลไกจับไม่ครบ — จึงควรคุมด้วย margin of safety และการคุมขนาด ไม่ใช่แค่ปรับ WACC</p>
+    </section>
+
+    <!-- ============ ภาคผนวก ============ -->
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+      <h3>สมมติฐานการประเมินมูลค่า</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปัจจัย</th><th class="num">ค่า</th><th>แหล่งที่มา / เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate</td><td class="num">2.28%</td><td class="small muted">พันธบัตรรัฐบาลไทย 10 ปี ณ 9 มิ.ย. 2026</td></tr>
+          <tr><td>Equity risk premium (Thailand)</td><td class="num">~7.5%</td><td class="small muted">mature ERP + country risk premium (กรอบ Damodaran)</td></tr>
+          <tr><td>Beta</td><td class="num">0.85</td><td class="small muted">bottom-up กลุ่ม packaged food (beta รายงาน 0.13 บิดเบือนจากสภาพคล่องบาง)</td></tr>
+          <tr><td>Cost of equity / WACC</td><td class="num">~9.2% / ~8.8%</td><td class="small muted">น้ำหนักทุน E ~91% / D ~9%; CoD หลังภาษี ~3.5%</td></tr>
+          <tr><td>อัตราภาษี</td><td class="num">20%</td><td class="small muted">effective tax 3 ปี ~19&ndash;20%</td></tr>
+          <tr><td>Sales-to-capital / Terminal ROIC</td><td class="num">2.3x / 15%</td><td class="small muted">อนุรักษ์กว่าค่าในอดีต รับความเสี่ยง capex ใหม่</td></tr>
+          <tr><td>หุ้น / Net debt</td><td class="num">300 ลบ.หุ้น / ฿236 ลบ.</td><td class="small muted">free float ~26.9%</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>หมายเหตุเวอร์ชัน — อะไรใหม่ใน V2</h3>
+      <p class="small muted">V2 เรียบเรียงใหม่ทั้งหมดจากข้อมูลปฐมภูมิที่ตรวจสอบ ณ มิ.ย. 2026: (1) ราคา/มาร์เก็ตแคปล่าสุด ฿21.30 และผลจริง 1Q2026; (2) WACC สร้างใหม่จากพันธบัตร 10 ปีไทย 2.28% (แทนการประมาณ); (3) เพิ่ม <strong>reverse-DCF</strong> เพื่อตรวจว่าตลาดราคาอะไรไว้; (4) cross-check ด้วยคู่เทียบไทยจริง (TKN/SAPPE/ICHI) ที่ดึงข้อมูลสด; (5) ระบุตัวเลข concentration ชัด (CP All 86&ndash;91%); (6) แยกชัดว่า FCF ที่ทรุดคือ "growth capex" ไม่ใช่การเสื่อมของธุรกิจ. ยินดีกระทบยอดทีละบรรทัดกับ V1 หากต้องการ</p>
+
+      <h3>แหล่งข้อมูลและวันที่</h3>
+      <p class="small muted">stockanalysis.com (ข้อมูล S&amp;P Global Market Intelligence, งบถึง FY2025/1Q2026), Simply Wall St (ผลรายไตรมาส, ปันผล, consensus), FynnCorp IAS Equity Research (22 ก.ค. 2568 — โครงสร้างรายได้/ต้นทุน, concentration), NSL Foods IR, ThaiBMA / TradingEconomics (อัตราผลตอบแทนพันธบัตร 9 มิ.ย. 2026). ข้อมูลจากผู้รวบรวม (aggregator) ไม่เป็นทางการ — ควรตรวจสอบกับ 56-1 One Report และงบการเงินต้นทางก่อนตัดสินใจจริง.</p>
+      <p class="small muted"><strong>คำปฏิเสธความรับผิด.</strong> เอกสารนี้จัดทำเพื่อการศึกษาและวิจัยเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขาย ไม่มีการรับประกันผลตอบแทน และไม่ได้ปรับให้เหมาะกับสถานการณ์เฉพาะบุคคล การลงทุนมีความเสี่ยง ผู้ลงทุนควรศึกษาข้อมูลและทำการบ้านด้วยตนเอง.</p>
+    </section>
+
+    <footer>
+      NSL Foods PCL · NSL.BK · งานวิจัยเพื่อการศึกษา · สร้างเมื่อ 9 มิ.ย. 2026 · V2 · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a = map[e.target.id]; if(a) a.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+    document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+  })();
+</script>
+</body>
+</html>

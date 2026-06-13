@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MiroFish — รายงานทำความเข้าใจ Repo (มุมนักลงทุน/วิศวกร)</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI','Noto Sans Thai',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  h4{font-family:var(--serif);font-weight:500;font-size:15.5px;margin:20px 0 6px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  ul,ol{margin:0 0 14px;padding-left:20px;} li{margin:4px 0;}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:12.5px;background:var(--gray-100);padding:1px 5px;border-radius:4px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:248px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc>summary{display:none;}
+  .toc .toc-desk{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:6px 0 6px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:8px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+  .insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+           border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+  .insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:32px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;letter-spacing:.02em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 0;}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);white-space:nowrap;}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);white-space:nowrap;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout.good{background:var(--white);border-left:4px solid var(--good);}
+  .callout.bad{background:var(--white);border-left:4px solid var(--bad);}
+  .callout h3,.callout h4{margin-top:0;}
+
+  .fit-scale{display:flex;gap:5px;max-width:280px;}
+  .fit-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .fit-scale .seg.on{background:var(--good);}
+  .fit-scale .seg.mid{background:var(--watch);}
+  .fit-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+
+  figure.chart{margin:14px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+  figure.chart svg{width:100%;height:auto;display:block;}
+  figure.chart figcaption{margin-bottom:8px;}
+
+  .kv{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;font-size:13.5px;}
+  .kv .k{color:var(--gray-500);}
+
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:28px;}
+    .toc .toc-desk{display:none;}
+    .toc>summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);list-style:none;}
+    .toc>summary::-webkit-details-marker{display:none;}
+    details.toc:not([open])>ol{display:none;}
+    .toc ol{margin-top:12px;}
+  }
+  @media(max-width:720px){
+    .shell{padding:28px 16px 80px;}
+    h1{font-size:30px;} h2{font-size:21px;} h3{font-size:16px;}
+    .insight-lead{font-size:19px;}
+    .stat .v{font-size:28px;}
+    .band{grid-template-columns:repeat(2,1fr);}
+    table{font-size:13px;} thead th,tbody td{padding:10px 12px;}
+  }
+  @media(max-width:420px){ .band{grid-template-columns:1fr;} }
+
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout,.insight,figure.chart{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <details class="toc" open>
+    <summary>สารบัญ · Contents ▾</summary>
+    <div class="eyebrow toc-desk">สารบัญ</div>
+    <ol>
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · MiroFish คืออะไร</a></li>
+      <li><a href="#s2">2 · หลังบ้าน — สถาปัตยกรรม 5 ขั้น</a></li>
+      <li><a class="sub" href="#s2-1">2.1 สร้าง Knowledge Graph</a></li>
+      <li><a class="sub" href="#s2-2">2.2 ปั้นประชากร agent</a></li>
+      <li><a class="sub" href="#s2-3">2.3 คันโยก God-view</a></li>
+      <li><a class="sub" href="#s2-4">2.4 รันบน OASIS</a></li>
+      <li><a class="sub" href="#s2-5">2.5 ReportAgent</a></li>
+      <li><a href="#s3">3 · ตัวอย่างงานจริง</a></li>
+      <li><a class="sub" href="#s3-1">3.1 เคสที่พิสูจน์แล้ว</a></li>
+      <li><a class="sub" href="#s3-2">3.2 เคสจำลอง activist</a></li>
+      <li><a href="#s4">4 · ขีดจำกัด &amp; ความเสี่ยง</a></li>
+      <li><a href="#s5">5 · วิธีต่อยอดให้เป็นของพี่</a></li>
+      <li><a href="#s6">6 · สรุป Decision</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </details>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <h1>MiroFish</h1>
+        <span class="pill">รายงานทำความเข้าใจ Repo · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">เครื่องยนต์จำลอง “ความเห็นฝูงชน” ด้วย multi-agent — ป้อนข่าว/เอกสาร แล้วจำลองว่า narrative จะแพร่และจบทางไหน</div>
+      <div class="meta mono">github.com/666ghj/MiroFish · AGPL-3.0 · v0.1.2 · วิเคราะห์จาก source ณ 11 มิ.ย. 2026</div>
+    </header>
+
+    <!-- ============ บทสรุปผู้บริหาร ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+
+      <div class="insight">
+        <div class="eyebrow">ข้อมูลเชิงลึกหลัก · Key Insight</div>
+        <p class="insight-lead">MiroFish คือ “เครื่องจำลองความเห็นฝูงชน” (agent-based opinion simulation) ไม่ใช่เครื่องทำนายราคา — มันตอบว่า <em>“narrative จะแพร่และจบทางไหน”</em> ไม่ใช่ <em>“หุ้นจะ +กี่ %”</em></p>
+        <p class="small muted">ทั้งระบบออกแบบมาเพื่อจำลองพลวัตของ “คนหมู่มาก” ที่อ่านข้อมูลแล้ว react ต่อกัน จุดที่มันมีค่ากับงานพี่จริงคือ <strong>reflexivity layer</strong> ของงาน Japan activist/event-driven — ส่วนที่ valuation มองไม่เห็น และควรต่อยอดบน <strong>OASIS</strong> (engine ข้างใต้ ใบอนุญาต Apache-2.0) ไม่ใช่ตัว MiroFish (AGPL) เพื่อกัน moat ของ FinCouncil</p>
+      </div>
+
+      <div class="band">
+        <div class="stat"><div class="v">60.9k</div><div class="k">GitHub stars</div><div class="d up">trending · incubated by Shanda</div></div>
+        <div class="stat"><div class="v">OASIS</div><div class="k">Engine ข้างใต้</div><div class="d flat">CAMEL-AI · Apache-2.0</div></div>
+        <div class="stat warn"><div class="v">AGPL-3.0</div><div class="k">License ของ MiroFish</div><div class="d down">copyleft + network clause</div></div>
+        <div class="stat"><div class="v">Sentiment</div><div class="k">ชนิดของผลลัพธ์</div><div class="d flat">ไม่ใช่ราคา/ผลตอบแทน</div></div>
+      </div>
+
+      <h3>อ่านรายงานนี้ใน 30 วินาที</h3>
+      <p>MiroFish รับ “เมล็ดข้อมูล” (ข่าว ร่างนโยบาย รายงาน หรือแม้แต่นิยาย) มาสร้างเป็น <strong>Knowledge Graph</strong> แล้วแตกตัวละครออกมาเป็น AI agent หลายร้อย–พันตัว ที่มีบุคลิก ความจำ และพฤติกรรมของตัวเอง จากนั้นปล่อยให้ agent คุยกันบนแพลตฟอร์มจำลอง (Reddit + Twitter) หลายรอบ พี่ในฐานะ “พระเจ้า” ฉีดเหตุการณ์เข้าไปได้ แล้วระบบสรุปออกมาเป็นรายงานว่าความเห็นฝูงชนวิวัฒน์ไปทางไหน</p>
+      <p>มันถูกพิสูจน์แล้วกับ <strong>การจำลองกระแสสังคม</strong> (เคสมหา’ลัยอู่ฮั่น) และ <strong>การเดาตอนจบนิยาย</strong> (ความฝันในหอแดง) — ส่วน <strong>การเงิน “coming soon”</strong> ตามที่ repo บอกเอง คือยังไม่มีของจริงให้ลอก พี่ต้องบุกเบิกเอง รายงานนี้พาไปดูตั้งแต่หลังบ้านจริง → ตัวอย่างที่เห็นภาพ → จนถึงพิมพ์เขียววิธีต่อยอด</p>
+
+      <div class="callout accent" style="margin-top:18px">
+        <div class="eyebrow">คำเตือนเชิงระเบียบวิธี</div>
+        <p style="margin-bottom:0">อย่าใช้ MiroFish ตอบ “ถือ CPALL 3 เดือนได้กี่ %” มันไม่มี engine ราคา/ปัจจัยพื้นฐาน ถ้าฝืนถาม มันจะตอบเป็น narrative ที่ฟังดูน่าเชื่อแต่ไม่ผูกกับ price dynamics จริง = ความมั่นใจปลอม ใช้มันกับคำถามที่มันเกิดมาเพื่อตอบ: <strong>“เกมความเห็นจะจบทางไหน”</strong></p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · MiroFish คืออะไร ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>MiroFish คืออะไร — แนวคิดและปัญหาที่มันแก้</h2></div>
+      <hr class="div">
+
+      <p>คำโปรยทางการคือ “swarm intelligence engine — predicting anything” แต่ในทางปฏิบัติ MiroFish ทำสิ่งเดียวที่ชัดมาก: <strong>สร้างโลกสังคมจำลองที่มี AI agent จำนวนมาก แล้วดูว่าความเห็น/อารมณ์ของพวกเขาวิวัฒน์ไปทางไหนเมื่อมีข้อมูลใหม่เข้ามา</strong> มันคือ “กระจกเงาของฝูงชน” ที่จับ emergent behavior — สิ่งที่โผล่จาก<em>การที่ปัจเจกคุยกัน</em> ไม่ใช่จากสูตรสำเร็จ</p>
+
+      <h3>ปัญหาที่มันแก้ (และไม่แก้)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>คำถามแบบไหน</th><th>MiroFish ตอบได้ไหม</th><th>เพราะอะไร</th></tr></thead>
+        <tbody>
+          <tr><td>กระแส/ความเห็นต่อเหตุการณ์หนึ่งจะแพร่และจบทางไหน</td><td><span class="chip"><span class="dot good"></span>ใช่ — งานหลัก</span></td><td>ทั้ง engine จำลองการ react ต่อกันของฝูงชน</td></tr>
+          <tr><td>narrative ของฝ่ายหนึ่งจะ “ชนะใจ” คนหมู่มากไหม</td><td><span class="chip"><span class="dot good"></span>ใช่</span></td><td>มีคันโยก stance / influence / echo-chamber ให้ตั้ง</td></tr>
+          <tr><td>ตอนจบของเรื่องเล่า/สถานการณ์ที่ตัวละครมีพฤติกรรม</td><td><span class="chip"><span class="dot good"></span>ใช่ — พิสูจน์แล้ว</span></td><td>เคสนิยาย “ความฝันในหอแดง”</td></tr>
+          <tr><td>ราคาหุ้น/ผลตอบแทนในอีก X เดือน</td><td><span class="chip"><span class="dot bad"></span>ไม่</span></td><td>ไม่มี price engine, fundamentals, market microstructure</td></tr>
+          <tr><td>มูลค่าที่แท้จริง (DCF/SOTP)</td><td><span class="chip"><span class="dot bad"></span>ไม่</span></td><td>คนละเครื่องมือ — นั่นคือ myDamo/FinCouncil</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>รากฐาน: MiroFish = OASIS + ชั้นห่อ</h3>
+      <p>หัวใจสำคัญที่ต้องเข้าใจตั้งแต่ต้น: เครื่องยนต์จำลองจริง ๆ ไม่ใช่ code ของ MiroFish เอง แต่เป็น <strong>OASIS</strong> (Open Agent Social Interaction Simulations) ของทีม CAMEL-AI — และ OASIS เป็น <strong>Apache-2.0</strong> (permissive) สิ่งที่ MiroFish เพิ่มเข้าไปคือชั้นรอบ ๆ: ตัวดูดข้อมูลเป็นกราฟ, ตัวปั้น persona, ตัวตั้งค่า, ReportAgent, และ frontend Vue — ทั้งหมดนี้ห่อด้วย <strong>AGPL-3.0</strong> ความต่างของสองใบอนุญาตนี้คือหัวใจของคำแนะนำในข้อ 5</p>
+
+      <div class="kv" style="margin-top:8px">
+        <div class="k mono">โครงสร้าง</div><div>Python 57.6% (backend Flask) · Vue 41.2% (frontend)</div>
+        <div class="k mono">backend</div><div>Flask API (พอร์ต 5001) — โมดูล <code>graph</code> · <code>simulation</code> · <code>report</code></div>
+        <div class="k mono">frontend</div><div>Vue (พอร์ต 3000) — อัปโหลด seed, ดู agent, อ่านรายงาน, คุยกับ agent</div>
+        <div class="k mono">หน่วยความจำ</div><div>Zep Cloud (บังคับ) — เก็บ knowledge graph + กิจกรรม agent แบบ temporal</div>
+        <div class="k mono">โมเดล</div><div>LLM ใด ๆ ที่เป็น OpenAI SDK format (default <code>gpt-4o-mini</code>)</div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · หลังบ้าน ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>หลังบ้าน — สถาปัตยกรรม 5 ขั้น</h2></div>
+      <hr class="div">
+
+      <p>วิธีคิดที่ทำให้เข้าใจง่ายที่สุด: MiroFish เป็น “สายพานการผลิต” ที่แปลง <strong>ก้อนข้อความดิบ</strong> → <strong>โลกสังคมที่มีชีวิต</strong> → <strong>รายงานทำนาย</strong> ผ่าน 5 สถานี แต่ละสถานีคือ service จริงใน <code>backend/app/services/</code></p>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">สายพาน 5 ขั้น (ลูกศรประใต้ = กราฟอัปเดตตัวเองระหว่างรันแบบ temporal)</figcaption>
+        <svg viewBox="0 0 720 168" preserveAspectRatio="xMidYMid meet" role="img" aria-label="แผนภาพสายพาน 5 ขั้นของ MiroFish">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#87867F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </marker>
+          </defs>
+          <!-- boxes -->
+          <g font-family="ui-serif,Georgia,serif">
+            <rect x="8"   y="22" width="124" height="80" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"/>
+            <rect x="156" y="22" width="124" height="80" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"/>
+            <rect x="304" y="22" width="124" height="80" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"/>
+            <rect x="452" y="22" width="124" height="80" rx="10" fill="#FFFFFF" stroke="#D97757" stroke-width="1.8"/>
+            <rect x="600" y="22" width="112" height="80" rx="10" fill="#FFFFFF" stroke="#D1CFC5" stroke-width="1.5"/>
+          </g>
+          <g font-family="system-ui,sans-serif">
+            <text x="70"  y="46" text-anchor="middle" font-size="13" font-weight="600" fill="#141413">1 · Seed</text>
+            <text x="70"  y="65" text-anchor="middle" font-size="10.5" fill="#3D3D3A">ข่าว/รายงาน/นิยาย</text>
+            <text x="70"  y="90" text-anchor="middle" font-size="9.5" font-family="ui-monospace,monospace" fill="#87867F">graph_builder</text>
+
+            <text x="218" y="46" text-anchor="middle" font-size="13" font-weight="600" fill="#141413">2 · Graph</text>
+            <text x="218" y="65" text-anchor="middle" font-size="10.5" fill="#3D3D3A">Zep GraphRAG</text>
+            <text x="218" y="90" text-anchor="middle" font-size="9.5" font-family="ui-monospace,monospace" fill="#87867F">ontology_gen</text>
+
+            <text x="366" y="46" text-anchor="middle" font-size="13" font-weight="600" fill="#141413">3 · Agents</text>
+            <text x="366" y="65" text-anchor="middle" font-size="10.5" fill="#3D3D3A">ปั้น persona</text>
+            <text x="366" y="90" text-anchor="middle" font-size="9.5" font-family="ui-monospace,monospace" fill="#87867F">profile_gen</text>
+
+            <text x="514" y="46" text-anchor="middle" font-size="13" font-weight="600" fill="#141413">4 · Simulate</text>
+            <text x="514" y="65" text-anchor="middle" font-size="10.5" fill="#3D3D3A">OASIS · RDT//TWT</text>
+            <text x="514" y="90" text-anchor="middle" font-size="9.5" font-family="ui-monospace,monospace" fill="#87867F">sim_runner</text>
+
+            <text x="656" y="46" text-anchor="middle" font-size="13" font-weight="600" fill="#141413">5 · Report</text>
+            <text x="656" y="65" text-anchor="middle" font-size="10.5" fill="#3D3D3A">+ สัมภาษณ์</text>
+            <text x="656" y="90" text-anchor="middle" font-size="9.5" font-family="ui-monospace,monospace" fill="#87867F">report_agent</text>
+          </g>
+          <!-- arrows -->
+          <line x1="132" y1="62" x2="156" y2="62" stroke="#87867F" stroke-width="1.4" marker-end="url(#ar)"/>
+          <line x1="280" y1="62" x2="304" y2="62" stroke="#87867F" stroke-width="1.4" marker-end="url(#ar)"/>
+          <line x1="428" y1="62" x2="452" y2="62" stroke="#87867F" stroke-width="1.4" marker-end="url(#ar)"/>
+          <line x1="576" y1="62" x2="600" y2="62" stroke="#87867F" stroke-width="1.4" marker-end="url(#ar)"/>
+          <!-- feedback loop (temporal memory) box4 -> box2 -->
+          <path d="M514 102 L514 138 L218 138 L218 102" fill="none" stroke="#87867F" stroke-width="1.2" stroke-dasharray="5 5" marker-end="url(#ar)"/>
+          <text x="366" y="153" text-anchor="middle" font-size="10" font-family="ui-monospace,monospace" fill="#87867F">กิจกรรม agent เขียนกลับเข้ากราฟต่อเนื่อง · zep_graph_memory_updater</text>
+        </svg>
+      </figure>
+
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ขั้น</th><th>ทำอะไร (ภาษาคน)</th><th>บริการหลัก (code)</th><th>ผลลัพธ์</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1 · Graph Building</strong></td><td>หั่นข้อความ → สกัดเอนทิตี/ความสัมพันธ์ → สร้างกราฟความรู้</td><td class="mono">text_processor · ontology_generator · graph_builder</td><td>Knowledge graph บน Zep</td></tr>
+          <tr><td><strong>2 · ปั้น Agent</strong></td><td>อ่านเอนทิตีในกราฟ → ปั้นเป็นตัวละครมีบุคลิก</td><td class="mono">zep_entity_reader · oasis_profile_generator</td><td>persona หลายร้อย–พันตัว</td></tr>
+          <tr><td><strong>3 · ตั้งค่า</strong></td><td>อ่านโจทย์ภาษาคน → แปลงเป็นพารามิเตอร์การจำลอง</td><td class="mono">simulation_config_generator</td><td>SimulationParameters (JSON)</td></tr>
+          <tr><td><strong>4 · จำลอง</strong></td><td>รัน OASIS สองแพลตฟอร์มพร้อมกัน หลายรอบ + ฉีดเหตุการณ์</td><td class="mono">simulation_runner · simulation_ipc · scripts/run_*_simulation</td><td>action log + กราฟที่วิวัฒน์</td></tr>
+          <tr><td><strong>5 · รายงาน</strong></td><td>ReAct agent ค้นกราฟ + สัมภาษณ์ agent → เขียนรายงานทีละส่วน</td><td class="mono">report_agent · zep_tools</td><td>รายงานทำนาย + บทสัมภาษณ์</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <!-- 2.1 -->
+      <h3 id="s2-1">2.1 ขั้น 1 — สร้าง Knowledge Graph จาก seed</h3>
+      <p>พี่อัปโหลดไฟล์ (PDF/MD/TXT, ≤50MB) <code>TextProcessor</code> หั่นเป็นก้อนละ ~500 ตัวอักษร (เหลื่อม 50) จากนั้น <code>OntologyGenerator</code> ให้ LLM อ่านตัวอย่างเนื้อหาแล้ว “ออกแบบ schema” เองว่าในเรื่องนี้มีเอนทิตีชนิดไหน (คน/องค์กร/เหตุการณ์) สัมพันธ์กันยังไง — แล้วแปลงเป็นโครง Python ส่งให้ <code>GraphBuilderService</code> สร้างกราฟบน Zep และยัดข้อความเข้าไปเป็น “episodes” Zep จะประมวลเป็น <strong>GraphRAG</strong> (เอนทิตี + เส้นเชื่อม ที่มี “อายุ”/ความถูกต้องตามเวลา)</p>
+      <p class="small muted">แปลว่าคุณภาพของทุกอย่างที่ตามมา ขึ้นกับคุณภาพของ seed ที่ป้อน — garbage in, garbage out ในระดับโครงสร้าง</p>
+
+      <!-- 2.2 -->
+      <h3 id="s2-2">2.2 ขั้น 2 — ปั้นประชากร agent จากกราฟ</h3>
+      <p><code>OasisProfileGenerator</code> เดินเข้าไปอ่านเอนทิตีในกราฟ แล้วให้ LLM ปั้นแต่ละตัวเป็น <code>OasisAgentProfile</code> — ตัวละครเต็มตัว ไม่ใช่แค่ป้ายชื่อ ฟิลด์จริงในโครงสร้าง:</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>กลุ่มฟิลด์</th><th>ฟิลด์ (จาก source)</th><th>หมายถึง</th></tr></thead>
+        <tbody>
+          <tr><td>ตัวตน</td><td class="mono">name · bio · persona</td><td>คำบรรยายบุคลิก/น้ำเสียงที่ LLM จะสวมตอนแสดง</td></tr>
+          <tr><td>ประชากรศาสตร์</td><td class="mono">age · gender · mbti · country · profession</td><td>ภูมิหลังที่ทำให้ react ต่างกัน</td></tr>
+          <tr><td>ความสนใจ</td><td class="mono">interested_topics</td><td>หัวข้อที่ตัวนี้จะสนใจ/เข้าไปยุ่ง</td></tr>
+          <tr><td>น้ำหนักโซเชียล</td><td class="mono">karma (Reddit) · follower_count (Twitter)</td><td>สถานะในแพลตฟอร์ม</td></tr>
+          <tr><td>ที่มา</td><td class="mono">source_entity_uuid · source_entity_type</td><td>โยงกลับไปเอนทิตีต้นทางในกราฟ seed</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">แต่ละ agent ถูกแปลงเป็นได้ทั้งรูปแบบ Reddit และ Twitter (<code>to_reddit_format</code> / <code>to_twitter_format</code>) เพื่อรันสองแพลตฟอร์มพร้อมกัน</p>
+
+      <!-- 2.3 -->
+      <h3 id="s2-3">2.3 ขั้น 3 — ตั้งพารามิเตอร์ (คันโยก “พระเจ้า”)</h3>
+      <p>นี่คือส่วนที่สำคัญที่สุดสำหรับงานพี่ <code>SimulationConfigGenerator</code> อ่านโจทย์ภาษาคน (“จำลองว่าหลัง X ความเห็นจะ…”) แล้วสร้าง <code>SimulationParameters</code> ที่มีคันโยกควบคุมฝูงชนละเอียดมาก — และพี่ override เองได้ คันโยกที่ตรงกับ event-driven/activist:</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>คันโยก</th><th>ฟิลด์ (source)</th><th>ความหมาย</th><th>ใช้กับ activist ยังไง</th></tr></thead>
+        <tbody>
+          <tr><td>จุดยืน</td><td class="mono">stance</td><td>supportive / opposing / neutral / observer</td><td>ตั้งล่วงหน้าว่ากองไหนหนุน กองไหนค้าน activist</td></tr>
+          <tr><td>อคติอารมณ์</td><td class="mono">sentiment_bias</td><td>−1.0 ถึง 1.0</td><td>ทิศอารมณ์เริ่มต้นของแต่ละผู้เล่น</td></tr>
+          <tr><td>น้ำหนักอิทธิพล</td><td class="mono">influence_weight</td><td>โอกาสที่เสียงตัวนี้จะถูกคนอื่นเห็น</td><td>กองทุนใหญ่/ISS ถ่วงน้ำหนักมากกว่า retail</td></tr>
+          <tr><td>ตัวจุดชนวน</td><td class="mono">initial_posts</td><td>โพสต์ตั้งต้นตอนเริ่มจำลอง</td><td>= deck ของ activist</td></tr>
+          <tr><td>เหตุการณ์ตามเวลา</td><td class="mono">scheduled_events</td><td>ฉีดเหตุการณ์ ณ ชั่วโมงที่กำหนด</td><td>“ISS แนะให้โหวต FOR” ที่ชม.36 (มุมพระเจ้า)</td></tr>
+          <tr><td>ห้องเสียงสะท้อน</td><td class="mono">echo_chamber_strength</td><td>ความรุนแรงของการจับกลุ่มความเห็นเดียวกัน</td><td>ความเห็นลามเป็นก้อนเร็วแค่ไหน</td></tr>
+          <tr><td>เกณฑ์ไวรัล</td><td class="mono">viral_threshold</td><td>จำนวน interaction ที่ทำให้กระจายตัว</td><td>จุด tipping ของการแพร่</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>ส่วนเวลา (<code>TimeSimulationConfig</code>) ดีฟอลต์จำลอง <strong>72 ชั่วโมง (3 วัน)</strong>, 1 รอบ = 1 ชม.จำลอง <span class="chip"><span class="dot watch"></span>ข้อควรระวัง</span> ตารางจังหวะความ active ถูก <strong>hardcode ตาม “นิสัยคนจีน”</strong> (พีคช่วงค่ำ 19–22 น., ตี 0–5 แทบตาย) — ดูผลกระทบในข้อ 4</p>
+
+      <!-- 2.4 -->
+      <h3 id="s2-4">2.4 ขั้น 4 — รันจำลองบน OASIS (สองแพลตฟอร์มขนาน)</h3>
+      <p><code>SimulationRunner</code> ไม่ได้รันในตัวมันเอง แต่ <strong>spawn subprocess</strong> ไปรันสคริปต์ใน <code>backend/scripts/</code> — เลือกได้ว่า <code>run_reddit_simulation.py</code>, <code>run_twitter_simulation.py</code> หรือ <code>run_parallel_simulation.py</code> (รันทั้งคู่พร้อมกัน) สคริปต์เรียก OASIS (<code>oasis.make</code>, <code>generate_reddit_agent_graph</code>) และผูกโมเดลผ่าน CAMEL:</p>
+      <div class="callout" style="margin:10px 0">
+        <p class="mono small" style="margin-bottom:8px">ModelFactory.create(model_platform=ModelPlatformType.OPENAI, model_type=llm_model)</p>
+        <p class="small" style="margin-bottom:0">ทุก agent วิ่งผ่าน endpoint แบบ OpenAI โดย override <code>OPENAI_API_BASE_URL</code> = นี่คือเหตุผลที่ <strong>เสียบ GLM ได้ทันที</strong> (ดูข้อ 5)</p>
+      </div>
+      <p>แต่ละรอบ agent เลือก “แอ็กชัน” ตามแพลตฟอร์ม:</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>แพลตฟอร์ม</th><th>แอ็กชันที่ทำได้ (source)</th></tr></thead>
+        <tbody>
+          <tr><td>Reddit (13)</td><td class="mono small">LIKE_POST · DISLIKE_POST · CREATE_POST · CREATE_COMMENT · LIKE_COMMENT · DISLIKE_COMMENT · SEARCH_POSTS · SEARCH_USER · TREND · REFRESH · FOLLOW · MUTE · DO_NOTHING</td></tr>
+          <tr><td>Twitter (6)</td><td class="mono small">CREATE_POST · LIKE_POST · REPOST · QUOTE_POST · FOLLOW · DO_NOTHING</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>สองกลไก “มุมพระเจ้า” ระหว่างรัน: (1) <code>scheduled_events</code> ฉีดตามเวลาที่วางไว้ และ (2) <code>SimulationIPC</code> ช่องสื่อสารให้ backend ฉีดคำสั่ง/สัมภาษณ์ agent <em>สด ๆ</em> ระหว่างจำลอง พร้อมกันนั้น <code>ZepGraphMemoryUpdater</code> สตรีมกิจกรรม agent กลับเข้ากราฟเป็น episode ใหม่ตลอดเวลา (ลูกศรประในแผนภาพ) — กราฟจึง “มีชีวิต” วิวัฒน์ตามการจำลอง</p>
+
+      <!-- 2.5 -->
+      <h3 id="s2-5">2.5 ขั้น 5 — ReportAgent และการคุยกับ agent</h3>
+      <p><code>ReportAgent</code> เป็น <strong>ReAct agent</strong> (คิด → เรียกเครื่องมือ → สังเกตผล วนไป) เขียนรายงานทีละหัวข้อ โดยค้นจากกราฟหลังจำลอง (ที่ตอนนี้บรรจุกิจกรรม agent ทั้งหมดแล้ว) มี 4 เครื่องมือ:</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>เครื่องมือ</th><th>ทำอะไร</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">insight_forge</td><td>ค้นเชิงลึก — แตกคำถามเป็นหลายมุม รวมผล semantic + เอนทิตี + ความสัมพันธ์</td></tr>
+          <tr><td class="mono">panorama_search</td><td>ค้นภาพรวม — เห็นเส้นเวลา แยก “ข้อเท็จจริงที่ยัง valid” vs “ที่ล้าสมัย” → ดูว่าความเห็นวิวัฒน์ยังไง</td></tr>
+          <tr><td class="mono">quick_search</td><td>ค้นเร็ว — ยืนยันข้อเท็จจริงจุดเดียว</td></tr>
+          <tr><td class="mono">interview_agents</td><td><strong>สัมภาษณ์ agent จริง</strong> ผ่าน OASIS API ทั้งสองแพลตฟอร์ม (ไม่ใช่ LLM ปลอมเสียง) — “นักศึกษาคิดไง สื่อคิดไง ทางการว่าไง”</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">ขอบเขต (จาก config): สูงสุด 5 tool calls ต่อหัวข้อ, 2 ต่อแชต, temperature 0.5 นอกจากรายงานแล้ว ผู้ใช้ยังเข้าไป “คุยกับ agent ตัวไหนก็ได้” ในโลกจำลองได้โดยตรง</p>
+    </section>
+
+    <!-- ============ 3 · ตัวอย่างงานจริง ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>ตัวอย่างงานจริง — ให้เห็นภาพ</h2></div>
+      <hr class="div">
+
+      <h3 id="s3-1">3.1 เคสที่ MiroFish พิสูจน์แล้ว (มี demo จริง)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>เคส</th><th>seed ที่ป้อน</th><th>โจทย์</th><th>สิ่งที่มันโชว์</th></tr></thead>
+        <tbody>
+          <tr><td><strong>กระแสมหา’ลัยอู่ฮั่น</strong></td><td>รายงานวิเคราะห์ความเห็นสาธารณะ</td><td>กระแสจะลามยังไง</td><td>พลวัตการแพร่ของความเห็นในประชากรจำลอง</td></tr>
+          <tr><td><strong>ความฝันในหอแดง</strong></td><td>ต้นฉบับ 80 บทแรก (หลายแสนคำ)</td><td>ตอนจบที่หายไปจะเป็นยังไง</td><td>เดิน “พฤติกรรมตัวละคร” ต่อจนได้ตอนจบที่สอดคล้องบุคลิก</td></tr>
+          <tr><td><strong>การเงิน</strong></td><td colspan="3"><span class="chip"><span class="dot watch"></span>“coming soon” ตาม README</span> — ยังไม่มี reference implementation พี่คือคนบุกเบิก</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">บทเรียน: จุดแข็งจริงของมันอยู่ที่ “พลวัตความเห็น/เรื่องเล่า” ไม่ใช่ตัวเลข — สังเกตว่าทั้งสองเคสคือคำถาม <em>“อะไรจะเกิดกับมุมมองของกลุ่มคน”</em></p>
+
+      <h3 id="s3-2">3.2 เคสจำลองสำหรับงานพี่ — activist campaign</h3>
+      <p>เอาคันโยกในข้อ 2.3 มาประกอบเป็นเคสจริง สมมติบริษัทญี่ปุ่น A ราคาต่ำกว่ามูลค่าทรัพย์สินที่ถืออยู่ (SOTP discount แบบ Suzuki/Maruti) activist เข้าซื้อ 5% แล้วประกาศแคมเปญ การจะ “ชนะ” คือต้องได้เสียงพอที่ AGM — เป็น <strong>สงครามโน้มน้าวฝูงชน</strong> ที่ valuation ตอบไม่ได้ว่าใครชนะ</p>
+
+      <h4>ตั้งค่าโลกจำลอง (จาก field จริง)</h4>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ผู้เล่น (agent)</th><th class="mono">stance</th><th class="mono">influence_weight</th><th class="mono">sentiment_bias</th></tr></thead>
+        <tbody>
+          <tr><td>กองทุน governance รายใหญ่</td><td>supportive</td><td class="num">สูง</td><td class="num">+0.4</td></tr>
+          <tr><td>กอง index เฉื่อย ×2</td><td>neutral</td><td class="num">สูง</td><td class="num">0.0</td></tr>
+          <tr><td>ISS / Glass Lewis</td><td>observer→ชี้ขาด</td><td class="num">สูงสุด</td><td class="num">0.0</td></tr>
+          <tr><td>ฝ่ายบริหารบริษัท</td><td>opposing</td><td class="num">กลาง</td><td class="num">−0.3</td></tr>
+          <tr><td>retail + สื่อ</td><td>neutral</td><td class="num">ต่ำ</td><td class="num">0.0</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4>เส้นเวลา — ฉีดเหตุการณ์ผ่าน <span class="mono">scheduled_events</span></h4>
+      <figure class="chart">
+        <figcaption class="eyebrow">72 ชม.จำลอง · เหตุการณ์ฉีดตามเวลา + เส้นแรงหนุนเทียบ threshold</figcaption>
+        <svg viewBox="0 0 720 250" preserveAspectRatio="xMidYMid meet" role="img" aria-label="เส้นเวลา activist campaign แสดงการฉีดเหตุการณ์และแรงหนุนเทียบเกณฑ์">
+          <!-- axes -->
+          <line x1="56" y1="40" x2="56" y2="196" stroke="#87867F" stroke-width="1"/>
+          <line x1="56" y1="196" x2="690" y2="196" stroke="#87867F" stroke-width="1"/>
+          <text x="56" y="28" font-size="11" font-family="ui-monospace,monospace" fill="#87867F">แรงหนุน activist</text>
+          <!-- threshold -->
+          <line x1="56" y1="78" x2="690" y2="78" stroke="#87867F" stroke-width="1" stroke-dasharray="5 5" opacity="0.7"/>
+          <text x="64" y="72" font-size="10.5" font-family="ui-monospace,monospace" fill="#87867F">threshold — เสียงพอบีบบอร์ด</text>
+          <!-- event markers (vertical) -->
+          <g stroke="#D1CFC5" stroke-width="1" stroke-dasharray="3 3">
+            <line x1="120" y1="44" x2="120" y2="196"/>
+            <line x1="270" y1="44" x2="270" y2="196"/>
+            <line x1="470" y1="44" x2="470" y2="196"/>
+            <line x1="630" y1="44" x2="630" y2="196"/>
+          </g>
+          <!-- support curve (snowball crossing threshold) -->
+          <path d="M56,182 C 200,180 330,150 470,120 C 560,100 620,70 690,52" fill="none" stroke="#788C5D" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="690" cy="52" r="3.5" fill="#788C5D"/>
+          <!-- event dots on axis -->
+          <g>
+            <circle cx="120" cy="196" r="3.5" fill="#D97757"/>
+            <circle cx="270" cy="196" r="3.5" fill="#D97757"/>
+            <circle cx="470" cy="196" r="3.5" fill="#788C5D"/>
+            <circle cx="630" cy="196" r="3.5" fill="#788C5D"/>
+          </g>
+          <!-- event labels -->
+          <g font-family="system-ui,sans-serif" font-size="10.5" fill="#3D3D3A">
+            <text x="120" y="214" text-anchor="middle">ชม.0</text>
+            <text x="120" y="228" text-anchor="middle" fill="#87867F">deck เปิดตัว</text>
+            <text x="270" y="214" text-anchor="middle">ชม.12</text>
+            <text x="270" y="228" text-anchor="middle" fill="#87867F">บริษัทโต้</text>
+            <text x="470" y="214" text-anchor="middle">ชม.36</text>
+            <text x="470" y="228" text-anchor="middle" fill="#87867F">ISS แนะ FOR</text>
+            <text x="630" y="214" text-anchor="middle">ชม.60</text>
+            <text x="630" y="228" text-anchor="middle" fill="#87867F">กอง index แตกแถว</text>
+          </g>
+          <text x="690" y="44" text-anchor="end" font-size="10.5" font-family="system-ui,sans-serif" fill="#788C5D">บอร์ดยอม = โอกาส</text>
+        </svg>
+      </figure>
+
+      <h4>สิ่งที่ได้กลับมา (ไม่ใช่ราคา)</h4>
+      <ul>
+        <li><strong>โอกาสที่แคมเปญรวมเสียงพอ</strong> — สูง/กลาง/ต่ำ จากการที่ฝูงชนข้าม <code>viral_threshold</code> หรือไม่</li>
+        <li><strong>argument ไหนใน deck ขยับคนจริง อันไหนเงียบ</strong> — รู้ว่า thesis ฝั่ง activist แข็ง/อ่อนตรงไหน</li>
+        <li><strong>จุด tipping</strong> — “ถ้ากอง index 2 รายแตกแถว มันลามทันที” (เห็นในกราฟที่ชม.60)</li>
+        <li><strong>ท่าโต้ของฝ่ายบริหารที่ดับแคมเปญได้</strong> — ลองสลับ <code>scheduled_events</code> แล้วรันซ้ำ</li>
+      </ul>
+      <div class="callout accent">
+        <div class="eyebrow">เชื่อมกับ Nidec Test</div>
+        <p style="margin-bottom:0">Nidec Test ถามว่าวิกฤตทำลาย <em>ทรัพย์สินจริง</em> (กับดัก) หรือแค่ <em>ชื่อเสียง</em> (โอกาส) ถ้าแค่ชื่อเสียง = perception ต่ำกว่า reality หุ้น mispriced — คำถามถัดมาที่ valuation ตอบไม่ได้คือ <strong>“perception จะกลับมาเท่า reality เมื่อไหร่/ยังไง”</strong> นั่นคือกระบวนการฝูงชน = กราฟข้างบน MiroFish เติมครึ่งหลังของ Nidec Test ที่งบการเงินมองไม่เห็น</p>
+      </div>
+    </section>
+
+    <!-- ============ 4 · ขีดจำกัด ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>ขีดจำกัด &amp; ความเสี่ยง (อ่านก่อนตัดสินใจ)</h2></div>
+      <hr class="div">
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ขีดจำกัด</th><th>รายละเอียด (จาก source)</th><th>ผลกับงานพี่</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot bad"></span>ไม่ใช่ price engine</span></td><td>ทั้งระบบโมเดล “ความเห็น” ไม่มีราคา/ปัจจัยพื้นฐาน/microstructure</td><td>ห้ามใช้ออกตัวเลข return — ใช้ออก scenario</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>สมมติจังหวะคนจีน</span></td><td><code>TimeSimulationConfig</code> hardcode พีคค่ำ 19–22, ตี0–5 ตาย</td><td>fidelity กับ retail ไทย/ญี่ปุ่นเพี้ยน ต้องแก้</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>เฉพาะ Reddit/Twitter</span></td><td>แพลตฟอร์มจำลองคือ Reddit + Twitter (ตะวันตก)</td><td>retail ไทยอยู่ Pantip/FB/X-ไทย ไม่ใช่ที่นี่</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>AGPL-3.0</span></td><td>copyleft + network clause (ตัว MiroFish)</td><td>ถ้า link เข้า FinCouncil ที่ serve ผ่าน network → ต้อง open-source ทั้งตัว</td></tr>
+          <tr><td><span class="chip"><span class="dot watch"></span>พึ่ง Zep Cloud</span></td><td>บังคับใช้ external service สำหรับกราฟ+ความจำ</td><td>ข้อมูลออกนอก environment + อีก moving part</td></tr>
+          <tr><td><span class="chip"><span class="dot watch"></span>กิน token หนัก</span></td><td>agent หลายพัน × ~72 รอบ; README เตือนเริ่ม &lt;40 รอบ</td><td>ไม่ใช่ quick query — แพง + ช้า ต้องคุมต้นทุน</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============ 5 · วิธีต่อยอด ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>วิธีต่อยอดให้เป็นของพี่</h2></div>
+      <hr class="div">
+
+      <div class="callout good">
+        <div class="eyebrow">การตัดสินใจเชิงกลยุทธ์</div>
+        <p style="margin-bottom:0"><strong>ของที่ควร fork ไม่ใช่ MiroFish — คือ OASIS</strong> MiroFish โดยเนื้อแท้ = OASIS (engine, Apache-2.0) + ชั้นกราฟ/persona/report + Vue ห่อด้วย AGPL ความสามารถที่พี่อยากได้อยู่ใน OASIS ซึ่ง permissive → ต่อ OASIS ตรง ๆ เลี่ยงกับดัก AGPL และกัน moat ของ FinCouncil ได้</p>
+      </div>
+
+      <h3>ความเหมาะกับแต่ละโปรเจคของพี่</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>โปรเจค</th><th>ความเหมาะ</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Japan activist / event-driven</strong></td><td><span class="chip"><span class="dot good"></span>เหมาะสุด</span></td><td>catalyst + ฝูงชน react ตรง ๆ — reflexivity layer ที่ขาด</td></tr>
+          <tr><td><strong>FinCouncil</strong></td><td><span class="chip"><span class="dot watch"></span>มีเงื่อนไข</span></td><td>เป็น node “reflexivity/crowd” ที่เรียกแบบ arms-length เท่านั้น (อย่า link code)</td></tr>
+          <tr><td>myDamo</td><td><span class="chip"><span class="dot bad"></span>ไม่</span></td><td>ผิด weight class — valuation app ไม่ต้องการ sim พันตัว</td></tr>
+          <tr><td>VCP Scanner / TBF / Gold EA</td><td><span class="chip"><span class="dot bad"></span>ไม่</span></td><td>quant/price/technical ล้วน ไม่มี crowd component</td></tr>
+          <tr><td>TTS (OmniVoice / Qwen3)</td><td><span class="chip"><span class="dot bad"></span>ไม่</span></td><td>คนละ domain</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>เสียบ GLM อย่างไร</h3>
+      <p>ทั้ง <code>LLMClient</code> ของ MiroFish และ OASIS วิ่งผ่าน <code>ModelPlatformType.OPENAI</code> + override base_url → drop-in:</p>
+      <div class="callout" style="margin:8px 0">
+        <p class="mono small" style="margin:0 0 4px">LLM_BASE_URL=https://api.z.ai/api/coding/paas/v4</p>
+        <p class="mono small" style="margin:0 0 4px">LLM_API_KEY=&lt;z.ai key&gt;</p>
+        <p class="mono small" style="margin:0">LLM_MODEL_NAME=glm-4.6   # หรือ glm-4.5-air สำหรับ bulk agents</p>
+      </div>
+      <ul>
+        <li><span class="chip"><span class="dot bad"></span>ToS</span> GLM <strong>Coding Plan</strong> จำกัดใช้เฉพาะ coding tools ที่ support เท่านั้น — MiroFish ไม่ใช่ coding tool เอา coding sub มารัน social sim = นอกขอบเขต เสี่ยงโดน ban</li>
+        <li><span class="chip"><span class="dot good"></span>ทางถูก</span> ใช้ <strong>general GLM API</strong> (metered, ไม่ติด scope) และเอา GLM-4.5-Air/Flash ตัวถูกไปรัน bulk agent ส่วน reasoning หนักค่อยใช้ตัวใหญ่</li>
+        <li>JSON mode (<code>response_format</code>) ของ <code>chat_json</code> ควร test แยกว่า GLM honor ครบ</li>
+      </ul>
+
+      <h3>พิมพ์เขียวการ build (เป็นเฟส, eval-first)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>เฟส</th><th>ทำอะไร</th><th>เกณฑ์ผ่าน (eval)</th></tr></thead>
+        <tbody>
+          <tr><td>P0 · Backtest fidelity</td><td>เอาเคส activist ที่ <em>จบไปแล้ว</em> (เช่น Fuji Media) มาตั้งโลกจำลองบน OASIS ตรง ๆ</td><td>sim ทำนาย sentiment trajectory ที่เกิดจริงได้ใกล้แค่ไหน (วัดเป็น direction + จุด tipping)</td></tr>
+          <tr><td>P1 · Localize cast/time</td><td>แทน crowd Reddit ทั่วไป ด้วย cast: institutional / proxy advisor / retail / foreign fund / สื่อ + แก้ time-model</td><td>โครง agent สะท้อนผู้เล่นจริงในตลาดเป้าหมาย ไม่ใช่ default คนจีน</td></tr>
+          <tr><td>P2 · GLM + cost guardrail</td><td>ชี้ general GLM API, route Air/Flash สำหรับ bulk, ตั้งเพดานรอบ/ต้นทุนต่อ run</td><td>ต้นทุน/เวลา ต่อ 1 เคส อยู่ในงบที่ยอมรับได้</td></tr>
+          <tr><td>P3 · Arms-length service</td><td>ครอบเป็น service แยก ให้ FinCouncil เรียกผ่าน API boundary (ไม่ link code AGPL)</td><td>FinCouncil ยังปิด (proprietary) — ไม่โดน network clause</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">หมายเหตุ AGPL/Zep ข้างต้นเป็นหลักการเชิงสถาปัตยกรรม ไม่ใช่คำปรึกษากฎหมาย — ก่อน commercialize ควรเช็คกับผู้เชี่ยวชาญ license</p>
+    </section>
+
+    <!-- ============ 6 · สรุป Decision ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>สรุป Decision</h2></div>
+      <hr class="div">
+      <div class="callout accent">
+        <ul style="margin:0">
+          <li>อยากได้ <strong>ตัวเลข return</strong> → MiroFish ไม่ใช่เครื่องมือ ใช้ myDamo/TBF</li>
+          <li>อยากได้ <strong>narrative/sentiment dynamics เป็น input ให้ event-driven thesis</strong> → มีศักยภาพจริง แต่ต้องครบ 3 ข้อ: (a) build บน OASIS ไม่ใช่ MiroFish, (b) แก้ cast/time ให้ตรงตลาด, (c) ใช้ general GLM API ไม่ใช่ coding sub</li>
+          <li>use case แรกที่ควรเริ่ม = <strong>Japan activist research</strong> (fit แรงสุด + มี Nidec Test รองรับ) ทำ P0 backtest fidelity ก่อนเสมอ</li>
+          <li>ถ้าไม่ใช่งาน activist/event-driven → ยังไม่มีโปรเจคไหนคุ้มที่จะแตะ ปล่อยผ่าน</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ ภาคผนวก ============ -->
+    <section id="appendix">
+      <div class="sec-h"><span class="sec-no">A</span><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+
+      <h3>ข้อเท็จจริงทางเทคนิค (verify จาก source)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>รายการ</th><th>ค่า</th></tr></thead>
+        <tbody>
+          <tr><td>License — MiroFish</td><td>AGPL-3.0 (copyleft + network clause)</td></tr>
+          <tr><td>License — OASIS (engine ข้างใต้)</td><td>Apache-2.0 (permissive)</td></tr>
+          <tr><td>ภาษา</td><td>Python 57.6% (Flask) · Vue 41.2%</td></tr>
+          <tr><td>Runtime ที่ต้องมี</td><td>Node 18+ · Python 3.11–3.12 · uv</td></tr>
+          <tr><td>พอร์ต</td><td>frontend 3000 · backend 5001</td></tr>
+          <tr><td>LLM</td><td>OpenAI SDK format · default <code>gpt-4o-mini</code> · มี boost model (ตัวเลือก)</td></tr>
+          <tr><td>หน่วยความจำ</td><td>Zep Cloud (บังคับ) · GraphRAG + temporal episodes</td></tr>
+          <tr><td>ไฟล์ seed ที่รับ</td><td>PDF · MD · TXT · markdown (≤50MB)</td></tr>
+          <tr><td>เวลาเริ่มต้น</td><td>72 ชม.จำลอง · 1 รอบ = 1 ชม. · พีค 19–22 (จังหวะคนจีน)</td></tr>
+          <tr><td>ReportAgent</td><td>ReAct · 4 tools · 5 calls/หัวข้อ · temp 0.5</td></tr>
+          <tr><td>แพลตฟอร์มจำลอง</td><td>Reddit (13 actions) · Twitter (6 actions) · รันขนานได้</td></tr>
+          <tr><td>GLM endpoint</td><td>coding: <code>api.z.ai/api/coding/paas/v4</code> (ติด ToS) · ควรใช้ general API</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>ไฟล์ source ที่ใช้อ้างอิงในรายงานนี้</h3>
+      <p class="small mono">README.md · .env.example · backend/app/config.py · services/{graph_builder, ontology_generator, oasis_profile_generator, simulation_config_generator, simulation_runner, report_agent, zep_graph_memory_updater}.py · scripts/run_*_simulation.py · LICENSE (MiroFish + camel-ai/oasis)</p>
+
+      <h3>ที่มา/เครดิต</h3>
+      <p class="small">MiroFish พัฒนาโดย 666ghj, simulation engine ขับด้วย OASIS (CAMEL-AI), ได้รับการ incubate จาก Shanda Group · ~60.9k stars</p>
+
+      <div class="callout" style="margin-top:20px">
+        <div class="eyebrow">ข้อจำกัดความรับผิด</div>
+        <p class="small" style="margin-bottom:0">รายงานนี้เป็นการวิเคราะห์เชิงเทคนิคเพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน และไม่ใช่คำปรึกษาทางกฎหมายเรื่อง license ตัวอย่าง activist เป็นเคสสมมติเพื่ออธิบายกลไก ไม่ใช่การชี้นำให้ลงทุนในหลักทรัพย์ใด ก่อนนำไปใช้เชิงพาณิชย์หรือผูกกับระบบ production ควรตรวจสอบ source, license และต้นทุนจริงอีกครั้ง</p>
+      </div>
+    </section>
+
+    <footer>
+      MiroFish — รายงานทำความเข้าใจ Repo · วิเคราะห์จาก source ณ 11 มิ.ย. 2026 · เพื่อการศึกษา ไม่ใช่คำแนะนำการลงทุน/กฎหมาย
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a = map[e.target.id]; if(a) a.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+    document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+  })();
+</script>
+</body>
+</html>

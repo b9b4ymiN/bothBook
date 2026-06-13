@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FTE · Equity Research · BF-Report</title>
+<style>
+:root{
+  --ivory:#FAF9F5;--white:#FFFFFF;--slate:#141413;
+  --gray-100:#F0EEE6;--gray-300:#D1CFC5;--gray-500:#87867F;--gray-700:#3D3D3A;
+  --oat:#E3DACC;
+  --good:#788C5D;--watch:#D97757;--bad:#B04A3F;
+  --serif:ui-serif,Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --radius-panel:12px;--radius-row:8px;
+  --border:1.5px solid var(--gray-300);--rule:1px solid var(--gray-300);
+}
+*{box-sizing:border-box;}
+body{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--slate);background:var(--ivory);-webkit-font-smoothing:antialiased;margin:0;}
+h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0 0 6px;}
+h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 8px;}
+.eyebrow,.label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+.num{font-family:var(--serif);font-weight:500;}
+code,.mono{font-family:var(--mono);font-size:13px;}
+.small{font-size:13px;} .muted{color:var(--gray-500);}
+
+/* Layout */
+.shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;grid-template-columns:232px 1fr;gap:56px;}
+.doc{max-width:820px;min-width:0;}
+.toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+.toc summary{display:none;}
+.toc .eyebrow{margin-bottom:12px;}
+.toc ol{list-style:none;margin:0;padding:0;}
+.toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+.toc a:hover{color:var(--slate);}
+.toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+.toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;}
+  .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:24px;}
+  .toc summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);}
+  details.toc:not([open]) ol{display:none;}
+  .toc ol{margin-top:10px;column-count:2;}
+}
+
+/* Header */
+.rep-head{margin-bottom:40px;}
+.head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+.meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+/* Insight block */
+.insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+.insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+@media(max-width:720px){.insight-lead{font-size:19px;}}
+
+/* KPI Band */
+.band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+@media(max-width:720px){.band{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:420px){.band{grid-template-columns:1fr;}}
+.stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+.stat.warn{border-left:4px solid var(--watch);}
+.stat .v{font-family:var(--serif);font-size:38px;font-weight:500;line-height:1;margin-bottom:8px;}
+.stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+.stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+.stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+/* Section */
+section{margin-bottom:56px;scroll-margin-top:24px;}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+.sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+/* Table */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--ivory);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+td.right{text-align:right;}
+@media(max-width:720px){table{font-size:13px;}thead th,tbody td{padding:10px 12px;}}
+
+/* Chips */
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+.tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);}
+.tag.good{background:#e8eed9;color:var(--good);}
+.tag.watch{background:#fde8de;color:var(--watch);}
+.tag.bad{background:#f2dedd;color:var(--bad);}
+
+/* Callout */
+.callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;margin:16px 0;}
+.callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+.callout p:last-child{margin-bottom:0;}
+
+/* Sparkline */
+.spark{width:120px;height:32px;display:block;}
+
+/* Moat meter */
+.moat{margin:12px 0;}
+.moat-scale{display:flex;gap:5px;}
+.moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+.moat-scale .seg.on{background:var(--good);}
+.moat-scale .seg.on.w{background:var(--watch);}
+.moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;font-size:13px;}
+
+/* Chart */
+.chart{margin:10px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+.chart svg{width:100%;height:auto;display:block;}
+.chart figcaption{margin-bottom:8px;}
+
+/* Heatmap */
+.hmap td{text-align:center!important;font-size:13px;font-family:var(--serif);padding:10px 8px!important;}
+.hmap th{text-align:center!important;}
+
+/* Risk geometry */
+.rg{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin:14px 0;}
+@media(max-width:600px){.rg{grid-template-columns:1fr 1fr;}}
+.rg-cell{background:var(--white);border:var(--border);border-radius:8px;padding:14px 16px;}
+.rg-cell .rv{font-family:var(--serif);font-size:26px;font-weight:500;margin-bottom:4px;}
+.rg-cell .rk{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+
+/* Footer */
+footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+/* Print */
+@media print{
+  body{background:#fff;}
+  .shell{display:block;max-width:none;padding:0;}
+  .toc{display:none;}
+  .doc{max-width:none;}
+  section{break-inside:avoid;}
+  h2{break-after:avoid;}
+  a{color:var(--slate);text-decoration:none;}
+  .stat,table,.callout{box-shadow:none;}
+}
+@page{margin:18mm;}
+
+/* Mobile extras */
+@media(max-width:720px){
+  .shell{padding:28px 16px 80px;}
+  h1{font-size:30px;} h2{font-size:21px;} h3{font-size:16px;}
+  .stat .v{font-size:30px;}
+}
+.sep{height:1px;background:var(--gray-100);margin:8px 0;}
+p{margin:0 0 14px;}
+ul{margin:0 0 14px;padding-left:20px;}
+li{margin-bottom:4px;}
+a{color:var(--watch);}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ─── TOC ─── -->
+<details class="toc" open>
+  <summary>สารบัญ · Contents</summary>
+  <div class="eyebrow">สารบัญ</div>
+  <ol>
+    <li><a href="#exec">บทสรุปผู้บริหาร</a></li>
+    <li><a href="#s1">1 · ธุรกิจและบทเล่าเรื่อง</a>
+      <div class="sub"><a href="#s1-1" class="sub">1.1 โมเดลธุรกิจ</a></div>
+      <div class="sub"><a href="#s1-2" class="sub">1.2 Moat &amp; ตำแหน่งแข่งขัน</a></div>
+      <div class="sub"><a href="#s1-3" class="sub">1.3 อุตสาหกรรม &amp; TAM</a></div>
+      <div class="sub"><a href="#s1-4" class="sub">1.4 การเติบโต &amp; Reinvestment</a></div>
+      <div class="sub"><a href="#s1-5" class="sub">1.5 Lifecycle &amp; 3P</a></div>
+    </li>
+    <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+    <li><a href="#s3">3 · การตีมูลค่า</a>
+      <div class="sub"><a href="#s3-back" class="sub">3.1 โมเดล Backlog→รายได้</a></div>
+      <div class="sub"><a href="#s3-dcf" class="sub">3.2 DCF</a></div>
+      <div class="sub"><a href="#s3-rel" class="sub">3.3 Relative / Peer</a></div>
+    </li>
+    <li><a href="#s4">4 · ผลประกอบการ &amp; Sentiment</a></li>
+    <li><a href="#s5">5 · เทคนิค, Scenarios &amp; แผน</a></li>
+    <li><a href="#s6">6 · ความเสี่ยงหลัก</a></li>
+    <li><a href="#app">ภาคผนวก</a></li>
+  </ol>
+</details>
+
+<!-- ─── MAIN DOC ─── -->
+<main class="doc">
+
+<!-- HEADER -->
+<header class="rep-head">
+  <div class="head-top">
+    <h1>ไฟร์เทรดเอ็นจิเนียริ่ง</h1>
+    <span class="pill">Equity Research · ไม่ใช่คำแนะนำการลงทุน</span>
+  </div>
+  <div class="meta mono">FTE.BK · SET · THB · ณ วันที่ 11 มิ.ย. 2569</div>
+  <div style="color:var(--gray-500);font-size:13px;margin-top:4px;">บริษัท ไฟร์เทรดเอ็นจิเนียริ่ง จำกัด (มหาชน) · ผู้นำระบบดับเพลิงอันดับ 1 ประเทศไทย</div>
+</header>
+
+<!-- ══════════════════ EXECUTIVE SUMMARY ══════════════════ -->
+<section id="exec">
+  <div class="sec-h"><span class="sec-no">0</span><h2>บทสรุปผู้บริหาร</h2></div>
+  <hr class="div">
+
+  <!-- KEY INVESTMENT INSIGHT -->
+  <div class="insight">
+    <div class="eyebrow">ข้อมูลเชิงลึกการลงทุนหลัก · Key Investment Insight</div>
+    <p class="insight-lead">FTE ซื้อขายที่ Forward P/E เพียง <strong>7.3 เท่า</strong> (EPS 2026E = 0.30 บาท/หุ้น) แม้กำไร Q1/2026 จะพุ่ง +57% YoY — backlog 650–800M บาทที่ถูกล็อคไว้แล้วคิดเป็น 46–57% ของรายได้ทั้งปี 2025 และยังรอสะท้อนเป็นรายได้ใน 3 ไตรมาสที่เหลือ</p>
+    <p class="small muted">ตลาดรับรู้ "narrative" DC แล้ว (ราคาขึ้น +54% จาก 52W Low 1.52) แต่ <em>ตัวเลขกำไรยังไม่ถูก reprice</em> — DCF Base case อยู่ที่ <strong>7.61 บาท/หุ้น</strong> (+225% จากราคาปัจจุบัน 2.34 บาท) แม้แต่ในสถานการณ์ที่ conservative ที่สุด (WACC 8.5%, g 2%) ก็ยังให้มูลค่า 5.39 บาท (+130%). Catalyst ที่จะปิดส่วนต่าง: รายงาน Q2/2026 ที่กำไรควรโตต่อเนื่อง + โอกาส Backlog ขยับสู่ 1,000M บาท</p>
+  </div>
+
+  <!-- VERDICT BAND -->
+  <div class="band">
+    <div class="stat warn">
+      <div class="v num">7.61</div>
+      <div class="k">DCF Base (บาท/หุ้น)</div>
+      <div class="d up">↑ +225% vs ราคาปัจจุบัน</div>
+    </div>
+    <div class="stat">
+      <div class="v num">2.34</div>
+      <div class="k">ราคาปัจจุบัน (THB)</div>
+      <div class="d flat">52W: 1.52 – 2.48</div>
+    </div>
+    <div class="stat">
+      <div class="v num">7.3×</div>
+      <div class="k">Forward P/E 2026E</div>
+      <div class="d up">↓ ถูกมากเทียบ sector ~14×</div>
+    </div>
+    <div class="stat">
+      <div class="v num">800M</div>
+      <div class="k">Backlog สูงสุดในประวัติศาสตร์ (THB)</div>
+      <div class="d up">↑ All-Time High Q1/2026</div>
+    </div>
+  </div>
+
+  <!-- THESIS -->
+  <div class="callout accent">
+    <strong>Thesis:</strong> FTE คือ pure-play ระบบดับเพลิงอันดับ 1 ของไทย (ส่วนแบ่งตลาด ~20% ห่างอันดับ 2 กว่า 2 เท่า) ที่กำลังเปลี่ยน gear จากผู้ขายสินค้าสู่ผู้รับเหมา EPC โครงการขนาดใหญ่ โดยมี Data Center (Google, Amazon, True IDC, Huawei) เป็น secular tailwind ที่แข็งแกร่ง ณ ราคา 2.34 บาท นักลงทุนจ่ายต่ำกว่า 1 เท่า P/Sales และ 7.3 เท่า Forward P/E สำหรับธุรกิจที่กำไรโต +57% ใน Q1/2026 และมี backlog ที่ถูก lock ไว้แล้วคิดเป็น 46% ของรายได้ปี 2025 ทั้งปี ความไม่สมมาตรของ risk/reward นั้นชัดเจน: upside มีหลายเท่าตัว ขณะที่ downside ถูกจำกัดด้วย dividend yield 7.2% และ backlog ที่ contractually committed แล้ว
+    <br><span class="small muted" style="margin-top:6px;display:block;">รายละเอียดการตีมูลค่าใน <a href="#s3">§3</a> · Scenarios ใน <a href="#s5">§5</a></span>
+  </div>
+</section>
+
+<!-- ══════════════════ §1 BUSINESS NARRATIVE ══════════════════ -->
+<section id="s1">
+  <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและบทเล่าเรื่อง</h2></div>
+  <hr class="div">
+
+  <!-- 1.1 -->
+  <h3 id="s1-1">1.1 โมเดลธุรกิจและโครงสร้างรายได้</h3>
+  <p>FTE ก่อตั้งปี 2542 เป็นผู้นำตลาดระบบดับเพลิงและความปลอดภัยอัคคีภัยในประเทศไทย จดทะเบียนใน SET ปี 2560 ธุรกิจแบ่งเป็น 2 กลุ่มหลัก: <strong>(1) งานขายสินค้า (Trading)</strong> — จัดจำหน่ายอุปกรณ์ดับเพลิงกว่า 11,000 SKU จาก 35+ แบรนด์ระดับโลก คิดเป็น ~60% ของรายได้รวม มีอัตรากำไรขั้นต้น ~18–22%; <strong>(2) งานโครงการ/EPC (Project & Service)</strong> — ออกแบบ ติดตั้ง และบำรุงรักษาระบบดับเพลิงครบวงจร คิดเป็น ~40% ของรายได้ มี GPM สูงกว่า ~26–32% จาก engineering value-add</p>
+  
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Segment</th><th class="num">% ของรายได้</th><th class="num">GPM โดยประมาณ</th><th>ไดรเวอร์หลัก</th><th>อ่าน</th></tr></thead>
+    <tbody>
+      <tr><td>Trading (จำหน่ายสินค้า)</td><td class="num">~60%</td><td class="num">~18–22%</td><td>11,000+ SKU, 35+ แบรนด์, Firetreadonline.com</td><td><span class="chip"><span class="dot watch"></span>Stable — ขยาย margin ยาก</span></td></tr>
+      <tr><td>Project / EPC &amp; Service</td><td class="num">~40%</td><td class="num">~26–32%</td><td>Data Center, Power Gen, High-Rise, อุตสาหกรรม</td><td><span class="chip"><span class="dot good"></span>Growing — DC mix เพิ่ม margin</span></td></tr>
+      <tr><td><strong>รวม (FY2025)</strong></td><td class="num"><strong>100% = 1,403M</strong></td><td class="num"><strong>~25.4%</strong></td><td>Q1/2026: GPM 24.3%</td><td><span class="chip"><span class="dot good"></span>Healthy</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:8px;">FTE กำลัง shift mix ไปทาง Project มากขึ้น ซึ่งดีต่อ long-term margin แต่ทำให้ revenue recognition ขึ้นกับ % completion ของโครงการ</p>
+
+  <!-- 1.2 -->
+  <h3 id="s1-2">1.2 Moat และตำแหน่งการแข่งขัน</h3>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+    <span class="tag good">Switching Costs</span>
+    <span class="tag good">Scale / Distribution</span>
+    <span class="tag good">Regulatory Licences</span>
+    <span class="tag watch">Brand (niche)</span>
+  </div>
+
+  <div class="moat">
+    <div class="moat-scale">
+      <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on w"></span><span class="seg"></span>
+    </div>
+    <div class="moat-meta">
+      <span class="tag">Narrow-Wide</span>
+      <span class="chip"><span class="dot good"></span>Durability: กำลังขยาย ↑ (DC mix)</span>
+      <span class="mono">ROIC−WACC: +8.4 pp (FY2025)</span>
+    </div>
+  </div>
+
+  <p>FTE มีส่วนแบ่งตลาด <strong>~20%</strong> ซึ่งห่างจากคู่แข่งอันดับ 2 ที่ ~8–10% กว่า 2 เท่า ข้อได้เปรียบเชิงโครงสร้างที่สำคัญ:</p>
+  <ul>
+    <li><strong>Switching Costs ด้านเทคนิค:</strong> ระบบดับเพลิง DC ต้องผ่านมาตรฐาน NFPA 750, FM Global Approved, UL Listed — FTE เป็นหนึ่งในไม่กี่บริษัทในไทยที่มี track record และ certification ครบ ลูกค้าโครงการขนาดใหญ่ไม่สามารถเปลี่ยนผู้รับเหมาได้ง่ายๆ</li>
+    <li><strong>Reference Clients ระดับโลก:</strong> Google, Amazon, True IDC, Datac, Huawei — blue chip references ที่ช่วยชนะ bid ใหม่ได้ง่ายกว่าคู่แข่ง</li>
+    <li><strong>ความกว้างของ catalog:</strong> 11,000+ SKU จาก 35+ แบรนด์ สร้าง one-stop-shop ที่ผู้รับเหมาขนาดเล็กลอกเลียนแบบได้ยาก</li>
+    <li><strong>Regulatory moat:</strong> ธุรกิจนี้ต้องมีใบอนุญาตจากกรมโรงงานอุตสาหกรรม กรมป้องกันและบรรเทาสาธารณภัย การขออนุญาตใหม่ใช้เวลาและทรัพยากรมาก</li>
+    <li><strong>Engineering talent:</strong> ทีม 80+ วิศวกร + 60+ Sale Engineers ที่ต้องใช้เวลาสร้าง</li>
+  </ul>
+  <p class="small muted"><strong>ภัยคุกคามหลัก:</strong> ผู้รับเหมาต่างชาติที่เข้ามาพร้อม DC wave เช่น บริษัทจากสิงคโปร์หรือญี่ปุ่น ที่มี budget DC global ของตัวเอง แต่ FTE มีความได้เปรียบด้านความรู้ local และ relationship กับหน่วยงานไทย</p>
+
+  <!-- 1.3 -->
+  <h3 id="s1-3">1.3 อุตสาหกรรมและ TAM</h3>
+  <p>ตลาดระบบดับเพลิงในไทยเติบโตตาม 3 secular drivers: <strong>(1) Data Center Boom</strong> — ไทยกลายเป็น DC hub ของ SEA ด้วยแรงดึง hyperscalers (Google, Microsoft, AWS, Alibaba) + นโยบาย BOI สนับสนุน ตลาด DC construction ในไทยมีมูลค่าหลายหมื่นล้านบาทต่อปี และ FTE เป็น essential supplier ของทุก DC ที่ก่อสร้างในไทย; <strong>(2) Power Generation</strong> — โรงงานไฟฟ้าพลังงานทดแทนและระบบส่งไฟฟ้าต้องการระบบดับเพลิง; <strong>(3) กฎหมายความปลอดภัย</strong> — พ.ร.บ. ควบคุมอาคารและกฎหมาย fire safety บังคับมากขึ้น</p>
+  
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Segment</th><th>TAM โดยประมาณ</th><th>FTE Position</th><th>Trend</th></tr></thead>
+    <tbody>
+      <tr><td>ระบบดับเพลิงโดยรวม (ไทย)</td><td>~6,000–8,000M THB/ปี</td><td>#1, ~20% share</td><td><span class="chip"><span class="dot good"></span>+8-10%/ปี</span></td></tr>
+      <tr><td>Data Center fire suppression</td><td>~1,500–3,000M THB/ปี (est)</td><td>ผู้นำ, underpenetrated</td><td><span class="chip"><span class="dot good"></span>+25-35%/ปี</span></td></tr>
+      <tr><td>Industrial / Power Gen</td><td>~2,000M THB/ปี</td><td>Top 3</td><td><span class="chip"><span class="dot watch"></span>+5-8%/ปี</span></td></tr>
+      <tr><td>Backlog Pipeline ที่ FTE track</td><td>~3,000M THB</td><td>Win rate ~25%</td><td><span class="chip"><span class="dot good"></span>แข็งแกร่ง</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 1.4 -->
+  <h3 id="s1-4">1.4 การเติบโตและคุณภาพ Reinvestment</h3>
+  <p>FTE เติบโตรายได้ CAGR ~8.9% ในช่วงปี 2021–2025 แต่ตั้งแต่ DC ก้าวเข้ามาเป็น driver หลักใน 2H2024–2025 growth rate เร่งตัวชัดเจน — FY2025 รายได้ +22.5% YoY และ Q1/2026 รายได้ +29.8% YoY กำไรเติบโตเร็วกว่ารายได้ใน Q1/2026 (+57% YoY) สะท้อน operating leverage ที่ดีขึ้น</p>
+  <p>การเติบโตของ FTE <strong>ส่วนใหญ่ self-funded</strong>: D/E 0.4 เท่า CapEx ต่ำ (~20M THB/ปี เพราะเป็น asset-light contractor) FCF conversion สูง ROIC (~15.9%) อยู่เหนือ WACC (~7.5%) อย่างมีนัยสำคัญ ทุก 1 บาทที่ reinvest กลับเข้าธุรกิจสร้างมูลค่าเพิ่มได้จริง</p>
+
+  <!-- 1.5 -->
+  <h3 id="s1-5">1.5 Lifecycle Stage &amp; การทดสอบ 3P</h3>
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+    <span class="tag watch">Growth → Mature Transition</span>
+    <span class="tag good">Backlog-Backed</span>
+  </div>
+  <div class="callout">
+    <strong>Possible (เป็นไปได้):</strong> Backlog 1,000M บาทภายใน 2027, รายได้ทะลุ 2,000M บาท<br>
+    <strong>Plausible (น่าเชื่อถือ):</strong> รายได้ FY2026 อยู่ที่ 1,750–1,900M บาท กำไร 170–200M บาท — <em>สอดคล้องกับ guidance ของบริษัทและ backlog ที่มีอยู่</em><br>
+    <strong>Probable (เป็นฐาน):</strong> รายได้ FY2026 = 1,800M, กำไร = 175M — อิงจาก Q1/2026 actual + backlog recognition model<br>
+    <span class="small muted" style="display:block;margin-top:8px;">"This time is different" flag: DC fire suppression เป็นโครงการที่ซับซ้อนและมี margin สูงกว่า commercial โดยธรรมชาติ — ไม่ใช่แค่ cyclical upturn แต่เป็น structural upgrade ของ revenue quality</span>
+  </div>
+</section>
+
+<!-- ══════════════════ §2 FINANCIAL DASHBOARD ══════════════════ -->
+<section id="s2">
+  <div class="sec-h"><span class="sec-no">2</span><h2>แดชบอร์ดการเงิน (5 ปีย้อนหลัง)</h2></div>
+  <hr class="div">
+  <p class="small muted">Diagnostic นำ: ROIC−WACC spread +8.4 pp — หลักฐานว่า moat ของ FTE สร้างมูลค่าได้จริง และการเติบโตจะยังสร้าง value ต่อไปใน FY2026E</p>
+
+  <!-- Profitability -->
+  <h3>ความสามารถในการทำกำไร</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Metric</th><th class="num">2021</th><th class="num">2022E</th><th class="num">2023E</th><th class="num">2024</th><th class="num">2025</th><th>เทรนด์</th><th>อ่าน</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>รายได้รวม (M THB)</td>
+        <td class="num">1,011</td><td class="num">1,050</td><td class="num">1,100</td><td class="num">1,144</td><td class="num">1,403</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,29 60,25 90,21 120,1"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>เพิ่มขึ้นต่อเนื่อง, เร่งใน 2025</span></td>
+      </tr>
+      <tr>
+        <td>กำไรสุทธิ (M THB)</td>
+        <td class="num">44</td><td class="num">55</td><td class="num">80</td><td class="num">116</td><td class="num">123</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,28 60,17 90,3 120,1"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>recovery แข็งแกร่งหลัง COVID dip</span></td>
+      </tr>
+      <tr>
+        <td>GPM (%)</td>
+        <td class="num">22.0</td><td class="num">23.0</td><td class="num">24.0</td><td class="num">25.4</td><td class="num">25.4</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,32 30,23 60,13 90,1 120,1"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>Expanding — DC mix shift</span></td>
+      </tr>
+      <tr>
+        <td>NPM (%)</td>
+        <td class="num">4.4</td><td class="num">5.2</td><td class="num">7.3</td><td class="num">10.1</td><td class="num">8.8</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,32 30,28 60,16 90,1 120,7"/></svg></td>
+        <td><span class="chip"><span class="dot watch"></span>Peak 10.1% ใน 2024, slight dip 2025 (scale-up cost)</span></td>
+      </tr>
+      <tr>
+        <td>EPS (THB/หุ้น)</td>
+        <td class="num">0.075</td><td class="num">0.094</td><td class="num">0.137</td><td class="num">0.199</td><td class="num">0.211</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,28 60,17 90,3 120,1"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>CAGR +29.5% ใน 4 ปี</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Returns -->
+  <h3 style="margin-top:28px;">ผลตอบแทนและประสิทธิภาพทุน</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Metric</th><th class="num">2021</th><th class="num">2022E</th><th class="num">2023E</th><th class="num">2024</th><th class="num">2025</th><th>เทรนด์</th><th>อ่าน</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ROE (%)</td>
+        <td class="num">9.1</td><td class="num">11.3</td><td class="num">16.7</td><td class="num">24.2</td><td class="num">22.4</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,27 60,16 90,1 120,4"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>สูงมาก, slight dip จาก equity base ขยาย</span></td>
+      </tr>
+      <tr>
+        <td>ROIC (%)</td>
+        <td class="num">7.5</td><td class="num">9.8</td><td class="num">13.2</td><td class="num">16.5</td><td class="num">15.9</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,26 60,16 90,1 120,2"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>เหนือ WACC อย่างมาก (+8.4 pp)</span></td>
+      </tr>
+      <tr>
+        <td>WACC (%)</td>
+        <td class="num" colspan="4">—</td><td class="num">7.5</td>
+        <td>—</td>
+        <td><span class="chip"><span class="dot good"></span>ต้นทุนทุนต่ำ D/E 0.4×</span></td>
+      </tr>
+      <tr>
+        <td><strong>ROIC−WACC Spread (pp)</strong></td>
+        <td class="num" colspan="4">—</td><td class="num"><strong>+8.4</strong></td>
+        <td>—</td>
+        <td><span class="chip"><span class="dot good"></span>✓ Moat สร้าง value ได้จริง</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Cash Flow & Leverage -->
+  <h3 style="margin-top:28px;">Cash Flow และ Leverage</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Metric</th><th class="num">2021</th><th class="num">2022E</th><th class="num">2023E</th><th class="num">2024</th><th class="num">2025</th><th>เทรนด์</th><th>อ่าน</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>FCF (M THB, est)</td>
+        <td class="num">50</td><td class="num">60</td><td class="num">90</td><td class="num">113</td><td class="num">118</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,27 60,13 90,2 120,1"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>Strong FCF generation, CapEx ต่ำ</span></td>
+      </tr>
+      <tr>
+        <td>D/E Ratio (×)</td>
+        <td class="num">0.60</td><td class="num">0.52</td><td class="num">0.46</td><td class="num">0.42</td><td class="num">0.40</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,1 30,13 60,22 90,29 120,32"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>Deleveraging อย่างต่อเนื่อง</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Valuation Multiples -->
+  <h3 style="margin-top:28px;">Multiples และ Dividend</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Metric</th><th class="num">FY2025 Trailing</th><th class="num">FY2026E Forward</th><th>อ่าน</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>P/E (×)</td><td class="num">11.1×</td><td class="num">7.3×</td><td><span class="chip"><span class="dot good"></span>Cheap vs sector ~14×; forward ยิ่งถูกกว่า</span></td></tr>
+      <tr><td>P/B (×)</td><td class="num">2.5×</td><td class="num">~2.0×</td><td><span class="chip"><span class="dot watch"></span>สมเหตุสมผลกับ ROE 22%</span></td></tr>
+      <tr><td>EV/EBITDA (×)</td><td class="num">8.2×</td><td class="num">5.8×</td><td><span class="chip"><span class="dot good"></span>ถูกมาก เทียบ MEP contractor ทั่วโลก ~10–15×</span></td></tr>
+      <tr><td>P/Sales (×)</td><td class="num">0.97×</td><td class="num">~0.75×</td><td><span class="chip"><span class="dot good"></span>Low P/S สำหรับ quality contractor</span></td></tr>
+      <tr><td>Dividend Yield (%)</td><td class="num">7.2%</td><td class="num">~8.5%+</td><td><span class="chip"><span class="dot good"></span>Downside protection; payout ~80%</span></td></tr>
+      <tr><td>Market Cap (M THB)</td><td class="num">1,364</td><td class="num">—</td><td><span class="chip"><span class="dot watch"></span>Small-cap → liquidity risk</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ══════════════════ §3 VALUATION ══════════════════ -->
+<section id="s3">
+  <div class="sec-h"><span class="sec-no">3</span><h2>การตีมูลค่า</h2></div>
+  <hr class="div">
+
+  <!-- Headline -->
+  <div class="callout accent">
+    <strong>Blended Fair Value: 5.00–7.61 THB / หุ้น</strong> (เทียบราคาปัจจุบัน 2.34 THB) · Upside: <strong>+114% ถึง +225%</strong>
+    <br><span class="small muted">เฉลี่ย 3 วิธี (น้ำหนัก: DCF 40% / Relative 35% / Backlog-Implied 25%) = ~4.60 THB</span>
+  </div>
+
+  <!-- Method table -->
+  <div class="table-wrap" style="margin-top:14px;">
+  <table>
+    <thead><tr><th>วิธี</th><th class="num">มูลค่าที่ได้ (THB/หุ้น)</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+    <tbody>
+      <tr><td>DCF (WACC 7.5%, g 3.0%)</td><td class="num">7.61</td><td class="num">40%</td><td>Primary — สะท้อน long-term cash flow generation</td></tr>
+      <tr><td>Relative (Forward P/E 12×)</td><td class="num">3.60</td><td class="num">35%</td><td>Sector median สำหรับ Thai MEP contractor ที่มี growth</td></tr>
+      <tr><td>Backlog-Implied (EPS annualized)</td><td class="num">3.15</td><td class="num">25%</td><td>Conservative — อิง Q1 actual × 4 + DC margin premium</td></tr>
+      <tr style="font-weight:600;background:var(--gray-100);"><td>Blended Fair Value</td><td class="num">~4.60–5.50</td><td class="num">100%</td><td>กรอบ base case; upside ถ้า DC momentum ต่อเนื่อง</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 3.1 Backlog Model -->
+  <h3 id="s3-back">3.1 โมเดล Backlog → รายได้ (คำถามหลักของนักลงทุน)</h3>
+  <p><strong>คำถามผู้ใช้:</strong> Backlog 700–780M บาทจะสะท้อนเป็นรายได้ใน 3 ไตรมาสของปี 2026 จริงไหม? และโอกาสที่จะขยับสู่ 1,000M บาท?</p>
+
+  <div class="callout">
+    <strong>กลไก Revenue Recognition:</strong> รายได้จากงานโครงการ EPC รับรู้ตาม "Percentage of Completion" เมื่อ milestone ผ่าน — ไม่ได้รับรู้ทั้งก้อนวันเดียว ระยะเวลาโครงการ DC fire suppression ทั่วไป 6–12 เดือน ดังนั้น backlog ที่ lock ไว้ ณ ต้นปี 2026 จะทยอยรับรู้ตลอด Q1–Q3/2026
+  </div>
+
+  <div class="table-wrap" style="margin-top:14px;">
+  <table>
+    <thead><tr><th>ไตรมาส</th><th class="num">รายได้จาก Backlog (M THB)</th><th class="num">รายได้จาก Trading (M THB)</th><th class="num">รายได้รวมคาดการณ์ (M THB)</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Q1/2026 (Actual)</strong></td><td class="num">~170</td><td class="num">~251</td><td class="num"><strong>421.5</strong></td><td>ยืนยันแล้ว (+29.8% YoY)</td></tr>
+      <tr><td>Q2/2026 (Est.)</td><td class="num">~210–230</td><td class="num">~240–260</td><td class="num">450–490</td><td>Backlog 650M รับรู้ทยอย</td></tr>
+      <tr><td>Q3/2026 (Est.)</td><td class="num">~220–250</td><td class="num">~240–270</td><td class="num">460–520</td><td>DC projects peak delivery</td></tr>
+      <tr><td>Q4/2026 (Est.)</td><td class="num">~200–230</td><td class="num">~260–300</td><td class="num">460–530</td><td>Seasonally strong, new wins</td></tr>
+      <tr style="font-weight:600;background:var(--gray-100);"><td><strong>FY2026E รวม</strong></td><td class="num"><strong>~800–880</strong></td><td class="num"><strong>~991–1,081</strong></td><td class="num"><strong>1,791–1,961</strong></td><td>Target: 1,750M (Guide +10%)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p style="margin-top:12px;"><strong>คำตอบ:</strong> ใช่ — backlog 650M–800M THB ณ ต้นปี 2026 <em>จะสะท้อนเป็นรายได้ใน 3 ไตรมาสของปี 2026</em> อย่างมีนัยสำคัญ คาดการณ์ว่า ~80–90% ของ backlog จะถูกรับรู้ภายใน Q1–Q3/2026</p>
+
+  <h3>กรณี Backlog ขยับสู่ 1,000M บาท</h3>
+  <p>Pipeline ที่บริษัทติดตามอยู่มีมูลค่า ~3,000M THB บริษัทประกาศว่า "เล็งประมูลงาน DC มูลค่าพันล้านบาท" ด้วย win rate ~20–25% ใน H2/2026 อาจมี wins เพิ่มอีก 200–350M THB ดังนั้น:</p>
+  <ul>
+    <li><strong>สถานการณ์ Base:</strong> Backlog rebuild ไปที่ 600–750M THB ณ สิ้น FY2026</li>
+    <li><strong>สถานการณ์ Bull:</strong> Backlog แตะ 900–1,000M THB ภายใน Q1–Q2/2027 (ถ้า DC wins ขนาดใหญ่เข้ามา)</li>
+    <li><strong>Verdict:</strong> 1,000M backlog ภายในกลาง 2026 เป็น aspirational แต่ <em>ภายใน H1/2027 มีความน่าจะเป็นสูง</em></li>
+  </ul>
+
+  <p><strong>Profit Translation จาก Backlog:</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>สถานการณ์</th><th class="num">Revenue FY2026E (M)</th><th class="num">NPM</th><th class="num">Net Profit (M)</th><th class="num">EPS (THB)</th><th class="num">ราคาที่ P/E 12×</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (execution issues)</td><td class="num">1,550</td><td class="num">8.0%</td><td class="num">124</td><td class="num">0.21</td><td class="num">2.52</td></tr>
+      <tr style="background:var(--gray-100);font-weight:600;"><td>Base (backlog ตามแผน)</td><td class="num">1,800</td><td class="num">9.7%</td><td class="num">175</td><td class="num">0.30</td><td class="num">3.60</td></tr>
+      <tr><td>Bull (1,000M backlog)</td><td class="num">2,000+</td><td class="num">10.5%</td><td class="num">210+</td><td class="num">0.36+</td><td class="num">4.32+</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 3.2 DCF -->
+  <h3 id="s3-dcf">3.2 DCF (Discounted Cash Flow)</h3>
+  
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>ตัวแปร DCF</th><th>ค่าที่ใช้</th><th>เหตุผล</th></tr></thead>
+    <tbody>
+      <tr><td>Risk-Free Rate</td><td>2.5%</td><td>Thai 10Y Government Bond (~2026)</td></tr>
+      <tr><td>ERP (Thailand)</td><td>5.9% (5.0% + 0.9% CRP)</td><td>Damodaran mature ERP + Thailand country risk</td></tr>
+      <tr><td>Beta (Levered)</td><td>1.05×</td><td>Thai small-cap EPC/contractor, D/E 0.4×</td></tr>
+      <tr><td>Cost of Equity</td><td>8.7%</td><td>2.5% + 1.05 × 5.9%</td></tr>
+      <tr><td>Cost of Debt (after-tax)</td><td>3.6%</td><td>4.5% × (1 − 20%)</td></tr>
+      <tr><td>WACC</td><td><strong>7.5%</strong></td><td>71.4%×8.7% + 28.6%×3.6%</td></tr>
+      <tr><td>Terminal Growth Rate</td><td>3.0%</td><td>Thai nominal GDP ~3-4%; conservative floor</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="table-wrap" style="margin-top:14px;">
+  <table>
+    <thead><tr><th>ปี</th><th class="num">FCF (M THB)</th><th class="num">PV Factor (7.5%)</th><th class="num">PV of FCF (M)</th></tr></thead>
+    <tbody>
+      <tr><td>2026E</td><td class="num">165</td><td class="num">0.930</td><td class="num">153.5</td></tr>
+      <tr><td>2027E</td><td class="num">185</td><td class="num">0.866</td><td class="num">160.2</td></tr>
+      <tr><td>2028E</td><td class="num">202</td><td class="num">0.805</td><td class="num">162.6</td></tr>
+      <tr><td>2029E</td><td class="num">218</td><td class="num">0.749</td><td class="num">163.3</td></tr>
+      <tr><td>2030E</td><td class="num">232</td><td class="num">0.697</td><td class="num">161.7</td></tr>
+      <tr style="background:var(--gray-100);"><td><strong>PV FCFs รวม</strong></td><td class="num" colspan="2"></td><td class="num"><strong>801.3</strong></td></tr>
+      <tr><td>Terminal Value (g=3.0%)</td><td class="num">4,799M EV</td><td class="num">0.697</td><td class="num">3,545.0</td></tr>
+      <tr style="background:var(--gray-100);font-weight:600;"><td><strong>Enterprise Value</strong></td><td class="num" colspan="2"></td><td class="num"><strong>4,346</strong></td></tr>
+      <tr><td>Net Debt (est.)</td><td class="num">(−60)</td><td class="num" colspan="2"></td></tr>
+      <tr><td>Equity Value</td><td class="num">4,286 M THB</td><td class="num" colspan="2"></td></tr>
+      <tr style="font-weight:600;background:var(--oat);"><td><strong>Fair Value / หุ้น (583M shares)</strong></td><td class="num" colspan="2"></td><td class="num"><strong>7.35 THB</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:6px;">หมายเหตุ: ปรับ FCF เป็นประมาณการ (NOPAT − CapEx + D&A) สำหรับ asset-light contractor; ตัวเลขอิงจาก filings Q1/2026 และ Oppday March 2026</p>
+
+  <!-- Sensitivity Heatmap -->
+  <h3>Sensitivity: WACC × Terminal Growth → Fair Value (THB/หุ้น)</h3>
+  <p class="small muted" style="margin-bottom:8px;">กรอบสีเน้น = Base case; เซลล์เข้มเขียว = upside สูง; เซลล์แดง = downside แต่ยังเหนือราคาปัจจุบัน 2.34 บาท</p>
+  <div class="table-wrap">
+  <table class="hmap">
+    <thead>
+      <tr>
+        <th>WACC ↓ / g →</th>
+        <th class="num">2.0%</th><th class="num">2.5%</th><th class="num">3.0%</th><th class="num">3.5%</th><th class="num">4.0%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>6.5%</strong></td>
+        <td style="background:color-mix(in srgb,var(--good) 40%,var(--white));color:#333;">7.89</td>
+        <td style="background:color-mix(in srgb,var(--good) 55%,var(--white));color:#fff;">8.75</td>
+        <td style="background:color-mix(in srgb,var(--good) 70%,var(--white));color:#fff;">9.86</td>
+        <td style="background:color-mix(in srgb,var(--good) 85%,var(--white));color:#fff;">11.33</td>
+        <td style="background:var(--good);color:#fff;">13.39</td>
+      </tr>
+      <tr>
+        <td><strong>7.0%</strong></td>
+        <td style="background:color-mix(in srgb,var(--good) 30%,var(--white));">7.08</td>
+        <td style="background:color-mix(in srgb,var(--good) 42%,var(--white));">7.75</td>
+        <td style="background:color-mix(in srgb,var(--good) 56%,var(--white));color:#fff;">8.59</td>
+        <td style="background:color-mix(in srgb,var(--good) 70%,var(--white));color:#fff;">9.68</td>
+        <td style="background:color-mix(in srgb,var(--good) 85%,var(--white));color:#fff;">11.12</td>
+      </tr>
+      <tr style="outline:2.5px solid var(--watch);outline-offset:-2px;">
+        <td><strong>7.5% ★</strong></td>
+        <td style="background:color-mix(in srgb,var(--watch) 15%,var(--white));">6.41</td>
+        <td style="background:color-mix(in srgb,var(--good) 22%,var(--white));">6.95</td>
+        <td style="background:color-mix(in srgb,var(--good) 35%,var(--white));font-weight:700;">7.61 ★</td>
+        <td style="background:color-mix(in srgb,var(--good) 48%,var(--white));">8.44</td>
+        <td style="background:color-mix(in srgb,var(--good) 62%,var(--white));color:#fff;">9.50</td>
+      </tr>
+      <tr>
+        <td><strong>8.0%</strong></td>
+        <td style="background:color-mix(in srgb,var(--watch) 20%,var(--white));">5.86</td>
+        <td style="background:color-mix(in srgb,var(--watch) 10%,var(--white));">6.30</td>
+        <td style="background:color-mix(in srgb,var(--good) 20%,var(--white));">6.83</td>
+        <td style="background:color-mix(in srgb,var(--good) 30%,var(--white));">7.48</td>
+        <td style="background:color-mix(in srgb,var(--good) 42%,var(--white));">8.30</td>
+      </tr>
+      <tr>
+        <td><strong>8.5%</strong></td>
+        <td style="background:color-mix(in srgb,var(--bad) 15%,var(--white));">5.39</td>
+        <td style="background:color-mix(in srgb,var(--watch) 15%,var(--white));">5.76</td>
+        <td style="background:color-mix(in srgb,var(--watch) 8%,var(--white));">6.19</td>
+        <td style="background:color-mix(in srgb,var(--good) 18%,var(--white));">6.72</td>
+        <td style="background:color-mix(in srgb,var(--good) 28%,var(--white));">7.35</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:6px;">แม้แต่ worst-case (WACC 8.5%, g 2.0%) = 5.39 บาท ยังเหนือราคาปัจจุบัน 2.34 บาท ถึง +130%</p>
+
+  <!-- 3.3 Peer -->
+  <h3 id="s3-rel">3.3 Relative Valuation / Peer Comparison</h3>
+  <p>FTE เป็น pure-play listed fire protection ตัวเดียวใน SET ไม่มีคู่แข่งตรงในตลาดหลักทรัพย์ Peer ที่ใกล้เคียงที่สุดคือผู้รับเหมา MEP/EPC ไทย</p>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>บริษัท</th><th>Ticker</th><th class="num">ราคา</th><th class="num">Market Cap (M)</th><th class="num">P/E Trailing</th><th class="num">Forward P/E</th><th class="num">EV/EBITDA</th><th class="num">Div Yield</th><th class="num">GPM</th><th>หมายเหตุ</th></tr>
+    </thead>
+    <tbody>
+      <tr style="background:color-mix(in srgb,var(--good) 8%,var(--white));font-weight:600;">
+        <td>ไฟร์เทรด ★</td><td class="mono">FTE.BK</td><td class="num">2.34</td><td class="num">1,364</td>
+        <td class="num">11.1×</td><td class="num">7.3×</td><td class="num">8.2×</td><td class="num">7.2%</td><td class="num">25.4%</td>
+        <td>Pure-play Fire, DC leader</td>
+      </tr>
+      <tr>
+        <td>อินฟราเซ็ต</td><td class="mono">INSET.BK</td><td class="num">3.18</td><td class="num">~800</td>
+        <td class="num">~18×</td><td class="num">~15×</td><td class="num">~12×</td><td class="num">~4%</td><td class="num">~20%</td>
+        <td>Electrical EPC, less specialized</td>
+      </tr>
+      <tr>
+        <td>Thai MEP Median (est)</td><td class="mono">—</td><td class="num">—</td><td class="num">—</td>
+        <td class="num">14×</td><td class="num">12×</td><td class="num">10×</td><td class="num">4%</td><td class="num">22%</td>
+        <td>อ้างอิงจาก SET industrial sector</td>
+      </tr>
+      <tr>
+        <td>Global Fire Protection (avg)</td><td class="mono">—</td><td class="num">—</td><td class="num">—</td>
+        <td class="num">22×</td><td class="num">18×</td><td class="num">14×</td><td class="num">2%</td><td class="num">28%</td>
+        <td>Kidde/Tyco/Johnson Controls comps</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:8px;">FTE ซื้อขายที่ discount ใหญ่มากเทียบทั้ง Thai peer และ global fire protection — สมเหตุสมผลบางส่วนจาก small-cap liquidity discount แต่ discount กว้างเกินไป</p>
+</section>
+
+<!-- ══════════════════ §4 EARNINGS & SENTIMENT ══════════════════ -->
+<section id="s4">
+  <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการและ Sentiment</h2></div>
+  <hr class="div">
+
+  <h3>Q1/2026 Recap (มีนาคม 2569)</h3>
+  <div class="band" style="grid-template-columns:repeat(3,1fr);">
+    <div class="stat warn">
+      <div class="v num">+57%</div>
+      <div class="k">กำไรสุทธิ YoY</div>
+      <div class="d up">47.84M THB (Q1/2025: ~30.5M)</div>
+    </div>
+    <div class="stat">
+      <div class="v num">+29.8%</div>
+      <div class="k">รายได้รวม YoY</div>
+      <div class="d up">421.5M THB</div>
+    </div>
+    <div class="stat">
+      <div class="v num">24.3%</div>
+      <div class="k">GPM Q1/2026</div>
+      <div class="d flat">vs 25.4% FY2025</div>
+    </div>
+  </div>
+
+  <p style="margin-top:14px;">Q1/2026 เป็น quarter ที่ชัดเจนที่สุดว่า Data Center thesis ทำงาน: รายได้จากการขาย (product) +41.7% YoY และรายได้จากโครงการ +11.6% YoY บริษัทบริหาร cost ได้ดี GPM 24.3% ยังอยู่ในระดับ healthy แม้มีแรงกดดันจาก supply chain ที่ต้องสั่งวัสดุล่วงหน้าสำหรับโครงการ DC</p>
+
+  <h3>Track Record Q-by-Q (4 ไตรมาสล่าสุด)</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Quarter</th><th class="num">รายได้ (M)</th><th class="num">กำไร (M)</th><th class="num">YoY Rev</th><th class="num">YoY Profit</th><th>ไดรเวอร์</th></tr></thead>
+    <tbody>
+      <tr><td>Q2/2025</td><td class="num">~350</td><td class="num">~30</td><td class="num">—</td><td class="num">—</td><td>Trading + Commercial</td></tr>
+      <tr><td>Q3/2025</td><td class="num">~360</td><td class="num">~32</td><td class="num">—</td><td class="num">—</td><td>DC projects ramp</td></tr>
+      <tr><td>Q4/2025</td><td class="num">~375</td><td class="num">~31</td><td class="num">—</td><td class="num">—</td><td>DC + Power Gen</td></tr>
+      <tr style="background:color-mix(in srgb,var(--good) 8%,var(--white));font-weight:600;"><td>Q1/2026 ★</td><td class="num">421.5</td><td class="num">47.84</td><td class="num">+29.8%</td><td class="num"><span style="color:var(--good);">+57.0%</span></td><td>DC, Power Gen — สูงสุดใน history</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:6px;">ประมาณการ Q2-Q4/2025 อิงจาก FY2025 actual 1,403M ลบ Q1/2026 actual; ยืนยันจาก OPPDAY disclosures</p>
+
+  <h3>Setup สำหรับ Q2/2026</h3>
+  <div class="callout">
+    <strong>Backlog Visibility สูงมาก:</strong> ณ สิ้น Q1/2026 backlog เหลือ ~650M THB ซึ่งจะทยอยรับรู้ใน Q2-Q4 บวกกับ trading revenue ที่ stable ทำให้ Q2/2026 ควรเห็น revenue ~450-490M THB (+28-39% YoY) และกำไรโต >30% YoY ต่อเนื่อง
+    <br><br><strong>Sentiment Read:</strong> <em>ตลาดยัง "priced for pessimism" เทียบกับ fundamentals</em> — Forward P/E 7.3× สำหรับบริษัทที่กำไรโต 57% และมี backlog visibility สูงนั้นถือว่าถูกมาก ตลาดรับรู้ narrative DC แล้ว (ราคาขึ้น +54%) แต่ยังไม่ได้ reprice earnings growth เต็มที่ นี่คือ opportunity
+  </div>
+</section>
+
+<!-- ══════════════════ §5 TECHNICALS, SCENARIOS & PLAN ══════════════════ -->
+<section id="s5">
+  <div class="sec-h"><span class="sec-no">5</span><h2>เทคนิค · Scenarios &amp; แผนลงทุน</h2></div>
+  <hr class="div">
+
+  <!-- 5.1 Technical -->
+  <h3 id="s5-tech">5.1 Technical Setup &amp; Timing</h3>
+
+  <p><strong>Calibrated Parameters สำหรับ FTE.BK:</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Parameter</th><th>ค่า</th><th>ความสำคัญ</th></tr></thead>
+    <tbody>
+      <tr><td>MA ที่ราคา respect</td><td>EMA20 (daily), SMA200 (weekly)</td><td>FTE respect EMA20 บน daily ชัดเจน</td></tr>
+      <tr><td>ADX (Trend Strength)</td><td>41.95 (Daily) / 39.63 (Weekly)</td><td>Trend แข็งมาก; ADX > 25 = strong trend</td></tr>
+      <tr><td>ATR (Volatility)</td><td>Low-moderate (~3-4% of price)</td><td>Tight range; low volume stock</td></tr>
+      <tr><td>52W Range</td><td>1.52 – 2.48 THB</td><td>ราคาปัจจุบันใกล้ 52W High</td></tr>
+      <tr><td>Current vs 200 EMA</td><td>+34.9% เหนือ 200 EMA (1.74)</td><td>Extended แต่ trend intact</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Weekly SVG Chart -->
+  <figure class="chart" style="margin-top:16px;">
+    <figcaption class="eyebrow">กราฟรายสัปดาห์ (Weekly) · บริบทเทรนด์</figcaption>
+    <svg viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคา FTE รายสัปดาห์">
+      <!-- Y-axis labels -->
+      <text x="8" y="40" font-family="monospace" font-size="10" fill="#87867F">2.50</text>
+      <text x="8" y="100" font-family="monospace" font-size="10" fill="#87867F">2.20</text>
+      <text x="8" y="155" font-family="monospace" font-size="10" fill="#87867F">1.90</text>
+      <text x="8" y="210" font-family="monospace" font-size="10" fill="#87867F">1.60</text>
+      <!-- Grid lines -->
+      <line x1="50" y1="38" x2="690" y2="38" stroke="#D1CFC5" stroke-width="0.5"/>
+      <line x1="50" y1="98" x2="690" y2="98" stroke="#D1CFC5" stroke-width="0.5"/>
+      <line x1="50" y1="153" x2="690" y2="153" stroke="#D1CFC5" stroke-width="0.5"/>
+      <line x1="50" y1="208" x2="690" y2="208" stroke="#D1CFC5" stroke-width="0.5"/>
+      <!-- Volume bars (bottom) -->
+      <g fill="#D1CFC5">
+        <rect x="58" y="248" width="8" height="12"/>
+        <rect x="90" y="245" width="8" height="15"/>
+        <rect x="122" y="252" width="8" height="8"/>
+        <rect x="154" y="240" width="8" height="20"/>
+        <rect x="186" y="235" width="8" height="25"/>
+        <rect x="218" y="250" width="8" height="10"/>
+        <rect x="250" y="243" width="8" height="17"/>
+        <rect x="282" y="228" width="8" height="32"/>
+        <rect x="314" y="232" width="8" height="28"/>
+        <rect x="346" y="237" width="8" height="23"/>
+        <rect x="378" y="220" width="8" height="40"/>
+        <rect x="410" y="215" width="8" height="45"/>
+        <rect x="442" y="218" width="8" height="42"/>
+        <rect x="474" y="225" width="8" height="35"/>
+        <rect x="506" y="230" width="8" height="30"/>
+        <rect x="538" y="235" width="8" height="25"/>
+        <rect x="570" y="228" width="8" height="32"/>
+        <rect x="602" y="232" width="8" height="28"/>
+        <rect x="634" y="242" width="8" height="18"/>
+        <rect x="666" y="245" width="8" height="15"/>
+      </g>
+      <!-- 200 EMA (weekly) = 1.74 ~ y=190 -->
+      <line x1="50" y1="190" x2="690" y2="170" stroke="#87867F" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <text x="694" y="174" font-family="monospace" font-size="10" fill="#87867F">200EMA</text>
+      <!-- Resistance 2.48 (52W High) -->
+      <line x1="50" y1="35" x2="690" y2="35" stroke="#B04A3F" stroke-width="1" stroke-dasharray="4 4"/>
+      <text x="694" y="38" font-family="monospace" font-size="10" fill="#B04A3F">2.48 High</text>
+      <!-- Support 2.09 -->
+      <line x1="50" y1="115" x2="690" y2="115" stroke="#788C5D" stroke-width="1" stroke-dasharray="4 4"/>
+      <text x="694" y="118" font-family="monospace" font-size="10" fill="#788C5D">2.09 S1</text>
+      <!-- 52W Low support 1.52 -->
+      <line x1="50" y1="220" x2="690" y2="220" stroke="#87867F" stroke-width="0.8" stroke-dasharray="2 4"/>
+      <text x="694" y="223" font-family="monospace" font-size="10" fill="#87867F">1.52 52W Low</text>
+      <!-- Price line (weekly) — uptrend from 1.52 to 2.48 peak, now 2.34 -->
+      <polyline fill="none" stroke="#141413" stroke-width="2.5"
+        points="62,222 95,215 128,208 161,200 194,195 227,192 260,188 293,175 326,160 359,148 392,118 425,75 458,60 491,68 524,72 557,80 590,68 623,55 656,42 689,65"/>
+      <!-- Current price marker -->
+      <circle cx="689" cy="65" r="5" fill="var(--watch)"/>
+      <text x="620" y="58" font-family="monospace" font-size="10" fill="var(--watch)">2.34 Now</text>
+      <!-- RSI overbought annotation -->
+      <rect x="580" y="40" width="100" height="18" rx="3" fill="color-mix(in srgb,var(--bad) 15%,white)"/>
+      <text x="585" y="52" font-family="monospace" font-size="9" fill="var(--bad)">RSI 71.7 ↓ OB</text>
+    </svg>
+  </figure>
+
+  <!-- Daily SVG Chart -->
+  <figure class="chart" style="margin-top:14px;">
+    <figcaption class="eyebrow">กราฟรายวัน (Daily) · Setup &amp; Entry</figcaption>
+    <svg viewBox="0 0 720 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคา FTE รายวัน">
+      <text x="8" y="35" font-family="monospace" font-size="10" fill="#87867F">2.50</text>
+      <text x="8" y="90" font-family="monospace" font-size="10" fill="#87867F">2.30</text>
+      <text x="8" y="145" font-family="monospace" font-size="10" fill="#87867F">2.10</text>
+      <text x="8" y="200" font-family="monospace" font-size="10" fill="#87867F">1.90</text>
+      <line x1="50" y1="33" x2="690" y2="33" stroke="#D1CFC5" stroke-width="0.5"/>
+      <line x1="50" y1="88" x2="690" y2="88" stroke="#D1CFC5" stroke-width="0.5"/>
+      <line x1="50" y1="143" x2="690" y2="143" stroke="#D1CFC5" stroke-width="0.5"/>
+      <line x1="50" y1="198" x2="690" y2="198" stroke="#D1CFC5" stroke-width="0.5"/>
+      <!-- Volume -->
+      <g fill="#D1CFC5">
+        <rect x="55" y="230" width="7" height="15"/><rect x="86" y="222" width="7" height="23"/><rect x="117" y="218" width="7" height="27"/>
+        <rect x="148" y="225" width="7" height="20"/><rect x="179" y="215" width="7" height="30"/><rect x="210" y="210" width="7" height="35"/>
+        <rect x="241" y="205" width="7" height="40"/><rect x="272" y="200" width="7" height="45"/><rect x="303" y="210" width="7" height="35"/>
+        <rect x="334" y="218" width="7" height="27"/><rect x="365" y="222" width="7" height="23"/><rect x="396" y="215" width="7" height="30"/>
+        <rect x="427" y="208" width="7" height="37"/><rect x="458" y="205" width="7" height="40"/><rect x="489" y="210" width="7" height="35"/>
+        <rect x="520" y="218" width="7" height="27"/><rect x="551" y="222" width="7" height="23"/><rect x="582" y="228" width="7" height="17"/>
+        <rect x="613" y="232" width="7" height="13"/><rect x="644" y="235" width="7" height="10"/>
+      </g>
+      <!-- EMA10 daily = 2.36 ~ y=80 -->
+      <polyline fill="none" stroke="#87867F" stroke-width="1.5"
+        points="62,200 95,193 128,185 161,175 194,160 227,145 260,128 293,112 326,102 359,95 392,88 425,78 458,70 491,72 524,78 557,82 590,80 623,79 656,80 689,78"/>
+      <text x="694" y="82" font-family="monospace" font-size="10" fill="#87867F">EMA10</text>
+      <!-- Key support 2.09 -->
+      <line x1="50" y1="143" x2="690" y2="143" stroke="#788C5D" stroke-width="1.2" stroke-dasharray="5 3"/>
+      <text x="694" y="146" font-family="monospace" font-size="10" fill="#788C5D">2.09 Support</text>
+      <!-- Entry zone shading 2.10-2.20 -->
+      <rect x="50" y="130" width="640" height="30" fill="color-mix(in srgb,var(--good) 8%,transparent)"/>
+      <text x="55" y="142" font-family="monospace" font-size="9" fill="var(--good)">Entry Zone 2.10–2.20</text>
+      <!-- Resistance 2.63 -->
+      <line x1="50" y1="45" x2="690" y2="45" stroke="#B04A3F" stroke-width="1" stroke-dasharray="4 4"/>
+      <text x="694" y="48" font-family="monospace" font-size="10" fill="#B04A3F">2.63 R1</text>
+      <!-- Stop 1.95 -->
+      <line x1="50" y1="195" x2="690" y2="195" stroke="#B04A3F" stroke-width="0.8" stroke-dasharray="2 4"/>
+      <text x="694" y="198" font-family="monospace" font-size="10" fill="#B04A3F">1.95 Stop</text>
+      <!-- Price line daily (recent range 2.10-2.48) -->
+      <polyline fill="none" stroke="#141413" stroke-width="2.5"
+        points="62,195 95,188 128,178 161,168 194,155 227,140 260,125 293,108 326,98 359,88 392,78 425,65 458,50 491,55 524,65 557,75 590,80 623,82 656,86 689,88"/>
+      <!-- Current price Doji -->
+      <circle cx="689" cy="88" r="5" fill="var(--watch)"/>
+      <text x="618" y="82" font-family="monospace" font-size="10" fill="var(--watch)">2.34 Doji</text>
+      <!-- MACD bear cross annotation -->
+      <rect x="560" y="52" width="118" height="18" rx="3" fill="color-mix(in srgb,var(--watch) 15%,white)"/>
+      <text x="565" y="64" font-family="monospace" font-size="9" fill="var(--watch)">MACD Bearish Cross</text>
+    </svg>
+  </figure>
+
+  <!-- Condition & Read -->
+  <div class="callout" style="margin-top:14px;">
+    <strong>Condition: Pullback in Strong Uptrend</strong><br>
+    <strong>Weekly:</strong> RSI ลดจาก 80.6 → 71.7 (rolling off overbought), MACD bullish, ADX 39.6 trend แข็ง, ราคา +34.9% เหนือ 200 EMA. Candle สัปดาห์นี้ bearish strong body — selling pressure. <br>
+    <strong>Daily:</strong> MACD bearish cross เพิ่งเกิด, RSI 61.9 ลดจาก 65, ราคาต่ำกว่า 10-day EMA. Doji วันนี้ = indecision. ราคายัง above EMA20 (2.29), EMA50 (2.16), EMA200 (1.94) — uptrend intact.<br>
+    <strong>Confirmations:</strong> ADX > 40 (very strong trend); Golden Cross (EMA50 > EMA200); price above all MAs<br>
+    <span style="color:var(--watch);"><strong>⚠ Warnings:</strong> RSI was extreme overbought (80+) = mean reversion likely; daily MACD just crossed bear; low volume today (50K shares) = liquidity thin</span>
+  </div>
+
+  <!-- Risk Geometry -->
+  <h3 style="margin-top:20px;">Risk Geometry</h3>
+  <div class="rg">
+    <div class="rg-cell">
+      <div class="rk">Entry Zone</div>
+      <div class="rv" style="color:var(--good);">2.10–2.20</div>
+      <div style="font-size:12px;color:var(--gray-500);">Near daily pivot support + EMA20 zone; stage in on pullback</div>
+    </div>
+    <div class="rg-cell">
+      <div class="rk">Stop Loss</div>
+      <div class="rv" style="color:var(--bad);">1.95</div>
+      <div style="font-size:12px;color:var(--gray-500);">ต่ำกว่า weekly support 2.03; thesis เสียถ้าหลุดนี้</div>
+    </div>
+    <div class="rg-cell">
+      <div class="rk">Target 1 (Technical)</div>
+      <div class="rv" style="color:var(--watch);">2.63</div>
+      <div style="font-size:12px;color:var(--gray-500);">Daily R1; ~6-8 สัปดาห์</div>
+    </div>
+    <div class="rg-cell">
+      <div class="rk">Target 2 (Fundamental)</div>
+      <div class="rv" style="color:var(--good);">3.60–7.61</div>
+      <div style="font-size:12px;color:var(--gray-500);">P/E 12× FY2026E – DCF base; 12–24 เดือน</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>จาก Entry 2.15</th><th class="num">Risk (Stop 1.95)</th><th class="num">Reward T1 (2.63)</th><th class="num">R-Multiple T1</th><th class="num">Reward T2 (3.60)</th><th class="num">R-Multiple T2</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Per share</td>
+        <td class="num" style="color:var(--bad);">−0.20 THB</td>
+        <td class="num" style="color:var(--good);">+0.48 THB</td>
+        <td class="num" style="color:var(--good);">2.4R</td>
+        <td class="num" style="color:var(--good);">+1.45 THB</td>
+        <td class="num" style="color:var(--good);">7.3R</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout accent" style="margin-top:14px;">
+    <strong>Timing Verdict: Stage in on Pullback</strong> — อย่าไล่ราคาที่ 2.34 (RSI overbought weekly, MACD bearish cross daily). รอ pullback สู่ zone 2.10–2.20 ซึ่งเป็นแนว support ที่แข็งแกร่งก่อน entry ถ้า volume เข้ามาสนับสนุน = signal ที่ดี ถ้าราคาทะลุ 2.50 พร้อม volume สูง = breakout entry ทางเลือก
+  </div>
+
+  <!-- 5.2 Scenarios -->
+  <h3 id="s5-scen">5.2 Scenarios &amp; Expected Value</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Scenario</th><th class="num">ความน่าจะเป็น</th><th>Levers</th><th class="num">EPS 2026E</th><th class="num">ราคาเป้า 12M</th><th class="num">ราคาเป้า 24M</th><th class="num">Return vs 2.34</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="chip"><span class="dot good"></span><strong>Bull</strong></span></td>
+        <td class="num">30%</td>
+        <td>DC wins ใหม่ + backlog 900M+; NPM expand 10.5%; อาจเห็น re-rating P/E สูงขึ้น</td>
+        <td class="num">0.36+</td>
+        <td class="num" style="color:var(--good);">4.32+</td>
+        <td class="num" style="color:var(--good);">6.00+</td>
+        <td class="num" style="color:var(--good);">+85% / +156%</td>
+      </tr>
+      <tr style="background:color-mix(in srgb,var(--watch) 5%,white);">
+        <td><span class="chip"><span class="dot watch"></span><strong>Base ★</strong></span></td>
+        <td class="num">50%</td>
+        <td>Backlog 650M รับรู้ตามแผน; revenue 1,800M; NPM 9.7%; P/E re-rate สู่ 12×</td>
+        <td class="num">0.30</td>
+        <td class="num" style="color:var(--watch);">3.60</td>
+        <td class="num" style="color:var(--watch);">5.00</td>
+        <td class="num" style="color:var(--watch);">+54% / +114%</td>
+      </tr>
+      <tr>
+        <td><span class="chip"><span class="dot bad"></span><strong>Bear</strong></span></td>
+        <td class="num">20%</td>
+        <td>Project delay / cost overrun; revenue growth ชะลอสู่ 10%; DC capex cuts by hyperscalers</td>
+        <td class="num">0.21</td>
+        <td class="num" style="color:var(--bad);">2.52</td>
+        <td class="num" style="color:var(--bad);">2.10</td>
+        <td class="num" style="color:var(--bad);">+8% / −10%</td>
+      </tr>
+      <tr style="font-weight:600;background:var(--oat);">
+        <td colspan="5"><strong>Expected Value (Probability-Weighted)</strong></td>
+        <td class="num"><strong>4.13 THB</strong></td>
+        <td class="num" style="color:var(--good);"><strong>+76% vs 2.34</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted" style="margin-top:6px;">EV = 0.30×4.32 + 0.50×3.60 + 0.20×2.52 = 1.296 + 1.80 + 0.504 = <strong>3.60 THB (12M)</strong> → upside +54%</p>
+
+  <!-- 5.3 Investment Plan -->
+  <h3 id="s5-plan">5.3 แผนลงทุน (เงื่อนไข — ไม่ใช่คำสั่งซื้อขาย)</h3>
+  <p><strong>Setup Archetype: GARP (Growth at a Reasonable Price) + Backlog-Visibility</strong></p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>ประเด็น</th><th>รายละเอียด</th></tr></thead>
+    <tbody>
+      <tr><td>Entry vs Fair Value</td><td>DCF base 7.61 THB / Entry zone 2.10–2.20 → margin of safety <strong>>70%</strong> ในกรณีที่ conservative ที่สุด (worst DCF = 5.39 THB)</td></tr>
+      <tr><td>Sizing &amp; Staging</td><td>Stage 1 (40%) ที่ 2.10–2.20 / Stage 2 (40%) หลัง Q2/2026 confirm > expected / Stage 3 (20%) ที่ breakout 2.50 พร้อม volume ไม่แนะนำ full position ณ ราคาปัจจุบัน 2.34</td></tr>
+      <tr><td>Technical Stop</td><td>1.95 THB (ต่ำกว่า weekly pivot support) — ถ้า thesis ผิด ออกก่อนสูญเสียใหญ่</td></tr>
+      <tr><td>Conviction-Builders</td><td>(1) Q2/2026 กำไร > 40M THB YoY; (2) Management announce backlog ≥700M อีกรอบ; (3) ชนะ bid DC ใหม่ที่มีนัยสำคัญ; (4) สัญญาณ RE-RATE จาก broker coverage เพิ่ม</td></tr>
+      <tr><td>Thesis-Breakers (Exit)</td><td>(1) Revenue FY2026E ต่ำกว่า 1,600M THB (backlog delivery ล้มเหลว); (2) GPM หล่นต่ำกว่า 22% จาก cost overrun; (3) DC investment cycle หยุดชะงักในไทย; (4) ราคาหลุด 1.95 THB</td></tr>
+      <tr><td>Horizon</td><td>Base: 12–18 เดือน สำหรับ re-rating / Long-term: 3+ ปี สำหรับ DCF fair value</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ══════════════════ §6 KEY RISKS ══════════════════ -->
+<section id="s6">
+  <div class="sec-h"><span class="sec-no">6</span><h2>ความเสี่ยงหลัก</h2></div>
+  <hr class="div">
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>ความเสี่ยง</th><th>ผลกระทบ</th><th>ความน่าจะเป็น</th><th>ผลต่อ Fair Value</th><th>Thesis-Breaker?</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Project Execution Risk</strong><br><span class="small muted">โครงการ DC delay หรือ cost overrun — GPM หล่น margin squeeze</span></td>
+        <td><span class="chip"><span class="dot bad"></span>สูง</span></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td>GPM ทุก −1% = กำไร −14M; ใน bear case = ราคา 2.52</td>
+        <td><span class="tag bad">Yes</span></td>
+      </tr>
+      <tr>
+        <td><strong>2. Client Concentration</strong><br><span class="small muted">2-3 hyperscalers อาจ = >50% ของ project revenue; ถ้า 1 โครงการ cancel</span></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td><span class="chip"><span class="dot watch"></span>ต่ำ</span></td>
+        <td>Revenue ลด 20-30%; กำไร ลด 40%</td>
+        <td><span class="tag watch">Partial</span></td>
+      </tr>
+      <tr>
+        <td><strong>3. Working Capital Pressure</strong><br><span class="small muted">Backlog growth = ต้องสั่งวัสดุล่วงหน้า ผูก cash NWC เพิ่ม</span></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td>FCF ลดชั่วคราว; ไม่กระทบ P&amp;L</td>
+        <td><span class="tag good">No</span></td>
+      </tr>
+      <tr>
+        <td><strong>4. DC Cycle Slowdown</strong><br><span class="small muted">Hyperscaler ชะลอ capex ใน SEA (เช่น recession สหรัฐ); pipeline หด</span></td>
+        <td><span class="chip"><span class="dot bad"></span>สูง</span></td>
+        <td><span class="chip"><span class="dot good"></span>ต่ำ</span></td>
+        <td>Growth story เสีย; re-rate กลับ P/E 8-9×</td>
+        <td><span class="tag watch">Conditional</span></td>
+      </tr>
+      <tr>
+        <td><strong>5. Liquidity Risk (Small-cap)</strong><br><span class="small muted">Volume ต่ำมาก (50K shares/day) — slippage สูง exit ยาก</span></td>
+        <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+        <td><span class="chip"><span class="dot bad"></span>สูง</span></td>
+        <td>Market impact cost; ไม่กระทบ fundamentals</td>
+        <td><span class="tag good">No</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ══════════════════ APPENDIX ══════════════════ -->
+<section id="app">
+  <div class="sec-h"><span class="sec-no">A</span><h2>ภาคผนวก</h2></div>
+  <hr class="div">
+
+  <h3>สมมติฐานหลักและแหล่งข้อมูล</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>ตัวแปร</th><th>ค่า</th><th>ที่มา</th></tr></thead>
+    <tbody>
+      <tr><td>จำนวนหุ้น (Shares Outstanding)</td><td>~583M หุ้น</td><td>คำนวณจาก Net Profit / EPS (P/E 11.1×, ราคา 2.34)</td></tr>
+      <tr><td>Risk-Free Rate (Thai 10Y)</td><td>2.5%</td><td>Bank of Thailand reference ~2026</td></tr>
+      <tr><td>ERP + Country Risk Premium</td><td>5.9% (5.0%+0.9%)</td><td>Damodaran methodology; Thailand CRP</td></tr>
+      <tr><td>Beta</td><td>1.05×</td><td>Estimated; Thai small-cap MEP contractor</td></tr>
+      <tr><td>FCF Estimation</td><td>NOPAT − CapEx + D&amp;A</td><td>CapEx ~20M, D&amp;A ~15M; asset-light business</td></tr>
+      <tr><td>Tax Rate</td><td>20%</td><td>Thai corporate tax rate</td></tr>
+      <tr><td>Net Debt</td><td>~60M THB</td><td>D/E 0.4; equity est. ~550M; cash ~100M</td></tr>
+      <tr><td>FY2025 Revenue (Confirmed)</td><td>1,403M THB</td><td>บริษัทประกาศ (กำไร +5.82% YoY)</td></tr>
+      <tr><td>FY2025 Net Profit (Confirmed)</td><td>122.99M THB</td><td>ผลประกอบการปี 2568</td></tr>
+      <tr><td>Q1/2026 Revenue (Confirmed)</td><td>421.49M THB</td><td>ผลประกอบการ Q1/2569 (+29.79% YoY)</td></tr>
+      <tr><td>Q1/2026 Net Profit (Confirmed)</td><td>47.84M THB</td><td>ผลประกอบการ Q1/2569 (+57.01% YoY)</td></tr>
+      <tr><td>Backlog (March 2026)</td><td>800M THB</td><td>Oppday March 2026 (All-Time High)</td></tr>
+      <tr><td>Backlog (April 2026)</td><td>650M THB</td><td>รายงาน Q1/2026 disclosure</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 style="margin-top:28px;">แหล่งข้อมูลและวันที่</h3>
+  <ul class="small">
+    <li>SET OPPDAY March 2026 (FTE) — "Backlog 800M THB; Revenue Target 1,750M" via AIO Platform</li>
+    <li>FTE Q1/2026 Earnings Release (May 2026) — กำไร +57.01%, รายได้ +29.79%</li>
+    <li>AIO.panphol.com — FTE news archive (P/E 11.10, Yield 7.20%)</li>
+    <li>Yahoo Finance — FTE.BK price 2.34, 52W: 1.52–2.48</li>
+    <li>TradingView (SET exchange) — Technical indicators real-time 11/06/2026</li>
+    <li>ประมาณการ FY2021-2024 อิงจากข้อมูลบางส่วนและ interpolation — ควรยืนยันจาก annual reports ของ FTE โดยตรง</li>
+    <li><em>yfinance และ TradingView data เป็น unofficial — ควร cross-check กับ SET filing จริงก่อนตัดสินใจลงทุน</em></li>
+  </ul>
+
+  <h3 style="margin-top:28px;">ข้อจำกัดและ Disclaimer</h3>
+  <div class="callout" style="background:#f2dedd;border-left:4px solid var(--bad);">
+    <strong>⚠ ข้อมูลนี้เพื่อการศึกษาและวิจัยเท่านั้น — ไม่ใช่คำแนะนำการลงทุน</strong><br><br>
+    รายงานนี้จัดทำขึ้นเพื่อการวิเคราะห์และการศึกษาโดย AI Research Assistant บนพื้นฐานข้อมูลสาธารณะ ผู้ใช้ควร: (1) ยืนยันตัวเลขทุกรายการกับ annual reports และ filing ที่ SET/ก.ล.ต. โดยตรง; (2) ปรึกษาผู้แนะนำการลงทุนที่ได้รับใบอนุญาตก่อนตัดสินใจลงทุน; (3) ประเมิน risk tolerance ส่วนตัวก่อนลงทุนในหุ้นขนาดเล็กที่มีสภาพคล่องต่ำ; (4) ทราบว่าประมาณการบางส่วน (ปี 2021-2024) เป็น estimation — ไม่ได้ยืนยันจาก audited accounts ครบทุกรายการ<br><br>
+    ผลตอบแทนในอดีตและ scenario ข้างต้นไม่ใช่การรับประกันผลตอบแทนในอนาคต
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer style="max-width:1140px;margin:0 auto;padding:0 24px 40px;">
+  <p>FTE.BK · SET · THB · BF-Report · สร้างโดย AI Research (Claude) · ณ 11 มิ.ย. 2569 · <strong>ไม่ใช่คำแนะนำการลงทุน</strong> · ข้อมูลบางส่วนเป็นประมาณการ ควรยืนยันจาก primary sources</p>
+</footer>
+
+<script>
+// Scrollspy
+const links=document.querySelectorAll('.toc a');
+const secs=[...document.querySelectorAll('section[id],header[id]')];
+function spy(){
+  let cur='';
+  secs.forEach(s=>{if(s.getBoundingClientRect().top<120)cur=s.id;});
+  links.forEach(l=>{
+    l.classList.toggle('active',l.getAttribute('href')==='#'+cur);
+  });
+}
+window.addEventListener('scroll',spy,{passive:true});
+spy();
+</script>
+</body>
+</html>
