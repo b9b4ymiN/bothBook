@@ -68,9 +68,9 @@ async function loadFileList() {
     return embeddedFiles;
   }
 
-  if (["localhost", "127.0.0.1"].includes(location.hostname)) {
-    listSource = "Local";
-    return Array.isArray(config.localFiles) ? config.localFiles : [];
+  if (Array.isArray(config.localFiles)) {
+    listSource = ["localhost", "127.0.0.1"].includes(location.hostname) ? "Local" : "Static";
+    return config.localFiles;
   }
 
   const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;

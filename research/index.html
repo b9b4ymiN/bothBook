@@ -242,6 +242,11 @@
         return embeddedFiles;
       }
 
+      if (localFiles.length) {
+        listSource = "Static";
+        return localFiles;
+      }
+
       const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;
       try {
         const files = await json(`${apiBase}/contents/${config.folder}`, true);
