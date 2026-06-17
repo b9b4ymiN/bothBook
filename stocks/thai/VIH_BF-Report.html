@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ศรีวิชัยเวชวิวัฒน์ (VIH) — บทวิเคราะห์การลงทุน</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI','Noto Sans Thai',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc>summary{display:none;}
+  .toc .toc-desk{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:6px 0 6px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+  .insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+           border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+  .insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:36px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;letter-spacing:.02em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 0;}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);white-space:nowrap;}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);white-space:nowrap;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout h3{margin-top:0;}
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .chart{margin:10px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+  .chart svg{width:100%;height:auto;display:block;}
+  .chart figcaption{margin-bottom:8px;}
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:28px;}
+    .toc .toc-desk{display:none;}
+    .toc>summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);list-style:none;}
+    .toc>summary::-webkit-details-marker{display:none;}
+    details.toc:not([open])>ol{display:none;}
+    .toc ol{margin-top:12px;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .shell{padding:28px 16px 80px;}
+    h1{font-size:30px;} h2{font-size:21px;} h3{font-size:16px;}
+    .insight-lead{font-size:19px;}
+    .stat .v{font-size:30px;}
+    .band{grid-template-columns:repeat(2,1fr);}
+    table{font-size:13px;} thead th,tbody td{padding:10px 12px;}
+  }
+  @media(max-width:420px){ .band{grid-template-columns:1fr;} }
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout,.insight{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <details class="toc" open>
+    <summary>สารบัญ · Contents ▾</summary>
+    <div class="eyebrow toc-desk">สารบัญ</div>
+    <ol>
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a class="sub" href="#fiveq">▸ คำตอบ 5 คำถามหลัก</a></li>
+      <li><a href="#s1">1 · ธุรกิจและเรื่องราว</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดล &amp; รายได้</a></li>
+      <li><a class="sub" href="#s1-2">1.2 Moat &amp; การแข่งขัน</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; คู่แข่ง</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโต &amp; การลงทุนซ้ำ</a></li>
+      <li><a class="sub" href="#s1-5">1.5 วัฏจักร &amp; บททดสอบ 3P</a></li>
+      <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+      <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+      <li><a href="#s4">4 · ผลประกอบการ &amp; Sentiment</a></li>
+      <li><a href="#s5">5 · เทคนิค &amp; แผน</a></li>
+      <li><a class="sub" href="#s5-1">5.1 เทคนิค &amp; timing</a></li>
+      <li><a class="sub" href="#s5-2">5.2 ฉากทัศน์</a></li>
+      <li><a class="sub" href="#s5-3">5.3 แผนการลงทุน</a></li>
+      <li><a href="#s6">6 · ความเสี่ยงหลัก</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </details>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <h1>ศรีวิชัยเวชวิวัฒน์</h1>
+        <span class="pill">งานวิจัย · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">เครือโรงพยาบาลเอกชนทุติยภูมิ “วิชัยเวช อินเตอร์เนชั่นแนล” 4 แห่ง แนวเพชรเกษม–สมุทรสาคร–ฝั่งตะวันตก กทม. กำลังยกระดับสู่ตติยภูมิ/เคสซับซ้อน (หัวใจ–สมอง)</div>
+      <div class="meta mono">VIH.BK · SET · THB · ณ 17 มิ.ย. 2569 (2026)</div>
+    </header>
+
+    <!-- ============ บทสรุปผู้บริหาร ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+
+      <div class="insight">
+        <div class="eyebrow">ข้อมูลเชิงลึกการลงทุนหลัก · Key Investment Insight</div>
+        <p class="insight-lead">VIH ซื้อขายที่ P/E ~11.5 เท่า และ EV/EBITDA ~6.6 เท่า — ราว “ครึ่งหนึ่ง” ของกลุ่มโรงพยาบาลไทย (P/E 14–24x, EV/EBITDA 9–15x) — ทั้งที่กำไรโตเร็วที่สุดในกลุ่ม และมาร์จิ้นกำลังขยายจริงจากการเลื่อนพอร์ตสู่เคสซับซ้อนหัวใจ–สมอง</p>
+        <p class="small muted">กำไรสุทธิ +39% ในปี 2568 และกำไรจากการดำเนินงานปกติ (core) +19% ใน Q1/2569 ขณะที่ Net margin ขยับ 11% → 14% ในปีเดียว และรายได้ศูนย์หัวใจ +32% YoY ตลาดยังให้ราคา VIH เหมือนโรงพยาบาลประกันสังคมที่ไม่โต — มูลค่าเหมาะสม blended <strong>~฿10.80/หุ้น</strong> เทียบราคา ฿8.10 → upside <strong>~33%</strong> โดยระหว่างรอได้ปันผล ~4.9% และ ROIC ~12% > WACC ~9% (ตัวเร่ง: รพ.ใหม่ 2.7 พันลบ. เปิดเฟสแรกปลายปี 2569 + แผน JUMP+).</p>
+      </div>
+
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">฿10.80</div><div class="k">มูลค่าเหมาะสม (blended)</div>
+          <div class="d up">+33% เทียบราคา</div>
+        </div>
+        <div class="stat"><div class="v">฿8.10</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">17 มิ.ย. 2569</div></div>
+        <div class="stat"><div class="v">ฐาน</div><div class="k">จุดยืน / ความเชื่อมั่น</div><div class="d flat">ปานกลาง (MEDIUM)</div></div>
+        <div class="stat"><div class="v">~25%</div><div class="k">Margin of safety ที่ต้องการ</div><div class="d flat">GARP / quality-at-value</div></div>
+      </div>
+
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis การลงทุน</h3>
+        <p>จ่าย ~11.5 เท่ากำไรเพื่อซื้อโรงพยาบาลทุติยภูมิที่กำลัง “อัปเกรด” เป็นตติยภูมิ — เครือ 4 แห่งบนแนวเพชรเกษม/สมุทรสาคร ที่ใช้ฐานผู้ป่วยประกันสังคมเป็น “พื้นรายได้” ที่นิ่ง แล้วต่อยอดสู่เคสซับซ้อน (หัวใจ สมอง กระดูก IVF) ซึ่งให้รายได้ต่อหัวและมาร์จิ้นสูงกว่ามาก สิ่งที่ต้องเป็นจริงคือโรงพยาบาลใหม่มูลค่า 2.7 พันลบ. (พุทธมณฑลสาย 1) เปิดเฟสแรกปลายปี 2569 และ ramp ได้ตามแผน JUMP+ (รายได้ 4,000 ลบ. / EBITDA 1,000 ลบ. ภายในปี 2571) โดยมาร์จิ้นไม่ถูกกดจากต้นทุนแพทย์เฉพาะทางและภาระประกันสังคม ความไม่สมมาตร: ที่ราคานี้ downside ถูกพยุงด้วยปันผล ~4.9% งบดุล net cash เล็กน้อย และ ROIC&gt;WACC ส่วน upside มาจากทั้งกำไรที่โตและการ re-rate มัลติเพิลเข้าหากลุ่ม</p>
+        <p class="small muted">รายละเอียดการประเมินมูลค่าใน <a href="#s3">§3</a> · ฉากทัศน์และแผนใน <a href="#s5">§5</a> · ความเสี่ยงใน <a href="#s6">§6</a></p>
+      </div>
+
+      <!-- คำตอบ 5 คำถามหลักของผู้ใช้ -->
+      <div class="callout" id="fiveq" style="margin-top:18px;">
+        <h3>คำตอบโดยสรุปต่อ 5 คำถามหลัก</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>คำถาม</th><th>คำตอบสั้น</th><th>อ่านต่อ</th></tr></thead>
+          <tbody>
+            <tr><td class="small">1. เลื่อนสู่เคสซับซ้อน (หัวใจ/สมอง) เพิ่มรายได้ต่อหัว &amp; margin จริงไหม?</td><td class="small"><span class="chip"><span class="dot good"></span><strong>จริง และเห็นผลแล้ว</strong></span> NPM 11%→14% ในปีเดียว, core EBITDA margin 21.3%→23.2% (Q1/69), ศูนย์หัวใจ +32%</td><td class="small"><a href="#s1-4">§1.4</a> · <a href="#s4">§4</a></td></tr>
+            <tr><td class="small">2. Moat (location + trust + network + ฐานปกส. + ศูนย์เฉพาะทาง) แข็งแค่ไหน?</td><td class="small"><span class="chip"><span class="dot watch"></span><strong>ปานกลาง (narrow moat)</strong></span> แข็งระดับท้องถิ่น/ภูมิภาค แต่ไม่มี pricing power ระดับพรีเมียม</td><td class="small"><a href="#s1-2">§1.2</a></td></tr>
+            <tr><td class="small">3. มูลค่าเหมาะสมเท่าไร?</td><td class="small"><strong>~฿10.80</strong> (blended; DCF 11.5 / Relative 10.2) → upside ~33% (สอดคล้องเป้า IAA ฿10.40)</td><td class="small"><a href="#s3">§3</a></td></tr>
+            <tr><td class="small">4. โอกาสที่คู่แข่งรายใหญ่ลงมาเปิด รพ. บริเวณเดียวกัน?</td><td class="small"><span class="chip"><span class="dot good"></span><strong>ต่ำ–ปานกลาง</strong></span> พื้นที่อิ่มตัวพอควร + รายใหญ่พรีเมียมไม่ทับ segment; ภัยจริงคือคู่แข่งกลางในพื้นที่ (มหาชัย/เกษมราษฎร์/จุฬารัตน์)</td><td class="small"><a href="#s1-3">§1.3</a></td></tr>
+            <tr><td class="small">5. รายได้ประกันสังคมจะกินสัดส่วนมากขึ้นไหม?</td><td class="small"><span class="chip"><span class="dot good"></span><strong>ไม่น่าเพิ่มอย่างมีนัย</strong></span> สัดส่วน plateau ~22–23% แล้ว และกลยุทธ์ตั้งใจโต non-cap เร็วกว่า</td><td class="small"><a href="#s1-1">§1.1</a></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- ============ 1 · ธุรกิจและเรื่องราว ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและเรื่องราว</h2></div>
+      <hr class="div">
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจและโครงสร้างรายได้</h3>
+      <p>VIH (บมจ. ศรีวิชัยเวชวิวัฒน์) ดำเนินโรงพยาบาลเอกชน <strong>ทุติยภูมิ (Secondary)</strong> ภายใต้แบรนด์ “วิชัยเวช อินเตอร์เนชั่นแนล” 4 แห่ง — อ้อมน้อย (กระทุ่มแบน), หนองแขม (กทม.), สมุทรสาคร และแยกไฟฉาย (ธนบุรี) — บนแนวถนนเพชรเกษม/ฝั่งตะวันตก ซึ่งเป็นย่านอุตสาหกรรมและที่อยู่อาศัยหนาแน่น พร้อมธุรกิจเสริม “ตรวจสุขภาพเคลื่อนที่ (Mobile Checkup)” และโรงเรียนศรีวิชัยอาชีวศึกษา (ผลิตผู้ช่วยพยาบาล/ผู้ดูแล) ผู้ป่วยแบ่งเป็น 2 กลุ่ม: <strong>Non-Capitation</strong> (เงินสด/ประกัน/คู่สัญญา/ผู้ประสบภัยจากรถ/กองทุนเงินทดแทน) มาร์จิ้นสูง และ <strong>Capitation</strong> (ประกันสังคม) มาร์จิ้นต่ำแต่เป็น “พื้น” ปริมาณที่นิ่ง</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ส่วนรายได้ (FY2568)</th><th class="num">% รายได้</th><th>มาร์จิ้น</th><th>มุมมอง</th></tr></thead>
+        <tbody>
+          <tr><td>เงินสด + ประกันชีวิต (Non-cap)</td><td class="num">52%</td><td><span class="chip"><span class="dot good"></span>สูง</span></td><td class="small muted">เครื่องยนต์กำไรหลัก</td></tr>
+          <tr><td>ตรวจสุขภาพเคลื่อนที่ (Mobile)</td><td class="num">13%</td><td><span class="chip"><span class="dot watch"></span>กลาง</span></td><td class="small muted">รายได้ประจำ แต่แข่งด้านราคา</td></tr>
+          <tr><td>ศูนย์หัวใจ (Heart Center)</td><td class="num">12%</td><td><span class="chip"><span class="dot good"></span>สูง</span></td><td class="small muted">เคสซับซ้อน โต +32% YoY</td></tr>
+          <tr><td>ประกันสังคม (Capitation)</td><td class="num">23%</td><td><span class="chip"><span class="dot watch"></span>ต่ำ</span></td><td class="small muted">พื้นปริมาณนิ่ง เสี่ยงนโยบาย/งบ</td></tr>
+        </tbody>
+        <tfoot><tr><td>รวมรายได้บริการ (~98% ของรายได้รวม)</td><td class="num">100%</td><td></td><td class="small">Non-cap : Cap ≈ 77 : 23</td></tr></tfoot>
+      </table></div>
+      <p class="small muted"><strong>แนวโน้มสัดส่วนประกันสังคม (Non-cap : Cap):</strong> 91:9 (2564) → 86:14 (2565) → 78:22 (2566) → 77:23 (2568) — สัดส่วนปกส. พุ่งขึ้นช่วง 2564–2566 แล้ว <strong>นิ่ง (plateau) ที่ ~22–23%</strong> ในปีหลัง สะท้อนว่าบริษัทเริ่มเร่งฝั่ง non-cap มาร์จิ้นสูงให้โตเร็วกว่า — ตอบคำถามข้อ 5 ว่า <strong>สัดส่วนปกส. ไม่น่าเพิ่มอย่างมีนัย</strong> เว้นแต่บริษัทเลือกรับผู้ประกันตนเพิ่มเพื่อเติมเตียงโรงพยาบาลใหม่</p>
+
+      <h3 id="s1-2">1.2 ความได้เปรียบเชิงแข่งขัน (Moat) — ตอบคำถามข้อ 2</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">cost advantage</span> <span class="tag">local brand</span>
+        <span class="tag">switching costs (ปกส.)</span> <span class="tag">network/cluster</span> <span class="tag">specialist centers</span>
+        <span class="small muted">— ปกป้องได้ระดับ “ท้องถิ่น” ไม่ใช่ระดับชาติ/พรีเมียม</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="ความแข็งแรงของ moat">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">Narrow / ปานกลาง (3/5)</span>
+          <span class="chip"><span class="dot good"></span>ความทนทาน: กว้างขึ้น ↑ (จากศูนย์เฉพาะทาง)</span>
+          <span class="mono small">ROIC−WACC: +3.3 pp</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,23 30,21 60,17 90,12 120,8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>แหล่ง Moat</th><th>ความแข็งแรง</th><th>เหตุผล / หลักฐาน</th></tr></thead>
+        <tbody>
+          <tr><td>ทำเล (Location)</td><td><span class="chip"><span class="dot good"></span>แข็ง–ปานกลาง</span></td><td class="small muted">ฝังตัวบนแนวเพชรเกษม/ทางลงใต้ (อุบัติเหตุบ่อย) + ย่านโรงงานสมุทรสาคร = ฐานปกส./เงินทดแทน/trauma; มีที่ดินอ้อมน้อยขยายต่อ</td></tr>
+          <tr><td>ความเชื่อใจ/แบรนด์ท้องถิ่น</td><td><span class="chip"><span class="dot good"></span>ปานกลาง–แข็ง</span></td><td class="small muted">ก่อตั้ง 2530 (38 ปี) ตระกูลหมอ + BBTV ช่อง 7 ถือ ~20%; ฐานผู้ป่วยซ้ำในชุมชน แต่แบรนด์ไม่ใช่ระดับพรีเมียม</td></tr>
+          <tr><td>เครือข่าย/ประสิทธิภาพ (Cluster)</td><td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td><td class="small muted">4 รพ. แชร์แพทย์เฉพาะทาง + ส่งต่อ (ไฟฉาย→ศูนย์หัวใจหนองแขม) + โรงเรียนพยาบาลป้อนบุคลากรเอง (ลดต้นทุน/ขาดแคลน)</td></tr>
+          <tr><td>ฐานประกันสังคม (Capitation)</td><td><span class="chip"><span class="dot watch"></span>ปานกลาง (ดาบสองคม)</span></td><td class="small muted">ปริมาณนิ่ง เติมเตียง ลดความเสี่ยง fixed cost — แต่มาร์จิ้นต่ำ + เสี่ยงงบ/นโยบาย ปกส.; switching ของผู้ประกันตนทำได้รายปี</td></tr>
+          <tr><td>ศูนย์เฉพาะทาง (Specialist)</td><td><span class="chip"><span class="dot good"></span>ปานกลาง กำลังแข็งขึ้น</span></td><td class="small muted">หัวใจ (12% รายได้) + สมอง/หลอดเลือดสมอง (เปิดใหม่) + กระดูกข้อ (heritage) + IVF — เป็น moat ที่กำลัง “สร้าง” และเพิ่มมาร์จิ้น</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>สรุป moat:</strong> เป็น <strong>narrow moat (ปานกลาง)</strong> — แฟรนไชส์ท้องถิ่นที่ทนทานด้วยข้อได้เปรียบต้นทุน (ฐานปกส. + บุคลากรในเครือ + ที่ดิน/ทำเล) และความแตกต่างด้านศูนย์เฉพาะทางที่กำลังเข้มข้นขึ้น แต่ <em>ขาด</em> pricing power แบรนด์และสเกลของกลุ่มพรีเมียม (BDMS/BH) <strong>ภัยคุกคามอันดับ 1:</strong> ต้นทุน/การรักษาแพทย์เฉพาะทาง และนโยบายมาร์จิ้นฝั่งประกันสังคม</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรม คู่แข่ง และโอกาสคู่แข่งรายใหญ่เข้าพื้นที่ — ตอบคำถามข้อ 4</h3>
+      <p>โครงสร้างกลุ่ม รพ. ไทยแบ่งเป็น พรีเมียม/ตติยภูมิ (BDMS, BH), กลาง (BCH/เกษมราษฎร์, CHG/จุฬารัตน์, THG/ธนบุรี) และ เล็ก/ท้องถิ่น (VIH, EKH, AHC, RJH) ปัจจัยหนุนระยะยาวคือสังคมสูงวัย (ผู้สูงอายุ ~20 ล้านคนใน 15 ปี) และค่าใช้จ่ายสุขภาพที่เพิ่มขึ้น VIH เล่นเกม “mass-to-mid” แล้วขยับขึ้นบน</p>
+      <div class="callout accent">
+        <h3>โอกาสคู่แข่งรายใหญ่เปิด รพ. บริเวณเดียวกัน: <span class="muted" style="font-weight:400">ต่ำ–ปานกลาง</span></h3>
+        <p class="small">• <strong>พื้นที่อิ่มตัวพอควร</strong> — โซนอ้อมน้อย/หนองแขม/สมุทรสาคร มีผู้เล่นอยู่แล้ว (รพ.มหาชัยกลุ่มในสมุทรสาคร, เกษมราษฎร์/BCH ฝั่งตะวันตก, จุฬารัตน์, รพ.รัฐ + ศิริราชฝั่งธนฯ) การลงทุน greenfield ของรายใหม่จึงคุ้มยากเมื่อเทียบกับการ “ซื้อกิจการ” ที่มีอยู่</p>
+        <p class="small">• <strong>รายใหญ่พรีเมียมไม่ทับ segment</strong> — BDMS/Bumrungrad เจาะรายได้สูง/ท่องเที่ยวเชิงการแพทย์ในเขตเมืองชั้นใน ไม่ใช่ฐานโรงงาน/ปกส. ที่เป็นแกนของ VIH ความเสี่ยงทับซ้อนต่ำ</p>
+        <p class="small">• <strong>ภัยที่แท้จริงคือคู่แข่ง “กลาง” ในพื้นที่</strong> — การเพิ่มเตียง/แย่งโควตาผู้ประกันตน และแย่งแพทย์เฉพาะทาง จากเกษมราษฎร์/จุฬารัตน์/มหาชัย มากกว่าการมี disruptor พรีเมียมรายใหม่</p>
+        <p class="small">• <strong>VIH กำลัง pre-empt ฝั่งบนเอง</strong> — รพ.ใหม่พุทธมณฑลสาย 1 จับรายได้สูง/เคสซับซ้อนก่อน ลดช่องว่างให้รายใหม่เข้ามาแทรก ประกอบกับ moat ท้องถิ่น (38 ปี + ฐานปกส. + ที่ดิน + เครือข่ายแพทย์) ทำให้ ramp ของผู้มาใหม่ใช้เวลานานและเสี่ยงขาดทุนช่วงต้น</p>
+      </div>
+
+      <h3 id="s1-4">1.4 การเติบโต คุณภาพการลงทุนซ้ำ และคำถามเรื่องเคสซับซ้อน — ตอบคำถามข้อ 1</h3>
+      <p>การเติบโตมาจาก 3 ขา ตามแผน <strong>JUMP+ (2569–2571)</strong>: (1) ขยายศูนย์ความเป็นเลิศ/เคสซับซ้อนอุปสงค์สูง — หัวใจ อายุรกรรม สมอง กระดูกข้อ เวชศาสตร์ฟื้นฟู — เพื่อ <em>“เพิ่มรายได้เฉลี่ยต่อผู้ป่วยและอัตรากำไร”</em> (คำของฝ่ายบริหารเอง); (2) เป็นผู้นำ Preventive Healthcare/ตรวจสุขภาพ; (3) ใช้ AI Analytics + wearables คุมต้นทุน เป้า: รายได้ 4,000 ลบ. และ EBITDA 1,000 ลบ. ภายในปี 2571</p>
+      <div class="callout" style="margin-bottom:14px;">
+        <h3>เคสซับซ้อน “เพิ่มรายได้ต่อหัว + margin จริงไหม?” — หลักฐานบอกว่า <span class="muted" style="font-weight:400">จริง และเริ่มเห็นผลแล้ว</span></h3>
+        <p class="small">• Net margin <strong>11.05% → 14.08%</strong> ใน FY2568 ปีเดียว (กำไรสุทธิ +39%)</p>
+        <p class="small">• Q1/2569: gross margin 27.0%→27.7%, <strong>core EBITDA margin 21.3%→23.2%</strong>, core net margin 11.8%→13.4%; รายได้ <strong>ศูนย์หัวใจ +32%</strong>; เพิ่งเปิด <strong>“ศูนย์สมองและระบบประสาทวิชัยเวช” ที่อ้อมน้อย</strong> สู่ระดับตติยภูมิ</p>
+        <p class="small">• Q3/2568 ฝ่ายบริหารระบุกำไร +37% มาจาก “ยกระดับทีมแพทย์ รักษาโรคซับซ้อน” โดยตรง</p>
+        <p class="small muted">กลไก: เคสหัวใจ/สมอง/ผ่าตัด ให้รายได้ต่อการรักษาและ gross margin สูงกว่า primary care/ปกส. มาก และใช้สินทรัพย์คงที่ (cath lab/ห้องผ่าตัด) + แพทย์เฉพาะทางได้คุ้มขึ้น — ข้อควรระวังคือ ต้องหา/รักษาแพทย์เฉพาะทาง, ใช้เงินลงทุนเครื่องมือ, และแข่งกับตติยภูมิ (ธนบุรี/ศิริราช/BDMS)</p>
+      </div>
+      <p><strong>คุณภาพการลงทุนซ้ำ:</strong> ROIC ~12.3% &gt; WACC ~9.0% (สเปรด +3.3 pp, กว้างขึ้น) = การเติบโตที่ “สร้างมูลค่า” <em>ถ้า</em> รพ.ใหม่ทำผลตอบแทนเหนือต้นทุนทุน อย่างไรก็ดี capex หนัก (รพ.ใหม่ 2.7 พันลบ. ปี 2569–2573) กด FCF ระยะสั้น (ปี 2569 FCFF อาจติดลบเล็กน้อย) — เป็นการแลก FCF วันนี้กับฐานกำไรที่ใหญ่ขึ้น ดู <a href="#s2">§2</a> และ <a href="#s3">§3</a></p>
+
+      <h3 id="s1-5">1.5 วัฏจักรธุรกิจและบททดสอบ 3P</h3>
+      <p><span class="tag">Mature-growth</span> — ฐานเดิมอิ่มตัว แต่เร่งใหม่ได้จากการขยับขึ้นบน (เคสซับซ้อน + รพ.ใหม่) จุดสำคัญของระยะนี้คือ <strong>“execution ของการ re-mix และ ramp รพ.ใหม่”</strong></p>
+      <div class="callout">
+        <h3>Possible · Plausible · Probable</h3>
+        <p class="small"><strong>Possible:</strong> ขึ้นเป็นผู้เล่นตติยภูมิ/พรีเมียมระดับภูมิภาคตะวันตก รายได้ทะลุ 4 พันลบ. &nbsp;·&nbsp; <strong>Plausible:</strong> ยกมาร์จิ้นจาก re-mix เคสซับซ้อน (กำลังเกิดจริง 11%→14%) &nbsp;·&nbsp; <strong>Probable:</strong> รายได้โตเลขตัวเดียวกลาง-สูง + มาร์จิ้นค่อย ๆ ขยาย + ปันผลสม่ำเสมอ โดยรพ.ใหม่เป็น optionality</p>
+        <p class="small muted">ธง “this time is different”: รพ.ใหม่จับ <em>กลุ่มรายได้สูง/พรีเมียม</em> ที่ VIH ยังไม่มี track record และต้องแข่งกับ incumbent พรีเมียม — ต้องพิสูจน์ว่าดึงคนไข้เงินสด/เคสซับซ้อนได้จริง ไม่ใช่แค่เติมปกส.</p>
+      </div>
+    </section>
+
+    <!-- ============ 2 · แดชบอร์ดการเงิน ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>แดชบอร์ดการเงิน</h2></div>
+      <hr class="div">
+      <p class="small muted">นำด้วย 3 ตัวชี้วัดที่ค้ำ thesis (สเปรด ROIC−WACC, capex เทียบ FCF, หนี้สิน) · สี = การตัดสิน ไม่ใช่เครื่องหมายบวกลบ · <strong>ความเชื่อมั่นข้อมูล: ปานกลาง</strong> — งบรายปีเปิดเผยหลักจาก FY2566–2568; yfinance เข้าไม่ได้ บางรายการเป็นการประมาณการจาก factsheet/ข่าวอิงงบ</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวชี้วัดนำ</th><th class="num">ล่าสุด (FY68)</th><th>เทรนด์</th><th>มุมมอง</th><th>การตัดสิน</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ROIC − WACC spread</td><td class="num">+3.3 pp</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,23 30,21 60,17 90,12 120,8"/></svg></td>
+            <td class="small">ROIC ~12.3% &gt; WACC ~9% สร้างมูลค่า กว้างขึ้นจาก margin</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแรง</span></td>
+          </tr>
+          <tr>
+            <td>CapEx เทียบ FCF</td><td class="num">capex↑↑ · FCF↓</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,16 30,18 60,22 90,24 120,20"/></svg></td>
+            <td class="small">รพ.ใหม่ 2.7 พันลบ. กด FCF ปี 69–71 (ผลิตผลยังไม่พิสูจน์)</td>
+            <td><span class="chip"><span class="dot watch"></span>เฝ้าระวัง</span></td>
+          </tr>
+          <tr>
+            <td>Net debt / EBITDA</td><td class="num">~0x (net cash)</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,8 30,9 60,12 90,16 120,20"/></svg></td>
+            <td class="small">เงินสดสุทธิ ~200 ลบ. วันนี้ แต่จะก่อหนี้เพิ่มช่วงสร้าง</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแรง (จะตึงขึ้น)</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="grid2" style="margin-top:14px;">
+        <div class="table-wrap"><table>
+          <thead><tr><th>ความสามารถทำกำไร (FY68)</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>Gross margin</td><td class="num">~27.7%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>EBITDA margin</td><td class="num">23.6%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>Operating margin</td><td class="num">~17.8%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>Net margin</td><td class="num">14.1%</td><td><span class="chip"><span class="dot good"></span>↑ (จาก 11.1%)</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ผลตอบแทน &amp; ประสิทธิภาพ</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>ROIC</td><td class="num">~12.3%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>ROE</td><td class="num">~11.0%</td><td><span class="chip"><span class="dot watch"></span>→ (เจือจางจากเพิ่มทุน/รพ.ใหม่)</span></td></tr>
+            <tr><td>ROA</td><td class="num">~7.8%</td><td><span class="chip"><span class="dot good"></span>—</span></td></tr>
+            <tr><td>WACC</td><td class="num">~9.0%</td><td><span class="chip"><span class="dot good"></span>—</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="grid2" style="margin-top:14px;">
+        <div class="table-wrap"><table>
+          <thead><tr><th>กระแสเงินสด &amp; หนี้สิน</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>EBITDA (FY68)</td><td class="num">~734 ลบ.</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>CapEx (ช่วงสร้าง)</td><td class="num">~550–700 ลบ./ปี</td><td><span class="chip"><span class="dot watch"></span>สูง</span></td></tr>
+            <tr><td>FCF margin (ระยะสั้น)</td><td class="num">ต่ำ/ใกล้ 0</td><td><span class="chip"><span class="dot watch"></span>กดชั่วคราว</span></td></tr>
+            <tr><td>เงินสดสุทธิ</td><td class="num">~+200 ลบ.</td><td><span class="chip"><span class="dot good"></span>แข็งแรง</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>มัลติเพิล &amp; ปันผล</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>P/E</td><td class="num">~11.5x</td><td><span class="chip"><span class="dot good"></span>ถูกกว่ากลุ่ม</span></td></tr>
+            <tr><td>P/BV</td><td class="num">~1.26x</td><td><span class="chip"><span class="dot good"></span>ต่ำ</span></td></tr>
+            <tr><td>EV/EBITDA</td><td class="num">~6.6x</td><td><span class="chip"><span class="dot good"></span>ถูกกว่ากลุ่ม</span></td></tr>
+            <tr><td>Div yield · payout</td><td class="num">~4.9% · ~57%</td><td><span class="chip"><span class="dot good"></span>ดี</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3>รายได้ &amp; กำไร — ภาพย้อนหลัง</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปีบัญชี</th><th class="num">รายได้รวม (ลบ.)</th><th class="num">โต %</th><th class="num">กำไรสุทธิ (ลบ.)</th><th class="num">NPM</th><th class="num">DPS</th></tr></thead>
+        <tbody>
+          <tr><td>FY2566 (2023)</td><td class="num">2,763</td><td class="num">—</td><td class="num">~285*</td><td class="num">~10.3%</td><td class="num">0.20</td></tr>
+          <tr><td>FY2567 (2024)</td><td class="num">2,855</td><td class="num">+3.3%</td><td class="num">316</td><td class="num">11.1%</td><td class="num">~0.20</td></tr>
+          <tr><td>FY2568 (2025)</td><td class="num">3,107</td><td class="num">+8.9%</td><td class="num">437</td><td class="num">14.1%</td><td class="num">0.40</td></tr>
+          <tr><td>Q1/2569 (Q1’26)</td><td class="num">744</td><td class="num">+4.7%</td><td class="num">99 (core +19%)</td><td class="num">13.4%*</td><td class="num">—</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="6" class="small">* FY66 กำไรสุทธิคำนวณย้อนจาก +10.77% สู่ FY67 · Q1/69 NPM อ้างอิง core net margin · ตัวเลขจากข่าวอิงงบ/56-1 ควรสอบทานกับงบต้นทาง</td></tr></tfoot>
+      </table></div>
+    </section>
+
+    <!-- ============ 3 · การประเมินมูลค่า ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>การประเมินมูลค่า — ตอบคำถามข้อ 3</h2></div>
+      <hr class="div">
+      <p>มูลค่าเหมาะสม <strong>blended ≈ ฿10.80</strong> เทียบราคา ฿8.10 → <strong>upside ~33%</strong> (DCF เป็นวิธี bullish สุด ฿11.5; Relative ระมัดระวังกว่าที่ ฿10.2) ใกล้เคียงเป้า IAA consensus ฿10.40 — ภาพรวมชี้ว่า VIH <strong>undervalued</strong> โดยส่วนต่างหลักมาจากมัลติเพิลที่ต่ำกว่ากลุ่มทั้งที่โตเร็วกว่า</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>วิธี</th><th class="num">ราคาโดยนัย</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>DCF (FCFF, 5 ปี)</td><td class="num">฿11.46</td><td class="num">50%</td><td class="small muted">รายได้แตะ ~3.9 พันลบ. ปี 71, margin ขยาย, WACC 9%, g 2.75%</td></tr>
+          <tr><td>Relative (คู่เทียบ)</td><td class="num">฿10.16</td><td class="num">50%</td><td class="small muted">มัธยฐานกลุ่ม รพ.เล็ก หัก 20% (สภาพคล่อง/ขนาด)</td></tr>
+        </tbody>
+        <tfoot><tr><td>มูลค่าเหมาะสม (blended)</td><td class="num">฿10.80</td><td class="num">100%</td><td>+33% เทียบราคา</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">SOTP ไม่ได้ใช้แยกส่วน — รายได้กระจุกที่ธุรกิจโรงพยาบาลเดียว (Mobile Checkup/โรงเรียนพยาบาลเล็กและ synergy กับ รพ.)</p>
+
+      <h3>สมมติฐาน DCF</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปัจจัย</th><th class="num">ค่า</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>เส้นทางการเติบโตรายได้</td><td class="num">+8.5% → +5.5% (fade)</td><td class="small muted">แตะ ~3.9 พันลบ. ปี 71 (ต่ำกว่าเป้า 4 พันลบ. เล็กน้อยเพื่อความระมัดระวัง)</td></tr>
+          <tr><td>Operating (EBIT) margin</td><td class="num">17.6% → 18.8%</td><td class="small muted">re-mix เคสซับซ้อนหนุน หักแรงกดจาก ramp รพ.ใหม่</td></tr>
+          <tr><td>CapEx</td><td class="num">~700 → 360 ลบ./ปี</td><td class="small muted">รพ.ใหม่ 2.7 พันลบ. แล้วลดสู่ระดับบำรุงรักษา</td></tr>
+          <tr><td>อัตราภาษีที่แท้จริง</td><td class="num">16%</td><td class="small muted">ฐาน 20% หักสิทธิ BOI/ส่งเสริม</td></tr>
+          <tr><td>WACC</td><td class="num">9.0%</td><td class="small muted">rf 3.0% + β 0.95 × ERP 7.0%; kd 5% (หลังภาษี ~4.2%)</td></tr>
+          <tr><td>Terminal growth</td><td class="num">2.75%</td><td class="small muted">≤ GDP เล็กน้อยของไทยระยะยาว</td></tr>
+          <tr><td>Terminal value</td><td class="num">เฉลี่ย Gordon &amp; 8x EBITDA</td><td class="small muted">PV(TV)/EV ≈ 87% — TV หนัก (อยู่ในช่วงลงทุน) จึง <strong>ไวต่อสมมติฐานสูง</strong></td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Sensitivity — WACC × terminal growth (ราคาโดยนัย, ฿)</h3>
+      <div class="table-wrap"><table class="heat">
+        <thead><tr><th>WACC ＼ g</th><th>2.0%</th><th>2.5%</th><th>2.75%</th><th>3.0%</th><th>3.5%</th></tr></thead>
+        <tbody>
+          <tr><th>8.0%</th><td style="background:rgba(120,140,93,.30)">12.15</td><td style="background:rgba(120,140,93,.40)">12.67</td><td style="background:rgba(120,140,93,.48)">12.96</td><td style="background:rgba(120,140,93,.58)">13.29</td><td style="background:rgba(120,140,93,.72)">14.05</td></tr>
+          <tr><th>8.5%</th><td style="background:rgba(120,140,93,.20)">11.48</td><td style="background:rgba(120,140,93,.28)">11.91</td><td style="background:rgba(120,140,93,.34)">12.15</td><td style="background:rgba(120,140,93,.42)">12.42</td><td style="background:rgba(120,140,93,.55)">13.03</td></tr>
+          <tr><th>9.0% (base)</th><td style="background:rgba(120,140,93,.12)">10.89</td><td style="background:rgba(120,140,93,.18)">11.25</td><td class="base" style="background:var(--white)">11.46</td><td style="background:rgba(120,140,93,.26)">11.68</td><td style="background:rgba(120,140,93,.36)">12.18</td></tr>
+          <tr><th>9.5%</th><td style="background:rgba(215,119,87,.14)">10.37</td><td style="background:rgba(215,119,87,.06)">10.68</td><td style="background:rgba(120,140,93,.08)">10.85</td><td style="background:rgba(120,140,93,.12)">11.03</td><td style="background:rgba(120,140,93,.22)">11.45</td></tr>
+          <tr><th>10.0%</th><td style="background:rgba(215,119,87,.26)">9.90</td><td style="background:rgba(215,119,87,.18)">10.17</td><td style="background:rgba(215,119,87,.12)">10.31</td><td style="background:rgba(215,119,87,.06)">10.47</td><td style="background:rgba(120,140,93,.10)">10.82</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ทุกช่องสูงกว่าราคาปัจจุบัน ฿8.10 — แม้กรณีอนุรักษ์ (WACC 10%, g 2.0%) ยังได้ ฿9.90 (+22%) สะท้อน margin of safety ที่ดี</p>
+
+      <h3>การประเมินแบบเทียบเคียง — คู่เทียบกลุ่มโรงพยาบาล (ประมาณการ)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>คู่เทียบ</th><th class="num">P/E</th><th class="num">EV/EBITDA</th><th class="num">EV/Rev</th><th>ลักษณะ</th></tr></thead>
+        <tbody>
+          <tr><td>BCH (เกษมราษฎร์)</td><td class="num">~24x</td><td class="num">~15x</td><td class="num">~3x</td><td class="small muted">กลาง ปกส.สูง</td></tr>
+          <tr><td>CHG (จุฬารัตน์)</td><td class="num">~22x</td><td class="num">~14x</td><td class="num">~3x</td><td class="small muted">กลาง ฝั่งตะวันออก</td></tr>
+          <tr><td>RJH (ราชธานี)</td><td class="num">~15x</td><td class="num">~9x</td><td class="num">~2.5x</td><td class="small muted">เล็ก ภูมิภาค</td></tr>
+          <tr><td>EKH (เอกชัย)</td><td class="num">~17x</td><td class="num">~11x</td><td class="num">~3x</td><td class="small muted">เล็ก สมุทรสาคร/IVF</td></tr>
+          <tr><td>AHC (เอเชียฯ)</td><td class="num">~14x</td><td class="num">~9x</td><td class="num">~2x</td><td class="small muted">เล็ก ปกส.</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>ค่ามัธยฐานกลุ่ม</td><td class="num">~17x</td><td class="num">~11x</td><td class="num">~3x</td><td></td></tr>
+          <tr><td><strong>VIH (ปัจจุบัน)</strong></td><td class="num">~11.5x</td><td class="num">~6.6x</td><td class="num">~1.6x</td><td class="small"><span class="chip"><span class="dot good"></span>ส่วนลด ~30–40%</span></td></tr>
+        </tfoot>
+      </table></div>
+      <p class="small muted">VIH เทรดที่ส่วนลด ~30–40% เทียบมัธยฐานกลุ่ม ทั้งที่กำไรโตเร็วกว่า — ส่วนหนึ่งสมเหตุผลจากขนาดเล็ก/สภาพคล่องต่ำ/free float ~27% จึงหัก 20% ใน Relative; แต่แม้หักแล้วยังชี้ว่าราคา <em>ต่ำกว่ามูลค่า</em></p>
+
+      <h3>Valuation anomalies → candidate hooks</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Anomaly</th><th>ต่อหุ้น เทียบราคา ฿8.10</th><th>กลไก</th></tr></thead>
+        <tbody>
+          <tr><td><strong>มัลติเพิลต่ำ + โตเร็ว (hook หลัก)</strong></td><td class="small">re-rate เป็น 14–15x → ฿10.6–11.1 (+31–37%)</td><td class="small muted">ถูกกว่ากลุ่มครึ่งหนึ่ง แต่กำไร +39% (FY68)/core +19% (Q1/69); margin ขยายจริง</td></tr>
+          <tr><td>Shareholder yield</td><td class="small">ปันผล ~4.9% + buyback 200 ลบ. (~4% mktcap)</td><td class="small muted">ผลตอบแทนเงินสดหนุน downside</td></tr>
+          <tr><td>ROIC−WACC vs P/B</td><td class="small">ROIC ~12% &gt; WACC ~9% แต่ P/BV เพียง 1.26x</td><td class="small muted">สร้างมูลค่าแต่มัลติเพิลสินทรัพย์ต่ำ (ROE ถูกกดชั่วคราว)</td></tr>
+          <tr><td>Net cash</td><td class="small">~฿0.32/หุ้น (~4% ราคา)</td><td class="small muted">เล็ก — ไม่ใช่ hook หลัก แต่ลดความเสี่ยงงบดุล</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============ 4 · ผลประกอบการ & Sentiment ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการและ Sentiment</h2></div>
+      <hr class="div">
+      <h3>ไตรมาสล่าสุด — Q1/2569 (รายงาน 15 พ.ค. 2569)</h3>
+      <p>รายได้รวม <strong>744.16 ลบ.</strong> (+4.65% YoY), กำไรสุทธิ <strong>99.46 ลบ.</strong> (+0.62% หัวบรรทัด — แบนจากรายการพิเศษ) แต่ <strong>กำไรจากการดำเนินงานปกติ (core) +19.01%</strong> — แกนแข็งแรงกว่าหัวบรรทัดมาก รายได้ รพ. +5.40% จากผู้ป่วย OPD/IPD เพิ่ม + เคสซับซ้อน; gross margin 27.0%→27.7%, core EBITDA margin 21.3%→23.2%, core net margin 11.8%→13.4%; <strong>ศูนย์หัวใจ +32%</strong>; เปิด <strong>ศูนย์สมอง/ระบบประสาท</strong> ที่อ้อมน้อย; ต้นทุนการเงิน −25% ข้อควรจับตา: SG&amp;A +8.4% (ต้นทุนเปิดศูนย์/รพ.ใหม่)</p>
+      <h3>สถิติย้อนหลังและทิศทาง</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>งวด</th><th class="num">รายได้ (ลบ.)</th><th class="num">กำไรสุทธิ</th><th>ไฮไลต์</th></tr></thead>
+        <tbody>
+          <tr><td>FY2568</td><td class="num">3,107</td><td class="num">437 (+39%)</td><td><span class="chip"><span class="dot good"></span>NPM 14.1%, ปันผล 0.40</span></td></tr>
+          <tr><td>Q1/2568</td><td class="num">711</td><td class="num">~100 (+37%)</td><td><span class="chip"><span class="dot good"></span>เริ่มเร่งเคสซับซ้อน</span></td></tr>
+          <tr><td>Q2/2568</td><td class="num">—</td><td class="num">97</td><td><span class="chip"><span class="dot good"></span>ขยายฐานลูกค้า</span></td></tr>
+          <tr><td>Q3/2568</td><td class="num">—</td><td class="num">+37%</td><td><span class="chip"><span class="dot good"></span>“ยกระดับทีมแพทย์ รักษาโรคซับซ้อน”</span></td></tr>
+          <tr><td>Q1/2569</td><td class="num">744</td><td class="num">99 (core +19%)</td><td><span class="chip"><span class="dot watch"></span>หัวบรรทัดแบน แต่ core แกร่ง</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">หุ้นเล็ก ไม่มี consensus EPS รายไตรมาสชัดเจน — เป้านักวิเคราะห์ (IAA) ฿10.40; track record เป็นการ “โตต่อเนื่อง” มากกว่า beat/miss</p>
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>มุมมอง Sentiment — ราคาสะท้อน “ความมองร้าย/เฉย ๆ” ไม่ใช่ความสมบูรณ์แบบ</h3>
+        <p>หุ้นย่อจาก ~฿9.5 (มี.ค.) มาที่ ~฿8.1 ทั้งที่ core operating profit +19% — ตลาดดูจะ “ตอบสนองน้อยเกินไป” ต่อแกนที่แข็ง โดยถูกบดบังด้วยกำไรหัวบรรทัดที่แบนจากรายการพิเศษ + ต้นทุนเปิดศูนย์/รพ.ใหม่ ที่ P/E ~11.7x (ต่ำกว่ากลุ่มมาก) ผลประกอบการล่าสุด <strong>สนับสนุน</strong> thesis ใน <a href="#s3">§3</a> (margin ขยาย, เคสซับซ้อนเวิร์ก) — ช่องว่างระหว่าง “หัวบรรทัดแบน” กับ “core +19%” คือโอกาส</p>
+      </div>
+    </section>
+
+    <!-- ============ 5 · เทคนิค ฉากทัศน์ และแผน ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>เทคนิค ฉากทัศน์ และแผนการลงทุน</h2></div>
+      <hr class="div">
+
+      <h3 id="s5-1">5.1 Technical Setup &amp; Timing (สัปดาห์ → วัน)</h3>
+      <p class="small muted">พารามิเตอร์ที่ fit หุ้นนี้: หุ้นเคารพแนวรับขาขึ้นที่ฟื้นจากฐานปี 2567–68 (~6.5–7.0) · Fib anchor: ฐาน ~6.5 (ปลายปี 67) → ยอด ~9.5 (มี.ค. 69) · ATR รายวัน ~0.20–0.25 · วอลุ่มฐานต่ำ (~0.3–0.5 ล้านหุ้น/วัน, สภาพคล่องน้อย) · สภาพกราฟ: <strong>ขาขึ้นที่กำลังย่อ (pullback within uptrend) เข้าสู่ correction ระยะสั้น กำลังหาฐานแถวแนวรับ</strong></p>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">รายสัปดาห์ (Weekly) · บริบทเทรนด์ — ฟื้นจากฐาน 6.5 สู่ยอด 9.5 แล้วย่อ</figcaption>
+        <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายสัปดาห์ VIH">
+          <g fill="var(--gray-300)">
+            <rect x="70" y="250" width="5" height="30"></rect><rect x="120" y="244" width="5" height="36"></rect>
+            <rect x="210" y="258" width="5" height="22"></rect><rect x="320" y="262" width="5" height="18"></rect>
+            <rect x="440" y="260" width="5" height="20"></rect><rect x="560" y="252" width="5" height="28"></rect><rect x="660" y="256" width="5" height="24"></rect>
+          </g>
+          <line x1="40" y1="60" x2="700" y2="60" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="600" y="56" class="mono" font-size="10" fill="var(--gray-500)">ยอด 52wk ~9.5</text>
+          <line x1="40" y1="150" x2="700" y2="150" stroke="var(--good)" stroke-dasharray="4 4"/><text x="610" y="146" class="mono" font-size="10" fill="var(--good)">โซนเข้า ~7.8–8.3</text>
+          <line x1="40" y1="190" x2="700" y2="190" stroke="var(--bad)" stroke-dasharray="3 3"/><text x="636" y="186" class="mono" font-size="10" fill="var(--bad)">stop &lt; 7.40</text>
+          <polyline fill="none" stroke="var(--gray-500)" stroke-width="1.5" points="40,205 180,200 320,185 460,160 600,150 700,148"/>
+          <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="40,150 95,40 150,95 230,150 320,205 400,180 470,140 540,95 590,70 630,120 700,138"/>
+          <circle cx="590" cy="70" r="4" fill="var(--watch)"/><text x="520" y="84" class="mono" font-size="10" fill="var(--watch)">มี.ค.69</text>
+          <line x1="40" y1="35" x2="700" y2="35" stroke="var(--gray-300)" stroke-dasharray="2 4"/><text x="600" y="31" class="mono" font-size="10" fill="var(--gray-500)">FV ~10.8</text>
+        </svg>
+      </figure>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">รายวัน (Daily) · จุดเข้า — correction จากยอด มี.ค. ล้างลง 7.85 แล้วทรงตัว</figcaption>
+        <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายวัน VIH">
+          <g fill="var(--gray-300)">
+            <rect x="120" y="258" width="5" height="22"></rect><rect x="250" y="250" width="5" height="30"></rect>
+            <rect x="430" y="256" width="5" height="24"></rect><rect x="560" y="240" width="5" height="40"></rect><rect x="640" y="258" width="5" height="22"></rect>
+          </g>
+          <line x1="40" y1="70" x2="700" y2="70" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="600" y="66" class="mono" font-size="10" fill="var(--gray-500)">แนวต้าน ~9.0–9.5</text>
+          <line x1="40" y1="120" x2="700" y2="120" stroke="var(--gray-500)" stroke-dasharray="2 3"/><text x="610" y="116" class="mono" font-size="10" fill="var(--gray-500)">pivot ~8.5</text>
+          <line x1="40" y1="170" x2="700" y2="170" stroke="var(--good)" stroke-dasharray="4 4"/><text x="600" y="166" class="mono" font-size="10" fill="var(--good)">โซนเข้า 7.8–8.3</text>
+          <line x1="40" y1="205" x2="700" y2="205" stroke="var(--bad)" stroke-dasharray="3 3"/><text x="636" y="201" class="mono" font-size="10" fill="var(--bad)">stop &lt; 7.40</text>
+          <polyline fill="none" stroke="var(--gray-500)" stroke-width="1.5" points="40,150 180,140 320,120 460,135 600,165 700,168"/>
+          <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="40,150 110,158 180,120 250,62 320,95 390,110 460,140 520,128 560,200 610,175 660,182 700,178"/>
+          <circle cx="250" cy="62" r="4" fill="var(--watch)"/><text x="225" y="52" class="mono" font-size="10" fill="var(--watch)">9.5</text>
+          <circle cx="560" cy="200" r="4" fill="var(--bad)"/><text x="540" y="220" class="mono" font-size="10" fill="var(--bad)">flush 7.85</text>
+        </svg>
+      </figure>
+
+      <p><strong>การอ่าน (confluence):</strong> <span class="chip"><span class="dot good"></span>ยืนยัน</span> โครงสร้าง higher-low รายสัปดาห์ยังอยู่เหนือ ~7.5; ย่อครั้งนี้รับที่ ~50% retrace ของขาขึ้นปี 68 (~8.0) และเด้งจาก 7.85; ปันผล/มูลค่าช่วยพยุง · <span class="chip"><span class="dot watch"></span>คำเตือน</span> เทรนด์รายวันยัง corrective (lower highs ตั้งแต่ มี.ค.), โมเมนตัมยังไม่กลับเป็นขาขึ้น, สภาพคล่องต่ำทำให้ราคากระชาก — ต้องเรียกคืน ~8.5 แล้ว 9.0 เพื่อยืนยันรอบใหม่</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Risk geometry</th><th>โซนเข้า</th><th>Stop</th><th>เป้า (รวม fair-value magnet)</th><th class="num">R</th></tr></thead>
+        <tbody><tr><td class="small muted">ย่อในขาขึ้น / สะสมที่แนวรับ</td><td>฿7.80–8.30</td><td>&lt; ฿7.40 (ใต้ flush &amp; โครงสร้าง ~3×ATR)</td><td>T1 ฿9.0–9.5 (รีเทสต์ยอด) · T2 ฿10.4–10.8 (FV/เป้านักวิเคราะห์)</td><td class="num">~3.4R</td></tr></tbody>
+      </table></div>
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>Timing verdict — ทยอยสะสม (stage/accumulate)</h3>
+        <p>เข้าบางส่วนในโซน ฿7.8–8.3 ตอนนี้ (ใกล้แนวรับ + valuation upside ~33%), แล้ว <strong>เพิ่ม</strong> เมื่อยืน/ผ่าน ฿8.5 ด้วยวอลุ่ม หรือย่อแตะ ~฿7.5 — <strong>เลี่ยงไล่ราคา</strong> เนื่องจากเทรนด์รายวันยังไม่ยืนยันกลับขึ้น เป็นเคส “หุ้นถูกพื้นฐาน ในจังหวะย่อทางเทคนิคใกล้แนวรับ”</p>
+      </div>
+
+      <h3 id="s5-2">5.2 ฉากทัศน์และผลตอบแทนคาดหวัง</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ฉากทัศน์</th><th>ปัจจัยขับเคลื่อน</th><th class="num">~12 ด.</th><th class="num">~24 ด.</th><th class="num">~36 ด.</th><th class="num">ผลตอบแทน(36ด.)</th><th class="num">โอกาส</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot good"></span>Bull</span></td><td class="small muted">JUMP+ เข้าเป้า, รพ.ใหม่ ramp ดี, EBITDA margin ~25%, re-rate 16–18x</td><td class="num">10.5</td><td class="num">14.0</td><td class="num">17.5</td><td class="num">+116%</td><td class="num">30%</td></tr>
+          <tr><td>Base</td><td class="small muted">execution สม่ำเสมอ, รายได้ ~3.9–4.0 พันลบ. ปี 71, re-rate เล็กน้อย 13–15x</td><td class="num">9.5</td><td class="num">10.8</td><td class="num">11.8</td><td class="num">+46%</td><td class="num">45%</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>Bear</span></td><td class="small muted">รพ.ใหม่ล่าช้า/ขาดทุนช่วงต้น, ปกส.กดมาร์จิ้น, ต้นทุนแพทย์, ไม่ re-rate</td><td class="num">7.2</td><td class="num">6.0</td><td class="num">5.0</td><td class="num">−38%</td><td class="num">25%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="6">ผลตอบแทนถ่วงน้ำหนักความน่าจะเป็น (≈36 ด.)</td><td class="num">+46%</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">มูลค่าเหมาะสมฐานวันนี้ ฿10.80 (+33%) เป็น anchor ระยะใกล้; ตัวเลข 36 ด. รวมการเติบโตของกำไรอีก ~1 ปี เป้าทุกฉากผูกกับ fair value ใน §3 ไม่ใช่ราคาที่เสกขึ้น</p>
+
+      <h3 id="s5-3">5.3 แผนการลงทุน</h3>
+      <div class="callout" style="margin-top:6px;">
+        <h3>แผนการลงทุน <span class="small muted">— มีเงื่อนไข ไม่ใช่คำสั่งซื้อ/ขาย</span></h3>
+        <p class="small"><strong>รูปแบบ (archetype):</strong> GARP / quality-at-value (หุ้นเล็ก) — ของดีโตในราคาถูก แต่ต้องคุมขนาดเพราะสภาพคล่อง</p>
+        <p class="small"><strong>จุดเข้า &amp; margin of safety:</strong> สะสม ฿7.8–8.3; ต้องการ MoS ~25% เทียบฐาน ฿10.8 (ที่ ฿8.10 มี ~25% แล้ว)</p>
+        <p class="small"><strong>เทคนิค — โซน/stop/R:</strong> โซน ฿7.8–8.3 · stop &lt; ฿7.40 · ~3.4R · ทยอยเข้า (technical stop กับ MoS เป็นการคุมความเสี่ยงคู่กัน)</p>
+        <p class="small"><strong>ขนาด &amp; การทยอย:</strong> เล็ก–ปานกลาง; size ตามสภาพคล่อง (ออกยากเวลาตลาดผันผวน, free float ~27%)</p>
+        <p class="small"><strong>สิ่งเพิ่มความเชื่อมั่น (เฝ้าทุกไตรมาส):</strong> รพ.ใหม่เปิดเฟส 1 ตามกำหนด (ปลายปี 69) + ramp; core operating profit โต &gt;15%; รายได้ศูนย์หัวใจ/สมองโต; gross/EBITDA margin ทรงตัวขึ้น; สัดส่วนปกส. ≤25%; net debt/EBITDA &lt; 1.5x ช่วงสร้าง</p>
+        <p class="small"><strong>สิ่งหักล้าง thesis:</strong> รพ.ใหม่บานปลาย/ล่าช้า/ขาดทุนยืดเยื้อ; ปกส.กดมาร์จิ้น + สัดส่วนปกส.พุ่ง; แพทย์เฉพาะทางไหลออก; คู่แข่งใหญ่เข้า micro-market; ธรรมาภิบาล/key-man; สภาพคล่องแห้ง</p>
+        <p class="small"><strong>กรอบเวลา:</strong> 2–3 ปี (ต้องรอ ramp รพ.ใหม่ + การ re-rate)</p>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ความเสี่ยงหลัก ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+      <div class="table-wrap"><table>
+        <thead><tr><th>ความเสี่ยง</th><th>ทิศทาง/กลไก</th><th class="num">มูลค่าที่เสี่ยง</th></tr></thead>
+        <tbody>
+          <tr><td>1. Execution/ramp รพ.ใหม่ 2.7 พันลบ.</td><td class="small muted">ปัจจัยแกว่งมากสุด; DCF พึ่ง TV สูง (PV(TV)/EV ~87%) + FCF ระยะสั้นติดลบ; ล่าช้า/ขาดทุนช่วงต้นกระทบมาก</td><td class="num">~30–40%</td></tr>
+          <tr><td>2. ประกันสังคม — มาร์จิ้น/งบ</td><td class="small muted">ความเสี่ยงทั้งกลุ่ม (โบรกห่วงงบ ปกส.ไม่พอ); VIH 23% <em>เสี่ยงน้อยกว่า</em> BCH/CHG/RJH (40–60%)</td><td class="num">~10–15%</td></tr>
+          <tr><td>3. แพทย์เฉพาะทาง — สรรหา/รักษา/ต้นทุน</td><td class="small muted">กลยุทธ์เคสซับซ้อนพึ่งแพทย์; ขาดแคลน/ถูกซื้อตัว กระทบคุณภาพ &amp; margin</td><td class="num">~10–15%</td></tr>
+          <tr><td>4. หุ้นเล็ก — สภาพคล่อง/ธรรมาภิบาล/key-man</td><td class="small muted">ตระกูล + BBTV คุมเสียงข้างมาก, free float ~27%; ออก/เข้ายาก, มี VIH-W1 (เจือจางเล็กน้อย)</td><td class="num">ความเสี่ยงราคา/สภาพคล่อง</td></tr>
+          <tr><td>5. การแข่งขันในพื้นที่</td><td class="small muted">มหาชัย/เกษมราษฎร์(BCH)/จุฬารัตน์ เพิ่มเตียง/แย่งปกส./แย่งแพทย์ — รายใหญ่พรีเมียมเข้าตรง ๆ โอกาสต่ำ</td><td class="num">~5–10%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">เชื่อมกับ thesis-breakers ใน <a href="#s5-3">§5.3</a> และช่องที่ sensitivity ใน <a href="#s3">§3</a> ไวสุด (WACC/g) — ข้อ 1 คือสิ่งที่ทำให้กรอบ Bull–Bear กว้าง</p>
+    </section>
+
+    <!-- ============ ภาคผนวก ============ -->
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+      <h3>สมมติฐานหลัก (DCF / WACC)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปัจจัย</th><th class="num">ค่า</th><th>แหล่งที่มา / เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate</td><td class="num">3.0%</td><td class="small muted">พันธบัตรรัฐบาลไทย 10 ปี (normalize; spot ~2.5–2.7%)</td></tr>
+          <tr><td>Equity risk premium</td><td class="num">7.0%</td><td class="small muted">mature ~5.5% + Thailand country risk premium (สไตล์ Damodaran)</td></tr>
+          <tr><td>Beta</td><td class="num">0.95</td><td class="small muted">รพ. เชิงตั้งรับ แต่หุ้นเล็ก/สภาพคล่องต่ำ บวก premium</td></tr>
+          <tr><td>Cost of debt</td><td class="num">5.0% (หลังภาษี ~4.2%)</td><td class="small muted">อัตรากู้ รพ. ไทยโดยประมาณ</td></tr>
+          <tr><td>WACC</td><td class="num">9.0%</td><td class="small muted">E/V 88% · D/V 12%</td></tr>
+          <tr><td>อัตราภาษีที่แท้จริง</td><td class="num">16%</td><td class="small muted">ฐาน 20% หักสิทธิ BOI/ส่งเสริม</td></tr>
+          <tr><td>Terminal growth</td><td class="num">2.75%</td><td class="num"></td></tr>
+          <tr><td>จำนวนหุ้น</td><td class="num">~618.65 ล้านหุ้น</td><td class="small muted">พาร์ 1.00; VIH-W1 หมดอายุ มิ.ย. 69 (เจือจางเล็กน้อย)</td></tr>
+        </tbody>
+      </table></div>
+      <h3>แหล่งข้อมูลและวันที่</h3>
+      <p class="small muted">ตลาดหลักทรัพย์ฯ (SET) factsheet/งบ (ณ 8 เม.ย. 2569) · 56-1 One Report 2567/2568 · IR วิชัยเวช (vichaivej.com) · ข่าวอิงงบ: Kaohoon, ThaiPR, InfoQuest, Prachachat, Thunhoon, Naewna, Liberator, AiO (panphol) · IAA consensus (เป้า ฿10.40) · บทวิเคราะห์กลุ่ม รพ. (InnovestX / DBS Vickers) · กราฟ TradingView · ราคาผ่าน Yahoo/TradingView proxy (17 มิ.ย. 2569). <strong>ข้อจำกัด:</strong> yfinance เข้าไม่ได้ในสภาพแวดล้อมนี้ และบางรายการงบดุล/กระแสเงินสดเป็นการประมาณการ — <strong>ความเชื่อมั่นข้อมูล: ปานกลาง</strong> ควรสอบทานการตัดสินใจกับงบการเงินต้นทาง/แบบ 56-1</p>
+      <p class="small muted"><strong>คำปฏิเสธความรับผิด.</strong> เอกสารนี้จัดทำเพื่อการศึกษาและวิจัยเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ และไม่ได้ปรับให้เหมาะกับสถานการณ์การลงทุนเฉพาะบุคคล ผู้ลงทุนควรศึกษาข้อมูลและประเมินความเสี่ยงด้วยตนเองก่อนตัดสินใจ</p>
+    </section>
+
+    <footer>
+      บมจ. ศรีวิชัยเวชวิวัฒน์ · VIH.BK · SET · งานวิจัยเพื่อการศึกษา · สร้างเมื่อ 17 มิ.ย. 2569 (2026) · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a = map[e.target.id]; if(a) a.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+    document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+  })();
+</script>
+</body>
+</html>
