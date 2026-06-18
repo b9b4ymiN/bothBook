@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บริษัท สกาย ไอซีที จำกัด (มหาชน) (SKY) — บทวิเคราะห์การลงทุน</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI','Noto Sans Thai',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+
+  /* layout + collapsible TOC */
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc>summary{display:none;}
+  .toc .toc-desk{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:6px 0 6px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+
+  /* header */
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+  /* sections */
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+  /* Key Investment Insight (leads Executive Summary) */
+  .insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+           border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+  .insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+
+  /* KPI / verdict band */
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:36px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;letter-spacing:.02em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+  /* tables (wrapped in .table-wrap for mobile scroll) */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0 0;}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.04em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);white-space:nowrap;}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);white-space:nowrap;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+
+  /* callouts */
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout h3{margin-top:0;}
+
+  /* sparkline + moat meter */
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+
+  /* heatmap */
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  /* annotated price chart (5.1) */
+  .chart{margin:10px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+  .chart svg{width:100%;height:auto;display:block;}
+  .chart figcaption{margin-bottom:8px;}
+
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+  /* ---------- responsive (mobile-first) ---------- */
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;}
+    .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:28px;}
+    .toc .toc-desk{display:none;}
+    .toc>summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);list-style:none;}
+    .toc>summary::-webkit-details-marker{display:none;}
+    details.toc:not([open])>ol{display:none;}
+    .toc ol{margin-top:12px;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .shell{padding:28px 16px 80px;}
+    h1{font-size:30px;} h2{font-size:21px;} h3{font-size:16px;}
+    .insight-lead{font-size:19px;}
+    .stat .v{font-size:30px;}
+    .band{grid-template-columns:repeat(2,1fr);}
+    table{font-size:13px;} thead th,tbody td{padding:10px 12px;}
+  }
+  @media(max-width:420px){ .band{grid-template-columns:1fr;} }
+
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout,.insight{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ============ TABLE OF CONTENTS ============ -->
+  <details class="toc" open>
+    <summary>สารบัญ · Contents ▾</summary>
+    <div class="eyebrow toc-desk">สารบัญ</div>
+    <ol>
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · ธุรกิจและเรื่องราว</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดล &amp; รายได้</a></li>
+      <li><a class="sub" href="#s1-2">1.2 Moat &amp; การแข่งขัน</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; TAM</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโต &amp; การลงทุนซ้ำ</a></li>
+      <li><a class="sub" href="#s1-5">1.5 วัฏจักร &amp; บททดสอบ 3P</a></li>
+      <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+      <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+      <li><a href="#s4">4 · ผลประกอบการ &amp; Sentiment</a></li>
+      <li><a href="#s5">5 · เทคนิค &amp; แผน</a></li>
+      <li><a class="sub" href="#s5-1">5.1 เทคนิค &amp; timing</a></li>
+      <li><a href="#s6">6 · ความเสี่ยงหลัก</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </details>
+
+  <main class="doc">
+
+    <!-- ============ HEADER ============ -->
+    <header class="rep-head">
+      <div class="head-top">
+        <h1>บริษัท สกาย ไอซีที จำกัด (มหาชน)</h1>
+        <span class="pill">งานวิจัย · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">ผู้นำ “Aviation Technology-as-a-Service” ของไทย (CUPPS, APPS, Biometric ใน 13 สนามบิน) ควบคู่ธุรกิจวางระบบ ICT ครบวงจรและบริการ recurring ให้ภาครัฐ–เอกชน</div>
+      <div class="meta mono">SKY.BK · SET · THB · ณ 18 มิถุนายน 2569 (2026)</div>
+    </header>
+
+    <!-- ============ บทสรุปผู้บริหาร ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+
+      <div class="insight">
+        <div class="eyebrow">ข้อมูลเชิงลึกการลงทุนหลัก · Key Investment Insight</div>
+        <p class="insight-lead">ที่ราคา 14.90 บาท ตลาด “ฝัง” สมมติฐานการโตของกำไรไว้แค่ ~10–12% ต่อปี ทั้งที่ Q1/2569 กำไรเพิ่ง <strong>+47%</strong> และบริษัทถือ backlog ~25,000 ลบ. (≈ 2.4 เท่าของรายได้ทั้งปี) ที่ทยอยรับรู้ยาว 6–7 ปี</p>
+        <p class="small muted">Reverse-DCF บอกว่า ราคาปัจจุบันสมเหตุผลก็ต่อเมื่อการเติบโตทรุดลงเหลือเลขหลักเดียว–สิบต้น ๆ แต่ backlog + รายได้การบินที่ผูกกับจำนวนผู้โดยสารยังไม่สนับสนุนภาพนั้น หากตลาด re-rate มาที่ระดับยังถือว่าถูกราว 13–15 เท่าของกำไรล่วงหน้า มูลค่าเหมาะสมขยับไป ~18–21 บาท (+20–40%). <strong>กับดักของเคส:</strong> การโตเกือบทั้งหมดพึ่งงบภาครัฐและกินเงินลงทุนหนัก (cloud leasing) — thesis จึงอยู่ที่ “ความทนทานของสัญญา + การแปลงเป็นเงินสด”</p>
+      </div>
+
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">฿18.8</div><div class="k">มูลค่าเหมาะสม (blended)</div>
+          <div class="d up">+26% เทียบราคา</div>
+        </div>
+        <div class="stat"><div class="v">฿14.90</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">ณ 18 มิ.ย. 69</div></div>
+        <div class="stat"><div class="v">ฐาน</div><div class="k">จุดยืน / ความเชื่อมั่น</div><div class="d flat">ปานกลาง</div></div>
+        <div class="stat"><div class="v">25–30%</div><div class="k">Margin of safety ที่ต้องการ</div><div class="d flat">Gov-infra GARP</div></div>
+      </div>
+
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis การลงทุน</h3>
+        <p>จ่าย ~10.5 เท่าของกำไรล่วงหน้าเพื่อบริษัทที่กำไรโต 40–60% ต่อปีและมี backlog ล็อกการเติบโต 6–7 ปี — ความไม่สมมาตรเอียงไปทางบวกถ้าเครื่องยนต์ Aviation Tech (รายได้ผูกผู้โดยสาร, มาร์จิ้นสูง) ยังโตและรายได้ cloud-leasing สพฐ. พิสูจน์ว่า “recurring จริง”. สิ่งที่ต้องเป็นจริงเพื่อรับ upside: มาร์จิ้นทรงตัว ≥8–9%, FCF เริ่มเป็นบวกหลังลงทุน hardware, และงบภาครัฐไม่สะดุด. สิ่งที่หักล้าง: โครงการรัฐถูกตัด/เลื่อน, มาร์จิ้นถูกบีบ, หรือเงินทุนหมุนเวียนตึงจนต้องเพิ่มทุน. ราคา 14.90 บาทอยู่ใกล้กรอบล่างของมูลค่าเหมาะสม — น่าสะสมเชิงทยอย มากกว่าไล่ราคา</p>
+        <p class="small muted">รายละเอียดการประเมินมูลค่าอยู่ใน <a href="#s3">§3</a> · ฉากทัศน์และแผนใน <a href="#s5">§5</a> · ความเสี่ยงใน <a href="#s6">§6</a> · คำตอบเรื่องสัญญา สพฐ./742 ลบ. ใน <a href="#s4">§4</a></p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · ธุรกิจและเรื่องราว ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและเรื่องราว</h2></div>
+      <hr class="div">
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจและโครงสร้างรายได้</h3>
+      <p>SKY คือ “ผู้รับเหมา/ผู้ให้บริการระบบ ICT” ที่ยกระดับตัวเองเป็นแพลตฟอร์มเทคโนโลยีการบิน เครื่องยนต์กำไรหลักคือ <strong>Aviation Technology-as-a-Service</strong> — ระบบเช็คอิน/ออกบัตรโดยสาร (CUPPS) ครอบคลุม 13 สนามบินทั่วประเทศ, ระบบคัดกรองผู้โดยสารล่วงหน้า (APPS), ระบบพิสูจน์อัตลักษณ์ใบหน้า (Biometric) และแพลตฟอร์ม (เช่น SAWASDEE by AOT) ซึ่งเป็นรายได้ที่ผูกกับ “จำนวนผู้โดยสาร” จึงมีลักษณะ recurring และมาร์จิ้นสูง. ส่วนที่สองคือธุรกิจวางระบบ ICT แบบเบ็ดเสร็จ (ICT-SI / turnkey) รวมถึง <strong>การให้เช่าระบบ cloud computing แก่ สพฐ.</strong> ซึ่งโตแรงแต่มาร์จิ้นต่ำกว่าและกินเงินลงทุน. เสริมด้วยบริษัทย่อย: เมทเธียร์ (Smart Facility), โปร อินไซด์ (PIS, ICT-SI), และ สกาย ซีซี (Contact Center ผสาน AI/LLM)</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ส่วนธุรกิจ</th><th class="num">% รายได้ (FY2567)</th><th class="num">มาร์จิ้น (โดยเปรียบเทียบ)</th><th>มุมมอง</th></tr></thead>
+        <tbody>
+          <tr><td>บริการ (Aviation + Platform + Smart Facility + CSM + บำรุงรักษา)</td><td class="num">80.2%</td><td class="num">สูง</td><td class="small muted">เครื่องยนต์กำไร · ผูกผู้โดยสาร · recurring</td></tr>
+          <tr><td>วางระบบ ICT แบบเบ็ดเสร็จ (turnkey/ICT-SI, รวม cloud-leasing สพฐ.)</td><td class="num">19.3%</td><td class="num">ต่ำ–กลาง</td><td class="small muted">โตแรง · กินทุน · พึ่งงบรัฐ</td></tr>
+          <tr><td>จำหน่ายสินค้าไอที + อื่น ๆ</td><td class="num">0.5%</td><td class="num">ต่ำ</td><td class="small muted">เล็กลง</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">FY2567 รายได้รวม 6,744 ลบ. (บริการ 5,407 / turnkey 1,301 / ขาย 11 / อื่น 26). โครงสร้างรายได้ของบริษัทแบ่งเป็น สัมปทาน (Concession), รายได้ประจำรายเดือน (Recurring) และรายได้โครงการ (Project-based)</p>
+
+      <h3 id="s1-2">1.2 ความได้เปรียบเชิงแข่งขัน (Moat)</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">switching costs</span> <span class="tag">scale</span>
+        <span class="tag">regulatory / relationship</span>
+        <span class="small muted">— moat ของ SKY มาจากต้นทุนการเปลี่ยนระบบที่ฝังในสนามบิน + ความสัมพันธ์กับ AOT/ทอท. และ กรมท่าอากาศยาน</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="ความแข็งแรงของ moat">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">Narrow–Moderate</span>
+          <span class="chip"><span class="dot good"></span>การบิน: กว้างขึ้น ↑</span>
+          <span class="chip"><span class="dot watch"></span>โดยรวม: พึ่งสัมพันธ์รัฐ</span>
+          <span class="mono small">ROIC−WACC: ~+0.5 pp (บาง)</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,24 30,20 60,18 90,16 120,14"/>
+          </svg>
+        </div>
+      </div>
+      <p>ระบบ CUPPS/APPS/Biometric เมื่อถูกติดตั้งและเชื่อมกับระบบสนามบินแล้ว มีต้นทุนการเปลี่ยน (switching cost) สูงและสัญญายาว — นี่คือ moat ที่ “กว้างขึ้น” ตามจำนวนสนามบิน/ผู้โดยสาร. แต่ในระดับรวมบริษัท ผลตอบแทนต่อเงินลงทุน (ROIC ~10%) อยู่เหนือ WACC (~9.5%) เพียงบาง ๆ เพราะธุรกิจ ICT-SI/cloud-leasing กินทุนและมาร์จิ้นต่ำมาเจือจาง. <strong>ภัยคุกคามอันดับ 1:</strong> moat ฝั่งรัฐเป็นแบบ “ความสัมพันธ์/ประมูล” — เปลี่ยนนโยบาย เปลี่ยนรัฐบาล หรือข้อครหาเรื่องการจัดซื้อจัดจ้าง กระทบ pipeline ได้โดยตรง</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรมและ TAM</h3>
+      <p>ลมหนุนชัดเจน: การฟื้นตัวของการเดินทาง — Q1/2569 ผู้โดยสารผ่านสนามบิน กรมท่าอากาศยาน (DOA) +15% YoY และ ทอท. (AOT) +8% YoY, หนุนจากการที่สายการบินเบนเส้นทางมาใช้ไทยเป็นฮับเชื่อมต่อ. นโยบายรัฐผลักดันไทยสู่ “Aviation Hub” + การลงทุนโครงสร้างพื้นฐานดิจิทัล (immigration biometric, smart airport) และโครงการดิจิทัลการศึกษา (สพฐ.) ขยาย TAM ออกไปนอกการบิน. ความเสี่ยงเชิงโครงสร้าง: อุปสงค์ฝั่งรัฐผูกกับวัฏจักรงบประมาณและการเมือง; การบินผูกกับวัฏจักรท่องเที่ยว/เศรษฐกิจโลก</p>
+
+      <h3 id="s1-4">1.4 การเติบโตและคุณภาพการลงทุนซ้ำ</h3>
+      <p>การเติบโตมาจาก (1) Aviation Tech ที่โตตามผู้โดยสารและการขยายไปสนามบินใหม่/บริการใหม่, (2) cloud-leasing สพฐ. (recurring แต่กินทุน), (3) บริษัทย่อย (Metthier, PIS, Sky CC). ประเด็นแบบ Damodaran: การลงทุนซ้ำของ SKY <strong>หนัก</strong> — โมเดล cloud-leasing คือบริษัทลงทุนซื้อ hardware แล้วทยอยรับรายได้ค่าเช่า ทำให้ capex และเงินทุนหมุนเวียนสูง และ FCF ในช่วงโตมักต่ำกว่ากำไรทางบัญชี. การโตฝั่งการบินให้ผลตอบแทน “เหนือ WACC ชัดเจน” แต่การโตฝั่ง ICT-SI/cloud ให้ผลตอบแทน “ใกล้ WACC” — ส่วนผสมจึงกำหนดว่าการโตนี้ “สร้างมูลค่า” มากแค่ไหน. ดู <a href="#s2">§2</a> และ <a href="#s3">§3</a></p>
+
+      <h3 id="s1-5">1.5 วัฏจักรธุรกิจและบททดสอบ 3P</h3>
+      <p><span class="tag">Growth stage</span> — ระยะเติบโต: มูลค่าถูกขับเคลื่อนด้วย “การเติบโตของรายได้ × คุณภาพการลงทุนซ้ำ” มากกว่ามาร์จิ้นนิ่ง ๆ</p>
+      <div class="callout">
+        <h3>Possible · Plausible · Probable</h3>
+        <p class="small"><strong>Possible:</strong> โตต่อแน่นอน — backlog 25,000 ลบ. ค้ำอยู่. &nbsp;·&nbsp; <strong>Plausible:</strong> โต 15–25%/ปีหลายปีจากการแปลง backlog + ลมหนุนผู้โดยสาร — มีกลไกและหลักฐาน (ทำ All-Time-High ติดต่อกัน). &nbsp;·&nbsp; <strong>Probable:</strong> กรณีฐาน (โต 15–20%, มาร์จิ้น 8–9%) “น่าจะเป็น”; กรณี bull (โต 30%+ ต่อเนื่อง + มาร์จิ้นขยาย + re-rate) เป็นไปได้แต่ไม่ใช่ฐาน</p>
+        <p class="small muted">ธงเตือน “this time is different”: อย่า extrapolate การโต 50%+ ของปีก่อน ๆ เป็นนิรันดร์ และอย่าถือว่า pipeline ภาครัฐ “ไร้ความเสี่ยง/ถาวร”. มาร์จิ้นสุทธิเคยถูกบีบจาก 13% (2566) เหลือ 7% (2567) มาแล้วเมื่อ mix เลื่อนไป ICT-SI</p>
+      </div>
+    </section>
+
+    <!-- ============ 2 · แดชบอร์ดการเงิน ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>แดชบอร์ดการเงิน</h2></div>
+      <hr class="div">
+      <p class="small muted">นำด้วยตัวชี้วัดที่ค้ำ hook (การมองเห็นรายได้/การเติบโต) ก่อน แล้วตามด้วยคุณภาพ (ROIC−WACC, ความเข้มข้นของเงินลงทุน, หนี้). สี = การตัดสิน (ดีขึ้น/เฝ้าระวัง/แย่ลง) ไม่ใช่เครื่องหมายบวกลบ. <em>หมายเหตุ: ตัวเลขปี 2566–2568 และไตรมาสยืนยันจากข่าว/บริษัท; บางอัตราส่วน (ROIC, net debt, gross margin) เป็นการประมาณการ ควรตรวจกับงบ 56-1/หมายเหตุประกอบงบ</em></p>
+
+      <!-- LEAD: diagnostics that support the hook -->
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวชี้วัดนำ</th><th class="num">ล่าสุด</th><th>เทรนด์</th><th>มุมมอง</th><th>การตัดสิน</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>รายได้รวม (ลบ.)</td><td class="num">10,248</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,30 30,28 60,25 90,15 120,0"/></svg></td>
+            <td class="small">FY68 +52% · CAGR 66→68 ~58%</td>
+            <td><span class="chip"><span class="dot good"></span>โตเด่น</span></td>
+          </tr>
+          <tr>
+            <td>Backlog (ลบ.) · ความครอบคลุม</td><td class="num">&gt;25,000</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,30 30,18 60,5 90,1 120,0"/></svg></td>
+            <td class="small">≈ 2.4× รายได้ปี · รับรู้ 6–7 ปี</td>
+            <td><span class="chip"><span class="dot good"></span>มองเห็นไกล</span></td>
+          </tr>
+          <tr>
+            <td>ROIC − WACC spread</td><td class="num">~ +0.5 pp</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,26 30,22 60,18 90,16 120,14"/></svg></td>
+            <td class="small">เหนือ WACC แต่บาง (ICT-SI เจือจาง)</td>
+            <td><span class="chip"><span class="dot watch"></span>เฝ้าระวัง</span></td>
+          </tr>
+          <tr>
+            <td>ความเข้มข้นเงินลงทุน (capex/FCF)</td><td class="num">สูง</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,16 30,17 60,19 90,17 120,18"/></svg></td>
+            <td class="small">cloud-leasing ต้องซื้อ hardware ก่อน</td>
+            <td><span class="chip"><span class="dot watch"></span>กดดัน FCF</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <!-- families -->
+      <div class="grid2" style="margin-top:14px;">
+        <div class="table-wrap"><table>
+          <thead><tr><th>ความสามารถทำกำไร</th><th class="num">FY2568</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>Gross margin (ประมาณ)</td><td class="num">~20%</td><td><span class="chip"><span class="dot watch"></span>→</span></td></tr>
+            <tr><td>Operating margin (ประมาณ)</td><td class="num">~9%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>Net margin</td><td class="num">7.5%</td><td><span class="chip"><span class="dot watch"></span>ฟื้นจาก 7.1%</span></td></tr>
+            <tr><td>Net margin (Q1/69)</td><td class="num">10.8%</td><td><span class="chip"><span class="dot good"></span>↑ ตาม mix การบิน</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ผลตอบแทน &amp; ประสิทธิภาพ</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>ROE (FY2568)</td><td class="num">~12%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>ROIC (ประมาณ)</td><td class="num">~10%</td><td><span class="chip"><span class="dot watch"></span>→</span></td></tr>
+            <tr><td>WACC</td><td class="num">~9.5%</td><td><span class="chip"><span class="dot watch"></span>—</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px;">
+        <div class="table-wrap"><table>
+          <thead><tr><th>กำไร/หุ้น &amp; การเติบโต</th><th class="num">2566</th><th class="num">2567</th><th class="num">2568</th></tr></thead>
+          <tbody>
+            <tr><td>รายได้ (ลบ.)</td><td class="num">4,125</td><td class="num">6,744</td><td class="num">10,248</td></tr>
+            <tr><td>กำไรสุทธิ (ลบ.)</td><td class="num">546</td><td class="num">~480</td><td class="num">773</td></tr>
+            <tr><td>EPS (บาท, ประมาณ)</td><td class="num">0.77</td><td class="num">0.68</td><td class="num">1.09</td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>มูลค่า &amp; ปันผล</th><th class="num">ล่าสุด</th><th>มุมมอง</th></tr></thead>
+          <tbody>
+            <tr><td>P/E (trailing)</td><td class="num">14.1×</td><td><span class="chip"><span class="dot good"></span>~10.5× ล่วงหน้า</span></td></tr>
+            <tr><td>P/BV (BV 8.78)</td><td class="num">1.75×</td><td><span class="chip"><span class="dot watch"></span>→</span></td></tr>
+            <tr><td>Net debt/EBITDA (ประมาณ)</td><td class="num">~1×</td><td><span class="chip"><span class="dot good"></span>จัดการได้</span></td></tr>
+            <tr><td>Dividend yield · DPS</td><td class="num">1.95% · 0.30</td><td><span class="chip"><span class="dot good"></span>payout ~28%</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <p class="small muted" style="margin-top:10px;">อ่านงบแบบ Damodaran: รายได้ทบต้นเร็วมาก (CAGR ~58%) แต่ “กำไรโตช้ากว่ารายได้” เพราะมาร์จิ้นถูกบีบช่วงปรับ mix และมีส่วนได้เสียที่ไม่มีอำนาจควบคุม (PIS จดทะเบียนแยก). คุณภาพการเติบโต = บวก-แต่ไม่สุดโต่ง: spread ROIC−WACC ที่บางคือเหตุผลที่ตลาดยังไม่ยอมจ่าย multiple สูง</p>
+    </section>
+
+    <!-- ============ 3 · การประเมินมูลค่า ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>การประเมินมูลค่า</h2></div>
+      <hr class="div">
+      <p>มูลค่าเหมาะสม (blended) <strong>฿18.8</strong> เทียบราคา 14.90 → upside <strong>+26%</strong>. ทั้งสามวิธีให้ภาพ “ถูกถึงเหมาะสม” ใกล้เคียงกัน (17.6–19.9): DCF และ SOTP มองบวกที่สุดเพราะให้เครดิตการแปลง backlog; relative อนุรักษ์นิยมกว่าเพราะหักส่วนลดความเสี่ยงภาครัฐ</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>วิธี</th><th class="num">ราคาโดยนัย</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>DCF (FCFF, 10 ปี)</td><td class="num">฿19.9</td><td class="num">40%</td><td class="small muted">โต 18%→3.5%, EBIT 9→10.5%, WACC 9.5%</td></tr>
+          <tr><td>Relative (P/E + P/BV, หักส่วนลดรัฐ)</td><td class="num">฿17.6</td><td class="num">45%</td><td class="small muted">13× กำไรล่วงหน้า &amp; 1.9× BV</td></tr>
+          <tr><td>SOTP (แยกการบิน vs ICT-SI)</td><td class="num">฿19.7</td><td class="num">15%</td><td class="small muted">การบินคูณสูง · cloud/ICT คูณต่ำ</td></tr>
+        </tbody>
+        <tfoot><tr><td>มูลค่าเหมาะสม (blended)</td><td class="num">฿18.8</td><td class="num">100%</td><td>+26% เทียบราคา</td></tr></tfoot>
+      </table></div>
+
+      <h3>สมมติฐาน DCF</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปัจจัย</th><th class="num">ค่า</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>เส้นทางการเติบโตรายได้</td><td class="num">18% → 3.5%</td><td class="small muted">แปลง backlog + ลมหนุนผู้โดยสาร, ชะลอตัวลงสู่ GDP</td></tr>
+          <tr><td>EBIT margin</td><td class="num">9.0% → 10.5%</td><td class="small muted">ขยายช้า ๆ จาก scale/มิกซ์ recurring</td></tr>
+          <tr><td>Sales-to-capital</td><td class="num">2.2×</td><td class="small muted">ลงทุนหนัก (ซื้อ hardware ปล่อยเช่า)</td></tr>
+          <tr><td>อัตราภาษี</td><td class="num">18%</td><td class="small muted">มี BOI บางส่วน</td></tr>
+          <tr><td>WACC</td><td class="num">9.5%</td><td class="small muted">rf 2.7% + β 1.2 × ERP 6.4% (รวม CRP ไทย ~0.9%); D/E ~15%</td></tr>
+          <tr><td>Terminal growth</td><td class="num">3.5%</td><td class="small muted">≤ การเติบโต GDP เล็กน้อย (เพดานไทย)</td></tr>
+          <tr><td>Net debt / minority</td><td class="num">~1,500 ลบ. / −10%</td><td class="small muted">ประมาณการ (เงินลงทุน hardware); หักส่วนของผู้ถือหุ้นส่วนน้อย</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Sensitivity — WACC × Terminal growth (มูลค่าเหมาะสม/หุ้น, บาท)</h3>
+      <p class="small muted">เกือบทั้งตาราง — แม้มุมอนุรักษ์นิยมสุด (WACC 10.5%, g 2.5% = 15.0) — ยังอยู่<strong>เหนือ</strong>ราคาปัจจุบัน 14.90 บาท: ดาวน์ไซด์เชิงปัจจัยพื้นฐานจำกัด</p>
+      <div class="table-wrap"><table class="heat">
+        <thead><tr><th>WACC ＼ g</th><th>2.5%</th><th>3.0%</th><th>3.5%</th><th>4.0%</th><th>4.5%</th></tr></thead>
+        <tbody>
+          <tr><th>8.5%</th><td style="background:rgba(120,140,93,.30)">22.6</td><td style="background:rgba(120,140,93,.42)">23.8</td><td style="background:rgba(120,140,93,.55)">25.3</td><td style="background:rgba(120,140,93,.68)">27.1</td><td style="background:rgba(120,140,93,.80)">29.3</td></tr>
+          <tr><th>9.0%</th><td style="background:rgba(120,140,93,.20)">20.2</td><td style="background:rgba(120,140,93,.28)">21.2</td><td style="background:rgba(120,140,93,.36)">22.3</td><td style="background:rgba(120,140,93,.46)">23.7</td><td style="background:rgba(120,140,93,.55)">25.3</td></tr>
+          <tr><th>9.5% (base)</th><td style="background:rgba(120,140,93,.12)">18.2</td><td style="background:rgba(120,140,93,.16)">19.0</td><td class="base" style="background:var(--white)">19.9</td><td style="background:rgba(120,140,93,.24)">20.9</td><td style="background:rgba(120,140,93,.32)">22.1</td></tr>
+          <tr><th>10.0%</th><td style="background:rgba(215,119,87,.14)">16.5</td><td style="background:rgba(215,119,87,.08)">17.1</td><td style="background:rgba(120,140,93,.08)">17.8</td><td style="background:rgba(120,140,93,.12)">18.6</td><td style="background:rgba(120,140,93,.18)">19.5</td></tr>
+          <tr><th>10.5%</th><td style="background:rgba(215,119,87,.26)">15.0</td><td style="background:rgba(215,119,87,.20)">15.5</td><td style="background:rgba(215,119,87,.14)">16.0</td><td style="background:rgba(215,119,87,.08)">16.6</td><td style="background:rgba(120,140,93,.08)">17.3</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>การประเมินแบบเทียบเคียง — บริบทคู่เทียบ</h3>
+      <p class="small muted">ตัวเลขคู่เทียบเป็น<strong>การประมาณเพื่อบริบท</strong> (ยังไม่ได้ดึงเรียลไทม์) — ใช้ชี้ทิศทาง ไม่ใช่ความแม่นยำ. ประเด็นหลัก: SKY ที่ ~10.5× กำไรล่วงหน้า เทรดต่ำกว่ากลุ่มหุ้นเทคโนโลยี/ดิจิทัลไทยที่โตเร็ว ส่วนหนึ่งสมเหตุผลจากการพึ่งงบรัฐ + ความเข้มข้นเงินลงทุน แต่ส่วนต่างกว้างผิดปกติ</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>หุ้น</th><th class="num">P/E ล่วงหน้า (โดยประมาณ)</th><th>ลักษณะ</th></tr></thead>
+        <tbody>
+          <tr><td>SKY</td><td class="num">~10.5×</td><td class="small muted">การบิน + ICT-SI ภาครัฐ, โต 40–60%</td></tr>
+          <tr><td>BBIK / BE8 (ดิจิทัลคอนซัลต์)</td><td class="num">~20–28×</td><td class="small muted">โตสูง มาร์จิ้นสูง capital-light</td></tr>
+          <tr><td>ITEL / ILINK / ICN (ICT/network)</td><td class="num">~12–20×</td><td class="small muted">โครงสร้างพื้นฐาน/วางระบบ</td></tr>
+          <tr><td>AOT (ตัวขับอุปสงค์การบิน)</td><td class="num">~25–30×</td><td class="small muted">เจ้าของสนามบิน (โมเดลต่าง)</td></tr>
+        </tbody>
+        <tfoot><tr><td>กลุ่ม (มัธยฐานโดยประมาณ)</td><td class="num">~15–18×</td><td>SKY = ส่วนลดราว 35–45%</td></tr></tfoot>
+      </table></div>
+
+      <h3>SOTP (เชิงชี้นำ)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ส่วนธุรกิจ</th><th class="num">รายได้ 2569E (ลบ.)</th><th class="num">EBIT mgn</th><th class="num">EV/EBIT</th><th class="num">EV (ลบ.)</th></tr></thead>
+        <tbody>
+          <tr><td>การบิน + แพลตฟอร์ม (recurring)</td><td class="num">6,150</td><td class="num">16%</td><td class="num">14×</td><td class="num">~13,800</td></tr>
+          <tr><td>ICT-SI + cloud-leasing สพฐ.</td><td class="num">5,658</td><td class="num">6.5%</td><td class="num">8.5×</td><td class="num">~3,130</td></tr>
+          <tr><td>จำหน่าย/อื่น ๆ</td><td class="num">492</td><td class="num">4%</td><td class="num">6×</td><td class="num">~120</td></tr>
+        </tbody>
+        <tfoot><tr><td>รวม EV → หักหนี้/ส่วนน้อย → /หุ้น</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">฿19.7</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">ข้อคิด SOTP: ลำพังธุรกิจการบินที่ recurring ก็คุ้มมูลค่าเกือบทั้ง market cap ปัจจุบัน — ส่วน ICT-SI/cloud เป็น “ออปชันเติบโต” ที่ตลาดแทบให้ฟรี</p>
+    </section>
+
+    <!-- ============ 4 · ผลประกอบการ & Sentiment ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการและ Sentiment</h2></div>
+      <hr class="div">
+      <h3>ไตรมาสล่าสุด — Q1/2569 (ม.ค.–มี.ค. 2569, ประกาศ 18 พ.ค. 69)</h3>
+      <p>รายได้รวม <strong>2,784 ลบ. (+17% YoY)</strong>, กำไรสุทธิ <strong>300 ลบ. (+47% YoY)</strong>, มาร์จิ้นสุทธิ 10.8% (เด่นตามฤดูกาลการบิน). ตัวขับ: Aviation Tech (Biometric/CUPPS/APPS) โตตามผู้โดยสาร (DOA +15%, AOT +8% YoY) + cloud-leasing สพฐ. ที่เป็นตัวขับหลักของ service revenue. ทำสถิติต่อเนื่องเป็นรายไตรมาส</p>
+
+      <div class="callout accent" style="margin-top:6px;margin-bottom:16px;">
+        <h3>ตอบคำถามเฉพาะ: สัญญา สพฐ. และตัวเลข +742 ลบ.</h3>
+        <p class="small"><strong>1) +742 ลบ. คือ “ทยอยรับรู้” หรือ “total ที่รับรู้ใน Q1 ไปแล้ว”?</strong> — เนื่องจากเป็นสัญญา <em>“เช่าใช้ระบบ (leasing)”</em> ที่บันทึกเป็น service revenue แบบ recurring รายได้จึงรับรู้ <strong>ทยอยตามระยะเวลาให้บริการ ไม่ใช่ก้อนเดียว</strong>. ตัวเลข +742 ลบ. คือ “ส่วนเพิ่มของรายได้ cloud-leasing ที่รับรู้ <u>ภายในไตรมาส Q1/2569</u>” (เทียบ YoY) — ลงงบ Q1 ไปแล้วจริง แต่เป็นเพียง “หนึ่งไตรมาส” ของสัญญา ไม่ใช่มูลค่าสัญญาทั้งก้อน. ส่วนที่เหลืออยู่ใน backlog และจะทยอยรับรู้ Q2, Q3… ต่อไป → ผลคือ <strong>ฐานรายได้ recurring ขยับสูงขึ้นอย่างถาวร</strong> (ถ้า ~742 ลบ./ไตรมาสเป็น run-rate ก็ ≈ 3,000 ลบ./ปี). ข้อควรระวัง: อาจมีองค์ประกอบติดตั้ง/เริ่มต้นปนช่วงต้นสัญญา ควรดูหมายเหตุประกอบงบเพื่อความชัดเจน</p>
+        <p class="small"><strong>2) สัญญา สพฐ. อายุกี่ปี?</strong> — เป็นส่วนหนึ่งของโครงการ “เรียนรู้ได้ทุกที่ทุกเวลา (Anywhere Anytime)” ของ สพฐ. ซึ่งเป็น<strong>งบผูกพันหลายปี (กรอบ 2569–2574 ~5 ปี)</strong> ครอบคลุมการเช่าอุปกรณ์/แพลตฟอร์ม/ระบบคลาวด์. ลักษณะ “เช่า” + รับรู้รายได้ recurring บ่งชี้สัญญาหลายปี (โดยทั่วไป <strong>~4–5 ปี</strong> หรือทำเป็นรายปีต่อเนื่องภายใต้กรอบโครงการ). <em>อายุสัญญาที่ลงนามจริงไม่สามารถยืนยันแน่ชัดจากแหล่งสาธารณะ ควรตรวจกับ 56-1/หมายเหตุประกอบงบ หรือสอบถาม IR โดยตรง</em></p>
+      </div>
+
+      <h3>สถิติย้อนหลัง</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>งวด</th><th class="num">รายได้ (ลบ.)</th><th class="num">กำไรสุทธิ (ลบ.)</th><th class="num">YoY กำไร</th><th>ผล</th></tr></thead>
+        <tbody>
+          <tr><td>Q1/2568</td><td class="num">2,384</td><td class="num">205</td><td class="num">+86%</td><td><span class="chip"><span class="dot good"></span>นิวไฮ</span></td></tr>
+          <tr><td>FY2568</td><td class="num">10,248</td><td class="num">773</td><td class="num">+61%</td><td><span class="chip"><span class="dot good"></span>All-Time-High</span></td></tr>
+          <tr><td>Q1/2569</td><td class="num">2,784</td><td class="num">300</td><td class="num">+47%</td><td><span class="chip"><span class="dot good"></span>นิวไฮ</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ไตรมาสที่จะถึง (Q2/2569, คาดประกาศ ~ส.ค. 69): จับตาความต่อเนื่องของรายได้ cloud-leasing สพฐ. (พิสูจน์ว่า recurring), โมเมนตัมผู้โดยสาร, และทิศทางมาร์จิ้น. IAA consensus target ~17.30 บาท</p>
+
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>มุมมอง Sentiment — “ราคาความมองร้าย” ไม่ใช่ “ราคาความสมบูรณ์แบบ”</h3>
+        <p>หุ้น de-rate ลงจาก ~20–22 บาท (2567) ไปทำจุดต่ำ ~9.8–10 บาท แล้วฟื้นกลับมา ~15 บาท — เป็น “round-trip” ทั้งที่กำไรทำสถิติใหม่ตลอด. แปลว่าตลาดกำลัง “คิดลบ” เรื่องความทนทาน/คุณภาพการเติบโต (พึ่งรัฐ, กินทุน, ธรรมาภิบาล) มากกว่าจะ “คิดบวกเกินจริง”. นี่หนุนเคส variant-perception/undervalued ใน <a href="#s3">§3</a> — แต่ความกังขามี “มูลเหตุจริง” จึงต้องการ margin of safety</p>
+      </div>
+    </section>
+
+    <!-- ============ 5 · เทคนิค ฉากทัศน์ และแผน ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>เทคนิค ฉากทัศน์ และแผนการลงทุน</h2></div>
+      <hr class="div">
+
+      <h3 id="s5-1">5.1 Technical Setup &amp; Timing (สัปดาห์ → วัน)</h3>
+      <p class="small muted">พารามิเตอร์ที่ fit กับ SKY: หุ้นเคารพ EMA50/200 (รายวัน) ที่กำลังชันขึ้น; แนวต้านใหญ่คือ EMA100/200 รายสัปดาห์ที่ลาดลง ~15.6–16.8 (overhead supply จากการกระจายปี 2567); กรอบ 52 สัปดาห์ 9.8–17.7; ATR รายวัน ~0.5. สภาพกราฟ: <strong>เพิ่งผ่านขาลง กำลังฟื้น — ขาขึ้นรายวันกำลังย่อ</strong></p>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">รายสัปดาห์ (Weekly) · บริบทเทรนด์ — ลงจาก ~20 สู่ฐาน ~10 แล้วฟื้น</figcaption>
+        <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายสัปดาห์">
+          <g fill="var(--gray-300)"><rect x="60" y="250" width="6" height="30"></rect><rect x="160" y="244" width="6" height="36"></rect><rect x="300" y="256" width="6" height="24"></rect><rect x="460" y="248" width="6" height="32"></rect><rect x="600" y="252" width="6" height="28"></rect></g>
+          <line x1="40" y1="96" x2="700" y2="96" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="560" y="92" class="mono" font-size="10" fill="var(--gray-500)">supply 2567 ~20</text>
+          <line x1="40" y1="150" x2="700" y2="150" stroke="var(--watch)" stroke-dasharray="4 4"/><text x="556" y="146" class="mono" font-size="10" fill="var(--watch)">EMA100/200wk ~15.6–16.8</text>
+          <line x1="40" y1="212" x2="700" y2="212" stroke="var(--good)" stroke-dasharray="4 4"/><text x="610" y="208" class="mono" font-size="10" fill="var(--good)">ฐาน ~10</text>
+          <polyline fill="none" stroke="var(--gray-500)" stroke-width="1.5" points="40,120 200,150 360,185 520,178 700,165"/>
+          <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="40,108 130,150 240,205 330,212 430,190 520,168 620,150 700,160"/>
+          <circle cx="700" cy="160" r="4" fill="var(--watch)"/><text x="650" y="178" class="mono" font-size="10" fill="var(--watch)">ปัจจุบัน 14.9</text>
+        </svg>
+      </figure>
+
+      <figure class="chart">
+        <figcaption class="eyebrow">รายวัน (Daily) · จุดเข้า — ขาขึ้น (Golden Cross) กำลังย่อ</figcaption>
+        <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายวัน">
+          <g fill="var(--gray-300)"><rect x="60" y="256" width="5" height="24"></rect><rect x="200" y="250" width="5" height="30"></rect><rect x="360" y="244" width="5" height="36"></rect><rect x="520" y="258" width="5" height="22"></rect><rect x="660" y="262" width="5" height="18"></rect></g>
+          <line x1="40" y1="92" x2="700" y2="92" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="600" y="88" class="mono" font-size="10" fill="var(--gray-500)">R2 16.9 / 52w high 17.3</text>
+          <line x1="40" y1="120" x2="700" y2="120" stroke="var(--gray-500)" stroke-dasharray="4 4"/><text x="640" y="116" class="mono" font-size="10" fill="var(--gray-500)">R1 15.6</text>
+          <line x1="40" y1="186" x2="700" y2="186" stroke="var(--good)" stroke-dasharray="4 4"/><text x="556" y="182" class="mono" font-size="10" fill="var(--good)">โซนเข้า 13.0–13.8 (pivot 13.7)</text>
+          <line x1="40" y1="212" x2="700" y2="212" stroke="var(--bad)" stroke-dasharray="4 4"/><text x="640" y="208" class="mono" font-size="10" fill="var(--bad)">stop &lt;12.0</text>
+          <polyline fill="none" stroke="var(--gray-500)" stroke-width="1.5" points="40,205 200,190 360,170 520,150 700,140"/>
+          <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="40,210 150,196 280,150 380,110 470,118 560,150 640,142 700,150"/>
+          <circle cx="380" cy="110" r="3.5" fill="var(--gray-500)"/><text x="330" y="104" class="mono" font-size="10" fill="var(--gray-500)">high ~17</text>
+          <circle cx="700" cy="150" r="4" fill="var(--watch)"/>
+        </svg>
+      </figure>
+
+      <p><strong>ยืนยัน (confirmations):</strong> รายวันเป็น Golden Cross (EMA50&gt;EMA200), ราคายืนเหนือ EMA50/200 ที่ชันขึ้น, ADX 36 (เทรนด์แข็ง) +DI&gt;−DI, รายสัปดาห์ MACD ตัดขึ้น, ฟื้นจากฐาน ~10 ชัดเจน. <strong>คำเตือน (warnings):</strong> รายสัปดาห์ยังต่ำกว่า EMA100/200 → มี overhead supply หนาแน่น 15.6–16.9; รายวัน MACD เพิ่งตัดลง + RSI ย่อ (53) → ระยะสั้นอ่อนแรง; สัญญาณกลไกบางตัวยังเตือน “death cross” ระยะยาวบน SMA200</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>Risk geometry</th><th>โซนเข้า</th><th>Stop</th><th>เป้า (รวม fair-value magnet)</th><th class="num">R</th></tr></thead>
+        <tbody><tr><td class="small muted">ย่อในขาขึ้นที่กำลังฟื้น</td><td>13.0–13.8</td><td>&lt; 12.0 (ใต้ S1/โครงสร้าง)</td><td>15.6 → 16.9 → FV 18.8 → 20–21</td><td class="num">~2.3–3.5R</td></tr></tbody>
+      </table></div>
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>Timing verdict</h3>
+        <p><strong>ทยอยสะสมเมื่อย่อ</strong> เข้าหาโซน 13.0–13.8 (ไม่ไล่ราคาเข้าไปในแนวต้าน 15.6–16.9) · สาย breakout รอ “ปิดรายสัปดาห์เหนือ 17.3” เพื่อยืนยันผ่าน supply ปี 2567 · จับคู่กับ valuation: ดาวน์ไซด์เชิงพื้นฐานจำกัด (sensitivity ส่วนใหญ่ &gt;14.9) ทำให้การทยอยซื้อย่อมีความเสี่ยง/ผลตอบแทนที่ดี</p>
+      </div>
+
+      <h3 id="s5-2">5.2 ฉากทัศน์และผลตอบแทนคาดหวัง</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ฉากทัศน์</th><th>ปัจจัยขับเคลื่อน</th><th class="num">~12 ด.</th><th class="num">~24 ด.</th><th class="num">~36 ด.</th><th class="num">ผลตอบแทน 36ด.</th><th class="num">โอกาส</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot good"></span>Bull</span></td><td class="small muted">backlog แปลงเร็ว + มาร์จิ้น 11–12% + re-rate</td><td class="num">฿21</td><td class="num">฿26</td><td class="num">฿31</td><td class="num">+108%</td><td class="num">25%</td></tr>
+          <tr><td>Base</td><td class="small muted">โต 15–20%, มาร์จิ้น 8–9%, re-rate เล็กน้อย</td><td class="num">฿16.5</td><td class="num">฿18.8</td><td class="num">฿20.5</td><td class="num">+38%</td><td class="num">45%</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>Bear</span></td><td class="small muted">งบรัฐสะดุด/มาร์จิ้นถูกบีบ/เงินสดตึง</td><td class="num">฿12</td><td class="num">฿11</td><td class="num">฿10.5</td><td class="num">−30%</td><td class="num">30%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="6">ผลตอบแทนถ่วงน้ำหนักความน่าจะเป็น (~36 ด.)</td><td class="num">+35%</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">กรณี Bear (~10.5) ตรงกับจุดต่ำจริงในรอบ 52 สัปดาห์ (~9.8–10) — เป็นการ calibrate ที่สมจริง; downside มี “พื้น” ที่เคยทดสอบมาแล้ว</p>
+
+      <h3 id="s5-3">5.3 แผนการลงทุน</h3>
+      <div class="callout" style="margin-top:6px;">
+        <h3>แผนการลงทุน <span class="small muted">— มีเงื่อนไข ไม่ใช่คำสั่งซื้อ/ขาย</span></h3>
+        <p class="small"><strong>รูปแบบ (archetype):</strong> Gov-infrastructure GARP + value-recovery — โตในราคาที่สมเหตุผล บวกมุมฟื้นจากการ de-rate</p>
+        <p class="small"><strong>จุดเข้า &amp; margin of safety:</strong> ขอส่วนลด ~25–30% จากมูลค่าเหมาะสม (เพราะความเสี่ยงคุณภาพ/ภาครัฐ) → โซนน่าสะสม &lt; ~14 บาท (ดีสุด 12.5–13.8); ที่ 14.90 ใกล้กรอบล่างของเหมาะสม “ถือ/ทยอย” มากกว่า “ไล่”</p>
+        <p class="small"><strong>เทคนิค — โซนเข้า · stop · R:</strong> สะสม 13.0–13.8, stop &lt;12.0, เป้า 16.9→18.8→20–21 (~2.3–3.5R); technical stop กับ margin of safety คุมความเสี่ยงคู่กัน</p>
+        <p class="small"><strong>ขนาด &amp; การทยอย:</strong> ความเชื่อมั่นปานกลาง → โพสิชันปานกลาง ทยอยเข้าเป็นชั้น ๆ; เพิ่มเมื่อ catalyst ยืนยัน</p>
+        <p class="small"><strong>สิ่งที่เพิ่มความเชื่อมั่น (เฝ้าทุกไตรมาส):</strong> (1) cloud-leasing สพฐ. เกิดซ้ำ Q2/Q3 ที่ run-rate ใกล้เคียง, (2) มาร์จิ้นสุทธิยืน ≥8–9%, (3) FCF เป็นบวกหลังย่อย capex, (4) backlog โตจากงานการบินใหม่, (5) ธรรมาภิบาล/รายการเกี่ยวโยงสะอาด</p>
+        <p class="small"><strong>สิ่งที่หักล้าง thesis:</strong> โครงการรัฐถูกตัด/เลื่อน/ไม่ต่อสัญญา · มาร์จิ้น &lt;6% · เงินทุนหมุนเวียนตึงจนต้องเพิ่มทุน · เสียสัญญาสนามบินหลัก · 742 ลบ. กลายเป็น one-off</p>
+        <p class="small"><strong>กรอบเวลา:</strong> 2–3 ปี ให้ backlog ทยอยรับรู้และพิสูจน์คุณภาพรายได้</p>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ความเสี่ยงหลัก ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+      <div class="table-wrap"><table>
+        <thead><tr><th>ความเสี่ยง</th><th>ทิศทาง/กลไก</th><th class="num">มูลค่าที่เสี่ยง</th></tr></thead>
+        <tbody>
+          <tr><td>พึ่งพางบประมาณ/การจัดซื้อภาครัฐ</td><td class="small muted">โครงการ สพฐ./รัฐอ่อนไหวต่อการเมือง-งบ; เคยมีการพักประมูลคลาวด์การศึกษา</td><td class="num">~30–40%</td></tr>
+          <tr><td>มาร์จิ้นถูกบีบ + ความเข้มข้นเงินลงทุน</td><td class="small muted">cloud-leasing กินทุน/เงินทุนหมุนเวียน, FCF อาจติดลบช่วงโต</td><td class="num">~20–25%</td></tr>
+          <tr><td>วัฏจักรการบิน/ท่องเที่ยว</td><td class="small muted">รายได้ผูกจำนวนผู้โดยสาร; ช็อกภายนอกกระทบ</td><td class="num">~15%</td></tr>
+          <tr><td>ดอกเบี้ย &amp; ค่าเงิน</td><td class="small muted">ต้นทุนเงินกู้ + นำเข้า hardware เป็นสกุลต่างประเทศ</td><td class="num">~10%</td></tr>
+          <tr><td>เทคโนโลยีเปลี่ยนเร็ว / การแข่งขัน / execution</td><td class="small muted">ต้องลงทุน R&amp;D ต่อเนื่อง; ความเสี่ยงส่งมอบงานใหญ่</td><td class="num">~10%</td></tr>
+          <tr><td>ธรรมาภิบาล / ผู้ถือหุ้นส่วนน้อยรั่วไหล</td><td class="small muted">โครงสร้างบริษัทย่อย (PIS จดทะเบียนแยก) ทำให้มูลค่าบางส่วนไม่ตกถึงผู้ถือหุ้น SKY</td><td class="num">~5–10%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">เชื่อมกับ thesis-breakers ใน <a href="#s5">§5</a> และปัจจัยที่ sensitivity ใน <a href="#s3">§3</a> ไวที่สุด (WACC = พร็อกซีของความเสี่ยงรัฐ/คุณภาพ). ตรงกับความเสี่ยงที่บริษัทระบุเอง: งบลงทุนรัฐ/เอกชน, เศรษฐกิจ, ดอกเบี้ย, ค่าเงิน, ความผันผวนการบิน/ท่องเที่ยว</p>
+    </section>
+
+    <!-- ============ ภาคผนวก ============ -->
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+      <h3>สมมติฐานหลัก</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปัจจัย</th><th class="num">ค่า</th><th>แหล่งที่มา / เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate</td><td class="num">~2.7%</td><td class="small muted">พันธบัตรรัฐบาลไทย 10 ปี (โดยประมาณ; ควรตรวจค่าล่าสุด)</td></tr>
+          <tr><td>Equity risk premium (รวม CRP)</td><td class="num">~6.4%</td><td class="small muted">mature ERP 5.5% + country risk premium ไทย ~0.9% (Damodaran)</td></tr>
+          <tr><td>Beta</td><td class="num">~1.2</td><td class="small muted">หุ้นเล็ก ผันผวนสูง อ่อนไหววัฏจักรรัฐ/การบิน</td></tr>
+          <tr><td>WACC</td><td class="num">9.5%</td><td class="small muted">ke ~10.4%, kd หลังภาษี ~4.1%, D/E ~15%</td></tr>
+          <tr><td>อัตราภาษี</td><td class="num">18%</td><td class="small muted">มี BOI บางส่วน</td></tr>
+          <tr><td>จำนวนหุ้น / Net debt</td><td class="num">~710 ลบ.หุ้น / ~1,500 ลบ.</td><td class="small muted">ประมาณการ; ควรตรวจกับงบ</td></tr>
+        </tbody>
+      </table></div>
+      <h3>แหล่งข้อมูลและวันที่</h3>
+      <p class="small muted">ข่าวบริษัท/SET: ผลประกอบการ FY2568 (ประกาศ 2 มี.ค. 69) และ Q1/2569 (18 พ.ค. 69); เว็บ IR SKY ICT; เดลินิวส์/สยามบิสซิเนสนิวส์/ทันหุ้น/มิติหุ้น; AiO (panphol), Liberator (โครงสร้างรายได้ 56-1 ปี 2567); ราคา/เทคนิคจาก TradingView/Yahoo (SET:SKY) ณ 18 มิ.ย. 69; บริบทโครงการ สพฐ. “เรียนรู้ได้ทุกที่ทุกเวลา” จากข่าวจัดซื้อจัดจ้างภาครัฐ. <strong>ข้อมูลตลาด/อัตราส่วนบางส่วนไม่เป็นทางการ — ควรตรวจการตัดสินใจกับงบการเงินต้นทาง (56-1 One Report / หมายเหตุประกอบงบ).</strong></p>
+      <p class="small muted"><strong>คำปฏิเสธความรับผิด.</strong> เอกสารนี้จัดทำเพื่อการศึกษาและวิจัยเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่การชี้นำให้ซื้อหรือขายหลักทรัพย์ และไม่ได้ปรับให้เหมาะกับสถานการณ์เฉพาะบุคคล ผู้ลงทุนควรศึกษาข้อมูลและประเมินความเสี่ยงด้วยตนเอง</p>
+    </section>
+
+    <footer>
+      บริษัท สกาย ไอซีที จำกัด (มหาชน) · SKY.BK · งานวิจัยเพื่อการศึกษา · สร้างเมื่อ 18 มิถุนายน 2569 · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var map = {};
+    links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('active');});
+          var a = map[e.target.id]; if(a) a.classList.add('active');
+        }
+      });
+    }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+    document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+  })();
+</script>
+</body>
+</html>
