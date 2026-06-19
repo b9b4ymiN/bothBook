@@ -61,18 +61,19 @@ function loadEmbeddedFileList() {
   }
 }
 
-async function loadFileList() {
-  const embeddedFiles = loadEmbeddedFileList();
-  if (embeddedFiles.length) {
-    listSource = "GitHub Pages";
-    return embeddedFiles;
-  }
+function isLocalHost() {
+  return ["localhost", "127.0.0.1"].includes(location.hostname);
+}
 
+function loadLocalFileList() {
   if (Array.isArray(config.localFiles)) {
-    listSource = ["localhost", "127.0.0.1"].includes(location.hostname) ? "Local" : "Static";
+    listSource = isLocalHost() ? "Local" : "Static";
     return config.localFiles;
   }
+  return [];
+}
 
+async function loadRemoteFileList() {
   const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;
   try {
     const files = await json(`${apiBase}/contents/${config.folder}`, true);
@@ -87,6 +88,22 @@ async function loadFileList() {
     return (payload.files || [])
       .filter(file => file.name.startsWith(prefix) && !file.name.slice(prefix.length).includes("/"))
       .map(file => ({ name: file.name.slice(prefix.length), size: file.size || 0, source: "jsdelivr" }));
+  }
+}
+
+async function loadFileList() {
+  if (isLocalHost()) return loadLocalFileList();
+
+  const embeddedFiles = loadEmbeddedFileList();
+  if (embeddedFiles.length) {
+    listSource = "GitHub Pages";
+    return embeddedFiles;
+  }
+
+  try {
+    return await loadRemoteFileList();
+  } catch (error) {
+    return loadLocalFileList();
   }
 }
 
