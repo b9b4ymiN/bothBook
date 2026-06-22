@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CENTEL — บทวิเคราะห์เชิงปัจจัยพื้นฐาน (Equity Research)</title>
+<style>
+:root{
+  --ivory:#FAF9F5;--white:#FFFFFF;--slate:#141413;
+  --gray-100:#F0EEE6;--gray-300:#D1CFC5;--gray-500:#87867F;--gray-700:#3D3D3A;
+  --oat:#E3DACC;
+  --good:#788C5D;--watch:#D97757;--bad:#B04A3F;
+  --serif:ui-serif,Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI','Sarabun',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --radius-panel:12px;--radius-row:8px;
+  --border:1.5px solid var(--gray-300);--rule:1px solid var(--gray-300);
+}
+*{box-sizing:border-box;}
+body{font-family:var(--sans);font-size:15px;line-height:1.65;color:var(--slate);
+     background:var(--ivory);-webkit-font-smoothing:antialiased;margin:0;}
+h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0 0 6px;}
+h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 8px;}
+h4{font-family:var(--sans);font-weight:700;font-size:14px;margin:18px 0 6px;}
+p{margin:10px 0;}
+a{color:var(--watch);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.eyebrow,.label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;
+     letter-spacing:.06em;color:var(--gray-500);}
+.num{font-family:var(--serif);font-weight:500;}
+.small{font-size:13px;} .muted{color:var(--gray-500);}
+code,.mono{font-family:var(--mono);font-size:13px;}
+.shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;
+       display:grid;grid-template-columns:236px 1fr;gap:56px;}
+.toc{position:sticky;top:24px;align-self:start;font-size:13.5px;}
+.toc summary{display:none;}
+.toc .eyebrow{margin-bottom:12px;}
+.toc ol{list-style:none;margin:0;padding:0;}
+.toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;
+       border-left:2px solid transparent;}
+.toc a:hover{color:var(--slate);}
+.toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+.toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+.doc{max-width:840px;min-width:0;}
+.rep-head{margin-bottom:36px;}
+.head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+      color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;
+      padding:5px 11px;white-space:nowrap;}
+.meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+.insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+         border-radius:var(--radius-panel);padding:22px 24px;margin:18px 0;}
+.insight-lead{font-family:var(--serif);font-size:22px;line-height:1.35;margin:8px 0 10px;color:var(--slate);}
+.band{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0;}
+.stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:18px 18px;}
+.stat.warn{border-left:4px solid var(--watch);}
+.stat .v{font-family:var(--serif);font-size:32px;font-weight:500;line-height:1;margin-bottom:8px;}
+.stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+.stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+.stat .d.up{color:var(--good);}.stat .d.down{color:var(--bad);}.stat .d.flat{color:var(--gray-500);}
+section{margin-bottom:52px;scroll-margin-top:24px;}
+.sec-h{display:flex;align-items:baseline;gap:12px;}
+.sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0;}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+      border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+         color:var(--gray-500);background:var(--gray-100);padding:11px 14px;border-bottom:var(--rule);}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--ivory);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13px;}
+tr.tot td{font-weight:700;background:var(--gray-100);}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;display:inline-block;}
+.dot.good{background:var(--good);}.dot.watch{background:var(--watch);}.dot.bad{background:var(--bad);}
+.tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+     padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);}
+.tag.good{background:#E8EDE0;color:#48562F;}.tag.watch{background:#F6E5DD;color:#9A4A30;}
+.tag.bad{background:#F1DDDA;color:#7E2F27;}
+.callout{background:var(--oat);border-radius:var(--radius-panel);padding:20px 22px;margin:16px 0;}
+.callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+.spark{width:108px;height:30px;display:block;}
+.moat-scale{display:flex;gap:5px;max-width:280px;}
+.moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+.moat-scale .seg.on{background:var(--good);}
+.moat-scale .seg.mid{background:var(--watch);}
+.moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+.chart{margin:12px 0 4px;border:var(--border);border-radius:var(--radius-panel);background:var(--white);padding:14px 16px;}
+.chart svg{width:100%;height:auto;display:block;}
+.chart figcaption{margin-bottom:8px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.heat td{font-family:var(--mono);font-size:12.5px;text-align:center;padding:9px 6px;}
+.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+footer{margin-top:64px;padding-top:20px;border-top:var(--rule);
+       font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+ul.tight{margin:8px 0;padding-left:20px;} ul.tight li{margin:5px 0;}
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:28px 16px 80px;}
+  .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:24px;}
+  .toc summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);}
+  details.toc:not([open]) ol{display:none;}
+  .toc ol{margin-top:10px;}
+  .band{grid-template-columns:repeat(2,1fr);}
+  .grid2{grid-template-columns:1fr;}
+}
+@media(max-width:720px){
+  h1{font-size:30px;}h2{font-size:21px;}h3{font-size:16px;}
+  .stat .v{font-size:26px;}.insight-lead{font-size:19px;}
+  table{font-size:13px;}thead th,tbody td{padding:9px 11px;}
+}
+@media(max-width:420px){.band{grid-template-columns:1fr;}}
+@media print{
+  body{background:#fff;}.shell{display:block;max-width:none;padding:0;}
+  .toc{display:none;}.doc{max-width:none;}section{break-inside:avoid;}
+  h2{break-after:avoid;}a{color:var(--slate);}@page{margin:16mm;}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<details class="toc" open>
+<summary>สารบัญ · Contents</summary>
+<div class="eyebrow">สารบัญ</div>
+<ol>
+  <li><a href="#exec">บทสรุปผู้บริหาร</a></li>
+  <li><a href="#s1">1 · ธุรกิจและเรื่องราว</a>
+    <ol>
+      <li class="sub"><a href="#s1-1">1.1 โมเดลธุรกิจ &amp; รายได้</a></li>
+      <li class="sub"><a href="#s1-2">1.2 Moat &amp; การแข่งขัน</a></li>
+      <li class="sub"><a href="#s1-3">1.3 อุตสาหกรรม &amp; TAM</a></li>
+      <li class="sub"><a href="#s1-4">1.4 การเติบโต &amp; การลงทุน</a></li>
+      <li class="sub"><a href="#s1-5">1.5 วงจรธุรกิจ &amp; 3-P</a></li>
+    </ol>
+  </li>
+  <li><a href="#s2">2 · Financial Dashboard</a></li>
+  <li><a href="#s3">3 · มูลค่าที่เหมาะสม (Valuation)</a></li>
+  <li><a href="#s4">4 · ผลประกอบการ &amp; Sentiment</a></li>
+  <li><a href="#s5">5 · เทคนิค · Scenario · แผน</a>
+    <ol>
+      <li class="sub"><a href="#s5-1">5.1 กราฟเทคนิค &amp; จังหวะ</a></li>
+      <li class="sub"><a href="#s5-2">5.2 Scenario &amp; EV</a></li>
+      <li class="sub"><a href="#s5-3">5.3 แผนการลงทุน</a></li>
+    </ol>
+  </li>
+  <li><a href="#s6">6 · ความเสี่ยงหลัก</a></li>
+  <li><a href="#app">ภาคผนวก</a></li>
+</ol>
+</details>
+
+<main class="doc">
+<header class="rep-head">
+  <div class="head-top">
+    <h1>Central Plaza Hotel — CENTEL</h1>
+    <span class="pill">Equity Research · ไม่ใช่คำแนะนำการลงทุน</span>
+  </div>
+  <div class="meta mono">CENTEL.BK · SET · THB · ข้อมูล ณ 22 มิ.ย. 2026 · ราคา ฿36.00</div>
+  <p class="small muted" style="margin-top:10px;">โรงแรม Centara (52 แห่ง / 11,179 ห้อง) + อาหาร CRG (1,488 สาขา) — วิเคราะห์แนว Damodaran: เชื่อมเรื่องราวธุรกิจเข้ากับตัวเลข แล้วจบที่แผนการลงทุนแบบมีเงื่อนไข</p>
+</header>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section id="exec">
+  <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+  <hr class="div">
+
+  <div class="insight">
+    <div class="eyebrow">ข้อมูลเชิงลึกการลงทุนหลัก · Key Investment Insight</div>
+    <p class="insight-lead">Maldives ใหม่ 2 แห่ง กำลังพลิกจาก “ตัวถ่วง” เป็น “ตัวเร่ง” — Occupancy 36% → 66%, RevPAR +238% YTD, ขาดทุนแคบลงจาก −US$9m สู่ใกล้คุ้มทุน คิดเป็นสวิงกำไรราว ฿12/หุ้น (~⅓ ของราคา ฿36) เมื่อ stabilize</p>
+    <p class="small muted">คำถามของคุณตอบได้ว่า “ใช่” แต่มีเงื่อนไข: CENTEL <strong>ไม่ใช่ pure hotel play แบบเสี่ยงสุด</strong> — ธุรกิจอาหาร (CRG) = 46% ของรายได้, ~30% ของ EBITDA, margin ฟื้นชัด (EBITDA margin 19%→22%, กำไรสุทธิ +50% YoY) และมีมูลค่า SOTP ราว ฿15–18/หุ้น (~45% ของราคา) ที่ตลาดยังตีรวมเป็นหุ้นโรงแรม cyclical. แต่ราคา ฿36 (เด้งจาก ฿30 เมื่อ พ.ค.) ได้สะท้อนการฟื้นไปบางส่วนแล้ว — upside ฐาน ~+11% ไม่ใช่ของถูกมาก และ Dubai (RevPAR −81% เม.ย.) เตือนว่าความเสี่ยง cyclical/ภูมิรัฐศาสตร์ยังจริง.</p>
+  </div>
+
+  <div class="band">
+    <div class="stat warn"><div class="v">฿40</div><div class="k">มูลค่าเหมาะสม (blend)</div><div class="d flat">ช่วง ฿38–45</div></div>
+    <div class="stat"><div class="v">฿36.00</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">52wk 21.7–40.5</div></div>
+    <div class="stat"><div class="v">+11%</div><div class="k">Upside (ฐาน)</div><div class="d up">+25% แบบ sell-side</div></div>
+    <div class="stat"><div class="v">+18%</div><div class="k">Core EPS CAGR 26–27F</div><div class="d up">฿1.43→1.67→1.99</div></div>
+    <div class="stat"><div class="v">สะสมเมื่อย่อ</div><div class="k">มุมมอง</div><div class="d flat">เขตซื้อ ฿32–34</div></div>
+  </div>
+
+  <div class="callout accent">
+    <div class="eyebrow">Thesis</div>
+    <p style="margin-top:8px;">ที่ ฿36 คุณจ่าย ~21.6× P/E 2026F (−1SD ต่ำกว่าค่าเฉลี่ยในอดีต) สำหรับธุรกิจที่ <strong>กำไรหลักกำลังเร่งตัว +17% (2026F) / +19% (2027F)</strong> จาก 3 เครื่องยนต์ที่หมุนพร้อมกัน: (1) Maldives ใหม่พลิกจากขาดทุนเป็นใกล้คุ้มทุน, (2) อาหาร margin ฟื้นจากการปิดสาขาขาดทุน + คุมต้นทุน + กำไร JV, (3) high season ครึ่งปีหลังที่ <em>ความคาดหวังถูกหั่นลงต่ำแล้ว</em> (ททท. ลดเป้าเหลือ 30–34 ล้านคน) ทำให้ “เซอร์ไพรส์ขาขึ้น” เกิดง่ายขึ้น. <strong>สิ่งที่ต้องเป็นจริง:</strong> นักท่องเที่ยว H2 ไม่ทรุด, Maldives ramp ต่อเนื่อง, Dubai ไม่ลากตัวเลขรวมนานเกินไป. <strong>ความไม่สมมาตร:</strong> downside จำกัดด้วย valuation ที่ไม่แพง + กระแสเงินสด + ธุรกิจอาหารที่นิ่งกว่า; upside มาจากกำไรทบต้น 17–19% ถ้า execution ต่อเนื่อง. รายละเอียด valuation อยู่ใน <a href="#s3">§3</a>, scenario และแผนใน <a href="#s5">§5</a>.</p>
+  </div>
+  <p class="small muted">มุมมองสรุป: <strong>เชิงบวกแบบมีวินัย (constructive)</strong> — เป็นเคส <em>cyclical recovery / GARP</em> ไม่ใช่ deep value และไม่ใช่ quality compounder. ซื้อเมื่อราคาย่อเข้าเขต margin of safety มากกว่าไล่ราคาเข้าหาแนวต้าน.</p>
+</section>
+
+<!-- ============ 1 BUSINESS & NARRATIVE ============ -->
+<section id="s1">
+  <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและเรื่องราว</h2></div>
+  <hr class="div">
+  <p>CENTEL คือสองธุรกิจในบริษัทเดียว: <strong>โรงแรม Centara Hotels &amp; Resorts</strong> และ <strong>อาหาร Central Restaurants Group (CRG)</strong> — เจ้าของ/แฟรนไชส์ KFC, Mister Donut, Auntie Anne’s, Ootoya, Pepper Lunch, Katsuya และ JV เช่น Shinkanzen Sushi, Salad Factory. ความเข้าใจผิดที่พบบ่อยคือมองเป็น “หุ้นโรงแรมล้วน” ทั้งที่งบรวมถูกขับด้วยสองวงจรที่ต่างกัน.</p>
+
+  <h3 id="s1-1">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้</h3>
+  <p>ไตรมาส 1/2026 รายได้แบ่งเป็นโรงแรม 54% / อาหาร 46% แต่กำไรกระจุกต่างจากรายได้: โรงแรมทำ EBITDA margin สูง (Q1/26 = 44%, ทั้งปี ~40%) ส่วนอาหาร margin บางกว่า (Q1/26 = 22%, ทั้งปี ~16–17%) — โรงแรมจึงเป็น ~70% ของ EBITDA แต่ <strong>อาหารคือขาที่ผันผวนน้อยกว่าและกำลังฟื้น margin</strong>.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>เซกเมนต์ (Q1/26)</th><th class="num">รายได้ ฿m</th><th class="num">% รายได้</th><th class="num">EBITDA ฿m</th><th class="num">EBITDA mgn</th><th>อ่านผล</th></tr></thead>
+    <tbody>
+      <tr><td>โรงแรม Centara</td><td class="num">3,754</td><td class="num">54%</td><td class="num">1,637</td><td class="num">44%</td><td><span class="chip"><span class="dot good"></span>RevPAR +6%, Maldives นำ</span></td></tr>
+      <tr><td>อาหาร CRG</td><td class="num">3,221</td><td class="num">46%</td><td class="num">711</td><td class="num">22%</td><td><span class="chip"><span class="dot good"></span>margin +3pts, NPAT +50%</span></td></tr>
+      <tr class="tot"><td>รวม</td><td class="num">6,975</td><td class="num">100%</td><td class="num">2,348</td><td class="num">34%</td><td><span class="chip"><span class="dot good"></span>core NP +27% YoY</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted">โครงสร้างสินทรัพย์โรงแรม (สัดส่วนรายได้ Q1/26): ไทย-freehold 47% · ไทย-leasehold 27% · Maldives-leasehold 18% · ญี่ปุ่น-leasehold 8%. ที่ดิน freehold ทำเลหลัก (CentralWorld, ลาดพร้าว, พัทยา, หัวหิน, กระบี่) คือสินทรัพย์ที่หาทดแทนยาก. อาหาร: KFC 46% · Shinkanzen 15% · Mister Donut 10% · Ootoya 7% · Auntie Anne’s 6% — 8 แบรนด์แรก = 97% ของรายได้.</p>
+
+  <h3 id="s1-2">1.2 Moat &amp; การแข่งขัน</h3>
+  <div class="moat">
+    <div class="moat-scale" aria-label="Moat: ปานกลางค่อนข้างแคบ">
+      <span class="seg on"></span><span class="seg on"></span><span class="seg mid"></span><span class="seg"></span><span class="seg"></span>
+    </div>
+    <div class="moat-meta">
+      <span class="tag watch">แคบ–ปานกลาง</span>
+      <span class="chip"><span class="dot watch"></span>ความทนทาน: ทรงตัว →</span>
+      <span class="mono">ROIC−WACC ≈ 0 pp (กำลังดีขึ้น)</span>
+    </div>
+  </div>
+  <p style="margin-top:12px;">Moat มาจาก <strong>แบรนด์ + ทำเล freehold + สิทธิแฟรนไชส์</strong> (KFC รายใหญ่ในไทย, Mister Donut, Auntie Anne’s) และ <strong>สเกล</strong> (ผู้ดำเนินงานโรงแรมไทย Top-3 ร่วมกับ MINT/ERW). แต่ต้องซื่อสัตย์กับตัวเลข: นี่<strong>ไม่ใช่ wide-moat compounder</strong> — ROIC ราว 7.5% ยังต่ำกว่า/เท่ากับ WACC ~8% (spread ≈ 0) สะท้อนธุรกิจ asset-heavy + cyclical ที่เพิ่งฟื้นกลับมาเหนือต้นทุนเงินทุน. เคสการลงทุนจึงพิงที่ <em>การพลิกของวงจรกำไร + การ re-frame ด้วย SOTP</em> ไม่ใช่ moat กว้าง.</p>
+  <p><span class="label">ภัยคุกคามหลักต่อ moat:</span> อุปทานห้องพักใหม่ + อำนาจต่อรองของ OTA กดราคาฝั่งโรงแรม; การแข่งขัน QSR + ต้นทุน delivery กด margin ฝั่งอาหาร; และดีมานด์นักท่องเที่ยวที่เป็น cyclical/ภูมิรัฐศาสตร์ (Dubai เป็นบทเรียนสด).</p>
+
+  <h3 id="s1-3">1.3 อุตสาหกรรม &amp; TAM</h3>
+  <p>ตลาดโรงแรมไทย ~US$22.7bn (2025) → ~US$24.5bn (2026F) → ~US$36.3bn (2031F) คิดเป็น CAGR ~8% (tailwind เชิงโครงสร้างระยะยาว). <strong>แต่ระยะสั้นเป็น headwind:</strong> ททท. หั่นเป้านักท่องเที่ยวปี 2026 เหลือ 30–34 ล้านคน (จาก 35.5 ล้าน) เพราะความตึงเครียดตะวันออกกลาง ค่าตั๋วเครื่องบินสูง และจีนอ่อน. Q1/26 ยอด 9.32 ล้านคน (−2% YoY), Q2 คาด −9%. นี่คือเหตุผลที่ thesis “H2 ดีกว่าคาด” เป็นมุม <em>contrarian บนฐานคาดหวังที่ถูกกดต่ำ</em>. ฝั่ง Maldives เป็นตลาด luxury ที่อุปทานจำกัด — Q1/26 ยอดนักท่องเที่ยวทรงตัว (+0.2%) โดยจีน +29%, รัสเซีย +19%.</p>
+
+  <h3 id="s1-4">1.4 การเติบโต &amp; คุณภาพการลงทุน</h3>
+  <p>แหล่งเติบโต: (1) Maldives ramp (2 รีสอร์ตใหม่), (2) โรงแรมรีโนเวต re-rate (หัวหิน, กระบี่), (3) ต่างประเทศ (Centara Life Osaka เปิด เม.ย. 2026; ไปป์ไลน์ เวียดนาม/กาตาร์), (4) ขยายสาขาอาหารสู่ 1,500+ เน้นแบรนด์ margin สูง, (5) <strong>asset recycling</strong> (ขายสินทรัพย์ Osaka TMK รับรู้กำไร ฿1.7bn แล้วนำไปลงทุนใหม่). งบลงทุน 3 ปี ฿18bn (฿12bn baseline + ฿6bn opportunistic) — ค่อนข้างหนัก. คุณภาพการลงทุน “กำลังดีขึ้นแต่ยังพิสูจน์ไม่ครบ”: FCF yield ติดลบปี 2024, +6% ปี 2025, ~0% ปี 2026F. กลยุทธ์ขายของแพง-ลงทุนของโต (recycling) เป็นบวกเชิง capital allocation — ดูคู่กับ ROIC−WACC ใน <a href="#s2">§2</a>.</p>
+
+  <h3 id="s1-5">1.5 วงจรธุรกิจ &amp; การทดสอบ 3-P</h3>
+  <p><span class="tag">วงจร: Cyclical + มี growth pockets</span> ตัวขับมูลค่าหลักคือ <strong>การฟื้น margin/อัตราเข้าพัก</strong> (cyclical) บวก growth เฉพาะจุด (Maldives, อาหาร).</p>
+  <div class="callout">
+    <div class="eyebrow">ทดสอบ Possible → Plausible → Probable (ต่อ thesis ของคุณ)</div>
+    <div class="table-wrap" style="margin-top:8px;">
+    <table>
+      <thead><tr><th>ข้อเสนอ</th><th>Possible</th><th>Plausible</th><th>Probable</th><th>คำตัดสิน</th></tr></thead>
+      <tbody>
+        <tr><td>Maldives = ตัวเร่ง ไม่ใช่ตัวถ่วง</td><td>✓</td><td>✓</td><td>✓</td><td><span class="chip"><span class="dot good"></span>คุ้มทุน/กำไรเล็ก ปี 26 “น่าจะเป็นจริง”; +US$12m stabilize = plausible–probable ใน 2–3 ปี</span></td></tr>
+        <tr><td>ไม่ใช่ pure hotel play เสี่ยงสุด</td><td>✓</td><td>✓</td><td>~</td><td><span class="chip"><span class="dot good"></span>จริง — อาหาร 46% รายได้ + freehold ลดความเป็น “โรงแรมล้วน”; แต่ยัง cyclical + มีหนี้</span></td></tr>
+        <tr><td>H2 นักท่องเที่ยวดีกว่าคาด</td><td>✓</td><td>✓</td><td>~</td><td><span class="chip"><span class="dot watch"></span>เกินคาดจากฐานต่ำ = plausible; เซอร์ไพรส์แรง = ยังไม่ใช่ base case</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="small" style="margin-top:10px;"><strong>ธง “this time is different”:</strong> การทรุดของ Dubai (RevPAR −81% เม.ย.) เตือนว่า diversification ต่างประเทศตัดได้สองทาง — อย่าคิดเฉพาะ Maldives ramp โดยลืม Dubai drag. ความเชื่อมั่นของบทวิเคราะห์: <strong>ปานกลาง</strong> (ฐานข้อมูลปฐมภูมิแน่น แต่ตัวแปร macro กว้าง → ถ่วงน้ำหนัก scenario ให้กว้าง).</p>
+  </div>
+</section>
+
+<!-- ============ 2 FINANCIAL DASHBOARD ============ -->
+<section id="s2">
+  <div class="sec-h"><span class="sec-no">2</span><h2>Financial Dashboard</h2></div>
+  <hr class="div">
+  <p>นำด้วยตัวเลขที่ค้ำ thesis: <strong>การพลิกของกำไรหลัก + การฟื้น margin รายเซกเมนต์ + การลดหนี้</strong>. กำไรหลักโต ฿1,927m (2025) → ฿2,256m (2026F, +17%) → ฿2,690m (2027F, +19%); EBITDA margin ขยับขึ้น 5 ปีต่อเนื่อง; IBD/EBITDA ลดจาก 4.4× สู่ 3.6×.</p>
+
+  <h4>ความสามารถในการทำกำไร (5 ปี: 2021→2025)</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>เมตริก</th><th class="num">ล่าสุด</th><th>เทรนด์ 5 ปี</th><th>อ่านผล</th></tr></thead>
+    <tbody>
+      <tr><td>Core net profit (฿m)</td><td class="num">1,927</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,13.2 60,7 90,0.7 120,0"/></svg></td><td><span class="chip"><span class="dot good"></span>พลิกจากขาดทุน, เร่งตัว</span></td></tr>
+      <tr><td>EBITDA margin</td><td class="num">28.2%</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,11.6 60,10.5 90,4.1 120,0"/></svg></td><td><span class="chip"><span class="dot good"></span>ขยายต่อเนื่อง</span></td></tr>
+      <tr><td>EBIT margin</td><td class="num">14.1%</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,9.4 60,4 90,1 120,0"/></svg></td><td><span class="chip"><span class="dot good"></span>ฟื้นจากติดลบ</span></td></tr>
+      <tr><td>Net margin</td><td class="num">8.0%</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,8.1 60,3.5 90,1 120,0"/></svg></td><td><span class="chip"><span class="dot watch"></span>ดีขึ้นแต่ยังบาง</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>ผลตอบแทน &amp; ประสิทธิภาพทุน — จุดอ่อนที่ต้องซื่อสัตย์</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>เมตริก</th><th class="num">ล่าสุด</th><th>เทรนด์</th><th>อ่านผล</th></tr></thead>
+    <tbody>
+      <tr><td>ROE</td><td class="num">8.8%</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,32 30,10.3 60,4.8 90,0 120,0.3"/></svg></td><td><span class="chip"><span class="dot watch"></span>ฟื้นแล้วแต่ยังพอประมาณ → 9.7%/11% (26–27F)</span></td></tr>
+      <tr><td>ROIC (ประมาณ)</td><td class="num">~7.5%</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,32 30,13.7 60,7.6 90,3 120,0"/></svg></td><td><span class="chip"><span class="dot watch"></span>กำลังไต่กลับเหนือต้นทุนทุน</span></td></tr>
+      <tr><td>ROIC − WACC</td><td class="num">≈ 0 pp</td><td><span class="tag watch">spread บาง</span></td><td><span class="chip"><span class="dot watch"></span><strong>ยังไม่ใช่ compounder</strong> — เคสพิงที่ cyclical inflection</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>กระแสเงินสด &amp; หนี้สิน</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>เมตริก</th><th class="num">ล่าสุด</th><th>เทรนด์</th><th>อ่านผล</th></tr></thead>
+    <tbody>
+      <tr><td>Operating cash flow (฿m)</td><td class="num">6,196</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,17.3 60,12.1 90,0 120,3"/></svg></td><td><span class="chip"><span class="dot good"></span>แข็งแรง รองรับ capex</span></td></tr>
+      <tr><td>FCF yield</td><td class="num">~6% (25)</td><td><span class="tag watch">ผันผวน</span></td><td><span class="chip"><span class="dot watch"></span>ลบปี 24, ~0% 26F (capex หนัก)</span></td></tr>
+      <tr><td>IBD/EBITDA</td><td class="num">3.6×</td><td><span class="tag good">4.4→3.6×</span></td><td><span class="chip"><span class="dot good"></span>ลดหนี้, finance cost 3.4%→3.1%</span></td></tr>
+      <tr><td>Net D/E (ไม่รวม lease)</td><td class="num">~0.7×</td><td><span class="tag watch">ทรงตัว</span></td><td><span class="chip"><span class="dot watch"></span>สูงพอควร แต่จัดการได้; 58% เป็นดอกเบี้ยลอยตัว</span></td></tr>
+      <tr><td>Interest coverage</td><td class="num">3.0×</td><td><svg class="spark" viewBox="0 0 120 32"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,32 30,18.9 60,9.4 90,9.4 120,0"/></svg></td><td><span class="chip"><span class="dot watch"></span>ดีขึ้นแต่ไม่หนา</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>Multiples (ที่ ฿36) &amp; ปันผล</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>เมตริก</th><th class="num">ค่า</th><th>อ่านผล</th></tr></thead>
+    <tbody>
+      <tr><td>P/E 2026F</td><td class="num">21.6×</td><td><span class="chip"><span class="dot good"></span>−1SD ต่ำกว่าค่าเฉลี่ยในอดีต</span></td></tr>
+      <tr><td>P/E 2027F</td><td class="num">18.1×</td><td><span class="chip"><span class="dot good"></span>ถูกลงถ้ากำไรโตตามคาด</span></td></tr>
+      <tr><td>P/BV 2026F</td><td class="num">2.06×</td><td><span class="chip"><span class="dot watch"></span>เป็นกลางเทียบ ROE ~10%</span></td></tr>
+      <tr><td>EV/EBITDA (incl lease)</td><td class="num">~10×</td><td><span class="chip"><span class="dot watch"></span>กลางๆ เทียบกลุ่มโรงแรม</span></td></tr>
+      <tr><td>Dividend yield 2026F</td><td class="num">2.1%</td><td><span class="chip"><span class="dot watch"></span>DPS ฿0.76, payout ~45%</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted">งบ 5 ปี (KSS/บริษัท, ฿m): รายได้ 18,216 (22) → 22,547 (23) → 24,118 (24) → 25,008 (25) → 27,297 (26F); EBITDA 4,411 → 5,535 → 6,456 → 7,042 → 7,511; Core EPS ฿0.30 → 0.83 → 1.37 → 1.43 → 1.67.</p>
+</section>
+
+<!-- ============ 3 VALUATION ============ -->
+<section id="s3">
+  <div class="sec-h"><span class="sec-no">3</span><h2>มูลค่าที่เหมาะสม (Valuation)</h2></div>
+  <hr class="div">
+  <div class="callout accent">
+    <p style="margin:0;"><strong>มูลค่าเหมาะสม blended ≈ ฿40/หุ้น</strong> เทียบราคา ฿36 → upside <strong>+11%</strong> (ฐานอนุรักษ์นิยม). ช่วง ฿38 (incl-lease) – ฿45 (convention sell-side / KSS). ไม่ใช่ของถูกมาก แต่ราคายังต่ำกว่ามูลค่าเล็กน้อย พร้อม optionality ขาขึ้นจาก Maldives + H2.</p>
+  </div>
+
+  <h4>สามวิธี (triangulation)</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>วิธี</th><th class="num">ราคา implied</th><th class="num">น้ำหนัก</th><th>เหตุผลย่อ</th></tr></thead>
+    <tbody>
+      <tr><td>DCF (FCFF)</td><td class="num">฿36–44</td><td class="num">40%</td><td>WACC 8.0%, g 2.5%; ช่วงขึ้นกับการนับ lease</td></tr>
+      <tr><td>Relative (P/E)</td><td class="num">฿40</td><td class="num">30%</td><td>24× EPS 2026F ฿1.67 (กลางวัฏจักร)</td></tr>
+      <tr><td>SOTP</td><td class="num">฿40–42</td><td class="num">30%</td><td>โรงแรม 11× + อาหาร 10× EV/EBITDA</td></tr>
+      <tr class="tot"><td>Blended fair value</td><td class="num">฿40</td><td class="num">100%</td><td>Consensus ฿38 · KSS ฿45</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>DCF build (FCFF, THB m)</h4>
+  <div class="grid2">
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>สมมุติฐาน</th><th class="num">ค่า</th></tr></thead>
+      <tbody>
+        <tr><td>Risk-free (พันธบัตรไทย 10Y)</td><td class="num">2.1%</td></tr>
+        <tr><td>ERP ไทย (Damodaran)</td><td class="num">7.3%</td></tr>
+        <tr><td>Beta</td><td class="num">1.15</td></tr>
+        <tr><td>Cost of equity</td><td class="num">10.4%</td></tr>
+        <tr><td>Cost of debt (หลังภาษี)</td><td class="num">2.5%</td></tr>
+        <tr><td>WACC (ฐาน)</td><td class="num">8.0%</td></tr>
+        <tr><td>Terminal growth</td><td class="num">2.5%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ปี</th><th class="num">รายได้</th><th class="num">EBIT</th><th class="num">FCFF</th></tr></thead>
+      <tbody>
+        <tr><td>2026F</td><td class="num">27,309</td><td class="num">3,932</td><td class="num">2,321</td></tr>
+        <tr><td>2027F</td><td class="num">29,685</td><td class="num">4,512</td><td class="num">3,025</td></tr>
+        <tr><td>2028F</td><td class="num">31,763</td><td class="num">4,923</td><td class="num">3,739</td></tr>
+        <tr><td>2029F</td><td class="num">33,509</td><td class="num">5,294</td><td class="num">4,316</td></tr>
+        <tr><td>2030F</td><td class="num">35,017</td><td class="num">5,603</td><td class="num">4,762</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <p class="small muted">EV (ฐาน) ≈ ฿74,500m (TV = 81% ของ EV). หัก net debt: <strong>รวม lease ฿26,200m → ฿35.6/หุ้น</strong> (อนุรักษ์นิยม/สอดคล้องกับ EBITDA หลัง TFRS16); <strong>ไม่รวม lease ฿14,800m → ฿44.1/หุ้น</strong> (convention ฝั่ง sell-side เช่น KSS ฿45). ความต่างนี้คือเหตุผลหลักของช่วงมูลค่า.</p>
+
+  <h4>Sensitivity — DCF (ฐาน incl-lease), ฿/หุ้น</h4>
+  <div class="table-wrap">
+  <table class="heat">
+    <thead><tr><th>WACC \ g</th><th class="num">1.5%</th><th class="num">2.0%</th><th class="num">2.5%</th><th class="num">3.0%</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">7.0%</td><td style="background:color-mix(in srgb,var(--good) 30%,#fff)">37.6</td><td style="background:color-mix(in srgb,var(--good) 45%,#fff)">42.5</td><td style="background:color-mix(in srgb,var(--good) 60%,#fff)">48.5</td><td style="background:color-mix(in srgb,var(--good) 75%,#fff)">56.0</td></tr>
+      <tr><td class="mono">7.5%</td><td style="background:color-mix(in srgb,var(--watch) 22%,#fff)">32.6</td><td style="background:color-mix(in srgb,var(--good) 22%,#fff)">36.6</td><td style="background:color-mix(in srgb,var(--good) 38%,#fff)">41.4</td><td style="background:color-mix(in srgb,var(--good) 55%,#fff)">47.3</td></tr>
+      <tr><td class="mono">8.0%</td><td style="background:color-mix(in srgb,var(--bad) 28%,#fff)">28.4</td><td style="background:color-mix(in srgb,var(--watch) 25%,#fff)">31.7</td><td class="base" style="background:color-mix(in srgb,var(--watch) 14%,#fff)">35.6</td><td style="background:color-mix(in srgb,var(--good) 28%,#fff)">40.4</td></tr>
+      <tr><td class="mono">8.5%</td><td style="background:color-mix(in srgb,var(--bad) 45%,#fff)">24.8</td><td style="background:color-mix(in srgb,var(--bad) 30%,#fff)">27.6</td><td style="background:color-mix(in srgb,var(--watch) 30%,#fff)">30.8</td><td style="background:color-mix(in srgb,var(--watch) 16%,#fff)">34.7</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted">กรอบดำ = base case (WACC 8.0%, g 2.5%) = ฿35.6 บนฐาน incl-lease. <strong>convention ไม่รวม lease บวกเพิ่ม ~฿8–9/หุ้นทุกช่อง</strong> (เช่น base → ~฿44). มูลค่า blended ฿40 ถ่วงน้ำหนักรวม relative + SOTP ที่อยู่สูงกว่า DCF อนุรักษ์นิยม.</p>
+
+  <h4>SOTP — คำตอบของ “ไม่ใช่ pure hotel play”</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>เซกเมนต์</th><th class="num">EBITDA 2026F ฿m</th><th class="num">EV/EBITDA</th><th class="num">EV ฿m</th><th class="num">฿/หุ้น</th></tr></thead>
+    <tbody>
+      <tr><td>โรงแรม Centara</td><td class="num">5,300</td><td class="num">11×</td><td class="num">58,300</td><td class="num">43</td></tr>
+      <tr><td>อาหาร CRG</td><td class="num">2,211</td><td class="num">10×</td><td class="num">22,110</td><td class="num">16</td></tr>
+      <tr class="tot"><td>Enterprise value</td><td class="num">7,511</td><td class="num"></td><td class="num">80,410</td><td class="num">60</td></tr>
+      <tr><td>หัก net debt (incl lease) + minority</td><td class="num"></td><td class="num"></td><td class="num">(26,407)</td><td class="num">(20)</td></tr>
+      <tr class="tot"><td>มูลค่าส่วนผู้ถือหุ้น</td><td class="num"></td><td class="num"></td><td class="num">~54,000</td><td class="num">฿40</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small"><strong>ประเด็นสำคัญ:</strong> ลำพังธุรกิจอาหารมีมูลค่า EV ราว ฿22bn ≈ <strong>฿16/หุ้น (~45% ของราคา ฿36)</strong> — และเป็นขาที่ margin กำลังฟื้น + ผันผวนน้อยกว่าโรงแรม. การตีรวมเป็น “หุ้นโรงแรม cyclical” จึงประเมินส่วนนี้ต่ำไป. (convention ไม่รวม lease ดัน SOTP สู่ ~฿48/หุ้น.) นี่คือหลักฐานเชิงตัวเลขว่า CENTEL <em>ไม่ใช่ pure hotel play</em> จริง.</p>
+</section>
+
+<!-- ============ 4 EARNINGS & SENTIMENT ============ -->
+<section id="s4">
+  <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการ &amp; Sentiment</h2></div>
+  <hr class="div">
+  <h4>Recap — ไตรมาส 1/2026 (รายงาน 13 พ.ค. 2026): beat</h4>
+  <p>รายได้รวม ฿6,975m (+3% YoY), EBITDA ฿2,348m (+9%, margin 34%), <strong>กำไรหลัก ฿1,077m (+27% YoY, +37% QoQ)</strong> — ดีกว่าคาด ขับด้วยคุมต้นทุนอาหาร + โรงแรมรีโนเวต + Maldives. กำไรสุทธิที่รายงาน ฿2,143m (+186%) ถูกดันโดย <em>กำไรพิเศษจากการขายสินทรัพย์ Osaka TMK</em> (+฿1,707m หักด้อยค่า −฿620m) — เป็นรายการครั้งเดียว ไม่ใช่กำไรปกติ. แยกราย segment: โรงแรม NPAT +22%, อาหาร NPAT +50%.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>กำไรหลัก ราย Q (฿m)</th><th class="num">Q2/25</th><th class="num">Q3/25</th><th class="num">Q4/25</th><th class="num">Q1/26</th></tr></thead>
+    <tbody>
+      <tr><td>Core net profit</td><td class="num">104</td><td class="num">191</td><td class="num">784</td><td class="num">1,077</td></tr>
+      <tr><td>โมเมนตัม</td><td class="num"><span class="dot bad"></span></td><td class="num"><span class="dot watch"></span></td><td class="num"><span class="dot good"></span></td><td class="num"><span class="dot good"></span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted">ปฏิกิริยาราคา: หุ้นเคยอยู่ ฿39–40 (ก.พ.) แล้วย่อลง ฿30 (พ.ค.) แม้ Q1 ดี — เป็นแรงกด <em>มหภาค</em> (ททท. หั่นเป้า + Dubai) ไม่ใช่ปัจจัยบริษัท — ก่อนเด้งกลับ ฿36 (มิ.ย.) ตามความตึงเครียดตะวันออกกลางที่ผ่อนลง.</p>
+
+  <h4>Preview — ไตรมาส 2/2026 (รายงาน ~ส.ค.): low season</h4>
+  <p>Q2 เป็นไตรมาสอ่อนตามฤดูกาล (green season ไทย + Maldives นอกพีก; ปี 2025 Q2 core เพียง ฿104m). <span class="label">Headwinds:</span> Dubai (occ −58pts เม.ย.), ยอดต่างชาติ Q2 คาด −9%, ค่าตั๋วแพง. <span class="label">Supports:</span> Maldives ramp, margin อาหาร, Centara Life Osaka (เปิด เม.ย.). Consensus: <strong>20 ซื้อ / 3 ถือ / 0 ขาย</strong>; เป้า Bloomberg ฿38.14, KSS ฿45.</p>
+  <div class="callout">
+    <div class="eyebrow">Sentiment read</div>
+    <p style="margin-top:8px;"><strong>ไม่ได้ priced for perfection.</strong> ที่ 21.6× (−1SD) หลังถูกเทขายลง ฿30 ในเดือน พ.ค. จากความกลัวมหภาค แล้วเด้งตามตะวันออกกลางคลายตัว — ราคาวางอยู่ใกล้โซน “ระวัง/เป็นกลาง” มากกว่า “สมบูรณ์แบบ”. ภาวะนี้<strong>หนุน thesis ขาที่ว่า “บาร์ถูกตั้งต่ำ”</strong>: high season H2 ที่ดีพอประมาณก็ทำให้ผลจริง “เกินคาด” ได้.</p>
+  </div>
+</section>
+
+<!-- ============ 5 TECHNICALS / SCENARIOS / PLAN ============ -->
+<section id="s5">
+  <div class="sec-h"><span class="sec-no">5</span><h2>เทคนิค · Scenario · แผนการลงทุน</h2></div>
+  <hr class="div">
+
+  <h3 id="s5-1">5.1 กราฟเทคนิค &amp; จังหวะ</h3>
+  <figure class="chart">
+    <figcaption class="eyebrow">รายสัปดาห์ (Weekly) · บริบทเทรนด์</figcaption>
+    <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายสัปดาห์ CENTEL">
+      <g fill="var(--gray-300)">
+        <rect x="60" y="262" width="6" height="22"></rect><rect x="130" y="258" width="6" height="26"></rect>
+        <rect x="210" y="246" width="6" height="38"></rect><rect x="220" y="244" width="6" height="40"></rect>
+        <rect x="320" y="260" width="6" height="24"></rect><rect x="420" y="256" width="6" height="28"></rect>
+        <rect x="520" y="250" width="6" height="34"></rect><rect x="600" y="254" width="6" height="30"></rect>
+        <rect x="690" y="252" width="6" height="32"></rect>
+      </g>
+      <line x1="40" y1="149" x2="700" y2="149" stroke="var(--gray-500)" stroke-dasharray="4 4"/>
+      <text x="44" y="144" class="mono" font-size="10" fill="var(--gray-500)">แนวรับ ฿30</text>
+      <line x1="40" y1="64" x2="700" y2="64" stroke="var(--watch)" stroke-dasharray="4 4"/>
+      <text x="44" y="59" class="mono" font-size="10" fill="var(--watch)">แนวต้าน ฿40.5 (52wk high)</text>
+      <polyline fill="none" stroke="var(--gray-500)" stroke-width="1.5" points="40,70 220,182 420,120 600,128 700,118"/>
+      <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="40,36 130,85 220,216 320,165 420,109 520,64 600,149 700,101"/>
+      <circle cx="220" cy="216" r="4" fill="var(--good)"/>
+      <text x="150" y="232" class="mono" font-size="10" fill="var(--good)">capitulation ฿21.7</text>
+      <circle cx="700" cy="101" r="4.5" fill="var(--watch)"/>
+      <text x="630" y="95" class="mono" font-size="10" fill="var(--watch)">ปัจจุบัน ฿36</text>
+    </svg>
+  </figure>
+  <figure class="chart">
+    <figcaption class="eyebrow">รายวัน (Daily) · จังหวะเข้า</figcaption>
+    <svg viewBox="0 0 720 300" preserveAspectRatio="xMidYMid meet" role="img" aria-label="กราฟราคารายวัน CENTEL">
+      <rect x="40" y="142.5" width="660" height="35" fill="color-mix(in srgb,var(--good) 12%,#fff)"></rect>
+      <text x="44" y="138" class="mono" font-size="10" fill="var(--good)">เขตซื้อ ฿32–34</text>
+      <line x1="40" y1="29" x2="700" y2="29" stroke="var(--watch)" stroke-dasharray="4 4"/>
+      <text x="44" y="25" class="mono" font-size="10" fill="var(--watch)">฿40.5</text>
+      <line x1="40" y1="90" x2="700" y2="90" stroke="var(--gray-500)" stroke-dasharray="4 4"/>
+      <text x="600" y="86" class="mono" font-size="10" fill="var(--gray-500)">แนวต้าน ฿37</text>
+      <line x1="40" y1="212" x2="700" y2="212" stroke="var(--gray-500)" stroke-dasharray="4 4"/>
+      <text x="44" y="224" class="mono" font-size="10" fill="var(--gray-500)">แนวรับ ฿30</text>
+      <line x1="40" y1="221" x2="700" y2="221" stroke="var(--bad)" stroke-dasharray="2 3"/>
+      <text x="600" y="233" class="mono" font-size="10" fill="var(--bad)">stop ฿29.5</text>
+      <polyline fill="none" stroke="var(--slate)" stroke-width="2" points="40,160 160,90 260,29 360,142 470,212 580,160 700,107"/>
+      <circle cx="260" cy="29" r="3.5" fill="var(--gray-500)"/>
+      <circle cx="470" cy="212" r="3.5" fill="var(--good)"/>
+      <text x="400" y="228" class="mono" font-size="10" fill="var(--good)">higher low ฿30 (พ.ค.)</text>
+      <circle cx="700" cy="107" r="4.5" fill="var(--watch)"/>
+      <text x="628" y="101" class="mono" font-size="10" fill="var(--watch)">฿36</text>
+    </svg>
+  </figure>
+  <p><span class="label">พารามิเตอร์ที่ปรับเข้ากับหุ้น:</span> รายสัปดาห์เคารพ MA ~30 สัปดาห์; แนวรับเลขกลม ฿30 (จุด higher-low เดือน พ.ค. สูงกว่าก้น ฿21.7); แนวต้าน ฿36–37 แล้วต่อ ฿40.5. <span class="label">สภาวะ:</span> <strong>ย่อในแนวโน้มขาขึ้น แล้วกำลังเด้งเข้าหาแนวต้าน</strong> (uptrend รายสัปดาห์ยังไม่เสีย). <span class="label">ยืนยัน:</span> higher low + วอลุ่มเด้งหนา + reclaim โซน 34–36. <span class="label">เตือน:</span> ใกล้ overhead supply ฿37/฿40.5; RSI น่าจะเข้าเขต overbought หลังวิ่ง +20% ใน 6 สัปดาห์ — อาจต้องพักฐาน.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Risk geometry</th><th class="num">ระดับ</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td>เขตเข้า (entry)</td><td class="num">฿32–34</td><td>ย่อเข้าหาแนวรับ หรือ breakout ยืน &gt; ฿37.5</td></tr>
+      <tr><td>Stop</td><td class="num">฿29.5</td><td>หลุดแนวรับ ฿30 / higher-low</td></tr>
+      <tr><td>เป้า</td><td class="num">฿40.5 → 44</td><td>52wk high แล้วต่อแม่เหล็ก fair value</td></tr>
+      <tr><td>R-multiple (เข้า ฿33)</td><td class="num">~2.3R</td><td>(41−33)/(33−29.5)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout accent"><p style="margin:0;"><span class="label">คำตัดสินจังหวะ:</span> <strong>รอย่อเข้าเขต ฿32–34 หรือ breakout ยืนเหนือ ฿37.5</strong> — การไล่ราคาที่ ฿36 ชนแนวต้านหลังเด้ง +20% ให้ R/R ไม่ดี. ทยอยสะสมเมื่ออ่อนตัว.</p></div>
+
+  <h3 id="s5-2">5.2 Scenarios &amp; Expected Value</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Scenario</th><th class="num">prob</th><th>ตัวขับ (12–36 ด.)</th><th class="num">เป้า 12 ด.</th><th class="num">ผลตอบแทน</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip"><span class="dot good"></span>Bull</span></td><td class="num">25%</td><td>H2 เกินคาด · Maldives +US$10–15m · อาหาร margin ยืน 22%+ · Dubai ฟื้น</td><td class="num">฿48</td><td class="num">+33%</td></tr>
+      <tr><td><span class="chip"><span class="dot watch"></span>Base</span></td><td class="num">50%</td><td>ท่องเที่ยวทรง–โตเล็ก · Maldives ถึงคุ้มทุน→กำไรเล็ก · อาหาร SSSG +1% · Dubai อ่อนแล้วทรงตัว</td><td class="num">฿41</td><td class="num">+14%</td></tr>
+      <tr><td><span class="chip"><span class="dot bad"></span>Bear</span></td><td class="num">25%</td><td>ท่องเที่ยวผิดหวัง (จีน/ตั๋ว/ภูมิรัฐศาสตร์) · Maldives ramp สะดุด · Dubai ลากต่อ · margin อาหารถอย</td><td class="num">฿29</td><td class="num">−19%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Expected value ≈ ฿40</strong> (0.25×48 + 0.50×41 + 0.25×29) → upside ~+11% + ปันผล ~2% = ผลตอบแทนรวมฐาน ~+13%. ความไม่สมมาตรเอียงขึ้นเล็กน้อย แต่ <em>หางซ้ายจริง</em> (cyclical + leverage) — จึงไม่ใช่โพสิชันความเชื่อมั่นสูงสุด.</p>
+
+  <h3 id="s5-3">5.3 แผนการลงทุน (มีเงื่อนไข — ไม่ใช่คำสั่งซื้อ/ขาย)</h3>
+  <p><span class="tag">Archetype: Cyclical recovery / GARP</span></p>
+  <ul class="tight">
+    <li><strong>เข้า:</strong> fair value ฿40, margin of safety ~15% → ทยอยสะสมเขต ฿32–34 (หรือ breakout ยืน &gt; ฿37.5).</li>
+    <li><strong>Stop:</strong> เทรด ฿29.5; เชิง thesis = หลุด higher-low ฿30 รายสัปดาห์ + สัญญาณ Maldives ramp สะดุด.</li>
+    <li><strong>ขนาด &amp; การทยอย:</strong> ปานกลาง (cyclical + มีหนี้) — แบ่งเข้า 3 ไม้ ไม่ all-in ที่แนวต้าน.</li>
+    <li><strong>ตัวสร้างความเชื่อมั่น:</strong> Q2/26 Maldives occ ยืน 60%+ · margin อาหารยืน 20%+ · Dubai นิ่งขึ้น · forward booking H2 โตเลขสองหลัก · จีนฟื้น.</li>
+    <li><strong>ตัวทำลาย thesis (ออก):</strong> Maldives occ ถอยกลับ 40%, margin อาหารคืนกำไร, ช็อกท่องเที่ยวรอบใหม่, IBD/EBITDA กลับขึ้นเหนือ 4.5×.</li>
+    <li><strong>กรอบเวลา:</strong> 12–24 เดือน ให้วงจรกำไรพิสูจน์ตัว.</li>
+  </ul>
+</section>
+
+<!-- ============ 6 KEY RISKS ============ -->
+<section id="s6">
+  <div class="sec-h"><span class="sec-no">6</span><h2>ความเสี่ยงหลัก (เรียงตามผลกระทบ)</h2></div>
+  <hr class="div">
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>ความเสี่ยง</th><th>ทิศ</th><th>มูลค่าที่เสี่ยง</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td>1 · ช็อกดีมานด์ท่องเที่ยว (จีน, ค่าตั๋ว, ภูมิรัฐศาสตร์, บาทแข็ง)</td><td><span class="dot bad"></span></td><td>~30–40% ของ FV</td><td>กระทบทั้งโรงแรม+อาหาร = เคส bear ฿29</td></tr>
+      <tr><td>2 · Maldives ramp สะดุด / อุปทานล้น</td><td><span class="dot bad"></span></td><td>~฿8–12/หุ้น</td><td>hook พลิกกลับ; เฝ้า occ รายเดือน</td></tr>
+      <tr><td>3 · Dubai/ตะวันออกกลางลากต่อ</td><td><span class="dot watch"></span></td><td>~฿2–4/หุ้น</td><td>RevPAR −81% เม.ย. หักล้าง Maldives บางส่วน</td></tr>
+      <tr><td>4 · หนี้/ดอกเบี้ย (IBD/EBITDA 3.6×, 58% ลอยตัว)</td><td><span class="dot watch"></span></td><td>กด coverage</td><td>ดาวน์เทิร์น+ดอกเบี้ยกดความสามารถจ่าย</td></tr>
+      <tr><td>5 · margin อาหารถอย / แข่ง QSR + ต้นทุน delivery</td><td><span class="dot watch"></span></td><td>~฿2–3/หุ้น</td><td>+3pts ที่ได้มาอาจเป็น cyclical ไม่ใช่ structural</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="small muted">ความเสี่ยงข้อ 1–2 แม็ปตรงกับ “ตัวทำลาย thesis” ใน <a href="#s5-3">§5.3</a> และเป็นตัวแปรที่ DCF ใน <a href="#s3">§3</a> ไวที่สุด (WACC × g × อัตราเข้าพัก).</p>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<section id="app">
+  <div class="sec-h"><span class="sec-no">A</span><h2>ภาคผนวก</h2></div>
+  <hr class="div">
+  <h4>สมมุติฐานหลัก &amp; แหล่งข้อมูล</h4>
+  <ul class="tight small">
+    <li>ราคา ฿36.00 · หุ้น 1,350m · มาร์เก็ตแคป ~฿48.6bn · 52wk ฿21.7–40.5 (TradingView/Yahoo, 22 มิ.ย. 2026).</li>
+    <li>งบการเงิน 5 ปี + ประมาณการ + เป้า DCF ฿45 (WACC 7%, LT 1%): Krungsri Securities (KSS), 26 ก.พ. 2026.</li>
+    <li>ข้อมูลราย segment/Maldives/อาหาร/guidance: CENTEL Q1 2026 Analyst Meeting (13 พ.ค. 2026).</li>
+    <li>Maldives ใหม่: occ 36%→66% (Q1), 30%→62% YTD; ARR US$332→613 (≈ ฿11,272→19,312); RevPAR +238% YTD; ขาดทุน −US$9m → −US$2–3m (guide).</li>
+    <li>WACC: rf 2.1% (พันธบัตรไทย 10Y, ThaiBMA 19 มิ.ย. 2026), ERP ไทย 7.3% (Damodaran), beta 1.15, ภาษี 20%; terminal g 2.5% (≤ nominal GDP ไทย).</li>
+    <li>ท่องเที่ยว: ททท./Kasikorn Research — เป้า 2026 = 30–34 ล้านคน (หั่นจาก 35.5), Q1 9.32m (−2%), Q2 คาด −9%.</li>
+    <li>หมายเหตุ TFRS16: EBITDA รวมการบวกกลับ lease → SOTP/DCF ฐาน “รวม lease” (อนุรักษ์นิยม); convention “ไม่รวม lease” แบบ sell-side บวก ~฿8–9/หุ้น.</li>
+  </ul>
+  <div class="callout">
+    <div class="eyebrow">ข้อจำกัดความรับผิด · Disclaimer</div>
+    <p class="small" style="margin-top:8px;">เอกสารนี้จัดทำเพื่อ <strong>การศึกษาและวิจัยเท่านั้น ไม่ใช่คำแนะนำการลงทุน</strong> และไม่ใช่การชักชวนให้ซื้อ/ขายหลักทรัพย์. ตัวเลขบางส่วนมาจากแหล่งทุติยภูมิ (yfinance/TradingView ไม่เป็นทางการ) ควรตรวจสอบกับงบการเงินและเอกสารปฐมภูมิ (56-1 One Report) ก่อนตัดสินใจ. การลงทุนมีความเสี่ยง ผู้ลงทุนควรศึกษาข้อมูลและขอคำแนะนำจากผู้เชี่ยวชาญที่ได้รับอนุญาตก่อนตัดสินใจ.</p>
+  </div>
+</section>
+
+<footer>
+  CENTEL.BK · Equity Research (educational) · จัดทำ 22 มิ.ย. 2026 · ไม่ใช่คำแนะนำการลงทุน · มูลค่าอ้างอิงเป็น THB · วิธี Damodaran (story→numbers)
+</footer>
+
+</main>
+</div>
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+  function onScroll(){
+    var y=window.scrollY+120,cur=null;
+    secs.forEach(function(s){if(s&&s.offsetTop<=y)cur=s;});
+    links.forEach(function(a){a.classList.toggle('active',cur&&a.getAttribute('href')==='#'+cur.id);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>
