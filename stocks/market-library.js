@@ -61,6 +61,10 @@ function loadEmbeddedFileList() {
   }
 }
 
+function loadFallbackFileList() {
+  return Array.isArray(config.fallbackFiles) ? config.fallbackFiles : [];
+}
+
 async function loadRemoteFileList() {
   const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;
   try {
@@ -86,7 +90,25 @@ async function loadFileList() {
     return embeddedFiles;
   }
 
-  return loadRemoteFileList();
+  const fallbackFiles = loadFallbackFileList();
+  if (fallbackFiles.length && ["", "localhost", "127.0.0.1"].includes(location.hostname)) {
+    listSource = "Static";
+    return fallbackFiles;
+  }
+
+  try {
+    const remoteFiles = await loadRemoteFileList();
+    if (remoteFiles.length) return remoteFiles;
+  } catch (error) {
+    if (!fallbackFiles.length) throw error;
+  }
+
+  if (fallbackFiles.length) {
+    listSource = "Static";
+    return fallbackFiles;
+  }
+
+  return [];
 }
 
 async function latestCommitDate(file) {
