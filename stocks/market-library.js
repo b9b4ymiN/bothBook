@@ -65,6 +65,21 @@ function loadFallbackFileList() {
   return Array.isArray(config.fallbackFiles) ? config.fallbackFiles : [];
 }
 
+function isLocalPreview() {
+  return ["", "localhost", "127.0.0.1"].includes(location.hostname);
+}
+
+async function loadManifestFileList() {
+  const manifestPath = config.manifestPath || "../stock-manifest.json";
+  try {
+    const manifest = await json(manifestPath);
+    const files = manifest?.[config.folder];
+    return Array.isArray(files) ? files.map(file => ({ ...file, source: file.source || "manifest" })) : [];
+  } catch (error) {
+    return [];
+  }
+}
+
 async function loadRemoteFileList() {
   const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;
   try {
@@ -91,7 +106,13 @@ async function loadFileList() {
   }
 
   const fallbackFiles = loadFallbackFileList();
-  if (fallbackFiles.length && ["", "localhost", "127.0.0.1"].includes(location.hostname)) {
+  const manifestFiles = await loadManifestFileList();
+  if (isLocalPreview() && manifestFiles.length) {
+    listSource = "Manifest";
+    return manifestFiles;
+  }
+
+  if (fallbackFiles.length && isLocalPreview()) {
     listSource = "Static";
     return fallbackFiles;
   }
@@ -100,7 +121,12 @@ async function loadFileList() {
     const remoteFiles = await loadRemoteFileList();
     if (remoteFiles.length) return remoteFiles;
   } catch (error) {
-    if (!fallbackFiles.length) throw error;
+    if (!fallbackFiles.length && !manifestFiles.length) throw error;
+  }
+
+  if (manifestFiles.length) {
+    listSource = "Manifest";
+    return manifestFiles;
   }
 
   if (fallbackFiles.length) {

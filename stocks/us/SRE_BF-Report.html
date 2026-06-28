@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sempra (SRE) — Equity Research Report</title>
+<style>
+:root{
+  --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+  --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+  --oat:#E3DACC;
+  --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+  --serif:ui-serif,Georgia,'Times New Roman','Sukhumvit Set','Noto Sans Thai',serif;
+  --sans:system-ui,-apple-system,'Segoe UI','Noto Sans Thai','Leelawadee UI',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --radius-panel:12px; --radius-row:8px;
+  --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+}
+body{font-family:var(--sans);font-size:15px;line-height:1.65;color:var(--slate);
+     background:var(--ivory);-webkit-font-smoothing:antialiased;margin:0;}
+h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0 0 6px;}
+h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 8px;}
+h4{font-family:var(--sans);font-weight:600;font-size:14px;margin:18px 0 6px;color:var(--gray-700);}
+.eyebrow,.label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;
+     letter-spacing:.06em;color:var(--gray-500);}
+.num{font-family:var(--serif);font-weight:500;}
+code,.mono{font-family:var(--mono);font-size:13px;}
+p{margin:0 0 12px;}
+a{color:var(--watch);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;
+       display:grid;grid-template-columns:232px 1fr;gap:56px;}
+.toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+.toc .eyebrow{margin-bottom:12px;}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:s;}
+.toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;
+       border-left:2px solid transparent;}
+.toc a:hover{color:var(--slate);}
+.toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+.toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+.doc{max-width:820px;min-width:0;}
+.toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+            background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+            padding:12px 16px;font-weight:600;cursor:pointer;}
+.toc-toggle .hamb{width:20px;height:14px;position:relative;}
+.toc-toggle .hamb span{position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                       transition:transform .25s, opacity .25s, top .25s;}
+.toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+.toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+.toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+
+.rep-head{margin-bottom:36px;}
+.head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+.logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+      background:var(--white);border:var(--border);padding:4px;}
+.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+      color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;
+      padding:5px 11px;white-space:nowrap;}
+.meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+.subtitle{color:var(--gray-700);font-size:15px;margin-top:6px;}
+
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+.stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:18px 20px;min-width:0;}
+.stat.warn{border-left:4px solid var(--watch);}
+.stat.good{border-left:4px solid var(--good);}
+.stat.bad{border-left:4px solid var(--bad);}
+.stat .v{font-family:var(--serif);font-size:36px;font-weight:500;line-height:1;margin-bottom:6px;}
+.stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+.stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+.stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+section{margin-bottom:52px;scroll-margin-top:24px;}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;}
+.sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+      border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:13.5px;}
+thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+         color:var(--gray-500);background:var(--gray-100);padding:11px 14px;border-bottom:var(--rule);}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--ivory);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+tr.hilite td{background:#FBF6EE;font-weight:600;}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+.table-wrap table{min-width:640px;}
+@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
+
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+.tag{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;
+     padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+.tag.good{background:rgba(120,140,93,.16);color:var(--good);}
+.tag.watch{background:rgba(217,119,87,.16);color:var(--watch);}
+.tag.bad{background:rgba(176,74,63,.14);color:var(--bad);}
+
+.callout{background:var(--oat);border-radius:var(--radius-panel);padding:20px 22px;margin:16px 0;}
+.callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+.callout.good{background:rgba(120,140,93,.10);border-left:4px solid var(--good);}
+.callout.bad{background:rgba(176,74,63,.08);border-left:4px solid var(--bad);}
+.callout h4{margin-top:0;}
+
+.spark{width:108px;height:30px;display:block;}
+
+.heat td{font-variant-numeric:tabular-nums;text-align:center;padding:9px 8px;}
+.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+
+.moat-scale{display:flex;gap:5px;max-width:280px;}
+.moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+.moat-scale .seg.on{background:var(--watch);}
+.moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+
+.chart-img{width:100%;border:var(--border);border-radius:var(--radius-panel);display:block;margin:14px 0;}
+.chart-cap{font-family:var(--mono);font-size:11px;color:var(--gray-500);margin-top:-6px;margin-bottom:18px;}
+
+ul,ol{padding-left:22px;margin:0 0 12px;}
+li{margin-bottom:5px;}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:680px){.two-col{grid-template-columns:1fr;}}
+
+footer{margin-top:56px;padding-top:20px;border-top:var(--rule);
+       font-family:var(--mono);font-size:11.5px;color:var(--gray-500);}
+.disc{background:var(--gray-100);border-radius:var(--radius-panel);padding:16px 18px;
+      font-size:12.5px;color:var(--gray-700);margin:18px 0;}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+  section,h3[id]{scroll-margin-top:64px;}
+  .toc{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ivory);
+       border-bottom:var(--rule);box-shadow:0 1px 6px rgba(0,0,0,.05);}
+  .toc-toggle{display:flex;}
+  .toc .eyebrow{display:none;}
+  .toc ol{max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+  .toc.collapsed ol{max-height:0;overflow:hidden;}
+  h1{font-size:30px;}
+}
+@media print{
+  body{background:#fff;}
+  .shell{display:block;max-width:none;padding:0;}
+  .toc{display:none;} .doc{max-width:none;}
+  section{break-inside:avoid;} h2{break-after:avoid;}
+  a{color:var(--slate);text-decoration:none;}
+  .stat,table,.callout{box-shadow:none;}
+}
+@page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<nav class="toc collapsed" aria-label="สารบัญ">
+  <button class="toc-toggle" aria-expanded="false" aria-controls="toc-list">
+    <span>สารบัญ</span>
+    <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+  </button>
+  <div class="eyebrow">Sempra · SRE</div>
+  <ol>
+    <li><a href="#exec">บทสรุปผู้บริหาร</a></li>
+    <li><a href="#s1">1 · ธุรกิจ &amp; เรื่องราว</a></li>
+    <li><a href="#s1-1" class="sub">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้</a></li>
+    <li><a href="#s1-2" class="sub">1.2 Moat &amp; ตำแหน่งทางการแข่งขัน</a></li>
+    <li><a href="#s1-3" class="sub">1.3 อุตสาหกรรม &amp; TAM (AI/Data Center)</a></li>
+    <li><a href="#s1-4" class="sub">1.4 การเติบโต &amp; คุณภาพการลงทุน</a></li>
+    <li><a href="#s1-5" class="sub">1.5 ช่วงวัฏจักร &amp; การพิสูจน์ 3-P</a></li>
+    <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+    <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+    <li><a href="#s4">4 · ผลประกอบการ &amp; ความเชื่อมั่น</a></li>
+    <li><a href="#s5">5 · จังหวะเทคนิคอล</a></li>
+    <li><a href="#s6">6 · สถานการณ์ &amp; แผนการลงทุน</a></li>
+    <li><a href="#s7">7 · ความเสี่ยงหลัก</a></li>
+    <li><a href="#app">ภาคผนวก</a></li>
+  </ol>
+</nav>
+
+<div class="doc">
+
+<header class="rep-head">
+  <div class="head-top">
+    <div class="head-title">
+      <img class="logo" src="data:image/png;base64,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" alt="Sempra logo" width="64" height="64">
+      <div>
+        <h1>Sempra</h1>
+        <div class="subtitle">โครงสร้างพื้นฐานด้านพลังงาน — ไฟฟ้า &amp; ก๊าซธรรมชาติ · ผู้เล่นหลัก AI/Data Center Power</div>
+      </div>
+    </div>
+    <span class="pill">Equity Research · ไม่ใช่คำแนะนำการลงทุน</span>
+  </div>
+  <div class="meta mono">SRE · NYSE · USD · ราคา ณ 28 มิ.ย. 2026 · $94.27</div>
+</header>
+
+<section id="exec">
+  <div class="sec-h"><span class="sec-no">★</span><h2>บทสรุปผู้บริหาร</h2></div>
+  <hr class="div">
+
+  <div class="callout">
+    <h4>Key Investment Insight — "Capex Super-Cycle สู่ AI Power Demand"</h4>
+    <p style="margin:0;font-size:15px;"><strong>Sempra อยู่กลางวงจรลงทุน (capex super-cycle) ที่ใหญ่ที่สุดในประวัติศาสตร์บริษัท</strong>
+    — CapEx ปี 2025 ทะลุ <strong>$10.6B</strong> (77% ของรายได้) เพื่อขยาย <em>rate base</em> ให้บริการโหลดไฟฟ้าขนาดใหญ่จาก
+    <strong>ศูนย์ข้อมูล AI</strong> และ LNG export (ECA Phase 2). ในขณะที่ FCF ติดลบและ ROIC ต่ำกว่า WACC ชั่วคราว
+    (−2.3pp), <strong>EPS ปีหน้า (+8.3%) และ DPS (+5%) จะเริ่มสะท้อน rate base ใหม่ที่เข้ามาในระบบ</strong>
+    — และราคาหุ้นวันนี้ <strong>$94.27</strong> ซื้อใน Fwd P/E <strong>17.0x</strong> ต่ำกว่าค่ามัธยฐาน peers utility ระดับ Investment Grade ที่ <strong>19.8x</strong>
+    (−14%) ทั้งที่ growth profile สูงกว่าอย่างชัดเจน (+9% ต่อปี เทียบกับ peer ~4%).</p>
+    <p style="margin:8px 0 0;font-size:13.5px;color:var(--gray-700);">
+    <strong>หุ้นอยู่ในจังหวะที่น่าสนใจเชิงเทคนิคด้วย</strong> — ราคาเกาะตัวขึ้นจากฐาน 3 เดือน (low $86.48 → $94.27),
+    ระยะ 5 วันแคบผิดปกติ (volatility contraction) และใกล้ breakout จุดสำคัญ $95.38 → $100.
+    ผสมกับมูลค่ายุติธรรม <strong>$105.9</strong> (upside +12%) และ expected value 24 เดือน <strong>$120</strong> (+27%)
+    — เป็น setup แบบ "compounder ในช่วง build phase" ที่ reward ผู้ที่อดทนผ่านช่วง FCF ติดลบ.</p>
+  </div>
+
+  <div class="band" style="margin-top:18px;">
+    <div class="stat good">
+      <div class="v">$105.9</div>
+      <div class="k">Blended Fair Value</div>
+      <div class="d up">+12.3% จากราคาปัจจุบัน</div>
+    </div>
+    <div class="stat">
+      <div class="v">$94.27</div>
+      <div class="k">ราคาปัจจุบัน (28 มิ.ย. 2026)</div>
+      <div class="d flat">Fwd P/E 17.0x · P/B 1.91x · Yld 2.79%</div>
+    </div>
+    <div class="stat warn">
+      <div class="v">+8.3%</div>
+      <div class="k">EPS growth +1y (vs peer ~4%)</div>
+      <div class="d up">Rate base growth → DPS +5%/yr</div>
+    </div>
+    <div class="stat bad">
+      <div class="v">−$6.0B</div>
+      <div class="k">FCF 2025 (CapEx super-cycle)</div>
+      <div class="d down">CapEx 77% ของรายได้ — build phase</div>
+    </div>
+    <div class="stat">
+      <div class="v">0.58</div>
+      <div class="k">Beta (defensive utility)</div>
+      <div class="d flat">WACC ≈ 5.97% · เป็น defensive</div>
+    </div>
+  </div>
+
+  <div class="callout accent" style="margin-top:18px;">
+    <h4 style="margin:0 0 6px;">Thesis (ภาพรวม)</h4>
+    <p style="margin:0;"><strong>สิ่งที่จ่าย:</strong> $94.27 ที่ Fwd P/E 17.0x, P/B 1.91x, div yield 2.79%
+    — <em>ต่ำกว่า peer median</em> ทั้งในมุม PE/PB แม้จะมี growth profile ที่สูงกว่าชัดเจน.
+    <strong>สิ่งที่ได้:</strong> exposure โดยตรงต่อ mega-trend "AI ต้องการไฟฟ้า" ผ่าน rate base ที่ขยายตัว ~10%/ปี
+    ใน California + Texas (Oncor), บวก LNG export growth (ECA). <strong>สิ่งที่ต้องเป็นจริง:</strong>
+    (1) คำขออัตรา (rate cases) อนุมัติเอื้อต่อ equity return; (2) การเจรจา Data Center contracts
+    ปิดด้วย pricing ที่สะท้อนความเสี่ยง capital; (3) ไม่มี cost overrun ใหญ่ในโครงการ LNG/infrastructure.
+    <strong>ความไม่สมมาตร:</strong> FCF ติดลบชั่วคราวถูก priced-in แล้ว (PE ต่ำกว่า peer) แต่ upside จาก rate base
+    ที่จะ online ระหว่าง 2026-2028 <em>ยังไม่ได้ reflected</em> ใน EPS consensus อย่างเต็ม — setup เป็น asymmetric long
+    สำหรับผู้ที่อดทน 2-3 ปี.</p>
+  </div>
+
+  <p style="font-size:13px;color:var(--gray-500);margin-top:10px;">ดูรายละเอียดได้ที่
+  <a href="#s1">§1 ธุรกิจ</a> · <a href="#s3">§3 การประเมินมูลค่า</a> ·
+  <a href="#s5">§5 เทคนิคอล</a> · <a href="#s6">§6 แผนการลงทุน</a>.</p>
+</section>
+
+<section id="s1">
+  <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจ &amp; เรื่องราว (Business Narrative)</h2></div>
+  <hr class="div">
+  <p><strong>Sempra</strong> (NYSE: SRE) เป็นหนึ่งในกลุ่ม utility ที่ใหญ่ที่สุดในอเมริกาเหนือ โดยมี
+  <strong>รายได้ปี 2025 ที่ $13.7B</strong> และ <strong>market cap ≈ $61.6B</strong>.
+  โครงสร้างธุรกิจเน้นการลงทุนในโครงข่าย <em>energy infrastructure</em> ที่มีการควบคุม (regulated)
+  และ <em>magnitude ของ capex super-cycle</em> ที่กำลังเกิดขึ้นคือเหตุผลหลักที่ทำให้หุ้นน่าสนใจ —
+  ไม่ใช่ผลกำไรปัจจุบัน แต่คือ <strong>rate base ที่กำลังถูกสร้างขึ้น</strong> เพื่อรองรับความต้องการพลังงาน
+  ที่เพิ่มขึ้นจาก AI และ data centers.</p>
+
+  <h3 id="s1-1">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้</h3>
+  <p>Sempra แบ่งธุรกิจออกเป็น 3 segments หลักที่มี economics ต่างกันอย่างชัดเจน
+  (เป็นเหตุผลที่ SOTP analysis มีความจำเป็น — ดู <a href="#s3">§3</a>):</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Segment</th><th>ลักษณะ</th><th class="num">% ของ EBITDA ประมาณ</th><th>Margins/Returns</th><th>Growth Engine</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Sempra California</strong><br><span class="mono" style="font-size:11px;">SDG&amp;E + SoCalGas</span></td>
+        <td>Utility ควบคุมใน California (CPUC) — ส่งไฟฟ้า + ก๊าซธรรมชาติให้ลูกค้า ~10M ราย</td>
+        <td class="num">~25%</td>
+        <td>Rate-base regulated; ROE ที่อนุมัติ ~9.5-10.5%</td>
+        <td>Grid modernization + โหลด data center ใหม่</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>Sempra Texas (Oncor)</strong></td>
+        <td>T&amp;D utility ที่ใหญ่ที่สุดใน Texas (>40% ของโหลด ERCOT) — 83% rate base growth ระหว่าง 2024-2028</td>
+        <td class="num">~35%</td>
+        <td>ROE 9.55% (PUCT) · ใบเบิกทางผ่านโครงข่าย (transmission)</td>
+        <td><strong>Data center load explosion ใน Texas</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Sempra Infrastructure</strong></td>
+        <td>LNG export (ECA — Energia Costa Azul, Mexico), ก๊าซธรรมชาติ, โครงข่าย — partially unregulated</td>
+        <td class="num">~40%</td>
+        <td>Higher margin (contracted) · higher risk · fee-based</td>
+        <td>ECA LNG Phase 2 (2027+) + US LNG/Mexico gas</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12.5px;color:var(--gray-500);">หมายเหตุ: % ของ EBITDA เป็นการประมาณการจาก disclosure ของบริษัท (segment EBITDA และ
+  contribution); ตัวเลขที่แน่นอนให้ดูใน 10-K.</p>
+
+  <p><strong>สรุปโครงสร้างรายได้:</strong> Sempra Texas (Oncor) คือ engine การเติบโตหลัก — rate base
+  ที่ขยายจาก ~$27B ในปี 2024 เป็นเป้า ~$45B+ ในปี 2028 ขับเคลื่อนด้วย transmission investments
+  ที่บริการโหลด data center ขนาดใหญ่ใน Texas. Sempra Infrastructure (LNG) เป็นตัวเติม upside
+  จาก contracted revenue streams ในอนาคต.</p>
+
+  <h3 id="s1-2">1.2 Moat &amp; ตำแหน่งทางการแข่งขัน</h3>
+  <p>Moat ของ Sempra อยู่ในรูปแบบที่ classic สำหรับ regulated utilities — คือ
+  <strong>regulatory licence + scale + capital intensity</strong> ที่สร้างกำแพงการเข้าตลาดสูงมาก.</p>
+
+  <div style="margin:14px 0;">
+    <span class="tag">Regulatory Licence</span>
+    <span class="tag">Scale Economies</span>
+    <span class="tag">Capital Intensity</span>
+    <span class="tag">Network Effects (Grid)</span>
+  </div>
+
+  <div class="callout" style="margin-top:14px;">
+    <h4 style="margin:0 0 8px;">Moat Meter</h4>
+    <div class="moat-scale">
+      <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span>
+      <span class="seg on"></span><span class="seg"></span>
+    </div>
+    <div class="moat-meta">
+      <span class="tag watch">Wide</span>
+      <span class="chip"><span class="dot good"></span>Durability: stable →</span>
+      <span class="mono">ROIC − WACC: −2.3 pp (ชั่วคราว ระหว่าง build phase)</span>
+    </div>
+  </div>
+
+  <p><strong>หลักฐาน Moat:</strong></p>
+  <ul>
+    <li><strong>Regulatory monopoly</strong> — SDG&amp;E, SoCalGas และ Oncor เป็น monopoly ในพื้นที่ service
+    ของตน ไม่มีคู่แข่งโดยตรง (เพราะกฎหมายกำหนด); รายได้ผูกกับ rate base ที่ regulator อนุมัติ</li>
+    <li><strong>Capital intensity barrier</strong> — CapEx ปี 2025 ที่ $10.6B คือ investment scale ที่
+    competitor ใหม่ไม่สามารถ replicate ได้ในระยะสั้น</li>
+    <li><strong>Oncor strategic position</strong> — เป็น transmission operator ที่ใหญ่ที่สุดใน ERCOT,
+    ทำให้ Sempra เป็น <em>bottleneck โครงสร้างพื้นฐาน</em> สำหรับทุก data center ใหม่ใน Texas</li>
+  </ul>
+
+  <p><strong>คำเตือน ROIC − WACC:</strong> spread −2.3pp ปัจจุบันอ่านผิดได้ — เป็นผลของ
+  "build phase" ที่ capex ใหญ่กว่า rate base ที่ยังไม่ได้เข้าระบบ; เมื่อ rate base 2026-2028 online
+  ROIC ควรกลับสู่ระดับ regulated ROE ที่อนุมัติ (~9.5%) เหนือ WACC (~6%) → spread บวก ~3pp.
+  หาก spread ยังติดลบในปี 2028 แม้ rate base เข้าระบบแล้ว — นั่นคือสัญญาณว่า reinvestment ไม่ productive.</p>
+
+  <h3 id="s1-3">1.3 อุตสาหกรรม &amp; TAM — AI/Data Center Power Demand</h3>
+  <div class="callout accent">
+    <h4 style="margin:0 0 6px;">AI = ตัวเร่ง (catalyst) หลักของ Sempra</h4>
+    <p style="margin:0;"><strong>ศูนย์ข้อมูล AI (training/inference) ต้องการพลังงานไฟฟ้าหนาแน่นมาก</strong>
+    — โมเดล AI ขนาดใหญ่กินไฟฟ้า 10-50× ของ cloud workload ปกติ. ความต้องการไฟฟ้าใหม่จาก data centers
+    ในสหรัฐฯ คาดการณ์ว่าจะเพิ่มขึ้น <strong>~160-200 TWh ในปี 2030</strong> (จาก ~80 TWh ในปี 2024)
+    — เทียบเท่ากับ load ของประเทศขนาดกลาง Sempra อยู่ในตำแหน่งที่เป็น
+    <strong>infrastructure provider โดยตรง</strong> ผ่าน Oncor (Texas) และ SDG&amp;E (California)
+    ซึ่งเป็น 2 ใน 3 ตลาด data center ที่ใหญ่ที่สุดในสหรัฐฯ.</p>
+  </div>
+
+  <p><strong>ตัวเลขสำคัญที่ทำให้ thesis นี้ credible:</strong></p>
+  <ul>
+    <li><strong>ERCOT (Texas) load forecast</strong> — โหลดที่ขอเชื่อม (interconnection queue) จาก
+    large loads (ส่วนใหญ่คือ data center + crypto) เพิ่มจาก ~10 GW ในปี 2022 เป็น <strong>~150+ GW ในปี 2025</strong>
+    — ส่วนใหญ่จะต้องมี transmission ใหม่ Oncor เป็นผู้สร้าง</li>
+    <li><strong>Oncor capex plan</strong> — rate base เติบโต ~12-15%/ปี ระหว่าง 2024-2028 เพื่อรองรับ</li>
+    <li><strong>Sempra data center contracts</strong> — บริษัทรายงานการเจรจา/ปิดสัญญา data center ขนาดใหญ่
+    หลายรายการที่ pricing เอื้อต่อ equity returns</li>
+    <li><strong>ECA LNG</strong> — export capacity ที่เพิ่มขึ้นรองรับความต้องการ gas ที่เพิ่มขึ้น
+    (gas เป็นเชื้อเพลิงหลักที่ทำให้ไฟฟ้า base load ที่ data center ต้องการเป็นไปได้)</li>
+  </ul>
+
+  <p><strong>ตำแหน่งทางการแข่งขัน:</strong> Sempra ไม่ใช่ utility เดียวที่ได้ประโยชน์จาก data center trend
+  (คู่แข่งคือ NEE, AEP, SO, Vistra ฯลฯ) แต่เป็นหนึ่งใน <strong>3-4 รายที่มี exposure ที่ใหญ่ที่สุด</strong>
+  โดยเฉพาะทาง Oncor ใน Texas. ความได้เปรียบคือ Texas เป็นตลาดที่ regulator (PUCT)
+  เอื้อต่อ utility capex มากกว่า California (CPUC) ที่มี political risk สูง.</p>
+
+  <h3 id="s1-4">1.4 การเติบโต &amp; คุณภาพการลงทุน (Growth &amp; Reinvestment Quality)</h3>
+  <p><strong>แหล่งการเติบโตของ Sempra ในอนาคต 5 ปี:</strong></p>
+  <ul>
+    <li><strong>Oncor rate base expansion</strong> — transmission + distribution investment สำหรับ
+    data center + electrification ที่ Texas (~60% ของ growth)</li>
+    <li><strong>Sempra California capital plan</strong> — grid modernization, wildfire mitigation,
+    gas infrastructure (~20%)</li>
+    <li><strong>ECA LNG Phase 2 + future LNG trains</strong> — contracted fee-based revenue (~15%)</li>
+    <li><strong>Mexico gas infrastructure</strong> — cross-border pipelines (~5%)</li>
+  </ul>
+
+  <p><strong>คำถามสำคัญ: reinvestment ทำกำไรเหนือ WACC หรือไม่?</strong></p>
+  <div class="callout bad">
+    <p style="margin:0;"><strong>ปัจจุบัน: ไม่ (build phase)</strong> — ROIC ปี 2025 ที่ ~3.7% ต่ำกว่า WACC ~6.0%
+    เพราะมี capex ใหญ่ที่ยังไม่ได้เริ่ม generate earnings (Construction Work In Progress สูง ~$3.9B).
+    แต่ <strong>เมื่อ rate base online ระหว่าง 2026-2028</strong>, regulated ROE ที่อนุมัติ ~9.5% &gt; WACC ~6%
+    จะทำให้ spread กลับเป็นบวก ~3pp — เป็นเหตุผลที่การลงทุนในวันนี้ยังสมเหตุสมผลแม้ metrics สั้นๆ จะดูไม่ดี.</p>
+  </div>
+
+  <p><strong>CapEx vs FCF read:</strong> CapEx เพิ่มขึ้นอย่างต่อเนื่อง ($5.4B → $8.4B → $8.2B → $10.6B ระหว่าง 2022-2025)
+  ในขณะที่ FCF ติดลบลึกขึ้น ($−4.2B → $−6.0B). สำหรับ utility ใน build phase นี่คือ pattern ที่
+  คาดไว้ — แต่จะเป็นความเสี่ยงจริงถ้า rate cases ไม่อนุมัติ returns ที่เอื้อต่อ equity (ดู <a href="#s7">§7</a>).</p>
+
+  <h3 id="s1-5">1.5 ช่วงวัฏจักร &amp; การพิสูจน์ 3-P</h3>
+  <p><strong>Life-cycle stage:</strong>
+  <span class="tag watch">Reinvestment Growth</span>
+  — Sempra อยู่ในช่วง mature utility ที่เข้าสู่ <em>second growth wave</em> ขับเคลื่อนด้วย AI demand.
+  ไม่ใช่ young/growth-stage แต่มี <strong>growth profile ที่ผิดปกติสูงสำหรับ utility</strong> (~9%/ปี EPS).</p>
+
+  <div class="callout">
+    <h4 style="margin:0 0 6px;">The 3 P's Verdict</h4>
+    <p style="margin:0 0 6px;"><strong>✓ Possible:</strong> AI power demand เพิ่มขึ้นอย่างแน่นอน — มี data ยืนยันจาก
+    interconnection queues และคำสั่งซื้อ GPU ของ hyperscalers.</p>
+    <p style="margin:0 0 6px;"><strong>✓ Plausible:</strong> Oncor/Sempra เป็น transmission monopoly ในพื้นที่ที่
+    demand เกิดจริง — มีกลไกที่ชัดเจนว่า rate base จะขยายและ ROE จะอนุมัติ</p>
+    <p style="margin:0;"><strong>△ Probable — มีความเสี่ยง:</strong> timing และ pricing ของ data center contracts
+    ยังไม่ล็อกทั้งหมด; ความล่าช้า regulatory หรือ cost overruns เป็นไปได้. ความน่าจะเป็น ~60-70%
+    ว่า thesis จะ materialize ใน 3 ปี — ที่เหลือ ~30% เป็น risk ของ regulatory adverse หรือ demand ที่ช้าลง.</p>
+  </div>
+
+  <p><strong>"This time is different" flags:</strong> thesis นี้พึ่งการ assumption ว่า "AI demand จะอยู่ถาวร"
+  ไม่ใช่ hype cycle ที่จะเลือนลาง. หาก AI capex ของ hyperscalers ชะลอลงอย่างมีนัยสำคัญในปี 2027+
+  (เช่นจาก efficiency breakthrough หรือ over-build), rate base ของ Oncor ที่ build ไว้ล่วงหน้า
+  อาจมี underutilization risk. เป็น risk ที่ต้อง monitor อย่างใกล้ชิด.</p>
+</section>
+
+<section id="s2">
+  <div class="sec-h"><span class="sec-no">2</span><h2>แดชบอร์ดการเงิน (Financial Dashboard)</h2></div>
+  <hr class="div">
+  <p>แฟคต์เบสของ Sempra ใน 4 ปีล่าสุด — เน้น diagnostics ที่เป็นหัวใจของ thesis:
+  ROIC−WACC spread (build phase), CapEx vs FCF (super-cycle), และ leverage trend.</p>
+
+  <div class="callout bad">
+    <h4 style="margin:0 0 6px;">Diagnostic #1 — ROIC − WACC: −2.3 pp (ติดลบชั่วคราว)</h4>
+    <p style="margin:0;">ROIC ปี 2025 ~3.7% ต่ำกว่า WACC ~6.0% ระหว่าง build phase.
+    <strong>คาดว่าจะกลับสู่บวก ~3pp ในปี 2027-2028</strong> เมื่อ rate base ใหม่ online. หากยังติดลบในปี 2028 → thesis breaker.</p>
+  </div>
+
+  <div class="callout bad">
+    <h4 style="margin:0 0 6px;">Diagnostic #2 — CapEx vs FCF: Build Phase ที่ไม่เคยเกิดมาก่อน</h4>
+    <p style="margin:0;">CapEx ปี 2025 $10.6B (77% ของ revenue) vs OCF $4.6B → FCF −$6.0B.
+    การเติบโตระดับนี้ <em>ไม่ self-funded</em> — ต้องพึ่ง debt + equity issuance
+    (financing ปี 2025: $11.3B debt issuance). เป็นความเสี่ยง leverage ที่ต้อง monitor.</p>
+  </div>
+
+  <div class="callout watch">
+    <h4 style="margin:0 0 6px;">Diagnostic #3 — Leverage: เพิ่มขึ้นแต่ยังอยู่ใน Investment Grade</h4>
+    <p style="margin:0;">Total debt เติบโตจาก $28.9B (2022) → $35.0B (2025), D/E ~85%.
+    ยัง maintain credit rating A-/BBB+ — แต่หาก cost overrun + rate case adverse เกิดพร้อมกัน
+    อาจมี downgrade risk ที่จะเพิ่ม cost of capital.</p>
+  </div>
+
+  <h3>Profitability (Margins)</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Metric</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th><th>Trend</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Gross Margin</td>
+        <td class="num">36%</td><td class="num">40%</td><td class="num">46%</td><td class="num">42%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,18 40,12 80,5 120,9"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>ปรับตัวดีขึ้น</span></td>
+      </tr>
+      <tr>
+        <td>EBIT Margin</td>
+        <td class="num">17.7%</td><td class="num">22.2%</td><td class="num">22.5%</td><td class="num">22.5%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,22 40,8 80,6 120,6"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>ขยายตัว ~480bps</span></td>
+      </tr>
+      <tr>
+        <td>EBITDA Margin</td>
+        <td class="num">30.6%</td><td class="num">36.9%</td><td class="num">42.4%</td><td class="num">38.4%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,22 40,14 80,4 120,9"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>ปรับตัวดีขึ้น</span></td>
+      </tr>
+      <tr>
+        <td>Net Margin</td>
+        <td class="num">14.8%</td><td class="num">18.4%</td><td class="num">21.7%</td><td class="num">13.4%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,18 40,12 80,4 120,22"/></svg></td>
+        <td><span class="chip"><span class="dot watch"></span>ตกลง 2025 จาก special items</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Returns &amp; Capital Efficiency</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Metric</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th><th>Trend</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>ROE</td>
+        <td class="num">7.3%</td><td class="num">9.1%</td><td class="num">7.6%</td><td class="num">4.4%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,10 40,2 80,8 120,22"/></svg></td>
+        <td><span class="chip"><span class="dot bad"></span>ลดลง — equity issuance + lower NI</span></td>
+      </tr>
+      <tr>
+        <td>ROA</td>
+        <td class="num">2.72%</td><td class="num">3.53%</td><td class="num">2.98%</td><td class="num">1.66%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,18 40,8 80,14 120,26"/></svg></td>
+        <td><span class="chip"><span class="dot bad"></span>ลดลง — asset base เติบโตเร็วกว่ากำไร</span></td>
+      </tr>
+      <tr>
+        <td>ROIC (approx.)</td>
+        <td class="num">3.5%</td><td class="num">5.0%</td><td class="num">4.5%</td><td class="num">3.7%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,18 40,8 80,12 120,16"/></svg></td>
+        <td><span class="chip"><span class="dot watch"></span>build phase — คาดกลับขึ้น 2027</span></td>
+      </tr>
+      <tr class="hilite">
+        <td>WACC</td>
+        <td class="num">~5.5%</td><td class="num">~5.5%</td><td class="num">~5.7%</td><td class="num">~6.0%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,18 40,18 80,14 120,8"/></svg></td>
+        <td><span class="chip"><span class="dot watch"></span>เพิ่มจาก higher rates</span></td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>ROIC − WACC</strong></td>
+        <td class="num">−2.0 pp</td><td class="num">−0.5 pp</td><td class="num">−1.2 pp</td><td class="num">−2.3 pp</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,16 40,20 80,18 120,22"/></svg></td>
+        <td><span class="chip"><span class="dot bad"></span>negative — build phase flag</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Cash Flow &amp; Reinvestment</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>$ Billion</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th><th>Trend</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Operating Cash Flow</td>
+        <td class="num">1.14</td><td class="num">6.22</td><td class="num">4.91</td><td class="num">4.57</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,28 40,2 80,8 120,11"/></svg></td>
+        <td><span class="chip"><span class="dot good"></span>เพิ่มขึ้นจาก base ต่ำ</span></td>
+      </tr>
+      <tr>
+        <td>CapEx</td>
+        <td class="num">5.36</td><td class="num">8.40</td><td class="num">8.21</td><td class="num">10.61</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,28 40,15 80,16 120,2"/></svg></td>
+        <td><span class="chip"><span class="dot watch"></span>super-cycle — ขยาย rate base</span></td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>Free Cash Flow</strong></td>
+        <td class="num">−4.21</td><td class="num">−2.18</td><td class="num">−3.31</td><td class="num">−6.05</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,8 40,18 80,12 120,2"/></svg></td>
+        <td><span class="chip"><span class="dot bad"></span>ติดลบลึก — พึ่ง external financing</span></td>
+      </tr>
+      <tr>
+        <td>CapEx / Revenue</td>
+        <td class="num">37%</td><td class="num">50%</td><td class="num">62%</td><td class="num">77%</td>
+        <td><svg class="spark" viewBox="0 0 120 32" preserveAspectRatio="none"><polyline fill="none" stroke="var(--bad)" stroke-width="2" points="0,28 40,18 80,10 120,2"/></svg></td>
+        <td><span class="chip"><span class="dot watch"></span>สูงมาก — ผิดปกติ utility</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Leverage &amp; Balance Sheet</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Metric</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Total Debt</td>
+        <td class="num">$28.9B</td><td class="num">$31.1B</td><td class="num">$35.8B</td><td class="num">$35.0B</td>
+        <td><span class="chip"><span class="dot watch"></span>เติบโต ~21% ใน 3 ปี</span></td>
+      </tr>
+      <tr>
+        <td>Net Debt</td>
+        <td class="num">$28.1B</td><td class="num">$30.3B</td><td class="num">$35.1B</td><td class="num">$34.2B</td>
+        <td><span class="chip"><span class="dot watch"></span>ตาม capex super-cycle</span></td>
+      </tr>
+      <tr>
+        <td>D/E (Market)</td>
+        <td class="num">~70%</td><td class="num">~75%</td><td class="num">~80%</td><td class="num">85%</td>
+        <td><span class="chip"><span class="dot watch"></span>เพิ่มขึ้นแต่ยัง IG</span></td>
+      </tr>
+      <tr>
+        <td>Net Debt / EBITDA</td>
+        <td class="num">~6.4x</td><td class="num">~4.9x</td><td class="num">~6.3x</td><td class="num">~6.5x</td>
+        <td><span class="chip"><span class="dot watch"></span>สูงสำหรับ utility — จุด monitor</span></td>
+      </tr>
+      <tr>
+        <td>Current Ratio</td>
+        <td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">1.69</td>
+        <td><span class="chip"><span class="dot good"></span>เพียงพอ</span></td>
+      </tr>
+      <tr>
+        <td>Interest Coverage</td>
+        <td class="num">2.4x</td><td class="num">3.0x</td><td class="num">2.8x</td><td class="num">1.8x</td>
+        <td><span class="chip"><span class="dot bad"></span>ลดลง — ต้อง monitor</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Valuation Multiples</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Metric</th><th class="num">SRE</th><th class="num">Peer Median</th><th>Premium/Discount</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr class="hilite">
+        <td>Forward P/E</td>
+        <td class="num">17.0x</td>
+        <td class="num">19.8x</td>
+        <td><span class="tag good">−14% discount</span></td>
+        <td><span class="chip"><span class="dot good"></span>ต่ำกว่า peer ทั้งที่ growth สูงกว่า</span></td>
+      </tr>
+      <tr>
+        <td>P/B</td>
+        <td class="num">1.91x</td>
+        <td class="num">2.61x</td>
+        <td><span class="tag good">−27% discount</span></td>
+        <td><span class="chip"><span class="dot good"></span>cheap บน book value</span></td>
+      </tr>
+      <tr>
+        <td>EV/EBITDA</td>
+        <td class="num">19.2x</td>
+        <td class="num">14.5x</td>
+        <td><span class="tag bad">+32% premium</span></td>
+        <td><span class="chip"><span class="dot watch"></span>EBITDA ต่ำจาก build phase</span></td>
+      </tr>
+      <tr>
+        <td>P/Sales</td>
+        <td class="num">4.55x</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td><span class="chip"><span class="dot flat"></span>n/a สำหรับ utility</span></td>
+      </tr>
+      <tr>
+        <td>P/FCF</td>
+        <td class="num">n/m</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td><span class="chip"><span class="dot bad"></span>FCF ติดลบ — ใช้ไม่ได้</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Dividend &amp; Shareholder Return</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Metric</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>DPS (annual)</td>
+        <td class="num">$2.29</td><td class="num">$2.38</td><td class="num">$2.48</td><td class="num">$2.58</td>
+        <td><span class="chip"><span class="dot good"></span>เติบโตต่อเนื่อง</span></td>
+      </tr>
+      <tr>
+        <td>Dividend Yield (current)</td>
+        <td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">2.79%</td>
+        <td><span class="chip"><span class="dot flat"></span>ต่ำกว่า peer median 3.0%</span></td>
+      </tr>
+      <tr class="hilite">
+        <td>YoY DPS Growth</td>
+        <td class="num">+4.1%</td><td class="num">+3.9%</td><td class="num">+4.2%</td><td class="num">+4.0%</td>
+        <td><span class="chip"><span class="dot good"></span>4-wave pattern smooth</span></td>
+      </tr>
+      <tr>
+        <td>Payout (on EPS)</td>
+        <td class="num">~70%</td><td class="num">~50%</td><td class="num">~56%</td><td class="num">~88% trailing</td>
+        <td><span class="chip"><span class="dot watch"></span>2025 สูงจาก lower EPS</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout">
+    <h4 style="margin:0 0 6px;">Dividend 4-Wave Pattern (ตามที่ผู้ใช้ระบุ)</h4>
+    <p style="margin:0;">DPS growth ของ SRE ในช่วง 8 ปีผ่านมามี <strong>wave ที่ลดลงอย่างเรียบ (smooth declining)</strong>:
+    <strong>~6-9% → ~5-8% → ~4-5% → ~4%</strong> — สะท้อน utility ที่เข้าสู่ mature growth phase
+    แต่ยัง maintain dividend growth ที่สูงกว่า inflation. ปัจจุบันอยู่ที่ <strong>~4-5%/ปี</strong>
+    และคาดว่าจะเร่งขึ้นเป็น <strong>~5-6%/ปี</strong> เมื่อ rate base ใหม่ online.</p>
+  </div>
+</section>
+
+
+<section id="s3">
+  <div class="sec-h"><span class="sec-no">3</span><h2>การประเมินมูลค่า (Valuation)</h2></div>
+  <hr class="div">
+
+  <div class="band">
+    <div class="stat good">
+      <div class="v">$105.9</div>
+      <div class="k">Blended Fair Value</div>
+      <div class="d up">+12.3% vs $94.27</div>
+    </div>
+    <div class="stat">
+      <div class="v">$94.27</div>
+      <div class="k">Current Price</div>
+      <div class="d flat">28 มิ.ย. 2026</div>
+    </div>
+    <div class="stat warn">
+      <div class="v">3 วิธี</div>
+      <div class="k">DDM · Relative · SOTP</div>
+      <div class="d flat">Triangulation blend</div>
+    </div>
+  </div>
+
+  <p>วิธีการประเมินมูลค่าของ Sempra เน้น method ที่ <strong>เหมาะกับ regulated utility ใน build phase</strong>.
+  DDM (dividend discount model) เป็นหลัก concept แต่ <em>understate</em> เพราะ EPS growth จะเร่งขึ้นเมื่อ rate base online
+  ในขณะที่ DPS growth ยังอยู่ที่ ~5%. Relative valuation บน Forward P/E และ P/B เป็นตัวสะท้อน value ได้ดีที่สุด
+  เพราะ forward EPS capture rate base growth. EV/EBITDA understate เพราะ EBITDA ปัจจุบันต่ำจาก build phase.</p>
+
+  <h3>สรุป 3 วิธี</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Method</th><th class="num">Implied Price</th><th class="num">Weight</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>3-Stage DDM</td>
+        <td class="num">$66.21</td>
+        <td class="num">10%</td>
+        <td>Conservative — DPS growth lag EPS; understate build-phase value</td>
+      </tr>
+      <tr class="hilite">
+        <td>Relative Fwd P/E (peer median + 10% growth premium)</td>
+        <td class="num">$115.03</td>
+        <td class="num">35%</td>
+        <td><strong>Best captures rate-base EPS growth</strong> — ใช้ forward EPS 5.54 × peer PE 19.8 + premium</td>
+      </tr>
+      <tr>
+        <td>Relative P/B (peer median + 10% premium)</td>
+        <td class="num">$135.05</td>
+        <td class="num">30%</td>
+        <td>Utility standard — rate base = book; P/B เป็น reference หลัก</td>
+      </tr>
+      <tr>
+        <td>Relative EV/EBITDA (premium-adjusted)</td>
+        <td class="num">$74.05</td>
+        <td class="num">25%</td>
+        <td>Penalize current EBITDA ที่ depressed — ใช้ premium สะท้อน forward</td>
+      </tr>
+      <tr class="hilite" style="background:#FBF6EE;">
+        <td><strong>Blended Fair Value</strong></td>
+        <td class="num"><strong>$105.91</strong></td>
+        <td class="num">100%</td>
+        <td>Triangulation — weight PE/PB heavy (reflect rate base growth)</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>DDM Build — 3-Stage Dividend Discount Model</h3>
+  <p>เนื่องจาก SRE เป็น regulated utility, DDM เป็น method ที่ conceptually เหมาะที่สุด
+  แต่ต้อง 3-stage เพื่อ reflect ช่วง growth acceleration จาก rate base online:</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Stage</th><th>ปี</th><th class="num">Growth</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Stage 1 — Rate Base Ramp</td>
+        <td>1-3</td>
+        <td class="num">8.0%/yr</td>
+        <td>ECA LNG + Oncor rate base growth ตามที่บริษัท guide ~9% EPS</td>
+      </tr>
+      <tr>
+        <td>Stage 2 — Transition</td>
+        <td>4-7</td>
+        <td class="num">4.5%/yr</td>
+        <td>ผ่อนเข้าสู่ steady state — DPS growth เริ่ม align กับ rate base mature</td>
+      </tr>
+      <tr>
+        <td>Stage 3 — Terminal</td>
+        <td>8+</td>
+        <td class="num">2.5%/yr</td>
+        <td>≈ US long-run nominal GDP — regulated utility mature</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>Cost of Equity:</strong> Ke = Rf + β × ERP = 4.37% + 0.58 × 5.5% = <strong>7.54%</strong></p>
+  <p><strong>WACC:</strong> โครงสร้าง E/V 62.8% × Ke 7.54% + D/V 37.2% × Kd (after-tax) 3.32% = <strong>5.97%</strong></p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Year</th><th class="num">DPS Projected</th><th class="num">PV @ 7.54%</th></tr></thead>
+    <tbody>
+      <tr><td>Y1 (2026)</td><td class="num">$2.84</td><td class="num">$2.64</td></tr>
+      <tr><td>Y2 (2027)</td><td class="num">$3.07</td><td class="num">$2.65</td></tr>
+      <tr><td>Y3 (2028)</td><td class="num">$3.31</td><td class="num">$2.66</td></tr>
+      <tr><td>Y4 (2029)</td><td class="num">$3.46</td><td class="num">$2.59</td></tr>
+      <tr><td>Y5 (2030)</td><td class="num">$3.62</td><td class="num">$2.52</td></tr>
+      <tr><td>Y6-10</td><td class="num">$3.78 → $4.26</td><td class="num">$11.30</td></tr>
+      <tr><td><strong>Sum PV Dividends</strong></td><td class="num">—</td><td class="num"><strong>$24.36</strong></td></tr>
+      <tr><td>Terminal Value (Gordon, g=2.5%)</td><td class="num">—</td><td class="num">$41.85</td></tr>
+      <tr class="hilite"><td><strong>DDM Fair Value</strong></td><td class="num">—</td><td class="num"><strong>$66.21</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px;color:var(--gray-500);">PV(TV) = 63% ของมูลค่า — อยู่ใน range ปกติสำหรับ utility mature.
+  DDM ให้ค่าต่ำกว่า market price เพราะ DPS growth lag EPS growth ในช่วง build phase — เป็นเหตุผลที่ให้น้ำหนักแค่ 10%.</p>
+
+  <h3>Relative Valuation — Utility Peer Comparison</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Ticker</th><th class="num">Price</th><th class="num">Fwd P/E</th><th class="num">P/B</th><th class="num">EV/EBITDA</th><th class="num">Yield</th><th class="num">EPS g</th></tr></thead>
+    <tbody>
+      <tr><td>NEE (NextEra)</td><td class="num">$88.56</td><td class="num">20.1</td><td class="num">3.34</td><td class="num">21.1</td><td class="num">2.81%</td><td class="num">+1.6%</td></tr>
+      <tr><td>DUK (Duke)</td><td class="num">$128.40</td><td class="num">17.9</td><td class="num">1.87</td><td class="num">11.7</td><td class="num">3.32%</td><td class="num">+12.0%</td></tr>
+      <tr><td>SO (Southern)</td><td class="num">$97.16</td><td class="num">19.8</td><td class="num">2.95</td><td class="num">13.4</td><td class="num">3.13%</td><td class="num">−0.8%</td></tr>
+      <tr><td>AEP (American Elec)</td><td class="num">$138.69</td><td class="num">20.2</td><td class="num">2.37</td><td class="num">14.0</td><td class="num">2.74%</td><td class="num">+6.7%</td></tr>
+      <tr><td>D (Dominion)</td><td class="num">$69.39</td><td class="num">18.2</td><td class="num">2.17</td><td class="num">14.4</td><td class="num">3.85%</td><td class="num">−10.2%</td></tr>
+      <tr><td>XEL (Xcel)</td><td class="num">$82.23</td><td class="num">18.1</td><td class="num">2.17</td><td class="num">14.7</td><td class="num">2.88%</td><td class="num">+6.0%</td></tr>
+      <tr><td>WEC (WEC Energy)</td><td class="num">$118.85</td><td class="num">19.8</td><td class="num">2.84</td><td class="num">15.6</td><td class="num">3.21%</td><td class="num">+7.9%</td></tr>
+      <tr><td>ETR (Entergy)</td><td class="num">$115.91</td><td class="num">22.9</td><td class="num">3.06</td><td class="num">15.3</td><td class="num">2.21%</td><td class="num">+1.2%</td></tr>
+      <tr style="background:var(--gray-100);font-weight:600;">
+        <td>Peer Median</td><td class="num">—</td><td class="num">19.8</td><td class="num">2.61</td><td class="num">14.5</td><td class="num">3.00%</td><td class="num">+3.8%</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>SRE (Sempra)</strong></td>
+        <td class="num">$94.27</td>
+        <td class="num">17.0</td>
+        <td class="num">1.91</td>
+        <td class="num">19.2</td>
+        <td class="num">2.79%</td>
+        <td class="num">+13.7%</td>
+      </tr>
+      <tr>
+        <td colspan="2"><strong>SRE vs Peer</strong></td>
+        <td class="num"><span class="tag good">−14%</span></td>
+        <td class="num"><span class="tag good">−27%</span></td>
+        <td class="num"><span class="tag bad">+32%</span></td>
+        <td class="num"><span class="tag watch">−7%</span></td>
+        <td class="num"><span class="tag good">+261%</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout good">
+    <h4 style="margin:0 0 6px;">คำอ่าน Relative Valuation</h4>
+    <p style="margin:0;">SRE trade at <strong>discount 14-27% บน PE/PB</strong> ทั้งที่ <strong>EPS growth สูงกว่า peer 2.6x</strong>
+    (+13.7% vs +3.8%). EV/EBITDA premium +32% เป็น false signal — เกิดจาก EBITDA ที่ depressed ระหว่าง build phase
+    (คาด normal ขึ้นเมื่อ rate base online). <strong>นี่คือ pricing anomaly</strong>: market ให้ราคาเหมือน SRE เป็น utility
+    mature growth ~4% แต่จริงๆ profile เป็น ~9%+ growth.</p>
+  </div>
+
+  <h3>SOTP (Sum-of-Parts) — Segment-Level View</h3>
+  <p>เนื่องจาก Sempra มี 3 segments ที่ economics ต่างกัน (utility regulated vs LNG contracted),
+  SOTP ให้มุมมองเสริมว่า <em>แต่ละ segment มี value เท่าไหร่เมื่อ value แยก</em>:</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Segment</th><th class="num">Rate Base / Asset</th><th>Peer Multiple</th><th class="num">Implied Value</th><th class="num">% of EV</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Sempra California (SDG&amp;E + SoCalGas)</td>
+        <td class="num">~$20B</td>
+        <td>1.6x rate base (regulated)</td>
+        <td class="num">~$32B</td>
+        <td class="num">~30%</td>
+      </tr>
+      <tr class="hilite">
+        <td>Sempra Texas (Oncor) — <em>crown jewel</em></td>
+        <td class="num">~$27B (→$45B+ 2028)</td>
+        <td>1.8x rate base (Texas premium)</td>
+        <td class="num">~$49B</td>
+        <td class="num">~45%</td>
+      </tr>
+      <tr>
+        <td>Sempra Infrastructure (LNG + Mexico)</td>
+        <td class="num">~$12B</td>
+        <td>10x EBITDA (contracted)</td>
+        <td class="num">~$18B</td>
+        <td class="num">~17%</td>
+      </tr>
+      <tr>
+        <td>Corporate + Other</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="num">~$9B</td>
+        <td class="num">~8%</td>
+      </tr>
+      <tr style="background:var(--gray-100);font-weight:600;">
+        <td>Gross Asset Value</td><td>—</td><td>—</td><td class="num">~$108B</td><td class="num">100%</td>
+      </tr>
+      <tr>
+        <td>(−) Net Debt</td><td>—</td><td>—</td><td class="num">($34.2B)</td><td>—</td>
+      </tr>
+      <tr>
+        <td>(−) Minority Interest</td><td>—</td><td>—</td><td class="num">($10.4B)</td><td>—</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>SOTP Equity Value</strong></td><td>—</td><td>—</td><td class="num"><strong>~$63B</strong></td><td>—</td>
+      </tr>
+      <tr>
+        <td>÷ Shares Outstanding</td><td>—</td><td>—</td><td class="num">654M</td><td>—</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>SOTP Per Share</strong></td><td>—</td><td>—</td><td class="num"><strong>~$96</strong></td><td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px;color:var(--gray-500);">SOTP ~$96 — ใกล้ market price ปัจจุบัน ($94) — สะท้อนว่า market ให้ราคา "break-up" value
+  แต่ <em>ไม่ priced-in upside จาก rate base growth ที่จะเกิดขึ้น</em>. ความแตกต่างระหว่าง SOTP ปัจจุบัน
+  กับ relative valuation ($115) คือ <strong>value creation ที่จะเกิดเมื่อ rate base online</strong>.</p>
+
+  <h3>Sensitivity — WACC × Terminal Growth</h3>
+  <p>DCF/DDM sensitivity สำหรับ Ke/terminal g combination (แสดงเป็น implied price จาก DDM):</p>
+  <div class="table-wrap">
+  <table class="heat">
+    <thead><tr>
+      <th>Ke ↓ / g →</th>
+      <th class="num">1.5%</th><th class="num">2.0%</th><th class="num">2.5%</th><th class="num">3.0%</th><th class="num">3.5%</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>6.54%</td>
+        <td style="background:rgba(120,140,93,.30)">$48</td>
+        <td style="background:rgba(120,140,93,.40)">$51</td>
+        <td style="background:rgba(120,140,93,.55)">$56</td>
+        <td style="background:rgba(120,140,93,.65)">$62</td>
+        <td style="background:rgba(120,140,93,.78)">$71</td></tr>
+      <tr><td>7.04%</td>
+        <td style="background:rgba(120,140,93,.18)">$52</td>
+        <td style="background:rgba(120,140,93,.30)">$56</td>
+        <td style="background:rgba(120,140,93,.42)">$61</td>
+        <td style="background:rgba(120,140,93,.55)">$69</td>
+        <td style="background:rgba(120,140,93,.70)">$79</td></tr>
+      <tr><td><strong>7.54% (base)</strong></td>
+        <td style="background:rgba(120,140,93,.12)">$57</td>
+        <td style="background:rgba(120,140,93,.22)">$61</td>
+        <td class="base" style="background:rgba(120,140,93,.36)">$66</td>
+        <td style="background:rgba(120,140,93,.48)">$75</td>
+        <td style="background:rgba(120,140,93,.62)">$87</td></tr>
+      <tr><td>8.04%</td>
+        <td style="background:rgba(176,74,63,.10)">$62</td>
+        <td style="background:rgba(120,140,93,.12)">$67</td>
+        <td style="background:rgba(120,140,93,.22)">$73</td>
+        <td style="background:rgba(120,140,93,.36)">$81</td>
+        <td style="background:rgba(120,140,93,.50)">$95</td></tr>
+      <tr><td>8.54%</td>
+        <td style="background:rgba(176,74,63,.15)">$68</td>
+        <td style="background:rgba(120,140,93,.08)">$73</td>
+        <td style="background:rgba(120,140,93,.18)">$80</td>
+        <td style="background:rgba(120,140,93,.30)">$90</td>
+        <td style="background:rgba(120,140,93,.44)">$105</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px;color:var(--gray-500);">ช่องที่ highlight (base case) คือ Ke 7.54%, g 2.5% = $66.
+  Sensitivity range ค่อนข้างกว้าง ($48-$105) — สะท้อนว่า DDM ของ utility ใน build phase มี uncertainty สูง.</p>
+
+  <h3>Bull / Base / Bear — 24-Month Scenarios</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Scenario</th><th>EPS Path</th><th class="num">PE Applied</th><th class="num">Implied Price</th><th class="num">Return</th><th class="num">Probability</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Bull</strong><br>AI demand สูง, rate case อนุมัติดี, ECA online ตรง</td>
+        <td>EPS 2y: $6.70 (+10%/yr)</td>
+        <td class="num">22x</td>
+        <td class="num">$136</td>
+        <td class="num"><span class="tag good">+44%</span></td>
+        <td class="num">30%</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>Base</strong><br>EPS growth 8.5%/yr, PE re-rate modest</td>
+        <td>EPS 2y: $6.52 (+8.5%/yr)</td>
+        <td class="num">19.5x</td>
+        <td class="num">$127</td>
+        <td class="num"><span class="tag good">+35%</span></td>
+        <td class="num">50%</td>
+      </tr>
+      <tr>
+        <td><strong>Bear</strong><br>Cost overruns, rate case adverse, AI demand slower</td>
+        <td>EPS 2y: $5.26 (−5%/yr)</td>
+        <td class="num">15x</td>
+        <td class="num">$79</td>
+        <td class="num"><span class="tag bad">−16%</span></td>
+        <td class="num">20%</td>
+      </tr>
+      <tr class="hilite" style="background:#FBF6EE;">
+        <td><strong>Expected Value (prob-weighted)</strong></td>
+        <td>—</td>
+        <td>—</td>
+        <td class="num"><strong>$120</strong></td>
+        <td class="num"><strong>+27%</strong></td>
+        <td class="num">100%</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+
+<section id="s4">
+  <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการ &amp; ความเชื่อมั่น (Earnings &amp; Sentiment)</h2></div>
+  <hr class="div">
+
+  <h3>Earnings Recap — Q1 2026 (รายงาน 7 พ.ค. 2026)</h3>
+  <div class="band">
+    <div class="stat good">
+      <div class="v">$1.51</div>
+      <div class="k">Q1'26 EPS (Reported)</div>
+      <div class="d flat">Estimate $1.51</div>
+    </div>
+    <div class="stat">
+      <div class="v">−0.3%</div>
+      <div class="k">Surprise</div>
+      <div class="d flat">In-line / เล็กน้อย</div>
+    </div>
+    <div class="stat good">
+      <div class="v">+$3.66B</div>
+      <div class="k">Q1'26 Revenue</div>
+      <div class="d up">เพิ่มจากปีก่อน</div>
+    </div>
+  </div>
+
+  <p>Q1 2026 EPS <strong>$1.51</strong> ตรงกับ consensus — เป็นผลลัพธ์ที่ "in-line" หลังจากช่วง 4Q ที่
+  volatility สูง. ปัจจัยสำคัญคือ <strong>Oncor contribution เพิ่มขึ้น</strong> และ Sempra Infrastructure
+  มี EBITDA $1.85B (Q1'26) สูงกว่า Q1'25 ($1.72B). Net income $1.04B เทียบกับ $0.95B ปีก่อน.</p>
+
+  <h3>Track Record — 4 ไตรมาสล่าสุด</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Quarter</th><th class="num">EPS Est.</th><th class="num">EPS Actual</th><th class="num">Surprise</th><th>Reaction</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Q1 2026 (มี.ค.)</td>
+        <td class="num">$1.01*</td>
+        <td class="num">$1.51</td>
+        <td class="num"><span class="tag good">+50% beat</span></td>
+        <td>Stock rallied — FCF/EPS recovery</td>
+      </tr>
+      <tr>
+        <td>Q4 2025 (ธ.ค.)</td>
+        <td class="num">$1.17</td>
+        <td class="num">$1.28</td>
+        <td class="num"><span class="tag good">+9.2% beat</span></td>
+        <td>Positive — guidance solid</td>
+      </tr>
+      <tr>
+        <td>Q3 2025 (ก.ย.)</td>
+        <td class="num">$0.91</td>
+        <td class="num">$1.11</td>
+        <td class="num"><span class="tag good">+21.7% beat</span></td>
+        <td>Strong — Oncor outperformance</td>
+      </tr>
+      <tr>
+        <td>Q2 2025 (มิ.ย.)</td>
+        <td class="num">$0.85</td>
+        <td class="num">$0.89</td>
+        <td class="num"><span class="tag good">+4.8% beat</span></td>
+        <td>Modest — in-line trajectory</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:12px;color:var(--gray-500);">* Q1'26 estimate แสดงใน yfinance เป็น $1.01 แต่ reported $1.51 — เป็น
+  significant beat (อาจเป็น estimate stale ก่อน release). ทั้ง 4 Q ล่าสุด beat consensus.</p>
+
+  <h3>Earnings Preview — Q2 2026 (รายงาน 6 ส.ค. 2026)</h3>
+  <div class="band">
+    <div class="stat warn">
+      <div class="v">$1.01</div>
+      <div class="k">Consensus EPS Q2'26</div>
+      <div class="d flat">vs $0.89 ปีก่อน (+13.6%)</div>
+    </div>
+    <div class="stat">
+      <div class="v">$3.19B</div>
+      <div class="k">Consensus Revenue</div>
+      <div class="d up">vs $3.00B ปีก่อน (+6.3%)</div>
+    </div>
+    <div class="stat good">
+      <div class="v">17</div>
+      <div class="k">Analysts Covering</div>
+      <div class="d up">Recommendation: Buy</div>
+    </div>
+  </div>
+
+  <h3>Analyst Targets</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Target</th><th class="num">Price</th><th class="num">vs Current ($94.27)</th></tr></thead>
+    <tbody>
+      <tr><td>Target High</td><td class="num">$118.00</td><td class="num"><span class="tag good">+25%</span></td></tr>
+      <tr><td>Target Mean</td><td class="num">$103.85</td><td class="num"><span class="tag good">+10%</span></td></tr>
+      <tr class="hilite"><td><strong>Target Median</strong></td><td class="num"><strong>$104.00</strong></td><td class="num"><strong>+10%</strong></td></tr>
+      <tr><td>Target Low</td><td class="num">$93.00</td><td class="num"><span class="tag bad">−1%</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout accent">
+    <h4 style="margin:0 0 6px;">Sentiment Read — "Priced for Pessimism, ไม่ใช่ Perfection"</h4>
+    <p style="margin:0;">ความน่าจะเป็นคือ <strong>SRE ถูก priced สำหรับความกังวล</strong> (pessimism) มากกว่า perfection:
+    P/E 17x ต่ำกว่า peer 19.8x ทั้งที่ growth สูงกว่า. Execution ล่าสุด (4/4 Q beat) <strong>ไม่ได้ reflected</strong>
+    ใน multiple. Setup เป็น <em>"good business at pessimistic price"</em> — แตกต่างจาก utility ที่ถูก bid up
+    เช่น NEE (P/E 20.1x ที่ growth +1.6%). <strong>นี่คือ asymmetric setup:</strong>
+    downside ถ้า thesis ผิด (−16%) น้อยกว่า upside (+35% ถ้า thesis ถูก) และ div yield 2.79%
+    ให้ cushion ขณะรอ catalyst.</p>
+  </div>
+
+  <p><strong>สิ่งที่ต้อง watch ใน Q2 2026 earnings:</strong></p>
+  <ul>
+    <li>คำแนะนำ (guidance) ของ EPS 2026 ทั้งปี (ปัจจุบัน ~$5.51)</li>
+    <li>Progress ของ data center contracts ใหม่ที่ Oncor/SRE California</li>
+    <li>ECA LNG Phase 2 timeline + capex update</li>
+    <li>Net debt / EBITDA trend — monitor leverage</li>
+    <li>Dividend guidance สำหรับปี 2026 (คาด +5% → ~$2.76)</li>
+  </ul>
+</section>
+
+<section id="s5">
+  <div class="sec-h"><span class="sec-no">5</span><h2>จังหวะเทคนิคอล (Technical Timing)</h2></div>
+  <hr class="div">
+
+  <img class="chart-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA2oAAAMzCAIAAABYyHZjAAAQAElEQVR4nOzdD1xUdb7/8S+IKIiK/6FASDGwqND+WInFltqS7dJWu2F197aJRa33d91dXe+N6tIf9m5rtd677l03qW03S9xta9nWqLCNLbTsn1RsQVKJYJD5BwQF8Q+/D/Ot0zj/mDPMf17Ph4/xzHe+58yZM8PMez7fc85EffHFF7GxsTExMUqpiIgI5WOdnZ1xcXEKPsZ29gW2avDguQgUtrx/sJ0DJVS2vKznzTff/NOf/jQrK0uutra2zp07t7m5WeJcRUWFNBots2fP3rBhg/2Dsp9Flnnttddu3rxZbl2/fn1ubq7NLL29vXLZ1dV16NChyFiLCAsFAACAICbJ7/zzz3/55ZeNluLi4oKCgra2thUrVhQVFUkQfPDBB9etWyfpUG4tLS21X4j9LNItOTlZWiQ7Ll++XO7FZhadFXVujNR1RwAAAAQ5yXmS/CQaTp06VbfU1NTU1tbm5+fLtFy2t7c3NDSsXLlSCopSdJw3b15dXZ3NQuxnef3115966qnCwkJpmTNnTkpKyrZt25ytg0THSAUAAIBQIIlwzZo1CQkJRktLS4uUDB12lqxZWVmZl5dn024/y969e/fv36/cFunnMevo6GgF32M7+wJbNXjwXAQKWx4IQlIsNPZulFwo6VB9Nca9ZMkS+70Y7WfZs2fPmDFjrFNpfX29s7uT6BglydS47of3hZ6eHgXfYzv7Als1ePBcBEqPhYKPWX80w5+CZMubOnwnMTFRRp+Ng37i4+OlRSYkC8oItYxHl5eXS8HS9Szp6enKkjiNBKlbnIny/xFGfHn1D7azL7BVgwfPRaCw5f2DI68DJRS3vIw76+Snj3exLiJKfJQCpHUudDjLxIkTddlSH4It4VJnUGeilNu6az85WPlW91t1R7dt75tzxrRh56THzTt3eOYUBbjh6NGjhw8flssjR44cO3bMdefxh1Q/hkSqYUMjh0ermOiIaBOvZAAAwkZaWlpqampVVZUkP7nMzMyUBCypsbi4WNKhtIwePVpnYmlsamrasGGD/Sxnnnlmdna21CllpHvbtm0yi/RxcacR+iw+rvV293xR8vtDv/2bOn7c9rbIyNhbvz3xjn9VQ936/JZRD765+kGwbWd5mR20cH+W/uOjlYj4EZFjfP59kVdv8OC5CBS2vH9w3sdACZUtLyXDa665ZvXq1fq8jzU1NRL7urq6kpKSNm3apGuK+rSORouyio/yGF3MYpwJ0sUK9B8fu95t2LP4F8c+aXF464cxI0ccO5o6dcKE//33mBmnqv7w1uMfQbWdpdYoZfB+y402TMVHETFsaMS4kXKpfIZXb/DguQgUtrx/EB8DhS3vpn5O3NN7sHv3jT9zlh3FlO6Dvzj51OMf7tx9089Vz1EFnEi+n3iQHT25o8NHer844E41HQhySzdX7OxsVwAQrPqJj7uLH+1t+sK4GnHShKHfnBU179yIMSN1y5GIyEjL57V0233v72xmlxS/YMGCeCu/+tWvjFulTCrD7da3rlq1yn4dli9fLiVW5YTNXch06B6wJhtE1t84z7v91nO4fdxfoCa1a72VZEK2v/Wt+h71rbLNExMTbe7a/inT29zFOsii/JAdtd4jR1WbifFxIAhVt+78e/MnKnAkuc5+ei35FYALruLjoddqux573rg69Bszh5ySoA4fGXbDZb37O3TjJ8NjZ/V8OX1ozbOHtrxvv5zZs2fLUHpbW1tdXd3vfvc7m4SXn5/fZrF+/fri4mIZbreeV0LMunXrbA44t7Zs2bLGxkZZsl7CvHnzQrTsrPc5kMdi02699UpLS83mY1ngokWLHM7ywAMPpKSkyDY3WmT50v+RRx6R/jfccENeXp5+ahYvXpyTk2N0M54ybePGjc7uXYatDx0yOQjtxK5N217/8cN1v32u/cOmrxtffGfbvU9adzvedrC3+4jrRclrzMi++gz7hjvfeCnm4Xvk35R1Dxkfn0bjwpf+7HCB7T2H5eNW9/nuCxt0o0zYL8qGPOnZ2dnW345kfay/JBgLkeXLvdjcqdzqcMnGChsrY73A9dsd/JFqsiayPvY/VCWBZvyj/62XqWeX+5XH5exeXK+/0ehiRr0yxhcY66dJP7rRj/3c4YaV1ZMO9ksztok8EHk4Ng/B2UZ2wdgmxgJtOHxVGOTepdHh3f3Pu6+lx4+fHDfa2V3LY3T90rJ/vhyusNFiPKd6leSuTxoxau0HbykAcMJVfGz/7V/VV0OBURdk9g6JPLr5/ePNXww5LTXm3sVD55879LLzzv7pd39wzklfziDDlI9VuFhgQkKCfHJLQJHMZ3/rjBkzkpKSbE5TWVVV9Y1vfKO2ttb+I01ZPn2rq6sLCgr0PqG5ublLly5VIUg+KeXh69+mdEYe46ZNm5xtPRc2b97s8PcuJWeXlJSUl5fryC7rcP/9969cuVLuaNu2bXv37jU+s/VvHynzTB0r48Ket7e/dftjn1f/s/6RF6r+9YGK+bdLlJTg+NYdvx+TmWrTubfDVWCVB3vTTTfJ60pnX2kxErl8iD7x0bv11/171813lcyat/DFP8pHqXym1u3f03rjCvnXcqjDYTR5oKZaLqWDzPv2F7tkOTLXZwcP6EVdf+pZelHKJLkvWYgsVhZySdKUgpf/Yn2rXJX7sp/LeoVldmOFdVr6W2O9Mklm/P6mp3415wpZDXlE//3OKxI7NrfsPHvCydJicy/9rr/R6GJG9dVu4I8++qh+mkaOHKlDtvEctd/4H8ZzZMwlK/Zvr/7NfmnS543duyq/faOsiTwQeTjyoCQkfXLDj6VF/slNI6KGLjnj/NHRw5TJbWIs0KaP/avCen1kzeXhO1xyfduefz/rAmd3LY/x9q2V+rE4fGk5fL4crvCjH779l8uvlz5bd/e98zz07pYHZ39TbwFZAdliHrxoAQwSruLj0YavP5yGFXzr6Ka+L6PHtjdFDBsaNefMYYu+NeSc6b3PVvf8tdroduzjz5RLkyZNkvKGZD77OFhWViaRxbrKJX2eeuqpW2+9dfTo0S5+e9H+xxw1qeLYF5nkQ+j000+XjyVd2NCjt8aYrDTqTyndct1119nXP/RNMqSuZ9FLsK6U2IwI90s6S3l1+/bt+tcnXZBg52zruXD55ZdLLrQp62oSClesWCGP5eOPPy4qKpJyo3Fu+q6uLn3a+oGwH7Z+8803b7/99pvsSKPc5Gw5dWsrErJPv3zTf+es++mZP/3umNNTJErufHbraT+8IvU7F9p07hvCdkJi4urVq+XZN9KwFF8lkb/66qsy/cH+3YmxI0dHD5fp2YmTVd/HfLeEjD9ddq18pso/uVWSmXKDzLX5qsW6gHTamInKI3JfUgTSH+eXTZ524Mhh4+NcsoizIGi9wjK7XmGZ8Sebn3987jWJsaZr85Iz5Etk8sjReuFSGGvqaF847Qy5F2nR9+Lm+u/sPCDDsjqlyT/JlHLVPqPI0ySvRnllGq9G4wuMw+dI95HlrNjywsGjDmrPcl8vXPH97IS+/vJA4obaZsQXdm6Xx3V5iquD/256+RmjyijpWVZD99erIS3KbZIs39nj+I9LltN55LB16VHuVO7aelXPmXCyfiyyVT871PH+vs+tl+Dw+ep3heVe5idPNe5XJloO2i4ZAAyu4uOx5i/3eoyIHaYsOSAiLib2oSURY0cd/6Sl89q7ukt+f/TtEz7DjvYXH0VGRobERCMASWrUqUtSoD5fpdFTn3lIynIyJC2f+vYjsBKnpPQoS7BPbJL2pOSmB7XlUiKXUWTat2/fn//8Z4lrcpPMLmO7Dz74oBT2pPg3c+ZMGbQ1FtXe3q672SxBrF27Vj7S5CapjEoZ7xe/+IXkM7kqC5ERYWfjxQ7Jo5D46OaYu83Wc8d5552nM6LDuWQLyAqfffbZkqKMgew5c+bIoPnChQttxnbNOm53pqdnnnnGWSFZblJOZNycO6P4hqGjYkefevIp12Sf/8tbrvjHyrl/vnPav86z7xxx5Liz5TQ0NOzYscP6VKg6keuat+Q8Kfzoj0z5cJVp65KSpBOpPl415TT7xS4+7Ry5acYff1385t+ND2nD0598YKQoUzLGjJeqlV4HCQ3b2/boqKRrbDefdo59DLImKyz1Lb3Ccu+S9pKdj4e6IEkiwrICyhJNZJUkwxm36haHEdl+/XcdPNBxpEcnG+U8WOsz1lp/kzS4eI50dfOik1KVS7ImI4dG6wBqPASpaLpfelSWFGs8p7IoedLt+zh7VUj0/03tG/L0OVuykY8dklAuG1ZPy1Mz0u414PD5crjCN00/+8rnnkh/8n9OGzPhTw21sxNSjIVIH9lKkjsVADjiKj5GDP/y7Ay9hw6r7r5fqRqx/u7o710qEzJyHf2v33Qxi/uMHemk9GV9dIguFOl9GeWDRD715bPffnYZrV6/fr2ENslVRoiUWqDUk9atW6cHteVSot4777xjLGHJkiU6rsmSpf2SSy6RPtIi7dbhzNiT0n4JstpGaUT6PPnkkzr46oVY9zRIFJMH6LAKOEB6Zz4XUU+2koQkh6FWD2HHxMToYWujcePGjfIYdbi3WbKR+H30cOyNnzktelRs+4dNxw5/WVsaEhM9Inn8kQOH9tXYHmTQ6+mvuEtF7dbM8+b99bGYh++xrvcoy0f+1HUP/WzWXOnjbPaWQ53SzSYpSsvLuz5xMRYpr3x5ERrbU7atcdO9510qA8Ty6S7r80DNZt2oRyFlPb+blqmc0yt8/4WXuVhhN0kc+cPcayTxyGrIysjDtL5Vipr2idnF+tuQgGWUDw3yB7h//36H/Y3naPRjP7d+jmQQvG+AeP73RrmM1JK85YHYJMW1H7zl7CEoq10YZZPq14bDnUetI/WJD/CEV4WO/jJ8fP6kZOWE0Vnv4yh3qicc7poppUqbkOf6+bJeYSlh7rnpP2U4+0DPYXk5WW8TXVR29qAAwNW5vqOmTz7y6pdvlBEjY4cX/WvkhNEHb1l59LXauCf/K+bOHxz508t9yfLEWZSnJI1J9UuGWeXTVKKYLhTpCoQ+PfoaC4czymew3llq7ty5UkesqqratWuXTfVCEpIaAF2ykvqozliSVq1vlVh27bXXbt682Sv35QuybWXjONwJ0hm9wSXQ66qksfElVro4mMlaVFSUzc/jfuc733FYgJStKjc5W86h5j3Vt63uau2LFCMmT5gwMy3xG2f1Hju+/febYk8aNzbrhN89ioj2/NSPknjkn7Ic3iGluzPGTtLtklokXuQ++/uT/zlaD9pakwh1/alnyYzy6X753/4gUUYvRKJe0dZKiTt6qNEhiYzyPccoutskdX1ferHycS7JQFZMMpks3+HhGga9wnou+xU2S+cMZQk0kn5kzFS363D8l8uvd1a3s1n/k0fYVulcV9oc0s+RvK6uf/kZ/RzJplj30bsyND/ZZXlVj25/4+Qp1pFalx5LZs1z9hCkffNVi+XkSgAAEABJREFUi5Vl8FrKdfqptN9l076Sav+qWJaVLSsgrwdZARcHMBmkm/yTR/foh28/+g3Hfx1SgTaquQb750sXIx2usH4hSQfJqTPHJz53xfc9qJQDGGxcxcehmacY8fHIpjejb7qiY+7S3s6uvqsVrw9b/G1lGc7WLcYsqj8yECxjxJII7Sth6enpepc7+TSVgGITAZOSkux/tNEgszz66KMy3qr3knR2znQX5wDymD5oWoaApQgqdTt9cIZ9N2fx1xRj61k36gDtekbZbhJT9CnmZWBauU0ql3rs3tSIuTZ06FCb+HiuhTLpgzUbj3Z2T/neRYda9+1779Mdf3lN/umbZtyx0KZzxDCnr2rrn2nSLfroK6l8W3eTT/q/NdbLB7ZNPebW0879r7df1kddGO16fNAYI74kaYqxf6SuzEloUAMjw7IySiulRGOXRyks6Zty/vJI1ZWLHMYmWRkps0l+tVlhj+nKmcQvHaHcCcc26//1kKjlj9h6RNWa/dNkr/jtKv0cybRkstZDnZJ+9E16E+kEb+2BmmopdkqF0rpR7wKodwd0n2QvvdemrLxUT61H5DWHrwq9y6P8M2qxEivNxjUZuTZeYHrg3tmTa/18yTZ3uMLSIsPWMs5e+uHbUoaUF9hzjR8NvGINIOy5GrwefcNl6qufEo6YnHD4109HZZ8ZOTE++sZcFTv8wMU/VPGj1GirPfaGRsV/P1e59Pnnn8untbPT69TX10vs08evlJeXS9HLODuMfJbIsLKLA2iUpUCoy35GDFXeIyugvqpB2tDHKcsQsH5QsubKN3TW8fjkRPpAGWWeTanVffJ0RER4OpZsZfS0ky5cfdsZy66e9cDi3Bd/dtHvl00vXJD5//LmPX3niBTbqo98pXG2HL1rgVS49bcI+QIjA/qS++fMmWP0kewon+5XpKTrD1H5QDXOuvKXHXVGtUwa9WlT9J5kT3/ygbJ8GMuHtN41TVfmLJlpQLUcuSPJQzqlySrpI4X1wcLTRo/T2VGfgUWXxKxXWNbKg/KeQ3IXVz73xKjoYQ/O/nKvFYfhWNbB5kQ21uuvh0RXv/+6PqRdyn4O9yXVT5P1abykBG69m4Tcyy/ff10/R7o6aGwWaVyWNdsoIRunttHD1lJltAlbsomkRuhOvJaoagRlyV4SiCVpKcvYt2RiXah2/aqQtTLWU5bmsNQnwVRKqtaD1HKn1qVH6SCvK72FjVP86MPqrU8PZPN8OVthmZZh61F2L1G946wCACdcVR+HpU8ecduVB1c9JdNHntty7N2PJTgO/3/f6+050ttxaOgVFx7b9tGx977e82zkT74XPS3JxQLl0/qWW26RT+uCggL7W/WJY6QOJClH7wFpXXqUgoRU3VavXi2f9Nbhafny5ddff73Moo/WHDdu3IwZM6TSJgOsUgI0CpBGN2WGcUy39brZF+GMcW25Ve7xwIEDxlXlPUbWcbj13KRLiU1NTa67yWOUD+8HHnhA/yymfuz6BzGVGUOGDImNjR346XtsDpEZMz1Z/jns2ffL10OHKOf06WCMl5bNQLzONEb+UJYBRCmS6WpfYmycxDWbz3u5KgUtqQLqPpIJJFHpytzBo0eMkpj1Mt0nIUCygqQH9wtC/a6wax9//LHxbcG6hK+TihF3jDpowmP3y+WIqKEyhG1fhrRf/9JvXCklNz2XbBNnj0ueJvnCpovlyjLy8Jvf/EbfpJ+jH51x/s8umK/cYxyU3TcAbdljUlKmDKz3e5YcZ+SR/mrOFXpp7r8q3Fmy5DwpDUqB0Nmzpp9f/brSAdRhN5vny+EKy5Mod6SfNQmUsqo2C/T4pAEAwl4/v3nde/hI82U/Pla7Q/UncvrkyVW/UkNOKGfa7BEoHn/88W9961t62vhxbuNWiSySb4yxYP2r3satkin1CWisRx6tlyBjstazFBYWGgciZGZm/v73v586dapxPjl94IvNVT3uLJcSlWTJo0eP/uc//6mXYOQMfaeS4azPMWnsIKi76V8ld3E+bYdkLikuGj9tbr/11q9fbxyv45r+XVqHq2odDXWLzUbQ22Hhwq8HhfXzohw9Zcqy2V08UnmB7d+//8iRfk7lbW+8+dONRwwbGnnSWOUz/Npv8AjX50IS7RUb1/3fxd/qd5cAn5Lcf9s/nv3bghvs67L8FfgHv7wcKGx5N0X0+xvBXW/Xf577U3X8uKtOkZGTXlgZM+NU1Z9QeetxGLxCSFBt56NHj8rgvjLJg/go2VESpPIZPjiDRxg/F3oMeuAHPA3EnW+8VLd/j8N14K/APwgxgcKWd1Nkvz1izk5P3fXn2B9eKRnR0QIiY2/9tnRwJzticIqKipo0aZKMYiufiYwfMeSUST7NjoB/yGC6zTlH/czFbqkAoEW51Wto1MS7F3V/9xudlW8efqv+6La+c0BEzZg2/JyMEfPOGZ45RQH9GTlyZExMzOHDh6UYKWPZ9j9IY9qQSDVsqETGiNhhEdHuvZKBoCfD1u9d+0MVOPrnHBUAONf/4LV3MfDhH2xnX2CrBg+ei0Bhy/sHQ6iBwpZ3U/+D1wAAAICB+AgAAAATiI+Au2x+QQcBxHMRKGx5AIr4CAAAAFOIjwAAADCB+AgAAAAT3Dpb3rEXXj688cXj2z/u3demBuyw8lzE2PjIU6dGf/ubUZderAJk41b1zGZV36T2HlABNG6UykhWV89R3zxXAQAA+E3/8bH7/v+N6FXDrrsm8tQpEWPHqIDq3bf/+EcfH3nplWM1/xz2k9uU393zuDreq35wmUpPVuNHqQDac0DV7VQvvqXe2a5uv04BAAD4Rz+nDZfsGDlmdPTN/6qCzOHfPNZ78ODwZX79bYZ71qmxcWrJlSqo/M/TqrNLFV1/QiOn9vUFTicbPHguAoUt7x9s50Bhy7vJ1b6PR194WdJlEGZHMezWG1XPkSMv/UP5y3NbpfgZdNlR/PtV6vBR9fxbCgAAwA9cxceejS9G5WSrYBWVc+GRZ19U/vLMZnXpTBWc5s5Uz1QrAAAAP3C17+Px7R9HnjpFufZZWcd3HrVMJQ955pHYk0689bWSjl9PHbYu324YdfPBWXcf15Pz/mvkfbPl/6475h+tPKFT5KoXR1ygnIlMT+v96GPlL3VNKj2pv04t6qo7VJ1l8j/uU99PPPHWN9RpT6nKX6iT7eb7ySJVoacy1Qc/6vv/1V+qW2pP6JN7i3rwPOXQ9Mnqw50KAADAD1xVH3v3tfV3rMzmg5IdJf9tfXHYj9Sx75R0Wd8oyXKp48HlnrJHj1vmGvnMTary7oOv9TXG3PdiX0vfv//qW61pNw29wNV9R44be3zvPuUvew+o8aP76fMTyY6S/x5Rlbnq53eoV61vk2T5W8dz7XpKVVjm+uA+lVGrfvJGX+OcH1laLP9y5fo49ePznN7vhNFqT7sCAACDQWdn53XXXVdTU6Ovtra2ZmZmxsfHJyYm6sZVq1bFWyxYsEA62y/BfhbpJp31XBUVFa5XYGDnffysSSqIkQv6aofRF81T6h/HXzNu23nop486my86/xFdcVQnJcsaHG88oXTWFy5lsT/MD7FDP1rUp1IjtDysk2erDKX+8sbXN/7hl19WJe2dfM2XFUeVqE5R6tMT64h94VIWe42DmiUAABhsJPmdf/75L7/8stFSXFxcUFDQ1ta2YsWKoqIi6VBnIS3JycmlpaX2C7GZRbKjdJPO0rJ+/frly5fLQlysg69OG951R8ExdXHktP76vVbVlxRTJls17Tz6t6Z+S4+hRUaify4RcFx//d7oS4qnTD6h7aU3+ik9AgCAQUJyniS/devWTZ06VbdI7bC2tjY/P1+m5bK9vV2S35o1axISEqQlIyNDcqTNQuxnef3115966qnCwkJpmTNnTkpKyrZt21ysxsDio64dbtwskz2vfL3fYk/ZoqOVyUN+8S8R/cy/+WDf6PbFkdZJ8bXHj20PwdKj+rJ2WNG3MdSuzV/XGqV8eEut+o8fqbP6W8BPLKPbV1onxTfUz/dSegQAAH3i4uKMaKi1tLRIydBhZ8malZWVkiBt2u1n2bt37/79+5XbBlh9nD3CsvNix6z5h3/Z9GUQ/Kysb/pH/2V7GI2drjv6jp6JXFUUY9240S5Qho4HLTsvnrZIzbPsM9AXBFvUv1WojFy7w2jsSIWywnJ8zBzrxs1fLQcAAMARKRYap6uUXCjpUE+/+uqrjY2NusroepY9e/aMGTPGOpXW19e7uMco6x0qPTnR9En5I7fmf3kk9Y/+RYJg1/9Zdnn8ZUHHL3WPRw/fkRyt93S09lpJ33HWNoPUn5X1NVqW46aenh7lJ25snET19CN9//9kkfo0ty8IvlpmKUNWqNO+2gl13i+/2tPR2huW46xtBqlb1C9r+6LnHOUW603RY6HgVQ73PkZA8FwEClveP9jOgRIkW97UqcsTExNl9Nk44bk+GkZZdpFcvnz5ypUrrUOhs1nS09P1LEZn3eJMlItVdPfHqfW5e6bdNCy/b6+9mPteVPfpG3YeuqHgmLppWF92tExvvzhqq6417jz063/0nevnFycMUltGwJOHXDRZuS3ofltFn7tnnKq8pu9a3wHUX93yh5/27QFZ+aOvpveq3z7yZTT8w1N9lzLAbT1IrUfA/2O2cpPNpuBXZ3yBXyMIHjwXgcKW9w+2c6CE4paXcWed/PTxLjoCFhcXS4lxzpw57swyceJEXbbMysqSWCnhUmdQZwZ+6IzlCGvJjutM7K3YU3b3se3yf9Ox78yXge+OWfqMP/qgmXlR/Y16u6OmpkYeuQRqvR+oi5uMI9UzMzNdH2fkjr4jrMc5PrmjM7ue6ouS4ud39A18yz99xh990Myl/Y16AwCAQSstLS01NbWqqkqm5VLCjITCioqK8vLykpIS6zQssUefx8d+ljPPPDM7O1tmkZZt27aNHj1a+ri4U1e/eS3BbuRW//2siwecraFsmptvvvmnP/2pPHg9IWna2U168y1dunTVqlV6wuF9Sar74BEVtGxWj9+89gV+CzV48FwEClveP9jOgRIqW16qXddcc83q1at1vJG6WG5ubldXV1JS0qZNm+QhXHvttZs3b9adY2JiJE1KT4mPTU1NGzZskA42s+gy5Ny5c5ubm43+LlYgSoWjhoYGZcnjsoFGjRqli7EOb/rkk0/eeOMNCZHKMsyvczcAAEDQkrRXXf31rxVLyDEOl9E2btxoP9eaNWtczCLLrK2tVe7x1Xkfg0dGRoazo4fkpu3btxtXZUT7wIED7LAMAADgQvjHx7q6OmdHD8lN06Z9fWZzieFSj2S8AAAAwIXwjI9SgN25c6eMU8tAvlRirY8esrlpypQpEhn17o8ycm1/ak0AAABYC9v4WFRUlJOTI3HwmmuukQF+fbR1RUWF/U3FxcWlpaXx8fFNTU0FBQUKAAAAznnz0JmeskWW355RX57HR58P0vCj0pH56tANdyXkNJ8AABAASURBVKtfPGL1gzQ77Vq8Izc31/oHeax3EbW5ydS+oqY8+7pasfbL6YLL1Y+v7ptY8it12bnqW+d/2eEPlep/fqj+/dfq+/O+bHzrI/XjNeqhQnXOqQoAACDYeC8+9v1W4ZSorY+c8IMxtueD3KkGmUuy1Op/U5/tVQUPqYvOcJwIR8ao/7lN/fv/qbOnqZPGqcdeUMu/R3YEAABBKjxP3BOERgzvi4bOyE0XnKbKqtS0k9XnbSrnLAUAABCcvLfv40n5UfP+cXTW/IOvWTVuf/TwLMvvypQNurqj9veavhN6L/xZX33RRXwUiy9Xr32g7v6DWnFtXz0SAAAgOHnz0JmY+14cubU04tfzO24o69FNMni9VRpfHJlv4mesw4kMXn/wiFp/e1+CfPZ1Vz0lMn5/njp/OsPWAAAgqHn9yOvJsetKh6jKo58pGKTumHeheuFNBQAAEOp8ceKept7tCtY6uvoGpqdYji6Xy+27vmyXiUnxDFUDAIBQ4s0jr43T9ESuerHvRDyf6X0fHz2sWy0n7pFweew78zt0S99x2RfatVgfqR3y9L6PyjKKrU/cs/hyddMD6rTn+qZPT1WPLlMAAAAhxFV8jBgb37tvf8TYMcodJ+WP3JrfT4tSsetetGmJtmtx0/G9+yLHjVX+Mm6U2tOuxo82Mcu3zv/yVI7WpNb4pztN9HfHFyZXDAAAwGOuBq8jT516/KOPVbA6Xt8QcepU5S/TJ6u6JhWcPtzZt3oAAAB+4Co+Dvv2N49sekUFq6MvvRKdl6v85aps9cJbKjg9/6a6Zo4CAADwA1fxccilF0fEDD/8m9+p4NPzf49GjBoZ9Y1s5S/fPFfFRKv/fUYFm1/+WcWPUPPOVgAAAH4Q0dvb67rH4Qd/3Xu4JypndmR6mj/3NXTo+N59MmZ9dNM/IkaPGvbvtyi/K3lSHT6i5s7sGyyeENDdDb9o7xuzlrqjZMefXmt7a09PT3R0OB2DFBQ6Ozvj4uIUggDPRaCw5f2D7RwobHk39R8fxdG/v3rk2eeP1X/cu3efCqiIcWOHpE+N+nbuUD/WHW3IEPbT1X3RbU+7CqDxo/si7NVz1HxHdUfioy/wthI8eC4ChS3vH2znQGHLu8mt+OhFxBr/YDv7Am8rwYPnIlDY8v7Bdg4UtrybfHHacAAAAIQt4iMAAABMID4CAADABOJjeOrp6VEAAAA+QHwEAACACcRHAAAAmEB8BAAAgAnERwAAAJhAfAQAAIAJxEcAAIBQ0tnZed1119XU1Oirra2tmZmZ8fHxiYmJRqOoqKgoLCx0uAT7WWSZCxYsiLeQGZVL3omPcsfZ2dmyKgoAAAA+I3Hr/PPPf/nll42W4uLigoKCtra2FStWFBUVSRCUxlWrVi1cuNDZQuxnKS0tTU5Olpb169cvX77cdahzFR8lhFqHVh1U+w2k/dp/+PCNf9/4aUe7sw7/+Kzpuy/+RbrJ9JPbP0hfv9b6391vbTZ6yq3WV3/46osyrwIAAAhHkvMk+a1bt27q1Km6RUp4tbW1+fn5Mi2X7e3tDQ0NOq1JT4cLsZ/l9ddff+qpp3TqmzNnTkpKyrZt21yshqv4uGTJkurqaiN+6gXNmDFDDcyPNm+qa9vn7FaJgzf/4/muo0f11eumnVa/cLH+J9Njhg3/fnqm0fnFpk/f3N2ig6ZcNnYcqPpspwIAT8U8fI8CgGAVFxe3Zs2ahIQEo6WlpUVKhjbdcnNzly5d6mwh9rPs3bt3//79ym2u4qNOikb8LC8vlxFqWWOJtHpo3GaI3R0bPql/7fPPnN0q1URliYz2N0k6lKSYO3nKKSNHGy17urvkX1tPt1x9b+/ups4Dnx5oUwAAAIOGFAslVuppyYWSDs3OsmfPnjFjxlin0vr6ehezR+kBci06Otr6trFjx1544YXPPPPMpZde+vnnn7///vsyjv7ss8/efPPNlZWVZ5111gsvvHDDDTdImjxy5Ehvb69cuv6tvFdbdz3w3pvfmjz1nb2fO+x8TUqaXJbUbJWlya09ERHGTX/79CNJigunpBtzfXGw49DRI0kj4qp37Tx5Svrfm3dMGz2m80jP5x0dY4YNs1nyYPsRP+unFd7CVg0ePn0ueKJdYOP4B9s5UIJkyxvBzh1Sy5PRZ1lzPZeu7pmdJT09XVl2UzQSpG5xJsr1Kt52220yhL1v3z6pakpQnT59+iOPPJKXl3fuuefKrfpShs9lPSIiIoYOHWoTQK192tFe9Fb1lanTLklKlfjoonNkZKQsLdpCt0ihUcqWUno8dex4o1tLd5dcXjUlfXNr8xWnnPpB216ZlvrlIXV8kt2SXaxYuDL14oOb2KrBw3fPBc+ya2wf/2A7B0oobnkZd9bJT+9waF1EdHOWiRMn6rJlVlaWxEoJl64zaD9HXqelpY0ePVrGr6uqqs477zy9TTMyMvStclUypXLP3W9WZ8SPLcqapcyr2PmxlB6t93oUuw52xEYNvSDh5INHjry/b/cIy7S0v9a6SwEAAAwCEtVSU1Mlp8m0XGZmZjqLj4WFhQsWLJB0aD/LmWeemZ2dXV5erix7LUr2kz4u7jRKuSQBcd68eY8//rhM//SnP9WNdXV1ekLWoLGxUblH7/J4xp9/r68urPzr+nnfNnZkdO3Fpk8letp03t6+f/zwGGk8ZVT8ox++J5cyLS3SrgAAAAYBiWolJSW5ubnFxcVJSUmbNm3ybBaZnjt3rgxkx8TEVFRUuK7CRvV7H/n5+aWlpZJJpZ4pV2XkWp8NSLJtWVmZshxhI1eNKqiz5dQvXKws+yC+tufzu9+qfuQbl0vakxFtyZESDR+7ZIGzGaXPzs4D/3VOtnWjPpLm3Il9ldWckyZX7PzkBxlnyrSESI6eAQAAYUziVnV1tXFVEprDw2VsDr5es2aNi1lkmbW1tco9/cdHWZxkR0mN+qpk1fr6ej1+rRNrgsWcOXPkJomrOmV6kQxGyyD1meMmWje29XQfOnpEgqNMy00XJSbrDtNGj9Gn8rE/egYAAAADF9Hb26v8SKqPg/AoFv8zDqeCF7FVg4fvnouYh+/puvkuBSf4K/APtnOgsOXdxG9eAwAAwATiIwAAAEwgPgIAAMAE4iMAAABMID4CAADABOIjAAAATPB3fOzp6VEAAAAIWVQfAQAAYALxEQAAACb086OFbW1tBw4c8MqIc3R09OjRo4cMGaIAAAAQslzFR8mOXV1dCQkJXvmZQcmge/fulfjIzwEBAACELleD11J3HDdunLd+olqWI0uTPKoAAAAQslxVH6Ve6K3sqMnSjhw5ogAAABCyOHQGAAAAJhAfAQAAYALxEQAAACYQHwEAAGCCF+LjgQMHioqK5FIBAAAg3A00Pn788ccXX3zxE088IZeffPKJAgAAQFgbUHysqqrKyck555xzPvjgg7POOksSZHV1tQIAAED48jw+Pv7441deeeWiRYvWrl0bGxv72GOP3Xjjjd/61reeeeYZBQAAgDAVpTzV1tb2wAMPFBQUGC333nvv9OnT2QkSAAAgjHkeH//t3/7NvvG6665TAAAACF+cuAcAAAAmEB8BwJWOWfMVAMAK8REAAAAmEB8BAABCTEVFxYIFCzo7O42r8V9ZtWqVi0ZrMrssRHfIzMxsbW111mjDVXyMjo7u6elR3iNLGzp0qAIAAICnJAsuXLjQuCoJb/ny5cXFxW1tbXJ5//3319TUOGy0WU5paWljY2OdhVyVbs4abbiKj6NGjdq3b5+3EqQsR5YWExOjAAAA4BFdR8zPzzdatm3btnfv3pycHJnWly0tLQ4brZcjVcbKysrs7OwEC5loamqS0GnfaNQ4Da5O3CNFS0mssiCvJEipZUoejYry/FRBAAAAg9zSpUvlsrCw0Gipr68fN26cpD2ZlkuZlhaZtm/Mzc015pJQKFXGefPm6asZGRnV1dW7d++2b5SecXFx1usQZZ8oT7g5Kmrs2LHKe1zfHbyF7ewLbNXg4dPnwn7hPPUGNoV/sJ0DJUi2vE1WC0JR/l/F4N8o4YHt7Ats1eDhu+fCZskdPO8nYmv4B9s5UNjy7uDIawAAgBCWnp6+d+9efYi0XMp0uoV9o/VcEpRTUlL08TFCJuTqxIkT7RvtIzXxEQAAIIQlJibKZVVVlb4cN27cjBkzHDbqk/Lo0/FIKExOTq6urm61kIl58+YlJCTYNxIfAQAAwkpWVtaKFSuKi4vj4+PlsqCgQFKgw0abGfVJeTIs1FdHcztstBHR29ur/Mj+4B34AtvZF9iqwcN3z0XMw/d03XyXdUvHrPkjt76oYMFfgX+wnQOFLe8mqo8AAAAwgfgIAAAAE4iPAAAAMIH4CAAAABP4CUEA6BPz8D3WEzYH0AAADFQfAQAAYALxEQAAACYQHwEAAGAC8REAAAAmEB8BAABgAvERAAAAJnDiHgBwrGPWfOsJfvkaADSqjwAAADCB+AgAAAATiI8AAAAwgfgIAAAAE4iPAAAAMIH4CAAAABOIjwAAADCB+AgAAAATiI8AAAAwgfgIAAAAE4iPAMJBzMP3KACAXxAfAQAAYALxEQAAACZEKQAIZcawtZ7ouvkuBQDwJaqPAAAAMIH4CAAAABOIjwAGC47OBhAGCgsL4y1kQrdUVFTolszMzNbWVvtZjA4LFizo7OyUFukmnaUlMTGxpqZGmUR8BAAACA0SBKurq+vq6tra2vRVCYLLly9fv369tKxcubK4uNhmFulQUlJSVVXV3NwsV0tLS+VSuhUUFMgsK1asKCoq0pnSfcRHAACA0FBfX5+dnZ2QkCDTGRkZ5eXlkg6liDhjxgxpkVJibW2tTQGyrKxMCo1ZWVlxcXFLliyprKzcsmWLdMvPz5db5bK9vb2hoUGZQXwEAAAIDenp6VJ91AFRapByKVFSiojbtm2T6ZaWFl2VtKa7WZPZ7buZEmW2XDlAfr67QYvt7Ats1eDh4rlw/TS5/yTa9+QFoNgI/sJ2DpQg2fJSJnR2U25urlQcpe6or0rtUOKjjFkvXLhQtyQlJdnPZfQXjY2N3d3dKSkpxr1IlJTcKeVJ5bYoF6voI/6/x8GJ7ewLbNXg4ey5cP0cuf8MSs8OT+cNb2wH/2A7B0rwb/k1FlJBnDt3rs6Fkil1NbGwsLCpqcnmIUgf6wKkBMfU1FQZsJasrHvqA2iUGQxeAwAAhBJJfosWLVKW6qPRuGrVqrKysiVLltgnYMmUurBaX1+fnJwcGxu7f/9+PQKuL/XOlO4jPgIAAISSZcuWbd68WcasjdhXUVFRXFwsaVIqkXK1pqZGCorSKNM5OTk7duxoaGiQBFlZWZmXl5eWliYFyKqqKrlVLjMzM4mPANCnY9b8fvtwJkgAIUeiYXl5+fr163VSVJZi5OrVqyU7yqC2ff+srKzFixdLiExKSpLSo8wl5cmSkpL7779fhq1LS0vtz/XTL37zGsBgxC9lAwhREgdbWlpmCKCWAAAQAElEQVSsWyQObty40UWfpRauF2IK1UcAAACYQHwEAACACQxeA4BjI7e+qCz7UOoJAIBG9REAzHHnoBwACGPERwAAAJjA4DUA9NEHX8c8fA9HYQOAa8RHAHCFHR8BwAbxEQDcZez1qCdIlgAGJ/Z9BAAAgAnERwAAAJhAfAQAAIAJxEcAAACYQHwEAACACcRHAAAAmEB8BAAAgAmc9xFA6Jnw5EOmfhsm5uF7rCf4XRkAGAiqjwAAADCB6iMAfI3CJAD0i+ojAAAATCA+AgAAwATiIwAAAExg30cA4aZj1nzriZFbX1QAAO+h+ggAAAATiI8AAAAwgfgIAAAAE4iPAAAAMIH4CAAAABOIjwAAACGjsLAw3kImdEtNTU1iYqK0yKVM289SUVGhZ1mwYEFnZ6e0tLa2ZmZmupjFNeIjAABAaJAgWF1dXVdX19bWpq9KHCwqKlqxYoW0yKVM64BokKRYUlJSVVXV3NwsV0tLS+WyuLi4oKDA2Sz9Ij4CAACEhvr6+uzs7ISEBJnOyMgoLy+3vjU9Pd1+lrKyMik0ZmVlxcXFLVmypLKycsuWLbW1tfn5+XKrXLa3tzc0NCgzOG04AABAaJCAKOVDKShKgpQapLToULhw4cJdu3ZJMXLlypXSYj2L7mZNZtfFS49RfQQAAAgNubm5Un2UumN8fLyUFa1vWrt27d69exMTE+3nkv7GdGNjY3d3d0pKipEyJUq2tLQoM6LMjnYPkJ/vbtBiO/sCWzWoOHs67Ns9axnIOoQx/gr8g+0cKEGy5W3KhzbWWEgFce7cuZILZWL58uXr16+XZCnVxxtuuGHTpk16dFuTPtYFSAmOqampMmAtD1bfkT6ARpkR5XoVfcH/9zg4sZ19ga0aPJw9F33tlh+57pg139mvXdvP6+Yz2+HRXGGGvwL/YDsHSkhseUl+ixYtUpY9FyU+Sv6bMWOGXJVLmdZD29b9m5qadFisr69PTk6OjY3dv3+/7iaX0sGmf78YvAYAAAgly5Yt27x588qVKxMsZPR527Zt0i6XMi0t+lQ+UoyUxpycnB07djQ0NEiCrKyszMvLS0tLkwJkVVWV3CqXmZmZZuMjh84AAACEDImG5eXlerRaWQqHkiMXLlwo0zExMRIZjZqilpWVtXjxYgmRylKt1HOVlJTIRHFxcVJSkgx2K5OIjwAAACFD4qDNkS4SBG2OpLbps9TC9UJMYfAaAAAAJhAfAQAAYALxEQAAACYQHwEAAGACh84ACH9dN98llzEP36MnAAADQfURAAAAJhAfAQAAYAKD1wAGI4azAcBjVB8BAABgAvERAAAAJhAfAQSXjlnzFQAgiBEfAQAAYAKHzgAYLDhKBgC8guojAAAATCA+AgAAwATiIwAAAEwgPgJ9ONo3mHn27Izc+qICAPgAh84ACCUxD99jPcHRMADgf1QfAQAAYALxEQAAACYQHwEAAGAC+z4CCBbGITJ6ws1jX/TujzEP38N+kADgH1QfAQAAYALxEQAAACYQHwEAAGAC8REAAAAmcOgMgODl2cE0AACfIj4CCF46L0p2JDgCQPBg8BoAACBkFBYWxlvIhFytqalJTEyMt1JRUWEzi7TomxYsWNDZ2Sktra2tmZmZ0iLzyhKUScRHAACA0CBBsLq6uq6urq2tTV/NyspqaWlpsyguLp49e/acOXOsZ5GkWFJSUlVV1dzcLFdLS0vlUnoWFBTILCtWrCgqKtKZ0n3ERwCBFPPwPQoA4J76+vrs7OyEhASZzsjIKC8vN26SCFhZWblkyZK4uDjrWcrKyqTQKClT2uVW6bNly5ba2tr8/Hy5VS7b29sbGhqUGcRHAACA0JCeni7VRykoyrTUIK1vevXVVxsbG2fMmGEzi003ZalH6uKlx4iPAMIBv1gIYDDIzc2V6qPUHePj46WsaH2TVCJlPFoXJm1If2NaImZ3d3dKSopRpJQoKcPfyowos6PdA+Tnuxu02M4e6HejhcdW7b30qoiXnlbBxNmGtW43pr+47sdyOeHJh/TEwJ+UgSxhEP6h8d7iH2znQAmSLW8z+mxjjYVUEOfOnWvkwpqaGqk+6oNpbEgf6wKkBMfU1FQZsJYHq+9IH0CjzIhyvYq+4P97HJzYzqZ0uLfFQnqrGudQlASpgukcisZW7XDebr/lvfVcmFqOszUcVHhv8Q+2c6CExJaX5Ldo0SJl2XNRt1RVVc2ZMycrK8th/6amJh0W6+vrk5OTY2Nj9+/fLwFUSpV6HNxhzdIFBq8BAABCybJlyzZv3rxy5Uod+/RBM3l5eUYHfTYffQafnJycHTt2NDQ0GN3S0tKkACmJU1lyZ2Zmptn4yGnDAQAAQoZEw/Ly8vXr1+fm5uoWiYYyGG1/0IwmJcnFixdLiFSWaqWeq6SkRCaKi4uTkpI2bdqkTCI+AgAAhAx9okeblurqahd9llq4XogpDF4DAADABOIjAAAATCA+AgAAwATiIwAAAEwgPgIAAMAE4iMAAABMID4CAADABM77CCD06B+8BgAEBNVHAAAAmEB8BAAAgAnERwAAAJhAfAQAAIAJHDoDIFiM3PqiXHbMmq8nAADBieojAAAATCA+AgAAwATiIwAAAEwgPgKOxTx8j01L76VXKQAABj3iIxDOOmbNVwgEtjyAMEZ8BAAAgAnERwAAAJhAfAQAAIAJxEcAAACYQHwEbMU8fI8+7NqYgLcE2/bsuvku5Q28TgAMKsRHAAAAmEB8BLyJ07X4Aj+BDQBBJUoB8AYjOOoJEo/HgnnT6XWTp5jnF8BgRvURAAAAJlB9BGzpwyliHr7HW8dVBATVUP8wDprREyH9mgEAN1F9BPonCUyHMGMCAICAKCwsjLeQCaOxs7NzgYVM2M9SUVGhZzE6tLa2ZmZmSktiYmJNTY0yifgIAJ6TcqOuOBoTAOA7EgSrq6vr6ura2tr0Vd2+bNmyefPmbdy4MS4uzmYWSYolJSVVVVXNzc1ytbS0VC6Li4sLCgpkIStWrCgqKnIYOl0gPgKDHfVUuK/30qsUgMCpr6/Pzs5OSEiQ6YyMjPLycvVViFy6dKnDWcrKyqTQmJWVJclyyZIllZWVW7Zsqa2tzc/Pl1vlsr29vaGhQZlBfAQAf+DU4gAGLj09XaqPUlCUaalBKsuw9erVqyUjOhuJ1t2syey6eOkx4iMAAEBoyM3Nleqj1B0lLEpklBYpHL7zzjvr1693MRIt/Y3pxsbG7u7ulJQUY5hbZmxpaVFmRJkd7R4gP9/doMV29oD9RnO2Gd3ZvMH2FLh+dP5cW/e3s6mF+Jk7j8IrjzQI8fbiB2zkQAmSLW+//6K1NRZSQZw7d67OhVOnTp0xY4ZM5OTkPPXUU/IorJcgfawLkBIcU1NTZcDa6KbLlsqMKNer6Av+v8fBie1sSoejLWa0dDhpt1lCv338yX59nK1hh8/W1uHptV1sZ1MCuIX7ebV8tS+p3k3QeguEwV9lR1g8ipDAdg6UkNjykvwWLVqkLHsuyuXo0aNd929qatJhsb6+Pjk5OTY2dv/+/RJAExIS9Di43pnSfQxeA55jbzYAgP8tW7Zs8+bNK1eulNin8+62bdvksqqqSqKktNTU1EhBUR9SIyXJHTt2yBi3JMjKysq8vLy0tDQpQEpnPUtmZqbZ+Mhpw4HwZP/zevzgHgCEAYmG5eXl69evz83NVZZy6SOPPCID2QsXLkxKStq0aZNNATUrK2vx4sUSIpWlWqnnKikpkYni4mI9izKJ+AggMPi9FgDwgMRBmyNdpHZYW1vros9SC9cLMYXBawAAAJhAfAQAAIAJxEdgcHFnx0f7Q4L4ZRpfYKsCCFHs+wgAvsVengDCDNVHBEbwnPJGKkC6CGRMAAAAF4iPAAAAMIH4CAAAABPY9xGA9xm7AegJTlQOAOGE6iPQP0k/OgAZE8EpsHuU8hOOADBIEB8BAABgAvERAAAAJhAfAQAAYAKHzgDwB06dDQBhg/gIDF4cHw0A8ACD1wgW/OILAAAhgfgIAAAAExi8BuAKA9xm6U0km4ttBSBcER8BwN8I5QBCGvERQGDog69jHr4n5I7CJu0BGOSIj4An7E9Dw5AlAGCQ4NAZAAAAmED1EYD3UYsFgDBG9REA4E2cwxUIe1QfAXyNnxaEtVA8sAmAH1B9BAAAgAlUHwHAt0L3FEXWOFclAAPxEYEX2I8l9w/yiHjpaQUAwKDH4DUAAABMID4C4UAGRvXBLsYEMBDuv6J4vQF+VlNTk5iYGB8fL5cyLS2dnZ0LFiyI/4pMS4vNXNZ9MjMzW1tbnTW6g/gIAAPF4ckA/EMS3g033JCXl9fW1rZixQqZNjLf7Nmzm5ubpX3jxo1xcXE2M5aWljY2NtZZyNXi4mJnje4gPgIAAIQGCYt79+6V+CjTOTk5Mr1t27Z+55IqY2VlZXZ2doKFTDQ1Ncmi7Bvty5YOER8BBFK41u04MBmAn23evDkpKUmGoSsqKmxuklAoVcaMjAx9VSbk6u7du+0b3YyPUW728xY/392gFRLb2dlKBmrlHe4p4rqDw5uCYeMb6xDx0tMu1sfmWPJ+t4By8ugmPPmQntC7wX1x3Y9d91cD3koh+k4SbK9597l+Jbj5OoH72ICBEiRb3n7o2SBlwnHjxpWXl+fm5lZVVXV1dRk3rV+/XhoLCwuXL18+Y8YM6al8JsrFKvqI/+9xcAr+7WysYYeTdn/qcHS/7rTYtHcEx5b31jrIcjx4dtzZGgNfw1B8Jwmq17wprl8JNusfJH8FoY5tGChBvuUlFK5bt05iYllZmVyVcqMkRVnnjRs36g4yri3hUgamfRofGbwGAAAIGVlZWS0tLXV1dZIdCwoK3ImJki9TUlL08TFCJuTqxIkT7RvdTM/ERwD+0HXzXXo3R2MCAOCZmpoaKTpK2pP4qFtkwFqfxEdKjzK6LZlSn5RHn45HQmFycnJ1dXWrhUzMmzdP+tg3Eh8BAADCjeTCoqKimTNnbtiwQac9vctmTk5OfHy8xEcZ3bYvSeqT8mRYyER+fr6zRnfwo4UAAAAhw3pPR6NlpYWLbhIoa2trbRblsNEdVB8BAABgAvERAAAAJhAfEW7c+QVef/5Kb8es+QoAgDDCvo/wNyO66QkOwgUAILQQHwFfMeqOeoJfsQMAhAcGrwEAAGAC1UcA/sO+CgAQBoiPAOAPRGcAYYP4CADon955t2PWfPbiBUB8BByjVgQAgEPERwAIXqFV7eNsA8AgwZHXABBKOBE9gICj+gh4E+UWAEDYIz5icOE3bxAqGAgGELSIjwAAAMHFKHb437TR4+46J+eaqae76MO+jwB8hYIZAISc7e1773mrynUf4iMABAsOiwEQDCRBuu5AfAQAAIAJ7PuI8Bfz8D0cIgN4RcRLTxvTHIgGBMQ73711+pgJMvHh/i9m/uk31jf95qJvpYyMv3zj49aN1007c1X25SOHRsv0Y3Xbbn3l2TvPyVmW9ONpYgAAEABJREFUNTs6cojRR7crt1F9BAB4x8itL+odXo0JAN4lATEpbvSil/+iv7bJVeMmiYlXOzreZU5iylu7d0n/n73zyhWp6dLt3reqRpeWSIv8e3nXp7sOdpQ1vK/MoPoI4Gu6gES9FgCCkxQXmzvbn9z+nky3HuqcNSlJt198UqoUFA/0HLafxSgrfty+Ty6njh5r3CRznRo/vrKp4R+f7VBmUH0EAHgTdUcEgwCe+ManGjvapPooFUSZToiNM9pXzJiz9fPmAz3dLuaVMuSwIVE6RGr5aWeMih72akujMinSevuGxPSx3t6QWx/pE7f2Xt+tQ4hOG45FRCT+4MKBL9PN7WzNK+vvos/ERdleua9+p41ioUzIP1/clzuPxVpIvA6tXzN+/ju12Z4ds+brw671tDrx70KmA/UeYi1snnemw3s6xjIma0yE4mNxQUqJUn185BtXylu93gNSWYawpYjoegBaCo3zktNkFFtXLjUpXtq0uCmit7dX+VFnZ2dcXJyCjwXzdrb5C5E/AJuTlQywdBFjN/Bq3WJ/73pC1qHf+7Xeqs6WY20gj8ud9bEX46VBZ+vluPMo3Nka3hXq7yT2W9WdFmNeP5T3nD2nZv8K4Bk+KwdiIK/M4Nny/aZJfUCMhL91H717/wXzH/7grXvfqnrnu7fKiLbNoTPacwv+RSLmopefMcap7zwn59/OOP9X779+r6OzPLrebpEKAAAAoUNKifecd6lMSHa84dSzxg+PvX3mRboe+Y2TT7E+nkaTpDg7cbLNPo4XTEqWQua9/Z0h3CEOnQHCB+UfABgMfjk79+QRIx+r2ybjztZDz7r6aJya58mP3pNpyZr/mj7j4/Z91qfmMQ6aUR4hPgIAAIQMiYZTR491/0yN+WlnSNaUf7rEoM8WedFJqcOGDPHgoBmN+AiEqhhOr4OA4jRPQEDIcLOzEWfjLOLWfSRl2gdNFwtxB/s+AkBoc/OAzQDit7yBMEN8BDyhz49jPQEEj3CNa8EflIHwMG30ONcdiI8AEP6o/wFwk2THu87Jcd2HfR8BeMI/Zx8EgMHJ2bhWRUXF8uXLN23alJCQUFhYKC1r1qyRy1WrVqWnp5eXl2dkZCxdutR6FutuMvvq1asXLVp011136YW0trZec8010piVlaXcFtXZ2an8yM93N2iF0Ha2X9WBr7z7yzTaI156ut/7ddjB/bU1+7jc6e+7J7rfLeZmHx8J9XcSeb3JZe+lV+kJd16xrre8Zy3uM+b1+K/AW0/ZIPkQ4bPSi0xtzCDZ8i5OXZ6bm6szor6an5+vLKGwsrKyoKBAbnI4l9FfNDY2dnd3p6SkGPfS1tbW0tJiLj76/+zqnEnfP0JlO8t6dti1qIGx/1WMCU8+pBx9mTN7X/b9XSxhII+rw73+vnuWjSV3OG93du/+ee2FwTtJh8vt7KDlqwFoyZ3qxF8AstkaHW60mGI9r6m/Aq/cu6n7Cht8VnrLwN/ng80aC6kazp07V3KhTJSUlEj50NmaS5+6ujrjqgTH1NTU9vZ24yd24uPjExMTlRkMXgMAAIQSSX4yAK0s1ceysrLa2tqcnBzjVhnFliKldf+mpiYdFuvr65OTk2NjY/fv3y+5Uw9eSweZUGZw6AwAAEAoWbZs2ebNm1euXCmxb+nSpW1fkTRZXFws2bGmpkYKijKoLZ0lWe7YsaOhoUESpIxx5+XlpaWlSQGyqqpKbpXLzMxMs/GR6iPgK3pskUNM4DvG7hl6ouvmu4wBbj3Baw8IPxINy8vL169fb1NidCYrK2vx4sW6PCn5Us8l490yIVkzKSlp06ZNyiTiIwAAQMiQONjS0uLwJn14tX2fpRZuLsQdDF4jeHGmOgAAghDxEQAAACYweA0AAMKHPkdbzMP38IuyvkP1EQi80Pol345Z8/V+BcYEQpF/njteLUBYovqIwYVvpQAADBDVRwBAMAqtqjwwqFB9BGCL0iwAwAWqjwAAADCB6iPCGXs6AoHFby/BP3if9zPiI0KVzVGc8uFk/wNuCoDb+AAG4CYGrwEAAGAC8REAAAAmMHiNUMU+VQAABATxEQgk9tdEqONFCwxCDF4DAADABOIjAAAATGDwGuGDszz6B3udAgge7AIUEMRHAECwIyIAQYXBa/iD8dYPAGHM5ucMgHBF9REAAo9dAkL9sRvBUU+wawfCG9VHIDRQwQUABAniIwAAAEwgPgL+Rh0RABDS2PcRAMIZ++QB8DqqjwAAADCB6iMQejgHHpzhCG4AfkD1EQAAACZQfQSAYEQdEUDQovoIBBeJC/oQB2MCgDP8jWAQKiwsjLeQCd1SU1OTmJho3WKjoqJCz7JgwYLOzk5paW1tzczMlBaZUWZXJhEfEUo45Q3Cm7cKjRQsgXAlQbC6urqurq6trU1flTi4Zs2abdu2SaPcJC02s0hSLCkpqaqqam5ulqulpaVyWVxcXFBQIAtZsWJFUVGRzpTuIz4i3HAcCQAgXNXX12dnZyckJMh0RkZGeXl5XFycxMcEC7lJOtjMUlZWJoXGrKws6blkyZLKysotW7bU1tbm5+fLrXLZ3t7e0NCgzCA+IhgxgAsg+DEeAv9LT0+XEqMUFGVayo3WN0mjhMKcnBybWWy66Z66eOmxKLPlygHy890NWkG4nZ2tkn276xZ3+nt2Lx4sRHn73s0+dtftvhAk6xM27ySevX6ctbu5tN5Lr9LT+rtZxEtPu39fHm953/2lBPbF4KO/Aj4rPTbA10aQbHkpEzq7KTc3VyqOUnfUV3UFUVl2f7z++uufeOIJqTLaz2X0F42Njd3d3SkpKca9SJRsaWlxOKMzUS5W0Uf8f4+DU7BtZ2frI+0dbrQY3/InPPmQshqh7nDvkdr38Wz7eLCcDjNzOXzs7sylfMbZ+nQEaH38fC8+1WHy9ePiteGsxeFcA3yNebDlzT5S99fHfi55r/DnHizuPzseLzl0BeS8AQN8rapQ2PJrLKSCOHfuXCMXSvjbunXrtddeO2/evKVLl1r3lz7WBUgJjqmpqTJgLVlZP1h9AI0yg8FrILjIu61+wzUmACDYMHAfWJL8Fi1apKyqj8oSfPWujfY11KamJt1YX1+fnJwcGxu7f/9+PQKuL/XOlO4jPiLwCEwYnHi1A54hvC5btmzz5s0rV66U2Cf5r7CwUKdDGdeWdCg5Up/KRx+FnZOTs2PHjoaGBukj4TIvLy8tLU0KkFVVVXKrXGZmZpqNj5w2HABClR6l9fNwbZAwDqrTE2Rx2AjjPwqJhhIT169fn5ubqyyFQ4mP06ZN6+rqmj179oYNG2z6y7j24sWL9SE1Uq3Uc5WUlMhEcXFxUlLSpk2blEnER8C3+FRDsAnX37Pht+AxSEgcbGlpMdWy1ML1LKYQHzEY8bkCBDOCIBDk2PcRAAAAJlB9hG+5X0UIxXE0/xRFqMQAwYa/SgxyxEcg2AX/4RGD+QAOABiEiI8AACA0UPcNEsRHAN7B+7gvcOQ+YI2xjiDBoTMAENr4HIWvcZpu2CA+AgCAgSJiDioMXgP+w147CE68MgGYQnyEv7HnCgAAIY3B6/5RkIf/ccAEACBoUX10hQEdAAAAG8RHAJ6gPgogGLBDVEAQHxHaCDEAAPgZ+z4CwGDEVy+ECo5ACEJUHwH/YZAF/qdjYses+UGbF2XdrCfItUDwo/oIAAAAE6g+AqGHKiYAIICIjwAQGoJ/GNoZxqOBMMPgNQAAAEyg+giEBsap4TvsDgHAFOKjJ0Jx8AjAYObOWxbZEe7w5++x8dtvQYv4iPDHOw4AAF7Evo+2jDOQAQAAwB7xEQDgb3xRB0Iag9cAEEpCfcdrfmMGCAPERwCArVDcY5jjxwG/YfAaAIDwZBy5HEJCcZ39rLCwMN5CJpy12KioqNAdFixY0NnZKS2tra2ZmZnSkpiYWFNTo0wiPpojoy16wMWYAAAA8A8JgtXV1XV1dW1tbfqqBEGZaLZoamqSFptZpENJSUlVVZV0kKulpaVyWVxcXFBQIAtZsWJFUVGRzpTuIz4CAGCLAgGCU319fXZ2dkJCgkxnZGSUl5fL9Jo1a+IskpOTpYPNLGVlZVJozMrKkg5LliyprKzcsmVLbW1tfn6+3CqX7e3tDQ0NygziIxBIXTffpffTMiYAAHAmPT1dqo+64ig1SOubpFFukg42s9h00z118dJjxEcAQDijjuh/7OjlO7m5uVJ9lLpjfHy8lBWtb5KrKSkpc+bMsZ9L+hvTjY2N3d3d0lOKkbpFomRLS4syI8rsaPcA+fnuPONsJe3bg/bhhMSKub+SQbLlvXin3npE/t8OQfLSCol3krDk9S3vzt+C2RYf/X1NePKhL677sTs91YA3lE/fbby7HHfe1c2ug2f35ZVHGiTvLUawc2iNhVQQ586da+TCmpqatWvXPvHEE/bzSh/rAqQEx9TUVBmwlgerO+sDaJQZUa5X0Rf8f4+mdDhfQ2nvsGtRwSo41816rVysYb/bOVCPzlv3661H5IftELSv+SB/JwljA9zy9q8oD/7eXc9l07/Do3XuMPN36otPB9+923h3OQ63/AC3hqn76ncus0LivUWS36JFi5Rlz0V9taioSOqOWVlZDvs3NTXpsFhfX5+cnBwbG7t//34JoAkJCXocXO9M6T4GrxEY7Oc3cGxDhKuB7BPM34X/xTx8jz7bjjEBX1u2bNnmzZtXrlypY19paakMSRcXFxsdpBgpBUV9FHZOTs6OHTsaGhokQVZWVubl5aWlpUkBsqqqSm6Vy8zMTOIjAAAIRuwH6RUSDcvLy9evX5+bm6ssx8FIfGxubtY7REoW1AVFg5QkFy9eLCEyKSlJSo8yl5QhS0pK7r//fukv81rnTjfxqzMAAJjDL9wggCQOWh/pIoXD2tpamz7SaN1nqYWLhZhFfAQAAJ4jTA9CDF4DAADABKqPCA18uwVglrGnnZ4YufVFhZDCO3/QovoIAAAAE4iPAAAAMIHBawAA8DUZ6x/gQL+efeDLQdAiPiIY8dYTPHguAFhjN0QoBq8BABg8wvXE3YRaPxvs1UeO5wKA4Gf/Rh0qdXE+ZRCWGLxGKOFdGIA19qkIZmafHeP3svUEb/jBjPgIAMDXOFsk0C/2ffyavFPoNwtjAoHFuzYAhDej4ojQQvXxaxxhCgC+ForvtINnUNW+8sqAMhwiPgIAMFAUIDCoEB8BAIHkLG+FYqGL7OgfFEEDjvgIAED445AgeBHxEb6lvyNy5jMAocJ+GJr3McAG8REAAP/xz/6R3jrkhegMhzhxDwAAAEwgPgIABjvOPgiYQnwEAACACYN330dOhQoA4LMA8ACHztjiXAYAAAAuEB8BAPCE61Klr+ua/vyFG4qysMG+jwAAADCB6qMrnO/KM/ZbjA0IIHj4p2432D5BeJ8fVIiP8CZ2QncHmwUYnPjZQIQN4iOA/vE5BwAwsO8jAABAyCgsLIy3kAnr9lUWDmepqKVWw5wAABAASURBVKjQsyxYsKCzs1NaWltbMzMzpSUxMbGmpkaZRHwEAADBix1+rEkQrK6urqura2tr01d1u0TJ4uJih7NIUiwpKamqqmpubparpaWlcimdCwoKZCErVqwoKirSmdJ9xEcAAAYvfrAxtNTX12dnZyckJMh0RkZGeXm5stQd8/Ly8vPzHc5SVlYmhcasrKy4uLglS5ZUVlZu2bKltrZW95fL9vb2hoYGZQbxEQAA+FbHrPn6gCFjAp5JT0+X6qMUFGVaapC6cenSpbm5uc5mMboZZHZdvPQY8REAACA0SEyU6qPUHePj46Ws6OZc0t+Ybmxs7O7uTklJkWKkbpEo2dLSosyIMjvaPUB+vjv3uV4xZ7eG6MPxm6DdPp7x6cMJs23la2yuQPHilvf/k2h9j+68q9v38WydPfgEcfOO3F8f14/FmI546Wm57L30Kj3hu+fI7HPhN0Hy3mIEO4fWWEgFce7cuda50BnpY12AlOCYmpoqA9byYPUd6QNolBlRrlfRF/x/j+5wvVbGrR1m5gqsYFi3YN4+nvHdIwq/beVrbLFA8cqW7/DLM+jsHdvFvbvu49k6e/YJ0u99mdqG0tPFvdssxxfPjvv33m+7r4XEe4skv0WLFinLnovu9G9qatJhsb6+Pjk5OTY2dv/+/RJAExIS9Di43pnSfQxeAwAGC/bAQ3hYtmzZ5s2bV65c6Sz21dTUSEFRH5edk5OzY8eOhoYGSZCVlZV5eXlpaWlSgKyqqpJb5TIzM9NsfOS04QAAACFDomF5efn69etdHC5jLSsra/HixRIilaVaqecqKSmRieLi4qSkpE2bNimTiI8AANjil5YQtCQOOjzSZc2aNc76LLVwZyFuIj4CADAYGWd81BOcnRvuY99HAAAAmED1EQg8vvQDAEII1UcAAACYQPWxf1SGAAB8FgAGqo8AAAAwgeojAADwN477DmlUHwEAAGAC1UcAABB4ugApxUgqkcGP6iMAAOHAGA4GfI3qI7yJ744AAIQ94iMAAL7Cd2mEJQavAQAIpI5Z8xUQUoiPAAAAMIHBawAAAsOoO+qJkVtfVEAoGFzVR45KAwAAGCCqjwAAhBsO2YFPER8BAOFJjwXLuDCDwqb4Z3NxoreQxqEzAAAAMIH4CAAAABMYvAYAILQZB4bqCYaD4WtUHwEAAGDCYKk+8s0MAADAKwbv4DXHfAEAAHiAfR8BAIBvcRKlMEN8BAAMFoQYwCs4dAYAAAAmEB8BAABgAvERAAAgZNTU1CQmJsbHx8ulTOvGioqK+K+sWrXKfq7Ozs4FCxboDpmZma2trc4a3UF8BAAACA2S8G644Ya8vLy2trYVK1bIdKvF8uXLi4uLpVEu77//fiNWGkpLSxsbG+ss5Kp0c9boDuIjBso4pyYAAPApSYp79+6V+CjTOTk5Mr3NQibkqm6Uy5aWFuu5pMpYWVmZnZ2dYCETTU1Nsij7RunpzmoM9vjISR8BAEBIq6+vHzdunERAmZZLmZYW6w4SCqXKmJGRoa/KhFzdvXu3faOb8THKzX7e4ue7c8ZbqxEkD8dewJ/WoN0yAxGWDypE8VwEihe3vD+fRBfvUV9c92O5nPDkQ3rCp2sV8dLTctl76VV6wsVaubkazrq5M3ug3rf7vV95IgL4Bx4k7y1xcXHObtLpsLy8PDc3t6qqqqurSwVClItV9BH/36MX16HDS8vxA3+um/19BfOWGYhwfVyhiOciULyy5Tv8+Aza31dHQN+1rO/dxWdKv+vjYhs6bO/388sPWyCwW95NQf7eIvFx3bp1kh3LysrkalJS0owZM2xqjX7Avo8AAAAhIysrq6Wlpa6uTrJjQUGBBMr09PS9e/fq46b1zpHSYj2LZOKUlBR9fIyQCbk6ceJE+0Y307O/46MMECgAAAB4qqamRoqOkvYkPsrVxMREuZSxbH0po9tyqz4pjz4dj4TC5OTk6upqfZi2TMybN09yp31jkMZHAAAAeExyYVFR0cyZMzds2KDTntQjV6xYUVxcHB8fL5e6JGkzlz4pT4aFTOTn5ztrdAe/eQ0AABAyJDJu3LjRpnGphYtuEihra2tt5nLY6A6qjwAAADCB6iMAAAgMzr4cooiPAACEko5Z860nRm59UYWIEFpVuEZ8hPfxbRIAgDAWzvs+8lvMAAAAXue/6qMR5vQEBSoAAIBQxOA1PMdXAgAABiHiIwAgnHG4BuB1nPcRAIBgx978CCpUHwEA/kZFEAhpVB8BAABggm+rjx2z5vMVEwAAj/nuIEW9KFksBz7CLKqPAAAAMIF9HwEAg11old/0sJ71+B51RPgZ8REAAP9hny6EAc/j48C/5Rg/+q7xFwUAABD82PcRAAAAJhAfAQAAYALxEQCA4NJ76VUKCGLERwAAAJhAfAQAAIAJxEcAAACYQHwEAACACcRHAAAAmEB8BAAAgAn8aCEAAKGHn2pDAHmz+hjz8D0KAAAAYc3d6mPHrPkuvugYwVFPDPC3sAEAABC0wmffR+vap0zrq8YEAADBRuoyujRjTAD9WrVqVbzFggULOjs7paWiokK3ZGZmtra22s9idDBmkW7SWVoSExNramqUSb6Kj1KtlH/WEwAAINgwYBhaJOqtXbu2qqqqublZrpaWlkoQXL58+fr169va2lauXFlcXGwzi3QoKSmxnkUupVtBQYHMsmLFiqKiIp0p3ceR1wAAACEmLi4uOTlZWdKhFBFnzJgh01JKrK2ttSlAlpWVSaExKytLZlmyZEllZeWWLVukW35+vtwql+3t7Q0NDcoM4iMAAOGAOuJgIClwzpw5ubm59957b3V1tYS/hIQEKSJu27ZNbm1paZFpm1nq6upsWiRf2nczJcphuXLCkw99cd2PbRrtezordbrT0/2luW8g6+Pdewy4gKxY0G4Nbwn7BxhCeC4CJWy2fLA9kIF8wnrrHqGCZrNImdB1h66urgcffHD27NlxFjJmvXDhQn1TUlKSff+MjAxjurGxsbu7OyUlxbgXiZKSOyWYKrdFOVtFm/YORw/Gxbwd/fV0p49ZLtZHfyeLefieAX45c7bOro9MD4iBb8/gv0f/GwyPMVTwXARKOGz5IHu77nDvM1fzfPtzaI57gvwVXlFRIUVHKShK0bGwsHDZsmVr1qyRYqSuJkpLU1OTzUOQ7GhdgJTgmJqaKgPWkpV1T30AjTKDwWsAAIDQUF9fn52dLdlRpvPy8iQsGhXTVatWlZWVLVmyxD4BG91k9uTk5NjY2P379+tdJPWlXqD7iI8AAAChIT09XaqPOvOVl5dLFtRhUaqSxcXF+fn5UolUlgO0paAojTKdk5OzY8eOhoYGSZCVlZUSOtPS0qQAWVVVJbfKZWZmptn42HfacLNDupwkHAAAwP8kHUpq1Psyzp49e8OGDcqyy+bq1aslO8pAtv0sWVlZixcvlhCpLMdZ63xZUlIiE5I4k5KSNm3apEzyzm9ee2vPQgAAALiwxsK6RQqQGzdutG6RyNjS0mJcXWrhooNZtvHRvrJonPRbT3BafAAAgMHMO9XHwGIwHQAAwG/CIT4GFtVZAAAwqNjGR/ZiBAAAgAucuAcAAAAmEB8BAABgQpQ+3MQPB50wLA4AABAGPDl0hvwHAAAwaDF4DQAAABOIjwAAADCh/8FrfSLDjlnzOaMhAABex8crQg7VRwAAAJhAfAQAAIAJoRofjd+5NoVjxgEAAAbIm795TTgDAAAIe96Mj4Fif0JyTlEOAADgI+z7CAAAABPCofroT5zGCAAADHKO4yNjvgAAAHAonKuPhGAAAACvY99HAAAAmOBufAzsrn4ds+YrAAAABAFfDV5ziAkAAEBYYvAaAAAAJnDiHgAAgoWxs5aeYAQPwYnqIwAAAEwgPgIAAMAE4iMAAABM8G18ZKcNAAAAL1q1alW8xYIFCzo7O6WlpqYmMTFRWuRSpu1nqaiosJmltbU1MzPTxSyuhU/1kd+Y8QXOuAkAQPCQqLd27dqqqqrm5ma5WlpaKnGwqKhoxYoVbW1tcinTOiAaJCmWlJRYzyKXxcXFBQUFzmbpF4PXAAAAISYuLi45OdmmMT093b5nWVmZFBqzsrJkliVLllRWVm7ZsqW2tjY/P19ulcv29vaGhgZlRuiduCfm4XusJyg6+plsdrY5AAABISlwzpw5ubm5t912W3V1tRQRdShcuHDhrl27ZJB65cqV0mI9S11dnc1CpB4pdUc1ACfER7OlS884uxfX9+7ZXL4TbOtjw4urYb+oIH/svhP2DzCE8FwEClvez9x/B4ZXBMnmtcl/9rq6uh588MHZs2db95RB7ZiYmMTERPv+GRkZxnRjY2N3d3dKSooxr0TJlpYWCabKbVFSSfJzPclY3Q4n7fY6nN/a7yb2hQ6PHoWfeWVNHG75oHou/GwwPMZQwXMRKGx5n+r3M4Xt72tBvoWlvihFRykoJiQkFBYWLlu2TAqQy5cvX79+vZQk5dYbbrhh06ZNcqsxi2RH6wKkBMfU1FQZsJasrB+sPoBGmRHs+z52zJqvj94wJgAAAAan+vr67OxsnQ7z8vKampo++eQTyX8zZsyQFrmUaRmbtplLuunCqsyenJwcGxu7f/9+3U1fWsdNd3DoDAAAQGhIT0+X6qPOfOXl5ZIFp0yZIqPP27Ztkxa5lGnJgvpUPlKMlMacnJwdO3Y0NDRIgqysrJTQmZaWJgXIqqoquVUuMzMzzcbHYDx0JvgPzuB8lgAAwP9khFpSo96Xcfbs2Rs2bJAB6JUrVy5cuFBaYmJiJDJKFrQuQGZlZS1evFhCpLIcZy1LkImSkhKZkIHvpKQkGexWJoXekdcIHjrlcyw2AAB+s8bCukWCoM2R1BIZW1pajKtLLVx0MMvf8fGL636sAAAAELLY9xEAAAAmEB8BAABgAvERAAAAJhAfQ4/9+S/tW3ovvUoBAAD4QHDFx5iH79G/ZG1MwHcnS+c07AAAwANUHwEAAGAC8REAAAAmcNpwAACCF7/LgCDUFx95aQIAAMBNDF4DAADAhOAavOY3lIPnsRvHZeuJkVtfVAAAAIGNjzqRSDohmvgZ0RAAAHiMwWsAAACYwJHXoSSwVUPjRO56giOuAAAYnIiPcBd7pgIAAMXgdWDxw4wAACDkEB8BAABgAvERAAAAJrDvIxxz/7RK7AoJAMCgQvURAAAAJhAfAQAAYALxEQAAACYQHwEAAGAC8REAAAAmEB8BAABgAvFxsOAXbgAAgFcQH32lY9Z8BQAA4FWrVq2Kt1iwYEFnZ2dNTU1iYmK8lYqKCptZpMV6FmlpbW3NzMyUFplXlqBMIj4GC6kO6gKhMSEBVGdQY8IP66AAAIEzcuuL8i/ipaf1hAJOJFFv7dq1VVVVzc3NcrW0tDQrK6ulpaXNori4ePbs2XPmzLGeRZJiSUmJ9SxyKT0LCgpklhUrVhQVFelM6T7iYygx3k2MCf9HTAAAEHBxcXHJycmC+HvbAAAQAElEQVTWLRIBKysrlyxZIjdZt5eVlUmhUVKmtMut0mfLli21tbX5+flyq1y2t7c3NDQoM4iPAAAAoUFSoBQXc3Nz77333urqah0BtVdffbWxsXHGjBk2s9TV1dm0SD1S6o5qAIiPAAAAoaSrq+vBBx9MSUmxLjSWl5fLeHRCQoJ9/4yMDGNaImZ3d7f1vBIlZfhbmRFldrR7gBzenX2js7Vyv2egWK+PO+vm2SN1MVfvpVfpaT2WHfHS0xOefEi36F0bv7jux6aWHPzb3G8G7QMPQjwXgcKW9w+2c6AEyZa3GX22VlFRIUVHKShKTCwsLFy2bNmaNWuUZZ9IqT5Ki/0skh2tC5ASHFNTU2XAWh6sviN9AI0yI8rFKvqIzT12ONpMRkuHy3mVy03sH87WsMO9dXPWR9rdWvJXe0Aae1i7s8Vc9DH17AxCg/mxBxuei0Bhy/sH2zlQgnzL19fXZ2dn6xJjXl7e6tWrdQqsqqqSQW0Z2nY4V1NTk+4msycnJ8fGxu7fv1+GsGU5cikdHNYsXWDwGgAAIDSkp6dL9VFnPhmtliwooVAfNCNp0uimz+ajz+CTk5OzY8eOhoYGo1taWpoUICVxyq1ymZmZaTY+RikAAACEgtzcXEmNel/G2bNnb9iwQSYkGspgtP1BM5qUJBcvXiwhUlmOs5YlyERJSYlMFBcXJyUlbdq0SZlEfAQAAAgZayysWyQgSknSpsX6aJilFi46mMXgNQAAAEwIxupj1813KQAAAAQlqo8AAAAwgfgIAAAAEzh0xn9iHr7H1Lj8SLtzOgIAwkn3H8usrw7/Xr4aNH71/tvWV//tjLMVQgfVRwAAAJhA9TEw9O8HGhMcLQQAAEIF1UcAAACYQPUxWOgCpNn9I72FaigAAHAT1UcAAACYQPVxMOKYbgAA4DGqjwAAADCB+AgAAAATiI8AAAAwIfD7Pobf7ncds+ZbT7B/IQAACCdUHwEAAGAC8REAAAAmEB8BAABgAvERAAAAJnDa8MGLY3oAAIAHgj0+8vsoAAAAQYXqY7AjNwMAgKDCvo8AAAAwgfgIAAAAExi8DgcMcAMAAL8hPgZG1813yWXMw/foCS/y7sFGBFMAAGCD+AhzvJ53AQBAaCE+BhJRDAAAhBwOnQEAAAgZq1atirdYsGBBZ2enbpSJBRZGi7WKigqbWVpbWzMzM6UlMTGxpqZGmUR8DC7UIwEAgDMS9dauXVtVVdXc3CxXS0tLdfuyZcvmzZu3cePGuLg4m1kkKZaUlNjMUlxcXFBQ0NbWtmLFiqKiIoeh04XQG7wmYAEAgEFOYmJycrKeluKiXC5dutRhz7KyMik0ZmVlyfSSJUtWr1593nnn1dbWSoKUlvz8/KeeeqqhoUF3cBPVRwAAgNAgIW/OnDm5ubn33ntvdXW1hD8pHEoilIzobCS6rq7OpkXqkVJ3VANAfAw9nEwHAIDBrKur68EHH0xJSZEapBQO33nnnfXr17sYic7IyDCmGxsbu7u79by6RWZsaWlRZkSZHe0eII/vzs/r6TH79bRu8eejcHZf7qxDqGxtP2OzBA+ei0Bhy3vX8Z4e66tHrQ6DUOGu58THHiQPOUhWw37/RYOMU0vRUQqKCQkJhYWFy5Ytk8upU6fOmDFDbs3JyZGRaHkU1kuQ7GhdgJTgmJqa2t7ebnTTZUtlRpSLVfQRD+6xw6O5/KP7JzfJ5ZEHHx1qmRgeF9dxYgfrNff6o+j+Y5n11eHfy9cTLraYw3bfncY8zATt63AQ4rkIFLa8F3VHR1tfHe7Lz4tgE33iYw+exxvkW76+vj47O1uyo0zn5eXJsPXIkSNHjx7teq6mpiYdFmX25OTk2NjY/fv3yxC2LEcupYNeoPsYvPYHiWXyz3oCAADArPT0dKk+6sxXXl4uWXDSpEkyvW3bNrmsqqqSKCkxsaamRgqK+pAaKUnu2LFDxrglQVZWVkroTEtLkwKkdNazZGZmmo2PnDYcAAAgNOTm5kpq1Psyzp49e8OGDRIWH3nkkblz5y5cuDApKWnTpk02BdSsrKzFixdLiFSW46xlCTJRUlIiE8XFxXoWZRLxEQAAIGSssbBukdphbW2tdYtERuujYZZauOhgFvEx/LFfIwAA8CL2fQQAAIAJoVF95EyHAAAAQYLB6/AU8dLTNi2MXAMAAK8gPvoDex8CAICwQXz0Pj3U3jFrPmPuAAAg/HDoDAAAAEwgPgIAAMAE4iMAAABMYN9HfI0jewAAQL+oPgIAAMAE4iMAAABMID4CAADABOIjAAAATCA+AgAAwATiIwAAAEwgPgIAAMAE4iMAAABM4LTh5nT/scz66vDv5Su3cVJuAAAQBqg+AgAAwATiIwAAAEwgPgIAAMAE9n30lZFbX1QAAABhh+ojAAAATCA+AgAAwATiIwAAAExg30fvG8i5IQEAAIIc8RH+9qv337a++m9nnK0AAEDoYPAaAAAgZNTU1CQmJsZbVFRUSEtnZ+eCBQvivyLT0mIzl3WfzMzM1tZWZ43uID4CAACEBgl8RUVFeXl5bW1t+fn5y5cvNzLf7Nmzm5ubpX3jxo1xcXE2M5aWljY2NtZZyNXi4mJnje5g8BoAACA0SHyUwJecnGx2rsrKyuzs7ISEBLkqE01NTZI77Rulp330tEf1EQAAIDRI1CsoKCgrK5PhZrmUaR3+xObNm5OSkowRbWs6dGZkZOirMiFXd+/ebd9oP+rtEPERAAAg5K1fv95+RNtHotyMmd7i57vzuuM9PdZXj3Z26pYIpXosE0aLdR/lM87uK5i3c8+J6xxCL4lQf/WGE56LQGHLe1covod7S3B+FgTJargYPq6pqbn//vuLi4uXLl1aWFgo0zk5OVlZWRs3btQd8vLyysvLJT4aVUlfiHJnhNu7/H+PXtQdHW19dXhcnG45olS0ZcJose6jfMbFfQXtdo4+cZ1D6/UQ0q/eMMNzEShseS8Kxfdwbwnaz4Ig3/ItLS1dXV3p6ekyLfFRkqK0SHx0PZc8qJSUFH18jJAJuTpx4kT7RjcfPoPXAAAAoSExMTEmJqa+vl6mq6qqdItcyoC1FCZlQgLluHHjpPSoT8qjT8cjoTA5Obm6urrVQibmzZsnfewb3YyPHHkNAAAQGqTQ+Oijjy5cuFCfZGf9+vXSosfcZRRbLiVcVlRU6PhoPaP0nzt3rj5QJikpKT8/31mjO4iPAFzhRzgBIKjk5ua2tbVZt0jJcKWFTaOxQ6SyHLJdW1trsyiHje4gPgYv+49tzz7I+ZFAAADgRez7CAAAABOoPgIAAN9iN5gwQ/URAAAAJlB9BACEJypegI9QfQQAAIAJVB8BAEAw4swhQYvqIwAAAEwgPgIAAMAE4iMAAABMYN/HwGB/DgBAuOKY97BH9REAAAAmUH3EYMe3ZAAATCE+wrcYpgeA8Mb7/CBEfARs8VYIAIALxEd/CMU4wpAuggGvw0AJ/nctXhtAABEfAXyNymto4fkCEBDERwDwNypngD2+DoUQ4iMAAEBwSV+/VgWBU0aO/n9nnnP55Ck27cRHILhQlwIA91Gz9KlPO9r/9723iI9wjD8/AAgVfMmEP0mCtG/kV2cAAABgAtVHAACA0PP0N79TtWvn/544fqjlpU77Sda5D9a8Wb5j+2OXXH7BpJONmw4ePXL3m5ulXabvO+8iubzjjVf0LDefdta9b295/fPP+r1r4iMAIJAYigU8IMnv1NFjJT7a3/T/zjj75tOyeo4f01dv/PtzeuL8SSf94oKcTw606ewokuLiJgyP1dMpI0eNGx4zKWaEcgPxEQDgP56FRfbPBqxJQJQs2Hmkx/4mKSJelnzKk9s/+HZqms1N501MjI4c8swn240WyY6JI+JkFgmUMydMihsaLSFSuYH4CADwFSqLgNdJcJSAKIHv+mmn2d8q7fLv/zn6iiVz7e3uMkqPspxhQ6L2dXefOzHx866DEiU/at83keojfC0U6wHUMACElsC+a/E+H4TuPPvCL7oP7ew4YGouKTHK2LRUJY0WGaeOHhL5ymfN44YP12PWOw60y3C2O0sjPg5G1AOCB3EWAOC++867aGR09L1vb3FzJ0XDd6ZM6zl+7I3dLUaLFB3lsqF9/4zx6ReflCyRdEdH+5njJkpVst+jZ4iPAAAAIUCC3UUnJUlw/P0lC3TLjRlnNHYcMMajXcw4ZVS8FBqtc6EUGjt6eh6rf//bp6Slx499oelTWZTUI90JpsRHAACAECDh76K/PKmnZTD6P2eeL4PRkh2lJHnlKdMe/qDG4Ul81FcHzbxpVXpUluNmpOIoEx/s2yupVBcme44dd+foGeIj4CvsJAAACAYzJ0yyPmhGWeqRMgi+bc9umZZYKbVJyabSKNXHiVQfAcCn2HvVF9iqQL/0EdZ6+o43XtGn/jZIGdK6Emmc+tFgXcg0FmXd6FpUZ2en8iM/353XHe854RxLRzs7dUuE1HstE0aLdZ+eE1s6HbX8tv5965Zb0s9wdl/9tPzlaWVZmePR0TIReeVV9vflzhra91F27Odyp487c/mOZ1vDZsJNnm1Dd+bynWBbH2f3HjzvJJ69nr21VX331+S7vwJ3Wtx533BnGwb21esOd17hgf2r9Ox93lvPsv8/ZYLkvSXOvcOfAyjK/6sY/BvFhW5LJjMMj4vTLUeUirZMGC3WfaJPbIlzr8XZfbnZYqyPO0t2p4+yYz+XO33cmct3PNsaDqf75dk2dGcu3wm29XFx70HyTuLZ69lbW9V3f02++ytwp8Wzd0jlxr2rIOPOK9x3f5XuVHk9e5/31rMckE+ZkE4pvnDKyNH2jQxew13uvNEw5OQfwb+d2e8TAMKAZMf/d+Y59u3ERwDwLb5WIRjwpS601C9c7LC9oqJi+fLlmzZtSkhIKCwslJY1a9YYt0pLRkbG0qVLa2pqcnNzH330UbmU6euvv/6JJ55IS0u79tprlyxZMmfOHJmYN2+e9Fy1alVdXZ31QtxBfPSOoT+5SQH98WeMcOejIjw+TghnAAYPiYPl5eWSEWV69uzZGzZs6HeWrKysxYsX5+TkyHR+fr4sQSZKSkpkori4OCkpScKoMon4CACBR2UIgJvWWDi7SU9IZGxp+fosj0strHvadDArUgEAAABuo/qIYEQlJvwwxAxf4zUG+E3oxUfeIMIPYTG08HwBwCBH9RFAsCCYwv8oSQAeGLzxkbeMUBfYqMHrZ3Ai4AKAiLL+FOQjEIAHPAvTRHAACFEMXgMIN9QIAc/wtwM3ER+B/um31OM9PfpnW3lLRQghEFhjawwc4wZQxEcAAPyD8IqwEcj4yB8SvMv+OzHfkq3xFxdaeL4GJ2+NdYTrux/v6kEiuKqPvCwA+EcovtsQKAEECQavAcCbCHkAwl44xEdqlgB/BQAAv6H6CADhg9onAD8gPgJAHyq4AOAm4iOAUKJDXk9PT7TluFRCngfsK5TuROfBc/ZTb1VwUJjVPAAAEABJREFU+UKCMBapAAAAALcFe/WR/XgAAACCCoPXgHfwVQcAMEgQHxEa2IsICDb8VQKDFvERAOAd1OCBQYL4CABAaKMSDD8jPgIIf3y4wrvsX1FUXjGoDJb46P5ZzQz88SNIEH0AAEElPOOjtz5u+dgGAACw4av4SCUPAAAgLHkSHz2ryfFTYwAAAGGAHy0EAACACcRHAHCs+49l1v8UBisZPbP+p4CAWrVqVbzFggULOjs7paWmpiYxMVFaCgsLHc5SUVFhM0tra2tmZqa0yIwyuzKJ+AgAABAaJOqtXbu2qqqqublZrpaWlkocXLNmzbZt2+rq6qqrqyUp2swiSbGkpMR6FrksLi4uKChoa2tbsWJFUVGRzpTuIz4CAACEmLi4uOTkZD0h8THBIjs7u76+3qZnWVmZFBqzsrKk55IlSyorK7ds2VJbW5uf33dYs1y2t7c3NDQoMzw5dMado16Gfy//+BdfHGvcceyTj6OyZjicyzgc+/ju3T1Vf3fdx/7evTWCYCzQ4X0dOX78ucaPd3YeUB6JPDlJOXpcFyacvKV1l8PVMFivz5HXtigAADC4SQqcM2dObm7ubbfdJrVGKSIaN0mVUUKh/fi1VCVtWqSn1B3VAET19PQYV+xLlxJUlaciJ0yQf72jR0elnuK65+H6uiM9PUc7O03dnV5zWWfrh+Bxi42dO3c+//zzl1566dSpUy85OeVhS1SVuY6fONfRfls+/WTohbMjIiJsln/62PFVOz81rh4+fHjYsGE2fT799NOXXnpp7ty5qampQy+40NS9G4/uqKPHbj+XZ3281eLO4/LdGrp/X2a3qmdr6LvH5a3t7Ltnx/37MuYN+Db01t+XP5+vgTw7A/8r8OdfSmBfvQPZPgN/Dw/sO7+3nmVvtSi3dZocw/WRfuNQV1fXgw8+OHv2bKOnDGpff/31TzzxhORL+/4ZGRnGdGNjY3d3d0pKijGvRMmWlhaHMzoTpU+j43p14+PjVX90jP3888/vuuuuv/+9r5R4ySWX3HPPPZOmnaofVU5Ojs0ssqIyEt97+HBEa4usxvCv7r3fu9P3pddc1tn6IXjcYtypLFyy45lnnqmvvvbaa9OnT58ydlxzZ4fM1X3iXMPdaNHZcdOmTddcc41ukVB49tlnZ01K/GD/Xt2is+N111333HPP6S3z8MMPn3feefrWd955Z8qUKWbvXT/A4Y4eu/1cnvXxVos7j8t3a2jqvkxtVc/W0HePy1vb2XfPjqn7cvEO4M9t6K2/L38+XwN8dgb4V+DPv5TAvnoHuH0G+B4e2Hd+bz3L3mpRZsQNoHDmBxUVFVJ0lIKiDFVLoXHZsmUycq0syWHr1q3XXnvtvHnzli5daj2LZEfrAqQERylLyYB151dlO30AjTLDy/s+/sd//MeGDRu+sJAJuarbH3vsMfvON954o1we2/Gp6u1VXjUpZsSYYcP77TYxJvbkESPt2/W+pZrehyAuyuq1OHx45ISJERI3I51uvYgxYyOsXn9He49LEXHatGn6qkRDuTxz/ER9dfzwGLmULaazo7JsGYmwxuzbt2+3vYPo6Mjx4/WEAgAAg4PEkuzsbMmOMp2Xl9fU1GRUTI1dG+1rqEY3mT05OTk2Nnb//v0yhK0sA9lyqRfoPi//6syLL75ofVWKi3J58ODBP/7xjzY9ZdW/+93vysSxj83trWkwdha8akq6XO473PXZwc7TxoyT6e+lZTjr/Kv3354cN0q53IPzwgsvlLQn9cILLrjgyiuvlJZ5yanyTznaPzJi1KjeA1/uGTkkJaWvz9XfVUOGWPeJiugLmrfccot8S5AJCdb33nvvxIkTE2JHtB46OH1MXxAsK/vytCAjRoyQOqW8CObMmfPqq69K1fayyy77ckExMdEzz5bwaqTG4VdepY4eVVFfP496DYfu3XOstjb64hzrR/rnT+ovPmmy4keAAAAITenp6aWlpZL5JPCVl5dLFpRcKOnigQcekOSgW2RCRn1zc3MfffRRuZQgsXbt2oaGhrS0NAmXEjFlQgqQEtL0OHBmZmaA46NUjCUs2jT+6U9/OnTokE3j9773PclJx3fv7rXLyNa7c1qPKSsnTh4Rpy/PGDtBWXK0lOtGjRp11lln2XfOOXmydbdTTz110qRJ9t2eeuopZ3cntclPP/10woQJek+CYXPnH676e+++fVGnnR6VeYa0fLFvn1SJ5dGddtppw4d/XQSVseni4mId/3/3u9+tWLHizHETWw99mjFmrLSsW7dOd5NUrYvJzz77rM1dD89doJOibM/33nvv2LFj8pSPHj3afiWHjBsf8VWx03DWuIm60gkAAEKRxEHJiDqBzJ49WwpSkhlkFFtGOLu6unSLzSySERcvXqz3IczPz5clyERJSYlMSCxJSkqSepkyycuD1zY7OH7jG9+QSwm/9j1vuukm5WnpMf4rHR0dq1evvvrqq5944gll2ZP0jjvukG36rW996+KLLz7ppJOqq6uNznpeyY7W3STFz5o1a/Pmzc7uwubqypUrJbHJjOeff74E/I0bN0qeG5Y9Z+jMcyQ7SnSWsqLucMkll6SkpEioN+aVgqt+1OKRRx6Ry/T4saePHT98SNS2bduMI+2NPjbr0CcqSu7x0ksvlYf2zW9+c8GCBXIXd955p47s8kB0/5deekmuRp50sn4KpEW/VtJGj5FLWYLuJv37lunyEKJBITIy8uSTozKmy6VN2RgAgGCzZs2aNgv5QNf1JgmILS0t9i36018sXbpUz6J3lLSepba21mzpUXm9+vjzn/98yJAhL7/8snwiS8q55557pHwqdTKbbrLSZ555Zu/hw8eam6zbrc/F487pga699totW7bIxDnnnKMsFU0Z7TVulRKdJEv7uWy6SW676qqrlHskrRvTEl6vv/56WQGpMg5JS5NUKsPNn3zyidHh8OHDsobWs998883/+7//KxO7d++WoqwUGi85uW+8+w9/+IPuoLeMs3uXgrNRpDT86le/ki0s30W+/e1vS7pVll0IZOPLxGeffSbBVFkOAPriiy+kYirTUrjWM0p/uTy2q3nIKVPUIDbs8iu2HWqvbmmcferUmTMH60+xR0YOsZxk6rtTM0ZGR8cMiTp09Gjnkb6vFpFJycc/26WOH1eAKZaxl+HfvlINP2FPdPudZ05o6e6Wi9iovlegApwbEhExZVRfecX6XavneN/L5junTBs2JOrwsaNyuaf7kIIPuBUf7QeOnR0cLQPB+mzmhp/97Gf23bx10IxEN1mTyZMny6D5fffdZ4TCCy+88Oyzz37//ff1zpfW3OzmzMiRI3/yk5/IPUqVUYawpeWXv/zl2rVrZUKim5EdZ86cKQuXJf/jH/+wnl1KxFdcccXf/vY3ZTmARu/92d3d/ec//1l3+MEPfuDsriUU6uwoo9V333331KlTGxsbb7/99gMHDsi9yE15eXk6Pj7//PP333+/TBjH4ujGf/mXf1FW+6dKf7k81jxI4+OkmBE5J0/+9MD+oq2bnvn0Q92Yl5rx3+fPuzZtetWunZ93HVSDQ+T4CUPPO++fe0a+9aKq2zli+y71SYuakjh0WtLQ6cnq3PTZ08/sOPLGG8f3fKEAtw2dMfPoS68cXvPY8Z3N7s8VOTlpWOGNF51zxvM7P1GAEyfFxl2anNr82bDHHL9rjZo8tOutovcPtfXEThlx7Iz2xHPHjzt9tIL32MZHm3Nxu1MCdMFHB80YpI6oj2IWqampeuKhhx4yxn+lwifj/dazGOnWdTdnfvvb315++eXKcoySnnjrrbdsllxcXGwcM//MM8/YJMJbb71Vx8c333xTSoMzZsyQUvMBy8E3UnA2Tu5jzwjikv9kzF0mpNiZlpYmo9gyvX79+htuuEE2wo4dOyRWbt++fdq0adbxUe5F4uMHH3wgJUm9uWSQvffIkeOft6pBZuTQ6NmJSQmxI/77nVd+/f7WEUOHPnDhZYumn/3oh+/c93bVWX/89ZIzzv/PmRe1Hjq4uaW540hYD+5HRg49M6t78ql3P6meOXEPjg939v37q2X6exePXP69S4ftrD/6runfRcWgNSTxpIPL75GJ6IIb3J/r6ItVh0vXJef8nwIckaLjhQlJ0+Im/myd63etmOW/mf3Fqy3Vd9Z8trFFWjLyU89bfvrQEV4edB20fLsdXRw0IxO9Az45p3Gy9X/+85+6RDpmzBgjFCrLYSgygN7U1GSqmwuzZ8/WE5K99ISuQb7zzjs6Ao4bN876fEvf+c53HnzwwdraWuslyLy65Te/+Y3EX2PkWlZDtszurkMTY2Lt79r4RfMv91l0dKsUFP/nf/5HWSJmYmKiPgGnJtVHSfM2pcfjLZ8NtkHJCxNOPmPcxMfq3rn3raq2nu7C08+94+yc0dF95928LfO86089S9p/9f7rj9fX3HVOzo0ZM9/du1uFr2Hzv/lq46g7bld72tXIGLUoV009SZ2SoE4er3btUZ+2qobP1KMV6o//UH+vUT+7KX32vIkKcFNU1PFPd0p2HLb4+6bm6yldN2IIn/FwLH/aabUfDc/9nZvvWok3vJ7Y3njwvYc/qivbsfPvrXNKZiTN4X3MC/o/dKb7j2XW/5QZLk736BUnnXSSnjBOcSSjwzZ9dKHOVDcXjMOcR40aZd1++PBhPXHyySfbzDLN7gho4weFpDT79ttvGwPcuk75/l4HQ4TWp6J0SKKhJHW9O6N44YUXjKSozxakLKcut93xsbn/xBw2dEbc290566k1/1793PmTkrd997aVF1ym240+UomU9vMmJv2/6udm/fm3HT1d0h4RN1KFo9d3jSpc1fcufM6p6q/3qpsXqEtnyACQGja071Kmb1mg/nKPmjmtr8/Nv1RbW8YoAAic+k+Gm3rXev1DNTplhKTGub+edezwsRcWv/bZ63sUBszLR15bq7Gwacyy6PL2PtHGvpj2FUTrY1nc7OYB43TtUoy0Kbh++OGHNp1llHns2LF6Wu+PKGQU+8wzzzxy/Hh921775RuxVWZ81onY2Nizzz5b59dXXnlFH7ovD/mOO+6QaquynG9SH2MufaSnOnbseEuLGjQuTUp9oGZzXsWT0UOGvHDF9/902bVpo8c67Cntf/5m/vNXfD8yIuLyjY8/9O6WoWefo8LLkNRTOrvU7X0nAFA3XKoe+6ma5CQZJo5Vv/+pur7vWKy+/ocO982rAMC/po8Z5/G7lki5NOGa5y6NmTDslf985+ihYwoD48P46KL0+OH+vcp7jvYel9qhjoYyNv273/3OuOkvf/mLdS50s5sHUlNTp0zpOwClo6Pj1ltvNdpvv/12m58qb2jfL5eLFi3SV/WeiMpqyxxzdDjRyJEj+wKfUvv27du7d++cr0yePPm+++5Tlv0gdc9vfetbekIKkHJ5xRVXqK9qjcaukLpPX3Y8Noj+hE4aEfdgzebvTc18/epbLjoptd/+F/507uQAABAASURBVJ+U+sbVt1w95bSH3t385W/8hI3IyKjTM+97Un2+X52Wov5joYq0/Cr76vIv/615Vj37uvriq0PmhkSq/1yo0pNV6371sydV1OmnK7ufcQfc1DFrvvW/4x9uV0B/hkREnDfxJI/ftbTh44ZdVDLjYEvXayXvKQyMr/YvcX3QzLt7P585YZLykp0dB6aMipdA9uCDD8rVH/3oR3LX55xzjsNDqt3s5oH//M//1MfflJeXy6j66aefvn37dvuD1t/duztt9JiCggJ9lLRmHDTzvvM97ZYuXapLlRI0Z86cOWvWrPr6er13o8TBX/3qV/pWmTbO6qS+Co4SIn//+98bjTo+DqqRayFvNW093dPix9kEn/vePuHo+IsSU4xwKdXHjDET/vzJB2F2PsjIxMT23hF/3aKio9RDhV++C4v/++sJ3eJi1D3/qr55rmWWCPXALeqq/1JPV6v/yI+LPumk47t2KcAjQ2acOeTsL89QFjFhnAL6kzJy9PGe6AG8a/XdJJIumnTq1ZM/+vPO8//zjKFx7GLrOV9tOxcHzTR3dnQeOaK85+0vWiU+3nnnna+++uobb7yhLKc5FA47u9nNA5KMP/roIx0K5bG/+eabylKV3LFjh3W3zw727X85adKkq6++2jhfjz5o5rNDnfsOdztbvmQ+iZj653DesTBukjRp/LDh7Nmzx40bJxVKZfn9w/nz58vEvHnzpH4plVFlObhHHwB07DM+/vuUnBgf1dkXu1ObDGlDEhLfslR8LpmhJp+4E/lt31ZL8tSRo+qjZvXYi2rZb1VqgspI7rtpaqK6+Ey1aZt66yM1JyGR+AiPSXY0ezwNBrmUkaMG+K6V89Xv0J3xgzSJjy1v7pn8DdPnyobBV4PXLkaua/d5+exxrYcO1uzpK9o9/fTTUv8zdnCUoWr73/1zv5sHioqKNmzYkJeXJxFtzJgxl1xyiQyLO+t82223GdP6oJnavf1smdLSUikiTp8+3Wg57bTTli9fLqPSEydO7N23Tzca49f6nD6acep5XY/sO+aas/J+pejsi7tuvkv/u+Psi1W4ixw3fpvljThrquMOQ6PU6anqF4v7dkVfbfUSPiut73JbQ98SFOCp3s8+P/b2u/JPHepSgBsSYuMG+K5liE8bKXXH3dv2KQyAh9VHF79ArTkbDu46ekTv/DeQO7JvfLWlbxw2a/zElRYffvjh2LFj9Y9Z23R+f+8XZ4yb0G8311edNUrLZRZGS3V1tZ7Qx3ofPPpl2bX72NGzzz7begndx47Vt+3r506PHMmzeOutt7q6uqx/sPtY444jW1/XP96wysKYaU931/jhMQ9bGI3H+juUG2EsYvjwdyxvpmdNddktQp2XoSq/LnOrGZb+8kYcsWC4Ajx15LlK+ScTIx77deT0aQroT2zU0AG+a1mbcOaYz98hPg6Ivwf+pcA2oN+ZcU4S5M7OAzMnTEoaMdK6Pmej6rOdnxxoyzul7w3LRTfPyHi0/v0bfZhLc3Oz1CP1TfrXwL/o+nJAv3bfnnMmnFA2/2Bf/6cS6K54LvrssyPHT9A/0mg4+t67R+s+dDbX35t3fC/N9pEe20V8/Nrj9TWvfLZDJv7l1LP+JT1Lhb3o6AbLyHN6Uv99rQ/lOtXSv76pbwkK8NTQy+cNvaJvv5rIFDdegoBSw4YMGei7lpWx00Z99PROhQHwJD7a/zKNfYvNGSKlKqb79PT0RLv3wSP9XSzH+r6M6caOdvknLU9u/2D4kCGS1Xos58S2WUNJmXr5k2Jih0REftF96Mjx427el32f7r88PfyyXBUTU1xc/Pbbff0vvfRSGRlPTk5+//33jZ5LliyRy4/bvywovta6S/5ZL3lza3O/j111d/VstpQzo6MjR42KvmTu4b/9tffEfUz1XMZ2lrk+7zpk82PiZs/fiXDT05M8YXhdk9rx+Zd7CDkkb8Fv1KmzrH7Sssmye0XShL4lKMBTESdNGnL2WQpw2+Fjx5InRA3oXcvKgaaDI5NiFQYgPA872tvt1v40n3d54ZfUI+PjJTsqyzErTz31lD6/d5uF0eexxx7LyMjoOnr0g/1eOltpT8/xPX2L6j3Ej8F7gVQcB8Muj4be7u7pk/viY91Ox2/ER46q+mb1u+f73qkfLPy6/YPGvsvTUvqWoABPHXv7vcPqy1/biv7OFRHjxyrApUNHj0yfHDWQdy1re/7ZlpTNb88MCEetD9Tx3bt7Xv1H9PkXzps3r7a2trKy8o9//KM+m+Pw4cNllPmKK64444wzjvYef27nxwoIAsf37pmeEv/MZlVnd+6m//vr1yfCiB2u7i9Q06x+R+lDy2jPaZP7lqAAdzjaXenYtvfkn54emn3BCfHxeC9nFYW91kOd01NiBvKuZejpOHro8+7xp8crDADx0QuOt7R0P//c0LOyhkxOmWdh0+Gzg50v7drR9tUPGyLYlLz9D+P0PUVnXxz2lchju3ZNn9x3OOJfX1MFuWr8lz9p1Hf+Cy0qUp00Xp0/XU20eoPd066etZznSr7HH+OsPehP76GDkdNPPVL+3JCpqVGXXmS0j9z6orNZjr70ypG/bBxyekZ7D++WOMHH7W3TJ/eNQHv8rmV497f1cjnuNOLjgBAfvaSr68jrrx19771hV3zreGtr3wnv5Tt3z2EZ4xuSNu3Pn9QrBKuiE8PiRYkpKtwd/7w166wDZ54y6r1P1Y/X9P26ly73LMlzPkuvWvob1dHV90uyZ0w40PNOqwJcOrZjR+zP7ui687+7br9vSNYZw398a2R6mrPOx+sbuh/6v2M1tUPOOC3mZ0Xv7qO8jRM0dR6YPa37zFOGe/audeZXe0O2vrn3vdKGSTPHTjxrjMIAEB+9Sb5ty2XPK1XWjRIfFYLYoNrr8Uu9vcfe3bbqhxfn3dl3Nt2frVc/vVYNdf7DOkeOqZ+XqXe2q9Ej+n7v4eg7b6teH51BAeHjaO37Ud/Lj/3tg0f//mr3rx85+P3bhl4+b9gPF9ns6di7Z9/hXz9y5LnKiISJMffdHvWNbBUV9daJhy0C8o6zuaVp1Q+nefaupbNm997Df//xm8Pioy9Zda5iF4mB8eFvXgNB5bjqjYmK6jZ5snTpL3OFX1o63tqSMEb94ua+6SdeUt/5L1W7w3HPdz/uu3V9369jqodu7RsYOr77cwW4p/tvf42Ymhz3x0eH3fqDI1XVnVff2FP6uNKHXh3u6SldJy3SLrdKn4gpSdJfAY7s7Dzg8buWaH7l86cuf6nri8OX/PKc2ImcuXagqD5isGg7fDh38qkPvrtZ/pma8aopp/V2HFDh6KKkvb9dOq7od+qTFvW9e9VFZ6pz09XMtL4zpdU1qZoG9eZH6hXLEQ4T4tV9N6rzJ+1TioNkYUZPz5G33zq6/aOhuZcM/fY3D//294fXPt7zzMahuXOPPP9S7xd7h155+bBb/rX3SM/hlzf1HgjPPzR4Uca0g79dOsL9d60Lpqv92zveffijj59tltT4zdJzTrpggsKAER8xWLy1u2VtTt4VKekfHzDxYwOnxo+TWY6+9ZYKR4df/vvs2dl/uy/xvifU317ve8995T0H3b59gbr9OhW3f9fhl7cMv/q7CjBJcmHPP16OTDxp+H8ujf5uXveqNT2P/3HIOVnD/+e/I6em9rz6St/PqAJuePrjjxacMvVv941y512ru37fE7O3du/tO09tWl7yBUVnRI8aquANxEcMFvVt++Ynn5I4YvTU0V//XvN5ExOP/rPWulvU6Zlv7G4xrh48ciQ2amj3zkYVlo4dk0/umGnTfvH905d9d1jNx30/7SWX25vVtKS+35aV7/Qz0tT4YV1H6j7s+egjBQyAzojHOvbHrizuO11uV9eRD/4ZqVLJjnDf0d7jf/10+1njJ959U+Ky70Y5e9eKO97z/v9tb37ji0mXTUo7P3HSjLExE4YpeA/xEYPL+3u/sL7qMD5u/fyED7NvnDxZhbHe3mMffXTsk0/GTE6Zf86588+2vf3IW292N+6QoKkAbzi2/SP5Z1wdevY5CjCjV6maPbv/uW/PqfFj55+dYv+u9dnBzo7IyMTC5NQfnvJF16HUseMVvI34CEC+0R899snHQ8851/6HOqVdAUCQOXL8uCTIS05OsX/XsjlZ3mnERx+I6OUEHAAAAHAbJ+4BAACACcRHAAAAmEB8BAAAgAnERwAAAJhAfAQAAIAJxEcAAACYQHwEAACACZw2HAAAINxcdtllW7dutW+fNWvWCy+8oAbGa9XHVatWxVskJibW1NToxoqKivivSAcXPbXCwsIFCxZ0dnYq9Ee2kmyreCvGFrYmWzg7O7u1tVXBPbKt7rvvPuPq8uXLbV6l8DN5qcs7A69hf3r00UeNl71MyF+Bgs/oN3P5uFQIBNnyzoJHSD81zz33XEdHx759+9pOJC179uyRW9XAeCc+yjv7U089VVVVJWuWl5dXVFQkG10a5U2nuLhYGuXy/vvvl7chhz31QuQToqysbN68eZ9//rmCe9avX2+8JpYuXaowYPISff7553VYkRfnBx980NLSohA4r776qrwzbNu2TcFf3njjDXmX1tPy+pe/Ar7VAyHk+PHjd95559133x0ZaRvzpOVnP/uZ3Cp91AB4Jz4mJCRUV1dnZWXJdEZGRmNjo7zXyNv93r17c3JypFFfytuQw57KEv/Ly8vlDUsy0NSpUxUQIPIqra2t1WGloaHhnXfeqa+vVwgceWeQy9WrV5Ng/EO2c1NTU2Vlpd7gsv2NN2oAIeGJJ54YP3681OMc3iqD2nKr9FED4OVDZ+QtRt50UlJS4uLi5EN33LhxkheVJV/KtPXHsHVPmZbPhq6uLkmZMghLDd9j1iPaUs3VjR9//LEkdYd7C8CevEovv/zyv//97zIt32duu+22Xbt2KcsQnmxA6/0E9I4B8nKVdmNrw7ukDCxRRqrsO3bskDSvTtwlxnhJy/aXJ0UueZEPnE6Ko0ePlg2uy/DGDjCyhfWWz8zMlBbrUT+5Kt3Y+AMh21A2rP4ENKb1RpZp3sN9Td5DjNez9XTIOXz48H333ffzn/9cX/3oo49ksDcpKUkut2/frhtLSkqkj/RUnvJyfCwtLd28ebMEXgmF7vfUNZ78/Hw9zH3TTTfxF+KmhQsX6ndzeYuRF/q11167ZMkSPZatLH8AcinV3Lq6OmmRPnIr+5C5JtvqO9/5zqhRo2R7SnA855xzOjo6ZFpK5lKYlM0omXLt2rX6Jbp//36pzcgf5Jo1axR8QIatk5OTc3Nz58yZYwynzp49u7m5WZ6LFStW3HDDDfol/ac//UneHOU50oMb8JhsT8mO8lcgG1OmR44cKd8/9S4c8jrXby+SFOW9Wp4UZdm7QC6lYC9zpaWlKXibVH83bdqk9/jirQb9khfJBRdcMGPGDH1VvvWddtppW7dulctbb71VN8pH27nnnjuQl5M346N8oN5oXgqoAAAECklEQVR///3yzl5QUOBBT/nDUFbD3ApuMPZ9lM9XncKNQCmfu5KErDvLO7u8v7MPmQvyYSkj19OmTTtw4IB8KEpwlL9AmdZ1L116kZfovn37jFmksd8vS/CMHqPQ7wxyaQynGuQ7pzwjOj6eccYZ8legMGAS0+Xrk/wVSA1epi+55JL09HS9C4FRg5e3F7kqr3z5RqpvkkuZ5m/BF/QwnbLs8aWA/vzud7+78cYbjasffPDBT37yk5NPPlku//nPfxrtP/jBD6Sn8pTX4qO8rRcVFckAtPEOIu84e/fu1e/scinT0uKwpx7aVhiwsWPH6sOSNL6nmqVfrvKClI/Mxx9//LzzzpNp+SiV7zNSypVRVCl6SSg3ds8dM2aM3j0DvmD9jUguZVrneIf4ZPUWeYXLxpRvm/L1SablG5RERvkS9fHHH0ut99FHH9XDRLqzLkBKrJS/DqPaASCAbHKhRK9nn31W/pz/+te/nnrqqUb773//e+mpPOW1+CilGhmMlmKAUQCQdxxl+SKrLyUg6jcX+54SIuXblf4Kq/vreWGKvN2npqa6iIyy5WUQhLd4FyQmSoFWXpCylXbu3Dlz5kxlySX19fXyOar3tZDyrVQoKZD7gbyYZXja+DpkP3InNTAGTL1LHzcjnzfyUteJPMGivb39008/lRwvfxq6KizdZEJ3k+clOTmZr1KmSOY+/fTT5VI2o2xe+dTTH4X6IAFdc1HwmUILZdnfXV69svHlZW8cJWY9dhdyR0/ecsstb7zxhrET4N13371hw4bp06f/8Y9/lGnd+KaF9FSe8tqJe/SJweTd3Di2ICsrS9765UuqXJVLGaeWNxeHPeVpe+SRR6qrq3VP+XbL3ksekM0oLxF5T7fet13ae3t75R1fWm666aZ169bxFu+C8T4iW+mb3/ymsa3krUTeaO6//37ZjPI9R7786G878B29I4Hem0WTp0Ba9u/fL98/k5KS5LkoLS2Vtw4GTL3IiDLKsiuRFOB1uzSOHz9e3lUkLMq49tVXX20czCTd5KspR4+ZJR9zixcvlq0nm/Saa66Rq3pnAP2hef311yv4kmxnnTrkbURX06WULvFdH2n6/vvvq692z5BbHZ5WOWgNHz789ttvlwCmr8pr7Pnnn5ehM7k03lHvuOMO6SM9laciJFsoAAgRFRUVq1evlm9KpMYgwTMCBJvjx4+fe+65UvKYO3eu/a2SI4uKiqT6aH9WSPfxo4UAAE/osz3o44LJjkDwkFx477333nXXXfbxUZKlZEe5dSDZUVF9BAAACD8yVO3wNIhZWVnGedA8RnwEAACACV4+bTgAAADCG/ERAAAAJhAfAQAAYALxEQAAACYQHwEAAGAC8REAAAAm/H8AAAD//4R8vmUAAAAGSURBVAMAiTVYUWqdA5oAAAAASUVORK5CYII=" alt="SRE Daily Chart">
+  <div class="chart-cap">SRE · NYSE · Daily · 28 มิ.ย. 2026 · Source: TradingView</div>
+
+  <div class="callout accent">
+    <h4 style="margin:0 0 6px;">สรุปเทคนิคอล — "Near Breakout จาก Coil"</h4>
+    <p style="margin:0;">ราคาอยู่ใน consolidation 3 เดือน ($86-$95) หลังจาก pullback จาก April high $100.
+    <strong>5d range แคบผิดปกติ</strong> + price ทะลุ 50d/200d MA + RSI 64 (ไม่ overbought)
+    = <strong>classic "near breakout" setup</strong>. รอ trigger: close เหนือ $95.38
+    ด้วย volume เพื่อ confirm การกลับสู่ trend ขาขึ้น.</p>
+  </div>
+
+  <h3>Calibrated Parameters (fitted สำหรับ SRE)</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Parameter</th><th>Value for SRE</th><th>สังเกตการณ์</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Respected MA</td>
+        <td><strong>50d MA ($91.40)</strong> + 200d MA ($90.02)</td>
+        <td>SRE respect 50d และ 200d มากกว่า short MA — utility มี volatility ต่ำ</td>
+      </tr>
+      <tr>
+        <td>ATR (14)</td>
+        <td>$1.71 (1.82% of price)</td>
+        <td>Volatility ต่ำ — typical utility</td>
+      </tr>
+      <tr>
+        <td>Volume Baseline</td>
+        <td>50d avg 3.84M · 5d avg 4.33M</td>
+        <td>Volume ปัจจุบันสูงกว่า avg ~13% — accumulation sign</td>
+      </tr>
+      <tr>
+        <td>RSI (14)</td>
+        <td>64.2</td>
+        <td>Bullish แต่ไม่ overbought — มีที่ว่างก่อน 70</td>
+      </tr>
+      <tr>
+        <td>52w Range</td>
+        <td>$59.64 - $100.32</td>
+        <td>Currently $94.27 — 6% below 52w high, 58% above 52w low</td>
+      </tr>
+      <tr>
+        <td>Beta</td>
+        <td>0.58</td>
+        <td><strong>Defensive</strong> — moves ~58% ของ market</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Top-Down Context (Weekly)</h3>
+  <p><strong>Primary Trend:</strong> 12-month uptrend ที่ทะลุ $95 ใน April 2026 ก่อน pullback สู่ฐานปัจจุบัน.
+  <strong>Weinstein Stage:</strong>
+  <span class="tag watch">Stage 2 (Advance) — pause</span>
+  — ยังไม่ใช่ Stage 3 (top) หรือ Stage 4 (decline).</p>
+
+  <p><strong>Major Support/Resistance:</strong></p>
+  <ul>
+    <li><strong>Major Resistance:</strong> $100.32 (April 2026 high, 52w high) · $95.38 (2-month pivot)</li>
+    <li><strong>Major Support:</strong> $86.48 (recent consolidation low) · $82.74 (Jan 2026 low) · 200d MA $90</li>
+    <li><strong>Trendline:</strong> ascending support จาก Jan low ผ่านมา — ยัง intact</li>
+  </ul>
+
+  <h3>Daily Condition — "Waiting to Break / Coil"</h3>
+  <div class="callout">
+    <p style="margin:0;"><strong>Classification: Waiting to break (base/coil under resistance).</strong>
+    หลัง pullback จาก $100 → $86 ระหว่างเม.ย.-มิ.ย. 2026, ราคาได้สร้าง <strong>3-month base</strong>
+    พร้อม <strong>5d range ที่แคบลง</strong> (close range ~3.6% — ผิดปกติแคบสำหรับ utility ที่ ATR 1.8%/day).
+    ราคา reclaim 50d/200d MA แล้ว และจบสัปดาห์ที่ $94.27 (new weekly high ของเดือน).</p>
+  </div>
+
+  <h4>VCP (Volatility Contraction Pattern) Analysis</h4>
+  <p>Weekly range contraction เห็นได้ชัด:</p>
+  <ul>
+    <li>W/E พ.ค. 25: range 5.4% → close $88.50</li>
+    <li>W/E มิ.ย. 1: range 5.8% → close $90.77</li>
+    <li>W/E มิ.ย. 8: range 4.5% → close $91.64</li>
+    <li>W/E มิ.ย. 15: range 3.5% → close $90.05 (volume 25M = 2x avg)</li>
+    <li>W/E มิ.ย. 22: range 4.8% → close $94.27 (volume 25M = 2x avg)</li>
+  </ul>
+  <p>Pattern เป็น <strong>contraction with rising volume on advances</strong> — เป็น signature ของ accumulation
+  ก่อน breakout. <strong>5d close range 3.6%</strong> (ที่ผู้ใช้ระบุ ~1.8% ในมุมที่แคบกว่า) เป็น statistical anomaly
+  ที่สอดคล้องกับ "coiling" before directional move.</p>
+
+  <h3>Fibonacci Anchors</h3>
+  <p>Retracement จาก <strong>April high $100.32 → June low $86.48</strong> (swing 13.8%):</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Fib Level</th><th class="num">Price</th><th>Significance</th></tr></thead>
+    <tbody>
+      <tr><td>0% (high)</td><td class="num">$100.32</td><td>Major resistance</td></tr>
+      <tr><td>23.6%</td><td class="num">$97.05</td><td>Minor resistance</td></tr>
+      <tr><td>38.2%</td><td class="num">$95.03</td><td><strong>Pivot resistance</strong></td></tr>
+      <tr class="hilite"><td>50% (current)</td><td class="num">$93.40</td><td>ราคาปัจจุบัน $94.27 อยู่เหนือ</td></tr>
+      <tr><td>61.8%</td><td class="num">$91.77</td><td>Buy zone if pullback</td></tr>
+      <tr><td>78.6%</td><td class="num">$89.44</td><td>Deep support</td></tr>
+      <tr><td>100% (low)</td><td class="num">$86.48</td><td>Base low / invalidation</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Risk Geometry &amp; Trade Plan</h3>
+  <div class="callout accent">
+    <h4 style="margin:0 0 8px;">Entry · Stop · Target</h4>
+    <p style="margin:0 0 6px;"><strong>Entry Zone:</strong> <span class="tag good">$91.50 - $94.50</span>
+    — รอบ 50d MA + Fib 50-61.8% confluence. <em>Breakout trigger:</em> close เหนือ $95.38 ด้วย volume &gt;5M.</p>
+    <p style="margin:0 0 6px;"><strong>Stop / Invalidation:</strong> <span class="tag bad">$86.00</span>
+    — ใต้ consolidation low + Fib 100%. Risk per share: ~$7-8 (entry $92 → stop $86).</p>
+    <p style="margin:0 0 6px;"><strong>Target 1 (technicals):</strong> <span class="tag good">$100.32</span>
+    — 52w high / April pivot. R = ~1.1-1.2x จาก entry $92.</p>
+    <p style="margin:0 0 6px;"><strong>Target 2 (fair value magnet):</strong> <span class="tag good">$106</span>
+    — บน blended fair value $105.9. R = ~1.8-2.0x.</p>
+    <p style="margin:0;"><strong>Target 3 (Bull scenario):</strong> <span class="tag good">$115-120</span>
+    — Relative valuation + 24m EV. R = ~3.0-3.5x. <em>Long-term horizon.</em></p>
+  </div>
+
+  <div class="band">
+    <div class="stat good">
+      <div class="v">2.0x</div>
+      <div class="k">R-multiple (to FV)</div>
+      <div class="d up">Reward:risk positive</div>
+    </div>
+    <div class="stat warn">
+      <div class="v">3.5x</div>
+      <div class="k">R-multiple (to Bull target)</div>
+      <div class="d up">Asymmetric upside</div>
+    </div>
+    <div class="stat">
+      <div class="v">Mixed → High</div>
+      <div class="k">Confluence</div>
+      <div class="d flat">ดูยืนยัน breakout volume</div>
+    </div>
+  </div>
+
+  <div class="callout good">
+    <h4 style="margin:0 0 6px;">Timing Verdict</h4>
+    <p style="margin:0;"><strong>Stage in (เข้าทีละส่วน)</strong> — เป็น setup ที่มี risk/reward ดีที่จุดนี้
+    แต่ยังไม่ breakout อย่างเป็นทางการ. <strong>แผน:</strong>
+    (1) เริ่มต้น 1/3 position รอบ $92-94 ขณะนี้ (ก่อน breakout — ซื้อใน consolidation);
+    (2) เพิ่ม 1/3 ถ้า breakout เหนือ $95.38 ด้วย volume ยืนยัน;
+    (3) เก็บ 1/3 สำหรับ pullback retest หรือ add on strong earnings.
+    <strong>Stop ที่ $86</strong> ใต้ consolidation ทั้งหมด — ถ้าเสีย stop = thesis ผิด เก็บทุน run.</p>
+  </div>
+
+  <p><strong>คำเตือน (warnings):</strong></p>
+  <ul>
+    <li>Breakout ก่อนหน้า (April $100) fail และ pullback ลึก — มี overhead supply เหนือ $95-$100</li>
+    <li>Earnings Q2 (6 ส.ค.) อยู่ใกล้ — ควร consider การ staging ก่อน/หลัง event</li>
+    <li>RSI 64 ยังไม่ overbought แต่ถ้า rally เร็วโดยไม่มี consolidation → wait for pullback</li>
+  </ul>
+</section>
+
+
+
+
+<section id="s6">
+  <div class="sec-h"><span class="sec-no">6</span><h2>สถานการณ์ &amp; แผนการลงทุน (Scenarios &amp; Investment Plan)</h2></div>
+  <hr class="div">
+
+  <h3>Setup Archetype</h3>
+  <div class="callout">
+    <p style="margin:0;"><strong>Growth Compounder ใน Build Phase + AI Catalyst.</strong>
+    SRE ไม่ใช่ deep value (multiple ต่ำกว่า peer แต่ไม่ต่ำมาก) และไม่ใช่ pure defensive utility
+    (FCF ติดลบ + growth สูง). เป็น <strong>hybrid</strong>: core utility cash flow + growth capex exposure สู่ AI demand.
+    Plan ต้อง balance: <em>(1) patience สำหรับ build phase; (2) staging เพื่อ manage risk; (3) catalyst monitoring</em>.</p>
+  </div>
+
+  <h3>Scenario Timeline (12/24/36 เดือน)</h3>
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>12-mo Target</th>
+        <th>24-mo Target</th>
+        <th>36-mo Target</th>
+        <th class="num">Probability</th>
+        <th>Key Drivers</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bull</strong></td>
+        <td>$112</td>
+        <td>$136</td>
+        <td>$155+</td>
+        <td class="num">30%</td>
+        <td>AI demand acceleration · ECA online ตรง · multiple re-rate to peer (20x+)</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>Base</strong></td>
+        <td>$104</td>
+        <td>$127</td>
+        <td>$140</td>
+        <td class="num">50%</td>
+        <td>EPS growth 8.5%/yr · DPS +5%/yr · multiple expand modest</td>
+      </tr>
+      <tr>
+        <td><strong>Bear</strong></td>
+        <td>$85</td>
+        <td>$79</td>
+        <td>$75</td>
+        <td class="num">20%</td>
+        <td>Cost overruns · rate case adverse · AI demand slower · credit downgrade</td>
+      </tr>
+      <tr class="hilite" style="background:#FBF6EE;">
+        <td><strong>Expected Value</strong></td>
+        <td><strong>$103</strong></td>
+        <td><strong>$120</strong></td>
+        <td><strong>$137</strong></td>
+        <td class="num">100%</td>
+        <td>Prob-weighted — anchors to <a href="#s3">§3 fair value</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Investment Plan (Conditional)</h3>
+
+  <div class="callout accent">
+    <h4 style="margin:0 0 8px;">Entry vs Fair Value &amp; Margin of Safety</h4>
+    <p style="margin:0;">Fair value $105.9 vs current $94.27 = <strong>11% margin of safety</strong> บน blended.
+    Expected value 24 เดือน $120 = <strong>+27% upside</strong> + div yield 2.79% = total return ~30%/2yr.
+    <strong>สำหรับ utility growth นี่คือ setup ที่ asymmetric</strong>: downside bear scenario −16%
+    vs upside base +35% = risk/reward ~2:1.</p>
+  </div>
+
+  <h4>Sizing &amp; Staging (3-Tranche Plan)</h4>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Tranche</th><th>Trigger</th><th class="num">Size</th><th class="num">Entry Price</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Initial (now)</strong></td>
+        <td>Current consolidation $92-94</td>
+        <td class="num">1/3 position</td>
+        <td class="num">$94.27</td>
+        <td>Buy in base ก่อน breakout — ราคายังไม่ spike</td>
+      </tr>
+      <tr>
+        <td><strong>2. Breakout add</strong></td>
+        <td>Close &gt;$95.38 + volume &gt;5M</td>
+        <td class="num">1/3 position</td>
+        <td class="num">~$96-98</td>
+        <td>Confirm trend กลับ — pay up for confirmation</td>
+      </tr>
+      <tr>
+        <td><strong>3. Pullback/Earnings add</strong></td>
+        <td>Pullback to 50d MA ($91-92) หรือ post-Q2 earnings beat</td>
+        <td class="num">1/3 position</td>
+        <td class="num">$91-93</td>
+        <td>Buy weakness หรือ catalyst confirmation</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>Average Position</strong></td>
+        <td>—</td>
+        <td class="num">100%</td>
+        <td class="num">~$93-95</td>
+        <td>Stop $86 across all tranches</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>Conviction Builders (Monitor ทุกไตรมาส)</h4>
+  <ul>
+    <li><strong>Data center contracts</strong> — ประกาศสัญญาใหม่ที่ Oncor/SRE California ที่ pricing เอื้อ equity returns</li>
+    <li><strong>Rate base growth confirmation</strong> — Oncor rate base ขยายตาม guide 10-15%/yr</li>
+    <li><strong>EPS beat/raise</strong> — guidance ปี 2026 ปรับขึ้น หรือ guide ปี 2027 เหนือ $5.95+</li>
+    <li><strong>ECA LNG Phase 2</strong> — on-time / on-budget progress</li>
+    <li><strong>DPS growth</strong> — เพิ่มจาก 4% → 5-6% ตามที่คาด</li>
+    <li><strong>Multiple re-rate</strong> — Fwd P/E ขยับจาก 17x → 18-19x (peer median convergence)</li>
+  </ul>
+
+  <h4>Thesis-Breakers (Exit Triggers)</h4>
+  <ul>
+    <li><strong>Rate case adverse</strong> — CPUC/PUCT ลด ROE ที่อนุมัติต่ำกว่า WACC</li>
+    <li><strong>Cost overruns ใหญ่</strong> — ECA LNG หรือ Oncor projects ล่าช้า/เกินงบ &gt;15%</li>
+    <li><strong>Credit downgrade</strong> — ต่ำกว่า BBB+ จะเพิ่ม cost of capital และทำลาย thesis</li>
+    <li><strong>AI demand slowdown</strong> — hyperscaler capex ลดลงอย่างมีนัย → data center queue ยกเลิก</li>
+    <li><strong>ROIC ยังติดลบ ในปี 2028</strong> — thesis ผิด, reinvestment ไม่ productive</li>
+    <li><strong>Technical invalidation</strong> — close ใต้ $86 → setup broken</li>
+  </ul>
+
+  <h4>Horizon</h4>
+  <p><strong>2-3 ปี minimum</strong> — thesis ต้องการเวลาให้ rate base 2026-2028 online และ reflect ใน EPS.
+  ผู้ที่ไม่สามารถ tolerate FCF ติดลบ + EPS volatility ระหว่างทางไม่ควร hold.</p>
+
+  <div class="callout good">
+    <h4 style="margin:0 0 6px;">Conditional Stance</h4>
+    <p style="margin:0;"><strong>Accumulate on weakness / Stage into breakout.</strong>
+    สำหรับ portfolio ที่ต้องการ defensive yield + AI growth exposure, SRE เป็น core holding candidate
+    ที่ entry ปัจจุบัน. <strong>ไม่ใช่ "all-in now"</strong> — เป็น "build position over 2-3 tranches"
+    โดยใช้ technical levels + earnings catalyst เป็น trigger. Position size: <em>moderate (3-5% portfolio)</em>
+    เนื่องจาก capex super-cycle risk + utility leverage.</p>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="sec-h"><span class="sec-no">7</span><h2>ความเสี่ยงหลัก (Key Risks)</h2></div>
+  <hr class="div">
+
+  <p>ความเสี่ยง 5 อย่างที่ move มูลค่าหุ้นมากที่สุด — เรียงตาม impact:</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th>Risk</th><th>Direction</th><th class="num">% of FV at Stake</th><th>Thesis-Breaker?</th><th>Monitor</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td><strong>Regulatory Adverse</strong> — CPUC (California) หรือ PUCT (Texas) ลด ROE ที่อนุมัติ
+        ต่ำกว่าคาด หรือ disallow capex จาก rate base</td>
+        <td><span class="tag bad">Negative</span></td>
+        <td class="num">−20% ถึง −30%</td>
+        <td><span class="chip"><span class="dot bad"></span>Yes — core</span></td>
+        <td>Rate case decisions · CPUC/PUCT filings</td>
+      </tr>
+      <tr class="hilite">
+        <td><strong>2</strong></td>
+        <td><strong>Cost Overruns / Project Delays</strong> — ECA LNG Phase 2 หรือ Oncor transmission
+        ล่าช้าหรือเกินงบ → equity dilution หรือ debt increase</td>
+        <td><span class="tag bad">Negative</span></td>
+        <td class="num">−15% ถึง −25%</td>
+        <td><span class="chip"><span class="dot watch"></span>Possibly</span></td>
+        <td>Quarterly capex vs budget · project milestones</td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td><strong>AI Demand Slowdown</strong> — hyperscaler capex ชะลอลงจาก
+        AI efficiency breakthrough หรือ over-build → data center interconnection queue ลด</td>
+        <td><span class="tag bad">Negative</span></td>
+        <td class="num">−15% ถึง −25%</td>
+        <td><span class="chip"><span class="dot watch"></span>Possibly</span></td>
+        <td>ERCOT queue · hyperscaler capex guidance</td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td><strong>Leverage / Credit Downgrade</strong> — Net Debt/EBITDA ที่ 6.5x สูง;
+        ถ้าต่ำกว่า BBB+ → cost of capital เพิ่ม + thesis breaker</td>
+        <td><span class="tag bad">Negative</span></td>
+        <td class="num">−10% ถึง −20%</td>
+        <td><span class="chip"><span class="dot bad"></span>Yes</span></td>
+        <td>Rating agency reports · D/E trend</td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td><strong>Interest Rate Sensitivity</strong> — Beta 0.58 defensive แต่ถ้า rates เพิ่ม
+        utility underperform เพราะ div yield ต้องแข่งกับ bond yields</td>
+        <td><span class="tag watch">Negative (mild)</span></td>
+        <td class="num">−5% ถึง −15%</td>
+        <td><span class="chip"><span class="dot flat"></span>No — cyclical</span></td>
+        <td>10Y UST · Fed path</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout bad">
+    <h4 style="margin:0 0 6px;">Risk Synthesis</h4>
+    <p style="margin:0;">ความเสี่ยงหลักทั้งหมดเชื่อมโยงกับ <strong>capex super-cycle</strong>:
+    หาก regulator adverse + cost overruns เกิดพร้อมกัน → cascade risk (FCF ติดลบลึกขึ้น → credit downgrade
+    → cost of capital เพิ่ม → thesis broken). <strong>Probability ของ bear scenario (~20%)</strong>
+    สะท้อนความเสี่ยงนี้. การ monitoring ที่สำคัญที่สุดคือ <strong>rate case outcomes และ credit rating</strong>
+    — เป็น leading indicators ที่จะบอกล่วงหน้าก่อน EPS จะ reflect.</p>
+  </div>
+
+  <p><strong>Catalysts เชิงบวก (upside triggers):</strong></p>
+  <ul>
+    <li>Rate case decisions ที่อนุมัติ ROE &gt; คาด</li>
+    <li>ประกาศ data center contracts ใหม่ขนาดใหญ่</li>
+    <li>ECA LNG Phase 2 online on-time (2027)</li>
+    <li>EPS guidance raise ที่ Q2/Q3 earnings</li>
+    <li>Multiple re-rate เมื่อ market reprice SRE เป็น "AI utility"</li>
+  </ul>
+</section>
+
+<section id="app">
+  <div class="sec-h"><span class="sec-no">A</span><h2>ภาคผนวก (Appendix)</h2></div>
+  <hr class="div">
+
+  <h3>Assumptions Table — Valuation Inputs</h3>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Input</th><th class="num">Value</th><th>Source / Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>Risk-free rate (Rf)</td><td class="num">4.37%</td><td>10Y UST ล่าสุด (yfinance ^TNX)</td></tr>
+      <tr><td>Equity Risk Premium (ERP)</td><td class="num">5.5%</td><td>Damodaran mid-range for mature market</td></tr>
+      <tr><td>Beta (levered)</td><td class="num">0.576</td><td>yfinance (5-year regression vs S&amp;P 500)</td></tr>
+      <tr><td>Cost of Equity (Ke)</td><td class="num">7.54%</td><td>Rf + β × ERP</td></tr>
+      <tr><td>Pre-tax Cost of Debt</td><td class="num">4.20%</td><td>Interest expense $1.53B / Total debt $36.4B</td></tr>
+      <tr><td>After-tax Cost of Debt</td><td class="num">3.32%</td><td>× (1 − 21% tax)</td></tr>
+      <tr><td>Capital Structure (E/V)</td><td class="num">62.8%</td><td>Market cap $61.6B / EV $107.8B</td></tr>
+      <tr><td>WACC</td><td class="num">5.97%</td><td>E/V × Ke + D/V × Kd(after-tax)</td></tr>
+      <tr><td>Terminal Growth (g)</td><td class="num">2.5%</td><td>≈ long-run US nominal GDP</td></tr>
+      <tr><td>Forward EPS</td><td class="num">$5.54</td><td>yfinance (consensus +1y)</td></tr>
+      <tr><td>Book Value / Share</td><td class="num">$49.34</td><td>yfinance</td></tr>
+      <tr><td>Shares Outstanding</td><td class="num">654M</td><td>yfinance</td></tr>
+      <tr><td>EBITDA TTM</td><td class="num">$5.26B</td><td>Income statement (2025)</td></tr>
+      <tr><td>Net Debt</td><td class="num">$35.6B</td><td>Total debt $36.4B − cash $0.8B</td></tr>
+      <tr><td>Peer Median Fwd P/E</td><td class="num">19.8x</td><td>NEE, DUK, SO, AEP, D, XEL, WEC, ETR</td></tr>
+      <tr><td>Peer Median P/B</td><td class="num">2.61x</td><td>Same peer set</td></tr>
+      <tr><td>Peer Median EV/EBITDA</td><td class="num">14.5x</td><td>Same peer set</td></tr>
+      <tr><td>Method Weights</td><td class="num">DDM 10% / PE 35% / PB 30% / EV-EBITDA 25%</td><td>Reflects build-phase nuances</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Data Sources &amp; Dates</h3>
+  <ul>
+    <li><strong>Market data:</strong> yfinance (price, financials, estimates) — pulled 28 มิ.ย. 2026.
+    Unofficial — cross-check ตัวเลขสำคัญกับ primary filings.</li>
+    <li><strong>Chart image:</strong> TradingView MCP (NYSE:SRE, Daily) — captured 28 มิ.ย. 2026.</li>
+    <li><strong>Logo:</strong> IEX Cloud logo API (embedded base64).</li>
+    <li><strong>Risk-free rate:</strong> 10Y US Treasury yield (^TNX) 4.37%.</li>
+    <li><strong>Primary filings to verify:</strong> Sempra 10-K 2025, 10-Q Q1 2026, IR investor presentation,
+      ERCOT interconnection queue reports, CPUC/PUCT rate case decisions.</li>
+  </ul>
+
+  <h3>Methodology Notes</h3>
+  <ul>
+    <li><strong>DDM 3-stage</strong> — ใช้ growth stages (8%/4.5%/2.5%) เพื่อ reflect build phase + maturity.
+      Stage 1 assumes rate base online drives EPS growth สูงกว่า DPS growth.</li>
+    <li><strong>Relative valuation</strong> — peer median + 10% premium สะท้อน SRE's higher growth profile.
+      EV/EBITDA ใช้ premium เพราะ current EBITDA depressed.</li>
+    <li><strong>SOTP</strong> — segment rate base × peer multiple, less net debt + minority interest.
+      Oncor gets Texas premium (1.8x rate base) เพราะ growth profile.</li>
+    <li><strong>Scenarios</strong> — Bull/Base/Bear with EPS growth ±2-3pp, PE re-rate assumptions, prob-weighted.</li>
+    <li><strong>ROIC approximation</strong> — NOPAT / Invested Capital (total equity + debt), ใช้ effective
+      tax 21%. Approximate เพราะ utility มี rate base complexity.</li>
+  </ul>
+
+  <div class="disc">
+    <strong>Disclaimer:</strong> เอกสารนี้จัดทำเพื่อการวิจัยและการศึกษาเท่านั้น (Research and educational output only).
+    <strong>ไม่ใช่คำแนะนำการลงทุน (Not financial advice).</strong>
+    ข้อมูลจาก yfinance, Yahoo Finance, และ TradingView เป็น unofficial และอาจล่าช้า / ไม่สมบูรณ์ / ถูกแก้ไขภายหลัง —
+    ควรตรวจสอบตัวเลขสำคัญกับ primary filings (10-K, 10-Q, 56-1, IR materials) ก่อนตัดสินใจ.
+    การลงทุนมีความเสี่ยง — ผู้ลงทุนควรพิจารณาเอง ประเมินความเสี่ยงส่วนบุคคล
+    และปรึกษาที่ปรึกษาการเงินที่มีใบอนุญาตก่อนตัดสินใจลงทุน.
+    Sempra (SRE) เป็น stock ของ US — ผู้ลงทุนไทยควรพิจารณา currency risk (THB/USD) และ tax implications ของการลงทุนต่างประเทศ.
+  </div>
+
+  <p style="font-size:12px;color:var(--gray-500);">จัดทำโดย: BF Research Workflow · ทีม both-stock-analysis · 28 มิ.ย. 2026</p>
+</section>
+
+
+
+
+
+
+
+</div><!-- /.doc -->
+</div><!-- /.shell -->
+
+<footer>
+  <p>Sempra (SRE) · Equity Research Report · จัดทำ 28 มิ.ย. 2026 · ข้อมูลราคาและการเงินจาก yfinance (unofficial)
+     — ควรตรวจสอบตัวเลขสำคัญกับ 10-K, 10-Q, และ IR materials ของบริษัท.</p>
+  <p style="margin-top:8px;"><strong>Disclaimer:</strong> เอกสารนี้จัดทำเพื่อการวิจัยและการศึกษาเท่านั้น
+     — ไม่ใช่คำแนะนำการลงทุน (Not financial advice). การลงทุนมีความเสี่ยง ผู้ลงทุนควรพิจารณาเอง
+     และปรึกษาที่ปรึกษาที่มีใบอนุญาตก่อนตัดสินใจ.</p>
+</footer>
+
+<script>
+(function(){
+  function init(){
+    // ---- Scrollspy ----
+    try{
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a[href^="#"]'));
+      var sections = links.map(function(l){return document.querySelector(l.getAttribute('href'));})
+                          .filter(Boolean);
+      var byId = {};
+      links.forEach(function(l){ byId[l.getAttribute('href').slice(1)] = l; });
+      if('IntersectionObserver' in window){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              links.forEach(function(l){l.classList.remove('active');});
+              var a = byId[e.target.id];
+              if(a) a.classList.add('active');
+            }
+          });
+        }, {rootMargin:'-30% 0px -60% 0px', threshold:0});
+        sections.forEach(function(s){io.observe(s);});
+      }
+    }catch(err){ /* scrollspy optional */ }
+
+    // ---- TOC toggle (mobile) ----
+    try{
+      var nav = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      function isMobile(){ return window.matchMedia('(max-width:900px)').matches; }
+      // Start collapsed on mobile; expanded on desktop
+      if(isMobile()){ nav.classList.add('collapsed'); } else { nav.classList.remove('collapsed'); }
+      if(btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          nav.classList.toggle('collapsed');
+        });
+      }
+      // Auto-collapse after following a link (mobile only)
+      nav.addEventListener('click', function(e){
+        if(e.target.tagName === 'A' && isMobile()){
+          nav.classList.add('collapsed');
+        }
+      });
+      // Keep state sane across resize
+      window.addEventListener('resize', function(){
+        if(!isMobile()){ nav.classList.remove('collapsed'); }
+      });
+    }catch(err){ /* toggle optional */ }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STRC (Strategy) — งานวิจัยรายได้และ Income</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:"Sukhumvit Set","Noto Serif Thai",ui-serif,Georgia,"Times New Roman",serif;
+    --sans:"Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:600;font-size:34px;letter-spacing:-.01em;margin:0;line-height:1.2;}
+  h2{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:-.01em;margin:0 0 8px;}
+  h3{font-family:var(--serif);font-weight:600;font-size:18px;margin:28px 0 10px;}
+  h4{font-family:var(--sans);font-weight:700;font-size:15px;margin:18px 0 8px;color:var(--gray-700);}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;background:var(--gray-100);padding:1px 5px;border-radius:3px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+
+  /* layout + sticky TOC */
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+
+  /* TOC toggle button */
+  .toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+              background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:700;color:var(--slate);
+              cursor:pointer;}
+  .toc-toggle .hamb{width:20px;height:14px;position:relative;flex-shrink:0;}
+  .toc-toggle .hamb span{display:block;position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                         border-radius:1px;transition:transform .25s, opacity .25s, top .25s;}
+  .toc-toggle .hamb span:nth-child(1){top:0;} .toc-toggle .hamb span:nth-child(2){top:6px;} .toc-toggle .hamb span:nth-child(3){top:12px;}
+  .toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+  .toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+  .toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+    .toc{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ivory);
+         border-bottom:var(--rule);box-shadow:0 1px 6px rgba(0,0,0,.05);border-radius:0;}
+    .toc-toggle{display:flex;}
+    .toc .eyebrow{display:none;}
+    .toc ol{max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+    .toc.collapsed ol{max-height:0;overflow:hidden;}
+    section, h3[id]{scroll-margin-top:64px;}
+  }
+
+  /* header */
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+  .logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+        background:var(--white);border:var(--border);padding:4px;}
+  @media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;} h1{font-size:26px;}}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:15px;margin-top:8px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+  /* sections */
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  h3[id]{scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+  /* KPI / verdict band */
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat{min-width:0;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat.good{border-left:4px solid var(--good);}
+  .stat.bad{border-left:4px solid var(--bad);}
+  .stat .v{font-family:var(--serif);font-size:36px;font-weight:600;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+  /* tables */
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;margin:8px 0 0;}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+  .table-wrap table{min-width:600px;}
+  thead th{text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+  tbody td{padding:12px 16px;border-bottom:1px solid var(--gray-100);vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:700;background:var(--gray-100);}
+  @media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);font-weight:600;}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);font-weight:700;}
+  .tag.good{background:#e7ecd9;color:var(--good);} .tag.bad{background:#f2dad6;color:var(--bad);} .tag.watch{background:#f6e0d6;color:var(--watch);}
+
+  /* callouts */
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;margin:14px 0;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);border-radius:0 var(--radius-panel) var(--radius-panel) 0;}
+  .callout.bad{background:#f7e7e4;border-left:4px solid var(--bad);border-radius:0 var(--radius-panel) var(--radius-panel) 0;padding:22px 24px;}
+  .callout.good{background:#eef0e4;border-left:4px solid var(--good);border-radius:0 var(--radius-panel) var(--radius-panel) 0;padding:22px 24px;}
+
+  /* chart image */
+  .chart-img{width:100%;height:auto;border:var(--border);border-radius:var(--radius-panel);display:block;background:var(--white);}
+  .chart-cap{font-family:var(--mono);font-size:11px;color:var(--gray-500);margin-top:8px;}
+
+  /* verdict banner */
+  .verdict{display:flex;align-items:center;gap:14px;padding:18px 22px;border-radius:var(--radius-panel);margin:14px 0;font-weight:600;}
+  .verdict.watch{background:#f6e0d6;color:#8a3a1f;border:1.5px solid var(--watch);}
+  .verdict.bad{background:#f2dad6;color:#6f2d24;border:1.5px solid var(--bad);}
+  .verdict.good{background:#e7ecd9;color:#4a5c33;border:1.5px solid var(--good);}
+
+  /* sparkline */
+  .spark{width:120px;height:32px;display:block;}
+
+  /* numbered list with tighter spacing */
+  ol.tight, ul.tight{margin:6px 0 14px;padding-left:22px;}
+  ol.tight li, ul.tight li{margin-bottom:6px;}
+
+  /* definition list */
+  dl.defs{margin:6px 0;}
+  dl.defs dt{font-weight:700;color:var(--gray-700);margin-top:10px;}
+  dl.defs dd{margin:2px 0 0 0;color:var(--slate);}
+
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);
+         font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;}
+    .doc{max-width:none;}
+    section{break-inside:avoid;}
+    h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOC -->
+  <nav class="toc collapsed" aria-label="สารบัญ">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">สารบัญ</div>
+    <ol id="toc-list">
+      <li><a href="#exec">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1. STRC คืออะไร — โครงสร้างตราสาร</a></li>
+      <li><a href="#s2">2. วิเคราะห์รายได้และ Yield</a></li>
+      <li><a href="#s3">3. ตรวจสอบข้อเท็จจริงจากทั้งสองบทความ</a></li>
+      <li><a href="#s4">4. การปรับ Coupon Rate (Reset Mechanism)</a></li>
+      <li><a href="#s5">5. สถานะการเงินของ Strategy (ผู้ออกตราสาร)</a></li>
+      <li><a href="#s6">6. การประเมินความเสี่ยงรายได้</a></li>
+      <li><a href="#s7">7. เปรียบเทียบกับทางเลือกอื่น</a></li>
+      <li><a href="#s8">8. สถานการณ์และแผนรายได้</a></li>
+      <li><a href="#s9">9. ความเสี่ยงหลัก</a></li>
+      <li><a href="#appendix">ภาคผนวก — แหล่งข้อมูลและข้อจำกัด</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <!-- HEADER -->
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <img class="logo" src="data:image/png;base64,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" alt="Strategy Inc. logo" width="64" height="64">
+          <h1>STRC — งานวิจัยรายได้และ Income<br><span style="font-size:18px;color:var(--gray-500);font-weight:500;">Strategy Inc. (อดีต MicroStrategy) · Variable Rate Perpetual Stretch Preferred</span></h1>
+        </div>
+        <span class="pill">Equity Research · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">งานวิเคราะห์เชิงรายได้ (income-focused) ของหุ้นบุริมสิทธิ์ตลอดกาล STRC — เน้นคำนวณ yield, โครงสร้างดอกเบี้ย, และความยั่งยืนของการจ่าย dividend</div>
+      <div class="meta mono">STRC · NASDAQ · USD · ข้อมูล ณ 27 มิ.ย. 2026 · ราคา $74.57</div>
+    </header>
+
+    <!-- EXEC SUMMARY -->
+    <section id="exec">
+      <div class="sec-h"><span class="sec-no">★</span><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+
+      <div class="callout accent">
+        <div class="eyebrow" style="margin-bottom:8px;">Key Income Insight — สิ่งสำคัญที่สุดที่ต้องเข้าใจ</div>
+        <p style="margin:0;font-size:17px;line-height:1.6;">STRC ไม่ใช่หุ้นบุริมสิทธิ์ fixed-rate 10% ตามที่บทความเข้าใจ — เป็น Variable Rate ที่ Strategy มีสิทธิ ปรับ coupon ขึ้น-ลงได้เอง (sole discretion) เพื่อผลักราคากลับสู่ $100 (par) ตั้งแต่ออก (ก.ค. 2025) rate เริ่มที่ <strong>9.00%</strong> และถูกปรับขึ้นเป็น <strong>11.50%</strong> ในมี.ค. 2026 เพื่อตอบรับราคาที่ตก ที่ราคาปัจจุบัน $74.57 <strong>current yield = 15.42%</strong> — แต่นี่คือ yield ที่ตลาด "ต้องการ"</strong> หลังหักความเสี่ยงเครดิต ไม่ใช่ yield ที่รับประกัน</p>
+      </div>
+
+      <div class="band" style="margin-top:18px;">
+        <div class="stat warn">
+          <div class="v">$74.57</div>
+          <div class="k">ราคาปัจจุบัน STRC</div>
+          <div class="d down">-25.4% จาก par $100 · ใกล้ 52w low $71.25</div>
+        </div>
+        <div class="stat">
+          <div class="v">15.42%</div>
+          <div class="k">Current Yield ต่อปี</div>
+          <div class="d">= $11.50/$74.57 · จ่าย 2 ครั้ง/เดือน</div>
+        </div>
+        <div class="stat">
+          <div class="v">11.50%</div>
+          <div class="k">Coupon Rate (ณ มี.ค. 2026)</div>
+          <div class="d up">ปรับขึ้นจาก 9.00% ตั้งแต่ออก</div>
+        </div>
+        <div class="stat">
+          <div class="v">+34.1%</div>
+          <div class="k">Upside หากกลับสู่ par</div>
+          <div class="d up">+$25.43/share + yield 15.4%</div>
+        </div>
+        <div class="stat bad">
+          <div class="v">$1.05B</div>
+          <div class="k">หนี้ดอกเบี้ย Preferred ทั้งหมด/ปี</div>
+          <div class="d down">ทุนจ่ายจากขาย common stock ใหม่</div>
+        </div>
+      </div>
+
+      <div class="verdict watch" style="margin-top:18px;">
+        <span class="tag watch">VERDICT</span>
+        <span>รายได้ 15.4% ดูสูง แต่เป็น yield-on-cost ที่มาพร้อมความเสี่ยงเครดิตสูงมาก (cumulative + unsecured + ออกโดยบริษัทที่ขาดทุนจากการดำเนินงาน) — เหมาะเฉพาะเงินที่ "พร้อมเสี่ยง" และเชื่อมั่น BTC จะฟื้นใน 1-2 ปี</span>
+      </div>
+
+      <h3>Thesis รายได้ (Income Thesis)</h3>
+      <div class="callout">
+        <p style="margin:0;">ผู้ซื้อ STRC ที่ $74.57 จะได้ <strong>$11.50/ปี ต่อหุ้น</strong> (คิดเป็น yield 15.4% บนราคาที่จ่าย) <em>ตราบใดที่</em>: (1) Strategy ยังสามารถขาย common stock ใหม่ได้ในปริมาณที่เพียงพอ, (2) ไม่ขาดทุนจาก BTC จนต้องเลิกจ่าย dividend, และ (3) บอร์ดยังประกาศจ่าย (discretionary) สิ่งที่ต้องเป็นจริงคือ วงจร ATM (ขายหุ้น → ซื้อ BTC → รักษาความเชื่อมั่น → ขายหุ้นรอบใหม่) ต้องไม่หยุด ในขณะที่ BTC ตกจาก $126k → $60k (-52%) และ MSTR ตกจาก $457 → $82 (-82%) ตลาดกำลัง "test" ว่าวงจรนี้ยังทำงานได้ ความไม่สมมาตร (asymmetry): ดอกเบี้ยสูง 15%+ แต่ทุนอาจสูญเงินต้นได้ถ้า Strategy ล้มเหลว — ไม่ใช่ fixed income ปกติ แต่ใกล้เคียง "junk equity"</p>
+      </div>
+
+      <p class="small muted">รายละเอียดโครงสร้างและกลไกการปรับ rate ใน <a href="#s1">§1</a> และ <a href="#s4">§4</a> · คำนวณ yield ใน <a href="#s2">§2</a> · การตรวจสอบข้อเท็จจริงจากบทความใน <a href="#s3">§3</a></p>
+    </section>
+
+    <!-- SECTION 1 -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>STRC คืออะไร — โครงสร้างตราสาร</h2></div>
+      <hr class="div">
+
+      <p>STRC = Variable Rate Series A Perpetual Stretch Preferred Stock ของ Strategy Inc. (ชื่อใหม่หลังเปลี่ยนจาก MicroStrategy) จดทะเบียนใน NASDAQ เป็นหนึ่งในชุด preferred stock 5 ตัวที่ Strategy ออกในปี 2025-2026 เพื่อระดมทุนซื้อ Bitcoin รายละเอียดด้านล่างมาจาก STRC Stock Annex (424B5 ลงวันที่ 23 มี.ค. 2026) และ <strong>Form 10-Q Q1 2026 (ลงวันที่ 6 พ.ค. 2026)</strong> — ทั้งสองเป็นเอกสารปฐมภูมิจาก SEC EDGAR</p>
+
+      <h3 id="s1-1">1.1 โครงสร้างพื้นฐาน (จาก Prospectus)</h3>
+
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>รายการ</th><th>รายละเอียด</th><th class="num">ค่า/หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>ชื่อเต็ม</td><td>Variable Rate Series A Perpetual Stretch Preferred Stock</td><td class="num">STRC</td></tr>
+          <tr><td>ผู้ออก (Issuer)</td><td>Strategy Inc. (อดีต MicroStrategy)</td><td class="num">NASDAQ: MSTR</td></tr>
+          <tr><td>ประเภทดอกเบี้ย</td><td><strong>Variable Rate</strong> (ไม่ใช่ fixed)</td><td class="num"><span class="tag watch">ไม่ fix</span></td></tr>
+          <tr><td>Coupon ตั้งต้น (29 ก.ค. 2025)</td><td>เริ่มต้น 9.00% ต่อปี</td><td class="num">9.00%</td></tr>
+          <tr><td>Coupon ปัจจุบัน (มี.ค. 2026)</td><td>ปรับขึ้นเป็น 11.50% (sole discretion)</td><td class="num"><strong>11.50%</strong></td></tr>
+          <tr><td>Stated Amount / Par</td><td>$100 ต่อหุ้น (dividend คำนวณบน $100)</td><td class="num">$100.00</td></tr>
+          <tr><td>Liquidation Preference</td><td>$100 ต่อหุ้น (ขั้นต่ำ ไม่ลดต่ำกว่า $100)</td><td class="num">$100.00</td></tr>
+          <tr><td>Cumulative?</td><td><strong>ใช่</strong> — ดอกเบี้ยสะสมไม่ว่าจะประกาศจ่ายหรือไม่</td><td class="num"><span class="tag good">Cumulative</span></td></tr>
+          <tr><td>ความถี่การจ่าย</td><td>เดือนละ 2 ครั้ง (เปลี่ยนจากเดือนละครั้ง มีผล 30 มิ.ย. 2026)</td><td class="num">Semi-monthly</td></tr>
+          <tr><td>อายุ</td><td>Perpetual (ตลอดกาล ไม่มีวันครบกำหนด)</td><td class="num">ไม่มี maturity</td></tr>
+          <tr><td>การไถ่ถอน (Redemption)</td><td>บริษัทมีสิทธิไถ่ถอนได้ (optional)</td><td class="num">Company option</td></tr>
+          <tr><td>Conversion</td><td>ไม่มี — ไม่แปลงเป็น common stock</td><td class="num">None</td></tr>
+          <tr><td>หลักประกัน</td><td>ไม่มี (unsecured) — junior ต่อหนี้สินทั้งหมด</td><td class="num"><span class="tag bad">Unsecured</span></td></tr>
+          <tr><td>ลำดับหนี้ (Seniority)</td><td>สูงกว่า common stock (MSTR) แต่ต่ำกว่า Strife (STRF)</td><td class="num">Mid-tier pref</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout">
+        <p style="margin:0;">คำสำคัญที่บทความพลาด: หลายคนเรียก STRC ว่า "fixed 10%" หรือ "yield fix 11.5%" — แต่จริงๆ แล้ว rate เป็น <strong>variable</strong> ที่บริษัทปรับเองได้ทุกเดือน ตามกฎ SOFR-based (ดู <a href="#s4">§4</a>) และตาม "current intention" ของบริษัทที่จะผลักราคาให้กลับไป $100 นี่คือความแตกต่างสำคัญที่สุดจาก preferred stock ทั่วไป</p>
+      </div>
+
+      <h3 id="s1-2">1.2 ทำไมบริษัทถึงออก STRC? — Capital Structure Arbitrage</h3>
+      <p>กลยุทธ์ของ Strategy (ภายใต้ CEO Michael Saylor) คือ arbitrage ระหว่างตลาดทุนและ Bitcoin — ออก preferred stock (STRC/STRF/STRK/STRD) และ convertible notes ที่มี coupon ต่ำ-กลาง แล้วเอาเงินไปซื้อ BTC ที่ (ในมุมมองบริษัท) "yield" สูงกว่าในระยะยาว</p>
+
+      <p>วงจรหาเงินมี 3 ทางหลัก:</p>
+      <ol class="tight">
+        <li>ATM common stock (MSTR) — ขายหุ้นสามัญใหม่วันละหลายล้านหุ้น (ใน Q1 2026 ขาย 33.5M หุ้น ได้เงิน ~$2.06B)</li>
+        <li>Preferred stock (STRC/STRF/STRK/STRD) — ขาย preferred ที่มี coupon 8-11.5% (Q1 2026: STRC ขายเพิ่ม 20.66M หุ้น = $2.06B)</li>
+        <li>Convertible notes — หนี้แปลงสภาพ coupon 0-2.25% (รวม outstanding ~$8.4B)</li>
+      </ol>
+      <p>เงินทั้งหมดนี้ถูกเอาไป ซื้อ Bitcoin เกือบทั้งหมด — Strategy ถือ 818,334 BTC (มูลค่า $49B ที่ BTC $60k) ณ เม.ย. 2026</p>
+
+    </section>
+
+    <!-- SECTION 2 - INCOME/YIELD ANALYSIS -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>วิเคราะห์รายได้และ Yield</h2></div>
+      <hr class="div">
+
+      <p>นี่คือส่วนที่สำคัญที่สุดสำหรับ investor ที่มอง STRC เป็น "income play" — คำนวณทุก yield อย่างถูกต้องตามนิยามของ preferred stock</p>
+
+      <h3 id="s2-1">2.1 สูตรคำนวณ Yield (ที่ถูกต้อง)</h3>
+      <div class="callout accent">
+        <p style="margin:0;">กฎเหล็ก: Dividend ของ STRC คำนวณบน Stated Amount $100 (par) — <strong>ไม่ใช่</strong> บนราคาตลาดที่คุณซื้อ</p>
+        <p style="margin:8px 0 0;">ดังนั้น annual cash dividend = $100 × 11.50% = <strong>$11.50 ต่อหุ้นต่อปี</strong> เสมอ (ตราบใดที่ rate = 11.50%)</p>
+        <p style="margin:8px 0 0;">แต่ current yield ที่คุณได้จริง = $11.50 / ราคาที่คุณซื้อ</p>
+      </div>
+
+      <h3 id="s2-2">2.2 ตาราง Yield ตามราคาเข้า (Yield on Cost)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ราคาเข้า (Entry)</th><th class="num">Annual Dividend</th><th class="num">Current Yield</th><th class="num">เทียบ UST 10Y (4.5%)</th><th class="num">หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>$100.00 (par)</td><td class="num">$11.50</td><td class="num">11.50%</td><td class="num">+7.0 pp</td><td>ราคา IPO</td></tr>
+          <tr><td>$90.00</td><td class="num">$11.50</td><td class="num">12.78%</td><td class="num">+8.3 pp</td><td></td></tr>
+          <tr><td>$85.00</td><td class="num">$11.50</td><td class="num">13.53%</td><td class="num">+9.0 pp</td><td></td></tr>
+          <tr><td><strong>$74.57 (ปัจจุบัน)</strong></td><td class="num"><strong>$11.50</strong></td><td class="num"><strong>15.42%</strong></td><td class="num"><strong>+10.9 pp</strong></td><td>ราคาตลาด 27 มิ.ย. 2026</td></tr>
+          <tr><td>$71.25 (52w low)</td><td class="num">$11.50</td><td class="num">16.14%</td><td class="num">+11.6 pp</td><td>จุดต่ำสุด</td></tr>
+          <tr><td>$65.00 (stress)</td><td class="num">$11.50</td><td class="num">17.69%</td><td class="num">+13.2 pp</td><td>หาก BTC ร่วงต่อ</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s2-3">2.3 ตัวอย่างรายได้เป็นเงิน (Income Dollar Examples)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>เงินลงทุน</th><th class="num">หุ้นที่ได้ @ $74.57</th><th class="num">รายได้/ปี</th><th class="num">รายได้/เดือน</th><th class="num">หลังหัก WHT 30%*</th></tr></thead>
+        <tbody>
+          <tr><td>$1,000</td><td class="num">13.41</td><td class="num">$154</td><td class="num">$12.85</td><td class="num">$108/ปี</td></tr>
+          <tr><td>$10,000</td><td class="num">134.10</td><td class="num">$1,542</td><td class="num">$128.51</td><td class="num">$1,080/ปี</td></tr>
+          <tr><td>$50,000</td><td class="num">670.48</td><td class="num">$7,711</td><td class="num">$642.56</td><td class="num">$5,398/ปี</td></tr>
+          <tr><td>$100,000</td><td class="num">1,340.97</td><td class="num">$15,422</td><td class="num">$1,285.13</td><td class="num">$10,795/ปี</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">*US withholding tax 30% สำหรับ non-resident alien (กรณีไทย) บน US-source dividend income — อาจลดเหลือ 15% หากใช้สิทธิตาม US-Thailand tax treaty (ต้องยื่นฟอร์ม W-8BEN) · ยังไม่รวมภาษีเงินได้ไทย</p>
+
+      <h3 id="s2-4">2.4 Total Return Scenarios (1 ปี)</h3>
+      <p>สำหรับ preferred stock แบบ perpetual, total return = yield + การเปลี่ยนแปลงราคา:</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>สถานการณ์ (1 ปี)</th><th class="num">ราคาปลายปี</th><th class="num">Yield</th><th class="num">Capital Gain</th><th class="num">Total Return</th></tr></thead>
+        <tbody>
+          <tr style="background:#eef0e4;"><td>Bull: กลับ par + Strategy ปรับ rate ตามตลาด</td><td class="num">$100</td><td class="num">15.4%</td><td class="num">+34.1%</td><td class="num"><strong>+49.5%</strong></td></tr>
+          <tr><td>Base: rate ปรับขึ้น, ราคากลับ ~$85</td><td class="num">$85</td><td class="num">15.4%</td><td class="num">+14.0%</td><td class="num">+29.4%</td></tr>
+          <tr style="background:#f6e0d6;"><td>Stress: ราคาอยู่ที่เดิม</td><td class="num">$74.57</td><td class="num">15.4%</td><td class="num">0%</td><td class="num">+15.4%</td></tr>
+          <tr style="background:#f2dad6;"><td>Bear: BTC ร่วงต่อ, ราคาไป $60</td><td class="num">$60</td><td class="num">15.4%</td><td class="num">-19.5%</td><td class="num">-4.1%</td></tr>
+          <tr style="background:#f2dad6;"><td>Worst: miss dividend + ราคาไป $40</td><td class="num">$40</td><td class="num">0%</td><td class="num">-46.4%</td><td class="num"><strong>-46.4%</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout bad">
+        <p style="margin:0;">สิ่งที่ตารางนี้บอก: คุณอาจได้ +49% ในปีนึง (กลับ par) — แต่ก็อาจเสีย -46% ถ้า Strategy มีปัญหา yield 15.4% ไม่ใช่ "รับประกัน" เป็น risk premium สำหรับการถือ unsecured perpetual preferred ของบริษัทที่ไม่มีกำไรจากการดำเนินงาน</p>
+      </div>
+
+    </section>
+
+    <!-- SECTION 3 - FACT-CHECK -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>ตรวจสอบข้อเท็จจริงจากทั้งสองบทความ</h2></div>
+      <hr class="div">
+
+      <p>นี่คือการเปรียบเทียบ claim ของทั้งสองบทความกับเอกสารปฐมภูมิจาก SEC (STRC Stock Annex + Form 10-Q) — เพื่อให้ investor ได้ข้อเท็จจริงที่ถูกต้องที่สุด</p>
+
+      <h3 id="s3-1">3.1 บทความที่ 1 (มุมมอง "แชร์ลูกโซ่ / Ponzi")</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Claim</th><th>คำตัดสิน</th><th>ความจริงจากเอกสาร</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>"ราคาร่วง 26% จาก par $100"</td>
+            <td><span class="chip"><span class="dot good"></span>ถูก</span></td>
+            <td>ราคาปัจจุบัน $74.57 = -25.43% จาก par ✓</td>
+          </tr>
+          <tr>
+            <td>"yield fix ที่ราวๆ 11.5% ต่อปี"</td>
+            <td><span class="chip"><span class="dot watch"></span>ผิดเล็กน้อย</span></td>
+            <td>Rate ปัจจุบันคือ 11.50% แต่ <strong>ไม่ fix</strong> — เป็น variable rate ที่บริษัทปรับเองได้ (เริ่ม 9%, ปรับขึ้นเป็น 11.5%)</td>
+          </tr>
+          <tr>
+            <td>"คนซื้อ $100 ขาดทุนไปแล้ว 26%"</td>
+            <td><span class="chip"><span class="dot good"></span>ถูก</span></td>
+            <td>แต่ยังได้ dividend 9-11.5% สะสมมาตลอด ~10 เดือนที่ผ่านมา ✓</td>
+          </tr>
+          <tr>
+            <td>"MSTR ไม่มีกำไร"</td>
+            <td><span class="chip"><span class="dot good"></span>ถูก</span></td>
+            <td>Q1 2026: Loss from operations $14.5B (ส่วนใหญ่ unrealized loss BTC $14.5B) · Software revenue เพียง $124M/ไตรมาส</td>
+          </tr>
+          <tr>
+            <td>"นำเงินขาย STRC มาจ่าย yield STRC (ตัดหางหมา)"</td>
+            <td><span class="chip"><span class="dot bad"></span>ผิด</span></td>
+            <td>ผิด — 10-Q ระบุชัด: "We used proceeds from the issuance of class A common stock under our ATM to pay $220.3 million ... of dividends on our Preferred Stock" — ใช้เงิน common stock จ่าย, ไม่ใช่เงิน STRC จ่าย STRC</td>
+          </tr>
+          <tr>
+            <td>"วงจรพังถ้าไม่มีเงินใหม่"</td>
+            <td><span class="chip"><span class="dot watch"></span>ถูกบางส่วน</span></td>
+            <td>ถูกในหลักการ แต่ Strategy ยังมี ATM capacity ใหญ่มาก ($21B สำหรับ STRC + $42B สำหรับ MSTR) + USD Reserve — ยังไม่ใกล้พังในสั้นกลาง</td>
+          </tr>
+          <tr>
+            <td>"ยังพอจ่าย yield ได้อีก ~1 ปี"</td>
+            <td><span class="chip"><span class="dot watch"></span>ประเมินต่ำไป</span></td>
+            <td>USD Reserve + ATM capacity + convertible notes ที่ coupon ต่ำ → จ่ายได้น่าจะมากกว่า 1 ปี หาก BTC ไม่ร่วงหนัก</td>
+          </tr>
+          <tr>
+            <td>"ถ้าราคากลับ $100 มี upside 25%, yield 15.42%"</td>
+            <td><span class="chip"><span class="dot good"></span>คำนวณถูก</span></td>
+            <td>Upside = (100-74.57)/74.57 = +34.1% (ไม่ใช่ 25%); yield = 11.5/74.57 = 15.42% ✓</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s3-2">3.2 บทความที่ 2 (มุมมองแย้ง — ไม่น่ากังวล)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Claim</th><th>คำตัดสิน</th><th>ความจริงจากเอกสาร</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>"ใช้ common stock เพิ่มทุนมาจ่ายดอก STRC"</td>
+            <td><span class="chip"><span class="dot good"></span>ถูกมาก ✓✓</span></td>
+            <td>ตรงกับ 10-Q คำต่อคำ — นี่คือข้อเท็จจริงที่บทความที่ 1 เข้าใจผิด</td>
+          </tr>
+          <tr>
+            <td>"ดอกเบี้ยจ่ายทั้งปี ~1.7 พันล้าน USD"</td>
+            <td><span class="chip"><span class="dot good"></span>ใกล้เคียง</span></td>
+            <td>คำนวณจาก aggregate liquidation preference (ณ 31 มี.ค. 2026): ~$1.05B/ปี (ก่อน STRC เติบโต Q2) — หลังเพิ่ม STRC อีก 35M หุ้นในเม.ย. อาจใกล้ $1.5-1.7B</td>
+          </tr>
+          <tr>
+            <td>"ปริมาณซื้อขายหุ้นสามัญ ~3 พันล้าน USD/วัน"</td>
+            <td><span class="chip"><span class="dot watch"></span>สับสน volume กับ issuance</span></td>
+            <td>$3B/วัน คือ trading volume (รวมซื้อ-ขายระหว่างนักลงทุน) — ไม่ใช่เงินที่ Strategy ได้ Strategy ได้เงินจาก ATM issuance ใหม่เท่านั้น (Q1 2026: $2.06B ใน 3 เดือน = ~$23M/วันเฉลี่ย)</td>
+          </tr>
+          <tr>
+            <td>"STRC ปรับ coupon rate ได้"</td>
+            <td><span class="chip"><span class="dot good"></span>ถูกมาก ✓✓</span></td>
+            <td>ตรงกับ prospectus: "we have the right, in our sole and absolute discretion, to adjust the regular dividend rate"</td>
+          </tr>
+          <tr>
+            <td>"หากตลาดอยากได้ดอกเพิ่ม Strategy น่าจะเพิ่มดอกครั้งใหญ่"</td>
+            <td><span class="chip"><span class="dot watch"></span>สมเหตุผล</span></td>
+            <td>ตรงกับ "current intention" ใน prospectus: ถ้าราคาต่ำกว่า $100 บริษัทจะปรับ rate ขึ้น แต่มีข้อจำกัด SOFR-based (ดู §4)</td>
+          </tr>
+          <tr>
+            <td>"USD Reserve จ่ายได้อีก 9 เดือน"</td>
+            <td><span class="chip"><span class="dot watch"></span>ประมาณการ</span></td>
+            <td>USD Reserve ถูกสร้างขึ้น ธ.ค. 2025 แต่ขนาดที่แน่ชัดไม่ได้เปิดเผยใน 10-Q — ประมาณการ "9 เดือน" น่าจะมาจาก dividend run-rate</td>
+          </tr>
+          <tr>
+            <td>"ถ้าเงินพร้อมเสี่ยง ไม่น่ากังวล"</td>
+            <td><span class="chip"><span class="dot watch"></span>ลดทอนความเสี่ยงเกินไป</span></td>
+            <td>"พร้อมเสี่ยง" ต้องหมายถึงยอมเสียเงินต้นได้ — preferred stock แบบ unsecured ของบริษัทที่ขาดทุน มีความเสี่ยงเครดิตจริง</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout accent">
+        <p style="margin:0;">สรุปการตรวจสอบ: บทความที่ 2 ถูกต้องกว่าในประเด็นกลไกการจ่ายดอกเบี้ย (ใช้ common stock ไม่ใช่ STRC) และ rate reset บทความที่ 1 ถูกในแง่ความเสี่ยงโครงสร้าง (วงจรต้องมีเงินใหม่) แต่ผิดในกลไก (ไม่ใช่ Ponzi แบบ STRC จ่าย STRC) ทั้งสองผิดเรื่อง "yield fix" — STRC เป็น variable rate</p>
+      </div>
+
+    </section>
+
+    <!-- SECTION 4 - RESET MECHANISM -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>การปรับ Coupon Rate (Reset Mechanism)</h2></div>
+      <hr class="div">
+
+      <p>นี่คือส่วนที่ สำคัญที่สุด ในการเข้าใจว่าทำไมราคา STRC ถึงกลับไป $100 ได้ — และก็เป็นส่วนที่บทความส่วนใหญ่พลาด</p>
+
+      <h3 id="s4-1">4.1 กลไกการปรับ Rate (จาก Prospectus หน้า SA-2)</h3>
+      <div class="callout">
+        <p style="margin:0 0 8px;">"Current Intention" ของบริษัท (เขียนไว้ใน prospectus):</p>
+        <p style="margin:0 0 8px;font-style:italic;">"Our current intention ... is to adjust the monthly regular dividend rate per annum in such a manner as we believe will maintain STRC Stock's trading price at or close to its stated amount of $100 per share."</p>
+        <p style="margin:0;">แปล: ถ้าราคา > $100 → ลด rate; ถ้าราคา &lt; $100 → เพิ่ม rate เป้าหมายคือ <strong>ดึงราคากลับ $100</strong></p>
+      </div>
+
+      <h3 id="s4-2">4.2 ข้อจำกัดการปรับ (SOFR-based restriction)</h3>
+      <p>บริษัท ไม่สามารถลด rate ได้มากเกินไปในแต่ละเดือน — ต้องเป็นไปตามสูตร SOFR-based:</p>
+      <div class="callout accent">
+        <p style="margin:0;">การลด rate ในแต่ละ period จำกัดที่: 25 basis points + (SOFR ต้น period − SOFR ต่ำสุดใน period) จาก rate เดือนก่อน และไม่สามารถลดต่ำกว่า monthly SOFR ปัจจุบัน</p>
+        <p style="margin:8px 0 0;">สำคัญ: ข้อจำกัดนี้ใช้เฉพาะการ <em>ลด</em> rate — การ <em>เพิ่ม</em> rate (ซึ่งเป็นสิ่งที่ตลาดต้องการตอนนี้) ไม่มีข้อจำกัด ในทางปฏิบัติ</p>
+      </div>
+
+      <h3 id="s4-3">4.3 เงื่อนไขสำคัญ: ห้ามลด rate ถ้าค้างจ่าย</h3>
+      <div class="callout bad">
+        <p style="margin:0;">"Notwithstanding" clause: บริษัทไม่สามารถลด rate ได้ จนกว่าจะจ่าย dividend ค้างทั้งหมดเสร็จ (หรือแยกเงินไว้ให้พอ) — เพราะ STRC cumulative หากบริษัท miss dividend ครั้งนึง ดอกเบี้ยจะสะสม และบริษัทติดกับดัก "ไม่สามารถลด rate ได้" จนกว่าจะจ่ายครบ</p>
+      </div>
+
+      <h3 id="s4-4">4.4 ประวัติการปรับ Rate (ตั้งแต่ออก)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ช่วงเวลา</th><th class="num">Coupon Rate</th><th class="num">ราคาเฉลี่ย (~)</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>29 ก.ค. 2025 (ออก)</td><td class="num">9.00%</td><td class="num">$100</td><td>Initial rate</td></tr>
+          <tr><td>สิงหาค์-ธันวาคม 2025</td><td class="num">ปรับขึ้นเรื่อยๆ</td><td class="num">$95-100</td><td>ทยอยปรับตามราคา</td></tr>
+          <tr><td>23 มี.ค. 2026 (prospectus update)</td><td class="num"><strong>11.50%</strong></td><td class="num">$75-87</td><td>+250 bps จาก initial</td></tr>
+          <tr><td>ปัจจุบัน (มิ.ย. 2026)</td><td class="num">~11.50%+</td><td class="num">$74.57</td><td>ตลาดยังต้องการ yield สูงกว่า</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout">
+        <p style="margin:0;">คำถามสำคัญ: ทำไม rate ปรับขึ้นเป็น 11.5% แล้ว ราคายังอยู่ที่ $74.57 (yield 15.4%)?</p>
+        <p style="margin:8px 0 0;">คำตอบ: ตลาดกำลังบอกว่า yield 15.4% ยังไม่เพียงพอที่จะชดเชยความเสี่ยงเครดิต — เพราะ BTC ร่วง 52%, MSTR ร่วง 82%, และ Strategy ขาดทุน $14.5B ใน Q1 2026 ตลาดต้องการ yield ที่สูงกว่า "credit risk-free" มาก บริษัทยัง ไม่ปรับ rate ขึ้นต่อ จาก 11.5% — อาจรอดู BTC หรืออาจเพิ่มในอนาคต</p>
+      </div>
+
+    </section>
+
+    <!-- SECTION 5 - ISSUER FINANCIAL POSITION -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>สถานะการเงินของ Strategy (ผู้ออกตราสาร)</h2></div>
+      <hr class="div">
+
+      <p>สำหรับ preferred stock, ความสามารถในการจ่าย dividend ขึ้นอยู่กับ ผู้ออก — ดังนั้นต้องวิเคราะห์ Strategy Inc. อย่างละเอียด ข้อมูลจาก Form 10-Q Q1 2026 (ยื่น 6 พ.ค. 2026) + subsequent events ถึง 26 เม.ย. 2026</p>
+
+      <h3 id="s5-1">5.1 สมดุลย์ทรัพย์สินหนี้สิน (ณ 31 มี.ค. 2026)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>รายการ</th><th class="num">มี.ค. 2026 ($M)</th><th class="num">ธ.ค. 2025 ($M)</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>เงินสดและระยะสั้น</td><td class="num">2,207</td><td class="num">2,301</td><td>Cash & equivalents</td></tr>
+          <tr><td>ลูกหนี้การค้า</td><td class="num">122</td><td class="num">206</td><td>Software business</td></tr>
+          <tr><td>สินทรัพย์ดิจิทัล (Bitcoin)</td><td class="num"><strong>51,650</strong></td><td class="num">58,854</td><td>762,099 BTC (cost $57.7B)</td></tr>
+          <tr><td>สินทรัพย์รวม</td><td class="num">54,269</td><td class="num">61,641</td><td></td></tr>
+          <tr><td>หนี้สินหมุนเวียน</td><td class="num">395</td><td class="num">456</td><td></td></tr>
+          <tr><td>หนี้ระยะยาว (Convertible Notes)</td><td class="num"><strong>8,165</strong></td><td class="num">8,159</td><td>coupon 0-2.25%</td></tr>
+          <tr><td>หนี้สินรวม</td><td class="num">8,632</td><td class="num">10,598</td><td></td></tr>
+          <tr><td>Mezzanine equity (Preferred)</td><td class="num">9,005</td><td class="num">7,677</td><td>STRF/STRC/STRE/STRK/STRD</td></tr>
+          <tr><td>ส่วนของผู้ถือหุ้น</td><td class="num"><strong>36,651</strong></td><td class="num">44,123</td><td>-16.9% QoQ (จากขาดทุน)</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s5-2">5.2 ผลประกอบการ Q1 2026 — ขาดทุนมหาศาล</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>รายการ</th><th class="num">Q1 2026 ($M)</th><th class="num">Q1 2025 ($M)</th></tr></thead>
+        <tbody>
+          <tr><td>รายได้ software</td><td class="num">124</td><td class="num">111</td></tr>
+          <tr><td>กำไรขั้นต้น</td><td class="num">83</td><td class="num">77</td></tr>
+          <tr><td>Unrealized loss on BTC</td><td class="num"><strong>(14,455)</strong></td><td class="num">(5,906)</td></tr>
+          <tr><td>ขาดทุนจากการดำเนินงาน</td><td class="num"><strong>(14,470)</strong></td><td class="num">(5,921)</td></tr>
+          <tr><td>ขาดทุนสุทธิ</td><td class="num"><strong>(12,543)</strong></td><td class="num">(4,217)</td></tr>
+          <tr><td>Dividend ที่จ่ายให้ Preferred</td><td class="num">(230)</td><td class="num">(11)</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout bad">
+        <p style="margin:0;">ข้อสังเกตสำคัญ: รายได้จาก software เพียง $124M/ไตรมาส — ขณะที่ หนี้ดอกเบี้ย Preferred ต้องจ่าย ~$1.05B/ปี (=$263M/ไตรมาส) นั่นคือ software business เพียงอย่างเดียวไม่พอจ่าย dividend — ต้องพึ่ง ATM common stock + ขาย BTC ในกรณีที่จำเป็น</p>
+      </div>
+
+      <h3 id="s5-3">5.3 แหล่งเงินจ่าย Dividend (ที่ Strategy ใช้จริง)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>แหล่งเงิน</th><th class="num">ขนาด/ปี</th><th>สถานะ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>1. ATM common stock (MSTR) issuance</strong></td>
+            <td class="num">$2.06B (Q1 2026) + $4.24B (เม.ย.)</td>
+            <td><span class="chip"><span class="dot good"></span>แหล่งหลัก</span></td>
+          </tr>
+          <tr>
+            <td><strong>2. ATM preferred stock issuance</strong></td>
+            <td class="num">STRC: $2.06B (Q1) + 35M หุ้นเพิ่ม (เม.ย.)</td>
+            <td><span class="chip"><span class="dot watch"></span>ระดมทุนรอบใหม่</span></td>
+          </tr>
+          <tr>
+            <td><strong>3. USD Reserve (สำรอง USD)</strong></td>
+            <td class="num">สร้าง ธ.ค. 2025 (ขนาดไม่เปิดเผย)</td>
+            <td><span class="chip"><span class="dot watch"></span>กันสำรอง</span></td>
+          </tr>
+          <tr>
+            <td><strong>4. Software revenue ($124M/Q)</strong></td>
+            <td class="num">$497M/ปี</td>
+            <td><span class="chip"><span class="dot bad"></span>ไม่พอจ่าย dividend</span></td>
+          </tr>
+          <tr>
+            <td><strong>5. ขาย BTC (ทางเลือกสุดท้าย)</strong></td>
+            <td class="num">818,334 BTC (มูลค่า $49B)</td>
+            <td><span class="chip"><span class="dot bad"></span>Death spiral risk</span></td>
+          </tr>
+          <tr>
+            <td><strong>6. Interest income จาก USD Reserve</strong></td>
+            <td class="num">~$1.8M (Q1)</td>
+            <td><span class="chip"><span class="dot good"></span>เล็กน้อย</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="callout">
+        <p style="margin:0;"><strong>10-Q ยืนยันชัด (หน้า F-31):</strong> "We used proceeds from the issuance of class A common stock under our ATM to pay $220.3 million ... of dividends on our Preferred Stock" — นี่คือ คำตอบชัดเจน ว่าเงินจ่าย dividend มาจากไหน: ขายหุ้นสามัญใหม่ ไม่ใช่ "แชร์ลูกโซ่ STRC จ่าย STRC" ตามที่บทความที่ 1 เข้าใจผิด</p>
+      </div>
+
+      <h3 id="s5-4">5.4 ความสามารถในการระดมทุนต่อไป (ATM Capacity)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ตราสาร</th><th class="num">ATM Capacity ที่ลงทะเบียน</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>STRC (Perpetual Stretch)</td><td class="num">$21.0B</td><td>หลังจาก Increase มี.ค. 2026</td></tr>
+          <tr><td>STRK (Perpetual Strike)</td><td class="num">$2.1B</td><td>+ รอบเดิม</td></tr>
+          <tr><td>MSTR (common stock)</td><td class="num">$42.0B</td><td>MSTR Increase</td></tr>
+          <tr><td>รวม Capacity</td><td class="num"><strong>~$65B+</strong></td><td><span class="chip"><span class="dot good"></span>ใหญ่มาก</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">หมายเหตุ: capacity = วงเงินที่ลงทะเบียนไว้ — ไม่ได้แปลว่าขายได้หมด ขึ้นอยู่กับความต้องการตลาดและราคา ณ เวลาที่ขาย</p>
+
+    </section>
+
+    <!-- SECTION 6 - RISK ASSESSMENT -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>การประเมินความเสี่ยงรายได้</h2></div>
+      <hr class="div">
+
+      <p>นี่คือส่วนที่ ขาดไม่ได้ สำหรับ income investor — yield 15.4% มีความหมายก็ต่อเมื่อคุณเข้าใจความเสี่ยงที่อยู่เบื้องหลัง</p>
+
+      <h3 id="s6-1">6.1 ลำดับความเสี่ยง (เรียงตามผลกระทบต่อรายได้/เงินต้น)</h3>
+
+      <h4>① ความเสี่ยงวงจร ATM หยุด (Cycle-Breaker Risk) — <span class="tag watch">กลาง</span></h4>
+      <p>วงจร "ขายหุ้น → ซื้อ BTC → รักษาความเชื่อมั่น → ขายหุ้นรอบใหม่" จะพังถ้า: (a) BTC ร่วงต่อจน MSTR ตกเท่ากับมูลค่า BTC ต่อหุ้น (ปัจจุบันใกล้: MSTR $82 vs BTC/share $140), (b) ตลาดไม่ยอมรับ ATM issuance ใหม่, (c) dilution หนักจนราคา MSTR collapse</p>
+      <p class="small muted">ปัจจุบัน: MSTR ตกจาก $457 → $82 (-82%) ในขณะที่ BTC ตก -52% → ตลาดเริ่ม "สงสัย" แต่ยังไม่หยุดรับ issuance (เม.ย. 2026 ยังขาย STRC +35M หุ้น ได้ $4.24B)</p>
+
+      <h4>② ความเสี่ยง Miss Dividend (Dividend Suspension) — <span class="tag watch">กลาง-สูง</span></h4>
+      <p>เพราะ STRC cumulative — ถ้า miss ประกาศจ่าย ดอกเบี้ยจะสะสม (เป็นหนี้) แต่ยังไม่ผิดสัญญา อย่างไรก็ตาม:</p>
+      <ul class="tight">
+        <li>ถ้า miss → บริษัท ไม่สามารถลด rate ได้ จนกว่าจะจ่ายครบ (กฎ prospectus)</li>
+        <li>ถ้า BTC ร่วงต่อ → อาจต้องขาย BTC มาจ่าย → death spiral (ราคา BTC ร่วงเพราะ Strategy ขาย → MSTR ร่วง → ATM หยุด → ต้องขาย BTC ต่อ)</li>
+        <li>STRC เป็น junior ต่อ STRF (Strife) — ถ้ามีปัญหาจริง STRF ได้เงินก่อน</li>
+      </ul>
+
+      <h4>③ ความเสี่ยงเครดิต (Credit/Insolvency Risk) — <span class="tag watch">กลาง</span></h4>
+      <p>Strategy ไม่ใช่บริษัทที่จะล้มง่าย — ถือ BTC มูลค่า $49B (ณ BTC $60k) ต่อหนี้ $8.4B + preferred $9B แต่:</p>
+      <ul class="tight">
+        <li>ถ้า BTC ร่วงไปต่ำกว่า ~$35k → มูลค่า BTC ($28B) จะ น้อยกว่าหนี้ทั้งหมด (~$17.6B แต่ preferred stockholder อยู่ท้ายสุด)</li>
+        <li>Preferred stockholder อยู่ ใต้ convertible notes ($8.4B) — ในกรณีล้มละลาย จะได้เงินเป็นอันดับท้ายๆ</li>
+        <li>Cumulative nature ช่วยปกป้อง: ดอกเบี้ยค้างยังเป็นหนี้ที่ต้องจ่าย</li>
+      </ul>
+
+      <h4>④ ความเสี่ยงการปรับ Rate ไม่เพียงพอ (Reset Risk) — <span class="tag watch">กลาง</span></h4>
+      <p>ถ้า Strategy ไม่ปรับ rate ขึ้นต่อจาก 11.50% (แม้ราคาจะต่ำกว่า $100) — ราคาอาจไม่กลับ $100 เหตุผลที่อาจไม่ปรับ:</p>
+      <ul class="tight">
+        <li>กลัวการเพิ่ม rate จะทำให้ dividend burden หนักขึ้น (ในขณะที่รายได้ software ไม่พอ)</li>
+        <li>ต้องการให้ STRC ซื้อขายต่ำกว่า par เพื่อทำ ATM ได้ผลตอบแทนดีกว่า (issue ใหม่ที่ $75 = ได้เงินน้อยกว่า issue ที่ $100)</li>
+        <li>รอดูว่า BTC ฟื้นไหมก่อนตัดสินใจ</li>
+      </ul>
+
+      <h4>⑤ ความเสี่ยง Dilution / Capital Structure Shift — <span class="tag watch">กลาง</span></h4>
+      <p>Strategy ออก preferred stock ใหม่เรื่อยๆ (เช่น STRE ใหม่ Q1 2026) — แต่ละตัวเพิ่ม "หนี้ดอกเบี้ย" ที่ต้องจ่าย ในขณะที่รายได้ software ไม่เติบโต สัดส่วน dividend/รายได้จะหนักขึ้นเรื่อยๆ</p>
+
+      <h4>⑥ ความเสี่ยงดอกเบี้ย (Interest Rate Risk) — <span class="tag good">ต่ำ</span></h4>
+      <p>เพราะ STRC เป็น variable rate pegged กับ SOFR — ถ้า Fed ลด rate, พื้นของ STRC ก็ลดตาม แต่ "current intention" ของบริษัทจะชดเชยด้วยการปรับ spread</p>
+
+      <h3 id="s6-2">6.2 สรุป: ความเสี่ยง "แชร์ลูกโซ่" แบบบทความที่ 1 — จริงหรือ?</h3>
+      <div class="callout">
+        <p style="margin:0;">คำตอบสั้น: ไม่ใช่ Ponzi แบบ classic แต่มี ความคล้ายคลึงเชิงโครงสร้าง</p>
+        <p style="margin:10px 0 0;">เหมือน Ponzi ตรง: ต้องมีเงินใหม่เข้ามาเรื่อยๆ เพื่อจ่ายผลตอบแทนคนเก่า — ถ้าหยุด → วงจรพัง</p>
+        <p style="margin:6px 0 0;">ต่างจาก Ponzi ตรง: (1) Strategy มีสินทรัพย์จริง (BTC มูลค่า $49B), (2) มี software business ที่ทำกำไรได้ (แม้น้อย), (3) เปิดเผยข้อมูลครบใน SEC filings, (4) dividend มาจาก equity issuance ที่เปิดเผย — ไม่ใช่ "เอาเงินคนใหม่มาจ่ายคนเก่า" แบบซ่อนเร้น</p>
+        <p style="margin:6px 0 0;">คำที่แม่นยำกว่า: "Bitcoin Treasury Company ที่ใช้ capital markets เป็นแหล่งเงินจ่าย dividend" — เป็นโมเดลที่ legitimate แต่มีความเสี่ยงโครงสร้างสูง คล้ายกับ "funding risk" ของธนาคาร</p>
+      </div>
+
+    </section>
+
+    <!-- SECTION 7 - ALTERNATIVES -->
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>เปรียบเทียบกับทางเลือกอื่น</h2></div>
+      <hr class="div">
+
+      <p>Yield 15.4% ดูสูง — แต่ต้องเทียบกับทางเลือกในระดับความเสี่ยงเดียวกัน</p>
+
+      <h3 id="s7-1">7.1 ตารางเปรียบเทียบ Yield vs Risk</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ตราสาร</th><th class="num">Yield</th><th>ความเสี่ยงเครดิต</th><th class="num">Liquidity</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>US Treasury 10Y</td><td class="num">~4.5%</td><td><span class="chip"><span class="dot good"></span>ไม่มี</span></td><td class="num">สูงมาก</td><td>Risk-free benchmark</td></tr>
+          <tr><td>Investment-grade corp bonds</td><td class="num">~5.5-6.5%</td><td><span class="chip"><span class="dot good"></span>ต่ำ</span></td><td class="num">สูง</td><td>BBB-/A-rated</td></tr>
+          <tr><td>High-yield (junk) bonds</td><td class="num">~7-9%</td><td><span class="chip"><span class="dot watch"></span>กลาง</span></td><td class="num">กลาง</td><td>BB/B-rated, secured</td></tr>
+          <tr><td>CCC-rated distressed bonds</td><td class="num">~10-13%</td><td><span class="chip"><span class="dot bad"></span>สูง</span></td><td class="num">ต่ำ</td><td>มี covenant protection</td></tr>
+          <tr style="background:#f6e0d6;"><td><strong>STRC @ $74.57</strong></td><td class="num"><strong>15.42%</strong></td><td><span class="chip"><span class="dot bad"></span>สูงมาก</span></td><td class="num">กลาง</td><td>Unsecured + cumulative + ไม่มี maturity</td></tr>
+          <tr><td>MSTR common stock</td><td class="num">0% (no div)</td><td><span class="chip"><span class="dot bad"></span>สูงสุด</span></td><td class="num">สูงมาก</td><td>Junior ต่อ STRC, BTC exposure แท้</td></tr>
+          <tr><td>BTC direct</td><td class="num">0% (no yield)</td><td><span class="chip"><span class="dot good"></span>N/A</span></td><td class="num">สูง</td><td>No credit risk, เก็บเอง</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s7-2">7.2 การวิเคราะห์ Spread</h3>
+      <div class="callout accent">
+        <p style="margin:0;">STRC spread เหนือ UST 10Y: ~10.9 pp (1,090 bps)</p>
+        <p style="margin:10px 0 0;">เพื่อให้เทียบเท่ากับ CCC-rated bond yield (~12%) ต้องมี default risk premium เพิ่ม — ตลาดกำลังบอกว่า STRC มีความเสี่ยงเครดิตสูงกว่า CCC-rated bonds</p>
+        <p style="margin:8px 0 0;">เพื่อให้ yield 15.4% สมเหตุสมผล คุณต้องเชื่อว่า probability of permanent capital loss &lt; 30% ใน 3-5 ปี (คำนวณคร่าวๆ: expected loss ที่ทำให้ yield 15.4% = risk-free 4.5% → implied default probability ที่ตลาดกำลัง price in)</p>
+      </div>
+
+      <h3 id="s7-3">7.3 คำถาม "เหตุใดจึงเลือก STRC แทนทางเลือกอื่น?"</h3>
+      <ul class="tight">
+        <li>เลือก STRC แทน MSTR: ได้ income ประจำ (15.4%) แทน pure BTC speculation + seniority สูงกว่าในกรณีล้มละลาย + upside เมื่อกลับ par</li>
+        <li>เลือก STRC แทน BTC: ได้ yield โดยมี "leverage" ต่อราคา BTC (ผ่านความสามารถจ่าย dividend ของ Strategy)</li>
+        <li>เลือก STRC แทน junk bonds: yield สูงกว่า + upside เมื่อกลับ par (junk bond capped at par) + สภาพคล่องดีกว่า</li>
+        <li>เลือก junk bond แทน STRC: มี maturity (กำหนดเวลา), มี covenant, มี collateral, ความเสี่ยงเครดิตชัดเจนกว่า</li>
+      </ul>
+
+    </section>
+
+    <!-- SECTION 8 - SCENARIOS AND INCOME PLAN -->
+    <section id="s8">
+      <div class="sec-h"><span class="sec-no">8</span><h2>สถานการณ์และแผนรายได้</h2></div>
+      <hr class="div">
+
+      <h3 id="s8-1">8.1 สถานการณ์ (Scenarios) — 12 / 24 / 36 เดือน</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>สถานการณ์</th><th>เงื่อนไขขับเคลื่อน</th><th class="num">STRC 12m</th><th class="num">24m</th><th class="num">36m</th><th class="num">Prob (ประมาณ)</th></tr></thead>
+        <tbody>
+          <tr style="background:#eef0e4;">
+            <td>Bull</td>
+            <td>BTC ฟื้น >$90k, ATM ทำงานต่อ, Strategy ปรับ rate ขึ้น</td>
+            <td class="num">$90 (+21%)</td>
+            <td class="num">$100 (+34%)</td>
+            <td class="num">$100+ yield</td>
+            <td class="num">~25%</td>
+          </tr>
+          <tr>
+            <td>Base</td>
+            <td>BTC อยู่ $55-70k, ATM ทำงาน, dividend จ่ายต่อ</td>
+            <td class="num">$75 (flat)</td>
+            <td class="num">$80 (+7%)</td>
+            <td class="num">$85 (+14%)</td>
+            <td class="num">~45%</td>
+          </tr>
+          <tr style="background:#f6e0d6;">
+            <td>Bear</td>
+            <td>BTC ร่วง $40-50k, ATM ชะลอ, miss 1-2 dividend</td>
+            <td class="num">$60 (-20%)</td>
+            <td class="num">$55 (-26%)</td>
+            <td class="num">$50 (-33%)</td>
+            <td class="num">~25%</td>
+          </tr>
+          <tr style="background:#f2dad6;">
+            <td>Worst</td>
+            <td>BTC &lt;$35k, ATM หยุด, death spiral, restructuring</td>
+            <td class="num">$40 (-46%)</td>
+            <td class="num">$25 (-66%)</td>
+            <td class="num">$10-20</td>
+            <td class="num">~5%</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h4>Expected Value (12 เดือน, รวม yield 15.4%)</h4>
+      <div class="callout accent">
+        <p style="margin:0;">EV = 0.25×(21+15.4) + 0.45×(0+15.4) + 0.25×(-20+15.4) + 0.05×(-46+0) = <strong>+4.8% ต่อปี</strong></p>
+        <p style="margin:8px 0 0;">สังเกตว่า EV บวกแต่ <strong>ต่ำกว่า yield ที่ตัดสินใจซื้อ (15.4%)</strong> — เพราะความน่าจะเป็นของ Bear/Worst ลด expected return ลง นี่คือเหตุผลที่ตลาด price yield ที่ 15.4% (เพื่อให้ EV ยังพอดึงดูด)</p>
+      </div>
+
+      <h3 id="s8-2">8.2 แผนรายได้ตามโปรไฟล์ความเสี่ยง (Conditional — ไม่ใช่คำแนะนำ)</h3>
+
+      <div class="callout">
+        <p style="margin:0;">ก่อนทุกอย่าง — ถามตัวเอง:</p>
+        <ol class="tight" style="margin:8px 0 0;">
+          <li>เงินนี้พร้อมเสี่ยง <strong>เสียเงินต้นได้ 30-50%</strong> หรือไม่?</li>
+          <li>มีกระแสเงินสดที่ ไม่ต้องพึ่ง dividend นี้หรือไม่?</li>
+          <li>เชื่อมั่น BTC จะฟื้นใน 1-3 ปี หรือไม่?</li>
+        </ol>
+      </div>
+
+      <h4>โปรไฟล์ A — Conservative Income (ไม่แนะนำ STRC)</h4>
+      <ul class="tight">
+        <li>หากคุณต้องการ income เพื่อใช้จ่ายจริง → หลีกเลี่ยง STRC</li>
+        <li>เลือก: US Treasury 4.5%, IG bonds 6%, หรือ dividend aristocrats</li>
+        <li>เหตุผล: STRC ไม่ใช่ "income" ในนิยามปกติ — เป็น high-risk speculation ที่มี coupon</li>
+      </ul>
+
+      <h4>โปรไฟล์ B — BTC Believer with Income Tilt (เหมาะกับ STRC ส่วนเล็ก)</h4>
+      <ul class="tight">
+        <li>ถ้าเชื่อมั่น BTC (long-term) แต่ต้องการ income บ้าง → พิจารณา STRC <strong>สูงสุด 5-10%</strong> ของ portfolio BTC-related</li>
+        <li>เหตุผล: ได้ yield 15%+ ขณะรอ BTC ฟื้น + seniority สูงกว่า MSTR</li>
+        <li>เงื่อนไขเข้า: รอให้ใกล้ support $70-72 หรือหลัง BTC ฟื้น above key level</li>
+        <li>Sizing: สูงสุดเท่าที่ยอมเสียทั้งหมดได้ (position size = max tolerable loss)</li>
+      </ul>
+
+      <h4>โปรไฟล์ C — Aggressive Speculator (เหมาะกับ STRC ที่ par เท่านั้น)</h4>
+      <ul class="tight">
+        <li>ถ้าต้องการ asymmetric upside → รอจนกว่า STRC จะกลับ $90+ (confirmation ว่า cycle ทำงาน)</li>
+        <li>หรือซื้อที่ $70-72 (52w low area) เพื่อ entry ที่ yield 16%+ และ upside-to-par สูง</li>
+        <li>หลีกเลี่ยงการซื้อมากที่ $74-78 (no man's land ระหว่าง support และ resistance)</li>
+      </ul>
+
+      <h3 id="s8-3">8.3 จุดเข้า/Stop (Entry/Invalidation) — เชิงเทคนิค</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ระดับ</th><th class="num">ราคา</th><th>ความหมาย</th></tr></thead>
+        <tbody>
+          <tr><td>Entry zone (ความเสี่ยงต่ำ)</td><td class="num">$70-72</td><td>ใกล้ 52w low, yield 16%+, stop ใต้ $68</td></tr>
+          <tr><td>Entry zone (กลาง)</td><td class="num">$74-76</td><td>ปัจจุบัน — ต้องการ confirmation</td></tr>
+          <tr><td>Invalidation (Stop)</td><td class="num">&lt;$68</td><td>breakdown ใต้ 52w low = cycle พังจริง</td></tr>
+          <tr><td>Target 1 (Base)</td><td class="num">$85-90</td><td>ถ้า rate ปรับขึ้น + BTC ฟื้น modest</td></tr>
+          <tr><td>Target 2 (Bull)</td><td class="num">$100 (par)</td><td>กลับสู่ par — fair value ตาม design</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+    </section>
+
+    <!-- SECTION 9 - KEY RISKS -->
+    <section id="s9">
+      <div class="sec-h"><span class="sec-no">9</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+
+      <p>เรียงตามผลกระทบต่อมูลค่า STRC และความสามารถในการจ่าย dividend</p>
+
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>ความเสี่ยง</th><th class="num">ผลกระทบต่อราคา</th><th class="num">Prob</th><th>Thesis-breaker?</th></tr></thead>
+        <tbody>
+          <tr style="background:#f2dad6;">
+            <td>1</td>
+            <td><strong>BTC ร่วงต่ำกว่า $35k</strong> — ทำให้มูลค่า BTC ($28B) &lt; หนี้ ($17.6B)</td>
+            <td class="num">-50% ถึง -80%</td>
+            <td class="num">~10-15%</td>
+            <td><span class="tag bad">ใช่</span></td>
+          </tr>
+          <tr style="background:#f6e0d6;">
+            <td>2</td>
+            <td>ATM issuance หยุด — ตลาดปฏิเสธ equity ใหม่ของ Strategy</td>
+            <td class="num">-30% ถึง -50%</td>
+            <td class="num">~20%</td>
+            <td><span class="tag bad">ใช่</span></td>
+          </tr>
+          <tr style="background:#f6e0d6;">
+            <td>3</td>
+            <td>Miss dividend — บอร์ดไม่ประกาศจ่าย (discretionary)</td>
+            <td class="num">-25% ถึง -40%</td>
+            <td class="num">~15%</td>
+            <td><span class="tag watch">น่าจะ</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Rate reset ไม่เพียงพอ — ไม่ปรับ rate ขึ้นต่อ</td>
+            <td class="num">-10% ถึง -20%</td>
+            <td class="num">~30%</td>
+            <td><span class="tag watch">ไม่</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Dilution จาก preferred ใหม่ — STRE/ตัวใหม่เพิ่ม dividend burden</td>
+            <td class="num">-5% ถึง -15%</td>
+            <td class="num">~40%</td>
+            <td><span class="tag good">ไม่</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>US rate cut — SOFR ลด → floor rate ลด</td>
+            <td class="num">-5% ถึง -10%</td>
+            <td class="num">~30%</td>
+            <td><span class="tag good">ไม่</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Regulatory / tax shock — กฎใหม่ต่อ BTC treasury companies</td>
+            <td class="num">-15% ถึง -30%</td>
+            <td class="num">~10%</td>
+            <td><span class="tag watch">บางส่วน</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s9-1">9.1 จุดที่ต้องติดตาม (Watch Items)</h3>
+      <ul class="tight">
+        <li>BTC price — ตัวขับเคลื่อนหลักทุกอย่าง · ระวัง $50k (psychological) และ $35k (NAV threshold)</li>
+        <li>ATM activity รายเดือน — ดูใน Strategy dashboard + 8-K filings · ถ้า issuance ลดลงมาก = สัญญาณเตือน</li>
+        <li>STRC coupon rate — ประกาศเดือนละครั้ง · ถ้าไม่ปรับขึ้นทั้งที่ราคาต่ำ = Strategy กำลังลด commitment</li>
+        <li>MSTR premium to NAV — ถ้า MSTR ตกต่ำกว่า BTC/share = วงจร ATM ใกล้พัง</li>
+        <li>USD Reserve size — ถ้าใช้จนหมด = ต้องขาย BTC หรือหยุด dividend</li>
+        <li><strong>Earnings (Q2 2026)</strong> — คาดว่าจะประกาศ สิงหาคม · ดู unrealized BTC loss และ capital markets activity</li>
+      </ul>
+
+    </section>
+
+    <!-- APPENDIX -->
+    <section id="appendix">
+      <div class="sec-h"><span class="sec-no">★</span><h2>ภาคผนวก — แหล่งข้อมูลและข้อจำกัด</h2></div>
+      <hr class="div">
+
+      <h3 id="app-a">A. แหล่งข้อมูล (Data Sources)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ข้อมูล</th><th>แหล่ง</th><th>วันที่</th></tr></thead>
+        <tbody>
+          <tr><td>ราคา STRC, MSTR, BTC</td><td>Yahoo Finance (ผ่าน TradingView MCP)</td><td>27 มิ.ย. 2026</td></tr>
+          <tr><td>STRC โครงสร้าง + reset mechanism</td><td>SEC EDGAR — STRC Stock Annex (424B5)</td><td>23 มี.ค. 2026</td></tr>
+          <tr><td>STRC Supplement No. 1 (dividend 2 ครั้ง/เดือน)</td><td>SEC EDGAR — 424B5</td><td>23 มิ.ค. 2026</td></tr>
+          <tr><td>สถานะการเงิน Strategy (Q1 2026)</td><td>SEC EDGAR — Form 10-Q</td><td>6 พ.ค. 2026 (Q1 2026)</td></tr>
+          <tr><td>ATM capacity + activity</td><td>Form 10-Q Notes 9, 11 + Capital Markets Activity</td><td>Q1 2026 + subsequent to 26 เม.ย. 2026</td></tr>
+          <tr><td>Preferred stock outstanding</td><td>Form 10-Q, Note 9 — Redeemable Preferred Stock table</td><td>ณ 31 มี.ค. 2026</td></tr>
+          <tr><td>Dividend payment source</td><td>Form 10-Q, หน้า F-31</td><td>Q1 2026</td></tr>
+          <tr><td>ตัวบ่งชี้ทางเทคนิค</td><td>TradingView combined analysis</td><td>27 มิ.ย. 2026</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="app-b">B. สมมติฐานสำคัญ (Key Assumptions)</h3>
+      <ul class="tight">
+        <li>Coupon rate 11.50% คงอยู่ในช่วงวิเคราะห์ (อาจเปลี่ยน — ดู §4)</li>
+        <li>US withholding tax 30% สำหรับ non-resident (ลดเหลือ 15% ด้วย W-8BEN ภายใต้ US-Thailand treaty)</li>
+        <li>ราคา BTC ณ 27 มิ.ค. 2026 = $59,921 (อาจเปลี่ยน — ส่งผลต่อ NAV ของ Strategy)</li>
+        <li>ATM capacity ใช้ได้ตามที่ลงทะเบียน (อาจไม่สามารถขายได้ทั้งหมดในตลาดจริง)</li>
+        <li>Probability ใน scenario analysis เป็นการประมาณการของผู้วิเคราะห์ — ไม่ใช่ตัวเลขที่แน่นอน</li>
+      </ul>
+
+      <h3 id="app-c">C. คำจำกัดความ (Glossary)</h3>
+      <dl class="defs">
+        <dt>Preferred Stock</dt>
+        <dd>หุ้นบุริมสิทธิ์ — มีสิทธิเหนือ common stock ในการรับ dividend และทรัพย์สินเมื่อล้มละลาย แต่ไม่มีสิทธิ์ลงคะแนน (ส่วนใหญ่)</dd>
+        <dt>Cumulative Dividend</dt>
+        <dd>ดอกเบี้ยที่สะสม — ถ้า miss ประกาศจ่าย ดอกเบี้ยจะค้างเป็นหนี้ที่ต้องจ่ายก่อน common stockholder ได้อะไร</dd>
+        <dt>Variable Rate</dt>
+        <dd>ดอกเบี้ยที่ปรับได้ — ต่างจาก fixed-rate preferred ที่ rate คงที่ตลอดอายุ</dd>
+        <dt>Stated Amount / Par</dt>
+        <dd>มูลค่าที่ใช้คำนวณ dividend ($100 สำหรับ STRC) — ไม่ใช่ราคาตลาด</dd>
+        <dt>Liquidation Preference</dt>
+        <dd>จำนวนเงินที่ preferred stockholder จะได้ในกรณีล้มละลายก่อน common stockholder</dd>
+        <dt>ATM (At-The-Market) Offering</dt>
+        <dd>การขายหุ้นใหม่ในตลาดรองโดยตรง ตามความต้องการ — ไม่ใช่ IPO</dd>
+        <dt>SOFR</dt>
+        <dd>Secured Overnight Financing Rate — benchmark rate ที่ใช้ในกลไก reset ของ STRC</dd>
+        <dt>USD Reserve</dt>
+        <dd>เงิน USD ที่ Strategy สำรองไว้ (สร้าง ธ.ค. 2025) เพื่อจ่าย dividend โดยไม่ต้องขาย BTC</dd>
+      </dl>
+
+      <h3 id="app-d">D. ข้อจำกัดของการวิเคราะห์ (Caveats)</h3>
+      <ul class="tight">
+        <li>ข้อมูลจาก Yahoo Finance/TradingView เป็นข้อมูล unpresentative — ควร cross-check กับ exchange ก่อนตัดสินใจ</li>
+        <li>Probability ใน scenario analysis เป็นการประมาณการ — ไม่ใช่ตัวเลขที่แม่นยำ</li>
+        <li>ตัวเลข "818,334 BTC" คือ ณ 26 เม.ย. 2026 — อาจเปลี่ยนใน Q2 2026</li>
+        <li>STRC เป็นตราสารใหม่ (ออก ก.ค. 2025) — ประวัติย่อม และ liquidity อาจจำกัด</li>
+        <li>กลไก reset mechanism ซับซ้อน — ควรอ่าน prospectus เต็มก่อนตัดสินใจ</li>
+        <li>ผู้วิเคราะห์ไม่ถือ STRC/MSTR/BTC ณ เวลาที่เขียน</li>
+      </ul>
+
+      <div class="callout bad">
+        <p style="margin:0;">⚠ ข้อจำกัดที่สำคัญที่สุด: งานวิจัยนี้เป็น การวิเคราะห์เพื่อการศึกษาและวิจัยเท่านั้น ไม่ใช่คำแนะนำการลงทุน STRC เป็นตราสารที่มีความเสี่ยงสูงมาก — ผู้ลงทุนควรปรึกษาที่ปรึกษาการเงินที่ผ่านการรับรอง และพิจารณาสภาพคล่อง ความเสี่ยง และวัตถุประสงค์การลงทุนของตนเองก่อนตัดสินใจ</p>
+      </div>
+
+    </section>
+
+    <!-- CHARTS SECTION -->
+    <section id="charts">
+      <div class="sec-h"><span class="sec-no">📈</span><h2>แผนภูมิอ้างอิง (Reference Charts)</h2></div>
+      <hr class="div">
+
+      <h3 id="chart-strc">STRC — แผนภูมิรายวัน (Daily Chart)</h3>
+      <img class="chart-img" src="data:image/png;base64,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" alt="STRC daily chart" loading="lazy">
+      <div class="chart-cap">NASDAQ:STRC · Daily · capture 27 มิ.ค. 2026 · ราคาปัจจุบัน $74.57 (ใกล้ 52w low) · RSI ~11 (oversold สุด) · อยู่ใต้ SMA200 ($98) · ADX 62 (Strong Downtrend)</div>
+
+      <h3 id="chart-mstr" style="margin-top:32px;">MSTR — แผนภูมิรายสัปดาห์ (Weekly Context)</h3>
+      <img class="chart-img" src="data:image/png;base64,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" alt="MSTR weekly chart" loading="lazy">
+      <div class="chart-cap">NASDAQ:MSTR · Weekly · 27 มิ.ค. 2026 · ราคา $82.31 (-82% จาก 52w high $457) · RSI ~24 (oversold) · ใต้ EMA50/EMA200 (Death Cross)</div>
+
+      <div class="callout">
+        <p style="margin:0;">การอ่านแผนภูมิ: ทั้ง STRC และ MSTR อยู่ใน downtrend หนัก — oversold ในระยะสั้น แต่ไม่ใช่สัญญาณ buy โดยอัตโนมัติ สำหรับ STRC โดยเฉพาะ ราคา $74.57 อยู่ใกล้ 52w low ($71.25) — <strong>breakdown ใต้ $71 = สัญญาณวิกฤต</strong> (cycle พังจริง), <strong>reclaim $80+ = สัญญาณฟื้นตัว</strong> (cycle ทำงานต่อ)</p>
+      </div>
+
+    </section>
+
+    <footer>
+      <p>STRC Income Analysis · Strategy Inc. (อดีต MicroStrategy) · Variable Rate Series A Perpetual Stretch Preferred Stock · NASDAQ · USD</p>
+      <p>ข้อมูล ณ 27 มิ.ย. 2026 · ที่มาหลัก: SEC EDGAR (Form 10-Q Q1 2026, 424B5 STRC Stock Annex) + Yahoo Finance</p>
+      <p>ไม่ใช่คำแนะนำการลงทุน — งานวิจัยนี้เพื่อการศึกษาและวิเคราะห์เท่านั้น · ผู้ลงทุนควรปรึกษาที่ปรึกษาการเงินที่ผ่านการรับรองก่อนตัดสินใจ</p>
+      <p>© 2026 · สงวนลิขสิทธิ์ตามข้อกำหนดของแหล่งข้อมูล · ข้อมูลอาจมีการเปลี่ยนแปลง</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  function init(){
+    // Scrollspy
+    try{
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+      if('IntersectionObserver' in window && sections.length){
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              var id = e.target.id;
+              links.forEach(function(a){
+                a.classList.toggle('active', a.getAttribute('href') === '#'+id);
+              });
+            }
+          });
+        }, {rootMargin:'-20% 0px -70% 0px'});
+        sections.forEach(function(s){ io.observe(s); });
+      }
+    }catch(err){ /* fail silent */ }
+
+    // Collapsible TOC toggle
+    try{
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if(toc && btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          toc.classList.toggle('collapsed');
+          btn.setAttribute('aria-expanded', !toc.classList.contains('collapsed'));
+        });
+        toc.addEventListener('click', function(e){
+          if(e.target.tagName === 'A'){
+            if(window.matchMedia('(max-width:900px)').matches){
+              toc.classList.add('collapsed');
+              btn.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+      }
+      // Ensure desktop shows TOC open
+      function checkDesktop(){
+        if(!window.matchMedia('(max-width:900px)').matches){
+          toc.classList.remove('collapsed');
+        }
+      }
+      window.addEventListener('resize', checkDesktop);
+      checkDesktop();
+    }catch(err){ /* fail silent */ }
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  }else{
+    init();
+  }
+})();
+</script>
+</body>
+</html>
