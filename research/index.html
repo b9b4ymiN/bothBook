@@ -172,7 +172,8 @@
       owner: "b9b4ymiN",
       repo: "bothBook",
       branch: "main",
-      folder: "research"
+      folder: "research",
+      manifestPath: "./research-manifest.json"
     };
     const localFiles = [
       { name: "china-robotics-v2.html", size: 65847, source: "local" },
@@ -230,20 +231,34 @@
       return response.text();
     }
 
-    async function loadFileList() {
-      if (["localhost", "127.0.0.1"].includes(location.hostname)) {
-        listSource = "Local";
-        return localFiles;
-      }
+    function isLocalPreview() {
+      return ["", "localhost", "127.0.0.1"].includes(location.hostname);
+    }
 
+    async function loadManifestFileList() {
+      try {
+        const files = await json(config.manifestPath);
+        return Array.isArray(files) ? files.map(file => ({ ...file, source: file.source || "manifest" })) : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    async function loadFileList() {
       const embeddedFiles = loadEmbeddedFileList();
       if (embeddedFiles.length) {
         listSource = "GitHub Pages";
         return embeddedFiles;
       }
 
-      if (localFiles.length) {
-        listSource = "Static";
+      const manifestFiles = await loadManifestFileList();
+      if (isLocalPreview() && manifestFiles.length) {
+        listSource = "Manifest";
+        return manifestFiles;
+      }
+
+      if (isLocalPreview() && localFiles.length) {
+        listSource = "Local";
         return localFiles;
       }
 
@@ -253,13 +268,30 @@
         listSource = "GitHub";
         return files.filter(file => file.type === "file").map(file => ({ name: file.name, size: file.size || 0, source: "github" }));
       } catch (error) {
-        const payload = await json(`https://data.jsdelivr.com/v1/package/gh/${config.owner}/${config.repo}@${config.branch}/flat`);
-        const prefix = `/${config.folder}/`;
-        listSource = "jsDelivr";
-        return (payload.files || [])
-          .filter(file => file.name.startsWith(prefix) && !file.name.slice(prefix.length).includes("/"))
-          .map(file => ({ name: file.name.slice(prefix.length), size: file.size || 0, source: "jsdelivr" }));
+        try {
+          const payload = await json(`https://data.jsdelivr.com/v1/package/gh/${config.owner}/${config.repo}@${config.branch}/flat`);
+          const prefix = `/${config.folder}/`;
+          const files = (payload.files || [])
+            .filter(file => file.name.startsWith(prefix) && !file.name.slice(prefix.length).includes("/"))
+            .map(file => ({ name: file.name.slice(prefix.length), size: file.size || 0, source: "jsdelivr" }));
+          if (files.length) {
+            listSource = "jsDelivr";
+            return files;
+          }
+        } catch (fallbackError) {}
       }
+
+      if (manifestFiles.length) {
+        listSource = "Manifest";
+        return manifestFiles;
+      }
+
+      if (localFiles.length) {
+        listSource = "Static";
+        return localFiles;
+      }
+
+      return [];
     }
 
     function loadEmbeddedFileList() {
