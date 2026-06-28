@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alpha Divisions PCL (ALPHAX) — Equity Research</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:36px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:24px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;max-height:calc(100vh - 64px);overflow-y:auto;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+  .toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+              background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--slate);
+              cursor:pointer;}
+  .toc-toggle .hamb{width:20px;height:14px;position:relative;flex-shrink:0;}
+  .toc-toggle .hamb span{display:block;position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                         border-radius:1px;transition:transform .25s, opacity .25s, top .25s;}
+  .toc-toggle .hamb span:nth-child(1){top:0;} .toc-toggle .hamb span:nth-child(2){top:6px;} .toc-toggle .hamb span:nth-child(3){top:12px;}
+  .toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+  .toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+  .toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+  .logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+        background:var(--white);border:var(--border);padding:4px;}
+  @media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;}}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  h3[id]{scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;min-width:0;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:34px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;margin:6px 0 0;}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+  .table-wrap table{min-width:640px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 14px;border-bottom:var(--rule);}
+  tbody td{padding:12px 14px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 14px;font-weight:600;background:var(--gray-100);}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout h3{margin-top:0;}
+  .chart-frame{background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;margin:12px 0 18px;}
+  .chart-frame img{display:block;width:100%;height:auto;}
+  .chart-caption{font-family:var(--mono);font-size:11px;color:var(--gray-500);padding:10px 14px;border-top:var(--rule);}
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+    section, h3[id]{scroll-margin-top:64px;}
+    .toc{position:fixed;top:0;left:0;right:0;z-index:100;margin:0;padding:0;
+         border-radius:0;border:none;border-bottom:var(--rule);background:var(--ivory);
+         box-shadow:0 1px 6px rgba(0,0,0,.05);max-height:none;}
+    .toc-toggle{display:flex;border-radius:0;border:none;border-bottom:1px solid var(--gray-100);background:var(--ivory);}
+    .toc .eyebrow{display:none;}
+    .toc ol{margin:0;padding:6px 14px 16px;max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+    .toc.collapsed ol{max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .stat .v{font-size:30px;}
+    h1{font-size:28px;}
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  }
+  @media(max-width:520px){.band{grid-template-columns:1fr;}}
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+
+</head>
+<body>
+<div class="shell">
+
+  <nav class="toc" aria-label="Contents">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">สารบัญ</div>
+    <ol id="toc-list">
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · ธุรกิจและเรื่องเล่า</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดล &amp; โครงสร้างรายได้</a></li>
+      <li><a class="sub" href="#s1-2">1.2 คู่แข่ง &amp; Moat</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; TAM</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโต &amp; เงินลงทุน</a></li>
+      <li><a class="sub" href="#s1-5">1.5 วงจรชีวิต &amp; 3-P</a></li>
+      <li><a href="#s2">2 · งบการเงิน</a></li>
+      <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+      <li><a href="#s4">4 · กำไร &amp; ความเชื่อมั่น</a></li>
+      <li><a href="#s5">5 · จังหวะเทคนิค</a></li>
+      <li><a href="#s6">6 · สถานการณ์ &amp; แผน</a></li>
+      <li><a href="#s7">7 · ความเสี่ยงหลัก</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <img class="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABU0lEQVRYhe2WzU6DQBSFD8SE54BXqGulpdgQ/zb1Aeq+7niEutf4Jo1LNAq8FAuOCzoDNggVGKYmHjZwuZn5ztw7kzEcx0aNWBccSEb142SkSauqzmOYI0++L5rtOWp1FAC6ll8CaNXfB0iSVC8Ae3ZQL4AkSUEQH5+xHgASxR4iYJrdhuoMINyLJ4rexwWoumdOsGMzdAKous+yTMaj6G0cABIgC9e+78l3ErAsSy1AHKfFcosSAJjNXAAFxHb7qhag2niueybjOcv4ZvOoBiCO09L5Xs/5c0/GJ5NTNQA/uf/2f9cPq9X9sABN7oUWF34BQmK5vBsWoM29zCMl49PzyzAAwj1JMG8+cIJgIfYpHLv2xv07gDAMZW1BYDo9bx20rBSxXj/0A7i+ud0t6+HH7dVlADIHc8Lz5o25huPY/3dC7QBGa5ZiAK06GgBdZTC+AO3iwVpqpXvKAAAAAElFTkSuQmCC" alt="ALPHAX logo" width="64" height="64">
+          <h1>Alpha Divisions PCL<br><span style="font-size:18px;color:var(--gray-500);font-family:var(--sans);font-weight:400;">บมจ. อัลฟ่า ดิวิชั่นส์</span></h1>
+        </div>
+        <span class="pill">Equity Research · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">Holding ธุรกิจพลังงานหมุนเวียน (น้ำ/แสงอาทิตย์) และสินเชื่อ/ไมโครไฟแนนซ์ ใน สปป.ลาว — ลงทุนผ่านบริษัทย่อย 8 แห่ง</div>
+      <div class="meta mono">ALPHAX · ตลาดหลักทรัพย์ mai (Thailand) · THB · ข้อมูล ณ 28 มิ.ย. 2568 (2026-06-28)</div>
+    </header>
+
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+      <div class="callout" style="margin-bottom:18px;">
+        <h3>Key Investment Insight — "เงินสดคือมูลค่า"</h3>
+        <p>ณ ราคาปิด <strong>0.27 บาท</strong> มูลค่าตลาดรวม <strong>2.51 พันล้านบาท</strong> — แต่งบ 31 มี.ค. 2569 มี <strong>เงินสดและรายการเทียบเท่าเงินสด 3,569 ล้านบาท</strong> (0.384 บาท/หุ้น) <strong>ครอบคลุม 142% ของราคาหุ้น</strong> และสูงกว่ามูลค่าตลาดทั้งบริษัท ~1.06 พันล้านบาท หักหนี้กู้ยืมทั้งหมด ~300 ล้านบาทแล้วยังเหลือ <strong>เงินสดสุทธิ ~3.27 พันล้านบาท (0.352 บาท/หุ้น) หรือ 130% ของราคาหุ้น</strong> — นั่นหมายความว่าตลาดให้ราคา <em>ธุรกิจพลังงานและสินเชื่อทั้งหมดเป็นลบ</em> ก่อนพิจารณา catalyst 100 MW solar ที่จะ COD ไตรมาส 2/2569</p>
+        <p class="small muted">P/B = 0.45 เท่า (เทียบกับ peer ไทยเฉลี่ย 0.83–1.68 เท่า) · P/E FY2025 = 7.9 เท่า · EV/EBITDA = ติดลบ (เงินสดสุทธิเกินมูลค่าตลาด). ดู §3 การประเมินมูลค่าและ §7 ความเสี่ยงที่ทำให้ส่วนลดนี้มีอยู่จริง</p>
+      </div>
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">฿0.55</div><div class="k">มูลค่ายุติธรรม (Base)</div>
+          <div class="d up">+104% เทียบราคาตลาด</div>
+        </div>
+        <div class="stat"><div class="v">฿0.27</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">28 มิ.ย. 2568</div></div>
+        <div class="stat"><div class="v">Deep-Value</div><div class="k">ท่าที/ความเชื่อมั่น</div><div class="d flat">กลาง-ต่ำ</div></div>
+        <div class="stat"><div class="v">~40%</div><div class="k">ส่วนลดต่อ FV ที่ต้องการ</div><div class="d flat">ขนาดเล็ก/ไม่มีสภาพคล่อง</div></div>
+      </div>
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis (แบบ Damodaran)</h3>
+        <p><strong>สิ่งที่จ่าย:</strong> 0.27 บาท = P/B 0.45 เท่า ต่ำสุดในกลุ่ม power/finance ไทย และต่ำกว่ามูลค่าหนังสือแบบเสมอตัว <strong>สิ่งที่ได้:</strong> (1) เงินสดสุทธิ 3.27 พันล้านบาท <em>ที่อยู่ตรงนั้นจริง</em> ในงบตรวจสอบ 31 มี.ค. 2569, (2) กระแสเงินสดจาก PPA hydro 2 โรงไฟฟ้า (29.5 MW) ที่มีสัญญาซื้อขายไฟฟ้ากับ EDL เหลือ 25–28 ปี, (3) ธุรกิจสินเชื่อ/ไมโครไฟแนนซ์ที่ทำกำไรต่อเนื่องในลาว, (4) catalyst 100 MW solar COD ไตรมาส 2/2569 ที่จะเพิ่มกำลังการผลิต 3.4 เท่า <strong>สิ่งที่ต้องเป็นจริง:</strong> เงินสดที่สะสมไว้จะต้องถูกนำไปใช้ลงทุน solar pipeline 500 MW อย่างคุ้มค่า (ไม่ใช่เผาผลาญในทุนที่สูง) และ FX LAK/USD ต้องไม่ devalue อีก <strong>ความไม่สมมาตร:</strong> upside สูง (Base +104%, Bull +368%) แต่ downside จาก 0.27 จำกัดโดยพื้นฐานเงินสด — เป็น deep-value asymmetry แบบคลาสสิกที่ต้องแลกกับความเสี่ยง illiquidity, governance และ FX ลาว</p>
+        <p class="small muted">การประเมินมูลค่าใน <a href="#s3">§3</a>; จังหวะเทคนิคใน <a href="#s5">§5</a>; สถานการณ์ &amp; แผนใน <a href="#s6">§6</a>; ความเสี่ยงใน <a href="#s7">§7</a></p>
+      </div>
+    </section>
+
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและเรื่องเล่า (Business &amp; Narrative)</h2></div>
+      <hr class="div">
+      <p><strong>ความสำคัญ:</strong> ALPHAX <em>ไม่ใช่</em>บริษัทพัฒนาอสังหาริมทรัพย์ (แม้ Yahoo จะจัดอยู่ใน Real Estate – Development) — บริษัทได้ขายธุรกิจอสังหาฯ และกัญชา/กัญชงออกหมดแล้วในปี 2567 (เดือน ก.ค. และ ธ.ค. 2567 ตามลำดับ) ปัจจุบันเป็น <strong>holding company ธุรกิจพลังงานหมุนเวียน + สินเชื่อ/ไมโครไฟแนนซ์ใน สปป.ลาว</strong> เดิมชื่อ "Ocean Commerce" (นำเข้า/ค้าส่ง/ปาล์มน้ำมัน) เปลี่ยนชื่อเป็น Alpha Divisions เมื่อ ม.ค. 2565 CEO: นายกำพล ทรวงบูรณกุล</p>
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้ (FY2025)</h3>
+      <p>งบ FY2025 แสดง 2 ธุรกิจหลัก หลังจากขายอสังหาฯ/กัญชาออกหมด รายได้รวม <strong>434.65 ล้านบาท</strong> (เพิ่มขึ้น 38% จาก 315.07 ล้านบาท ปี 2567):</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Segment</th><th class="num">รายได้ FY2568</th><th class="num">% รายได้</th><th class="num">อัตรากำไรขั้นต้น</th><th>บทสรุป</th></tr></thead>
+        <tbody>
+          <tr><td><strong>พลังงาน</strong> (Hydro NH1 15MW + NN2C 14.5MW + APDL Solar pipeline)</td><td class="num">252.28</td><td class="num">58%</td><td class="num">69%</td><td class="small muted">เครื่องยนต์กำไรหลัก — 174 ล้านบาทของกำไรขั้นต้นจาก 247 ล้านบาทรวม; PPA ระยะยาวกับ EDL</td></tr>
+          <tr><td><strong>สินเชื่อ</strong> (MHTL เช่าซื้อ + SML ไมโครไฟแนนซ์ในลาว)</td><td class="num">84.24</td><td class="num">19%</td><td class="num">86%</td><td class="small muted">margin สูงกว่าแต่เติบโตช้ากว่า; ลูกหนี้ ~99 ล้านบาท</td></tr>
+          <tr><td><em>ดอกเบี้ยรับ</em> + อื่น ๆ (รายได้นอกปฏิบัติการ)</td><td class="num">98.13</td><td class="num">23%</td><td class="num">—</td><td class="small muted">ดอกเบี้ยจากเงินสด 3,569 ล้านบาทที่ฝากธนาคาร</td></tr>
+          <tr><td><strong>รวม</strong></td><td class="num">434.65</td><td class="num">100%</td><td class="num">73%</td><td class="small muted">กำไรขั้นต้นรวม 247 ล้านบาท (+68% YoY)</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">หน่วย: ล้านบาท · ที่มา: งบการเงินรวม FY2568 ตรวจสอบแล้ว (หน้า 79-90 รายงานประจำปี 2568)</p>
+
+      <h3 id="s1-2">1.2 คู่แข่ง &amp; แนวคุ้มกัน (Moat)</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">PPA ระยะยาว</span> <span class="tag">สัมปทานน้ำ/แสงอาทิตย์</span> <span class="tag">Asset-based lending</span> <span class="tag">ต้นทุนเงินทุนต่ำ</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="Moat strength">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">แคบ-ปานกลาง</span>
+          <span class="chip"><span class="dot watch"></span>ความทนทาน: คงที่ →</span>
+          <span class="mono small">ROIC−WACC: +0.5 ถึง +1.5 pp</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,28 30,22 60,12 90,15 120,10"/>
+          </svg>
+        </div>
+      </div>
+      <p><strong>หลักฐาน:</strong> NH1 มี PPA กับ EDL (รัฐวิสาหกิจไฟฟ้าลาว) เหลือ ~28 ปี; NN2C ~25 ปี — สัญญาซื้อขายไฟฟ้าแบบ take-or-pay ระยะยาวเป็น moat ที่แท้จริงของธุรกิจ hydro <strong>ภัยคุกคามที่ใหญ่ที่สุด:</strong> FX LAK/USD (รายได้ส่วนหนึ่งเป็น USD/กีบ แต่จ่ายค่าสากลเป็น THB) — เห็นได้จากขาดทุน FX 35.3 ล้านบาทใน Q1/2569</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรม &amp; TAM</h3>
+      <p><strong>พลังงานใน สปป.ลาว:</strong> ลาวเป็น "battery of Southeast Asia" มีทรัพยากรน้ำมหาศาล (ฝนเฉลี่ย 2,000 มม./ปี) รัฐบาลส่งออกไฟฟ้าไปไทย เวียดนาม กัมพูชา และผ่าน LTMS-PIP ไปสิงคโปร์ <strong>TAM ที่เกี่ยวข้องกับ ALPHAX:</strong> pipeline 500 MW solar (MOA ธ.ค. 2567) + 100 MW solar Pakxan (COD Q2/2569) + 2 hydro 29.5 MW ที่ดำเนินการอยู่ — เมื่อ 100 MW solar เปิดจะเพิ่มกำลังการผลิตรวมจาก 29.5 MW เป็น 129.5 MW (<strong>+340%</strong>) <strong>คู่แข่ง:</strong> EDL-Gen (รัฐวิสาหกิจ), CK Power (CKP), และ IPP รายใหญ่อื่น ๆ — แต่ลาวยังมีพื้นที่สำหรับผู้เล่นเอกชนรายย่อย</p>
+
+      <h3 id="s1-4">1.4 การเติบโต &amp; คุณภาพเงินลงทุน</h3>
+      <p><strong>แหล่งการเติบโต:</strong> (1) 100 MW solar ที่จะ COD Q2/2569 — catalyst เดียวที่ใหญ่ที่สุด, (2) pipeline solar 500 MW ที่พัฒนาเป็น phase, (3) การขยายสินเชื่อ MHTL/SML ในลาว (ลูกหนี้เพิ่มจาก 74.6 → 99.2 ล้านบาทในปี 2568) <strong>ปัญหา:</strong> เงินสด 3.57 พันล้านบาทส่วนใหญ่ <em>ยังไม่ได้ลงทุน</em> — บริษัทรอโอกาสและสร้าง pipeline <strong>FCF FY2568 = 232 ล้านบาท</strong> (OCF 272 - capex 39) สะท้อนว่าธุรกิจหลักสร้างเงินสดจริง ดู §2 และ §3</p>
+
+      <h3 id="s1-5">1.5 วงจรชีวิต &amp; 3-P verdict</h3>
+      <p><span class="tag">Turnaround → Early-growth</span> — หลังจากขาดทุนในปี 2566 (จากการเขียน off ธุรกิจเดิม) ปี 2567-2568 กลับมาทำกำไร 331/318 ล้านบาท — กำลังเปลี่ยนผ่านจาก holding ที่ "รอโอกาส" ไปสู่บริษัทพลังงานที่ดำเนินการจริง</p>
+      <div class="callout">
+        <h3>Possible · Plausible · Probable</h3>
+        <p class="small"><strong>Possible:</strong> pipeline solar 500 MW เปิดครบทั้งหมดภายใน 5-7 ปี — ALPHAX กลายเป็น IPP ขนาดกลาง &nbsp;·&nbsp; <strong>Plausible:</strong> 100 MW solar COD Q2/2569 + hydro ทำงานเต็มปี = กำไร FY2569 ~350-400 ล้านบาท &nbsp;·&nbsp; <strong>Probable:</strong> บริษัทยังคงเก็บเงินสดขนาดใหญ่และค่อย ๆ ลงทุน, กำไรคงอยู่ที่ระดับ 300+ ล้านบาทต่อปี</p>
+        <p class="small muted">"This time is different" flags: (1) เงินสดขนาดใหญ่ที่สะสมมาจากการระดมทุน PP+RO &gt;4,000 ล้านบาทในปี 2566 — ต้องพิสูจน์ว่าจะใช้คุ้มค่า, (2) ผลกระทบ FX ลาวยังไม่คาดเดาได้, (3) illiquidity ของหุ้น (avg vol ~8.7 ล้านหุ้น)</p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>งบการเงินละเอียด (Financial Dashboard)</h2></div>
+      <hr class="div">
+      <p class="small muted">หน่วย: ล้านบาท · สี = การตัดสินใจ (ดีขึ้น/ระวัง/แย่ลง) · ที่มา: งบการเงินรวม FY2566-2568 + Q1/2569 (unaudited but reviewed)</p>
+
+      <h3>2.1 Lead diagnostics — เน้นตามคำขอ: เงินสด &amp; หนี้สิน</h3>
+      <table>
+        <thead><tr><th>Lead diagnostic</th><th class="num">FY2568</th><th class="num">Q1/2569</th><th>5-ปี/แนวโน้ม</th><th>บทสรุป</th><th>การตัดสินใจ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>เงินสดและรายการเทียบเท่า</strong></td>
+            <td class="num">3,587.27</td>
+            <td class="num">3,569.07</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,28 30,4 60,2 90,3 120,3"/></svg></td>
+            <td class="small">เพิ่มขึ้นจาก 330 → 3,569 ล้านบาทใน 3 ปี (ระดมทุน PP+RO 4,000+ ล้าน)</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแกร่งมาก</span></td>
+          </tr>
+          <tr>
+            <td><strong>หนี้สินรวม</strong></td>
+            <td class="num">385.27</td>
+            <td class="num">398.71</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,8 30,15 60,10 90,12 120,13"/></svg></td>
+            <td class="small">หนี้สินรวมลดลงจาก 434 → 385 ล้านบาท ระหว่างปี</td>
+            <td><span class="chip"><span class="dot good"></span>ต่ำมาก</span></td>
+          </tr>
+          <tr>
+            <td><strong>เงินกู้ยืมจากสถาบันการเงิน</strong></td>
+            <td class="num">266.51</td>
+            <td class="num">250.16</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,18 30,8 60,6 90,10 120,12"/></svg></td>
+            <td class="small">ชำระคืนระหว่างปี 58 ล้านบาท</td>
+            <td><span class="chip"><span class="dot good"></span>ลดลง</span></td>
+          </tr>
+          <tr>
+            <td><strong>D/E ratio</strong></td>
+            <td class="num">0.07x</td>
+            <td class="num">~0.07x</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,4 30,18 60,20 90,22 120,22"/></svg></td>
+            <td class="small">ปลอดหนี้ <em>de facto</em> เมื่อเทียบกับเงินสด (net cash 3.27 พันล้าน)</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแกร่งมาก</span></td>
+          </tr>
+          <tr>
+            <td><strong>อัตราส่วนสภาพคล่อง</strong></td>
+            <td class="num">23.42x</td>
+            <td class="num">~23x</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,28 30,5 60,4 90,4 120,4"/></svg></td>
+            <td class="small">สูงผิดปกติ — สะท้อนเงินสดส่วนเกินที่ยังไม่ได้ลงทุน</td>
+            <td><span class="chip"><span class="dot good"></span>เกินความต้องการ</span></td>
+          </tr>
+          <tr>
+            <td><strong>Net cash (เงินสดสุทธิ)</strong></td>
+            <td class="num">~3,300</td>
+            <td class="num">~3,270</td>
+            <td>—</td>
+            <td class="small">เงินสด 3,569 - เงินกู้ยืม 300 = <strong>+3,270 ล้านบาท</strong></td>
+            <td><span class="chip"><span class="dot good"></span>บวกสูง</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>2.2 รายละเอียดหนี้สิน (ที่ผู้ใช้ระบุขอให้เน้น)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ประเภทหนี้</th><th class="num">31 ธ.ค. 2567</th><th class="num">31 ธ.ค. 2568</th><th class="num">31 มี.ค. 2569</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>เงินกู้ยืมระยะสั้นจากสถาบันการเงิน</td><td class="num">0</td><td class="num">10.16</td><td class="num">50.33</td><td class="small muted">เพิ่มขึ้นเพื่อเงินทุนหมุนเวียน (SML)</td></tr>
+          <tr><td>เงินกู้ยืมระยะยาว (ส่วนถึงกำหนด 1 ปี)</td><td class="num">99.14</td><td class="num">96.04</td><td class="num">77.60</td><td class="small muted">ทยอยชำระคืน</td></tr>
+          <tr><td>เงินกู้ยืมระยะยาว (ส่วนไม่ถึงกำหนด 1 ปี)</td><td class="num">244.92</td><td class="num">170.47</td><td class="num">172.56</td><td class="small muted">ลดลง 30% YoY จากการชำระคืน</td></tr>
+          <tr><td>หนี้สินตามสัญญาเช่า</td><td class="num">8.37</td><td class="num">38.32</td><td class="num">41.76</td><td class="small muted">เพิ่มจากสัญญาเช่าพื้นที่โครงการ 100MW solar</td></tr>
+          <tr><td>ภาษีเงินได้ค้างจ่าย</td><td class="num">24.99</td><td class="num">25.25</td><td class="num">25.51</td><td class="small muted">คงที่</td></tr>
+          <tr><td>อื่น ๆ (เจ้าหนี้การค้า, ประมาณการ, etc.)</td><td class="num">56.44</td><td class="num">45.04</td><td class="num">30.96</td><td class="small muted">ลดลง</td></tr>
+          <tr><td><strong>หนี้สินรวม</strong></td><td class="num">433.86</td><td class="num">385.27</td><td class="num">398.71</td><td class="small muted">ลดลง 11% YoY ในปี 2568</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>2.3 รายละเอียดเงินกู้ยืมและอัตราดอกเบี้ย (หน้า 222 รายงานประจำปี 2568)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ผู้ให้กู้</th><th class="num">มูลหนี้ 31 ธ.ค. 68</th><th>สกุล</th><th class="num">อัตราดอกเบี้ย</th><th>กำหนดชำระ</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>ธนาคารในลาว</td><td class="num">5.76</td><td>ล้านกีบ</td><td class="num">14.5%</td><td>มี.ค. 2571</td><td class="small muted">ขนาดเล็กมาก</td></tr>
+          <tr><td>ธนาคาร (3 สัญญา)</td><td class="num">8.26</td><td>ล้าน USD</td><td class="num">8.0% &amp; 13.27%</td><td>ธ.ค. 2570 / 2572</td><td class="small muted">หนี้ USD หลัก = ~260 ล้านบาท (ส่วนใหญ่ของเงินกู้)</td></tr>
+          <tr><td><strong>รวม</strong></td><td class="num">~266</td><td>บาท</td><td class="num">~8.0% wtd</td><td>—</td><td class="small muted">หนี้ USD ของบริษัทย่อยในลาว</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>บทวิเคราะห์หนี้สิน &amp; อัตราดอกเบี้ย</h3>
+        <p class="small">หนี้ทั้งหมดของกลุ่มบริษัท <strong>อยู่ในบริษัทย่อยใน สปป.ลาว</strong> (MHTL, SML, APDL) เป็นสกุล USD/กีบ อัตราดอกเบี้ย ~8% (USD) และ 13-14.5% (LAK/LAO) <strong>ผลกระทบจากดอกเบี้ยไทยที่ลดลงต่อ ALPHAX: จำกัดมาก</strong> — เพราะหนี้ส่วนใหญ่ไม่ได้ตั้งราคาตามดอกเบี้ยไทย แต่ตั้งราคาตาม USD rates + Laos country premium <strong>อย่างไรก็ตาม</strong> การลดดอกเบี้ยไทยจาก 2.50% → 1.00% (ดู §4) มีผลบวกทางอ้อม: (1) เงินสด 3,569 ล้านบาทที่ฝากในไทยอาจได้ดอกเบี้ยที่ต่ำลง — เป็นผลลบ, (2) แต่โอกาสลงทุนในไทย (solar/asset) ที่ ALPHAX กำลังพิจารณาจะมีต้นทุนทุนต่ำลง — เป็นผลบวก, (3) อัตราแลกเปลี่ยน THB ที่อ่อนค่าลงเล็กน้อย (33.30 THB/USD) อาจช่วยการแปลงกำไรจากลาวกลับมาเป็น THB</p>
+      </div>
+
+      <h3>2.4 ครอบครัวตัวชี้วัด</h3>
+      <div class="grid2">
+        <table>
+          <thead><tr><th>ความสามารถทำกำไร</th><th class="num">FY2568</th><th class="num">FY2567</th><th>อ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>อัตรากำไรขั้นต้น</td><td class="num">73.4%</td><td class="num">56.8%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>อัตรากำไรสุทธิ</td><td class="num">73.4%</td><td class="num">78.9%</td><td><span class="chip"><span class="dot watch"></span>→</span></td></tr>
+            <tr><td>ROE</td><td class="num">5.66%</td><td class="num">5.94%</td><td><span class="chip"><span class="dot watch"></span>→</span></td></tr>
+            <tr><td>ROA</td><td class="num">6.13%</td><td class="num">6.27%</td><td><span class="chip"><span class="dot watch"></span>→</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>กระแสเงินสด</th><th class="num">FY2568</th><th class="num">FY2567</th><th>อ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>OCF</td><td class="num">271.87</td><td class="num">320.86</td><td><span class="chip"><span class="dot good"></span>+</span></td></tr>
+            <tr><td>CapEx</td><td class="num">(39.43)</td><td class="num">(13.67)</td><td><span class="chip"><span class="dot watch"></span>↑</span></td></tr>
+            <tr><td>FCF</td><td class="num">232.45</td><td class="num">307.19</td><td><span class="chip"><span class="dot good"></span>+</span></td></tr>
+            <tr><td>ดอกเบี้ยรับ</td><td class="num">74.93</td><td class="num">80.50</td><td><span class="chip"><span class="dot good"></span>+</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:8px;">หน่วย: ล้านบาท · ROE/ROA ต่ำ (5-6%) เนื่องจากส่วนของผู้ถือหุ้นใหญ่ (5,594 ล้านบาท) ประกอบด้วยเงินก้อนใหญ่ที่ยังไม่ได้ใช้ลงทุน — เมื่อ solar 100 MW COD และ FCF เติบโต ROE ควรปรับตัวขึ้น</p>
+
+      <h3>2.5 งบกระแสเงินสด (เน้นตามคำขอ)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>รายการกระแสเงินสด</th><th class="num">FY2566</th><th class="num">FY2567</th><th class="num">FY2568</th></tr></thead>
+        <tbody>
+          <tr><td>OCF (กิจกรรมดำเนินงาน)</td><td class="num">(338.04)</td><td class="num">320.86</td><td class="num">271.87</td></tr>
+          <tr><td>ICF (กิจกรรมลงทุน)</td><td class="num">16.77</td><td class="num">(430.42)</td><td class="num">(254.28)</td></tr>
+          <tr><td>FCF (กิจกรรมจัดหาเงิน)</td><td class="num">4,270.46</td><td class="num">(245.27)</td><td class="num">(46.30)</td></tr>
+          <tr><td>ผลต่างจากการแปลงค่างบ</td><td class="num">(14.43)</td><td class="num">(106.30)</td><td class="num">(187.78)</td></tr>
+          <tr><td>เงินสด ณ ต้นงวด</td><td class="num">330.13</td><td class="num">4,264.89</td><td class="num">3,803.76</td></tr>
+          <tr><td><strong>เงินสด ณ ปลายงวด</strong></td><td class="num"><strong>4,264.89</strong></td><td class="num"><strong>3,803.76</strong></td><td class="num"><strong>3,587.27</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ปี 2566 มีการระดมทุน PP+RO &gt;4,000 ล้านบาททำให้เงินสดกระโดด; หลังจากนั้นทยอยใช้ลงทุน/ชำระหนี้ — ส่วนลดลงจาก FX conversion (ลาว Kip อ่อนค่า)</p>
+    </section>
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>การประเมินมูลค่า (Valuation)</h2></div>
+      <hr class="div">
+      <p>มูลค่ายุติธรรม <strong>฿0.55 บาท (Base case)</strong> เทียบกับราคาตลาด 0.27 บาท = upside <strong>+104%</strong> · แนวมูลค่าจากหลายวิธีกระจุกตัว 0.43-0.92 บาท — ทุกวิธีให้ส่วนลดใหญ่</p>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th>วิธีการ</th><th class="num">ราคาโดยประมาณ</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SOTP</strong> (Energy EV/EBITDA + Finance P/B + Net cash)</td><td class="num">฿0.55</td><td class="num">40%</td><td class="small muted">เหมาะที่สุด — 2 segment ที่แตกต่าง + เงินสดส่วนเกินขนาดใหญ่</td></tr>
+          <tr><td><strong>DCF (FCFF)</strong></td><td class="num">฿0.86</td><td class="num">30%</td><td class="small muted">3-สถานการณ์ weighted; FCF base 232 ล้านบาท + คาดการณ์ solar</td></tr>
+          <tr><td><strong>Relative (P/B vs peers)</strong></td><td class="num">฿0.50</td><td class="num">30%</td><td class="small muted">peer median P/B ~0.83x — ALPHAX 0.45x = ส่วนลด 46%</td></tr>
+        </tbody>
+        <tfoot><tr><td>มูลค่ายุติธรรมผสม</td><td class="num">฿0.55</td><td class="num">100%</td><td>+104% เทียบ 0.27 บาท</td></tr></tfoot>
+      </table></div>
+
+      <h3>SOTP (Sum-of-the-parts) — กรณีศึกษา</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ส่วน</th><th class="num">มูลค่า (ล้านบาท)</th><th class="num">฿/หุ้น</th><th>วิธี/สมมุติฐาน</th></tr></thead>
+        <tbody>
+          <tr><td><strong>พลังงาน</strong> (hydro 29.5 MW + 100 MW solar pipeline)</td><td class="num">1,792</td><td class="num">0.193</td><td class="small muted">EV/EBITDA 8x ต่อ EBITDA 224 ล้านบาท (FY2568 + เพิ่มเติมจาก solar)</td></tr>
+          <tr><td><strong>สินเชื่อ</strong> (MHTL + SML)</td><td class="num">150</td><td class="num">0.016</td><td class="small muted">P/B 0.6x ต่อ book equity ~250 ล้านบาท</td></tr>
+          <tr><td><strong>เงินสดสุทธิ</strong></td><td class="num">3,270</td><td class="num">0.352</td><td class="small muted">เงินสด 3,569 - เงินกู้ 300</td></tr>
+          <tr><td>Intangibles (haircut)</td><td class="num">500</td><td class="num">0.054</td><td class="small muted">haircut 70% จาก book value 1,665 ล้านบาท</td></tr>
+          <tr><td><strong>SOTP equity value</strong></td><td class="num"><strong>5,712</strong></td><td class="num"><strong>0.615</strong></td><td class="small muted">+128% vs 0.27</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>สมมุติฐาน DCF</h3>
+      <table>
+        <thead><tr><th>Input</th><th class="num">ค่า</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate (Thai 10Y bond)</td><td class="num">2.25%</td><td class="small muted">เชิงอนุรักษ์ — ผลตอบแทนพันธบัตร 10 ปี กลางปี 2569</td></tr>
+          <tr><td>Mature ERP + CRP (Thailand)</td><td class="num">6.4%</td><td class="small muted">5.5% mature + 0.9% Thailand CRP (Damodaran)</td></tr>
+          <tr><td>Beta</td><td class="num">1.1</td><td class="small muted">ขนาดเล็ก, leverage ต่ำ → ความผันผวนสูงกว่าตลาด</td></tr>
+          <tr><td>Small-cap premium</td><td class="num">1.5%</td><td class="small muted">mai-listed, illiquid</td></tr>
+          <tr><td>WACC</td><td class="num"><strong>10.55%</strong></td><td class="small muted">~95% equity (de minimis debt)</td></tr>
+          <tr><td>Terminal growth</td><td class="num">3.0%</td><td class="small muted">≤ long-run nominal GDP ไทย</td></tr>
+          <tr><td>FCF base FY2568</td><td class="num">232 ล้านบาท</td><td class="small muted">OCF 272 - capex 39</td></tr>
+        </tbody>
+      </table>
+
+      <h3>ความไว — WACC × terminal growth (ราคาโดยประมาณ ฿/หุ้น)</h3>
+      <table class="heat">
+        <thead><tr><th>WACC ＼ g</th><th>2.0%</th><th>2.5%</th><th>3.0%</th><th>3.5%</th><th>4.0%</th></tr></thead>
+        <tbody>
+          <tr><th>9.5%</th><td style="background:rgba(120,140,93,.35)">0.85</td><td style="background:rgba(120,140,93,.45)">0.92</td><td style="background:rgba(120,140,93,.55)">1.01</td><td style="background:rgba(120,140,93,.65)">1.12</td><td style="background:rgba(120,140,93,.75)">1.27</td></tr>
+          <tr><th>10.0%</th><td style="background:rgba(120,140,93,.22)">0.78</td><td style="background:rgba(120,140,93,.30)">0.83</td><td style="background:rgba(120,140,93,.40)">0.90</td><td style="background:rgba(120,140,93,.50)">0.98</td><td style="background:rgba(120,140,93,.60)">1.09</td></tr>
+          <tr><th>10.5% (base)</th><td style="background:rgba(215,119,87,.15)">0.71</td><td style="background:rgba(215,119,87,.08)">0.76</td><td class="base" style="background:var(--white)">0.86</td><td style="background:rgba(120,140,93,.22)">0.88</td><td style="background:rgba(120,140,93,.32)">0.95</td></tr>
+          <tr><th>11.0%</th><td style="background:rgba(176,74,63,.18)">0.66</td><td style="background:rgba(176,74,63,.10)">0.70</td><td style="background:rgba(215,119,87,.10)">0.74</td><td style="background:rgba(215,119,87,.05)">0.79</td><td style="background:rgba(215,119,87,.00)">0.84</td></tr>
+          <tr><th>11.5%</th><td style="background:rgba(176,74,63,.30)">0.61</td><td style="background:rgba(176,74,63,.22)">0.65</td><td style="background:rgba(176,74,63,.14)">0.69</td><td style="background:rgba(176,74,63,.06)">0.72</td><td style="background:rgba(215,119,87,.10)">0.77</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">แม้ในกรณี Bear (WACC สูง + g ต่ำ) มูลค่ายังสูงกว่าราคาปัจจุบัน 130%+ — สะท้อนว่าส่วนลดปัจจุบันสูงผิดปกติ</p>
+
+      <h3>Relative valuation — peers (ไทย)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Peer</th><th class="num">P/B</th><th class="num">ROE</th><th class="num">D/E</th><th>บริบท</th></tr></thead>
+        <tbody>
+          <tr><td>GULF</td><td class="num">2.58</td><td class="num">36%</td><td class="num">107x</td><td class="small muted">mega IPP, leverage สูง</td></tr>
+          <tr><td>GPSC</td><td class="num">1.17</td><td class="num">6%</td><td class="num">95x</td><td class="small muted">IPP กลาง</td></tr>
+          <tr><td>BGRIM</td><td class="num">2.38</td><td class="num">6%</td><td class="num">247x</td><td class="small muted">power, leverage สูง</td></tr>
+          <tr><td>EA</td><td class="num">0.63</td><td class="num">-17%</td><td class="num">142x</td><td class="small muted">ขาดทุน, ราคาถูก</td></tr>
+          <tr><td>CKP</td><td class="num">0.63</td><td class="num">9%</td><td class="num">73x</td><td class="small muted">IPP คุ้มค่า</td></tr>
+          <tr><td>MFC (finance)</td><td class="num">1.68</td><td class="num">18%</td><td class="num">22x</td><td class="small muted">asset mgmt</td></tr>
+          <tr><td>KGI (finance)</td><td class="num">1.03</td><td class="num">12%</td><td class="num">67x</td><td class="small muted">หลักทรัพย์</td></tr>
+          <tr><td><strong>ALPHAX</strong></td><td class="num"><strong>0.45</strong></td><td class="num">5.7%</td><td class="num">6x</td><td class="small muted">P/B ต่ำสุด · D/E ต่ำสุด · ROE ปานกลาง</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ALPHAX ซื้อกิจการที่ P/B <strong>ต่ำกว่า EA/CKP</strong> (ที่เป็น power "distressed"/value) ทั้งที่มี D/E ต่ำสุดในกลุ่มและเงินสดสุทธิขนาดใหญ่ — ส่วนลดสะท้อนความเสี่ยง (FX ลาว, illiquidity, governance, MAI-listed) แต่ดูเกินจริง</p>
+    </section>
+
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>กำไร &amp; ความเชื่อมั่น (Earnings &amp; Sentiment)</h2></div>
+      <hr class="div">
+      <h3>ไตรมาสล่าสุด: Q1/2569 (สิ้นสุด 31 มี.ค. 2569, reviewed)</h3>
+      <p><strong>ผลขาดทุนสุทธิ -29.8 ล้านบาท</strong> (ขาดทุนต่อหุ้น -0.003 บาท) เทียบกับกำไร 24.0 ล้านบาทใน Q1/2568 — เป็นผลจาก:</p>
+      <ul class="small">
+        <li><strong>ขาดทุน FX 35.3 ล้านบาท</strong> (เทียบกับกำไร FX 17.2 ล้านบาท Q1/2568) — เงินกีบลาวและ Kip อ่อนค่า</li>
+        <li><strong>รายได้จากพลังงานเพิ่มขึ้น 51%</strong> YoY (40.7 ล้านบาท) — จาก plant factor NN2C ที่ดีขึ้น</li>
+        <li><strong>ค่าใช้จ่ายบริหารเพิ่มขึ้น 26%</strong> YoY (42.4 ล้านบาท) — ต้นทุนการเตรียม 100 MW solar</li>
+        <li><strong>OCI บวก 205.6 ล้านบาท</strong> (FX translation) — ทำให้ <em>total comprehensive income</em> ยังเป็นบวก 175.8 ล้านบาท</li>
+      </ul>
+      <p class="small muted">บริบทสำคัญ: ผลขาดทุน P&amp;L ส่วนใหญ่เป็น non-cash FX — ธุรกิจหลักยังแข็งแรง OCF Q1 = +120 ล้านบาท (ปรับลดลงจาก capex solar)</p>
+
+      <h3>Track record (FY2566-2568)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปี</th><th class="num">รายได้รวม</th><th class="num">EBITDA</th><th class="num">กำไรสุทธิ</th><th class="num">EPS (บาท)</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>FY2566</td><td class="num">211.81</td><td class="num">(74.66)</td><td class="num">(113.53)</td><td class="num">(0.036)</td><td><span class="chip"><span class="dot bad"></span>ขาดทุน</span> <span class="small muted">เขียน off ธุรกิจเดิม</span></td></tr>
+          <tr><td>FY2567</td><td class="num">315.07</td><td class="num">438.69</td><td class="num">331.41</td><td class="num">0.036</td><td><span class="chip"><span class="dot good"></span>กลับมาทำกำไร</span> <span class="small muted">รวม gain จากต่อรองราคาซื้อ 170 ล้านบาท</span></td></tr>
+          <tr><td>FY2568</td><td class="num">434.65</td><td class="num">457.32</td><td class="num">318.26</td><td class="num">0.034</td><td><span class="chip"><span class="dot watch"></span>กำไรลดเล็กน้อย</span> <span class="small muted">แต่รายได้/EBITDA เติบโต 38%/4%</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">หน่วย: ล้านบาท · กำไร FY2567 สูงผิดปกติจาก gain 170 ล้านบาทจาก bargain purchase — FY2568 ใกล้เคียง "normalized" มากกว่า</p>
+
+      <h3>การรายงานถัดไป: Q2/2569 (คาดการณ์กลาง-ปลาย ส.ค. 2569)</h3>
+      <p>จุดที่นักลงทุนควรจับตา: <strong>(1) ความคืบหน้า 100 MW solar</strong> — หาก COD ภายใน Q2/2569 ตามแผนจะเริ่มรับรู้รายได้เต็มไตรมาส; <strong>(2) FX impact</strong> — หากเงินกีบลาวคงที่ผลขาดทุน FX จะหายไป; <strong>(3) การใช้เงินสด</strong> — ติดตามว่าเงินสด 3.57 พันล้านบาทถูกใช้ลงทุน solar pipeline หรือ M&amp;A หรือไม่</p>
+
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>Sentiment read</h3>
+        <p>หุ้นอยู่ในโหมด <strong>"priced for pessimism"</strong> — ราคาตก -29% ในรอบ 1 ปี (จาก 0.38 → 0.27) และ -55% จากสูงสุดในรอบปี (0.60) ปริมาณซื้อขายเฉลี่ย ~8.7 ล้านหุ้น/วัน = illiquid ผลขาดทุน Q1/2569 + FX ลาว + การไม่จ่ายปันผล (policy ≥40% ของกำไรแยก แต่ไม่ได้จ่ายตั้งแต่ปี 2559) กดดันราคา <strong>แต่</strong> fundamentals (เงินสด, PPA ระยะยาว, catalyst solar) ไม่สะท้อนราคา — เป็น setup แบบ deep-value contrarian ที่ต้องการความอดทนและขนาดเล็ก</p>
+      </div>
+    </section>
+
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>จังหวะเทคนิค (Technical Timing)</h2></div>
+      <hr class="div">
+      <div class="chart-frame">
+        <img src="data:image/png;base64,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" alt="ALPHAX weekly chart">
+        <div class="chart-caption">TradingView · SET:ALPHAX · Weekly · captured 28 มิ.ย. 2568</div>
+      </div>
+      <div class="chart-frame">
+        <img src="data:image/png;base64,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lmjoWUFaTGdH5WoZibDWrNdee00BAADEhwjHxw0bNtifSueiPO7Zs+eRRx5xqzlu3LgvfvGLKtIj12PHjlVh+8QnPiFpTyYuvfTSq666SkXIN77xDT0hwfqdd95xm1tb+9Ff3znuuOOkn1J2YObMmfJUem0/85nPKAAAgPgQ4T9amJKSImHRrfC3v/3thx9+6FZ4/fXXS06SicG+PrdZ9rFp+5iyCsLo0aO7u7ulu278+PEXXHCBn5q62tlnn33yySd7zv3d737na0Hpm3zjjTcmTpyYn5/vtYL0IzY3N8urO/fcc8eMGWOVy9j00qVL+1yv95e//OXixYvtS61bt05PSKpOTU2ViT/96U++9kHa86WXXjp48GBBQcGECRMUAABArES499HtBMdPf/rT8rhmzRrPmjfddJMKVfphvb29K1euvPbaax944AEp7+/v//73vy+p7vOf//ynPvWpU045pbGx0apsLW6vlpeXN23atM2bN/vahNvTu+66SxKbLPjxj388Jydn/fr19qUkOt9xxx26wmWXXZabmyv9r9ay0uFqver777/fvuDWrVutUXKrjueeC9ni5ZdfLi/ts5/9bHFxsWziBz/4gY7s8kJ0/aeeesqqL2+BlBQVFdnXoKtJfQUAAGAowvHxRz/6kQy8ZmRkSOfcnDlz5GlTU5P0k7lVczgc559//uC+fW7lex+pVSZuuOEGCYKSlvSZgtKjKWnSmitddJIsPZdyqya57ZprrlHBqaqqsqYlvH7pS1965ZVX9FNJpTLcfPfdd+87/LpkQvbQvviCBQv0hAxeS6esVf6b3/xGT+iW8bX18vJy2eILL7xgL7z33nulX1MmvvCFL+gS6xSCt956S4Kpcl0AJH2iutDpdOoJqz4AAEDwgoqPPR581ZSB4Jqamu3bt8u48KpVq0466aQAF82E5x//+If0oknekkHzO++8c9OmTbr8E5/4xLe+9S3pCt3nkVCDrOZLWlqaDEBLf+oZZ5yhS37yk5/oCemYfP311/X01KlTJepJD6jbmrOzsz/3uc/paesCmr179/7+97/X01//+td9bVpCoR7gltHq6upqGdqWECxj9FLyt7/9TWaVlJTomk888YSesK7FsRda4dKqDwAAELwIn/voJuBFM8l5+SoM0o9ohbDTTz9dT9xzzz3W+K/08JWWltoXkXQbTDVf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" alt="ALPHAX daily chart">
+        <div class="chart-caption">TradingView · SET:ALPHAX · Daily · captured 28 มิ.ย. 2568</div>
+      </div>
+
+      <div class="grid2">
+        <div class="callout accent">
+          <h3>สภาพชาร์ต</h3>
+          <p class="small"><strong>Weekly (บริบทกว้าง):</strong> แนวโน้มลง (downtrend) รุนแรงตั้งแต่ 0.60 (พ.ค. 2568) → 0.27 ปัจจุบัน = -55%. ราคาอยู่ใกล้จุดต่ำสุดในรอบ 3 ปี (0.25-0.26). <strong>Daily:</strong> หลังก้น 0.25-0.26 (พ.ค. 2569) ราคาทรงตัวแนว 0.26-0.28 ปริมาณซื้อขายลดลง = สัญญาณ selling exhaustion แต่ยังไม่มี reversal confirmation</p>
+        </div>
+        <div class="callout">
+          <h3>Risk geometry</h3>
+          <p class="small"><strong>Entry zone:</strong> 0.25-0.28 (current zone, ท้าย exhaustion) <strong>· Stop/invalidation:</strong> ใต้ 0.24 (break จุดต่ำสุดใหม่) <strong>· Target 1 (tech):</strong> 0.35-0.38 (gap กลับ, ~30-40%) <strong>· Target 2 (fair value magnet):</strong> 0.50-0.55 (Base FV §3) <strong>· R-multiple:</strong> risk 0.03 (stop 0.24 จาก entry 0.27) → reward 0.23 (target 0.50) = <strong>~7.7R</strong></p>
+        </div>
+      </div>
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>Timing verdict</h3>
+        <p class="small"><strong>Stage/Scale-in</strong> — ไม่ใช่ "all-in" เพราะ illiquidity และยังไม่มี reversal confirmation แต่ asymmetric risk/reward (7.7R) + พื้นฐาน (เงินสดสุทธิ 130% ของราคา) ทำให้การสะสมในช่วง 0.25-0.28 มีความคุ้มค่าเชิงความเสี่ยง <strong>Catalyst ที่จะยืนยัน:</strong> (1) breakout ปริมาณซื้อขายเหนือ 0.30, (2) ข่าว COD 100 MW solar, (3) การประกาศ M&amp;A หรือ capital deployment</p>
+      </div>
+    </section>
+
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>สถานการณ์ &amp; แผนการลงทุน</h2></div>
+      <hr class="div">
+      <div class="table-wrap"><table>
+        <thead><tr><th>สถานการณ์</th><th>Levers</th><th class="num">~12 เดือน</th><th class="num">~24 เดือน</th><th class="num">~36 เดือน</th><th class="num">ผลตอบแทน</th><th class="num">Prob.</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot good"></span>Bull</span></td><td class="small muted">100MW solar COD + ประกาศ pipeline 500MW + M&amp;A ที่คุ้มค่า + กำไร FY2569 &gt;400 ล้านบาท</td><td class="num">฿0.50</td><td class="num">฿0.80</td><td class="num">฿1.20</td><td class="num">+344%</td><td class="num">25%</td></tr>
+          <tr><td>Base</td><td class="small muted">100MW solar COD Q2/2569 + กำไรคง 320 ล้านบาท + ค่อย ๆ deploy เงินสด</td><td class="num">฿0.38</td><td class="num">฿0.50</td><td class="num">฿0.65</td><td class="num">+141%</td><td class="num">55%</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>Bear</span></td><td class="small muted">solar ล่าช้า + FX ลาว devalue ต่อ + ไม่ deploy เงินสด + illiquidity กดดัน</td><td class="num">฿0.22</td><td class="num">฿0.20</td><td class="num">฿0.25</td><td class="num">-19%</td><td class="num">20%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="5">ผลตอบแทนคาดหวังถ่วงน้ำหนักความน่าจะเป็น</td><td class="num">+169%</td><td class="num">100%</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">ผลตอบแทนคำนวณจาก 0.27 บาท · สถานการณ์ตรงกับ §3 fair value (Base 0.55, Bull 0.92, Bear 0.22) · ระยะเวลา 36 เดือน</p>
+
+      <div class="callout" style="margin-top:18px;">
+        <h3>แผนการลงทุน <span class="small muted">— เป็นการวิเคราะห์แบบมีเงื่อนไข ไม่ใช่คำสั่งซื้อ/ขาย</span></h3>
+        <p class="small"><strong>Setup archetype:</strong> Deep-value contrarian + net-cash asset play — ขนาดเล็ก, ต้องการความอดทนสูง, catalyst-driven</p>
+        <p class="small"><strong>Entry &amp; margin of safety:</strong> เนื่องจาก net cash 130% ของราคา + P/B 0.45 (ส่วนลด 46% จาก peer median), ส่วนลดที่ต้องการจาก FV 0.55 = <strong>≥40% (entry ≤ 0.33)</strong> — ปัจจุบันอยู่ที่ 0.27 = ส่วนลด 51% <em>ต่ำกว่า</em>เกณฑ์ที่ต้องการ</p>
+        <p class="small"><strong>Sizing &amp; staging:</strong> ขนาดเล็ก (1-3% ของพอร์ต) เนื่องจาก illiquidity + ความเสี่ยง governance/FX ลาว; แบ่งเป็น 3 ระลอกที่ 0.25, 0.27, 0.29 (scale-in ในช่วง accumulation)</p>
+        <p class="small"><strong>Conviction-builders (สิ่งที่ต้องจับตาทุกไตรมาส):</strong> (1) ความคืบหน้า 100 MW solar → COD, (2) OCF ต่อไตรมาส ≥ 50 ล้านบาท, (3) การประกาศ deploy เงินสด (M&amp;A/solar pipeline), (4) การพิจารณาจ่ายปันผล (policy ≥40% ของกำไร separate), (5) ราคาทะลุ 0.30 ด้วยปริมาณซื้อขาย</p>
+        <p class="small"><strong>Thesis-breakers (exit triggers):</strong> (1) 100 MW solar ล่าช้าเกิน 2 ไตรมาสจาก COD Q2/2569, (2) FX ลาว devalue อย่างมีนัย &gt;20%, (3) หนี้สินเพิ่มขึ้นเกิน 600 ล้านบาทโดยไม่มี deployment ที่ชัดเจน, (4) ราคาต่ำกว่า 0.20 (break จุดต่ำสุดใหม่), (5) ประกาศทำธุรกรรมที่เป็น related-party ที่ไม่โปร่งใส</p>
+        <p class="small"><strong>Horizon:</strong> 24-36 เดือน — catalyst solar ใช้เวลา 6-12 เดือน, deployment เงินสดใช้เวลา 12-24 เดือน</p>
+      </div>
+    </section>
+
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>ความเสี่ยงหลัก (Key Risks)</h2></div>
+      <hr class="div">
+      <div class="table-wrap"><table>
+        <thead><tr><th>ความเสี่ยง</th><th>ทิศทาง</th><th class="num">FV ที่เสี่ยง</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FX ลาว (Kip/USD)</strong></td><td class="small muted">รายได้ส่วนหนึ่งเป็น USD/กีบ, จ่ายค่าสากลเป็น THB</td><td class="num">~15-20%</td><td class="small muted">เห็นผลกระทบแล้ว Q1/2569 (-35 ล้านบาท); monitor exchange rate</td></tr>
+          <tr><td><strong>ความล่าช้าของ 100 MW solar</strong></td><td class="small muted">catalyst เดียวที่ใหญ่ที่สุด</td><td class="num">~20-25%</td><td class="small muted">COD เลื่อน → ราคาตก, sentiment เสีย</td></tr>
+          <tr><td><strong>การใช้เงินสดไม่คุ้มค่า</strong></td><td class="small muted">"cash drag" หรือ M&amp;A ที่ overpay</td><td class="num">~15-25%</td><td class="small muted">เงินสด 3.57 พันล้านบาทที่สะสมต้องการ ROI &gt; WACC</td></tr>
+          <tr><td><strong>Illiquidity</strong></td><td class="small muted">avg vol ~8.7 ล้านหุ้น/วัน</td><td class="num">~10%</td><td class="small muted">bid-ask spread กว้าง, ออกยากในขนาดใหญ่</td></tr>
+          <tr><td><strong>Governance / related-party</strong></td><td class="small muted">CEO/ผู้ถือหุ้นใหญ่, ประวัติ M&amp;A ที่เกี่ยวข้อง</td><td class="num">~15-30%</td><td class="small muted">ดูประวัติการขาย VPROP/SML ที่เกี่ยวข้องกับบุคคลที่เกี่ยวข้อง</td></tr>
+          <tr><td><strong>EDL / Laos sovereign risk</strong></td><td class="small muted">PPA counterparty = รัฐวิสาหกิจลาว</td><td class="num">~10-20%</td><td class="small muted">EDL เป็นผู้ซื้อไฟฟ้ารายเดียว; ความเสี่ยงความน่าเชื่อถือของรัฐลาว</td></tr>
+          <tr><td><strong>Hydrology risk</strong></td><td class="small muted">NH1 = run-of-river, ผลผลิตขึ้นกับปริมาณน้ำ</td><td class="num">~5-10%</td><td class="small muted">Plant factor 37-54% ผันผวนตามฤดู; ภูมิอากาศเปลี่ยนแปลง</td></tr>
+          <tr><td><strong>นโยบายไม่จ่ายปันผล</strong></td><td class="small muted">ไม่จ่ายตั้งแต่ปี 2559</td><td class="num">~0-5%</td><td class="small muted">ลด appeal สำหรับ income investor; ขึ้นกับการตัดสินใจบริษัท</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">จับคู่กับ thesis-breakers ใน §6, technical invalidation ใน §5 (ใต้ 0.24), และ WACC × g sensitivity ใน §3 — ความเสี่ยง FX ลาว + governance เป็น 2 อันดับแรกที่ควร monitor</p>
+    </section>
+
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+      <h3>สมมุติฐานหลัก</h3>
+      <table>
+        <thead><tr><th>Input</th><th class="num">ค่า</th><th>แหล่งที่มา/เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate</td><td class="num">2.25%</td><td class="small muted">พันธบัตรรัฐบาลไทย 10 ปี กลางปี 2569 (ThaiBMA/BOT)</td></tr>
+          <tr><td>Mature ERP</td><td class="num">5.5%</td><td class="small muted">Damodaran implied ERP</td></tr>
+          <tr><td>Thailand CRP</td><td class="num">0.9%</td><td class="small muted">Damodaran country risk table</td></tr>
+          <tr><td>Beta</td><td class="num">1.1</td><td class="small muted">mai-listed, illiquid, volatility สูงกว่าตลาด</td></tr>
+          <tr><td>Small-cap premium</td><td class="num">1.5%</td><td class="small muted">mai-listed small cap</td></tr>
+          <tr><td>Tax rate</td><td class="num">~6%</td><td class="small muted">3-ปี median effective; hydro ลาวมี tax holiday</td></tr>
+          <tr><td>หุ้นที่ชำระแล้ว</td><td class="num">9,292 ล้านหุ้น</td><td class="small muted">par 0.25 บาท</td></tr>
+        </tbody>
+      </table>
+
+      <h3>บริบทดอกเบี้ยไทย (เน้นตามคำขอ)</h3>
+      <p class="small"><strong>ณ การประชุม กนง. ครั้งที่ 3/2569 วันที่ 24 มิ.ย. 2569: อัตราดอกเบี้ยนโยบาย = 1.00% (Hold)</strong> — ลดลงจาก 2.50% ในต้นปี 2567 (ลดลงทั้งหมด 150 bps ในรอบ 2 ปีผ่านการ cut 6 ครั้ง)</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>วันที่ประชุม</th><th>มติ</th><th class="num">อัตราดอกเบี้ยนโยบาย</th></tr></thead>
+        <tbody>
+          <tr><td>16 ต.ค. 2567</td><td>ลด 25 bps</td><td class="num">2.25%</td></tr>
+          <tr><td>18 ธ.ค. 2567</td><td>คง</td><td class="num">2.25%</td></tr>
+          <tr><td>26 ก.พ. 2568</td><td>ลด 25 bps</td><td class="num">2.00%</td></tr>
+          <tr><td>30 เม.ย. 2568</td><td>ลด 25 bps</td><td class="num">1.75%</td></tr>
+          <tr><td>25 มิ.ย. 2568</td><td>คง</td><td class="num">1.75%</td></tr>
+          <tr><td>13 ส.ค. 2568</td><td>ลด 25 bps</td><td class="num">1.50%</td></tr>
+          <tr><td>8 ต.ค. 2568</td><td>คง</td><td class="num">1.50%</td></tr>
+          <tr><td>17 ธ.ค. 2568</td><td>ลด 25 bps</td><td class="num">1.25%</td></tr>
+          <tr><td>25 ก.พ. 2569</td><td>ลด 25 bps</td><td class="num">1.00%</td></tr>
+          <tr><td>29 เม.ย. 2569</td><td>คง</td><td class="num">1.00%</td></tr>
+          <tr><td><strong>24 มิ.ย. 2569</strong></td><td><strong>คง</strong></td><td class="num"><strong>1.00%</strong></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ที่มา: ตารางมติกนง. Bank of Thailand (ดาวน์โหลด .xlsx ณ 24 มิ.ย. 2569)</p>
+
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>ผลกระทบดอกเบี้ยไทยที่ลดลงต่อ ALPHAX — สรุป</h3>
+        <p class="small"><strong>ผลกระทบโดยตรง: จำกัดมาก</strong> — ALPHAX มีหนี้สิน ~266 ล้านบาท ทั้งหมดอยู่ในบริษัทย่อยในลาว ในสกุล USD (8.0%) และ LAK (13-14.5%) ไม่ได้ตั้งราคาตามดอกเบี้ยไทย → การลดดอกเบี้ยไทย 150 bps ไม่ได้ลดต้นทุนทุนของบริษัทโดยตรง</p>
+        <p class="small"><strong>ผลกระทบทางอ้อม (ผสม):</strong></p>
+        <ul class="small">
+          <li><span class="chip"><span class="dot bad"></span>ลบ</span> ดอกเบี้ยรับจากเงินสด 3,569 ล้านบาทที่ฝากในไทยจะลดลง (FY2568 รับ 74.9 ล้านบาท → อาจลดเหลือ 50-60 ล้านบาท)</li>
+          <li><span class="chip"><span class="dot good"></span>บวก</span> โอกาสลงทุนในไทย (solar, asset acquisition) ที่ ALPHAX กำลังพิจารณาจะมี WACC ต่ำลง → IRR ของโครงการใหม่ดีขึ้น</li>
+          <li><span class="chip"><span class="dot good"></span>บวก</span> ความน่าสนใจของหุ้นไทยเงินปันผล/คุณค่าโดยรวมสำหรับนักลงทุนต่างชาติ — แต่ ALPHAX ไม่จ่ายปันผล จึงไม่ได้ประโยชน์โดยตรง</li>
+          <li><span class="chip"><span class="dot watch"></span>กลาง</span> THB อ่อนค่าเล็กน้อย (33.30 THB/USD) — อาจช่วยการแปลงกำไรจากลาวกลับมาเป็น THB แต่กดดันค่าเงินกีบลาวด้วย</li>
+        </ul>
+        <p class="small"><strong>สรุป:</strong> การลดดอกเบี้ยไทยเป็น tailwind เล็กน้อย แต่ไม่ใช่ thesis หลัก — ปัจจัยสำคัญยังเป็น catalyst solar + deployment เงินสด + FX ลาว</p>
+      </div>
+
+      <h3>แหล่งข้อมูล &amp; วันที่</h3>
+      <p class="small muted">
+        <strong>งบการเงินหลัก:</strong> รายงานประจำปี 2568 (2568 Annual Report / แบบ 56-1 One Report) — งบการเงินรวมตรวจสอบ 31 ธ.ค. 2568, 295 หน้า, ดาวน์โหลดจาก alphadivisions.com<br>
+        <strong>Q1/2569:</strong> งบการเงินไตรมาส 1/2569 (unaudited but reviewed) 31 มี.ค. 2569 จาก efinancethai.com<br>
+        <strong>ดอกเบี้ยไทย:</strong> ตารางมติกนง. Bank of Thailand, อัปเดต 24 มิ.ย. 2569<br>
+        <strong>ข้อมูลตลาด:</strong> yfinance (Yahoo Finance), TradingView (chart image) — ข้อมูล unofficial อาจล่าช้า/ไม่สมบูรณ์<br>
+        <strong>Peer data:</strong> yfinance ณ 28 มิ.ย. 2568<br>
+        <strong>วันที่จัดทำ:</strong> 28 มิ.ย. 2568 (2026-06-28)
+      </p>
+      <p class="small muted"><strong>Disclaimer.</strong> เอกสารนี้เป็นผลงานวิจัยและการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำทางการเงิน (financial advice)</strong> ไม่ใช่คำแนะนำให้ซื้อหรือขายหลักทรัพย์ และไม่ได้ปรับให้เหมาะกับสถานการณ์ของแต่ละบุคคล ข้อมูลจาก yfinance, Yahoo Finance, TradingView, และ sources อื่น ๆ เป็น unofficial อาจล่าช้า ไม่สมบูรณ์ หรือถูกแก้ไข — ควรตรวจสอบตัวเลขที่สำคัญกับ filings หลัก (56-1 One Report, งบตรวจสอบ) หรือแหล่งทางการ</p>
+    </section>
+
+    <footer>
+      Alpha Divisions PCL · ALPHAX · Equity research · Generated 28 มิ.ย. 2568 · Not financial advice · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  function initReportInteractivity() {
+    try {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              links.forEach(function(a){a.classList.remove('active');});
+              var a = map[e.target.id]; if(a) a.classList.add('active');
+            }
+          });
+        }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+        document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+      }
+    } catch(err) { }
+
+    try {
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if(!toc || !btn) return;
+      function isMobile(){ return window.matchMedia('(max-width:900px)').matches; }
+      if(isMobile()) toc.classList.add('collapsed');
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var collapsed = toc.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+      toc.addEventListener('click', function(e){
+        if(e.target.tagName === 'A' && isMobile()) toc.classList.add('collapsed');
+      });
+      window.addEventListener('resize', function(){
+        if(!isMobile()){ toc.classList.remove('collapsed'); btn.setAttribute('aria-expanded','true'); }
+      });
+    } catch(err) { console.error('BF-Report TOC init failed:', err); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReportInteractivity);
+  } else {
+    initReportInteractivity();
+  }
+</script>
+
+</body>
+</html>
