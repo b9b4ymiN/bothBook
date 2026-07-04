@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Young — 2 คำของบัฟเฟตต์ กับบทเรียน 25 ปีที่ยังใช้ได้</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Paper tones */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+  /* Ink tones */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+  /* Accent — Sage green (Finance/Investing theme) */
+  --accent:       #8A9D7E;
+  --accent-deep:  #5F6E54;
+  --accent-light: #B5C4A8;
+  --accent-rule:  rgba(138, 157, 126, 0.30);
+  --accent-bg:    rgba(138, 157, 126, 0.10);
+  /* Semantic */
+  --red: #7A1A1A; --red-bg: #FBF3F0;
+  --green: #355E40; --green-bg: #F1F6EE;
+  --book-width: 760px;
+  --page-pad-h: 76px; --page-pad-v: 84px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1A1610; padding: 40px 16px; font-family: 'Noto Serif Thai', serif; color: var(--ink-soft); -webkit-font-smoothing: antialiased; }
+.book {
+  max-width: var(--book-width); margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+}
+/* === COVER === */
+.cover {
+  background: linear-gradient(180deg, #14110B 0%, #1F1B12 100%);
+  min-height: 100vh; padding: 80px var(--page-pad-h);
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.cover-frame { position: absolute; top: 28px; left: 28px; right: 28px; bottom: 28px; border: 1px solid rgba(138,157,126,0.25); pointer-events: none; }
+.cover-frame::before, .cover-frame::after { content: ''; position: absolute; width: 32px; height: 32px; border: 1px solid rgba(181,196,168,0.45); }
+.cover-frame::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.cover-frame::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.cover-mark { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--accent); margin-bottom: 40px; letter-spacing: 2px; }
+.cover-series { font-family: 'Sarabun', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 32px; }
+.cover-author-label { font-family: 'Sarabun', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 18px; }
+.cover-title-en { font-family: 'Playfair Display', serif; font-size: clamp(56px, 11vw, 88px); font-weight: 700; color: var(--accent-light); line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 16px; }
+.cover-title-th { font-family: 'Noto Serif Thai', serif; font-size: clamp(20px, 3.5vw, 26px); font-weight: 500; color: var(--paper-deep); line-height: 1.5; margin-bottom: 36px; }
+.cover-divider { width: 48px; height: 2px; background: var(--accent); margin-bottom: 32px; }
+.cover-subtitle { font-family: 'Noto Serif', serif; font-style: italic; font-size: 15px; color: rgba(234,229,210,0.65); line-height: 1.7; max-width: 460px; margin-bottom: 40px; }
+.cover-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 56px; }
+.cover-tag { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-light); border: 1px solid rgba(138,157,126,0.40); padding: 5px 11px; }
+.cover-edition { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-faint); position: absolute; bottom: 56px; left: var(--page-pad-h); }
+/* === CHAPTER OPEN === */
+.chapter-open { background: var(--paper-mid); padding: 72px var(--page-pad-h) 64px; border-bottom: 1px solid var(--paper-shadow); position: relative; }
+.chapter-open::after { content: ''; display: block; width: 40px; height: 2px; background: var(--accent); margin-top: 28px; }
+.ch-num { font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic; font-size: 96px; color: var(--paper-shadow); position: absolute; top: 48px; right: var(--page-pad-h); line-height: 1; }
+.ch-label { font-family: 'Sarabun', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 24px; font-weight: 600; }
+.ch-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 40px); font-weight: 600; color: var(--ink); line-height: 1.18; margin-bottom: 8px; }
+.ch-title em { font-family: 'Noto Serif Thai', serif; display: block; font-style: normal; font-weight: 400; font-size: 18px; color: var(--ink-muted); margin-top: 12px; line-height: 1.5; }
+.ch-essence { font-family: 'Noto Serif', serif; font-style: italic; font-size: 17px; color: var(--ink-mid); margin-top: 28px; line-height: 1.65; max-width: 540px; }
+/* === PAGE === */
+.page { padding: var(--page-pad-v) var(--page-pad-h); }
+.eyebrow { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-deep); font-weight: 600; margin-bottom: 16px; }
+h1 { font-family: 'Noto Serif Thai', serif; font-size: clamp(26px, 4.5vw, 32px); font-weight: 600; color: var(--ink); line-height: 1.25; margin-bottom: 24px; }
+h2 { font-family: 'Noto Serif Thai', serif; font-size: 21px; font-weight: 600; color: var(--ink-soft); margin-top: 44px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--accent-rule); position: relative; }
+h2::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 36px; height: 2px; background: var(--accent); }
+h3 { font-family: 'Sarabun', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink-mid); margin-top: 28px; margin-bottom: 10px; letter-spacing: 0.5px; }
+p { font-size: 17px; line-height: 1.9; color: var(--ink-soft); margin-bottom: 18px; font-family: 'Noto Serif Thai', serif; }
+strong { color: var(--ink); font-weight: 600; }
+em { font-style: italic; }
+a { color: var(--accent-deep); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+.lead { font-size: 18px; line-height: 1.85; color: var(--ink); font-weight: 400; }
+.muted { color: var(--ink-muted); }
+.small { font-size: 14px; }
+/* === PULLQUOTE === */
+.pullquote { margin: 40px 0; padding: 0 0 0 28px; border-left: 3px solid var(--accent); }
+.pullquote p { font-family: 'Noto Serif', serif; font-size: 19px; font-style: italic; color: var(--ink); line-height: 1.6; margin-bottom: 10px; }
+.pullquote cite { font-family: 'Sarabun', sans-serif; font-size: 12px; color: var(--ink-muted); font-style: normal; letter-spacing: 1px; }
+/* === BLOCKQUOTE FULL === */
+.blockquote-full { background: var(--ink); padding: 48px 48px; margin: 48px 0; text-align: center; }
+.bq-en { font-family: 'Noto Serif', serif; font-style: italic; font-size: clamp(18px, 3vw, 22px); color: rgba(242,239,228,0.85); line-height: 1.55; margin-bottom: 14px; }
+.bq-th { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: rgba(181,196,168,0.65); line-height: 1.6; }
+.bq-attr { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light); margin-top: 18px; }
+/* === AUTHOR BOX === */
+.author-box { display: flex; gap: 18px; padding: 24px 28px; background: var(--paper-mid); border-left: 3px solid var(--accent); margin: 32px 0; align-items: flex-start; }
+.author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-deep); color: var(--paper); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; flex-shrink: 0; font-weight: 700; }
+.author-meta { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 8px; font-weight: 600; }
+.author-text { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.75; color: var(--ink-soft); font-style: italic; }
+/* === INSIGHT BOX === */
+.insight-box { background: var(--accent-bg); border: 1px solid var(--accent-rule); padding: 22px 26px; margin: 32px 0; border-radius: 2px; }
+.insight-label { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-deep); font-weight: 700; margin-bottom: 10px; }
+.insight-box p { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.75; color: var(--ink); margin: 0; }
+/* === LADDER === */
+.ladder { margin: 36px 0; }
+.ladder-step { padding: 18px 24px; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; }
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text { font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+.ladder-arrow { text-align: center; padding: 6px; color: var(--ink-faint); font-size: 18px; }
+/* === CMP TABLE === */
+.cmp-table-wrap { overflow-x: auto; margin: 28px 0; -webkit-overflow-scrolling: touch; }
+.cmp-table { width: 100%; border-collapse: collapse; font-family: 'Sarabun', sans-serif; font-size: 14px; min-width: 480px; }
+.cmp-table thead th { background: var(--ink-soft); color: var(--accent-light); padding: 14px 16px; text-align: left; font-weight: 600; letter-spacing: 0.5px; font-size: 12px; text-transform: uppercase; }
+.cmp-table tbody td { padding: 13px 16px; border-bottom: 1px solid var(--paper-shadow); color: var(--ink-soft); vertical-align: top; }
+.cmp-table tbody tr:nth-child(even) { background: var(--paper-mid); }
+.cmp-table tbody tr:last-child td { border-bottom: none; }
+.cmp-table tfoot td { background: var(--paper-deep); padding: 13px 16px; font-weight: 600; color: var(--ink); }
+/* === STAT ROW === */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--paper-shadow); border: 1px solid var(--paper-shadow); margin: 32px 0; }
+.stat-item { background: var(--paper); padding: 28px 20px; text-align: center; }
+.stat-value { font-family: 'Playfair Display', serif; font-size: 38px; color: var(--accent-deep); font-weight: 600; line-height: 1; margin-bottom: 10px; }
+.stat-label { font-family: 'Sarabun', sans-serif; font-size: 12px; color: var(--ink-muted); letter-spacing: 0.5px; line-height: 1.4; }
+/* === FORMULA BLOCK === */
+.formula-block { background: var(--paper-mid); border: 1px solid var(--paper-shadow); padding: 28px 32px; margin: 32px 0; text-align: center; }
+.formula-label { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-deep); font-weight: 700; margin-bottom: 14px; }
+.formula-eq { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 28px); color: var(--ink); font-weight: 600; margin-bottom: 12px; letter-spacing: -0.01em; }
+.formula-note { font-family: 'Noto Serif Thai', serif; font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+/* === SIGNAL BOX === */
+.signal-box { padding: 22px 26px; margin: 28px 0; }
+.signal-box.buy { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.sell { background: var(--red-bg); border-left: 3px solid var(--red); }
+.signal-title { font-family: 'Sarabun', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+.signal-box.buy .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-list { list-style: none; }
+.signal-list li { font-family: 'Noto Serif Thai', serif; font-size: 14px; line-height: 1.75; color: var(--ink-soft); padding-left: 22px; position: relative; margin-bottom: 8px; }
+.signal-box.buy .signal-list li::before { content: '+'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.signal-box.sell .signal-list li::before { content: '−'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+/* === REFLECTION === */
+.reflection { background: var(--paper-mid); padding: 32px 36px; margin: 40px 0; border-left: 3px solid var(--accent); }
+.reflection-title { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--accent-deep); margin-bottom: 18px; font-weight: 600; }
+.reflection-list { list-style: none; counter-reset: r; }
+.reflection-list li { counter-increment: r; font-family: 'Noto Serif Thai', serif; font-size: 15px; line-height: 1.75; color: var(--ink-soft); padding-left: 36px; position: relative; margin-bottom: 14px; }
+.reflection-list li::before { content: counter(r, decimal-leading-zero); position: absolute; left: 0; top: 2px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: var(--accent); font-weight: 600; }
+/* === CHECKLIST === */
+.checklist { margin: 36px 0; border: 1px solid var(--paper-shadow); }
+.checklist-cap { background: var(--ink-soft); padding: 22px 28px; }
+.checklist-cap h3 { color: var(--accent-light); margin: 0; font-family: 'Noto Serif Thai', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.5px; }
+.checklist-cap p { color: var(--paper-deep); font-size: 13px; margin: 8px 0 0; font-family: 'Sarabun', sans-serif; }
+.cl-group { background: var(--paper-mid); padding: 12px 28px; }
+.cl-group-title { font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-deep); font-weight: 700; padding: 12px 0 4px; }
+.cl-items { list-style: none; padding: 0; }
+.cl-items li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--paper-shadow); }
+.cl-items li:last-child { border-bottom: none; }
+.cl-box { width: 16px; height: 16px; border: 1px solid var(--accent); flex-shrink: 0; margin-top: 3px; }
+.cl-text { font-family: 'Noto Serif Thai', serif; font-size: 14px; line-height: 1.6; color: var(--ink-soft); flex: 1; }
+.cl-note { font-family: 'Sarabun', sans-serif; font-size: 12px; color: var(--ink-muted); font-style: italic; margin-top: 4px; line-height: 1.5; }
+/* === CH CARD (TOC) === */
+.ch-card { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--paper-shadow); align-items: flex-start; }
+.ch-card:last-child { border-bottom: none; }
+.ch-card-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 32px; color: var(--accent); font-weight: 400; line-height: 1; min-width: 44px; padding-top: 4px; }
+.ch-card-title { font-family: 'Noto Serif Thai', serif; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.ch-card-one-liner { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: var(--ink-muted); font-style: italic; line-height: 1.55; }
+.ch-tag { display: inline-block; font-family: 'Sarabun', sans-serif; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; background: var(--accent-bg); color: var(--accent-deep); padding: 3px 8px; margin-right: 6px; font-weight: 600; margin-top: 8px; }
+/* === CHART FRAME === */
+.chart-frame { background: var(--white, #fff); border: 1px solid var(--paper-shadow); padding: 0; margin: 28px 0; overflow: hidden; }
+.chart-frame img { display: block; width: 100%; height: auto; }
+.chart-caption { font-family: 'Sarabun', sans-serif; font-size: 11px; color: var(--ink-muted); padding: 10px 16px; background: var(--paper-mid); border-top: 1px solid var(--paper-shadow); letter-spacing: 0.3px; }
+/* === PORTRAIT (Buffett SVG container) === */
+.portrait-wrap { display: flex; justify-content: center; margin: 36px 0 16px; }
+.portrait-frame { width: 200px; height: 200px; border-radius: 50%; background: var(--paper-mid); border: 2px solid var(--accent); padding: 8px; overflow: hidden; }
+.portrait-frame svg { width: 100%; height: 100%; border-radius: 50%; display: block; }
+.portrait-caption { text-align: center; font-family: 'Sarabun', sans-serif; font-size: 11px; color: var(--ink-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 8px; margin-bottom: 32px; }
+/* === ORNAMENT === */
+hr.ornament { border: none; text-align: center; margin: 48px 0; }
+hr.ornament::before { content: '· · ·'; color: var(--accent-rule); letter-spacing: 14px; font-size: 18px; }
+/* === FOOTER === */
+.book-footer { background: var(--ink); padding: 56px var(--page-pad-h); text-align: center; }
+.book-footer-mark { font-family: 'Playfair Display', serif; font-style: italic; font-size: 32px; color: var(--accent); margin-bottom: 16px; }
+.book-footer-text { font-family: 'Noto Serif Thai', serif; font-size: 14px; color: var(--paper-deep); font-style: italic; line-height: 1.7; max-width: 480px; margin: 0 auto 20px; }
+.book-footer-author { font-family: 'Sarabun', sans-serif; font-size: 11px; color: var(--accent-light); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+/* === DISCLAIMER === */
+.disclaimer { background: var(--paper-mid); padding: 28px var(--page-pad-h); border-top: 1px solid var(--paper-shadow); }
+.disclaimer-title { font-family: 'Sarabun', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-muted); font-weight: 700; margin-bottom: 12px; }
+.disclaimer p { font-size: 13px; line-height: 1.65; color: var(--ink-muted); margin-bottom: 8px; }
+/* === RESPONSIVE === */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .ch-num { font-size: 72px; right: 16px; }
+  .stat-row, .signal-box { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 32px 24px; margin-left: -28px; margin-right: -28px; }
+  .cover { padding: 56px 28px; }
+  .author-box { padding: 18px 20px; gap: 14px; }
+  .ladder-step { padding: 14px 18px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+
+<!-- ==================== COVER ==================== -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-mark">∞</div>
+  <div class="cover-series">Investment Philosophy · ฉบับภาษาไทย</div>
+  <div class="cover-author-label">บทเรียนจาก · Lessons From</div>
+  <div class="cover-title-en">Start Young.</div>
+  <div class="cover-title-th">เริ่มตอนยังเด็ก — 2 คำของบัฟเฟตต์ และเส้นทาง 30 พันล้านดอลลาร์</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">งานประชุมผู้ถือหุ้น Berkshire Hathaway ปี 1999 — Grant Morgan ถามคำถามสั้น ๆ ที่ทำให้ทั้งห้องหัวเราะ และได้คำตอบ 2 คำที่เปลี่ยนวิธีคิดเรื่องความมั่งคั่งตลอดกาล</div>
+  <div class="cover-tags">
+    <div class="cover-tag">Warren Buffett</div>
+    <div class="cover-tag">Charlie Munger</div>
+    <div class="cover-tag">Compound Interest</div>
+    <div class="cover-tag">GEICO 1951</div>
+    <div class="cover-tag">Value Investing</div>
+  </div>
+  <div class="cover-edition">ฉบับสมบูรณ์ · ภาษาไทย · 2569</div>
+</div>
+
+<!-- ==================== TOC ==================== -->
+<div class="page">
+  <div class="eyebrow">Contents · สารบัญ</div>
+  <h1>7 บทเรียนจากเนินเขาที่ยาว</h1>
+  <p class="lead">บัฟเฟตต์กับมังเกอร์ไม่ได้พูดถึงสูตรลับ แต่พูดถึงเวลา วินัย และการคิดเอง — เรียงตามลำดับที่ทำให้เกิดผลจริง</p>
+
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-value">2</div><div class="stat-label">คำตอบของบัฟเฟตต์</div></div>
+    <div class="stat-item"><div class="stat-value">73</div><div class="stat-label">ปีของเนินเขา (1951→2024)</div></div>
+    <div class="stat-item"><div class="stat-value">99.8%</div><div class="stat-label">ของทรัพย์สินเกิดหลังอายุ 50</div></div>
+  </div>
+
+  <div class="ch-card"><div class="ch-card-num">01</div><div><div class="ch-card-title">ก้อนหิมะบนเนินเขาที่ยาว</div><div class="ch-card-one-liner">ทำไม "เวลา" สำคัญกว่า "เงิน" — เดือนสุดท้ายทำกำไรมากกว่า 48 ปีแรก</div><span class="ch-tag">Compound</span><span class="ch-tag">Rule of 72</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">02</div><div><div class="ch-card-title">ทำไมคนเงินน้อยกลับได้เปรียบ</div><div class="ch-card-one-liner">ตลาดมีความไร้ประสิทธิภาพมากที่สุดที่หุ้นเล็ก — โอกาสซ่อนอยู่ตรงที่คนมองข้าม</div><span class="ch-tag">Small Caps</span><span class="ch-tag">Inefficiency</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">03</div><div><div class="ch-card-title">คิดเอง — เรื่อง GEICO 1951</div><div class="ch-card-one-liner">ตอนอายุ 20 ผู้เชี่ยวชาญบอกเขา "ไม่รู้เรื่อง" — สิบปีต่อมา GEICO กลายเป็นการลงทุนชีวิต</div><span class="ch-tag">GEICO</span><span class="ch-tag">Independent</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">04</div><div><div class="ch-card-title">ซื้อธุรกิจดี ราคาดี — 100 ปีก็ยังเหมือนเดิม</div><div class="ch-card-one-liner">3 หลักการถาวรที่บัฟเฟตต์ยืนยันซ้ำตั้งแต่ 1999 ถึง 2021</div><span class="ch-tag">Value</span><span class="ch-tag">Business</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">05</div><div><div class="ch-card-title">สูตร $100,000 แรกของมังเกอร์</div><div class="ch-card-one-liner">"เจ็บแต่ต้องทน" — ทำไมด่านแรกยากที่สุด และ 3 เครื่องมือที่พาข้ามผ่าน</div><span class="ch-tag">Munger</span><span class="ch-tag">Discipline</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">06</div><div><div class="ch-card-title">25 ปีผ่านไป — คำพูดเหล่านี้ยังจริงไหม?</div><div class="ch-card-one-liner">ดอกเบี้ยทบต้น, การคิดแบบกลับด้าน, และกฎ "น่าเบื่อแต่ได้ผล" ของมังเกอร์</div><span class="ch-tag">Validation</span><span class="ch-tag">25 Years</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">07</div><div><div class="ch-card-title">แผนปฏิบัติการสำหรับคนไทย</div><div class="ch-card-one-liner">เงินเดือน 30,000 → 10.85 ล้านบาทใน 30 ปี — checklist 6 ข้อที่ใช้ได้วันนี้</div><span class="ch-tag">Thai Plan</span><span class="ch-tag">Action</span></div></div>
+  <div class="ch-card"><div class="ch-card-num">∞</div><div><div class="ch-card-title">Synthesis — พิธีกรรมก่อนลงมือ</div><div class="ch-card-one-liner">Master one-liner + pre-action ritual ที่สรุปทั้งเล่มในข้อเดียว</div><span class="ch-tag">Synthesis</span></div></div>
+</div>
+
+<!-- ==================== FOREWORD ==================== -->
+<div class="page">
+  <div class="eyebrow">Foreword · คำนำ</div>
+  <h1>เหตุผลที่บทความนี้เขียน</h1>
+  <p class="lead">บัฟเฟตต์ตอบคำถามด้วย 2 คำในปี 1999 — แต่ใช้เวลา 25 ปีในการพิสูจน์ว่าคำตอบนั้นยังจริง</p>
+
+  <div class="portrait-wrap">
+    <div class="portrait-frame">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stylized Buffett portrait in sage tones -->
+        <defs>
+          <radialGradient id="bg" cx="50%" cy="40%" r="70%">
+            <stop offset="0%" stop-color="#B5C4A8"/>
+            <stop offset="100%" stop-color="#5F6E54"/>
+          </radialGradient>
+          <linearGradient id="skin" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#E8D5B7"/>
+            <stop offset="100%" stop-color="#C9A47A"/>
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="100" fill="url(#bg)"/>
+        <!-- Hair (signature gray, side-parted) -->
+        <path d="M 50 78 Q 55 50 100 48 Q 145 50 150 78 Q 145 70 138 75 Q 130 65 110 65 Q 90 65 75 72 Q 65 68 50 78 Z" fill="#E8E2D5"/>
+        <path d="M 55 80 Q 60 60 100 58 Q 140 60 145 80 L 140 88 Q 130 75 100 75 Q 70 75 60 88 Z" fill="#D8D0BD"/>
+        <!-- Face -->
+        <ellipse cx="100" cy="105" rx="38" ry="44" fill="url(#skin)"/>
+        <!-- Glasses (signature) -->
+        <circle cx="84" cy="108" r="14" fill="none" stroke="#2A261C" stroke-width="2.5"/>
+        <circle cx="116" cy="108" r="14" fill="none" stroke="#2A261C" stroke-width="2.5"/>
+        <line x1="98" y1="108" x2="102" y2="108" stroke="#2A261C" stroke-width="2.5"/>
+        <line x1="70" y1="108" x2="64" y2="106" stroke="#2A261C" stroke-width="2"/>
+        <line x1="130" y1="108" x2="136" y2="106" stroke="#2A261C" stroke-width="2"/>
+        <!-- Eyes (subtle) -->
+        <circle cx="84" cy="108" r="2" fill="#2A261C"/>
+        <circle cx="116" cy="108" r="2" fill="#2A261C"/>
+        <!-- Eyebrows -->
+        <path d="M 76 96 Q 84 92 92 96" stroke="#D8D0BD" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M 108 96 Q 116 92 124 96" stroke="#D8D0BD" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- Nose -->
+        <path d="M 100 112 L 96 128 L 104 128 Z" fill="none" stroke="#A8855A" stroke-width="1.2" stroke-linejoin="round"/>
+        <!-- Mouth (subtle smile) -->
+        <path d="M 88 140 Q 100 146 112 140" stroke="#7A4A2A" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Chin -->
+        <path d="M 88 150 Q 100 158 112 150" stroke="#C9A47A" stroke-width="0.5" fill="none"/>
+        <!-- Shoulders/suit -->
+        <path d="M 30 200 Q 50 160 100 158 Q 150 160 170 200 Z" fill="#2A261C"/>
+        <path d="M 85 165 L 100 178 L 115 165" stroke="#5F6E54" stroke-width="2" fill="none"/>
+        <circle cx="100" cy="172" r="2" fill="#8A9D7E"/>
+      </svg>
+    </div>
+  </div>
+  <div class="portrait-caption">Warren E. Buffett · Omaha · born 1930</div>
+
+  <p>วันที่ 3 พฤษภาคม 1999 ที่ห้องประชุม Aksarben Coliseum เมืองโอมาฮา — Grant Morgan ชายหนุ่มจากนิวยอร์กยกมือถามวอร์เรน บัฟเฟตต์คำถามสั้น ๆ ที่ทำให้ทั้งห้องหัวเราะ:</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"If you were starting over today in your early 30s, what would you do the same or differently to replicate that success? Briefly, Mr. Buffett — how do you make $30 billion?"</div>
+    <div class="bq-th">"ถ้าคุณเริ่มต้นใหม่วันนี้ในวัย 30 ต้น ๆ คุณจะทำอะไรเหมือนเดิมหรือต่างไป เพื่อทำซ้ำความสำเร็จ? สั้น ๆ นะครับ — จะทำ $30 พันล้านได้ยังไง?"</div>
+    <div class="bq-attr">— Grant Morgan · 3 พฤษภาคม 1999</div>
+  </div>
+
+  <p>คำตอบของบัฟเฟตต์มีแค่ <strong>2 คำ</strong>:</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en" style="font-size: clamp(32px, 6vw, 48px); font-weight: 700;">"Start young."</div>
+    <div class="bq-th">เริ่มตอนยังเด็ก</div>
+  </div>
+
+  <p>ห้องหัวเราะ แต่เขาไม่ได้พูดเล่น บัฟเฟตต์เล่าต่อทันทีว่า ความลับของความมั่งคั่งของเขาไม่ใช่ IQ ไม่ใช่ข่าวใน ไม่ใช่สูตรลับ แต่เป็น <strong>เวลา</strong> — เวลาที่ยาวนานมากพอที่ดอกเบี้ยจะทบต้นได้เต็มที่</p>
+
+  <p>บทความนี้เจาะคำตอบสั้น ๆ นั้น แล้วเชื่อมโยงกับสิ่งที่บัฟเฟตต์กับชาร์ลี มังเกอร์พูดซ้ำ ๆ อีกหลายครั้งในอีก 25 ปีต่อมา พร้อมตัวเลขจริงที่คำนวณได้ และแผนปฏิบัติการที่คนไทยใช้ได้จริงวันนี้</p>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นสารของบทความ</div>
+    <p>หลักการที่ทำให้บัฟเฟตต์รวย $130 พันล้าน <strong>ไม่ใช่หลักการลึกลับ</strong> — แต่เป็นสิ่งที่ใครก็ทำซ้ำได้ถ้ายอมให้เวลาเป็นเครื่องมือ: เริ่มเร็ว, คิดเอง, ซื้อธุรกิจดีในราคาดี, กัดฟันทนจนผ่านด่าน $100,000 แรก แล้วปล่อยให้ดอกเบี้ยทำงานที่เหลือ</p>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== บทที่ 1 — SNOWBALL ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง · Chapter One</div>
+  <div class="ch-title">The Snowball on a Long Hill<em>ก้อนหิมะบนเนินเขาที่ยาว — ทำไม "เวลา" สำคัญกว่า "เงิน"</em></div>
+  <div class="ch-essence">"ธรรมชาติของดอกเบี้ยทบต้นเหมือนก้อนหิมะที่กลิ้งบนหิมะเหนียว ๆ เคล็ดคือต้องมีเนินเขาที่ยาว — ซึ่งแปลว่าต้องเริ่มตอนยังเด็ก"</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>เนินเขาที่ยาว สำคัญกว่าก้อนหิมะที่ใหญ่</h1>
+  <p>บัฟเฟตต์เล่าว่าชาร์ลี มังเกอร์มักบอกเขาเสมอว่าความสำเร็จของ Berkshire Hathaway ไม่ได้มาจากการเป็นอัจฉริยะ — แต่จากการเริ่มต้นตอนยังเด็ก แล้วปล่อยให้ก้อนหิมะกลิ่งลงจากเนินเขาที่ยาวพอ</p>
+
+  <div class="pullquote">
+    <p>"Charlie's always said that the big thing about it is we started building this little snowball on top of a very long hill. So we started at a very early age in rolling the snowball down."</p>
+    <cite>— Buffett, 1999 Berkshire Annual Meeting</cite>
+  </div>
+
+  <p>ก้อนหิมะเล็ก ๆ ที่กลิ้งลงจากยอดเขา เริ่มต้นแทบจะมองไม่เห็น แต่ยิ่งกลิ้งไกล ยิ่งเร็วและยิ่งใหญ่ นี่คือพลังของ <strong>ดอกเบี้ยทบต้น (compound interest)</strong> — กำไรที่เกิดจากกำไรที่เกิดจากกำไร</p>
+
+  <h2>ตัวเลขจริง: เนินเขา 73 ปี ทำอะไรได้</h2>
+  <p>ถ้าใครคนหนึ่งใช้ชีวิตเหมือนบัฟเฟตต์ — เริ่มลงทุนตั้งแต่อายุน้อย แล้วปล่อยให้มันทบต้นไปเรื่อย ๆ — ตัวเลขจะเป็นแบบนี้ (คำนวณจากอัตราผลตอบแทนเฉลี่ยระยะยาวของตลาดหุ้นสหรัฐฯ ~7% ต่อปี หลังปรับเฟ้อ):</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>เงินต้น</th><th>ระยะเวลา</th><th>มูลค่าสุดท้าย</th></tr></thead>
+      <tbody>
+        <tr><td>$10,000</td><td>48 ปี (1951 → 1999)</td><td><strong>~$257,000</strong></td></tr>
+        <tr><td>$10,000</td><td>73 ปี (1951 → 2024)</td><td><strong>~$1,396,000</strong></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="3">25 ปีสุดท้าย เพิ่มขึ้นไปอีก ~$1.14 ล้าน — มากกว่า 48 ปีแรกที่เพิ่มไป ~$247,000 ทั้งที่เงินต้นเท่าเดิม</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของเนินเขา</div>
+    <p>ตอนท้ายของเนินเขา ก้อนหิมะเติบโตเร็วกว่าตอนต้นมาก — เดือนสุดท้ายของชีวิตการลงทุนทำกำไรมากกว่าทศวรรษแรกทั้งหมด นี่คือเหตุผลที่บัฟเฟตต์บอกว่า <strong>"เริ่มเร็ว" สำคัญกว่า "ลงมาก"</strong></p>
+  </div>
+
+  <h2>กฎแห่ง 72 — จำง่าย ๆ ว่าเงินจะใช้เวลากี่ปีจึงจะ "สองเท่า"</h2>
+
+  <div class="formula-block">
+    <div class="formula-label">Rule of 72 · กฎแห่ง 72</div>
+    <div class="formula-eq">72 ÷ ผลตอบแทนต่อปี = ปีที่เงินเพิ่มเป็น 2 เท่า</div>
+    <div class="formula-note">หาร 72 ด้วยอัตราผลตอบแทนรายปี → ได้จำนวนปีที่เงินจะพอกพูนเป็นสองเท่า</div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>ผลตอบแทนต่อปี</th><th>ปีที่เงินเพิ่มเป็น 2 เท่า</th></tr></thead>
+      <tbody>
+        <tr><td>5%</td><td>~14 ปี</td></tr>
+        <tr><td>7%</td><td>~10 ปี</td></tr>
+        <tr><td>10%</td><td>~7 ปี</td></tr>
+        <tr><td>15%</td><td>~5 ปี</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>เงิน 100,000 บาท ที่ลงทุนได้ผลตอบแทน 10% ต่อปี จะกลายเป็น 200,000 บาท ใน 7 ปี, 400,000 ใน 14 ปี, 800,000 ใน 21 ปี, 1.6 ล้านใน 28 ปี — <strong>โดยไม่ต้องเติมเงินสักบาท</strong></p>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>ถ้าวันนี้คุณอายุ 30 และยังไม่เริ่มลงทุน — คุณกำลังเสีย "เนินเขา" กี่ปีที่จะไม่มาทวงคืน?</li>
+      <li>"ก้อนหิมะ" ของคุณตอนนี้โตขนาดไหน และมันกำลังกลิ่งอยู่บนเนินเขา หรือยังนิ่งอยู่?</li>
+      <li>ถ้าดอกเบี้ยทบต้นทำงานได้ขนาดนี้ ทำไมคนส่วนใหญ่ยังไม่รวย? อะไรขัดขวางพวกเขา?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ==================== บทที่ 2 — SMALL CAPS ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง · Chapter Two</div>
+  <div class="ch-title">The Small-Cap Edge<em>ทำไมคนเงินน้อยกลับได้เปรียบ — เรื่องของหุ้นเล็กที่คนมองข้าม</em></div>
+  <div class="ch-essence">"ด้วยเงินจำนวนน้อย ยิ่งมีโอกาสเจอของที่คนมองข้าม" — บัฟเฟตต์, 1999</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Counterintuitive Truth · ความจริงที่ผิดสังหรณ์</div>
+  <h1>เงินน้อย = เสียเปรียบ? บัฟเฟตต์บอกกลับกัน</h1>
+  <p>คนเรามักคิดว่า "เงินน้อย = เสียเปรียบ" แต่บัฟเฟตต์ตอบต่อจาก "Start young" ว่า ถ้าวันนี้เขาจบใหม่และมี $10,000 เขาจะทำยังไง:</p>
+
+  <div class="pullquote">
+    <p>"ถ้าผมจบใหม่และมี $10,000 ผมจะเริ่มที่ตัว A — ไล่ไปทีละบริษัท และน่าจะโฟกัสที่บริษัทเล็ก เพราะด้วยเงินจำนวนน้อย ยิ่งมีโอกาสเจอของที่คนมองข้าม"</p>
+    <cite>— Buffett, 1999 Berkshire Annual Meeting</cite>
+  </div>
+
+  <h2>เหตุผล: ตลาดมีความไร้ประสิทธิภาพ (inefficiency) มากที่สุดที่หุ้นเล็ก</h2>
+  <p>กองทุนใหญ่ ๆ มีสินทรัพย์หลักพันล้านหรือหมื่นล้านดอลลาร์ — การลงทุนในบริษัทขนาด 100 ล้านดอลลาร์ไม่มีผลต่อผลตอบแทนรวมเลย นักวิเคราะห์ของธนาคารใหญ่ ๆ ก็ไม่ค่อยคุมค่าที่จะครอบคลุมบริษัทเล็ก</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ฉันมีเงินน้อย ฉันจึงเสียเปรียบ — กองทุนใหญ่เข้าถึงข้อมูลและโอกาสที่ดีกว่า"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">กองทุนใหญ่ <strong>ไม่สามารถ</strong>ลงทุนในบริษัทเล็กได้ — ขนาดเงินทำให้มันไร้ความหมาย นักวิเคราะห์ก็ไม่คุ้มค่าที่จะครอบคลุม ดังนั้นบริษัทเล็กที่มีพื้นฐานดีจึงมักถูกมองข้ามและราคาต่ำกว่าความคุ้มค่าจริง</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">คนที่มีเงินน้อยสามารถซื้อหุ้นเล็กได้ในราคาที่กองทุนใหญ่ไม่สนใจ — นี่คือโอกาสที่ซ่อนอยู่ตรงที่คนอื่นมองข้าม</div>
+    </div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>ขนาดเงินลงทุน</th><th>วิธีที่บัฟเฟตต์แนะนำ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>น้อย ($10K – $100K)</strong></td><td>โฟกัสหุ้นเล็กที่คนมองข้าม ไล่ศึกษาทีละบริษัท</td></tr>
+        <tr><td><strong>มาก (พันล้านขึ้นไป)</strong></td><td>ต้องซื้อบริษัทใหญ่ — ตลาดมีประสิทธิภาพสูง หาของ "ถูกและดี" ยากขึ้นมาก</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">⚠️ ข้อควรระวัง — หุ้นเล็กไม่ใช่เงินฟรี</div>
+    <ul class="signal-list">
+      <li>หุ้นเล็กผันผวนสูงกว่าหุ้นใหญ่ — ปีเดียวอาจขึ้น 50% หรือลง 40%</li>
+      <li>ต้องมีเวลาศึกษาจริง — ถ้าไม่มีเวลา ใช้ ETF หรือกองทุนรวมที่กระจายความเสี่ยงจะปลอดภัยกว่า</li>
+      <li>สภาพคล่องต่ำ — บางวันซื้อขายยาก ราคากระโดด</li>
+      <li>ข้อมูลน้อย — ต้องอ่าน 56-1 One Report เอง ไม่มีนักวิเคราะห์สรุปให้</li>
+    </ul>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>พอร์ตของคุณตอนนี้ "ใหญ่เกินไป" สำหรับโอกาสที่บัฟเฟตต์พูดถึงไหม? — หรือยังอยู่ในช่วงได้เปรียบ?</li>
+      <li>คุณมีเวลา/ความรู้พอที่จะศึกษาหุ้นเล็กเองไหม? ถ้าไม่ — ETF ที่เหมาะกับคุณคืออะไร?</li>
+      <li>"สิ่งที่คนอื่นมองข้าม" ในตลาดที่คุณสนใจตอนนี้คืออะไร?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== บทที่ 3 — GEICO 1951 (EXPANDED) ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม · Chapter Three</div>
+  <div class="ch-title">Think for Yourself — GEICO 1951<em>คิดเอง — เรื่องจริงที่บัฟเฟตต์ประสบด้วยตัวเอง และผู้เชี่ยวชาญเมิน</em></div>
+  <div class="ch-essence">"ต้องคิดเอง ต้องรู้ว่าตัวเองรู้อะไรและไม่รู้อะไร ในสิ่งที่รู้ ต้องลงแรงเต็มที่ และลงมือทำเมื่อเจอ ห้ามรอให้ใครเห็นด้วย"</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Case Study · กรณีศึกษาจริง</div>
+  <h1>มกราคม 1951 — วันที่บัฟเฟตต์วัย 20 ปี ไปเยี่ยม GEICO</h1>
+  <p class="lead">นี่คือเรื่องจริงที่บัฟเฟตต์เล่าซ้ำ ๆ ว่าเป็นหนึ่งในบทเรียนที่สำคัญที่สุดของชีวิตเขา — และเป็นพิมพ์เขียวของการลงทุนที่เขาใช้ตลอด 70 ปีต่อมา</p>
+
+  <p>ตอนอายุ 20 ปี บัฟเฟตต์เรียนจบ Columbia และเพิ่งอ่านหนังสือ <em>The Intelligent Investor</em> ของเบนจามิน เกรแฮม เขาเรียนรู้ว่าเกรแฮมเป็นประธานบริษัทประกัน GEICO (Government Employees Insurance Company) บริษัทเล็ก ๆ ที่ไม่ค่อยมีคนรู้จัก แทนที่จะแค่อ่านรายงานประจำปี เขาตัดสินใจทำสิ่งที่คนส่วนใหญ่ไม่ทำ:</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"I took the train to Washington on a Saturday morning. I knocked on the door, and a janitor let me in."</div>
+    <div class="bq-th">"ผมนั่งรถไฟไปวอชิงตันเช้าวันเสาร์ ผมเคาะประตู และคนดูแลตึกให้ผมเข้าไป"</div>
+    <div class="bq-attr">— Buffett เล่าย้อนหลัง, The Snowball (Schroeder, 2008)</div>
+  </div>
+
+  <p>วันนั้น GEICO ปิดทำการ แต่ <strong>Lorimer Davidson</strong> ผู้บริหารคนหนึ่งบังเอิญอยู่ เขาใช้เวลา 4 ชั่วโมงอธิบายโมเดลธุรกิจของ GEICO ให้บัฟเฟตต์ฟัง — เป็นโมเดลที่ปฏิวัติวงการประกันในขณะนั้น:</p>
+
+  <h2>โมเดล GEICO ที่บัฟเฟตต์เห็น แต่ผู้เชี่ยวชาญมองข้าม</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>GEICO ปี 1951</th><th>บริษัทประกันทั่วไป</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ขายตรง</strong> ผ่านไปรษณีย์ — ตัดตัวแทน</td><td>ขายผ่านตัวแทน — จ่ายคอมมิชชัน 20-25%</td></tr>
+        <tr><td><strong>ลูกค้ากลุ่มเฉพาะ</strong> — ข้าราชการ (ความเสี่ยงต่ำ)</td><td>ลูกค้าทุกประเภท — ความเสี่ยงผสม</td></tr>
+        <tr><td><strong>ต้นทุนต่ำ → ราคาถูกกว่า</strong> → ลูกค้างอกเงย</td><td>ต้นทุนสูง → ราคาแพง → การแข่งขันทั่วไป</td></tr>
+        <tr><td><strong>Combined ratio ต่ำ</strong> — กำไรประกันสูง</td><td>Combined ratio สูง — กำไรประกันต่ำ</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">เมื่อโมเดลทำงาน เงินรับประกัน (float) ที่ต่ำต้นทุนเข้ามาก่อนจ่ายเคลม — กลายเป็นเงินทุนฟรีสำหรับการลงทุน</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">สิ่งที่บัฟเฟตต์เห็น แต่ผู้เชี่ยวชาญไม่เห็น</div>
+    <p>GEICO ไม่ใช่แค่ "บริษัทประกันราคาถูก" — แต่เป็น <strong>เครื่องจักรผลิตเงินทุนฟรี</strong>: รับเบี้ยประกันก่อน → จ่ายเคลมทีหลัง → ระหว่างนั้นใช้เงินก้อนนั้นลงทุนได้. โมเดลนี้เองที่ภายหลังกลายเป็นรากฐานของ Berkshire Hathaway ทั้งกิจการ</p>
+  </div>
+
+  <h2>ผู้เชี่ยวชาญบอกเขา "ไม่รู้เรื่อง"</h2>
+  <p>บัฟเฟตต์กลับไป Columbia ด้วยความตื่นเต้น แล้วไปต่อที่ Blythe & Co. และ Geyer & Co. — บริษัทหลักทรัพย์ที่ <strong>ขึ้นชื่อว่าเก่งเรื่องหุ้นประกัน</strong> ในนิวยอร์ก เขาคิดว่าถ้าผู้เชี่ยวชาญเห็นด้วย ก็จะมั่นใจขึ้น</p>
+
+  <div class="pullquote">
+    <p>"ผมคิดว่าเจอของดีแล้ว อยากรู้ว่าบริษัทยักษ์เหล่านั้นจะว่ายังไง พวกเขาบอกว่าผมไม่รู้เรื่องเลย ไม่สนใจด้วย"</p>
+    <cite>— Buffett, 1999 Berkshire Annual Meeting</cite>
+  </div>
+
+  <p>ผลคือ <strong>บัฟเฟตต์ลงทุนเองทั้งหมด</strong> — เกือบ $9,000 ที่มีในขณะนั้น (ประมาณ 65% ของทรัพย์สินสุทธิ) ใน GEICO เพียงบริษัทเดียว ในปีต่อมา GEICO ขึ้นมากกว่า 50% — แต่บัฟเฟตต์ขายเพื่อไปซื้อหุ้นอื่นที่เขาคิดว่าถูกกว่า <strong>นี่เป็นหนึ่งในความผิดพลาดที่ใหญ่ที่สุดของชีวิตเขา</strong></p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">ความผิดพลาดที่สอนบทเรียน</div>
+    <ul class="signal-list">
+      <li>บัฟเฟตต์ขาย GEICO ก่อนเวลา — สองทศวรรษต่อมาราคาพุ่งหลายสิบเท่า</li>
+      <li>เขาใช้เวลาหลายปีซื้อคืน GEICO ผ่าน Berkshire ในราคาที่สูงกว่าเดิมมาก</li>
+      <li>1996 Berkshire เป็นเจ้าของ GEICO 100% — ในราคากว่า $2.3 พันล้าน</li>
+      <li>เขาเรียกการขายครั้งนั้นว่า "The Dumbest Stock I Ever Sold" และ "มหาโจรแห่งความมั่งคั่ง"</li>
+    </ul>
+  </div>
+
+  <h2>กราฟย้อนหลัง: Berkshire หลังครอบครอง GEICO 100% (1996)</h2>
+  <p>นี่คือเส้นทางของ Berkshire Hathaway (BRK.B) ตั้งแต่ปี 1996 ที่ซื้อ GEICO ครอบครองทั้งหมด — เป็นพิมพ์เขียวของ "ก้อนหิมะ" ที่เกิดจาก float ของบริษัทประกัน + การลงทุนในธุรกิจดี:</p>
+
+  <div class="chart-frame">
+    <img src="data:image/png;base64,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" alt="BRK.B weekly chart โดย TradingView">
+    <div class="chart-caption">BRK.B · NYSE · Weekly · 1996-ปัจจุบัน · แหล่ง: TradingView (GEICO ถูกครอบครอง 100% ในปี 1996)</div>
+  </div>
+
+  <p>จากแผนภูมิ — Berkshire เติบโตจากหลักสิบดอลลาร์ต่อหุ้น (split-adjusted) สู่กว่า $400 ในปัจจุบัน — เป็นการเติบโตหลายร้อยเท่าในสามทศวรรษ <strong>โดยมี GEICO เป็นเครื่องผลิตเงินสดที่ไม่หยุดนิ่ง</strong> และบัฟเฟตต์นำเงินนั้นไปซื้อธุรกิจดี ๆ อย่าง See's Candies, Coca-Cola, Apple เพิ่มเรื่อย ๆ</p>
+
+  <h2>บทเรียน 3 ข้อที่บัฟเฟตต์อยากให้เราเรียนรู้</h2>
+
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-value">01</div><div class="stat-label">ผู้เชี่ยวชาญไม่ได้รู้ทุกอย่าง</div></div>
+    <div class="stat-item"><div class="stat-value">02</div><div class="stat-label">Consensus = มาช้า</div></div>
+    <div class="stat-item"><div class="stat-value">03</div><div class="stat-label">คิดเอง ลงมือเอง</div></div>
+  </div>
+
+  <div class="author-box">
+    <div class="author-avatar">WB</div>
+    <div>
+      <div class="author-meta">Warren Buffett — 1999</div>
+      <p class="author-text">"ต้องคิดเอง ต้องรู้ว่าตัวเองรู้อะไรและไม่รู้อะไร ในสิ่งที่รู้ ต้องลงแรงเต็มที่ และลงมือทำเมื่อเจอ — ห้ามรอให้ใครเห็นด้วย คนอื่นจะไม่บอกคุณเรื่องการลงทุนเล็ก ๆ ที่วิเศษ ธรรมชาติของธุรกิจนี้มันไม่ได้ตั้งขึ้นมาแบบนั้น"</p>
+    </div>
+  </div>
+
+  <p><strong>1. ผู้เชี่ยวชาญไม่ได้รู้ทุกอย่าง</strong> — Blythe และ Geyer ที่ว่ากันว่าเก่งเรื่องหุ้นประกันก็ไม่เห็นสิ่งที่บัฟเฟตต์เห็น คำแนะนำของพวกเขาไม่ใช่เพราะเขาโกหก แต่เพราะโมเดล GEICO ใหม่เกินไปสำหรับกรอบคิดของพวกเขา</p>
+
+  <p><strong>2. ความเห็นพ้อง (consensus) หมายความว่าคุณมาช้า</strong> — ถ้าทุกคนเห็นด้วย ราคาก็ปรับไปแล้ว โอกาสหาย บัฟเฟตต์พบ GEICO ก่อนที่วอลล์สตรีทจะสนใจ นั่นคือเหตุผลที่มันถูก</p>
+
+  <p><strong>3. ธุรกิจการเงินไม่ได้ตั้งขึ้นมาเพื่อทำให้คุณรวย</strong> — ไม่มีนายหน้าคนไหนมาเคาะประตูบอกคุณว่า "ซื้อหุ้นนี้เถอะ มันจะรวย" — เพราะเขาไม่ได้ผลประโยชน์จากการทำให้คุณรวย เขาได้จากค่าธรรมเนียม</p>
+
+  <div class="insight-box">
+    <div class="insight-label">บทเรียนสำหรับคนไทย</div>
+    <p>ไม่ใช่ว่าให้ไป "เก็ง" หุ้นจนกระทั่งเสี่ยงหมดตัว — แต่เป็นเรื่องของการ <strong>ลงแรงค้นคว้าด้วยตัวเอง</strong>: อ่าน 56-1 One Report, ฟังงานวิเคราะห์ผลประกอบการ, เข้าใจธุรกิจก่อนตัดสินใจ — ไม่ใช่ซื้อตามกระแสหรือตามทิป. "คิดเอง" ไม่ได้แปลว่า "เก็งเอง" แต่แปลว่า <strong>"ลงแรงเอง"</strong></p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>การลงทุนล่าสุดที่คุณทำ — คุณตัดสินใจจากการค้นคว้าเอง หรือจากคำบอกของคนอื่น?</li>
+      <li>มีบริษัทไหนในตลาดไทยที่คุณคิดว่า "คนมองข้าม" เหมือน GEICO ในปี 1951? — ทำไม?</li>
+      <li>ถ้าวันนี้คุณเจอโอกาสที่ใหญ่ แต่ "ผู้เชี่ยวชาญ" ที่คุณนับถือไม่เห็นด้วย — คุณจะลงมือหรือรอ?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== บทที่ 4 — BUY BUSINESS ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ · Chapter Four</div>
+  <div class="ch-title">Buy a Good Business at a Good Price<em>ซื้อธุรกิจดี ราคาดี — "100 ปีข้างหน้าคำแนะนำนี้ก็ยังเหมือนเดิม"</em></div>
+  <div class="ch-essence">"ต้องซื้อธุรกิจ — หรือส่วนเล็กของธุรกิจที่เรียกว่าหุ้น — ต้องซื้อในราคาที่น่าสนใจ และต้องเป็นธุรกิจที่ดี คำแนะนำนี้จะเหมือนเดิมอีก 100 ปี"</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Permanent Principle · หลักการถาวร</div>
+  <h1>22 ปีให้หลัง บัฟเฟตต์ยังพูดประโยคเดิม</h1>
+  <p>บัฟเฟตต์ปิดท้ายคำตอบในปี 1999 ด้วยหลักการถาวร 3 ข้อ ปี 2021 — <strong>22 ปีให้หลัง</strong> — เขายังยืนยันหลักการเดียวกันในจดหมายถึงผู้ถือหุ้น Berkshire:</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Berkshire installed new managers who redeployed the available cash into good businesses of all kinds and mostly kept those businesses. Compounding the reinvested earnings with the power of compound interest, magic happened and shareholders prospered."</div>
+    <div class="bq-th">"Berkshire ติดตั้งผู้บริหารชุดใหม่ที่นำเงินสดไปลงทุนในธุรกิจที่ดีหลากหลายชนิด และส่วนใหญ่ยังคงเป็นธุรกิจที่ดีต่อไป เมื่อผนวกการลงทุนกำไรซ้ำกับพลังของการทบต้น มันก็เกิดเวทมนตร์ขึ้น และผู้ถือหุ้นก็เจริญรุ่งเรือง"</div>
+    <div class="bq-attr">— Buffett, 2021 Shareholder Letter</div>
+  </div>
+
+  <h2>หลักการ 3 ข้อที่ "เหมือนเดิม 100 ปี"</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>#</th><th>หลักการ</th><th>แปลเป็นคำถามที่ใช้ตัดสินใจ</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>ซื้อ "ธุรกิจ"</strong></td><td>ธุรกิจนี้ขายอะไร? มีคู่แข่งยังไง? ลูกค้ากลับมาซื้อซ้ำไหม?</td></tr>
+        <tr><td>2</td><td><strong>ธุรกิจที่ "ดี"</strong></td><td>มีกำไรจริงไหม? หนี้น้อยไหม? ROIC สูงกว่าต้นทุนทุนไหม?</td></tr>
+        <tr><td>3</td><td><strong>ในราคาที่ "น่าสนใจ"</strong></td><td>ราคาปัจจุบันสะท้อนกำไรอนาคตที่สมเหตุสมผลไหม? มี margin of safety ไหม?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>ไม่ใช่เรื่องของ "ตัวเทคนิค ดี-แย่" หรือ "กราฟเป็นแนวโน้มขึ้น" หรือ "มีข่าวดี" — แต่เป็นเรื่องของ <strong>การซื้อส่วนแบ่งในธุรกิจจริง ๆ ที่ทำเงินจริง ๆ ในราคาที่สมเหตุสมผล</strong></p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"ซื้อหุ้นที่กราฟขึ้น มีข่าวดี นักวิเคราะห์แนะนำ — แล้วขายเมื่อกราฟหัก"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text">หุ้น = ส่วนแบ่งของธุรกิจ ราคาหุ้นระยะสั้น = เสียงสะท้อนของอารมณ์ตลาด ราคาหุ้นระยะยาว = มูลค่าของกระแสเงินสดที่ธุรกิจผลิตได้</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">ก่อนซื้อ — ตอบ 3 คำถาม: ธุรกิจนี้ขายอะไร? มีกำไรจริงไหม? ราคาปัจจุบันสมเหตุสมผลไหม? ถ้าตอบไม่ได้ทั้ง 3 — อย่าซื้อ</div>
+    </div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>หุ้นที่คุณถืออยู่ตอนนี้ — คุณตอบ 3 คำถามนี้ได้ไหม? โดยไม่ต้องไปดูกราฟ?</li>
+      <li>คุณเคยซื้อหุ้นเพราะ "ข่าวดี" แล้วติดที่ขาดทุนไหม? — ตอนนั้นคุณข้ามข้อไหนใน 3 ข้อ?</li>
+      <li>"ราคาที่น่าสนใจ" สำหรับคุณคืออะไร? — ถูกกว่าคู่แข่งในอุตสาหกรรม? ต่ำกว่า DCF? P/E ต่ำกว่าประวัติ?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== บทที่ 5 — MUNGER $100K (EXPANDED) ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า · Chapter Five</div>
+  <div class="ch-title">Munger's Formula — The First $100,000<em>สูตรของมังเกอร์: $100,000 แรกคือยากที่สุด — ทำไมและทำยังไง</em></div>
+  <div class="ch-essence">"สำหรับคนส่วนใหญ่ ส่วนที่ยากที่สุดคือ $100,000 แรก — ถ้าเริ่มจากศูนย์ การรวบรวมเป็นการต่อสู้ที่ยาวนาน"</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Munger's Frame · กรอบคิดของมังเกอร์</div>
+  <h1>"The first $100,000 is a bitch, but you gotta do it."</h1>
+  <p class="lead">หลังบัฟเฟตต์ตอบจบ ชาร์ลี มังเกอร์รับไม้ต่อทันที ด้วยประโยคที่ตรงกว่า — และแสบกว่า</p>
+
+  <div class="author-box">
+    <div class="author-avatar">CM</div>
+    <div>
+      <div class="author-meta">Charlie Munger — 1998 Daily Journal Meeting</div>
+      <p class="author-text">"The first $100,000 is a bitch, but you gotta do it. And if you have a slightly above average aptitude and discipline, you'll get there — but it's a bitch."</p>
+    </div>
+  </div>
+
+  <p>คำว่า <strong>"bitch"</strong> ในที่นี้ไม่ใช่คำหยาบลอย ๆ — แต่แปลว่า <strong>"มันเจ็บปวดและยากลำบาก"</strong> มังเกอร์เลือกคำนี้เพราะอยากเน้นว่าด่านแรกนี้ <strong>ไม่ใช่เรื่องสนุก</strong> — มันคืองานหนัก วินัย และการกัดฟัน แต่เป็นด่านที่ "ต้อง" ผ่าน ไม่มีทางลัด</p>
+
+  <h2>ทำไม $100,000 แรก ยากที่สุด?</h2>
+  <p>คำตอบอยู่ในคณิตศาสตร์ของดอกเบี้ยทบต้น ลองดู:</p>
+
+  <div class="formula-block">
+    <div class="formula-label">Logic · ทำไมด่านแรกยากที่สุด</div>
+    <div class="formula-eq">$100,000 × 7% = $7,000/ปี &nbsp;·&nbsp; $10,000 × 7% = $700/ปี</div>
+    <div class="formula-note">ที่ $100,000 ดอกเบี้ย 7% สร้าง $7,000/ปี (เทียบเท่าเงินเดือนเสริม) — ที่ $10,000 ดอกเบี้ยเดียวกันสร้างแค่ $700/ปี (ยังไม่พอซื้อของ) — <strong>ดอกเบี้ยเริ่ม "ทำงานแทนคุณ" ก็ต่อเมื่อตัวตั้งใหญ่พอ</strong></div>
+  </div>
+
+  <p>ก่อนถึง $100,000 — เงินส่วนใหญ่ในพอร์ตมาจาก <strong>"เหงื่อ"</strong> (การออม) ไม่ใช่ <strong>"ดอกเบี้ย"</strong> ต้องออมเอง 50, 60, 70% ของรายได้ แล้วดอกเบี้ยจะยังเป็นเพียงเศษเสี้ยว แต่พอข้ามผ่าน $100,000 — ดอกเบี้ยเริ่มเป็น "เงินเดือนที่สอง" แล้วยิ่งโต ยิ่งทำงานเอง จนในที่สุดเหงื่อไม่จำเป็นอีกต่อไป</p>
+
+  <div class="stat-row">
+    <div class="stat-item"><div class="stat-value">$7K</div><div class="stat-label">ดอกเบี้ย 7%/ปี ที่ $100K</div></div>
+    <div class="stat-item"><div class="stat-value">$70K</div><div class="stat-label">ดอกเบี้ย 7%/ปี ที่ $1M</div></div>
+    <div class="stat-item"><div class="stat-value">$700K</div><div class="stat-label">ดอกเบี้ย 7%/ปี ที่ $10M</div></div>
+  </div>
+
+  <h2>3 เครื่องมือที่มังเกอร์บอกว่าทำให้คนข้ามผ่าน $100,000 ได้เร็ว</h2>
+
+  <div class="insight-box">
+    <div class="insight-label">Munger's quote — ต้นฉบับ</div>
+    <p>"คนที่ทำได้เร็วมักได้รับความช่วยเหลือจาก 3 อย่าง: หลงใหลในความเป็นเหตุผล, กระตือรือร้นและฉวยโอกาส, และใช้จ่ายน้อยกว่ารายได้มาก ๆ"</p>
+  </div>
+
+  <h3>1 · หลงใหลในความเป็นเหตุผล (passionate about being rational)</h3>
+  <p>ไม่ใช่แค่ "ฉลาด" — แต่ <strong>ยอมค้นหาความจริงแม้มันขัดกับสิ่งที่ตัวเองอยากเชื่อ</strong> มังเกอร์เรียกสิ่งนี้ว่า <strong>"การคิดแบบกลับด้าน" (inversion)</strong>: ถ้าอยากรวย ก็ต้องถามว่า "จะทำอะไรถึงจะจน?" แล้วหลีกเลี่ยงสิ่งนั้น</p>
+
+  <div class="pullquote">
+    <p>"Tell me where I'm going to die, so I never go there."</p>
+    <cite>— Charlie Munger, อ้างถึง Jacobi</cite>
+  </div>
+
+  <p><strong>ตัวอย่าง inversion ในการเงิน:</strong></p>
+  <div class="signal-box sell">
+    <div class="signal-title">ถ้าอยากจน — ทำสิ่งเหล่านี้ (แล้วหลีกเลี่ยง)</div>
+    <ul class="signal-list">
+      <li>ใช้จ่ายมากกว่ารายได้ทุกเดือน — ใช้บัตรเครดิตก้อนโต</li>
+      <li>ไม่ลงทุนเลย — เก็บเงินไว้ในบัญชีที่ดอกเบี้ยต่ำกว่าเงินเฟ้อ</li>
+      <li>ซื้อของที่มูลค่าตกทันที (รถใหม่, โทรศัพท์รุ่นล่าสุดทุกปี)</li>
+      <li>เชื่อทุกคำแนะนำทางการเงินโดยไม่ตรวจสอบ</li>
+      <li>รอ "เวลาที่ใช่" จนกระทั่งไม่ได้เริ่มเลย</li>
+    </ul>
+  </div>
+
+  <h3>2 · กระตือรือร้นและฉวยโอกาส (eager and opportunistic)</h3>
+  <p>มังเกอร์ไม่ได้หมายถึง "เร่งรีบ" แต่หมายถึง <strong>เตรียมตัวให้พร้อมเสมอ เมื่อโอกาสมา ต้องกล้าลงมือ</strong> ในประวัติศาสตร์ โอกาสใหญ่ที่สุดมักมาในช่วงที่คนอื่นกลัว — ตลาดตก 2008, COVID 2020, วิกฤตเศรษฐกิจไทย 2540</p>
+
+  <p><strong>แต่ "ฉวยโอกาส" ไม่ใช่ "เสี่ยงเดิมพัน" —</strong> มังเกอร์หมายถึง: ศึกษามาตลอด เก็บเงินสดไว้พอ เมื่อบริษัทดีราคาถูกผิดปกติ — ลงมือเต็มที่</p>
+
+  <h3>3 · ใช้จ่ายน้อยกว่ารายได้มาก ๆ (steadily underspend their income grossly)</h3>
+  <p>คำว่า <strong>"grossly" (อย่างมาก)</strong> สำคัญ — ไม่ใช่แค่ออมเล็ก ๆ น้อย ๆ แต่ต้องออมจริงจัง มังเกอร์บอกว่าคนที่ข้าม $100,000 ได้เร็วมักออม <strong>50%, 60%, 70%</strong> ของรายได้ — ไม่ใช่ 10% ที่หนังสือการเงินทั่วไปแนะนำ</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>อัตราการออม</th><th>เวลาสู่ $100,000 (เงินเดือน $5,000)</th><th>เวลาสู่ $1 ล้าน</th></tr></thead>
+      <tbody>
+        <tr><td>10% ($500/เดือน)</td><td>~13 ปี</td><td>~38 ปี</td></tr>
+        <tr><td>30% ($1,500/เดือน)</td><td>~5 ปี</td><td>~22 ปี</td></tr>
+        <tr><td><strong>50% ($2,500/เดือน)</strong></td><td><strong>~3 ปี</strong></td><td><strong>~15 ปี</strong></td></tr>
+        <tr><td>70% ($3,500/เดือน)</td><td>~2 ปี</td><td>~11 ปี</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="3">คำนวณด้วยสมมติฐานผลตอบแทน 7%/ปี — ยิ่งออมเยอะ ยิ่งข้าม $100K เร็วแบบทวีคูณ</td></tr></tfoot>
+    </table>
+  </div>
+
+  <h2>ตัวเลขจริง: จะใช้เวลาเท่าไหร่ถึง $100,000?</h2>
+  <p>ถ้าลงทุนได้ผลตอบแทน 7% ต่อปี (ใกล้เคียงผลตอบแทนระยะยาวของตลาดหุ้นหลังปรับเฟ้อ):</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>เงินออมต่อเดือน</th><th>ระยะเวลาสู่ $100,000</th><th>รวมเงินที่ลงไป</th><th>สัดส่วนจากดอกเบี้ย</th></tr></thead>
+      <tbody>
+        <tr><td>$500 (~17,000 บาท)</td><td><strong>~11 ปี</strong></td><td>$66,000</td><td>$34,000 (34%)</td></tr>
+        <tr><td>$1,000 (~34,000 บาท)</td><td><strong>~6.6 ปี</strong></td><td>$79,000</td><td>$21,000 (21%)</td></tr>
+        <tr><td>$2,000 (~68,000 บาท)</td><td><strong>~3.7 ปี</strong></td><td>$88,000</td><td>$12,000 (12%)</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="4">หลัง $100,000 — ดอกเบี้ย 7% จะทำให้เงินทบเป็น 2 เท่าใน ~10 ปีข้างหน้า โดยไม่ต้องเติมเงิน</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">จุดสำคัญที่สุดของมังเกอร์</div>
+    <p>$100,000 แรกใช้ <strong>"เหงื่อ" และ "วินัย"</strong> — ส่วนจาก $100,000 ถึง $1 ล้าน จะใช้ <strong>"ดอกเบี้ย" เป็นหลัก</strong> นี่คือเหตุผลที่มังเกอร์บอกว่าต้องกัดฟันทนให้ถึงเป้าหมายแรกให้ได้ — <strong>ถ้าข้ามด่านนี้ได้ เนินเขาก็จะกลิ้งเอง</strong></p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>คุณอยู่ที่ไหนในเส้นทางสู่ $100,000 (หรือ 3.5 ล้านบาท)? — ยังเหลือกี่ปีถ้าออมต่อที่อัตราปัจจุบัน?</li>
+      <li>คุณออมกี่เปอร์เซ็นต์ของรายได้ตอนนี้? — ถ้าเพิ่มเป็น 50% จะข้าม $100K เร็วขึ้นกี่ปี?</li>
+      <li>คุณเคยใช้ inversion ไหม? — ถ้าอยากจน คุณจะทำอะไร? (แล้วคุณทำสิ่งนั้นอยู่ไหม?)</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== บทที่ 6 — 25 YEARS LATER ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก · Chapter Six</div>
+  <div class="ch-title">25 Years Later — Still True?<em>25 ปีผ่านไป — คำพูดเหล่านี้ยังจริงไหม?</em></div>
+  <div class="ch-essence">คำตอบสั้น ๆ: ใช่ — และยิ่งชัดเจนขึ้น</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Validation · การพิสูจน์</div>
+  <h1>บัฟเฟตต์เองคือ "ตัวพิสูจน์"</h1>
+  <p>บัฟเฟตต์และมังเกอร์พูดซ้ำ ๆ หลักการเดียวกันในอีก 25 ปีต่อมา และตัวเลขของบัฟเฟตต์เองก็ยืนยันสิ่งที่เขาพูด:</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>อายุ</th><th>เหตุการณ์</th><th>ทรัพย์สินสุทธิ (โดยประมาณ)</th></tr></thead>
+      <tbody>
+        <tr><td>11 ปี (1942)</td><td>ซื้อหุ้นครั้งแรก — Cities Service Preferred 6 หุ้น</td><td>~$100+</td></tr>
+        <tr><td>21 ปี (1951)</td><td>ไปเยี่ยม GEICO, เริ่มลงทุนจริงจัง</td><td>~$20,000</td></tr>
+        <tr><td>30 ปี (1960)</td><td>ทำงานเป็นนายหน้า + ลงทุนสะสม</td><td>~$1 ล้าน</td></tr>
+        <tr><td>50 ปี (1980)</td><td>Berkshire เริ่มโต</td><td>~$200–300 ล้าน</td></tr>
+        <tr><td>55 ปี (1985)</td><td>กลายเป็นเศรษฐี (billionaire)</td><td>~$1 พันล้าน</td></tr>
+        <tr><td>~94 ปี (2024)</td><td>ปัจจุบัน</td><td>~$130 พันล้าน</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="3"><strong>~99.8%</strong> ของทรัพย์สินทั้งหมดของบัฟเฟตต์เกิดขึ้นหลังอายุ 50 ปี</td></tr></tfoot>
+    </table>
+  </div>
+
+  <p>นี่ไม่ใช่เพราะเขาเก่งขึ้นในช่วงบั้นปลาย — แต่เพราะ <strong>ก้อนหิมะที่เริ่มกลิ้งตอนอายุ 11 กลิ้งมาถึง 80+ ปี</strong> ดอกเบี้ยทบต้นทำงานให้เขาทั้งในตอนที่เขานอนหลับและตอนที่เขาตื่น</p>
+
+  <h2>ดอกเบี้ยทบต้น — ยืนยันซ้ำในจดหมายผู้ถือหุ้น</h2>
+
+  <div class="pullquote">
+    <p>"For 240 years, betting against America has been a terrible mistake... American business — and consequently a basket of stocks — is virtually certain to be worth far more in the years ahead."</p>
+    <cite>— Buffett, 2016 Shareholder Letter</cite>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"My wealth has come from a combination of living in America, some lucky genes, and compound interest. My luck was accentuated by my living in America."</div>
+    <div class="bq-th">"ทรัพย์สินของผมมาจาก 3 อย่าง: การอาศัยอยู่ในอเมริกา, พันธุกรรมที่โชคดี, และดอกเบี้ยทบต้น"</div>
+    <div class="bq-attr">— Buffett, The Giving Pledge Letter, 2010</div>
+  </div>
+
+  <h2>มังเกอร์ — ยังย้ำเรื่องความเป็นเหตุผลจนวาระสุดท้าย</h2>
+
+  <div class="author-box">
+    <div class="author-avatar">CM</div>
+    <div>
+      <div class="author-meta">Charlie Munger — Caltech, ธันวาคม 2020</div>
+      <p class="author-text">"สิ่งสำคัญที่สุดอย่างเดียว ถ้าอยากหลีกเลี่ยงความผิดพลาดทั้งหมด คือการรู้ว่าตัวเองเก่งตรงไหนและไม่เก่งตรงไหน"</p>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"You don't spend beyond your income. You're happy despite troubles. You associate with trustworthy people. And you do what you should do. These simple rules make life so much better. And they all sound platitudinous and boring."</div>
+    <div class="bq-th">"คุณไม่ใช้จ่ายเกินรายได้ คุณมีความสุขแม้มีปัญหา คุณคบคนที่ไว้ใจได้ และคุณทำสิ่งที่ควรทำ กฎง่าย ๆ เหล่านี้ทำให้ชีวิตดีขึ้นมาก — แล้วมันก็ดูเป็นคำพูดธรรมดาน่าเบื่อด้วยซ้ำ"</div>
+    <div class="bq-attr">— Charlie Munger, กุมภาพันธ์ 2019</div>
+  </div>
+
+  <p>หลักการของมังเกอร์ไม่เคยเปลี่ยน — มัน "น่าเบื่อ" แต่มัน "ได้ผล"</p>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>ถ้าบัฟเฟตต์เริ่มตอนอายุ 11 และ 99.8% ของทรัพย์สินเกิดหลัง 50 — คุณจะรอถึงอายุเท่าไหร่?</li>
+      <li>มังเกอร์บอกว่ากฎของเขา "น่าเบื่อแต่ได้ผล" — คุณยอม "น่าเบื่อ" ตั้งแต่วันนี้เพื่อ "ได้ผล" ใน 20 ปีไหม?</li>
+      <li>25 ปีผ่านไป คำพูดนี้ยังจริง — อีก 25 ปีข้างหน้า คุณจะอยู่ตรงไหนในเส้นทางนี้?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== บทที่ 7 — THAI ACTION PLAN ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่เจ็ด · Chapter Seven</div>
+  <div class="ch-title">The Thai Action Plan<em>แผนปฏิบัติการสำหรับคนไทย — 6 ข้อที่ใช้ได้วันนี้</em></div>
+  <div class="ch-essence">บัฟเฟตต์กับมังเกอร์พูดถึงดอลลาร์ แต่หลักการเดียวกันใช้ได้กับเงินบาท</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Action · ลงมือทำ</div>
+  <h1>เงินเดือน 30,000 บาท → 10.85 ล้านบาทใน 30 ปี</h1>
+  <p class="lead">นี่คือ checklist 6 ข้อที่แปลงหลักการของบัฟเฟตต์และมังเกอร์เป็นการกระทำได้เลยวันนี้ในบริบทไทย</p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Checklist 6 ข้อ — เริ่มวันนี้</h3>
+      <p>ทำได้ทุกข้อ = เริ่มก้อนหิมะบนเนินเขาที่ยาว</p>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">เริ่มต้น</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>1. เริ่มเดือนนี้ ไม่ใช่เดือนหน้า</strong> — เปิดบัญชีหุ้นหรือกองทุนรวม เริ่มต้นด้วยจำนวนเงินเล็กที่ทำได้ทุกเดือน (แม้ 1,000–2,000 บาทก็ดีกว่ารอ)<div class="cl-note">เพราะ "เนินเขาที่ยาว" สำคัญกว่า "ก้อนหิมะที่ใหญ่ตอนเริ่ม"</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text"><strong>2. ออมก่อน 30% ของเงินเดือน ก่อนจะใช้จ่าย</strong> — โอนอัตโนมัติทันทีที่เงินเดือนเข้า อย่ารอ "เหลือเท่าไหร่ค่อยออม"<div class="cl-note">มันจะไม่เหลือ — นี่คือกฎเหล็กของมังเกอร์ "underspend grossly"</div></div></li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">ตั้งเป้า</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>3. ตั้งเป้า "หลักแสนแรก" ของพอร์ตการลงทุน</strong> — ไม่ใช่รายได้ แต่ "ทุนที่ลงไปและโตขึ้น" (3.5 ล้านบาท = ~$100,000)<div class="cl-note">เป้าหมายแรกคือการให้เงินก้อนนี้ทำงานแทนคุณบนเนินเขา — หลังจากนี้ ดอกเบี้ยจะเป็นเงินเดือนที่สอง</div></div></li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">การลงทุน</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>4. ถ้าเริ่มต้นน้อยและมีเวลา — ศึกษาหุ้นเล็กทำความเข้าใจด้วยตัวเอง</strong> — อ่าน 56-1 (One Report) ทุกบริษัทที่สนใจ ไม่ใช่แค่อ่านทิปในเว็บบอร์ด<div class="cl-note">ถ้าไม่มีเวลา/ความรู้ — ใช้ ETF หรือกองทุนรวมที่กระจายความเสี่ยงแทน</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text"><strong>5. ซื้อ "ธุรกิจ" ไม่ใช่ "ตัวเลขกราฟ"</strong> — ก่อนซื้อหุ้น ตอบ 3 คำถามให้ได้: ธุรกิจนี้ขายอะไร? มีกำไรจริงไหม? ราคาปัจจุบันสมเหตุสมผลไหม?<div class="cl-note">ถ้าตอบไม่ได้ทั้ง 3 — อย่าซื้อ แม้กราฟจะดีแค่ไหนก็ตาม</div></div></li>
+      </ul>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">วินัย</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>6. อย่ารอให้ใครเห็นด้วย แต่จงมีวินัยในการยอมรับผิด</strong> — ถ้าคุณศึกษาจนเข้าใจและเห็นโอกาส กล้าตัดสินใจ แต่ถ้าข้อมูลใหม่บอกว่าคุณผิด ต้องยอมแก้ไข<div class="cl-note">นี่คือ "ความเป็นเหตุผล" ที่มังเกอร์พูดถึง — ไม่ดื้อ ไม่หลงตัวเอง</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>ตัวอย่าง: เงินเดือน 30,000 บาท — ออม 30% @ 7%/ปี</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>ระยะเวลา</th><th>เงินที่ลงไป</th><th>มูลค่าพอร์ต</th><th>ส่วนที่เกิดจากดอกเบี้ย</th></tr></thead>
+      <tbody>
+        <tr><td>5 ปี</td><td>540,000 บาท</td><td><strong>~655,000 บาท</strong></td><td>115,000 (18%)</td></tr>
+        <tr><td>10 ปี</td><td>1,080,000 บาท</td><td><strong>~1.57 ล้านบาท</strong></td><td>490,000 (31%)</td></tr>
+        <tr><td>20 ปี</td><td>2,160,000 บาท</td><td><strong>~4.42 ล้านบาท</strong></td><td>2.26 ล้าน (51%)</td></tr>
+        <tr><td><strong>30 ปี</strong></td><td><strong>3,240,000 บาท</strong></td><td><strong>~10.85 ล้านบาท</strong></td><td><strong>7.61 ล้าน (70%)</strong></td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="4">คำนวณด้วยสูตร FV ของ annuity — สมมติผลตอบแทนคงที่ 7%/ปี ในความเป็นจริงผลตอบแทนจะผันผวน</td></tr></tfoot>
+    </table>
+  </div>
+
+  <p>สังเกตว่า <strong>30 ปีสุดท้าย — 70% ของพอร์ตมาจากดอกเบี้ย</strong> ไม่ใช่จากเงินที่ลงไป นี่คือเหตุผลที่บัฟเฟตต์และมังเกอร์พูดถึงเวลา — <strong>เงิน 3.24 ล้านบาทที่คุณลงไป กลายเป็น 10.85 ล้านบาท โดยที่ 7.61 ล้านบาทเกิดขึ้นเองตอนคุณนอนหลับ</strong></p>
+
+  <div class="insight-box">
+    <div class="insight-label">"ปีไหนขาดทุน" — ไม่ใช่เรื่องเลวร้าย</div>
+    <p>ในความเป็นจริง ตลาดผันผวน — ปีไหนตลาดตก พอร์ตจะลด แต่ถ้าคุณยังออมต่อเนื่อง = <strong>"ซื้อหุ้นลดแพง ๆ" ได้มากขึ้นในเดือนนั้น</strong> นี่คือที่มาของผลตอบแทนเฉลี่ย 7% ในระยะยาว — ไม่ใช่ปีไหนได้ 7% ทุกปี แต่เฉลี่ยแล้ว 7%</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">คำถามสำหรับไตร่ตรอง</div>
+    <ol class="reflection-list">
+      <li>ใน 6 ข้อข้างบน — คุณทำไปแล้วกี่ข้อ? ข้อไหนยากที่สุดสำหรับคุณ?</li>
+      <li>ถ้าคุณเริ่มออม 9,000 บาท/เดือนวันนี้ — ใน 30 ปีคุณจะอายุเท่าไหร่? มูลค่าพอร์ตจะเป็นเท่าไหร่?</li>
+      <li>สิ่งที่ขัดขวางคุณจากการทำทั้ง 6 ข้อคืออะไร? — และจะแก้ไขยังไง?</li>
+    </ol>
+  </div>
+
+  <hr class="ornament">
+</div>
+
+<!-- ==================== SYNTHESIS ==================== -->
+<div class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">Synthesis · บทสรุป</div>
+  <div class="ch-title">Your First $100,000<em>พิธีกรรมก่อนลงมือ — ถ้าจะจำได้แค่ข้อเดียว</em></div>
+  <div class="ch-essence">เพราะทุกสิ่งที่บัฟเฟตต์และมังเกอร์พูด ทั้งหมดลดรวมกันมาอยู่ที่ด่านเดียว — ข้ามผ่าน $100,000 แรกให้ได้</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Master One-Liner · สรุปทั้งเล่มในประโยคเดียว</div>
+
+  <div class="blockquote-full">
+    <div class="bq-en" style="font-size: clamp(22px, 4vw, 28px); font-weight: 600;">"Start young. Think for yourself. Buy good businesses at good prices. Grind to the first $100,000 — and let compound interest do the rest."</div>
+    <div class="bq-th" style="font-size: 16px; margin-top: 16px;">เริ่มเร็ว. คิดเอง. ซื้อธุรกิจดีในราคาดี. กัดฟันให้ถึง $100,000 แรก — แล้วปล่อยให้ดอกเบี้ยทบต้นทำงานที่เหลือ</div>
+  </div>
+
+  <p>ประโยคเดียวนี้สรุปทั้งคำตอบของบัฟเฟตต์ในปี 1999 และเสริมของมังเกอร์ — เปลี่ยน frame จาก "ฉันจะรวยยังไง?" เป็น <strong>"ฉันจะข้ามด่านแรกให้ได้ — แล้วให้เวลาเป็นเครื่องมือ"</strong></p>
+
+  <h2>Pre-Action Ritual — ทำทุกครั้งก่อนตัดสินใจการเงิน</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>ก่อนตัดสินใจซื้อหุ้น / เปลี่ยนพอร์ต / เพิ่มเงินลงทุน</h3>
+      <p>ถามตัวเอง 5 ข้อนี้ — ถ้าตอบไม่ได้ข้อไหน ให้หยุดรอ</p>
+    </div>
+
+    <div class="cl-group">
+      <div class="cl-group-title">ก่อนตัดสินใจ</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>1. ฉันเข้าใจธุรกิจนี้ไหม?</strong> — อธิบายได้ใน 3 ประโยคว่าขายอะไร ใครซื้อ ทำไมต้องซื้อ<div class="cl-note">ถ้าอธิบายไม่ได้ — อยู่นอก "วงของความเชี่ยวชาญ" ของคุณ</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text"><strong>2. ฉันศึกษาเองหรือเปล่า?</strong> — อ่าน 56-1 เอง, คำนวณเอง, ไม่ใช่ทำตามคนอื่น<div class="cl-note">"คิดเอง" ไม่ใช่ "เก็งเอง" — แต่ "ลงแรงเอง"</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text"><strong>3. ราคาน่าสนใจไหม?</strong> — เทียบกับประวัติ, เทียบกับคู่แข่ง, เทียบกับ DCF<div class="cl-note">"น่าสนใจ" = มี margin of safety ไม่ใช่ "เพิ่งขึ้นมา"</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text"><strong>4. ถ้าหุ้นตก 50% พรุ่งนี้ — ฉันจะทำยังไง?</strong> — ถ้าตอบว่า "ขาย" แสดงว่ายังไม่มั่นใจพอ<div class="cl-note">บัฟเฟตต์: "ตลาดเป็นเครื่องทดสอบอารมณ์ ไม่ใช่เครื่องทำนายอนาคต"</div></div></li>
+        <li><div class="cl-box"></div><div class="cl-text"><strong>5. การลงทุนนี้อยู่บนเนินเขาที่ยาวไหม?</strong> — ฉันจะถือได้ 10+ ปีไหม โดยไม่ต้องดูแลทุกวัน<div class="cl-note">ถ้าต้องดูกราฟทุกวัน — มันไม่ใช่ "ก้อนหิมะ" มันคือ "การเก็งกำไร"</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>หนังสือแนะนำ — อ่านต่อ</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>หนังสือ</th><th>ผู้เขียน</th><th>เหตุผลที่อ่าน</th></tr></thead>
+      <tbody>
+        <tr><td><strong>The Snowball</strong></td><td>Alice Schroeder</td><td>ชีวประวัติบัฟเฟตต์ฉบับสมบูรณ์ — ที่มาของ metaphor ก้อนหิมะ</td></tr>
+        <tr><td><strong>Poor Charlie's Almanack</strong></td><td>Charlie Munger</td><td>รวมคำพูดและความคิดของมังเกอร์ — รวม "inversion" และ mental models</td></tr>
+        <tr><td><strong>The Intelligent Investor</strong></td><td>Benjamin Graham</td><td>หนังสือที่สอนบัฟเฟตต์เรื่อง value investing — บทที่ 8 และ 20 สำคัญที่สุด</td></tr>
+        <tr><td><strong>Seeking Wisdom</strong></td><td>Peter Bevelin</td><td>อธิบาย mental models ที่มังเกอร์ใช้ — รวม inversion และการคิดแบบหลายมุม</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">ความจริงสุดท้าย</div>
+    <p>บัฟเฟตต์ไม่ได้บอกว่าทุกคนจะรวยเป็น $30 พันล้าน เขาบอกว่า <strong>หลักการเดียวกับที่ทำให้เขารวย ใช้ได้กับทุกคนที่ยอมเริ่มต้น ยอมลงแรง และยอมให้เวลาทำงาน</strong></p>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"If you don't find a way to make money while you sleep, you will work until you die."</div>
+    <div class="bq-th">"ถ้าคุณไม่หาวิธีทำเงินตอนที่คุณนอนหลับ คุณจะทำงานจนตาย"</div>
+    <div class="bq-attr">— Warren Buffett</div>
+  </div>
+</div>
+
+<!-- ==================== DISCLAIMER ==================== -->
+<div class="disclaimer">
+  <div class="disclaimer-title">⚠️ ข้อจำกัดความรับผิด · Disclaimer</div>
+  <p>บทความนี้เป็น <strong>งานวิจัยและการศึกษาเท่านั้น ไม่ใช่คำแนะนำทางการเงิน (not financial advice)</strong></p>
+  <p>ผลตอบแทนในอดีตไม่รับประกันผลตอบแทนในอนาคต — ตัวเลข compound interest เป็นการคำนวณตามสมมติฐาน (เช่น ผลตอบแทนคงที่ 7%) ในความเป็นจริงตลาดผันผวน อาจมีปีขาดทุนหนัก</p>
+  <p>การลงทุนมีความเสี่ยง — ตัดสินใจด้วยการศึกษาของตัวเอง หรือปรึกษาที่ปรึกษาการเงินที่มีใบอนุญาต</p>
+  <p>คำพูดของบัฟเฟตต์และมังเกอร์อ้างถึงจาก transcript/จดหมายจริง (CNBC Buffett Archive, Berkshire Shareholder Letters, The Snowball โดย Schroeder) แต่การประยุกต์ใช้ในบริบทของคุณอาจแตกต่าง</p>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="book-footer">
+  <div class="book-footer-mark">∞</div>
+  <div class="book-footer-text">"Start young. Think for yourself. Buy good businesses at good prices. Grind to the first $100,000 — and let compound interest do the rest."</div>
+  <div class="book-footer-author">Buffett × Munger · Personal Edition · 2569</div>
+</div>
+
+</div><!-- .book -->
+</body>
+</html>
