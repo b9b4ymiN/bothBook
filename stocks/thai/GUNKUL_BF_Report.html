@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GUNKUL (GUNKUL.BK) — Equity Research | 9 ก.ค. 2026</title>
+<style>
+  :root{
+    --ink:#1a1f2e; --ink-soft:#4a5568; --line:#e2e8f0; --bg:#f7f8fa; --paper:#ffffff;
+    --pos:#0a7c42; --neg:#c0392b; --warn:#b7791f; --accent:#1f4e79; --accent-soft:#eef3f9;
+    --gold:#8a6d1f; --pos-bg:#e8f5ec; --neg-bg:#fbeae7; --warn-bg:#fdf6e3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Sarabun','Noto Sans Thai',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;font-size:15.5px}
+  .wrap{max-width:1000px;margin:0 auto;background:var(--paper);box-shadow:0 1px 24px rgba(0,0,0,.06)}
+  .pad{padding:28px 32px}
+  @media(max-width:680px){.pad{padding:18px 16px}}
+
+  /* Header */
+  .hdr{background:linear-gradient(135deg,#1a1f2e 0%,#1f4e79 100%);color:#fff;padding:30px 32px}
+  .hdr .ticker{font-size:13px;letter-spacing:2px;text-transform:uppercase;opacity:.75}
+  .hdr h1{font-size:30px;font-weight:700;margin:4px 0 2px;line-height:1.2}
+  .hdr .sub{font-size:14px;opacity:.85;margin-bottom:14px}
+  .verdict-band{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .vb{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:10px 14px;border-radius:6px;min-width:120px}
+  .vb .l{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;opacity:.75}
+  .vb .v{font-size:18px;font-weight:700;margin-top:2px}
+  .vb.vfair .v{color:#ffd479}
+  .vb.vprice .v{color:#fff}
+  .vb.vup .v{color:#ff8b6b}
+
+  /* TOC */
+  .toc{background:var(--accent-soft);border-bottom:1px solid var(--line);padding:14px 32px;font-size:13px;position:sticky;top:0;z-index:10}
+  .toc a{color:var(--accent);text-decoration:none;margin-right:14px;display:inline-block;white-space:nowrap}
+  .toc a:hover{text-decoration:underline}
+  @media(max-width:680px){.toc{position:static;white-space:nowrap;overflow-x:auto}}
+
+  /* Key insight box */
+  .insight{background:linear-gradient(135deg,#fdf6e3,#fff8e7);border-left:5px solid var(--gold);padding:18px 22px;margin:22px 0;border-radius:0 6px 6px 0}
+  .insight .tag{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .insight h3{font-size:17px;margin:4px 0 8px;color:var(--ink)}
+  .insight p{font-size:14.5px;color:var(--ink-soft)}
+
+  h2{font-size:21px;color:var(--accent);margin:30px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--accent);font-weight:700}
+  h3{font-size:16.5px;color:var(--ink);margin:20px 0 8px;font-weight:700}
+  h4{font-size:14.5px;color:var(--ink-soft);margin:14px 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  p{margin:8px 0}
+  ul,ol{margin:8px 0 8px 22px}
+  li{margin:4px 0}
+
+  .disclaimer{background:#f0f0f0;border:1px solid var(--line);padding:14px 18px;border-radius:6px;font-size:12.5px;color:var(--ink-soft);margin-top:24px}
+  .src{font-size:11.5px;color:#8a94a6;margin-top:6px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;overflow:hidden}
+  th{background:var(--accent);color:#fff;padding:8px 10px;text-align:left;font-weight:600;font-size:12.5px}
+  td{padding:7px 10px;border-bottom:1px solid var(--line)}
+  tr:nth-child(even) td{background:#f9fafb}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pos{color:var(--pos);font-weight:600}
+  .neg{color:var(--neg);font-weight:600}
+  .warn{color:var(--warn);font-weight:600}
+
+  /* Metric cards */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+  .mc{background:#f9fafb;border:1px solid var(--line);border-radius:6px;padding:11px 13px}
+  .mc .l{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px}
+  .mc .v{font-size:18px;font-weight:700;margin-top:3px}
+  .mc .r{font-size:11.5px;margin-top:3px}
+
+  /* Verdict pill */
+  .pill{display:inline-block;padding:4px 11px;border-radius:20px;font-size:12px;font-weight:700}
+  .pill.neg{background:var(--neg-bg);color:var(--neg)}
+  .pill.pos{background:var(--pos-bg);color:var(--pos)}
+  .pill.warn{background:var(--warn-bg);color:var(--warn)}
+
+  .callout{background:var(--accent-soft);border:1px solid #cfdcea;padding:14px 18px;border-radius:6px;margin:14px 0;font-size:14px}
+  .callout.warn{background:var(--warn-bg);border-color:#e6d5a8}
+  .callout.neg{background:var(--neg-bg);border-color:#ecc}
+
+  .chart-img{width:100%;border:1px solid var(--line);border-radius:6px;margin:12px 0}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0}
+  @media(max-width:680px){.two-col{grid-template-columns:1fr}}
+
+  .foot{background:#1a1f2e;color:#8a94a6;padding:18px 32px;font-size:12px;text-align:center}
+  .num-big{font-size:26px;font-weight:700;color:var(--accent)}
+  .anchor{scroll-margin-top:70px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div class="ticker">SET : GUNKUL · Utilities — Independent Power & EPC</div>
+  <h1>GUNKUL Engineering Public Company Limited</h1>
+  <div class="sub">กันกุลเอ็นจิเนียริ่ง · งบ FY2025 (31 ธ.ค. 68) + Q1/2026 · วันที่วิเคราะห์ 9 ก.ค. 2026</div>
+  <div class="verdict-band">
+    <div class="vb vprice"><div class="l">ราคาปัจจุบัน</div><div class="v">฿4.80</div></div>
+    <div class="vb vfair"><div class="l">มูลค่ายุติธรรม (Base)</div><div class="v">฿1.83</div></div>
+    <div class="vb vup"><div class="l">Upside/Downside</div><div class="v">−61.8%</div></div>
+    <div class="vb vfair"><div class="l">Consensus Target</div><div class="v">฿3.83</div></div>
+  </div>
+</div>
+
+<div class="toc">
+  <a href="#exec">บทสรุป</a>
+  <a href="#biz">§1 ธุรกิจ</a>
+  <a href="#fin">§2 การเงิน</a>
+  <a href="#val">§3 Valuation</a>
+  <a href="#earn">§4 กำไร/อารมณ์ตลาด</a>
+  <a href="#tech">§5 เทคนิค</a>
+  <a href="#plan">§6 แผน/สถานการณ์</a>
+  <a href="#risk">§7 ความเสี่ยง</a>
+</div>
+
+<div class="pad">
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<div id="exec" class="anchor"></div>
+<h2>บทสรุปผู้บริหาร</h2>
+
+<div class="insight">
+  <div class="tag">★ Key Investment Insight</div>
+  <h3>ราคาวิ่งนำข่าวดีไป "มากเกินไปแล้ว" — มี upside ต่อเฉพาะในกรณี Bull เท่านั้น</h3>
+  <p>GUNKUL พุ่งจาก ฿1.53 (52w low) สู่ ฿4.80 ใกล้ 52w high ภายใน ~10 เดือน <strong>(+214%)</strong> จากเรื่องพลังงานสะอาด + Data Center + EPC backlog 8,000 ล้าน แต่ทุก method valuation (DCF, Relative, SOTP) และ consensus target (฿3.83) ต่างชี้ว่า <strong>ราคาปัจจุบัน ฿4.80 สูงกว่ามูลค่าพื้นฐานประมาณ 60–95%</strong> การพิสูจน์ว่าราคานี้สมเหตุสมผล ต้องการให้รายได้สูง ฿17,000 ล้าน (Bull) กับ margin 22% — ซึ่งเป็น assumption เทพเจ้า มิใช่ base case</p>
+</div>
+
+<table>
+  <tr><th>ตัวชี้วัด</th><th class="num">ค่าปัจจุบัน</th><th>คำอ่าน</th></tr>
+  <tr><td>ราคา (9 ก.ค. 69)</td><td class="num">฿4.80</td><td>ใกล้ 52w high ฿4.88, พุ่ง +214% จาก ฿1.53</td></tr>
+  <tr><td>Market Cap</td><td class="num">฿42.6 พันล้าน</td><td>เพิ่มขึ้น ~3 เท่าตัวใน 1 ปี</td></tr>
+  <tr><td>P/E (TTM)</td><td class="num">24.1x</td><td><span class="warn">สูงกว่า peer utilities (~12–18x)</span></td></tr>
+  <tr><td>EV/EBITDA</td><td class="num">14.3x</td><td><span class="warn">สูงกว่า peer (~8–12x)</span></td></tr>
+  <tr><td>P/B</td><td class="num">3.02x</td><td><span class="warn">สูงมาก สะท้อนคาดหวัง ROE สูง</span></td></tr>
+  <tr><td>ROE</td><td class="num">12.8%</td><td>ไม่สูงพอที่จะรองรับ P/B 3x (P/B 3x ต้องการ ROE ~24%+)</td></tr>
+  <tr><td>Net Debt / Equity</td><td class="num">~85%</td><td><span class="neg">Leverage สูง</span></td></tr>
+  <tr><td>RSI(14)</td><td class="num">80.8</td><td><span class="neg">Overbought รุนแรง</span></td></tr>
+  <tr><td>Consensus Target</td><td class="num">฿3.83</td><td><span class="neg">ต่ำกว่าราคาปัจจุบัน −20%</span></td></tr>
+</table>
+
+<div class="callout warn">
+<strong>คำตอบตรงประเด็นคำถาม:</strong> ราคา ฿4.80 <strong>ตอบสนองข่าวดีไปเกินพอแล้ว และล้น</strong> — base case valuation (฿1.83) และ prob-weighted (฿1.73) บ่งชี้ว่าราคาปัจจุบันสูงเกิน 60%+ <strong>Upside ที่จะ "ไปต่อ" มีเฉพาะในกรณี Bull (฿3.19, −34%)</strong> ซึ่งก็ยังต่ำกว่าราคาปัจจุบัน — กล่าวคือ <strong>ไม่มี margin of safety ในทุกสถานการณ์ที่คำนวณ</strong>
+</div>
+
+<!-- ============ §1 BUSINESS ============ -->
+<div id="biz" class="anchor"></div>
+<h2>§1 โครงสร้างธุรกิจและเรื่องเล่า</h2>
+
+<h3>สี่เสาหลัก</h3>
+<table>
+  <tr><th>Segment</th><th>ลักษณะ</th><th>Margin profile</th></tr>
+  <tr><td><strong>Power Generation</strong></td><td>Solar/Wind ในประเทศ + ฟิลิปปินส์ + ไต้หวัน; IPP/SPP รับ FIT/PPA</td><td>สูง, stable cash flow (core profit engine)</td></tr>
+  <tr><td><strong>EPC (รับเหมาไฟฟ้า)</strong></td><td>ก่อสร้างโรงไฟฟ้า + โครงสร้างพื้นฐาน; backlog ~8,000 ล้าน</td><td>ต่ำ-กลาง (cyclical, lumpy)</td></tr>
+  <tr><td><strong>Trading / Manufacturing</strong></td><td>อุปกรณ์ไฟฟ้า, Inverter, Battery, สายไฟฟ้า</td><td>ต่ำ (thin, volume-driven)</td></tr>
+  <tr><td><strong>Services / Finance Lease</strong></td><td>บริการ, เช่าซื้อ</td><td>กลาง</td></tr>
+</table>
+
+<h3>เรื่องเล่าการเติบโต (3 tailwinds ที่ตลาดฉุยราคา)</h3>
+<ol>
+  <li><strong>พลังงานสะอาด + เป้า 2,000 MW</strong> — ขยาย capacity จาก ~500 MW ปัจจุบัน, รับ PDP2026 ที่ผลักดัน renewable</li>
+  <li><strong>Data Center / AI</strong> — โครงการ BOI อนุมัติแล้ว ~3,000 MW; GUNKUL วางตัวเป็น green energy + EPC partner; มูลค่าการลงทุน DC ในไทยประมาณ ฿800,000 ล้าน</li>
+  <li><strong>EPC Backlog 8,000 ล้าน + เป้ารายได้หมื่นล้าน ปี 69</strong> — ประมูลงาน EPC แสนล้าน (รัฐ + เอกชน); Inverter/Battery รับดีมานด์ DC</li>
+</ol>
+
+<h3>Life-cycle / 3 P's test</h3>
+<p><strong>Stage:</strong> อยู่ในช่วง <em>growth re-rating</em> — จาก mature power utility ขยายสู่ EPC + green infra ที่โตเร็วกว่า แต่ยังไม่ใช่ high-growth pure-play เพราะมี trading/lease ปน</p>
+<p><strong>Possible / Plausible / Probable:</strong></p>
+<ul>
+  <li><span class="pill pos">Possible</span> ได้รับสัญญา DC ขนาดใหญ่หลายหมื่นล้าน → รายได้ ฿17,000M+ ภายใน 2030</li>
+  <li><span class="pill warn">Plausible</span> รายได้แตะ ฿10,000M ในปี 69 (ตาม guidance) — แต่ EPC margin จะต่ำกว่า power</li>
+  <li><span class="pill neg">Probable</span> base case รายได้ ฿10,000–14,500M, blended margin 18–21%, ไม่ใช่ 22%+</li>
+</ul>
+<p class="src">แหล่ง: gunkul.com IR, RYT9, Thunhoon, mitihoon, The Story Thailand (2026)</p>
+
+<!-- ============ §2 FINANCIALS ============ -->
+<div id="fin" class="anchor"></div>
+<h2>§2 สุขภาพการเงิน (5 ปี)</h2>
+
+<div class="metrics">
+  <div class="mc"><div class="l">Revenue FY25</div><div class="v">฿7,797M</div><div class="r warn">−14% YoY (จาก 9,062)</div></div>
+  <div class="mc"><div class="l">EBITDA FY25</div><div class="v">฿3,814M</div><div class="r">margin 49%</div></div>
+  <div class="mc"><div class="l">Net Income FY25</div><div class="v">฿1,769M</div><div class="r pos">+6.5% YoY</div></div>
+  <div class="mc"><div class="l">Gross Margin</div><div class="v">33.6%</div><div class="r">ขยายจาก 28.5% (FY24)</div></div>
+  <div class="mc"><div class="l">ROE</div><div class="v">12.8%</div><div class="r warn">ต่ำเกินไปสำหรับ P/B 3x</div></div>
+  <div class="mc"><div class="l">Net Debt</div><div class="v">฿12,073M</div><div class="r neg">ND/Equity ~85%</div></div>
+  <div class="mc"><div class="l">FCF FY25</div><div class="v">฿1,836M</div><div class="r pos">เดือดกว่าปีก่อน (฿938M)</div></div>
+  <div class="mc"><div class="l">Dividend Yield</div><div class="v">4.7%</div><div class="r">DPS ฿0.22, payout 55%</div></div>
+</div>
+
+<table>
+  <tr><th>งบปี (ล้านบาท)</th><th class="num">2022</th><th class="num">2023</th><th class="num">2024</th><th class="num">2025</th><th>CAGR 3Y</th></tr>
+  <tr><td>Revenue</td><td class="num">7,506</td><td class="num">7,231</td><td class="num">9,062</td><td class="num">7,797</td><td class="warn">ผันผวน, ไม่โตต่อเนื่อง</td></tr>
+  <tr><td>EBITDA</td><td class="num">5,438</td><td class="num">3,352</td><td class="num">3,703</td><td class="num">3,814</td><td class="warn">ลดลงจาก 2022</td></tr>
+  <tr><td>Net Income</td><td class="num">3,011</td><td class="num">1,474</td><td class="num">1,661</td><td class="num">1,769</td><td class="warn">เหวียงกลับครึ่งหนึ่ง</td></tr>
+  <tr><td>OCF</td><td class="num">2,037</td><td class="num">1,809</td><td class="num">1,651</td><td class="num">3,063</td><td class="pos">ดีขึ้นปี 69</td></tr>
+  <tr><td>FCF</td><td class="num">1,180</td><td class="num">(780)</td><td class="num">938</td><td class="num">1,836</td><td class="warn">lumpy</td></tr>
+</table>
+
+<div class="callout warn">
+<strong>คำอ่านหลัก:</strong> กำไร FY2025 (฿1,769M) <strong>ยังต่ำกว่า FY2022 (฿3,011M) ถึง 41%</strong> แม้ราคาหุ้นพุ่ง 3 เท่า — ตลาด re-rate หุ้นบน "expectation" ไม่ใช่ "earnings" ปัจจุบัน ROE 12.8% สะท้อนว่าบริษัทยัง <em>underearn</em> เมื่อเทียบกับ P/B 3x ที่ต้องการ ROE ~24%+
+</div>
+
+<!-- ============ §3 VALUATION ============ -->
+<div id="val" class="anchor"></div>
+<h2>§3 Valuation (DCF + Relative + SOTP)</h2>
+
+<h3>พารามิเตอร์ตลาดไทย</h3>
+<table>
+  <tr><th>ตัวแปร</th><th class="num">ค่า</th><th>ที่มา</th></tr>
+  <tr><td>Risk-free (Thai 10Y)</td><td class="num">2.0%</td><td>ThaiBMA ~1.95–2.05% ก.ค. 69</td></tr>
+  <tr><td>Mature ERP + CRP</td><td class="num">6.4%</td><td>5.5% + 0.9% Thai CRP (Damodaran)</td></tr>
+  <tr><td>Beta</td><td class="num">0.90</td><td>yfinance</td></tr>
+  <tr><td>Cost of Equity</td><td class="num">7.76%</td><td>—</td></tr>
+  <tr><td>After-tax Kd</td><td class="num">3.44%</td><td>~4.3% pre-tax × (1−20%)</td></tr>
+  <tr><td><strong>WACC</strong></td><td class="num"><strong>6.81%</strong></td><td>E78% / D22%</td></tr>
+  <tr><td>Terminal growth cap</td><td class="num">3.0%</td><td>Thai nominal GDP long-run</td></tr>
+</table>
+
+<h3>ผลลัพธ์: สามสถานการณ์ DCF (FCFF)</h3>
+<table>
+  <tr><th>สถานการณ์</th><th>รายได้ 2030</th><th class="num">EBIT margin</th><th class="num">Fair Value/หุ้น</th><th>Upside vs ฿4.80</th></tr>
+  <tr><td><strong>Bear</strong> (EPC ล่าช้า, margin กด)</td><td>฿11,000M</td><td class="num">17%</td><td class="num neg">฿0.08</td><td class="neg">−98%</td></tr>
+  <tr><td><strong>Base</strong> (guidance หมื่นล้าน, blended 20%)</td><td>฿14,500M</td><td class="num">20%</td><td class="num neg">฿1.83</td><td class="neg">−62%</td></tr>
+  <tr><td><strong>Bull</strong> (DC wins ขนาดใหญ่, margin 22%)</td><td>฿17,200M</td><td class="num">21%</td><td class="num warn">฿3.19</td><td class="warn">−34%</td></tr>
+  <tr style="background:var(--accent-soft);font-weight:700"><td>Prob-weighted (25/50/25)</td><td>—</td><td class="num">—</td><td class="num neg">฿1.73</td><td class="neg">−64%</td></tr>
+</table>
+
+<h4>Sensitivity (Base path): Fair value/หุ้น</h4>
+<table>
+  <tr><th>WACC ↓ \ g →</th><th class="num">2.5%</th><th class="num">3.0%</th><th class="num">3.5%</th></tr>
+  <tr><td>6.5%</td><td class="num">฿1.73</td><td class="num">฿2.13</td><td class="num">฿2.66</td></tr>
+  <tr><td>7.0%</td><td class="num">฿1.37</td><td class="num">฿1.67</td><td class="num">฿2.06</td></tr>
+  <tr><td>7.5%</td><td class="num">฿1.08</td><td class="num">฿1.32</td><td class="num">฿1.62</td></tr>
+  <tr><td>8.0%</td><td class="num">฿0.84</td><td class="num">฿1.04</td><td class="num">฿1.27</td></tr>
+</table>
+<p class="src">แม้ในมุม WACC ต่ำสุด + g สูงสุด (optimistic) ก็ยังได้ ฿2.66 — ยังต่ำกว่าราคาปัจจุบัน 45%</p>
+
+<h3>Relative Valuation (peer multiples)</h3>
+<table>
+  <tr><th>Multiple</th><th class="num">Low</th><th class="num">Mid</th><th class="num">High</th></tr>
+  <tr><td>P/E (peer utilities 12–18x)</td><td class="num">฿2.39</td><td class="num">฿2.99</td><td class="num">฿3.58</td></tr>
+  <tr><td>EV/EBITDA (8–12x)</td><td class="num">฿2.08</td><td class="num">฿2.93</td><td class="num">฿3.79</td></tr>
+  <tr><td>P/B (1.5–3.0x)</td><td class="num">฿2.38</td><td class="num">฿3.18</td><td class="num">฿4.77</td></tr>
+</table>
+<p>เพื่อให้ราคา ฿4.80 สมเหตุสมผล ต้องการ <strong>P/E ~24x (เหนือ peer)</strong> หรือ <strong>P/B 3.0x (สูงสุดในรอบ)</strong> ซึ่งต้องการให้ GUNKUL เป็น pure-play growth stock ไม่ใช่ blended utility</p>
+
+<h3>SOTP (มุมมองมูลค่าแยก segment)</h3>
+<table>
+  <tr><th>ส่วนธุรกิจ</th><th>วิธี</th><th class="num">มูลค่า (ล้าน)</th></tr>
+  <tr><td>Power Generation (~500 MW)</td><td>฿30M/MW (renewable deal comps)</td><td class="num">15,000</td></tr>
+  <tr><td>EPC + Trading + Other</td><td>NI ~฿900M × 12x P/E</td><td class="num">10,800</td></tr>
+  <tr style="font-weight:700;background:var(--accent-soft)"><td>SOTP Equity</td><td>—</td><td class="num">฿25,800 = ฿2.90/หุ้น</td></tr>
+</table>
+<p>SOTP ฿2.90 ยืนยันว่าแม้มองแยก segment ก็ยังต่ำกว่าราคาปัจจุบัน ~40% และเพื่อให้ SOTP ได้ ฿4.80 ต้องการ power capacity ~1,200 MW (เพิ่ม 2.4x) <em>ที่ยังไม่ได้สร้าง</em></p>
+
+<div class="callout neg">
+<strong>สรุป Valuation:</strong> <span class="num-big">฿1.83</span> (Base) — <strong>3 method รวม consensus บอกทางเดียวกัน</strong>: ราคาปัจจุบัน ฿4.80 สูงเกิน 60–95% ของมูลค่าพื้นฐาน ไม่มี margin of safety
+</div>
+
+<!-- ============ §4 EARNINGS ============ -->
+<div id="earn" class="anchor"></div>
+<h2>§4 กำไรล่าสุด & อารมณ์ตลาด</h2>
+
+<div class="two-col">
+  <div>
+    <h4>Q1/2026 (recap)</h4>
+    <ul>
+      <li>Revenue <strong>฿2,440M</strong> <span class="pos">+23.4% YoY</span> (EPC เป็น main driver, revenue เพิ่มกว่าเท่าตัว)</li>
+      <li>Net Profit <strong>฿456M</strong> <span class="pos">+24.2% YoY</span></li>
+      <li>EPS ฿0.05</li>
+      <li>Backlog <strong>฿4,600M</strong> รับรู้ภายในปี 69</li>
+      <li>ประกาศปันผล yield ~3.1%</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Setup / Sentiment</h4>
+    <ul>
+      <li>ราคา +214% จาก 52w low → <strong>priced for perfection</strong></li>
+      <li>วิ่งนำ consensus target ฿3.83 ไปแล้ว 25%</li>
+      <li>Volume เฉลี่ย 20d (167M) สูงกว่า 120d (94M) เกือบ 2 เท่า → จุดสนใจสูงสุด</li>
+      <li>6 นักวิเคราะห์ครอบคลุม; recommendation neutral</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout warn">
+<strong>Sentiment read:</strong> ตลาดอยู่ในโหมด <em>"speculative re-rating on narrative"</em> ไม่ใช่ <em>"earnings-driven re-rating"</em> — กำไรจริงยังไม่ตามราคา (Q1 กำไร ฿456M × 4 ≈ ฿1.8 พันล้าน = ต่ำกว่า FY2022) การทำให้ราคานี้สมเหตุสมผลต้องการการ beat consensus อย่างต่อเนื่อง 2–3 ไตรมาส
+</div>
+
+<!-- ============ §5 TECHNICAL ============ -->
+<div id="tech" class="anchor"></div>
+<h2>§5 เทคนิค (Top-Down)</h2>
+
+<img class="chart-img" src="https://maas-log-prod.cn-wlcb.ufileos.com/anthropic/19b4e709-6172-4f3e-8d78-23d7d4ef4010/afbe823008ee3ae4656e6ed0728e5dbc.png?UCloudPublicKey=TOKEN_e15ba47a-d098-4fbd-9afc-a0dcf0e4e621&Expires=1783580535&Signature=pDWaWhshwofJWz0jV6kcO6OTZu0=" alt="GUNKUL daily chart">
+
+<table>
+  <tr><th>ระดับ</th><th class="num">ราคา</th><th>หมายเหตุ</th></tr>
+  <tr><td>Resistance (52w high)</td><td class="num">฿4.88</td><td>เพิ่งแตะวันนี้, breakout zone</td></tr>
+  <tr><td><strong>ราคาปัจจุบัน</strong></td><td class="num"><strong>฿4.80</strong></td><td>+214% จาก 52w low</td></tr>
+  <tr><td>MA50</td><td class="num">฿3.80</td><td>ราคาเหนือ +26% (overextended)</td></tr>
+  <tr><td>MA200</td><td class="num">฿2.45</td><td>ราคาเหนือ +96% (extreme)</td></tr>
+  <tr><td>RSI(14)</td><td class="num neg">80.8</td><td>Overbought รุนแรง</td></tr>
+  <tr><td>Support 1 (consolidation)</td><td class="num">฿4.00–4.20</td><td>flag มิ.ย.</td></tr>
+  <tr><td>Support 2 (breakout)</td><td class="num">฿3.40–3.60</td><td>base พ.ค.</td></tr>
+</table>
+
+<h4>Technical verdict</h4>
+<ul>
+  <li><strong>Weekly:</strong> uptrend แข็งแกร่ง, พุ่งจาก ฿3.50 (พ.ค.) สู่ ฿4.80 (+37% ใน 7 สัปดาห์)</li>
+  <li><strong>Daily:</strong> breakout บูล flag มิ.ย.; volume ยืนยัน แต่ RSI &gt;80 เตือน mean-reversion risk</li>
+  <li><strong>เงื่อนไข:</strong> ราคาเหนือ MA50 +26% และ MA200 +96% → <span class="neg">extended รุนแรง</span></li>
+  <li><strong>Entry zone (ถ้าจะเข้า):</strong> รอ pullback สู่ ฿3.80–4.20 (กลับใกล้ MA50) — <em>ไม่ควรไล่ตามที่ ฿4.80</em></li>
+  <li><strong>Stop/invalidation:</strong> ปิดต่ำกว่า ฿3.40 (เสีย breakout base)</li>
+  <li><strong>Timing:</strong> ไม่เอื้อต่อการเข้าใหม่ในระยะสั้น; รอ cool-down</li>
+</ul>
+
+<!-- ============ §6 PLAN ============ -->
+<div id="plan" class="anchor"></div>
+<h2>§6 สถานการณ์ & แผนลงทุน (เงื่อนไขขา)</h2>
+
+<table>
+  <tr><th>Timeframe</th><th>Bull (25%)</th><th>Base (50%)</th><th>Bear (25%)</th></tr>
+  <tr><td>~12 เดือน</td><td>ประกาศ DC win ขนาดใหญ่; ราคาทะลุ ฿5.5+</td><td>รายได้แตะ ฿10,000M; ราคา range ฿3.5–4.5</td><td>EPC ล่าช้า; กลับสู่ ฿2.4–3.0</td></tr>
+  <tr><td>~24 เดือน</td><td>Capacity 1,000MW+; margin ขยาย; re-rate สู่ ฿6+</td><td>เติบโตปานกลาง; ราคาตามกำไร ฿3–4</td><td>ผลตอบแทนต่ำ; de-rate สู่ ฿1.5–2.5</td></tr>
+  <tr><td>~36 เดือน</td><td>กลายเป็น pure green+DC play; ฿7+</td><td>stable utility; FCF yield สูง</td><td>restructuring; ราคาซบ ฿1–2</td></tr>
+</table>
+
+<h3>แผนลงทุนเงื่อนไขขา (Setup archetype: <em>"narrative-driven overextension"</em>)</h3>
+<table>
+  <tr><th>ข้อ</th><th>คำแนะนำ</th></tr>
+  <tr><td>ผู้ถืออยู่</td><td>พิจารณา <strong>trim 30–50%</strong> รอบ ฿4.80–5.00 — ทำกำไรส่วนหนึ่ง ลดความเสี่ยง; เก็บ core เพื่อ scenario bull</td></tr>
+  <tr><td>ไม่มีหุ้น</td><td><strong>ไม่แนะนำให้ไล่ตามที่ ฿4.80</strong> — RSI&gt;80, valuation overextended ทุก method</td></tr>
+  <tr><td>ถ้าจะเข้า</td><td>รอ pullback สู่ <strong>฿3.80–4.20</strong> (กลับ MA50) + ดู catalyst (DC contract win, quarterly beat)</td></tr>
+  <tr><td>Margin of safety</td><td><span class="neg">ไม่มี</span> ณ ราคาปัจจุบัน (FV Base ฿1.83, Bull ฿3.19)</td></tr>
+  <tr><td>Conviction-builders</td><td>+ DC contract win &gt;฿5,000M; + รายได้ Q2/Q3 ทะลุ ฿2,800M/Q; + margin ขยายต่อเนื่อง; + capacity ramp เป็น 1,000MW</td></tr>
+  <tr><td>Thesis-breakers</td><td>− EPC backlog หด; − margin กดต่ำกว่า 18%; − leverage พุ่ง ND/Equity &gt;100%; − DC demand ชะลอ; − PDP ล่าช้า/เปลี่ยน</td></tr>
+  <tr><td>Horizon</td><td>ถ้าลงทุน มอง 12–24 เดือน เพื่อให้กำไรจริงตาม "story"</td></tr>
+</table>
+
+<!-- ============ §7 RISKS ============ -->
+<div id="risk" class="anchor"></div>
+<h2>§7 ความเสี่ยงหลัก (จัดอันดับตามผลกระทบ)</h2>
+
+<table>
+  <tr><th>#</th><th>ความเสี่ยง</th><th>ผลกระทบ</th><th>ความเป็นไปได้</th></tr>
+  <tr><td>1</td><td><strong>Valuation de-rating</strong> — ราคาวิ่งนำกำไรไปไกล; ถ้า story ไม่สมรู้รู้กาย ราคาปรับลง 40–60%</td><td class="neg">สูงมาก</td><td>สูง</td></tr>
+  <tr><td>2</td><td><strong>Leverage</strong> — Net Debt/Equity ~85%, D/E 97%; ถ้า EPC ต้องการ working capital เพิ่ม อัตราดอกเบี้ยขึ้น → กดกำไร</td><td class="neg">สูง</td><td>กลาง</td></tr>
+  <tr><td>3</td><td><strong>EPC execution / backlog conversion</strong> — backlog ฿8,000M ต้อง win ใหม่ต่อเนื่อง; แข่งขันสูง margin กด</td><td class="warn">กลาง-สูง</td><td>กลาง</td></tr>
+  <tr><td>4</td><td><strong>Policy / PDP uncertainty</strong> — PDP2026 เวลา + FIT/PPA เงื่อนไขเปลี่ยน; DC BOI ล่าช้า</td><td class="warn">กลาง</td><td>กลาง</td></tr>
+  <tr><td>5</td><td><strong>Data Center demand เป็น narrative ไม่ใช่ signed revenue</strong> — ฿3,000MW BOI ≠ สัญญาของ GUNKUL</td><td class="warn">กลาง</td><td>สูง</td></tr>
+  <tr><td>6</td><td><strong>Revenue lumpiness</strong> — ประวัติ 2022→25 revenue ลดลง; ผูกกับโครงการเฉพาะ</td><td class="warn">กลาง</td><td>สูง</td></tr>
+  <tr><td>7</td><td><strong>FX (overseas)</strong> — ฟิลิปปินส์/ไต้หวัน exposure; THB/PHP/TWD volatility</td><td>ต่ำ-กลาง</td><td>กลาง</td></tr>
+  <tr><td>8</td><td><strong>Governance / minority</strong> — structure ซับซ้อน (JV/associate หลาย entity)</td><td>ต่ำ</td><td>ต่ำ</td></tr>
+</table>
+
+<h3>ตลาดมองบริษัทอย่างไร?</h3>
+<div class="callout">
+<p><strong>ภาพตลาด (consensus):</strong> 6 นักวิเคราะห์ครอบคลุม, target mean <strong>฿3.83</strong> (ต่ำกว่าราคาปัจจุบัน ฿4.80 ถึง 20%) — แปลว่า <span class="neg">ตลาดนักวิเคราะห์เองยังมองว่าราคาปัจจุบันแพงเกิน</span> ราคาที่แพงขึ้นมาถูกขับเคลื่อนจาก <em>retail/momentum flow</em> บนเรื่อง Data Center + พลังงานสะอาด มากกว่า estimate revisions ของนักวิเคราะห์</p>
+<p><strong>ลักษณะตลาด:</strong> หุ้นอยู่ในโหมด "theme play" — คล้าย DELTA หรือ renewable theme stocks อื่นในไทยที่ราคาวิ่งนำ fundamentals. จุดเปลี่ยนจะเกิดเมื่อ (a) มี signed contract ขนาดใหญ่จริง, หรือ (b) กำไรตามไม่ทัน → cool down</p>
+</div>
+
+<div class="disclaimer">
+<strong>⚠️ ไม่ใช่คำแนะนำการลงทุน (Not Financial Advice):</strong> เอกสารนี้เป็นงานวิจัยและการศึกษาเท่านั้น มีวัตถุประสงค์เพื่อให้ข้อมูลเชิงวิเคราะห์ ไม่ใช่คำสั่งซื้อขาย การลงทุนมีความเสี่ยง — ผู้ลงทุนควรประเมินสภาพการเงิน ความเสี่ยงส่วนบุคคล และศึกษาข้อมูลจากแหล่งปฐมภูมิ (56-1 One Report, งบการเงิน, SET filings) ก่อนตัดสินใจ ตัวเลขจาก yfinance/TradingView เป็นข้อมูล unofficial อาจล่าช้าหรือคลาดเคลื่อน — ควรตรวจสอบเลขสำคัญกับงบการเงินต้นฉบับ
+</div>
+
+<p class="src"><strong>แหล่งข้อมูล:</strong> yfinance (GUNKUL.BK), TradingView (SET:GUNKUL), GUNKUL IR (gunkul.com), ThaiBMA (Thai 10Y), Damodaran CRP table, RYT9, Thunhoon, mitihoon, The Story Thailand, SET/SEC filings. วันที่วิเคราะห์: 9 กรกฎาคม 2026.</p>
+
+</div>
+<div class="foot">
+GUNKUL Engineering (SET: GUNKUL) · Equity Research · 9 ก.ค. 2026 · Research & Education Only · Not Financial Advice
+</div>
+</div>
+</body>
+</html>
