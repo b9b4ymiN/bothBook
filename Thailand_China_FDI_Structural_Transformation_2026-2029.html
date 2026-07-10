@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ไทยในกระแสจีน→ไทย (2569–2572) — Thematic Research Book</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  h4{font-family:var(--sans);font-weight:600;font-size:14px;margin:20px 0 6px;color:var(--gray-700);}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+
+  /* layout + sticky TOC */
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+
+  /* TOC toggle button — hidden on desktop, shown on <=900px */
+  .toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+              background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--slate);
+              cursor:pointer;}
+  .toc-toggle .hamb{width:20px;height:14px;position:relative;flex-shrink:0;}
+  .toc-toggle .hamb span{display:block;position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                         border-radius:1px;transition:transform .25s, opacity .25s, top .25s;}
+  .toc-toggle .hamb span:nth-child(1){top:0;} .toc-toggle .hamb span:nth-child(2){top:6px;} .toc-toggle .hamb span:nth-child(3){top:12px;}
+  /* When TOC is OPEN (not .collapsed) on mobile, animate hamburger to an X */
+  .toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+  .toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+  .toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+
+  /* header */
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+  .logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+        background:var(--white);border:var(--border);padding:4px;}
+  @media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;}}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+
+  /* sections */
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  h3[id]{scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+  /* KPI / verdict band */
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat{min-width:0;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat.good-card{border-left:4px solid var(--good);}
+  .stat.bad-card{border-left:4px solid var(--bad);}
+  .stat .v{font-family:var(--serif);font-size:38px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+  /* tables */
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;margin:6px 0 0;}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+  .table-wrap table{min-width:640px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+
+  /* callouts */
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;margin:14px 0;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout.good{background:var(--white);border-left:4px solid var(--good);}
+  .callout.bad{background:var(--white);border-left:4px solid var(--bad);}
+  .callout h3{margin-top:0;}
+
+  /* chart frame */
+  .chart-frame{background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;margin:12px 0 18px;}
+  .chart-frame img{display:block;width:100%;height:auto;}
+  .chart-caption{font-family:var(--mono);font-size:11px;color:var(--gray-500);padding:10px 14px;border-top:var(--rule);}
+
+  /* sparkline + moat meter */
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+
+  /* heatmap-style table */
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+
+  /* two-column subgrid for dashboard families */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  /* definition list for inline key-value */
+  .dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:10px 0;}
+  .dl dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);padding-top:2px;}
+  .dl dd{margin:0;}
+
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+    section, h3[id]{scroll-margin-top:64px;}
+    .toc{position:fixed;top:0;left:0;right:0;z-index:100;margin:0;padding:0;
+         border-radius:0;border:none;border-bottom:var(--rule);background:var(--ivory);
+         box-shadow:0 1px 6px rgba(0,0,0,.05);}
+    .toc-toggle{display:flex;border-radius:0;border:none;border-bottom:1px solid var(--gray-100);background:var(--ivory);}
+    .toc .eyebrow{display:none;}
+    .toc ol{margin:0;padding:6px 14px 16px;max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+    .toc.collapsed ol{max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .stat .v{font-size:32px;}
+    h1{font-size:30px;}
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  }
+  @media(max-width:520px){
+    .band{grid-template-columns:1fr;}
+  }
+
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ============ STICKY TABLE OF CONTENTS ============ -->
+  <nav class="toc" aria-label="Contents">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">สารบัญ</div>
+    <ol id="toc-list">
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · จุดเริ่มต้น: อ่านบทความให้ถ่องแท้</a></li>
+      <li><a class="sub" href="#s1-1">1.1 บทความกล่าวอ้างอะไร</a></li>
+      <li><a class="sub" href="#s1-2">1.2 ผล verification ตัวเลข 8 ข้อ</a></li>
+      <li><a class="sub" href="#s1-3">1.3 การแก้ไขข้อเท็จจริง 3 จุด</a></li>
+      <li><a href="#s2">2 · เคสเปรียบเทียบ: ญี่ปุ่น→ไทย vs จีน→ไทย</a></li>
+      <li><a class="sub" href="#s2-1">2.1 ญี่ปุ่น→ไทย (1985–2011)</a></li>
+      <li><a class="sub" href="#s2-2">2.2 เปรียบเทียบตาราง</a></li>
+      <li><a class="sub" href="#s2-3">2.3 บทเรียนที่นักลงทุนเข้าใจผิด</a></li>
+      <li><a href="#s3">3 · ภาพรวมโครงสร้างที่เปลี่ยน</a></li>
+      <li><a class="sub" href="#s3-1">3.1 จุดอ่อนโครงสร้างเดิม</a></li>
+      <li><a class="sub" href="#s3-2">3.2 พลัง 7 ด้านที่กำลัง重塑ไทย</a></li>
+      <li><a class="sub" href="#s3-3">3.3 สาม trajectories</a></li>
+      <li><a href="#s4">4 · แผนที่ผู้ชนะ-ผู้แพ้</a></li>
+      <li><a href="#s5">5 · Rent vs Tech: ชั้นค่าใดชนะ</a></li>
+      <li><a href="#s6">6 · ไทย vs เวียดนาม</a></li>
+      <li><a href="#s7">7 · กรอบภาษีระดับมืออาชีพ</a></li>
+      <li><a href="#s8">8 · 7 เงื่อนไขหลุด assembly trap</a></li>
+      <li><a href="#s9">9 · Pre-mortem &amp; catalyst watchlist</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <!-- ============ HEADER ============ -->
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <svg class="logo" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Thailand flag monogram">
+            <rect width="64" height="64" rx="10" fill="#FFFFFF"/>
+            <rect x="2" y="2" width="60" height="10" fill="#B04A3F"/>
+            <rect x="2" y="12" width="60" height="10" fill="#FAF9F5"/>
+            <rect x="2" y="22" width="60" height="20" fill="#3D5A80"/>
+            <rect x="2" y="42" width="60" height="10" fill="#FAF9F5"/>
+            <rect x="2" y="52" width="60" height="10" fill="#B04A3F"/>
+          </svg>
+          <h1>ไทยในกระแสจีน→ไทย</h1>
+        </div>
+        <span class="pill">Thematic Research · Not financial advice</span>
+      </div>
+      <div class="descriptor">หนังสือวิจัยเชิงโครงสร้าง — การเปลี่ยนแปลงเศรษฐกิจไทยในกระแส FDI จีน ภาษีสหรัฐฯ และวิกฤตคลัสเตอร์ยานยนต์สันดาป (2569–2572)</div>
+      <div class="meta mono">Thailand · SET · THB · as of 10 Jul 2026</div>
+    </header>
+
+    <!-- ============ EXECUTIVE SUMMARY ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+      <div class="callout" style="margin-bottom:18px;">
+        <h3>Key Investment Insight</h3>
+        <p>ไทยกำลังอยู่ที่จุดเปลี่ยนโครงสร้างครั้งใหญ่ที่สุดนับแต่ยุคญี่ปุ่น (พ.ศ. 2528–2554) โดยเกิดขึ้นพร้อมกัน 3 แรง: (1) คลื่น FDI จีนที่ใหญ่ที่สุดในประวัติศาสตร์ (BOI 2568 ทะลุ ฿1.87 ล้านล้าน), (2) การล่มสลายของคลัสเตอร์ "Detroit of Asia" (ผลิตรถลด 15%, แรงงาน 326,400 คนเสี่ยง), และ (3) การทดสอบว่าไทยจะหลุด "assembly trap" ที่เคยเป็นชะตากรรมยุคญี่ปุ่นหรือไม่</p>
+        <p><strong>ข้อสรุปสำคัญ:</strong> คุณค่าถาวรที่กำลังถูกสร้างขึ้นวันนี้ ไม่ได้อยู่ที่ชั้นเทคโนโลยี (EV/solar/electronics) ที่ media เน้น แต่อยู่ที่ <strong>ชั้น rent — นิคมอุตสาหกรรม/ธนาคาร/โลจิสติกส์</strong> ที่ไทยเป็นเจ้าของปัจจัยขาดแคลนจริง (ที่ดิน EEC) อัตรากำไรของชั้น rent สูง 21–61% เทียบกับชั้น tech ที่ต่ำเพียง 3–4% (ซ้ำรอยยุคญี่ปุ่นเปี๊ยบ) เพราะ battery cell (30–40% มูลค่ารถ) ยังนำเข้าจากจีน 91% และ local content จริงเพียง ~20% ต่อเกณฑ์ BOI 40%</p>
+        <p>รายงานเล่มนี้จึงตอบคำถามเดียว: <em>การลงทุนจากจีนเข้าไทยรอบนี้ เป็น value capture ถาวร หรือ volume ที่ตื้นและจะถูกภาษีกลืน?</em></p>
+      </div>
+      <div class="band">
+        <div class="stat good-card">
+          <div class="v">45–55%</div><div class="k">Base case probability</div>
+          <div class="d up">Assembly trap (Trajectory B)</div>
+        </div>
+        <div class="stat warn">
+          <div class="v">14 วัน</div><div class="k">Section 122 หมดอายุ</div>
+          <div class="d flat">24 ก.ค. 2569 — catalyst แรก</div>
+        </div>
+        <div class="stat good-card">
+          <div class="v">~20%</div><div class="k">EV local content จริง</div>
+          <div class="d down">vs เกณฑ์ BOI 40%</div>
+        </div>
+        <div class="stat bad-card">
+          <div class="v">326,400</div><div class="k">แรงงาน auto เสี่ยง</div>
+          <div class="d down">ICE → EV transition gap</div>
+        </div>
+        <div class="stat warn">
+          <div class="v">0.94%</div><div class="k">R&amp;D/GDP (2566)</div>
+          <div class="d down">ตกจาก 1.16% — ตัวจำกัดหลัก</div>
+        </div>
+      </div>
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis</h3>
+        <p><strong>สิ่งที่จ่าย:</strong> ลงทุนในชั้น rent ของไทย (นิคมอุตฯ/แบงก์/โลจิสติกส์) เพื่อรับ FDI จีนที่ไหลเข้าจริง (จีน+ฮ่องกง ~$13.4B ใน 2568) — เน้นไทยมากกว่าเวียดนามเพราะไทยไม่ถูก spotlight ภาษี circumvention เหมือนเวียดนาม (ไทย 19% vs เวียดนาม 20%+40%) และ SET เข้าถึงได้ง่ายกว่า</p>
+        <p><strong>สิ่งที่ได้:</strong> กระแสเงินสดจาก land premium (ราคาที่ดิน EEC +24.9% ต่อปี), อัตราเช่า 90.6%→93.1%, อัตรากำไร 21–61%</p>
+        <p><strong>เงื่อนไขที่ต้องเป็นจริง:</strong> (1) Section 301 ไม่บังคับกฎเนื้อหาในประเทศ % ที่เข้มงวด, (2) การลงทุนจีนไม่ย้ายออกไปเม็กซิโก/อินเดีย, (3) การเมืองไทยไม่รบกวนความต่อเนื่อง BOI</p>
+        <p><strong>ความอสมมาตร:</strong> ชั้น rent ทนทุก trajectory (A/B/C) เพราะที่ดินมีหลังคาจากผู้เช่าเดิม; ชั้น tech เสี่ยงล้มทั้งหมดถ้า trajectory C เกิด</p>
+        <p class="small muted">รายละเอียด verification ใน <a href="#s1">§1</a>; เคสเปรียบเทียบใน <a href="#s2">§2</a>; ภาพรวมโครงสร้างใน <a href="#s3">§3</a>; แผนที่ผู้ชนะ-ผู้แพ้ใน <a href="#s4">§4</a>; กรอบภาษีใน <a href="#s7">§7</a>; scenarios ใน <a href="#s9">§9</a>.</p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · จุดเริ่มต้น ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>จุดเริ่มต้น: อ่านบทความให้ถ่องแท้</h2></div>
+      <hr class="div">
+      <p>เราเริ่มจากบทความที่ผู้ใช้นำมา — "จีนส่งออกเครื่องจักรมาไทยพุ่งกว่า 50% ในปีเดียว" ซึ่งอ้างที่มา 6 แหล่งหลัก (WEF, MERICS, Bloomberg Economics, ChinaFile/ASPI, TDRI, Global Trade Alert) ก่อนจะลงทุนจริง เราต้อง verify ทุกตัวเลขและที่มาให้แม่นยำ เพราะ investment-grade decision ต้องตั้งบนข้อเท็จจริงที่ผ่านการตรวจสอบแล้ว</p>
+
+      <h3 id="s1-1">1.1 บทความกล่าวอ้างอะไร — 5 มุมสำคัญ</h3>
+      <p>บทความเล่าเรื่องนี้เป็น 5 มุม: (1) นี่คือผลผลิตของแผนอุตสาหกรรมจีนที่วางมา 15 ปี (แผนฯ 12→13→14→15), (2) กำลังผลิตส่วนเกินหาตลาดใหม่ผ่านอาเซียน แทนสหรัฐฯ, (3) ส่วนใหญ่เป็น "วัตถุดิบต้นน้ำ" ไม่ใช่สินค้าแข่งตรง (Lowy: 90% inputs / 7% consumer), (4) แต่สินค้าไทยที่โตแรง (laptop 14x, network 2x) กลับเป็นกลุ่มเสี่ยงภาษีสหรัฐฯ มากที่สุด, และ (5) China+1 อาจไม่ได้หลีกจีนจริง เพราะสินค้าอาเซียน-จีนคล้ายกันสูง</p>
+
+      <h3 id="s1-2">1.2 ผล verification ตัวเลข 8 ข้อ</h3>
+      <p>หลังส่งนักวิจัยไปค้นทุกแหล่งหลัก ผล verification สรุปได้ว่าบทความน่าเชื่อถือในระดับโครงเรื่อง แต่มี 1 จุดที่ผิดสำคัญ และ 2–3 จุดที่ verify ไม่ถึง primary source ดังนี้:</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Claim</th><th>สถานะ</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>เครื่องจักรไฟฟ้าจีน→ไทย +52% แตะ $31B (2568)</td><td><span class="chip"><span class="dot watch"></span>บางส่วน</span></td><td class="small muted">สอดคล้องกับ UN Comtrade (HS-85 ปี 2024 ~$20.3B × 1.52 ≈ $30.9B) แต่ WEF/MERICS primary หาไม่เจอ ยืนยันผ่าน ChinaFile/ASPI</td></tr>
+          <tr><td class="num">2</td><td>จีน→ไทย +25%, จีน→สหรัฐฯ −10% (4 ด.แรก 2569)</td><td><span class="chip"><span class="dot watch"></span>บางส่วน</span></td><td class="small muted">ทิศทางถูก ($41.2B ไทย / $133.4B สหรัฐฯ ตาม China Briefing citing GAC) แต่ % YoY ยัง verify ไม่ตรงตัว</td></tr>
+          <tr><td class="num">3</td><td>จีนเป็นผู้นำโลก 5/13 เทคโนโลยียุทธศาสตร์</td><td><span class="chip"><span class="dot good"></span>ยืนยัน</span></td><td class="small muted">Bloomberg Economics tracker ยืนยันครบ — รถไฟความเร็วสูง/กราฟีน/โดรน/โซลาร์/EV-แบตเตอรี่</td></tr>
+          <tr><td class="num">4</td><td>ASEAN นำเข้าจีน 90% inputs / 7% consumer</td><td><span class="chip"><span class="dot good"></span>ยืนยัน</span></td><td class="small muted">Lowy Institute primary ตรงตัว</td></tr>
+          <tr><td class="num">5</td><td>Laptop export ไทย ~14x, network equipment 2x</td><td><span class="chip"><span class="dot good"></span>ยืนยัน</span></td><td class="small muted">TDRI (Supanutt) ยืนยันผ่าน The Star</td></tr>
+          <tr><td class="num">6</td><td>ภาษี circumvention 40% + กฎ 60% domestic value-added</td><td><span class="chip"><span class="dot bad"></span>มีข้อผิด</span></td><td class="small muted">40% tariff ถูกจริง แต่ "60% domestic" น่าจะผิด — ตาม ChinaFile/ASPI กฎจริงคือ 70% domestic / 30% foreign</td></tr>
+          <tr><td class="num">7</td><td>Export overlap ASEAN–จีนสูง (GTA)</td><td><span class="chip"><span class="dot watch"></span>บางส่วน</span></td><td class="small muted">Report จริง (Evenett): Vietnam 76%, เกาหลี 71%, เม็กซิโก 67% แต่วันที่ "ธ.ค. 2568" verify ไม่ได้</td></tr>
+          <tr><td class="num">8</td><td>แผนจีนฉบับ 15 (2569–2573) เพิ่มหุ่นยนต์/ชีวการแพทย์/AI</td><td><span class="chip"><span class="dot good"></span>ยืนยัน</span></td><td class="small muted">Diplomat, Stanford DigiChina, China Briefing ยืนยันครบ</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s1-3">1.3 การแก้ไขข้อเท็จจริง 3 จุดที่ต้องแก้ในใจก่อนใช้</h3>
+      <div class="callout bad">
+        <p>นักวิจัยพบว่ามี <strong>3 จุดที่ข้อมูลเดิมไม่ถูกต้อง</strong> ซึ่งเปลี่ยนการวิเคราะห์อย่างมาก ต้องแก้ในใจก่อนใช้ผลลัพธ์ใดๆ ในการตัดสินใจ:</p>
+      </div>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>จุด</th><th>เดิม (รวมที่บทความบอก)</th><th>ความจริงที่ verify แล้ว</th><th>ผลกระทบต่อการวิเคราะห์</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>กฎ "60% domestic value-added" เป็นเกณฑ์ภาษี</td><td>กฎที่แท้คือ <strong>70% domestic / 30% foreign</strong> (สัญญาณ Lutnick) <strong>แต่ยังไม่ได้ประกาศใช้เป็นกฎหมาย</strong> — CBP ยังใช้กฎ "substantial transformation" เชิงคุณภาพอยู่</td><td class="small">ความเสี่ยงระยะสั้นลดลง แต่เป็น optionality ระยะกลางที่อาจกลับมาผ่าน Section 301 remedy</td></tr>
+          <tr><td class="num">2</td><td>กล่าวอ้าง "Vietnam MSCI upgrade"</td><td>จริงคือ <strong>FTSE Russell upgrade</strong> (Frontier→Secondary EM, มีผล 21 ก.ย. 2569, phase ถึง ก.ย. 2570) ~$5–6B ไหลเข้า</td><td class="small">เปลี่ยน catalyst จาก "MSCI" เป็น "FTSE" มีวันที่ชัดเจน</td></tr>
+          <tr><td class="num">3</td><td>Section 301 probe ไทย = digital services tax</td><td>จริงคือ <strong>industrial excess capacity probe</strong> (16 ประเทศ, เริ่ม 11 มี.ค. 2569) — กว้างกว่า DST มาก</td><td class="small">เพิ่ม blast radius ของไทย — ครอบคลุมสินค้าอุตสาหกรรมไม่ใช่แค่บริการดิจิทัล</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <h4>ข้อเท็จจริงเชิงกฎหมายที่ยืนยันแล้ว (เปลี่ยนภาพทั้งหมด)</h4>
+      <div class="callout accent">
+        <p>นี่คือสิ่งที่บทความ (และผมในรอบแรก) พลาดไปโดยสิ้นเชิง: <strong>SCOTUS ตัดสินยกเลิกอำนาจภาษี IEEPA เมื่อ 20 ก.พ. 2569</strong> (เคส <em>Learning Resources v. Trump</em>, คำตัดสิน 6–3) ทำให้ทั้ง reciprocal tariff 19%/20% และ circumvention 40% <strong>ไม่ได้เก็บจริงในตอนนี้</strong></p>
+        <p>สถานะปัจจุบัน (10 ก.ค. 2569):</p>
+        <ul class="small" style="margin:8px 0 8px 20px;">
+          <li>เก็บเพียง <strong>Section 122 surcharge 10%</strong> ซึ่ง <strong>หมดอายุตามกฎหมายวันที่ 24 ก.ค. 2569</strong> (อีก 14 วัน)</li>
+          <li>รัฐบาลสหรัฐฯ กำลังหันไปใช้ <strong>Section 301</strong> (ทนการฟ้องร้องมากกว่า) — สอบสวนเวียดนาม (IP, เริ่ม 29 พ.ค. 2569) + ไทย (16-economy excess-capacity probe) + แม้แต่ USTR รายงาน 2 มิ.ย. 2569 เสนอ 12.5% สำหรับไทย</li>
+        </ul>
+        <p class="small"><strong>ความหมาย:</strong> ความเสี่ยงภาษี 40% ยังเป็น tail risk ที่รอการเริ่มใหม่ผ่าน Section 301 ไม่ใช่สถานการณ์ปัจจุบัน — แต่น่าจะกลับมาภายใน 12 เดือน ต้องเฝ้าระวังต่อเนื่อง</p>
+      </div>
+    </section>
+
+    <!-- ============ 2 · เคสเปรียบเทียบ ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>เคสเปรียบเทียบ: ญี่ปุ่น→ไทย vs จีน→ไทย</h2></div>
+      <hr class="div">
+      <p>ก่อนจะประเมินโอกาสในปัจจุบัน เราต้องเข้าใจเคส "ไทยเป็นฐานการผลิตหลักของญี่ปุ่น" (พ.ศ. 2528–2554) ให้ลึก เพราะเป็นกรอบเทียบเคียงที่ตรงที่สุด — และบทเรียนจากเคสนั้นเป็นสิ่งที่นักลงทุนมักเข้าใจผิดซ้ำแล้วซ้ำเล่า</p>
+
+      <h3 id="s2-1">2.1 ญี่ปุ่น→ไทย (2528–2554): ภาพรวม</h3>
+      <p>จุดเริ่มต้นคือ <strong>Plaza Accord (22 ก.ย. 2528)</strong> ที่ทำให้เงินเยนแข็งขึ้นเกือบ 2 เท่าใน 2 ปี (จาก ~¥240/$ เป็น ~¥120/$) ทำลายเศรษฐกิจการส่งออกจากญี่ปุ่น ผู้ผลิตญี่ปุ่นจึงเริ่มย้ายฐานการผลิตออกไประดับประวัติศาสตร์ และไทยเป็นจุดหมายอันดับ 1 เพราะ (1) ความมั่นคงทางการเมือง, (2) ค่าแรงที่เหมาะสม, (3) ความคุ้นเคยกับญี่ปุ่นตั้งแต่ทศวรรษ 2500 (Siam Motors-Nissan 2505, Toyota 2507), และ (4) นโยบาย BOI + แผนพัฒนา Eastern Seaboard</p>
+      <div class="dl">
+        <dt>ขนาด FDI</dt><dd>สะสม 1951–2532 ที่ $2,539 ล้าน — แต่ $1,702 ล้าน (67%) เข้ามาในช่วง 2529–2532 หลัง Plaza เพียง 4 ปี</dd>
+        <dt>จำนวน affiliate</dt><dd>JCCB membership ~922 บริษัท (มิ.ย. 2535) → 1,250+ formal affiliates + 6,000–7,000 Japanese SME กลางทศวรรษ 2533</dd>
+        <dt>ผลผลิตรถยนต์</dt><dd>ไทยผลิตรถเพิ่ม +383% ระหว่าง 2543–2560 จาก ~400,000 เป็น ~1.95 ล้านคัน — กลายเป็น "Detroit of Asia" และผู้ส่งออกรถกระบะ 1 ตันอันดับ 1 ของโลก</dd>
+      </div>
+
+      <h3 id="s2-2">2.2 ตารางเปรียบเทียบญี่ปุ่น→ไทย vs จีน→ไทย</h3>
+      <p>คำถามสำคัญ: เหตุการณ์ใกล้เคียงกันจริงหรือไม่? คำตอบคือ <strong>ใช่ ในหลายมิติ แต่ต่างกันในจุดสำคัญ</strong> — โดยเฉพาะเจตนารมณ์ (defensive vs offensive) และความลึกของ supply chain</p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dimension</th><th>ญี่ปุ่น→ไทย (2528–2554)</th><th>จีน→ไทย (ปัจจุบัน)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Trigger</strong></td><td>Plaza Accord + endaka (เงินเยนแข็ง 2 เท่า) = <em>defensive cost-relocation</em></td><td>กำแพงภาษีสหรัฐฯ/EU + overcapacity + หาตลาดอาเซียน = <em>offensive + geopolitical de-risking</em></td></tr>
+          <tr><td><strong>เจตนารมณ์</strong></td><td>ย้ายเพราะทนต้นทุนที่บ้านไม่ไหว</td><td>ย้ายเพื่อหลีกภาษี + บุกตลาด</td></tr>
+          <tr><td><strong>ความลึก supply chain</strong></td><td>ย้าย keiretsu Tier-1 ตามมาเต็ม (Denso, Aisin, Yazaki, Stanley) — ไทยเข้าไม่ได้ Tier-1</td><td>pyramid ตื้นกว่ามาก — Tier-1 หลายชิ้นยัง import จากจีน</td></tr>
+          <tr><td><strong>ขนาด FDI</strong></td><td>$2,539 ล้าน (สะสม 1951–2532); ~$2.1 พันล้าน/ปี (หลัง 2546)</td><td>จีน #1 แหล่ง FDI ไทย 2566: 810 โครงการ, ฿174.6 พันล้าน; จีน+ฮ่องกง ~$13.4B (2568)</td></tr>
+          <tr><td><strong>Value capture ของไทย</strong></td><td>Assembly + ชิ้นส่วน Tier-2/3 + real estate rent; ญี่ปุ่นเก็บ R&amp;D/IP/ชิ้นส่วนหลัก — "assembly trap"</td><td>Assembly + battery pack + ชิ้นส่วนบางส่วน; จีนเก็บ cells/power electronics/software/brand — เสี่ยงซ้ำรอยเดิม</td></tr>
+          <tr><td><strong>สิ้นสุดยุคเพราะ</strong></td><td>China WTO 2544 + น้ำท่วม 2554 + Abenomics 2555</td><td>(ยังไม่สิ้น) เสี่ยง: ภาษีสหรัฐฯ ปรับ, EV shakeout ในจีน, จีน-สหรัฐฯ ขาด</td></tr>
+          <tr><td><strong>ผู้รับประโยชน์หลักจริง</strong></td><td><strong>นิคมอุตฯ + แบงก์ + SCG (JV กับ Toyota/Kubota)</strong> — ไม่ใช่ parts maker</td><td>น่าจะซ้ำรูปแบบเดิม — WHA, AMATA, KBank, WICE</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s2-3">2.3 บทเรียนสำคัญที่นักลงทุนสมัยนั้นเข้าใจผิด</h3>
+      <div class="callout bad">
+        <h3>4 บทเรียนที่นักลงทุน "เข้าใจผิด" ในยุคญี่ปุ่น→ไทย</h3>
+        <ol style="margin:8px 0 8px 20px;">
+          <li><strong>สับสนระหว่าง "FDI flow" กับ "value capture"</strong> — headline FDI และยอดผลิตใหญ่ แต่กำไรส่วนใหญ่อยู่ที่ญี่ปุ่น (R&amp;D, IP, ชิ้นส่วนหลัก, แบรนด์) ไทยได้แค่ assembly + land rent</li>
+          <li><strong>ผิดหวังกับ parts maker</strong> — คาดว่า margin จะขยาย แต่จบด้วย margin ต่ำ (global supplier EBIT ~4.7%) เพราะ transfer pricing ใน keiretsu บีบ</li>
+          <li><strong>เข้าใจความคง久ผิด</strong> — คิดว่า endaka wave ถาวร แต่ Abenomics (2555) ย้อนกลับได้</li>
+          <li><strong>ผู้ชนะจริงคือชั้น "rent"</strong> — นิคมอุตฯ (Hemaraj, Amata, Rojana) และแบงก์ (BBL) ไม่ใช่ชื่อที่ media ชอบพูดถึง</li>
+        </ol>
+      </div>
+      <div class="callout">
+        <p><strong>ความขนานกันที่น่ากังวลที่สุด:</strong> ทั้งสองยุคเสี่ยงตก "assembly trap" — ได้โรงงาน + งาน + export number แต่ไม่ได้ design rent ถ้าไทยไม่บังคับ localization จริง และเคสญี่ปุ่นพิสูจน์แล้วว่าแม้จะได้โรงงานมากที่สุดในโลก แต่ก็ยังเป็น "industrialization without technological sovereignty"</p>
+      </div>
+    </section>
+
+    <!-- ============ 3 · ภาพรวมโครงสร้าง ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>ภาพรวมโครงสร้างที่เปลี่ยน (2569–2573)</h2></div>
+      <hr class="div">
+      <p>ไทยกำลังอยู่ที่จุดเปลี่ยนโครงสร้างครั้งใหญ่ที่สุดนับแต่ยุคญี่ปุ่น โดยเกิดขึ้นพร้อมกัน 3 แรงกดดันที่ทำงานสวนทางกัน:</p>
+      <div class="band">
+        <div class="stat good-card">
+          <div class="v">฿1.87T</div><div class="k">BOI 2568</div>
+          <div class="d up">+67% YoY — FDI คลื่นใหญ่สุด</div>
+        </div>
+        <div class="stat bad-card">
+          <div class="v">−15%</div><div class="k">ผลิตรถยนต์ 2568–69</div>
+          <div class="d down">Detroit of Asia ล่มสลาย</div>
+        </div>
+        <div class="stat warn">
+          <div class="v">~20%</div><div class="k">EV local content จริง</div>
+          <div class="d flat">ทดสอบ assembly trap</div>
+        </div>
+      </div>
+
+      <h3 id="s3-1">3.1 จุดอ่อนโครงสร้างเดิมที่ยังเป็นตัวจำกัด</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>จุดอ่อน</th><th class="num">ตัวเลข</th><th>นัยสำคัญ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>R&amp;D/GDP ลดลง</strong></td><td class="num">0.94% (2566)</td><td class="small muted">จาก 1.16% (2565) — ต่ำกว่าเป้า 2% มา 10 ปี — ตัวจำกัดหลัก ไม่สามารถหลุด assembly trap ได้ถ้า R&amp;D ต่ำเกินไป</td></tr>
+          <tr><td><strong>ผลิตภาพชะลอตัว</strong></td><td class="num">2.1%/ปี</td><td class="small muted">(2560–2566) จาก 4.8% — ลดลงครึ่งหนึ่ง</td></tr>
+          <tr><td><strong>ประชากรสูงวัยเร็ว</strong></td><td class="num">อัตราเจริญพันธุ์ 1.16</td><td class="small muted">กำลังแรงงาน −0.9% ไตรมาส 4/2568 — เพิ่มความจำเป็น automation, จำกัดการบริโภคภายใน</td></tr>
+          <tr><td><strong>หนี้ครัวเรือน</strong></td><td class="num">~86.7% ของ GDP</td><td class="small muted">(สิ้น 2568) — จำกัดอุปสงค์ภายในประเทศ</td></tr>
+          <tr><td><strong>GVC participation</strong></td><td class="num">backward ~23%</td><td class="small muted">ไทย "ติดอยู่กลางห่วงโซ่" — ค่าที่สร้างในไทยจริงแค่ ~73–77% ของมูลค่าส่งออก</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted"><strong>ตัวจำกัดผูกพันจริง:</strong> การผสม R&amp;D + ผลิตภาพ — ประเทศไม่สามารถหลุด assembly trap ได้ถ้า GERD ต่ำกว่า 1% ของ GDP และผลิตภาพลดลงครึ่งหนึ่ง ปัจจัยอื่น (aging, หนี้, การเมือง) ซ้ำเติมจุดอ่อนหลักนี้</p>
+
+      <h3 id="s3-2">3.2 พลัง 7 ด้านที่กำลัง重塑ไทย</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>พลัง</th><th>ทิศทาง</th><th>ความรุนแรง</th><th>ผู้ชนะ / ผู้แพ้</th></tr></thead>
+        <tbody>
+          <tr><td><strong>a. คลื่น FDI จีน→ไทย</strong><br><span class="small muted">EV, ศูนย์ข้อมูล, electronics, PCB, solar</span></td><td><span class="chip"><span class="dot good"></span>บวก</span></td><td class="small">ใหญ่ที่สุดนับแต่ทศวรรษ 2523</td><td class="small muted">ชนะ: นิคมอุตฯ, แบงก์, โลจิสติกส์ / แพ้: ผู้ผลิต low-margin assembly</td></tr>
+          <tr><td><strong>b. ระบอบภาษีสหรัฐฯ</strong><br><span class="small muted">Section 301 + circumvention</span></td><td><span class="chip"><span class="dot bad"></span>ลบ</span></td><td class="small">อาจรุนแรงมากสำหรับหมวดเฉพาะ</td><td class="small muted">ชนะ: สินค้า high local content / แพ้: laptop, network gear, PCB, solar</td></tr>
+          <tr><td><strong>c. ล่มสลาย Detroit of Asia</strong><br><span class="small muted">ICE → EV transition</span></td><td><span class="chip"><span class="dot bad"></span>ลบ</span></td><td class="small">ใหญ่และเร่งขึ้น — มั่นใจสูง</td><td class="small muted">แพ้ชัด: ชิ้นส่วน ICE (326,400 แรงงานเสี่ยง)</td></tr>
+          <tr><td><strong>d. บูมศูนย์ข้อมูล</strong><br><span class="small muted">฿728B pledged 2568</span></td><td><span class="chip"><span class="dot watch"></span>บวกแต่เกินจริง?</span></td><td class="small">ใหญ่บนกระดาษ แต่ realization rate ~60–70%</td><td class="small muted">ชนะ: ที่ดิน, พลังงาน / เสี่ยง: grid + water strain</td></tr>
+          <tr><td><strong>e. การท่องเที่ยวผิดหวัง</strong><br><span class="small muted">−7.2% ใน 2568</span></td><td><span class="chip"><span class="dot bad"></span>ลบ</span></td><td class="small">นักท่องเที่ยวจีนลด 30–35%</td><td class="small muted">แพ้: การท่องเที่ยวที่พึ่งจีน</td></tr>
+          <tr><td><strong>f. นโยบายอุตสาหกรรมไทย</strong><br><span class="small muted">EEC, 30@30, BOI, semiconductor roadmap</span></td><td><span class="chip"><span class="dot watch"></spanทะเยอทะยาน</span></td><td class="small">กลไกถูกต้อง แต่ลุยเกินขีดความสามารถ</td><td class="small muted">ได้ประโยชน์ถ้าสำเร็จ แต่เสี่ยงเนื่องจาก R&amp;D ต่ำ</td></tr>
+          <tr><td><strong>g. หัวหน้าประชากร</strong><br><span class="small muted">กำลังแรงงานลด 0.9%</span></td><td><span class="chip"><span class="dot bad"></span>ลบ</span></td><td class="small">โครงสร้างและแน่นอน — มั่นใจสูง</td><td class="small muted">เพิ่มความจำเป็น automation; จำกัดการบริโภค</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3 id="s3-3">3.3 สาม trajectories ของไทย (2569–2573)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>A: China hub consolidation<br><span class="small muted">(25–30%)</span></th><th>B: Assembly trap ← Base<br><span class="small muted">(45–55%)</span></th><th>C: Tariff wall reversal<br><span class="small muted">(15–25%)</span></th></tr></thead>
+        <tbody>
+          <tr><td><strong>เงื่อนไขขาเข้า</strong></td><td class="small">Tariff ไม่รุนแรง + ผลิตแบตเตอรี่ในไทยจริง + R&amp;D ขยาย</td><td class="small">FDI ยังไหลเข้าแต่ local content ตื้น (~20–25%) + กำหนดการเลื่อนออกไปเรื่อยๆ</td><td class="small">Section 301 + กฎ local content รุนแรง + FDI จีนย้ายออกไปเม็กซิโก/อินเดีย</td></tr>
+          <tr><td><strong>อุตสาหกรรม % GDP</strong></td><td class="num">28–30%</td><td class="num">ลดลงช้าๆ</td><td class="num">24–26%</td></tr>
+          <tr><td><strong>การเติบโต GDP</strong></td><td class="num">3.5–4%</td><td class="num">2.5–3%</td><td class="num">1.5–2.5%</td></tr>
+          <tr><td><strong>อัตราว่างนิคม</strong></td><td class="num">~5–6%</td><td class="num">~7–9%</td><td class="num">10–12%</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout accent">
+        <p><strong>เหตุผลที่ Base case คือ B (assembly trap):</strong> มันคือเส้นทางความต้านทานน้อยที่สุด — FDI เข้ามาเพราะสร้างงานและพาดหัวข่าวโดยไม่ต้องลงทุน R&amp;D ที่ไทยล้มเหลวมาตลอด กำหนดการเลื่อนแบตเตอรี่ออกไปแล้ว 2 ครั้ง = สัญญาณว่าความลึกไม่ได้เกิดจริง</p>
+        <p class="small muted"><strong>เกณฑ์ปรับเปลี่ยนมุมมอง:</strong> หากเหตุการณ์เหล่านี้เกิด ≥3 ภายในปี 2570 → เลื่อนความน่าจะเป็นไป A; หากเกิด 0–1 → B แข็งแกร่งขึ้น + ความเสี่ยง C เพิ่ม</p>
+      </div>
+    </section>
+
+    <!-- ============ 4 · แผนที่ผู้ชนะ-ผู้แพ้ ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>แผนที่ผู้ชนะ-ผู้แพ้ (จัดลำดับตาม tier)</h2></div>
+      <hr class="div">
+      <p>นี่คือ <strong>การจัดลำดับที่คุณขอ</strong> เรียงจากผู้ชนะถาวร → ผู้แพ้ทางโครงสร้าง แต่ละชั้นมี confidence, time horizon, และ trajectory sensitivity ชัดเจน</p>
+
+      <h3>Tier 1 — ผู้ชนะถาวร <span class="tag">มั่นใจสูง</span></h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>อุตสาหกรรม</th><th>ตัวขับเคลื่อน</th><th>Horizon</th><th>เหตุผลที่ถาวร</th></tr></thead>
+        <tbody>
+          <tr><td><strong>นิคมอุตสาหกรรม / ที่ดิน</strong></td><td class="small muted">FDI + EEC + ศูนย์ข้อมูล; ราคาที่ดิน EEC +24.9% ต่อปี; อัตราเช่า 90.6%→93.1%</td><td>0–4 ปี</td><td class="small muted"><strong>ที่ดิน = ปัจจัยขาดแคลนที่ไทยเป็นเจ้าของจริง</strong> — ชนะทุก trajectory ยกเว้น C (แต่มีหลังคาจากผู้เช่าเดิม)</td></tr>
+          <tr><td><strong>HDD / storage</strong></td><td class="small muted">โรงงาน Seagate/WDC อายุหลายสิบปี; ไทย = ~80% การผลิต HDD โลก; local content สูงจริง</td><td>โครงสร้าง</td><td class="small muted">ไม่ใช่ circumvention target; ผ่านเกณฑ์ local content ทุกแบบ</td></tr>
+          <tr><td><strong>เกษตร / แปรรูปอาหาร</strong></td><td class="small muted">ความมั่นคงอาหารจีน + ฐานในประเทศ; ข้าว/น้ำตาล/ยาง/อาหารทะเล</td><td>2–4 ปี+</td><td class="small muted">การส่งออกที่ทนทาน; ความเสี่ยงภาษีต่ำ</td></tr>
+          <tr><td><strong>ก่อสร้าง / วัสดุก่อสร้าง</strong></td><td class="small muted">วงจรการลงทุนหลายปีใน EEC + ศูนย์ข้อมูล + ทางรถไฟ/ท่าเรือ</td><td>0–2 ปี</td><td class="small muted">มั่นใจสูง แต่เสี่ยง overshot</td></tr>
+          <tr><td><strong>สุขภาพ / ชีวการแพทย์</strong></td><td class="small muted">ความต้องการสังคมสูงวัย + การท่องเที่ยวเชิงการแพทย์ + ส่งออกเวชภัณฑ์</td><td>4 ปี+</td><td class="small muted">ความต้องการในประเทศ; ความเสี่ยงภาษีต่ำ</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>Tier 2 — ผู้ชนะตามสถานการณ์ <span class="tag">ขึ้นกับผลภาษี + local content</span></h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>อุตสาหกรรม</th><th>ตัวขับเคลื่อน</th><th>Trajectory sensitivity</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ธนาคารพาณิชย์</strong></td><td class="small muted">สินเชื่อองค์กรจาก FDI + trade finance ชดเชยเครดิตครัวเรือนที่อ่อนแอ</td><td class="small muted">ชัดเจนใน A; เล็กน้อยใน B; ความกดดันใน C (หนี้องค์กร)</td></tr>
+          <tr><td><strong>โลจิสติกส์ (ข้ามพรมแดน, ท่าเรือ, รถไฟ)</strong></td><td class="small muted">การเปลี่ยนเส้นทางการค้า; รถไฟจีน-ไทย + ขยายท่าเรือแหลมฉบัง</td><td class="small muted"><strong>ไวมาก</strong> — ชนะใหญ่ใน A, กลางใน B, แพ้ใน C</td></tr>
+          <tr><td><strong>EV assembly (OEM จีน + พันธมิตร JV)</strong></td><td class="small muted">ยอดขาย EV +80% (2568); โรงงาน BYD/MG/GWM เปิดแล้ว</td><td class="small muted">ชัดเจนใน A &amp; B (ความต้องการอาเซียน); <strong>เสี่ยงหากส่งออกสหรัฐฯ</strong></td></tr>
+          <tr><td><strong>โซลาร์ / พลังงานหมุนเวียน</strong></td><td class="small muted">ผู้รับประโยชน์จาก capex deflation (แผงจีนถูก → IRR โครงการสูงขึ้น)</td><td class="small muted">ชนะใน A &amp; B; เป็นกลางใน C</td></tr>
+          <tr><td><strong>ศูนย์ข้อมูล / ดิจิทัล</strong></td><td class="small muted">ไปป์ไลน์ ~$60B+; ความต้องการอาเซียนจริง</td><td class="small muted">ชนะใน A &amp; B ถ้าโครงข่ายไฟฟ้ารองรับ; <strong>ค่าในไทยต่ำ</strong> (ที่ดิน/พลังงาน/การดำเนินงาน)</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>Tier 3 — มีความเสี่ยงสูง <span class="tag">เป้าหมายภาษีโดยตรง</span></h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>อุตสาหกรรม</th><th>ความเสี่ยง</th><th>จุดอ่อน</th></tr></thead>
+        <tbody>
+          <tr><td><strong>การประกอบโน้ตบุ๊ก (CKD)</strong></td><td class="small muted">local content ต่ำ; พึ่งชิ้นส่วนจีน 50–80%</td><td class="small muted">โดยตรงในเป้า Section 301</td></tr>
+          <tr><td><strong>อุปกรณ์เครือข่าย</strong></td><td class="small muted">พึ่งซิลิคอน; ไม่ใช่เทคโนโลยีของไทย</td><td class="small muted">non-Thai silicon dependency</td></tr>
+          <tr><td><strong>PCB re-exports</strong></td><td class="small muted">"การย้ายฐานการผลิตจากจีนอย่างแท้จริง"</td><td class="small muted">ตัวอย่างเป้าหมาย circumvention</td></tr>
+          <tr><td><strong>โซลาร์ / polysilicon</strong></td><td class="small muted">ถูกตั้งชื่อในรายงาน USTR 2 มิ.ย. 2569</td><td class="small muted">foreign content 70–95%</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>ผู้แพ้ถาวร — มั่นใจสูงที่สุดในแผนที่ทั้งหมด <span class="tag">high confidence</span></h3>
+      <div class="callout bad">
+        <h3>ชิ้นส่วนรถยนต์สันดาป (Tier 2/3 — เครื่องยนต์/หม้อน้ำ/ไอเสีย)</h3>
+        <p>ผลิตลดลง 15%; 326,400 แรงงานเสี่ยง; EV <strong>ไม่สามารถใช้ชิ้นส่วนเดิม</strong>; <strong>Thai Summit กำลังปรับโครงสร้าง</strong> = เทมเพลตของสิ่งที่จะเกิดตามมา นี่คือการสูญเสียโครงสร้างที่ชัดเจนที่สุดในแผนที่ทั้งหมด — ผู้ผลิต piston/radiator/exhaust ไม่สามารถเปลี่ยนไปทำ battery management systems ได้</p>
+      </div>
+
+      <h3>ตัวแปรสำคัญ — สิ่งที่ตัดสิน A กับ B</h3>
+      <div class="callout accent">
+        <p><strong>การแปรรูปชิ้นส่วน EV Tier-1</strong> (battery pack, BMS, power electronics) — ถ้าบริษัทจดทะเบียนไทยเข้าสู่ระดับนี้จริง = หลุดกับดัก; ถ้าไม่ = ซ้ำรอยยุคญี่ปุ่น นี่คือสิ่งเดียวที่กำหนดว่าไทยจะเป็น Trajectory A หรือ B</p>
+      </div>
+    </section>
+
+    <!-- ============ 5 · Rent vs Tech ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>Rent vs Tech: ชั้นค่าใดชนะจริง</h2></div>
+      <hr class="div">
+      <p>การทดสอบกับข้อมูลจริงของตลาดไทยชี้ชัดว่า <strong>Rent layer ชนะขาดลอย</strong> และรูปแบบยุคญี่ปุ่นกำลังซ้ำรอย ไม่ใช่แตกต่าง</p>
+      <div class="band">
+        <div class="stat good-card">
+          <div class="v">21–61%</div><div class="k">อัตรากำไรชั้น rent</div>
+          <div class="d up">WHA, AMATA, ROJNA</div>
+        </div>
+        <div class="stat bad-card">
+          <div class="v">3–4%</div><div class="k">อัตรากำไรชั้น tech</div>
+          <div class="d down">AAPICO, SVI — ซ้ำยุคญี่ปุ่น</div>
+        </div>
+        <div class="stat warn">
+          <div class="v">~20%</div><div class="k">EV local content จริง</div>
+          <div class="d down">vs เกณฑ์ BOI 40%</div>
+        </div>
+      </div>
+
+      <h3>5.1 ชั้น Rent — ผู้รับประโยชน์ที่ข้อมูลยืนยัน</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>บริษัท</th><th class="num">FY2025 กำไรสุทธิ</th><th class="num">อัตรากำไร</th><th class="num">ROIC/ROA</th><th>สัญญาณจีน</th></tr></thead>
+        <tbody>
+          <tr><td><strong>WHA Corp + WHAUP</strong></td><td class="num">฿5.26B</td><td class="num">49–61% (land)</td><td class="num">~5.8% (ROIC)</td><td class="small muted">สร้าง WHA ESIE 5 (4,000 ไร่) เพื่อ "ผู้เช่าจีน EV/electronics/data center"; แผนลงทุน ฿119B</td></tr>
+          <tr><td><strong>Amata (AMATA)</strong></td><td class="num">฿3.15B</td><td class="num">21.7% (net)</td><td class="num">8.8% (ROA)</td><td class="small muted"><strong>โรงงานจีน 500+ แห่งที่ Rayong</strong>; ขายที่ดิน 350 ไร่ให้ผู้ผลิตยางรถจีน</td></tr>
+          <tr><td><strong>Rojana (ROJNA)</strong></td><td class="small muted">เติบโต</td><td class="small muted">—</td><td class="small muted">—</td><td class="small muted">ได้ประโยชน์จาก China+1 flow; สัดส่วนผู้เช่าจีนเพิ่มขึ้น</td></tr>
+          <tr><td><strong>KBank (KBL)</strong></td><td class="small muted">—</td><td class="small muted">—</td><td class="small muted">—</td><td class="small muted"><strong>แบงก์ของ FDI จีน</strong> (HQ เชินเจิ้น); เน้น Chinese enterprises going global</td></tr>
+          <tr><td><strong>WICE</strong></td><td class="num">฿3,496M (9M)</td><td class="small muted">—</td><td class="small muted">—</td><td class="small muted">cross-border revenue <strong>+18.2% Q1-25</strong> เชื่อมโยงกับ "China+1"</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted">ข้อมูลจีน+ฮ่องกง FDI เข้าไทย <strong>$922M ใน ม.ค.–ส.ค. 2568, เพิ่ม 125% ต่อปี</strong> — ปรากฏในสัญญาเช่าและการโอนที่ดินจริง ไม่ใช่แค่ประกาศ</p>
+
+      <h3>5.2 ชั้น Tech — ยังตื้นและ margin เหมือนยุคญี่ปุ่น</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>บริษัท</th><th>เรื่องราว</th><th class="num">กำไรสุทธิ</th><th>คำตัดสิน</th></tr></thead>
+        <tbody>
+          <tr><td><strong>AAPICO Hitech (AH)</strong></td><td class="small muted">JV กับ Changan ฿20B+ procurement</td><td class="num">~2.9%</td><td class="small muted"><strong>เทคโนโลยีถ่ายโอนจริง แต่ margin ยุคญี่ปุ่น</strong></td></tr>
+          <tr><td><strong>SVI</strong></td><td class="small muted">PCB JV กับ CCTC; ขยาย $23M</td><td class="num">~4.0%</td><td class="small muted">EMS structurally ~4–9% gross margin — contract manufacturing ไม่ใช่ ownership</td></tr>
+          <tr><td><strong>GUNKUL</strong></td><td class="small muted">Wind PPA 180MW; เป้าหมาย 2,000MW</td><td class="num">34.6% (gross)</td><td class="small muted"><strong>margin ดีที่สุดในชั้น tech</strong> — แต่เป็น utility-like (PPA 25 ปี) ไม่ใช่ ownership เทคโนโลยี</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>5.3 การทดสอบสำคัญ — ค่าในแต่ละรถ EV อยู่ที่ไหนจริง?</h3>
+      <div class="callout accent">
+        <p><strong>วันนี้ ในรถ EV ที่ประกอบในไทย สัดส่วนค่าที่ไทยจับได้ ≈ 20%</strong> กระจุกอยู่ในชิ้นส่วน low-value + แรงงานประกอบ battery cell (30–40% มูลค่ารถ) + power electronics + motor + software <strong>ยัง import หรือเป็นของจีน</strong></p>
+        <p>นี่คือ <strong>โครงสร้าง value-capture เดียวกับที่ keiretsu ยุคญี่ปุ่นกำหนด</strong> เมื่อ global auto-supplier EBIT ~4.7% และชิ้นส่วน high-value ยังอยู่ที่ญี่ปุ่น</p>
+      </div>
+
+      <h3>5.4 ผลกระทบต่อนักลงทุน — conditional</h3>
+      <div class="callout good">
+        <p><strong>สำหรับกรอบเวลา 1–3 ปี ชั้น Rent คือ thesis ที่ดีกว่า</strong> มันจับค่าได้ <em>วันนี้</em> ที่ margin สูง มีฐานความต้องการ 3 ขา (EV + electronics/China+1 + data centers) ที่กว้างกว่าและกระจายความเสี่ยงมากกว่ายุคญี่ปุ่น ชั้น Tech เป็น optionality 5–10 ปี ไม่ใช่เรื่องรายได้ 1–3 ปี — และ margin ที่พิมพ์วันนี้ (AAPICO ~3%, SVI ~4%) ดูเหมือนยุคญี่ปุ่นโครงสร้าง</p>
+      </div>
+      <p class="small muted"><strong>เงื่อนไขที่จะเปลี่ยนคำตัดสินไปสู่ชั้น Tech:</strong> (1) การผลิต battery cell ในประเทศขนาดใหญ่, (2) บริษัทไทยได้สัญญาออกแบบ Tier-1, (3) GERD/GDP สูงกว่า 1.5%, (4) บริษัท auto ไทยสูงกว่า 6–8% margin อย่างยั่งยืน, (5) บริษัทไทยได้คำสั่งซื้อจาก BYD/GWM โดยตรง</p>
+    </section>
+
+    <!-- ============ 6 · ไทย vs เวียดนาม ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>ไทย vs เวียดนาม: ใครได้ประโยชน์จริง</h2></div>
+      <hr class="div">
+      <p><strong>คำตัดสิน:</strong> ในการจับ FDI ดิบ เวียดนามชนะที่จำนวนโครงการ แต่ไทยชนะที่มูลค่าและที่ <strong>investable equity rents</strong> — และช่องว่างนี้ขยายใน 2568–2569 เพราะเวียดนามถูกล็อคในกรอบภาษีที่รุนแรงกว่า (20% + 40% circumvention) เทียบกับไทย (19%, ไม่มี circumvention levy โดยตรง)</p>
+
+      <h3>6.1 สกอร์การ์ด FDI (จีนเป็นแหล่ง)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ตัวชี้วัด</th><th>🇹🇭 ไทย</th><th>🇻🇳 เวียดนาม</th><th>เปรียบเทียบ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>มูลค่า FDI จีน 2568</strong></td><td class="num">จีน+ฮ่องกง ~$13.4B</td><td class="num">~$4.3B (registered, อันดับ 3)</td><td><span class="chip"><span class="dot good"></span>ไทยชัดเจน (~3x)</span></td></tr>
+          <tr><td><strong>BOI 2568 (ทุกแหล่ง)</strong></td><td class="num">฿1.88T (~$60B) applications</td><td class="num">$38.4B registered / $27.6B disbursed</td><td class="small muted">⚠️ ไทย = applications; เวียดนาม = registered+disbursed — metrics ต่างกัน</td></tr>
+          <tr><td><strong>EV</strong></td><td>BYD ($900M–1B), GWM, SAIC-MG, Changan, Chery, Neta</td><td><strong>ไม่มีโรงงานใหญ่</strong> (BYD ขายอย่างเดียว)</td><td><span class="chip"><span class="dot good"></span>ไทยชนะขาดลอย</span></td></tr>
+          <tr><td><strong>Electronics/semis</strong></td><td>PCB, auto-electronics</td><td>Amkor $1.6B (Bac Ninh), Intel, Chinese tier</td><td><span class="chip"><span class="dot bad"></span>เวียดนามชนะ</span></td></tr>
+          <tr><td><strong>ศูนย์ข้อมูล</strong></td><td>36–38 โครงการ >$23B</td><td>มีแต่น้อยกว่า</td><td><span class="chip"><span class="dot good"></span>ไทยชนะขาดลอย</span></td></tr>
+          <tr><td><strong>โซลาร์</strong></td><td>Trina ~1.3GW</td><td>Jinko <strong>ยกเลิก $1.5B</strong> (มี.ค. 2569 เพราะภาษีสหรัฐฯ)</td><td class="small muted">ทั้งคู่แพ้ภาษีสหรัฐฯ; เวียดนามเสียหายมากกว่า</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>6.2 ความสามารถในการเข้าถึงการลงทุน (investability) — ที่ตัดสิน</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>🇹🇭 ไทย (SET)</th><th>🇻🇳 เวียดนาม (HoSE/HNX)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>การเข้าถึงต่างชาติ</strong></td><td>เปิด; ถือหุ้นส่วนใหญ่ได้ที่ผลประโยชน์ทางเศรษฐกิจเต็ม</td><td><strong>จำกัด</strong> — FOL 14–16% ของ HoSE; หุ้นจำนวนมาก blocked</td></tr>
+          <tr><td><strong>สถานะตลาด</strong></td><td>Emerging market ที่จัดตั้ง</td><td><strong>ยังเป็น "frontier"</strong> — กำลังผลัก FTSE EM upgrade (มีผล 21 ก.ย. 2569)</td></tr>
+          <tr><td><strong>ผู้รับประโยชน์ที่ลงทุนได้</strong></td><td>นิคมอุตฯ, แบงก์, โลจิสติกส์, conglomerate — ครบ</td><td>FPT, VHM, HPG, KDC, Vinamilk — <strong>FOL จำกัด</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout good">
+        <p><strong>กรณีนี้ยังอยู่:</strong> เวียดนามจับโรงงาน แต่ไทยจับ <strong>rents ที่ลงทุนได้</strong> นักลงทุนตลาดไทยไม่สามารถซื้อผู้รับประโยชน์เวียดนามได้ง่ายเพราะ (1) FOL จำกัด, (2) ยังเป็น frontier, (3) ผู้ชนะใหญ่ของเวียดนาม (JV จีนเอง) ไม่ได้จดทะเบียน ในขณะที่ SET มีหุ้นนิคมอุตฯ/โลจิสติกส์ที่ liquid และเข้าถึงได้</p>
+      </div>
+      <p class="small muted"><strong>เสี่ยงที่ต้องติดตาม:</strong> FTSE EM upgrade เวียดนาม (มีผล 21 ก.ย. 2569, phase ถึง ก.ย. 2570) ~$5–6B ไหลเข้า → อาจเบี่ยงเบนจาก SET; และหากสหรัฐฯ ขยาย circumvention มาที่ไทย ช่องว่างนี้จะลดลง</p>
+    </section>
+
+    <!-- ============ 7 · กรอบภาษีระดับมืออาชีพ ============ -->
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>กรอบภาษีระดับมืออาชีพ</h2></div>
+      <hr class="div">
+      <p>"ความเสี่ยงภาษี" สำหรับการลงทุนในตลาดไทยไม่ใช่ความเสี่ยงเดียว แต่เป็น <strong>5 ความเสี่ยงย่อยกึ่งเอกราช</strong> การแยกส่วนช่วยให้ hedge ได้แม่นยำ ไม่ใช่ liquidate พอร์ตทั้งหมด</p>
+
+      <h3>7.1 การแยกส่วนความเสี่ยง (Risk decomposition)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ความเสี่ยงย่อย</th><th class="num">ความน่าจะเป็น (12–24 ด.)</th><th>ผลกระทบหลัก</th></tr></thead>
+        <tbody>
+          <tr><td><strong>A. อำนาจตามกฎหมาย</strong> (Section 301 / กฎหมายสภา)</td><td class="num">~75%</td><td class="small muted">Binary สำหรับ gross — ความแตกต่างระหว่าง "ไม่มี replacement" (บวก) กับ "Section 301 ลง" (ตามภาคส่วน)</td></tr>
+          <tr><td><strong>B. เกณฑ์เนื้อหา/กฎแหล่งกำเนิด</strong></td><td class="num">~40% กฎ %; ~60% ยังเป็นเชิงคุณภาพ</td><td class="small muted"><strong>ไวที่สุดสำหรับ Tier 2/3</strong> — กฎ foreign content 30% คงที่จะรุนแรงมาก</td></tr>
+          <tr><td><strong>C. ขอบเขตผลิตภัณฑ์</strong></td><td class="num">~90%</td><td class="small muted">ถ้า Section 301 ลง → กำหนดเป้า solar/semis/laptops/network/PCB</td></tr>
+          <tr><td><strong>D. การกำหนดเป้าประเทศ</strong></td><td class="num">ไทยถูกตั้งชื่อ &lt; เวียดนาม</td><td class="small muted">ไทยได้เปรียบเทียบเวียดนามเป็น relative positive</td></tr>
+          <tr><td><strong>E. ความเข้มงวดการบังคับใช้</strong> (CBP detentions)</td><td class="num">~60%</td><td class="small muted">ต่อเนื่องไม่ใช่ภาษี แต่รุนแรงเชิงปฏิบัติ — กระทบ Tier 3 โดยเฉพาะ</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>7.2 กรอบการจัดสรรตามสถานการณ์ (Positioning matrix)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Tier 1 (rent)</th><th>Tier 2 (situational)</th><th>Tier 3 (at-risk)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Base (50%)</strong></td><td><span class="chip"><span class="dot good"></span>OW — anchor long book</span></td><td><span class="chip"><span class="dot watch"></span>Neutral — hold core</span></td><td><span class="chip"><span class="dot bad"></span>UW / hedge</span></td></tr>
+          <tr><td><strong>Bull (25%)</strong></td><td><span class="chip"><span class="dot good"></span>OW — add on dips</span></td><td><span class="chip"><span class="dot good"></span>OW — localization rewarded</span></td><td><span class="chip"><span class="dot watch"></span>Neutral→OW</span></td></tr>
+          <tr><td><strong>Bear (25%)</strong></td><td><span class="chip"><span class="dot watch"></span>Neutral — best house bad neighborhood</span></td><td><span class="chip"><span class="dot bad"></span>UW — hedge</span></td><td><span class="chip"><span class="dot bad"></span>Exit / max UW</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>7.3 Playbook ตาม catalyst (ลงวันที่)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>วันที่</th><th>Catalyst</th><th>ผลลัพธ์ → การกระทำ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>24 ก.ค. 2569</strong><br><span class="small muted">(14 วัน)</span></td><td>Section 122 หมดอายุ</td><td class="small muted">(a) หมดโดยไม่มี replacement → <strong>add Tier 1 +5–10%</strong>; (b) Section 301 ลงพร้อม → ดำเนินการตาม Base matrix; (c) สภาขยาย → <strong>ลด gross 10–15%</strong>, เพิ่ม hedge</td></tr>
+          <tr><td><strong>21 ก.ย. 2569</strong></td><td>FTSE EM upgrade เวียดนาม</td><td class="small muted">~$5–6B ไหลเข้าเวียดนาม → <strong>อาจเบี่ยงเบนจาก SET</strong>; ลด index-beta; เลือกหุ้นแทน</td></tr>
+          <tr><td><strong>Q4 2569–Q1 2570</strong></td><td>Federal Circuit Section 122 ruling / SCOTUS V.O.S.</td><td class="small muted">ยืนยัน invalidity → <strong>add Tier 2</strong> (legal clarity); กลับ → <strong>เพิ่มอัตราส่วน hedge</strong></td></tr>
+          <tr><td><strong>~พ.ค. 2570</strong></td><td>Vietnam Section 301 IP determination</td><td class="small muted">รุนแรงกับเวียดนาม → <strong>ไทยได้ประโยชน์จาก diversion</strong> (add Tier 1/2)</td></tr>
+          <tr><td><strong>ปลาย 2569/2570</strong></td><td>USTR Section 301 excess-capacity (16 economies)</td><td class="small muted">กว้าง → <strong>ออกจาก Tier 3</strong>, เพิ่ม Tier 3 short เป็น hedge; ไทยยกเว้น → <strong>add Tier 2</strong></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>7.4 เครื่องมือ hedge — ชุดเครื่องมือบางเบา (ต้องยอมรับ)</h3>
+      <div class="callout accent">
+        <p><strong>มีจริงบน TFEX:</strong> SET50 Futures (S50) — liquid ที่สุด; <strong>Single Stock Futures (SSF)</strong> — <strong>เครื่องมือหลักสำหรับ hedge Tier 3 เฉพาะราย</strong>; USD/THB FX futures</p>
+        <p><strong>ไม่มี / ไม่เพียงพอ:</strong> ❌ ไม่มีเครื่องมือ hedge ภาคส่วนเฉพาะ; ❌ ออปชันหุ้นเดี่ยวสภาพคล่องต่ำ (ยกเว้น large-cap); ❌ ไม่มีออปชัน SET50 ระยะยาว (1–3 ปี) ที่ liquid</p>
+        <p><strong>การสร้าง hedge แนะนำ:</strong> ใช้ <strong>SSF shorts บน Tier 3 เฉพาะราย</strong> เป็นขา hedge หลัก (ดีกว่า short index เพราะ Tier 3 น้ำหนัก index น้อย); ต้นทุนออปชัน ~1.5–3%/ปี แพง → ใช้ <strong>gross management เป็น risk control หลัก</strong>, ออปชันเป็นรอง</p>
+      </div>
+
+      <h3>7.5 การปรับขนาดตำแหน่งภายใต้ความไม่แน่นอน (ตัวอย่างการคำนวณ)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>ตำแหน่ง</th><th class="num">Scenario-adj. return</th><th>การกระทำ</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Tier 1 นิคมอุตฯ</strong></td><td class="num good">+8.25% (บวกทุกสถานการณ์)</td><td><span class="chip"><span class="dot good"></span>Core long, full weight</span></td></tr>
+          <tr><td><strong>Tier 2 อิเล็กทรอนิกส์ local content</strong></td><td class="num bad">−0.75% (ลบที่ความน่าจะเป็นปัจจุบัน)</td><td><span class="chip"><span class="dot watch"></span>ไม่เพิ่ม; ถือเฉพาะที่มั่นใจ local content สูง; ลดขนาดครึ่ง</span></td></tr>
+          <tr><td><strong>Tier 3 laptop/network</strong></td><td class="num bad">−21.25% (ลบอย่างมาก)</td><td><span class="chip"><span class="dot bad"></span>ไม่ถือ long; ใช้เป็น short leg ของ pair</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============ 8 · 7 เงื่อนไขหลุด assembly trap ============ -->
+    <section id="s8">
+      <div class="sec-h"><span class="sec-no">8</span><h2>7 เงื่อนไขหลุด assembly trap</h2></div>
+      <hr class="div">
+      <p>นี่คือ <strong>ตัวกรองเฝ้าระวัง 24 เดือน</strong> — ไทยปัจจุบัน <strong>ไม่ผ่านเงื่อนไขข้อใดเด็ดขาด</strong></p>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>เหตุการณ์สำคัญ</th><th>สถานะ (ก.ค. 2569)</th><th>ระยะห่าง</th><th>ตัดสิน</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><strong>ผลิต battery cell ในประเทศขนาดใหญ่</strong> (ไม่ใช่แค่ pack)</td><td class="small muted">เซลล์ยัง import จากจีน 91%; กำหนดเลื่อน 2 ครั้ง</td><td>ใหญ่</td><td><span class="chip"><span class="dot bad"></span>ไกล</span></td></tr>
+          <tr><td class="num">2</td><td><strong>บริษัทไทยได้สัญญาออกแบบ EV Tier-1</strong></td><td class="small muted">ไม่มีหลักฐาน</td><td>ใหญ่มาก</td><td><span class="chip"><span class="dot bad"></span>ไกลมาก</span></td></tr>
+          <tr><td class="num">3</td><td><strong>R&amp;D/GDP สูงกว่า 1.5% อย่างยั่งยืน</strong></td><td class="small muted">0.94% (2566) จาก 1.16%</td><td>ใหญ่และกว้างขึ้น</td><td><span class="chip"><span class="dot bad"></span>ถดถอย</span></td></tr>
+          <tr><td class="num">4</td><td><strong>เซมิคอนดักเตอร์: ส่งมอบ packaging/substrate ภายใน 2571</strong></td><td class="small muted">แผน 2572, เป้าหมายปี 2573</td><td>ใหญ่</td><td><span class="chip"><span class="dot watch"></span>ใฝ่ฝัน</span></td></tr>
+          <tr><td class="num">5</td><td><strong>PCB พัฒนาสู่ HDI/substrate</strong></td><td class="small muted">180+ โครงการแต่ส่วนใหญ่เป็นแผงพื้นฐาน</td><td>ปานกลาง-ใหญ่</td><td><span class="chip"><span class="dot watch"></span>เริ่มต้น</span></td></tr>
+          <tr><td class="num">6</td><td><strong>ผลิตภาพโตสูงกว่า 3%/ปี</strong></td><td class="small muted">2.1% ไม่มีสัญญาณ inflection</td><td>ใหญ่</td><td><span class="chip"><span class="dot bad"></span>ไม่มีสัญญาณ</span></td></tr>
+          <tr><td class="num">7</td><td><strong>ความต่อเนื่องนโยบายข้ามวงจรเลือกตั้ง</strong></td><td class="small muted">กลไก BOI/EEC ทน แต่ความทะเยอทะยาน (R&amp;D, เซมิ) ขึ้นกับรัฐบาล</td><td>ปานกลาง</td><td><span class="chip"><span class="dot watch"></span>เปราะบาง</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout accent">
+        <p><strong>เกณฑ์ปรับเปลี่ยนมุมมอง:</strong> หากเหตุการณ์เหล่านี้เกิด ≥3 ภายในปี 2570 → เลื่อนความน่าจะเป็นไป Trajectory A; หากเกิด 0–1 → Trajectory B แข็งแกร่งขึ้น + ความเสี่ยง Trajectory C เพิ่มขึ้น</p>
+      </div>
+    </section>
+
+    <!-- ============ 9 · Pre-mortem & catalyst watchlist ============ -->
+    <section id="s9">
+      <div class="sec-h"><span class="sec-no">9</span><h2>Pre-mortem &amp; catalyst watchlist</h2></div>
+      <hr class="div">
+
+      <h3>9.1 Pre-mortem — สิ่งที่ฆ่า thesis นี้ (1–3 ปี)</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>ตัวเร่งการล้มเหลว</th><th class="num">ความน่าจะเป็น</th><th>ตัวบ่งชี้เตือนล่วงหน้า</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><strong>กฎ local content % + Section 301 กว้าง + สภาอนุมัติ</strong></td><td class="num"><span class="chip"><span class="dot bad"></span>under-priced</span></td><td class="small muted">SCOTUS V.O.S. cert; ร่างกฎหมายสภา; ประกาศ USTR กฎเนื้อหา %</td></tr>
+          <tr><td class="num">2</td><td><strong>เขย่าตัว EV/battery ในจีน = ทิ้งกำลังผลิตในไทย</strong></td><td class="num">20–25%</td><td class="small muted">บริษัทแม่จีนล้มละลาย; อัตราใช้กำลังผลิตโรงงานไทยลด</td></tr>
+          <tr><td class="num">3</td><td><strong>ความวุ่นวายการเมืองไทยรบกวน BOI</strong></td><td class="num">15–20%</td><td class="small muted">เปลี่ยนรัฐบาล; สภา BOI เปลี่ยน; ย้อนสิทธิประโยชน์ย้อนหลัง</td></tr>
+          <tr><td class="num">4</td><td><strong>FTSE EM upgrade เวียดนามเบี่ยงเบนเงินไหล</strong> (ยืนยันแล้ว 21 ก.ย. 2569)</td><td class="num">~70% วัสดุ</td><td class="small muted">การวัดการไหลเข้าแบบ passive; ข้อมูลการไหลของกองทุนอาเซียน</td></tr>
+          <tr><td class="num">5</td><td><strong>บาทแข็งค่าทำลายความสามารถแข่งขัน</strong></td><td class="num">~15%</td><td class="small muted">ดัชนีค่าเงินบาทเทียบคู่ค้า; การแทรกแซง BOT</td></tr>
+          <tr><td class="num">6</td><td><strong>จีน-สหรัฐฯ ขัดแย้งรุนแรง = ตัดสายสัมพันธ์บริษัทแม่-ลูก</strong></td><td class="num">~10% (รุนแรงมากถ้าเกิด)</td><td class="small muted">การขยาย Entity List; มาตรการส่งออก</td></tr>
+          <tr><td class="num">7</td><td><strong>การกัดกร่อนประชากร/ค่าแรงไทย</strong> (ช้าแต่ต่อเนื่อง)</td><td class="num">~25% วัสดุใน 3 ปี</td><td class="small muted">การเติบโตค่าจ้าง vs ผลิตภาพ</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <h3>9.2 Scenarios — expected value</h3>
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>Levers</th><th class="num">Return (Tier 1)</th><th class="num">Return (Tier 3)</th><th class="num">Prob.</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot good"></span>Bull</span></td><td class="small muted">Tariff ไม่รุนแรง; cell ผลิตในไทย; local content สูงขึ้น</td><td class="num">+25%</td><td class="num">+15%</td><td class="num">25%</td></tr>
+          <tr><td>Base</td><td class="small muted">Section 301 ตามภาคส่วน; ไทยดีกว่าเวียดนาม; local content ตื้น</td><td class="num">+12%</td><td class="num">−20%</td><td class="num">50%</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span>Bear</span></td><td class="small muted">Section 301 กว้าง + กฎ % + สภาอนุมัติ; ไทย = จีน-backdoor</td><td class="num">−5%</td><td class="num">−50%</td><td class="num">25%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Probability-weighted expected return</td><td class="num">+8.25%</td><td class="num">−21.25%</td><td class="num">100%</td></tr></tfoot>
+      </table>
+      </div>
+
+      <h3>9.3 บรรทัดสุดท้าย — ท่าทีที่จัดการความเสี่ยงแล้ว</h3>
+      <div class="callout accent">
+        <p><strong>สัดส่วน 70/20/10:</strong> Tier 1 long / Tier 2 hold conditional / Tier 3 short หรือ zero</p>
+        <p><strong>ลด gross 10–15%</strong> ถ้า Bear probability ข้าม 35%</p>
+        <p><strong>Hedge หลัก = gross management + SSF shorts Tier 3</strong> (ไม่ใช่ index puts — แพงและบาง)</p>
+        <p><strong>ความเสี่ยงที่ under-priced ที่สุด:</strong> กฎ local content % แบบรูปธรรม + การมอบอำนาจภาษีถาวรของสภา — ตลาดโฟกัสที่หน้าผา 24 ก.ค. แต่กำลังดราฟต์กฎนี้อยู่เบื้องหลัง</p>
+      </div>
+    </section>
+
+    <!-- ============ APPENDIX ============ -->
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+
+      <h3>แหล่งข้อมูลหลัก (Primary sources)</h3>
+      <h4>รัฐบาลสหรัฐฯ — กฎหมาย &amp; กฎระเบียบ</h4>
+      <ul class="small" style="margin:6px 0 14px 20px;">
+        <li>SCOTUS, <em>Learning Resources, Inc. v. Trump</em>, No. 24-1287 (20 ก.พ. 2569) — ยกเลิก IEEPA tariffs</li>
+        <li>CIT, Slip Op. 26-47 (7 พ.ค. 2569) — Section 122 ไม่ชอบด้วยกฎหมาย</li>
+        <li>White House Proclamation — Section 122 import surcharge (ก.พ. 2569)</li>
+        <li>USTR Section 301 investigation — Vietnam IP (29 พ.ค. 2569); 16-economy excess capacity (11 มี.ค. 2569)</li>
+        <li>USTR forced-labor report (2 มิ.ย. 2569) — เสนอ 12.5% สำหรับไทย; ตั้งชื่อ polysilicon TH/VN</li>
+      </ul>
+
+      <h4>สถาบันนานาชาติ &amp; think tanks</h4>
+      <ul class="small" style="margin:6px 0 14px 20px;">
+        <li>Bloomberg Economics — US-China tech containment tracker (5/13 leadership)</li>
+        <li>Lowy Institute — "Navigating the Storm" (90% inputs / 7% consumer split)</li>
+        <li>ChinaFile/Asia Society Policy Institute — "ASEAN's US-China Balancing Act" (มิ.ย. 2569)</li>
+        <li>Global Trade Alert (Evenett) — "Head-to-Head with China" (export overlap)</li>
+        <li>TDRI — "Surviving Trade War 2.0" (ม.ค. 2569); laptop +14x, network +2x</li>
+        <li>ISEAS Perspective 2025/41 (Kohpaiboon) — Thai auto in troubled transition; LCR confidentiality</li>
+        <li>IEA Global EV Outlook 2026 — actual ~20% local content estimate</li>
+        <li>OECD Economic Survey Thailand 2025; OECD TiVA Thailand profile; OECD STIP (R&amp;D data)</li>
+        <li>World Bank — Aging and the Labor Market in Thailand</li>
+        <li>AMRO — Thailand Automotive Sector at a Crossroads (ธ.ค. 2568)</li>
+        <li>Rhodium/MERICS COFDI Update 2025</li>
+      </ul>
+
+      <h4>แหล่งข้อมูลไทย</h4>
+      <ul class="small" style="margin:6px 0 14px 20px;">
+        <li>BOI Thailand — press releases (EV, PCB, semiconductor, 2568 full-year results)</li>
+        <li>NESDC — Q4/2565 press release</li>
+        <li>BOT — Financial Stability Review 2025; Monetary Policy Report Q2 2568 (Tourism Box)</li>
+        <li>Krungsri Research — Trade War 2.0; Automobile Outlook; Industrial Estate Outlook</li>
+        <li>SCB EIC — Household Debt analysis</li>
+      </ul>
+
+      <h4>บริษัท &amp; ตลาด</h4>
+      <ul class="small" style="margin:6px 0 14px 20px;">
+        <li>WHA Group FY2025 results &amp; 1Q25 Opportunity Day</li>
+        <li>Amata One Report 2025; record FY2025 net profit ฿3.15B</li>
+        <li>AAPICO Hitech IR; Changan JV</li>
+        <li>SVI FY2025 presentation</li>
+        <li>GUNKUL FY2025; wind PPAs</li>
+        <li>WICE 3Q25 opportunity day (cross-border +18.2%)</li>
+        <li>China Global South — China/HK investment in Thailand 2568 (+125% YoY)</li>
+        <li>FTSE Russell — Vietnam reclassification FAQ</li>
+      </ul>
+
+      <h3>การเปิดเผยช่องว่างของข้อมูล (อย่างตรงไปตรงมา)</h3>
+      <ul class="small muted" style="margin:6px 0 14px 20px;">
+        <li><strong>Realized vs pledged FDI:</strong> ตัวเลข BOI = applications/approvals; อัตราการเกิดจริง 60–80% ใน 3–5 ปี และต่ำกว่าสำหรับศูนย์ข้อมูล ตัวเลข $60B ใน 2568 เกินจริงในระยะใกล้</li>
+        <li><strong>Local content actuals:</strong> EV3.5 local content ได้รับการรับรองแต่ความลึก (pack vs cell vs component) ไม่โปร่งใส</li>
+        <li><strong>GVC position stale:</strong> OECD TiVA baseline คือ 2563; คลื่น FDI หลัง 2566 ยังไม่ปรากฏในดัชนี</li>
+        <li><strong>Section 301 outcome binary และไม่ทราบ</strong> — การตัดสินใจนโยบายเดียวนี้สวิงความน่าจะเป็น A/B/C อย่างมาก</li>
+        <li><strong>~20% EV local content เป็น IEA estimate</strong>, ไม่ใช่ตัวเลขทางการของไทน — ทิศทางน่าเชื่อถือ (สอดคล้องกับการขยายเวลา cell-import waiver) แต่ ±5pp</li>
+        <li><strong>ROIC ของชื่อที่จดทะเบียนไทย</strong> ไม่ได้เปิดเผยอย่างชัดเจนในวัสดุ IR ส่วนใหญ่ — ใช้ Finbox สำหรับ WHA และอนุมานจาก ROA/ROE ในที่อื่น</li>
+      </ul>
+
+      <h3>หมายเหตุเกี่ยวกับการแก้ไข</h3>
+      <p class="small">สามข้อเท็จจริง "ที่ได้รับการยืนยัน" จากบทความเดิมไม่ถูกต้องและได้รับการแก้ไขในรายงานนี้: (1) Section 301 probe ไทยที่รวมอยู่ในเดือนมีนาคม 2569 มุ่งเป้าไปที่การผลิตที่เกินความต้องการทางอุตสาหกรรม (industrial excess capacity) ไม่ใช่ภาษีบริการดิจิทัล (digital services taxes); (2) เกณฑ์เนื้อหา (content threshold) 70/30 เป็นข้อเสนอที่อยู่ระหว่างการพิจารณา ไม่ใช่กฎของ CBP ที่ใช้บังคับ; (3) การอัปเกรดของเวียดนามคือ FTSE Russell ไม่ใช่ MSCI กรอบการวิเคราะห์ข้างต้นสร้างบนพื้นฐานที่ได้รับการแก้ไขแล้ว หากข้อแก้ไขเหล่านี้เป็นที่โต้แย้ง ให้ใช้ลิงก์แหล่งข้อมูลหลักที่เกี่ยวข้องเป็นผู้ตัดสินข้อเท็จจริง</p>
+
+      <h3>Disclaimer</h3>
+      <div class="callout">
+        <p class="small"><strong>ข้อจำกัดความรับผิดชอบ.</strong> เอกสารนี้เป็นผลลัพธ์การวิจัยและการศึกษาเท่านั้น ไม่ใช่คำแนะนำทางการเงิน (not financial advice) ไม่ใช่คำแนะนำให้ซื้อหรือขายหลักทรัพย์ และไม่ได้ปรับให้เหมาะกับสถานการณ์ของบุคคลใด ความน่าจะเป็นทั้งหมดเป็นการประเมินโดยผู้วิเคราะห์ ไม่ใช่ข้อเท็จจริง ข้อมูลจาก yfinance, Yahoo Finance, TradingView, Reddit, RSS feeds และตัวคัดกรองเป็นข้อมูลไม่เป็นทางการและอาจล่าช้า ไม่สมบูรณ์ หรือถูกแก้ไข ควรตรวจสอบตัวเลขที่สำคัญกับเอกสารที่ยื่นต่อหน่วยงานหลัก (เช่น แบบ 56-1 One Report, SET filings, 10-K/10-Q, BOI releases) ก่อนใช้ตัดสินใจ</p>
+      </div>
+    </section>
+
+    <footer>
+      ไทยในกระแสจีน→ไทย (2569–2572) · Thematic Research Book · สร้างเมื่อ 10 ก.ค. 2569 · Not financial advice
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Run on DOMContentLoaded so we are safe even if the script is parsed before
+  // the rest of the body is ready. Each block is wrapped in its own try/catch
+  // so an error in one cannot silently disable the other (this was a real bug:
+  // a throw in the scrollspy block could prevent the TOC toggle handlers from
+  // ever binding, leaving the mobile TOC permanently open / un-closable).
+  function initReportInteractivity() {
+    try {
+      // Scrollspy: highlight the TOC link for the section in view.
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              links.forEach(function(a){a.classList.remove('active');});
+              var a = map[e.target.id]; if(a) a.classList.add('active');
+            }
+          });
+        }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+        document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+      }
+    } catch(err) { /* scrollspy is non-critical; never let it block the toggle */ }
+
+    try {
+      // Collapsible TOC (mobile only, <=900px). On desktop the toggle is hidden
+      // and the TOC stays the always-open sticky rail.
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if(!toc || !btn) return;
+      function isMobile(){ return window.matchMedia('(max-width:900px)').matches; }
+      // Start collapsed on mobile so the first viewport stays clean.
+      if(isMobile()) toc.classList.add('collapsed');
+
+      // Toggle on hamburger click. preventDefault + stopPropagation keeps the
+      // toggle reliable even if other handlers or inner spans are the click target.
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var collapsed = toc.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+
+      // Auto-collapse after the user follows a TOC link on mobile.
+      // Event delegation (one listener on the <nav>) is more robust than binding
+      // per-link handlers — it survives any DOM changes and never silently no-ops.
+      toc.addEventListener('click', function(e){
+        if(e.target.tagName === 'A' && isMobile()) toc.classList.add('collapsed');
+      });
+
+      // If resizing across the mobile/desktop breakpoint, reset to the open rail.
+      window.addEventListener('resize', function(){
+        if(!isMobile()){ toc.classList.remove('collapsed'); btn.setAttribute('aria-expanded','true'); }
+      });
+    } catch(err) { console.error('BF-Report TOC init failed:', err); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReportInteractivity);
+  } else {
+    // DOM already parsed (script at end of body) — run now.
+    initReportInteractivity();
+  }
+</script>
+</body>
+</html>
