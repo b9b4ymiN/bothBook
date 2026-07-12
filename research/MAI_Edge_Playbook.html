@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAI Edge Playbook v5 — กลยุทธ์ + Backtest + หุ้นที่ผ่าน ณ ก.ค. 2026</title>
+<style>
+:root{
+  --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+  --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+  --oat:#E3DACC;
+  --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+  --a:#5B7CA8; --b:#8A6BA0; --c:#C49A3F; --d:#4A8A7A;
+  --serif:ui-serif,Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --radius-panel:12px; --radius-row:8px;
+  --border:1.5px solid var(--gray-300);
+  --rule:1px solid var(--gray-300);
+}
+*{box-sizing:border-box;}
+body{font-family:var(--sans);font-size:15px;line-height:1.68;color:var(--slate);
+     background:var(--ivory);-webkit-font-smoothing:antialiased;margin:0;}
+h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;line-height:1.15;}
+h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0 0 6px;}
+h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 8px;}
+h4{font-family:var(--sans);font-weight:600;font-size:15px;margin:20px 0 6px;}
+p{margin:0 0 14px;}
+.eyebrow,.label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;
+     letter-spacing:.06em;color:var(--gray-500);}
+.num{font-family:var(--serif);font-weight:500;}
+code,.mono{font-family:var(--mono);font-size:13px;}
+.small{font-size:13px;} .muted{color:var(--gray-500);}
+strong{font-weight:600;}
+a{color:var(--watch);text-decoration:none;} a:hover{text-decoration:underline;}
+
+.shell{max-width:1180px;margin:0 auto;padding:48px 24px 120px;
+       display:grid;grid-template-columns:248px 1fr;gap:56px;}
+.toc{position:sticky;top:32px;align-self:start;font-size:13.5px;max-height:calc(100vh - 64px);overflow-y:auto;}
+.toc .eyebrow{margin-bottom:12px;}
+.toc summary{display:none;}
+.toc ol{list-style:none;margin:0;padding:0;}
+.toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;
+       border-left:2px solid transparent;line-height:1.4;}
+.toc a:hover{color:var(--slate);}
+.toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+.toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+.doc{max-width:880px;min-width:0;}
+
+.rep-head{margin-bottom:40px;}
+.head-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+      color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;
+      padding:5px 11px;white-space:nowrap;}
+.meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+.subtitle{font-family:var(--serif);font-size:19px;color:var(--gray-700);margin:14px 0 0;line-height:1.4;font-style:italic;}
+
+.band{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0;}
+.stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+.stat.warn{border-left:4px solid var(--watch);}
+.stat.bad{border-left:4px solid var(--bad);}
+.stat.good{border-left:4px solid var(--good);}
+.stat .v{font-family:var(--serif);font-size:32px;font-weight:500;line-height:1;margin-bottom:8px;}
+.stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+.stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+.stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+
+section{margin-bottom:56px;scroll-margin-top:24px;}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:4px;}
+.sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+      border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+         color:var(--gray-500);background:var(--gray-100);padding:12px 14px;border-bottom:var(--rule);}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--ivory);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+tfoot td{padding:12px 14px;background:var(--gray-100);font-weight:600;border-top:var(--rule);}
+tr.hl td{background:color-mix(in srgb, var(--watch) 10%, var(--white));}
+tr.win td{background:color-mix(in srgb, var(--good) 8%, var(--white));}
+tr.lose td{background:color-mix(in srgb, var(--bad) 8%, var(--white));}
+
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;display:inline-block;}
+.dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+.tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+     padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);white-space:nowrap;}
+.tag.good{background:color-mix(in srgb,var(--good) 20%,var(--white));color:#3e4a30;}
+.tag.watch{background:color-mix(in srgb,var(--watch) 20%,var(--white));color:#8a3f28;}
+.tag.bad{background:color-mix(in srgb,var(--bad) 18%,var(--white));color:#7a2820;}
+.tag.live{background:color-mix(in srgb,var(--good) 24%,var(--white));color:#3e4a30;}
+.tag.standby{background:color-mix(in srgb,var(--gray-500) 22%,var(--white));color:var(--gray-700);}
+.tag.monitor{background:color-mix(in srgb,var(--watch) 18%,var(--white));color:#8a3f28;}
+
+.callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;margin:18px 0;}
+.callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+.callout.good{background:var(--white);border-left:4px solid var(--good);}
+.callout.bad{background:var(--white);border-left:4px solid var(--bad);}
+.callout h4{margin-top:0;}
+.callout p:last-child{margin-bottom:0;}
+
+.insight{background:var(--white);border:var(--border);border-left:5px solid var(--watch);
+         border-radius:var(--radius-panel);padding:22px 24px;margin-bottom:18px;}
+.insight-lead{font-family:var(--serif);font-size:22px;line-height:1.38;margin:8px 0 12px;color:var(--slate);}
+
+.factbox{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 2px;}
+.epi{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+     padding:2px 7px;border-radius:4px;}
+.epi.fact{background:color-mix(in srgb,var(--good) 16%,var(--white));color:#3e4a30;}
+.epi.anly{background:color-mix(in srgb,var(--watch) 16%,var(--white));color:#8a3f28;}
+.epi.assm{background:color-mix(in srgb,var(--gray-500) 22%,var(--white));color:var(--gray-700);}
+.epi.warn{background:color-mix(in srgb,var(--bad) 18%,var(--white));color:#7a2820;}
+
+ul.clean{margin:10px 0;padding-left:22px;} ul.clean li{margin-bottom:9px;}
+ol.clean{margin:10px 0;padding-left:22px;} ol.clean li{margin-bottom:9px;}
+.lead-in{font-weight:600;color:var(--slate);}
+
+/* ===== PLAY CARD ===== */
+.play-grid{display:grid;grid-template-columns:1fr;gap:18px;margin:18px 0;}
+.play{background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;}
+.play-head{display:flex;align-items:flex-start;gap:14px;padding:18px 22px;border-bottom:var(--rule);position:relative;}
+.play-head::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;}
+.play.a .play-head::before{background:var(--a);}
+.play.b .play-head::before{background:var(--b);}
+.play.c .play-head::before{background:var(--c);}
+.play.d .play-head::before{background:var(--d);}
+.play.carry .play-head::before{background:var(--good);}
+.play-badge{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.05em;
+            color:var(--white);padding:5px 9px;border-radius:5px;flex-shrink:0;line-height:1;align-self:flex-start;margin-top:2px;}
+.play.a .play-badge{background:var(--a);}
+.play.b .play-badge{background:var(--b);}
+.play.c .play-badge{background:var(--c);}
+.play.d .play-badge{background:var(--d);}
+.play.carry .play-badge{background:var(--good);}
+.play-title{flex:1;min-width:0;}
+.play-title h4{margin:0 0 4px;font-family:var(--serif);font-size:18px;font-weight:500;}
+.play-title .loser{font-size:13px;color:var(--gray-700);}
+.play-title .loser b{color:var(--watch);}
+.play-status{font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+             padding:4px 9px;border-radius:4px;flex-shrink:0;white-space:nowrap;}
+.play-status.live{background:color-mix(in srgb,var(--good) 24%,var(--white));color:#3e4a30;}
+.play-status.standby{background:color-mix(in srgb,var(--gray-500) 22%,var(--white));color:var(--gray-700);}
+.play-status.monitor{background:color-mix(in srgb,var(--watch) 18%,var(--white));color:#8a3f28;}
+.play-score{font-family:var(--mono);font-size:11px;color:var(--gray-500);white-space:nowrap;margin-top:4px;}
+
+.play-body{padding:16px 22px 20px;}
+.play-body h5{font-family:var(--sans);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+              color:var(--gray-500);margin:14px 0 6px;}
+.play-body h5:first-child{margin-top:0;}
+.play-body ul{margin:6px 0;padding-left:20px;}
+.play-body ul li{margin-bottom:6px;font-size:14px;}
+
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:10px 0;}
+.kv .item{background:var(--gray-100);border-radius:8px;padding:10px 12px;}
+.kv .item .k{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);margin-bottom:3px;}
+.kv .item .v{font-family:var(--mono);font-size:12px;line-height:1.45;}
+
+.maprow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.smap{font-family:var(--mono);font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;
+      background:var(--gray-100);color:var(--gray-700);}
+.smap.pass{background:color-mix(in srgb,var(--good) 22%,var(--white));color:#3e4a30;}
+.smap.na{background:color-mix(in srgb,var(--gray-500) 16%,var(--white));color:var(--gray-500);text-decoration:line-through;}
+
+/* candidate stock table inside play */
+.cand{margin:12px 0;border:1.5px solid var(--gray-300);border-radius:8px;overflow:hidden;}
+.cand .ch{background:var(--gray-100);padding:8px 12px;font-family:var(--sans);font-size:11px;font-weight:700;
+          text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);
+          display:flex;justify-content:space-between;align-items:center;}
+.cand .ch .ct{font-family:var(--mono);font-size:10px;color:var(--watch);}
+.cand table{border:none;border-radius:0;font-size:13px;margin:0;}
+.cand thead th{background:var(--ivory);padding:8px 10px;font-size:10px;}
+.cand tbody td{padding:8px 10px;}
+.cand tbody tr:hover{background:var(--gray-100);}
+
+/* bags */
+.bags{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0;}
+.bag{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+.bag.base{border-top:4px solid var(--good);}
+.bag.core{border-top:4px solid var(--a);}
+.bag.event{border-top:4px solid var(--c);}
+.bag .bh{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+.bag .bp{font-family:var(--serif);font-size:15px;color:var(--gray-700);margin:0 0 10px;}
+.bag .w{font-family:var(--serif);font-size:28px;font-weight:500;margin-bottom:8px;}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:32px 18px 90px;}
+  .toc{position:static;border:var(--border);border-radius:var(--radius-panel);padding:12px 14px;margin-bottom:28px;max-height:none;}
+  .toc summary{display:block;cursor:pointer;font:600 12px/1 var(--sans);text-transform:uppercase;letter-spacing:.06em;color:var(--gray-700);list-style:none;}
+  .toc summary::-webkit-details-marker{display:none;}
+  .toc summary::after{content:" ▾";color:var(--watch);}
+  details.toc:not([open]) summary::after{content:" ▸";}
+  .toc > .eyebrow{display:none;}
+  details.toc:not([open]) ol{display:none;}
+  .bags{grid-template-columns:1fr;}
+  .band{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:720px){
+  h1{font-size:29px;} h2{font-size:21px;} h3{font-size:16px;}
+  .insight-lead{font-size:19px;}
+  .stat .v{font-size:26px;}
+  table{font-size:12px;} thead th,tbody td{padding:8px 10px;}
+  .play-head{flex-direction:column;gap:8px;}
+}
+@media print{
+  body{background:#fff;}
+  .shell{display:block;max-width:none;padding:0;}
+  .toc{display:none;}
+  section{break-inside:avoid;}
+  .play{break-inside:avoid;}
+  h2{break-after:avoid;}
+}
+footer{margin-top:64px;padding-top:20px;border-top:var(--rule);
+       font-family:var(--mono);font-size:12px;color:var(--gray-500);line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<details class="toc" open>
+<summary>สารบัญ · Contents</summary>
+<div class="eyebrow">สารบัญ</div>
+<ol>
+<li><a href="#exec">บทสรุปผู้บริหาร</a></li>
+<li><a href="#s1">1 · หลักคิด edge + แผนที่ 11 กลยุทธ์</a></li>
+<li><a href="#s2">2 · Backtest — verify ผลจริง + จัดอันดับ</a></li>
+<li><a href="#s3">3 · Play cards + หุ้น candidate ณ ก.ค. 2026</a>
+  <ol>
+  <li class="sub"><a href="#pa1">A1 · Earnings inflection</a></li>
+  <li class="sub"><a href="#pa2">A2 · Broken IPO</a></li>
+  <li class="sub"><a href="#pa3">A3 · Supply chain tier 2</a></li>
+  <li class="sub"><a href="#pcarry">Carry · Deep value yield</a></li>
+  <li class="sub"><a href="#pb1">B1 · Champion + driver</a></li>
+  <li class="sub"><a href="#pb2">B2 · Contagion</a></li>
+  <li class="sub"><a href="#pb3">B3 · Q4 seasonality</a></li>
+  <li class="sub"><a href="#pc1">C1 · Board transfer</a></li>
+  <li class="sub"><a href="#pc2">C2 · Insider/buyback</a></li>
+  <li class="sub"><a href="#pd1">D1 · Transformation</a></li>
+  <li class="sub"><a href="#pd2">D2 · Distress resolution</a></li>
+  </ol>
+</li>
+<li><a href="#s4">4 · การประกอบพอร์ต 3 ถุง</a></li>
+<li><a href="#s5">5 · แผนปฏิบัติ 7 วัน</a></li>
+<li><a href="#s6">6 · Evidence ledger + thesis breakers</a></li>
+<li><a href="#appendix">ภาคผนวก</a></li>
+</ol>
+</details>
+
+<main class="doc">
+
+<header class="rep-head">
+<div class="head-top">
+<h1>MAI Edge Playbook v5</h1>
+<span class="pill">Playbook + Backtest + Stocks · Not financial advice</span>
+</div>
+<p class="subtitle">รวม v3 (กลยุทธ์ 11 edge) + v4 (backtest จัดอันดับ) + ลิสต์หุ้น MAI ที่ผ่านเกณฑ์แต่ละ edge ณ ก.ค. 2026 — ข้อมูลจาก SET API โดยตรง (229 หุ้นเต็มกระดาน)</p>
+<div class="meta mono">SET API · 229 หุ้น MAI · ข้อมูล ณ ปิด 10 ก.ค. 2569 · 12 ก.ค. 2569 (2026)</div>
+</header>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section id="exec">
+<div class="insight">
+<div class="eyebrow">Key Investment Insight</div>
+<p class="insight-lead">เอกสารเล่มนี้รวม 3 ชั้น: <strong>(1) กลยุทธ์ 11 edge</strong> จาก v3 · <strong>(2) backtest verify จริง</strong> จาก v4 (A1 ชนะ score 7.3/10) · <strong>(3) ลิสต์หุ้น candidate ณ ก.ค. 2026</strong> ที่ผ่านเกณฑ์แต่ละ edge — ดึงจาก SET API โดยตรง (229 หุ้นเต็มกระดาน) ไม่ใช่ yfinance</p>
+<p class="small muted">หุ้น candidate มาจาก SET API: earnings growth Q1/2026 · IPO 57 ราย + lockup status · yield/PE 67+45 ตัว · corporate actions (buyback/tender/M&A/ย้ายกระดาน) · <strong>ทุกตัวที่อยู่ในลิสต์ต้อง verify กับ 56-1 ก่อนใช้เงินจริง</strong> — เอกสารนี้เป็นจุดเริ่มสำหรับคุณไปทำรายตัวต่อ</p>
+</div>
+
+<div class="band">
+<div class="stat good"><div class="v">229</div><div class="k">หุ้น MAI ทั้งกระดาน</div><div class="d up">scanned จาก SET API</div></div>
+<div class="stat good"><div class="v">26</div><div class="k">A1 inflection candidates</div><div class="d up">Q1/2026 กำไรโตจากปีก่อนอ่อน</div></div>
+<div class="stat warn"><div class="v">25</div><div class="k">Carry candidates</div><div class="d flat">yield ≥5% + PE 5–10×</div></div>
+<div class="stat bad"><div class="v">3</div><div class="k">claims หักล้าง</div><div class="d down">PSGC timing, EA precedent, UREKA trap</div></div>
+</div>
+
+<div class="callout accent">
+<h4>วิธีใช้เอกสารนี้</h4>
+<ol class="clean" style="margin-bottom:0;">
+<li><b>อ่าน §1</b> เข้าใจหลักคิด edge — ถ้าตอบ "ฝั่งแพ้คือใคร" ไม่ได้ = ไม่มี edge</li>
+<li><b>อ่าน §2</b> ดูผล backtest — A1 ชนะ (score 7.3) แต่ Carry/C2 สำคัญพอกัน</li>
+<li><b>ไป §3</b> เลือก edge → ดูลิสต์หุ้น candidate → <strong>เอาไปทำรายตัว</strong></li>
+<li><b>§4</b> จัดพอร์ต 3 ถุง · <b>§5</b> action plan 7 วัน</li>
+</ol>
+</div>
+
+<div class="callout bad">
+<h4>⚠ ข้อจำกัดที่ต้องบอกตรงๆ</h4>
+<ul class="clean" style="margin-bottom:0;">
+<li><b>หุ้น candidate มาจาก screen เชิงปริมาณ</b> (PE/yield/ROE/earnings growth จาก SET API) — ยังไม่ได้อ่าน 56-1 · ต้อง verify งบจริงก่อนเล่น</li>
+<li><b>SET API ไม่ให้ IPO offer price</b> — ให้แค่ par value · ต้องเช็ก prospectus สำหรับราคา IPO จริง</li>
+<li><b>99 จาก 229 หุ้นไม่มี Q1/2026 earnings data</b> (IPO ใหม่/ขาดทุน) — screen ได้แค่ 130 ตัว</li>
+<li><b>ไม่ใช่คำแนะนำซื้อ</b> — เป็นลิสต์สำหรับศึกษาต่อเท่านั้น</li>
+</ul>
+</div>
+</section>
+
+<!-- ============ SECTION 1: EDGE FRAMEWORK ============ -->
+<section id="s1">
+<div class="sec-h"><span class="sec-no">1</span><h2>หลักคิด edge + แผนที่ 11 กลยุทธ์</h2></div>
+<hr class="div">
+
+<div class="callout bad">
+<p style="margin:0;font-size:17px;font-family:var(--serif);line-height:1.5;"><strong>Edge ต้องตอบได้ว่า "ใครอยู่ฝั่งตรงข้ามเรา และทำไมเขายอมขายถูก/ซื้อแพง"</strong> — ถ้าตอบไม่ได้ = ไม่มี edge มีแค่ความเห็น</p>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>ตระกูล</th><th>ทำไมราคาผิด</th><th>plays</th><th>หลักฐาน</th><th>สถานะ</th></tr></thead>
+<tbody>
+<tr><td><b>A · Neglect</b></td><td>ไม่มี analyst / ไม่ map supply chain</td><td>A1 · A2 · A3</td><td><span class="epi fact">FACT</span></td><td><span class="tag live">LIVE</span></td></tr>
+<tr><td><b>Carry</b></td><td>กระดานตาย → เครื่องปั๊มเงินสดถูกตีราคา</td><td>Carry</td><td><span class="epi fact">FACT</span></td><td><span class="tag live">LIVE</span></td></tr>
+<tr><td><b>B · Behavioral</b></td><td>ลืมแชมป์เก่า / panic sell / screener หลง TTM</td><td>B1 · B2 · B3</td><td><span class="epi fact">FACT</span>+<span class="epi assm">VERIFY</span></td><td>mix</td></tr>
+<tr><td><b>C · Structural</b></td><td>สถาบันซื้อไม่ได้จนย้าย / เจ้าของรู้ order book</td><td>C1 · C2</td><td><span class="epi anly">PREC</span>+<span class="epi assm">LOGIC</span></td><td><span class="tag monitor">MONITOR</span></td></tr>
+<tr><td><b>D · Info latency</b></td><td>ตลาดรอเห็นตัวเลขทั้งที่ filing บอกก่อน</td><td>D1 · D2</td><td><span class="epi fact">FACT</span>+<span class="epi assm">LOGIC</span></td><td>mix</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ============ SECTION 2: BACKTEST ============ -->
+<section id="s2">
+<div class="sec-h"><span class="sec-no">2</span><h2>Backtest — verify ผลจริง + จัดอันดับ edge</h2></div>
+<hr class="div">
+
+<h3>2.1 ผล verify ตัวอย่างหุ้นจริง (5y yfinance)</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>หุ้น</th><th>กลยุทธ์</th><th class="num">อ้าง</th><th class="num">H1/69 จริง</th><th class="num">Max DD</th><th>คำตัดสิน</th></tr></thead>
+<tbody>
+<tr class="win"><td><b>TRT</b></td><td>A1/A3/B1</td><td class="num">+271%</td><td class="num">+340%</td><td class="num">-60%</td><td><span class="tag good">verify ผ่าน ✓</span></td></tr>
+<tr class="win"><td><b>NTF</b></td><td>A1</td><td class="num">+156%</td><td class="num">+135%</td><td class="num">-30%</td><td><span class="tag good">verify ใกล้เคียง ✓</span></td></tr>
+<tr class="win"><td><b>STC</b></td><td>A3</td><td class="num">+72%</td><td class="num">+118%</td><td class="num">-73%</td><td><span class="tag good">H1 ผ่าน ✓</span></td></tr>
+<tr class="lose"><td><b>PSGC</b></td><td>D1</td><td class="num">+117–160%</td><td class="num">+15%</td><td class="num">-91%</td><td><span class="tag bad">หักล้าง ✗</span> timing ผิด</td></tr>
+<tr class="lose"><td><b>EA</b></td><td>C1</td><td class="num">"ยักษ์"</td><td class="num">+13%</td><td class="num">-98%</td><td><span class="tag bad">หักล้าง ✗</span> 5y -95%</td></tr>
+<tr class="lose"><td><b>UREKA</b></td><td>A1 trap</td><td class="num">+5,668%</td><td class="num">+22%</td><td class="num">-93%</td><td><span class="tag bad">กับดัก ✗</span> ฐานจิ๋ว</td></tr>
+<tr><td><b>FPI</b></td><td>B1</td><td class="num">+1,655%</td><td class="num">-9%</td><td class="num">-64%</td><td><span class="tag watch">จำศีล</span></td></tr>
+<tr><td><b>SEAOIL</b></td><td>B1</td><td class="num">+1,152%</td><td class="num">+4%</td><td class="num">-60%</td><td><span class="tag watch">จำศีล</span></td></tr>
+<tr><td><b>BIZ</b></td><td>B1</td><td class="num">ROE 38%</td><td class="num">+50%</td><td class="num">-64%</td><td><span class="tag good">ฟื้น ✓</span></td></tr>
+<tr class="lose"><td><b>RWI</b></td><td>B1</td><td class="num">"5y low"</td><td class="num">-23%</td><td class="num">-94%</td><td><span class="tag bad">พัง ✗</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>2.2 Scorecard 11 กลยุทธ์ (6 มิติ)</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>กลยุทธ์</th><th>Evid.<br><span class="small muted">20%</span></th><th>Detect.<br><span class="small muted">20%</span></th><th>Payoff<br><span class="small muted">15%</span></th><th>Downside<br><span class="small muted">15%</span></th><th>Repeat.<br><span class="small muted">15%</span></th><th>Capac.<br><span class="small muted">15%</span></th><th class="num">Score</th></tr></thead>
+<tbody>
+<tr class="win"><td><b>A1</b></td><td>9</td><td>8</td><td>9</td><td>5</td><td>7</td><td>5</td><td class="num"><b>7.3</b></td></tr>
+<tr class="win"><td><b>Carry</b></td><td>6</td><td>9</td><td>4</td><td>4</td><td>9</td><td>6</td><td class="num"><b>6.5</b></td></tr>
+<tr><td><b>C2</b></td><td>4</td><td>9</td><td>6</td><td>6</td><td>6</td><td>5</td><td class="num"><b>6.1</b></td></tr>
+<tr><td><b>A3</b></td><td>8</td><td>6</td><td>7</td><td>4</td><td>6</td><td>4</td><td class="num"><b>6.0</b></td></tr>
+<tr><td><b>B3</b></td><td>2</td><td>8</td><td>3</td><td>7</td><td>9</td><td>5</td><td class="num"><b>5.6</b></td></tr>
+<tr><td><b>B1</b></td><td>7</td><td>7</td><td>6</td><td>3</td><td>5</td><td>4</td><td class="num"><b>5.5</b></td></tr>
+<tr><td><b>A2</b></td><td>3</td><td>7</td><td>5</td><td>4</td><td>8</td><td>4</td><td class="num"><b>5.2</b></td></tr>
+<tr><td><b>D1</b></td><td>7</td><td>6</td><td>7</td><td>2</td><td>4</td><td>3</td><td class="num"><b>5.0</b></td></tr>
+<tr class="lose"><td><b>C1</b></td><td>5</td><td>7</td><td>4</td><td>2</td><td>3</td><td>6</td><td class="num"><b>4.7</b></td></tr>
+<tr><td><b>B2</b></td><td>3</td><td>7</td><td>6</td><td>4</td><td>3</td><td>3</td><td class="num"><b>4.4</b></td></tr>
+<tr class="lose"><td><b>D2</b></td><td>3</td><td>5</td><td>6</td><td>3</td><td>3</td><td>3</td><td class="num"><b>3.9</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout good">
+<h4>คำตอบสั้น: A1 คือ edge ที่ดีที่สุด</h4>
+<p style="margin:0;">A1 ชนะทุกมิติสำคัญ — FACT verified (TRT +340%), detectability สูง, payoff สูงสุด — แต่ DD -60% เมื่อผิด จึงต้องจับคู่ Carry (ถ่วง) + C2 (detectability) · หลีกเลี่ยง D1/C1/D2 (DD -90% ถึง -98%)</p>
+</div>
+</section>
+
+<!-- ============ SECTION 3: PLAY CARDS + CANDIDATES ============ -->
+<section id="s3">
+<div class="sec-h"><span class="sec-no">3</span><h2>Play cards + หุ้น candidate ณ ก.ค. 2026</h2></div>
+<hr class="div">
+<p>ข้อมูลหุ้นจาก <strong>SET API โดยตรง</strong> (ไม่ใช่ yfinance) — 229 หุ้น MAI เต็มกระดาน · แต่ละ card มีลิสต์ candidate ที่ผ่าน screen · <span class="epi warn">⚠</span> = ต้อง verify 56-1 ก่อนใช้เงิน</p>
+
+<!-- ===== A1 ===== -->
+<article class="play a" id="pa1">
+<div class="play-head">
+<span class="play-badge">A1</span>
+<div class="play-title">
+<h4>Earnings inflection ก่อน coverage</h4>
+<div class="loser">ฝั่งแพ้: <b>ไม่มี analyst — ไม่มีใครอ่านงบเร็ว</b></div>
+</div>
+<div><span class="play-status live">LIVE · แกนหลัก</span><div class="play-score">Score 7.3/10 · #1</div></div>
+</div>
+<div class="play-body">
+
+<h5>เกณฑ์เข้า</h5>
+<ul>
+<li>กำไร QoQ/YoY หันขึ้น 2 ไตรมาสติด · จากยอดขาย ไม่ใช่ one-time · กำไรก่อน ≥ 50 ลบ. (กันฐานจิ๋ว)</li>
+<li>Fwd P/E &lt; 10× · ROE &gt; 8% · Market cap 1–5 พันลบ. · ไม่มี analyst coverage</li>
+</ul>
+<h5>Kill</h5>
+<ul><li>ราคาวิ่ง +100% ก่อนเข้า · กำไรหยุดโต ไตรมาส 3 · one-time gain</li></ul>
+<h5>Exit</h5>
+<ul><li>Stop -15% หรือกำไรพลิก · เป้า 2–3× · ขาย 50% ที่ +100% trailing stop</li></ul>
+<div class="kv">
+<div class="item"><div class="k">sizing</div><div class="v">2–4% พอร์ต/ตัว · สูงสุด 12% Core</div></div>
+<div class="item"><div class="k">ระดับเชื่อมั่น</div><div class="v"><span class="epi fact">FACT</span> — เล่นได้เต็ม</div></div>
+</div>
+<div class="maprow"><span class="smap pass">S1 ✓</span><span class="smap pass">S2 ✓</span><span class="smap pass">S3 ✓</span><span class="smap pass">S4 ✓</span><span class="smap pass">S5 ✓</span><span class="smap pass">S6 ✓</span></div>
+
+<h5>หุ้น candidate ณ ก.ค. 2026 <span class="epi fact">SET API · Q1/2026 verified</span></h5>
+<p class="small muted">Screen: Q1/2026 net profit growth YoY สูง + Q1/2025 อ่อน (turnaround pattern) — <strong>"inflection candidate" = กำไรโตแรงปีนี้ หลังปีก่อนอ่อน</strong> · ต้อง verify Q2/69 (~14 ส.ค.) ยืนยัน 2 ไตรมาสติด</p>
+<div class="cand">
+<div class="ch"><span>A1 candidates — Q1/2026 inflection (Q1/26 strong, Q1/25 weak)</span><span class="ct">15 ตัวเด่น</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>ธุรกิจ</th><th class="num">Q1/26 NP%</th><th class="num">Q1/26 Rev%</th><th class="num">Q1/25 NP%</th><th>หมายเหตุ</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>TRT</b></td><td>หม้อแปลง (Tirathai)</td><td class="num">+250%</td><td class="num">+19.2%</td><td class="num">-51.6%</td><td>FACT verified · ราคาวิ่งแล้ว <span class="epi warn">⚠</span></td></tr>
+<tr><td><b>UKEM</b></td><td>เคมี (Union Petro)</td><td class="num">+558%</td><td class="num">+4.7%</td><td class="num">+71%</td><td>rev โตน้อย <span class="epi warn">⚠</span> ต้อวเช็กว่า one-time ไหม</td></tr>
+<tr><td><b>I2</b></td><td>Tech (I2 Enterprise)</td><td class="num">+543%</td><td class="num">+54.9%</td><td class="num">-94.8%</td><td>rev โตจริง + turnaround · น่าสนใจ</td></tr>
+<tr><td><b>UBIS</b></td><td>อุตสาหกรรม</td><td class="num">+513%</td><td class="num">+28.1%</td><td class="num">-83.5%</td><td>rev โต + turnaround</td></tr>
+<tr><td><b>CRD</b></td><td>PROPCON (Chiangmai Rimdoi)</td><td class="num">+508%</td><td class="num">-0.4%</td><td class="num">-36.3%</td><td>rev ไม่โต <span class="epi warn">⚠</span> กำไรจาก cost cut?</td></tr>
+<tr><td><b>WELL</b></td><td>PROPCON</td><td class="num">+447%</td><td class="num">+67.1%</td><td class="num">n/a</td><td>rev โตจริง · น่าสนใจ</td></tr>
+<tr><td><b>TPLAS</b></td><td>พลาสติก</td><td class="num">+255%</td><td class="num">+8.1%</td><td class="num">-12.1%</td><td>turnaround พอเหตุ</td></tr>
+<tr><td><b>IROYAL</b></td><td>วิศวกรรม</td><td class="num">+240%</td><td class="num">+147%</td><td class="num">n/a</td><td>rev โตมาก · น่าสนใจสุด</td></tr>
+<tr><td><b>STC</b></td><td>คอนกรีต EEC</td><td class="num">+223%</td><td class="num">+6.4%</td><td class="num">n/a</td><td>FACT verified (A3) · backlog 410 ลบ.</td></tr>
+<tr><td><b>PSGC</b></td><td>ถ่านหิน</td><td class="num">+145%</td><td class="num">+284%</td><td class="num">-87.4%</td><td>rev โตมาก แต่ H1 ราคาแค่ +15% <span class="epi warn">⚠</span></td></tr>
+<tr><td><b>SK</b></td><td>PROPCON (Sirakorn)</td><td class="num">+112%</td><td class="num">+40%</td><td class="num">-38.2%</td><td>rev โต + turnaround</td></tr>
+<tr><td><b>HARN</b></td><td>วิศวกรรม</td><td class="num">+108%</td><td class="num">+10.9%</td><td class="num">-8.3%</td><td>turnaround พอเหตุ</td></tr>
+<tr><td><b>NAT</b></td><td>Tech</td><td class="num">+100%</td><td class="num">-1.8%</td><td class="num">-98%</td><td>ฐานต่ำมาก <span class="epi warn">⚠</span> ระวัง trap</td></tr>
+<tr><td><b>UBA</b></td><td>SERVICE</td><td class="num">+95%</td><td class="num">+53.2%</td><td class="num">-40%</td><td>rev โต + turnaround · น่าสนใจ</td></tr>
+<tr><td><b>JAK</b></td><td>PROPCON</td><td class="num">+670%</td><td class="num">+63.8%</td><td class="num">+199%</td><td>rev โตจริง · แต่ Q1/25 ดีอยู่แล้ว = accelerate ไม่ใช่ inflection</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><b>ตัวเด่นที่ยังไม่วิ่งแรง (น่าเข้า):</b> I2, UBIS, WELL, IROYAL, UBA — rev โตจริง + Q1/25 อ่อน + ยังไม่วิ่ง +100% · <b>ตัวที่วิ่งแล้ว (อย่าไล่):</b> TRT, STC · <b>ระวัง trap:</b> NAT (ฐานต่ำ), UKEM (rev โตน้อย), CRD (rev ไม่โต) · <b>Trigger:</b> Q2/69 ~14 ส.ค. ยืนยัน 2 ไตรมาสติด</p>
+</div>
+</article>
+
+<!-- ===== A2 ===== -->
+<article class="play a" id="pa2">
+<div class="play-head">
+<span class="play-badge">A2</span>
+<div class="play-title">
+<h4>IPO กำพร้า (broken IPO)</h4>
+<div class="loser">ฝั่งแพ้: <b>คนติดดอยขายทุกเด้ง + ไร้ coverage แต่เกิดจริง</b></div>
+</div>
+<div><span class="play-status standby">STANDBY</span><div class="play-score">Score 5.2/10 · #7</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า (4 ข้อครบ)</h5>
+<ul>
+<li>(ก) หลุดจอง &gt; 30–50% · (ข) พ้น lockup (~6 เดือน) · (ค) กำไรจริง 2–4 ไตรมาสหลัง IPO · (ง) cash &gt; 30% mkt cap · P/B &lt; 1.2×</li>
+</ul>
+<h5>Kill</h5>
+<ul><li>4 ไตรมาสแล้วกำไร IPO ไม่กลับมา = แต่งหน้ามาขาย · เงินสดหายใน 2 ไตรมาส</li></ul>
+<div class="kv"><div class="item"><div class="k">sizing</div><div class="v">1–2% · LOGIC ลดครึ่ง</div></div></div>
+
+<h5>หุ้น candidate <span class="epi fact">SET API · 57 IPO ราย</span></h5>
+<div class="cand">
+<div class="ch"><span>A2 candidates — broken IPO (หลุดจอง &gt; 30%)</span><span class="ct">7 ตัว</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>IPO date</th><th class="num">ราคา</th><th class="num">YTD%</th><th>lockup</th><th>หมายเหตุ</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>HYDRO</b></td><td>2024-01-31</td><td class="num">0.07</td><td class="num">-88%</td><td>expired</td><td>หลุดมากสุด · <span class="epi warn">⚠</span> ใกล้ wipe out = เสี่ยง</td></tr>
+<tr><td><b>EMPIRE</b></td><td>2025-01-10</td><td class="num">0.20</td><td class="num">-82%</td><td>expired</td><td>PROPCON · หลุดมาก</td></tr>
+<tr><td><b>CHO</b></td><td>2024-01-03</td><td class="num">n/a</td><td class="num">-71%</td><td>expired</td><td>suspended · ไม่มีสภาพคล่อง</td></tr>
+<tr><td><b>FVC</b></td><td>2025-09-10</td><td class="num">0.32</td><td class="num">-35%</td><td>expired</td><td>SERVICE · หลุดพอเหตุ</td></tr>
+<tr><td><b>NCL</b></td><td>2025-05-22</td><td class="num">0.19</td><td class="num">-24%</td><td>expired</td><td>logistics · หลุดพอเหตุ</td></tr>
+<tr><td><b>ABM</b></td><td>2024-10-28</td><td class="num">0.50</td><td class="num">-19%</td><td>expired</td><td>biomass · หลุดน้อย</td></tr>
+<tr><td><b>PROEN</b></td><td>2024-07-12</td><td class="num">0.92</td><td class="num">-15%</td><td>expired</td><td>TECH · หลุดน้อย</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout accent">
+<p style="margin:0;"><b>Lockup กำลังหมด (trigger ใกล้):</b> <b>STOWER</b> (listed 2026-01-12, lockup ~TODAY 2026-07-12, -25% last 5d) · <b>MMM</b> (listed 2026-02-06, lockup ~2026-08-06, PE 7.49) — ถ้ามีแรงขาย lockup expiry ราคาจะกดลง = โอกาสเข้า A2</p>
+</div>
+<p class="small muted"><b>ตัวที่ IPO แล้วราคาขึ้น (ไม่ใช่ A2):</b> CMO +97%, NDR +37%, DIMET +40% — ไม่ใช่ broken IPO</p>
+</div>
+</article>
+
+<!-- ===== A3 ===== -->
+<article class="play a" id="pa3">
+<div class="play-head">
+<span class="play-badge">A3</span>
+<div class="play-title">
+<h4>ซัพพลายเชนชั้นสองของธีมใหญ่</h4>
+<div class="loser">ฝั่งแพ้: <b>consensus จ่ายแพงให้ผู้ชนะชั้น 1 แต่ไม่ map ลงมา</b></div>
+</div>
+<div><span class="play-status live">LIVE</span><div class="play-score">Score 6.0/10 · #4</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า</h5>
+<ul><li>ธีมชั้น 1 แพงแล้ว (P/E &gt; 25×) แต่ชั้น 2 ยังถูก · backlog จริง + ความสัมพันธ์ supplier ยืนยันจาก 56-1</li></ul>
+<h5>ธีมที่จับตา</h5>
+<ul><li><b>Data center/AI</b> → หม้อแปลง/สายไฟ/ระบบไฟฟ้า (TRT) · <b>EEC</b> → คอนกรีต (STC) · <b>ส่งออกอาหารจีน</b> (NTF/TFG) · <b>EV/ชิ้นส่วน</b> (ระวังวัฏจักรรถ)</li></ul>
+
+<h5>หุ้น candidate</h5>
+<div class="cand">
+<div class="ch"><span>A3 candidates — supply chain ชั้น 2</span><span class="ct">5 ตัว</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>ธุรกิจ</th><th class="num">Q1/26 Rev%</th><th class="num">Q1/26 NP%</th><th>ธีมชั้น 1</th><th>หลักฐาน</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>TRT</b></td><td>หม้อแปลง</td><td class="num">+19.2%</td><td class="num">+250%</td><td>data center/AI</td><td>FACT — backlog grid จริง</td></tr>
+<tr><td><b>STC</b></td><td>คอนกรีต EEC</td><td class="num">+6.4%</td><td class="num">+223%</td><td>EEC โครงสร้างพื้นฐาน</td><td>backlog 410 ลบ.</td></tr>
+<tr><td><b>IROYAL</b></td><td>วิศวกรรม</td><td class="num">+147%</td><td class="num">+240%</td><td>โครงสร้างพื้นฐาน/EPC</td><td>rev โตมาก · น่าสนใจ</td></tr>
+<tr><td><b>WELL</b></td><td>PROPCON</td><td class="num">+67.1%</td><td class="num">+447%</td><td>property/construction</td><td>rev โตจริง</td></tr>
+<tr><td><b>JAK</b></td><td>PROPCON</td><td class="num">+63.8%</td><td class="num">+670%</td><td>property/construction</td><td>rev โตจริง · accelerate</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</article>
+
+<!-- ===== CARRY ===== -->
+<article class="play carry" id="pcarry">
+<div class="play-head">
+<span class="play-badge">Carry</span>
+<div class="play-title">
+<h4>Deep value จ้างให้รอ (yield 5–12%)</h4>
+<div class="loser">ฝั่งแพ้: <b>กระดานตาย → เครื่องปั๊มเงินสดถูกตีราคาเหมือนใกล้ตาย</b></div>
+</div>
+<div><span class="play-status live">LIVE · ฐานพอร์ต</span><div class="play-score">Score 6.5/10 · #2</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า</h5>
+<ul><li>P/E 5–10× + yield &gt; 5% + กำไร &gt; 100 ลบ./ปี + คงเส้น 3 ปี + D/E &lt; 1× + ROE &gt; 8%</li></ul>
+<h5>Kill</h5>
+<ul><li>ROE ตก &lt; 5% สองปี · ปันผลถูกตัด · yield &lt; 3% (ราคาไล่แล้ว) · tender = ขายรับ premium</li></ul>
+<div class="kv"><div class="item"><div class="k">sizing</div><div class="v">3–5%/ตัว · รวม Base 25–30%</div></div><div class="item"><div class="k">หน้าที่</div><div class="v">จ่ายเงินเดือน + เหยื่อล่อ C2</div></div></div>
+
+<h5>หุ้น candidate <span class="epi fact">SET API · yield+PE verified ณ 10 ก.ค. 69</span></h5>
+<div class="cand">
+<div class="ch"><span>Carry candidates — yield ≥5% AND PE 5–10× (25 ตัวจาก SET API)</span><span class="ct">25 ตัว</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>ธุรกิจ</th><th class="num">yld%</th><th class="num">PE</th><th class="num">PB</th><th>หมายเหตุ</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>PRI</b></td><td>PROPCON (Primo Service)</td><td class="num">14.62</td><td class="num">6.11</td><td class="num">0.67</td><td>yield สูงสุด · PB ต่ำ</td></tr>
+<tr><td><b>NCP</b></td><td>SERVICE (Nice Call)</td><td class="num">10.61</td><td class="num">9.64</td><td class="num">1.05</td><td>—</td></tr>
+<tr><td><b>READY</b></td><td>TECH (ReadyPlanet)</td><td class="num">9.93</td><td class="num">7.35</td><td class="num">1.48</td><td>IPO 2024</td></tr>
+<tr><td><b>FLOYD</b></td><td>PROPCON</td><td class="num">9.71</td><td class="num">5.71</td><td class="num">0.83</td><td>PB ต่ำ · IPO 2023</td></tr>
+<tr><td><b>IROYAL</b></td><td>SERVICE (วิศวกรรม)</td><td class="num">9.35</td><td class="num">6.71</td><td class="num">1.60</td><td>★ A1 candidate ด้วย (rev +147%)</td></tr>
+<tr><td><b>VCOM</b></td><td>TECH (Vintcom)</td><td class="num">9.30</td><td class="num">9.22</td><td class="num">1.92</td><td>—</td></tr>
+<tr><td><b>ITNS</b></td><td>TECH</td><td class="num">9.28</td><td class="num">9.15</td><td class="num">0.80</td><td>PB ต่ำ</td></tr>
+<tr><td><b>MPJ</b></td><td>SERVICE (logistics)</td><td class="num">9.14</td><td class="num">7.10</td><td class="num">0.98</td><td>—</td></tr>
+<tr><td><b>UBA</b></td><td>SERVICE</td><td class="num">8.84</td><td class="num">9.23</td><td class="num">0.99</td><td>★ A1 candidate ด้วย (rev +53%)</td></tr>
+<tr><td><b>APP</b></td><td>TECH (Applicad)</td><td class="num">8.78</td><td class="num">7.95</td><td class="num">1.56</td><td>—</td></tr>
+<tr><td><b>GTB</b></td><td>INDUS (Getabec)</td><td class="num">8.70</td><td class="num">9.54</td><td class="num">0.76</td><td>PB ต่ำ</td></tr>
+<tr><td><b>MEB</b></td><td>SERVICE (MEB Corp)</td><td class="num">8.66</td><td class="num">9.71</td><td class="num">2.38</td><td>ใหญ่ 3.8 พันลบ.</td></tr>
+<tr><td><b>WINNER</b></td><td>AGRO</td><td class="num">8.26</td><td class="num">9.64</td><td class="num">1.77</td><td>—</td></tr>
+<tr><td><b>PHOL</b></td><td>INDUS (Phol Dhanya)</td><td class="num">8.01</td><td class="num">8.99</td><td class="num">1.45</td><td>★ A1 candidate ด้วย</td></tr>
+<tr><td><b>IND</b></td><td>PROPCON (Index Intl)</td><td class="num">7.60</td><td class="num">5.55</td><td class="num">0.63</td><td>PB ต่ำ</td></tr>
+<tr><td><b>AMARC</b></td><td>SERVICE</td><td class="num">6.97</td><td class="num">9.52</td><td class="num">2.47</td><td>★ C2 — มี buyback จริง (Feb–Aug 2026)</td></tr>
+<tr><td><b>TATG</b></td><td>INDUS</td><td class="num">6.93</td><td class="num">5.02</td><td class="num">0.35</td><td>PB ต่ำสุด</td></tr>
+<tr><td><b>SEI</b></td><td>CONSUMP (medical)</td><td class="num">6.55</td><td class="num">8.90</td><td class="num">0.89</td><td>—</td></tr>
+<tr><td><b>YUASA</b></td><td>INDUS (แบตเตอรี่)</td><td class="num">6.35</td><td class="num">6.17</td><td class="num">1.05</td><td>—</td></tr>
+<tr><td><b>SK</b></td><td>PROPCON (Sirakorn)</td><td class="num">5.66</td><td class="num">9.74</td><td class="num">0.57</td><td>★ A1 candidate ด้วย · PB ต่ำ</td></tr>
+<tr><td><b>SCL</b></td><td>INDUS</td><td class="num">5.64</td><td class="num">7.14</td><td class="num">0.91</td><td>—</td></tr>
+<tr><td><b>STP</b></td><td>INDUS</td><td class="num">5.40</td><td class="num">7.21</td><td class="num">1.32</td><td>—</td></tr>
+<tr><td><b>FPI</b></td><td>INDUS (ชิ้นส่วนรถ)</td><td class="num">5.33</td><td class="num">8.47</td><td class="num">0.86</td><td>★ B1 แชมป์เก้า</td></tr>
+<tr><td><b>MBAX</b></td><td>INDUS</td><td class="num">5.18</td><td class="num">8.61</td><td class="num">0.72</td><td>PB ต่ำ</td></tr>
+<tr><td><b>PRAPAT</b></td><td>INDUS</td><td class="num">5.00</td><td class="num">9.56</td><td class="num">0.59</td><td>★ A1 candidate · IPO 2024</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><b>★ = ตัวที่ซ้อนหลาย edge</b> (Carry + A1 + C2) — สแกนครั้งเดียวได้หลายกลยุทธ์ · <b>PB &lt; 1 (C2 profile):</b> PRI, FLOYD, ITNS, GTB, IND, TATG, SK, SCL, FPI, MBAX, PRAPAT</p>
+</div>
+</article>
+
+<!-- ===== B1 ===== -->
+<article class="play b" id="pb1">
+<div class="play-head">
+<span class="play-badge">B1</span>
+<div class="play-title">
+<h4>ทะเบียนแชมป์เก่า + เฝ้า driver</h4>
+<div class="loser">ฝั่งแพ้: <b>ตลาดลืม แต่ operating leverage ไม่หาย</b></div>
+</div>
+<div><span class="play-status live">LIVE</span><div class="play-score">Score 5.5/10 · #6</div></div>
+</div>
+<div class="play-body">
+<h5>หลักคิด</h5>
+<p>เปลี่ยน stock-picking เป็น driver-monitoring — ทำทะเบียน "แชมป์เก่า → ตัวขับ" แล้วเฝ้า <strong>ตัวขับ</strong> · เข้าเมื่อ driver พลิกก่อนงบพิมพ์</p>
+<h5>Kill</h5>
+<ul><li>ตัวขับพลิกแต่กำไรไม่ตาม 1 ไตรมาส · ตัวขับไม่กลับ 4 ไตรมาส = ออกจาก registry</li></ul>
+
+<h5>ทะเบียน + สถานะ ณ ก.ค. 2026</h5>
+<div class="cand">
+<div class="ch"><span>B1 registry — แชมป์เก่า + ตัวขับ + Q1/26 status</span><span class="ct">6 ตัว</span></div>
+<table>
+<thead><tr><th>แชมป์เก่า</th><th>ตัวขับ</th><th class="num">Q1/26 NP%</th><th class="num">Q1/26 Rev%</th><th>สถานะ</th><th>trigger</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>TRT</b></td><td>grid/หม้อแปลง</td><td class="num">+250%</td><td class="num">+19.2%</td><td><span class="tag good">พลิกแล้ว</span></td><td>— (เล่นแล้ว)</td></tr>
+<tr><td><b>FPI</b></td><td>วัฏจักรรถ + ค่าบาท</td><td class="num">n/a</td><td class="num">n/a</td><td><span class="tag standby">จำศีล</span></td><td>ยอดส่งออกชิ้นส่วนโต 2Q</td></tr>
+<tr><td><b>SEAOIL</b></td><td>spread น้ำมัน</td><td class="num">n/a</td><td class="num">n/a</td><td><span class="tag standby">จำศีล</span></td><td>spread ขยาย</td></tr>
+<tr><td><b>BIZ</b></td><td>hospital capex</td><td class="num">n/a</td><td class="num">n/a</td><td><span class="tag good">ฟื้น</span></td><td>— (รักษาฐาน)</td></tr>
+<tr class="lose"><td><b>RWI</b></td><td>เหล็ก</td><td class="num">n/a</td><td class="num">n/a</td><td><span class="tag bad">พัง</span></td><td>ออกจาก registry</td></tr>
+<tr><td><b>NDR</b></td><td>ยาง</td><td class="num">+171%</td><td class="num">+11.9%</td><td><span class="tag good">พลิก + tender!</span></td><td>★ C2 trigger — EG Industries tender</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><b>NDR เด่น:</b> แชมป์เก่าที่กำไร inflect (+171%) และมี tender offer จาก EG Industries (Malaysia) 1.50 บาท — ซ้อน B1 + C2 + D1</p>
+</div>
+</article>
+
+<!-- ===== B2 ===== -->
+<article class="play b" id="pb2">
+<div class="play-head">
+<span class="play-badge">B2</span>
+<div class="play-title">
+<h4>เก็บเหยื่อ contagion หลัง scandal</h4>
+<div class="loser">ฝั่งแพ้: <b>คนโดน margin call ขายไม่เลือกตัว</b></div>
+</div>
+<div><span class="play-status standby">STANDBY</span><div class="play-score">Score 4.4/10 · #10</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า</h5>
+<ul><li>หุ้นคุณภาพหลุด 20–30% โดยไม่มีเหตุพื้นฐาน · เข้าใน 48 ชม.ที่คนยัง panic · น้ำหนักเล็ก</li></ul>
+<h5>หุ้น candidate</h5>
+<div class="callout bad">
+<p style="margin:0;"><b>STANDBY</b> — ยังไม่มี scandal ตอนนี้ · <strong>pre-built list ควรเป็น Carry list 25 ตัวข้างบน</strong> (งบสะอาด + yield ดี) — ถ้า scandal เกิด ราคาหลุด = ยิงใน 48 ชม.</p>
+</div>
+</div>
+</article>
+
+<!-- ===== B3 ===== -->
+<article class="play b" id="pb3">
+<div class="play-head">
+<span class="play-badge">B3</span>
+<div class="play-title">
+<h4>ความเพี้ยนตามฤดูงบ Q4</h4>
+<div class="loser">ฝั่งแพ้: <b>screener เชื่อ TTM ที่โดน Q4 กด</b></div>
+</div>
+<div><span class="play-status monitor">TIMING LENS</span><div class="play-score">Score 5.6/10 · #5</div></div>
+</div>
+<div class="play-body">
+<p>ใช้เป็น timing overlay ไม่ใช่กลยุทธ์เดี่ยว — ถ้า stat จริง P/E ของ MAI ช่วง มี.ค.–เม.ย. บวมปลอมทุกปี → ของดีโดน screener มองข้ามจนงบ Q1 มา "ซ่อม" ใน พ.ค.</p>
+<div class="callout bad"><p style="margin:0;"><span class="epi assm">VERIFY</span> stat หยวนต้า: กำไร Q4 MAI ตก ~44% QoQ — <strong>ต้อง verify ก่อนใช้</strong> · ดึงกำไร บจ.MAI รายไตรมาส 5 ปี จาก ตลท.</p></div>
+<p class="small muted"><b>วิธีใช้:</b> มี.ค.–เม.ย. = หน้าต่างสแกน (screener หลง) · พ.ค. = หน้าต่างเข้า (งบ Q1 ซ่อม TTM)</p>
+</div>
+</article>
+
+<!-- ===== C1 ===== -->
+<article class="play c" id="pc1">
+<div class="play-head">
+<span class="play-badge">C1</span>
+<div class="play-title">
+<h4>เส้นทางย้ายกระดาน MAI→SET</h4>
+<div class="loser">ฝั่งแพ้: <b>สถาบัน/ดัชนีซื้อไม่ได้จนกว่าจะย้าย</b></div>
+</div>
+<div><span class="play-status monitor">MONITOR</span><div class="play-score">Score 4.7/10 · #9</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า</h5>
+<ul><li>ขนาดโตเกณฑ์ SET (mkt cap &gt; 5 พันลบ.) + ส่งสัญญาณเตรียมย้าย + float พอ</li></ul>
+<div class="callout bad">
+<h4>⚠ บทเรียนสำคัญจากข้อมูลจริง — 10 จาก 14 ราย ติดลบหลังย้าย!</h4>
+<p style="margin:0;"><span class="epi fact">FACT</span> ย้ายกระดาน 14 ราย (2023–2026): MASTER -77%, DITTO -51%, PJW -48%, KUN -47%, PROUD -47%, SPA -43%, SE -38%, A5 -37%, ICN -34%, SELIC -15% · <b>เฉพาะ BBIK +5%, SEAOIL +11%, IP +19% ที่ขึ้น</b> — <strong>ย้ายกระดานส่วนใหญ่ = "sell the news"</strong></p>
+</div>
+
+<h5>การย้ายล่าสุด (2025–2026)</h5>
+<div class="cand">
+<div class="ch"><span>C1 — ย้ายกระดานล่าสุด</span><span class="ct">3 ราย</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>วันย้าย</th><th>ผลหลังย้าย</th><th>หมายเหตุ</th></tr></thead>
+<tbody>
+<tr><td><b>BBIK</b></td><td>22 ก.ค. 2568</td><td class="num">+5.42%</td><td>SET100 ambition · M&A strategy</td></tr>
+<tr><td><b>KLINIQ</b></td><td>7 พ.ย. 2568</td><td class="num">เท่าเดิม</td><td>—</td></tr>
+<tr><td><b>TITLE</b></td><td>30 ม.ค. 2569</td><td class="num">n/a (ใหม่)</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+
+<h5>candidate ที่อาจย้าย (โตใกล้เกณฑ์)</h5>
+<div class="cand">
+<div class="ch"><span>C1 candidates — ขนาดโต + Jump+ program</span><span class="ct">5 ตัว</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>ธุรกิจ</th><th class="num">mcap (พันลบ.)</th><th>หมายเหตุ</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>FSMART</b></td><td>SERVICE (Forth Smart)</td><td class="num">5,724</td><td>MAI ใหญ่สุด · เข้าเกณฑ์ SET</td></tr>
+<tr><td><b>NTF</b></td><td>ทุเรียนจีน</td><td class="num">~2,940</td><td>Jump+ เป้ากำไร 2028 = 1,379 ลบ.</td></tr>
+<tr><td><b>WINNER</b></td><td>AGRO</td><td class="num">~1,308</td><td>Jump+ เป้า revenue 3,000 ลบ.</td></tr>
+<tr><td><b>JSP</b></td><td>CONSUMP</td><td class="num">~840</td><td>Jump+ เป้า revenue 1,540 ลบ.</td></tr>
+<tr><td><b>ABM</b></td><td>RESOURC (biomass)</td><td class="num">—</td><td>Jump+ เป้า revenue 2,400 ลบ.</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><span class="epi warn">⚠</span> <b>คำเตือน:</b> เกณฑ์ SET คือ paid-up capital ≥ 300 ลบ. + retained earnings positive + ผถห.ย่อย ≥ 20% + ผถห. ≥ 1,000 ราย · <b>อย่าเล่น C1 เพราะ "คาดว่าจะย้าย" — รอประกาศจริง</b></p>
+</div>
+</article>
+
+<!-- ===== C2 ===== -->
+<article class="play c" id="pc2">
+<div class="play-head">
+<span class="play-badge">C2</span>
+<div class="play-title">
+<h4>สัญญาณเจ้าของ: insider/buyback/tender</h4>
+<div class="loser">ฝั่งแพ้: <b>เจ้าของรู้ order book — กระดานตายคือฤดูเก็บของเข้าบ้าน</b></div>
+</div>
+<div><span class="play-status live">LIVE — พบ trigger จริง!</span><div class="play-score">Score 6.1/10 · #3</div></div>
+</div>
+<div class="play-body">
+<h5>สัญญาณที่พบจริง ณ ก.ค. 2026 <span class="epi fact">SET disclosure verified</span></h5>
+<div class="cand">
+<div class="ch"><span>C2 triggers ที่ยืนยันแล้ว — buyback/tender จริง</span><span class="ct">3 ตัว</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>สัญญาณ</th><th>รายละเอียด</th><th>ช่วงเวลา</th><th>ความแรง</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>NDR</b></td><td>tender offer</td><td>EG Industries (Malaysia) ซื้อ 17.51% @ 1.50 บาท</td><td>ก.พ.–มี.ค. 2026</td><td><span class="tag bad">แรงสุด</span></td></tr>
+<tr><td><b>AMARC</b></td><td>buyback</td><td>25 ล้านหุ้น · budget ~70 ลบ.</td><td>20 ก.พ.–19 ส.ค. 2026</td><td><span class="tag watch">แรง</span></td></tr>
+<tr><td><b>LTMH</b></td><td>buyback</td><td>2.5 ล้านหุ้น · budget ~10 ลบ.</td><td>23 ก.พ.–22 ส.ค. 2026</td><td><span class="tag watch">แรง</span></td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout good">
+<p style="margin:0;"><b>NDR ซ้อน 3 edge:</b> B1 (แชมป์เก่ากำไร inflect +171%) + C2 (tender จริง) + D1 (cross-border M&A) — <strong>candidate เด่นที่สุดในตลาดนี้</strong></p>
+</div>
+
+<h5>ตัวเสี่ยงโดนเก็บ (profile: P/B &lt; 1 + yield สูง) — จาก Carry list</h5>
+<div class="cand">
+<div class="ch"><span>C2 profile candidates — PB &lt; 1 (โดนเก็บได้)</span><span class="ct">11 ตัว</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th class="num">PB</th><th class="num">yld%</th><th class="num">PE</th><th>หมายเหตุ</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>AMARC</b></td><td class="num">2.47</td><td class="num">6.97</td><td class="num">9.52</td><td>★ buyback จริง (กำลังดำเนิน)</td></tr>
+<tr><td><b>TATG</b></td><td class="num">0.35</td><td class="num">6.93</td><td class="num">5.02</td><td>PB ต่ำสุด</td></tr>
+<tr><td><b>SK</b></td><td class="num">0.57</td><td class="num">5.66</td><td class="num">9.74</td><td>★ A1 + Carry</td></tr>
+<tr><td><b>FPI</b></td><td class="num">0.86</td><td class="num">5.33</td><td class="num">8.47</td><td>★ B1 แชมป์เก้า</td></tr>
+<tr><td><b>MBAX</b></td><td class="num">0.72</td><td class="num">5.18</td><td class="num">8.61</td><td>—</td></tr>
+<tr><td><b>PRAPAT</b></td><td class="num">0.59</td><td class="num">5.00</td><td class="num">9.56</td><td>★ A1 + IPO 2024</td></tr>
+<tr><td><b>GTB</b></td><td class="num">0.76</td><td class="num">8.70</td><td class="num">9.54</td><td>yield สูง</td></tr>
+<tr><td><b>IND</b></td><td class="num">0.63</td><td class="num">7.60</td><td class="num">5.55</td><td>—</td></tr>
+<tr><td><b>FLOYD</b></td><td class="num">0.83</td><td class="num">9.71</td><td class="num">5.71</td><td>yield สูง</td></tr>
+<tr><td><b>PRI</b></td><td class="num">0.67</td><td class="num">14.62</td><td class="num">6.11</td><td>yield สูงสุด</td></tr>
+<tr><td><b>ITNS</b></td><td class="num">0.80</td><td class="num">9.28</td><td class="num">9.15</td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><b>regulation change:</b> กฎ buyback ใหม่มีผล 14 พ.ย. 2025 — ยกเลิกการรอ 6 เดือนระหว่างโปรแกรม · buyback 2568 รวมสูงสุด ~37 พันลบ. (สถิติ) · <span class="epi warn">⚠</span> ต้องเช็ก ตลท. แจ้งข้อมูลสำคัญต่อ</p>
+</div>
+</article>
+
+<!-- ===== D1 ===== -->
+<article class="play d" id="pd1">
+<div class="play-head">
+<span class="play-badge">D1</span>
+<div class="play-title">
+<h4>Transformation ก่อนงบรวมงวดแรก</h4>
+<div class="loser">ฝั่งแพ้: <b>ตลาด "รอเห็นตัวเลข" ทั้งที่ filing บอกล่วงหน้า</b></div>
+</div>
+<div><span class="play-status live">LIVE — Jump+ program 56 บริษัท</span><div class="play-score">Score 5.0/10 · #8</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า</h5>
+<ul><li>ประกาศ M&A ผ่าน ตลท. · เป้าหมายมีกำไรจริง · deal &gt; 30% mkt cap · เข้าระหว่างประกาศ→งบรวม (2–4 เดือน)</li></ul>
+<h5>Kill</h5>
+<ul><li>ดีลถูกยกเลิก · งบรวมไม่ออกตามกำหนด · กำไรไม่โตตามคาด</li></ul>
+<div class="callout bad"><p style="margin:0;"><span class="epi warn">⚠</span> <b>PSGC DD -91%</b> — payoff สูงแต่ variance สูงเกิน · เล่นน้ำหนักจิ๋ว (&lt;1%)</p></div>
+
+<h5>Jump+ Program — 56 บริษัท MAI ที่ประกาศเป้าหมาย 2028 <span class="epi fact">SET program verified</span></h5>
+<div class="callout accent">
+<p style="margin:0;"><b>Jump+</b> คือโปรแกรมของ SET ที่ให้บริษัทจดทะเบียนประกาศแผนเติบโต 2028 — <strong>56 บริษัท MAI</strong> เข้าร่วม · นี่คือ "filing บอกล่วงหน้า" ที่ตลาดยังไม่ pricing-in</p>
+</div>
+
+<div class="cand">
+<div class="ch"><span>D1 candidates — Jump+ transformation targets</span><span class="ct">8 ตัวเด่น</span></div>
+<table>
+<thead><tr><th>หุ้น</th><th>ธุรกิจ</th><th>เป้า 2028</th><th>ฐาน 2025</th><th>growth</th><th>Q1/26 NP%</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>NAT</b></td><td>Tech</td><td>NP 100 ลบ.</td><td>3.36 ลบ.</td><td class="num">+2,876%</td><td class="num">+100%</td></tr>
+<tr><td><b>KUMWEL</b></td><td>INDUS</td><td>NP 270–338 ลบ.</td><td>57.6 ลบ.</td><td class="num">~5×</td><td class="num">+189%</td></tr>
+<tr><td><b>BPS</b></td><td>SERVICE</td><td>NP 26.7 + Rev 741 ลบ.</td><td>4.7 + 480 ลบ.</td><td class="num">~5×</td><td>n/a</td></tr>
+<tr><td><b>CFARM</b></td><td>AGRO</td><td>EBITDA 100–115 ลบ.</td><td>—</td><td class="num">—</td><td class="num">+137%</td></tr>
+<tr><td><b>ASTR</b></td><td>SERVICE</td><td>NP 3.43 ลบ.</td><td>-38.8 ลบ. (ขาดทุน)</td><td class="num">loss→profit</td><td>n/a</td></tr>
+<tr><td><b>GCAP</b></td><td>FINCIAL</td><td>NP 30 ลบ.</td><td>-67.7 ลบ. (ขาดทุน)</td><td class="num">loss→profit</td><td>n/a</td></tr>
+<tr><td><b>IIG</b></td><td>TECH</td><td>NP 20 ลบ.</td><td>-388 ลบ. (ขาดทุน)</td><td class="num">loss→profit</td><td>n/a</td></tr>
+<tr><td><b>LTMH</b></td><td>SERVICE</td><td>NP 80–100 ลบ.</td><td>31.9 ลบ.</td><td class="num">~3×</td><td>n/a</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small muted"><b>NDR ซ้อน D1 ด้วย:</b> cross-border M&A (EG Industries Malaysia เข้าซื้อ 17.51%) · <b>MVP</b> (COM7 พยายามซื้อ 51% แต่ดีล cancel พ.ย. 2025) = overhang ถูกปลด · <b>DPAINT</b> เปลี่ยนผถห. 26% (ก.ย. 2025)</p>
+</div>
+</article>
+
+<!-- ===== D2 ===== -->
+<article class="play d" id="pd2">
+<div class="play-head">
+<span class="play-badge">D2</span>
+<div class="play-title">
+<h4>Distress-resolution มีเส้นตาย</h4>
+<div class="loser">ฝั่งแพ้: <b>ไม่มีใครกล้าแตะจนกว่า overhang ถูกปลด</b></div>
+</div>
+<div><span class="play-status standby">STANDBY</span><div class="play-score">Score 3.9/10 · #11</div></div>
+</div>
+<div class="play-body">
+<h5>เกณฑ์เข้า</h5>
+<ul><li>หุ้นมี overhang ชัด (หนี้PD/คดี/ขาดทุน) + มีเส้นตาย resolution ชัด · เข้าก่อนเส้นตาย 1–3 เดือน</li></ul>
+<h5>หุ้น candidate</h5>
+<div class="callout bad">
+<p style="margin:0;"><b>STANDBY</b> — score ต่ำสุด 3.9/10 · ไม่มี case MAI พิสูจน์ · <strong>ไม่แนะนำให้เล่นจนกว่าจะเจอ case จริง</strong> · ถ้าเจอ ไซส์จิ๋ว 0.5–1.5% · <b>potential:</b> IIG/GCAP/ASTR ใน Jump+ ที่เป้า loss→profit อาจกลายเป็น D2 ถ้ามีเส้นตายชัด</p>
+</div>
+</div>
+</article>
+</section>
+
+<!-- ============ SECTION 4: PORTFOLIO ============ -->
+<section id="s4">
+<div class="sec-h"><span class="sec-no">4</span><h2>การประกอบพอร์ต 3 ถุง</h2></div>
+<hr class="div">
+<p>กระจายด้วย "กลไก" ไม่ใช่จำนวนตัว — 3 ถุงที่ไม่ correlate</p>
+
+<div class="bags">
+<div class="bag base">
+<div class="bh">BASE · 25–30%</div>
+<div class="w">Carry + C2</div>
+<p class="bp">จ่ายเงินเดือน + เหยื่อล่อ C2</p>
+<ul class="clean" style="margin:0;">
+<li><b>plays:</b> Carry 25 ตัว + C2 flag</li>
+<li><b>น้ำหนัก:</b> 3–5%/ตัว · 4–6 ตัว</li>
+<li><b>ตัวเด่น:</b> PRI, FLOYD, IROYAL, VCOM, AMARC</li>
+<li><b>volatility:</b> ต่ำ</li>
+</ul>
+</div>
+<div class="bag core">
+<div class="bh">CORE · 30–35%</div>
+<div class="w">A1 + A3</div>
+<p class="bp">เครื่องยนต์ผลตอบแทนหลัก</p>
+<ul class="clean" style="margin:0;">
+<li><b>plays:</b> A1 (หลัก) + A3 (รอง)</li>
+<li><b>น้ำหนัก:</b> 2–4%/ตัว · 5–8 ตัว</li>
+<li><b>ตัวเด่น:</b> I2, UBIS, WELL, IROYAL, UBA (ยังไม่วิ่ง)</li>
+<li><b>volatility:</b> กลาง–สูง</li>
+</ul>
+</div>
+<div class="bag event">
+<div class="bh">EVENT · 5–10%</div>
+<div class="w">B1 + C2 + D1</div>
+<p class="bp">ไซส์เล็ก ผลตอบแทนสูง</p>
+<ul class="clean" style="margin:0;">
+<li><b>plays:</b> NDR (B1+C2+D1), AMARC (C2), Jump+</li>
+<li><b>น้ำหนัก:</b> 1–2%/ตัว · 2–3 ตัว</li>
+<li><b>ตัวเด่น:</b> NDR, AMARC, LTMH</li>
+<li><b>ไม่เอา:</b> C1 (10/14 ติดลบ), D2 (no case)</li>
+</ul>
+</div>
+</div>
+
+<div class="callout accent">
+<h4>กฎเหล็ก</h4>
+<ul class="clean" style="margin-bottom:0;">
+<li><b>น้ำหนักรวม MAI จำกัด</b> — อยู่ใต้โหมด A–B (G2/G3 ยังไม่ผ่าน)</li>
+<li><b>ห้ามตัวเดียว &gt; 5%</b> · <b>ห้าม &gt; 3 ตัวใน play เดียวกัน</b></li>
+<li><b>stop ทุกตัว</b> · <b>cash &gt; 25%</b> รอ trigger</li>
+<li><b>ไม่ไล่ TRT/NTF ที่วิ่งแล้ว</b> — หาตัวที่ยังนิ่งแต่ ROE ดี</li>
+</ul>
+</div>
+</section>
+
+<!-- ============ SECTION 5: 7-DAY PLAN ============ -->
+<section id="s5">
+<div class="sec-h"><span class="sec-no">5</span><h2>แผนปฏิบัติ 7 วัน</h2></div>
+<hr class="div">
+<div class="table-wrap">
+<table>
+<thead><tr><th>วัน</th><th>งาน</th><th>edge</th><th>output</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>1</b></td><td>อ่าน 56-1 Q1/69 ของ A1 candidates ที่ยังไม่วิ่ง: I2, UBIS, WELL, IROYAL, UBA</td><td>A1</td><td>A1 verified</td></tr>
+<tr><td><b>2</b></td><td>อ่าน 56-1 ของ Carry candidates 5 ตัวเด่น: PRI, FLOYD, IROYAL, VCOM, AMARC</td><td>Carry+C2</td><td>Carry verified</td></tr>
+<tr><td><b>3</b></td><td>เช็ก NDR tender detail + AMARC/LTMH buyback progress</td><td>C2+B1+D1</td><td>event verified</td></tr>
+<tr><td><b>4</b></td><td>อ่าน Jump+ targets ของ NAT, KUMWEL, BPS, CFARM</td><td>D1</td><td>D1 shortlist</td></tr>
+<tr><td><b>5</b></td><td>เช็ก STOWER/MMM lockup expiry (วันนี้/ส.ค.) → potential A2</td><td>A2</td><td>A2 watchlist</td></tr>
+<tr><td><b>6</b></td><td>Verify B3 — ดึงกำไร บจ.MAI รายไตรมาส 5 ปี → Q4 vs Q3</td><td>B3</td><td>B3 pass/fail</td></tr>
+<tr class="hl"><td><b>7</b></td><td>รอ Q2/69 งบ ~14 ส.ค. → ยืนยัน A1 inflection 2 ไตรมาสติด → deploy</td><td>A1</td><td>เข้า position</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout good">
+<h4>Trigger ใหญ่รอบถัดไป</h4>
+<p style="margin:0;"><b>Q2/69 งบรายไตรมาส ~14 ส.ค. 2026</b> — ถ้า A1 candidates กำไรโตต่อ 2 ไตรมาสติด = ยืนยัน inflection → เข้าได้ · ก่อน 14 ส.ค. ใช้เวลาอ่าน 56-1 และ verify ทุกอย่าง</p>
+</div>
+</section>
+
+<!-- ============ SECTION 6: EVIDENCE LEDGER ============ -->
+<section id="s6">
+<div class="sec-h"><span class="sec-no">6</span><h2>Evidence ledger + thesis breakers</h2></div>
+<hr class="div">
+
+<h3>6.1 ระดับหลักฐาน</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ระดับ</th><th>plays</th><th>น้ำหนัก</th></tr></thead>
+<tbody>
+<tr><td><span class="epi fact">FACT</span> พิสูจน์สด</td><td>A1 · A3 · B1 · Carry · D1</td><td><span class="tag good">เต็ม</span></td></tr>
+<tr><td><span class="epi anly">PRECEDENT</span></td><td>C1 (แต่ 10/14 ติดลบ!)</td><td><span class="tag watch">ลดครึ่ง</span></td></tr>
+<tr><td><span class="epi assm">LOGIC</span></td><td>A2 · B2 · C2 · D2</td><td><span class="tag watch">ลดครึ่ง</span></td></tr>
+<tr><td><span class="epi assm">VERIFY</span></td><td>B3</td><td><span class="tag bad">เลนส์เท่านั้น</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>6.2 Thesis breakers</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ความเสี่ยง</th><th>สัญญาณเตือน</th><th>ระดับ</th></tr></thead>
+<tbody>
+<tr class="hl"><td><b>สภาพคล่อง MAI แห้งถาวร</b></td><td>turnover &lt; 12% ยาวนาน + บจ.เข้าใหม่ลด</td><td><span class="tag bad">สูงสุด</span></td></tr>
+<tr><td>G2 ไม่ผ่านถาวร (กำไรไม่ inflect จากยอดขาย)</td><td>ยอดขายรวม MAI ติดลบ 4 ไตรมาส</td><td><span class="tag bad">สูง</span></td></tr>
+<tr><td>หุ้น story เปล่า/ธรรมาภิบาล</td><td>กำไรโตจากฐานจิ๋ว (UREKA/NAT verify)</td><td><span class="tag bad">สูง</span></td></tr>
+<tr><td>ไล่ตัวที่วิ่งแล้ว</td><td>TRT ที่ +253% = รับความเสี่ยงย่อ</td><td><span class="tag watch">กลาง</span></td></tr>
+<tr><td>C1 "sell the news"</td><td>10/14 ย้ายกระดานแล้วติดลบ</td><td><span class="tag watch">กลาง</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>6.3 กฎการใช้</h3>
+<div class="callout accent">
+<ol class="clean" style="margin-bottom:0;">
+<li><b>เริ่มจาก FACT</b> — A1, A3, B1, Carry, D1 ใช้น้ำหนักเต็ม</li>
+<li><b>ไม่ไล่ตัวที่วิ่งไปแล้ว</b></li>
+<li><b>ทุกตัวต้องตอบ "ฝั่งแพ้คือใคร" ได้</b></li>
+<li><b>stop ทุกตัว ไม่มีข้อยกเว้น</b></li>
+<li><b>verify ก่อนเชื่อ</b> — 3/10 claims ถูกหักล้าง</li>
+<li><b>ทุก candidate ใน §3 ต้องอ่าน 56-1 ก่อนเล่นจริง</b></li>
+</ol>
+</div>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<section id="appendix">
+<div class="sec-h"><span class="sec-no">A</span><h2>ภาคผนวก</h2></div>
+<hr class="div">
+
+<h3>แหล่งข้อมูล</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ข้อมูล</th><th>แหล่ง</th><th>ความครอบคลุม</th></tr></thead>
+<tbody>
+<tr><td>หุ้น MAI ทั้งกระดาน</td><td>SET API <code>/api/set/stock/list</code></td><td>229 ตัว</td></tr>
+<tr><td>Q1/2026 earnings growth</td><td>SET API <code>/api/set/factsheet/{sym}/financial-growth</code></td><td>130 ตัว (99 ไม่มี data)</td></tr>
+<tr><td>IPO dates + lockup</td><td>SET API <code>/api/set/factsheet/{sym}/capital-movement</code></td><td>57 IPO ราย (2023–2026)</td></tr>
+<tr><td>Yield/PE/PB/mktcap</td><td>SET API <code>/api/set/stock/{sym}/info</code></td><td>ณ ปิด 10 ก.ค. 69</td></tr>
+<tr><td>Buyback/tender/M&A</td><td>SET disclosure + Posttoday/Thunhoon</td><td>AMARC, LTMH, NDR confirmed</td></tr>
+<tr><td>Jump+ program</td><td>efinanceThai Jun 2026</td><td>56 บริษัท MAI</td></tr>
+<tr><td>Board transfers</td><td>efinance.finance + SET news</td><td>14 ราย (2023–2026)</td></tr>
+<tr><td>Backtest verify</td><td>yfinance 5y</td><td>10 หุ้น</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>ข้อมูลเสริม — ไฟล์ที่บันทึกไว้</h3>
+<ul class="clean">
+<li><code>research/mai-ipo-2024-2025.txt</code> — IPO 57 ราย + lockup + broken IPO prices</li>
+<li><code>research/mai-q1-2026-earnings.txt</code> — Q1/2026 NP growth 130 ตัว</li>
+<li><code>research/mai-high-yield-low-pe.txt</code> — yield ≥5% (67 ตัว) + PE 5–10× (45 ตัว) + combo 25 ตัว</li>
+</ul>
+
+<h3>สรุปประโยคเดียว</h3>
+<div class="callout good">
+<p style="margin:0;font-family:var(--serif);font-size:17px;"><b>A1 คือ edge ที่ดีที่สุด (score 7.3)</b> — TRT +340% verified · แต่ต้องจับคู่ Carry (ถ่วง DD) + C2 (detectability) · <b>ตัวเด่นที่ยังไม่วิ่ง:</b> I2, UBIS, WELL, IROYAL, UBA (A1) + NDR (B1+C2+D1 ซ้อน 3 edge) · หลีกเลี่ยง C1 (10/14 ติดลบ) และ D2 (no case) · <strong>อ่าน 56-1 ทุกตัวก่อนเล่นจริง</strong> · trigger Q2/69 ~14 ส.ค.</p>
+</div>
+
+<div class="callout" style="margin-top:24px;">
+<p style="margin:0;"><strong>Disclaimer:</strong> เอกสารนี้เป็นผลงานวิจัยและการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน (Not financial advice)</strong> ชื่อหุ้นทุกตัวเป็น candidate สำหรับศึกษาต่อ ข้อมูลจาก SET API และ yfinance อาจมีข้อจำกัด ต้อง cross-check 56-1 ก่อนตัดสินใจ การลงทุนมีความเสี่ยง</p>
+</div>
+</section>
+
+<footer>
+MAI Edge Playbook v5 · รวม v3 (กลยุทธ์) + v4 (backtest) + candidate stocks ณ ก.ค. 2026<br>
+SET API (229 หุ้น) · 12 ก.ค. 2569 · Not financial advice — เพื่อการศึกษาเท่านั้น<br>
+A1 = edge ที่ดีที่สุด (7.3/10) · ทุก candidate ต้อง verify 56-1 ก่อนเล่น · trigger Q2/69 ~14 ส.ค.
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var toc = document.querySelector('details.toc');
+  if(toc && window.matchMedia('(max-width:900px)').matches){ toc.open = false; }
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var sections = links.map(function(a){
+    var id = a.getAttribute('href').slice(1);
+    return document.getElementById(id);
+  }).filter(Boolean);
+  function onScroll(){
+    var y = window.scrollY + 120;
+    var current = sections[0];
+    for(var i=0;i<sections.length;i++){
+      if(sections[i].offsetTop <= y) current = sections[i];
+    }
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#'+current.id);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
