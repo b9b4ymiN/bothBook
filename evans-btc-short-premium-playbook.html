@@ -1,0 +1,3255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTC Daily Short Premium — Master Playbook · Earthh Evans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Paper tones */
+  --paper:        #F2EFE4;
+  --paper-mid:    #EAE5D2;
+  --paper-deep:   #DDD7BD;
+  --paper-shadow: #C8C0A0;
+  /* Ink */
+  --ink:          #14110B;
+  --ink-soft:     #2A261C;
+  --ink-mid:      #46402F;
+  --ink-muted:    #7C7460;
+  --ink-faint:    #ABA48C;
+  /* Accent — Deep Forest Green (cash-flow / insurance thesis) */
+  --accent:       #3D5A3D;
+  --accent-deep:  #2A4030;
+  --accent-light: #5C7A52;
+  --accent-rule:  rgba(61, 90, 61, 0.30);
+  --accent-bg:    rgba(61, 90, 61, 0.08);
+  /* Gold for highlights / footer */
+  --gold:         #A87C2A;
+  --gold-light:   #C9A44E;
+  --gold-rule:    rgba(168, 124, 42, 0.25);
+  /* Semantic */
+  --red:          #7A1A1A;
+  --red-bg:       #FBF3F0;
+  --green:        #355E40;
+  --green-bg:     #F1F6EE;
+  /* Layout */
+  --book-width:   760px;
+  --page-pad-h:   76px;
+  --page-pad-v:   84px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: #1A1610;
+  padding: 40px 16px;
+  margin: 0;
+  font-family: 'Noto Serif Thai', serif;
+  color: var(--ink-soft);
+  line-height: 1.9;
+}
+
+.book {
+  max-width: var(--book-width);
+  margin: 0 auto;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10), 0 4px 40px rgba(0,0,0,.40), 0 0 120px rgba(0,0,0,.25);
+}
+
+/* ============ COVER ============ */
+.cover {
+  background: linear-gradient(160deg, #0F140F 0%, #1A2418 60%, #0F140F 100%);
+  min-height: 100vh;
+  padding: 80px var(--page-pad-h) 64px;
+  color: var(--paper-deep);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+.cover-frame {
+  position: absolute;
+  top: 36px; right: 36px; bottom: 36px; left: 36px;
+  border: 1px solid rgba(168, 124, 42, 0.35);
+  pointer-events: none;
+}
+.cover-frame::before, .cover-frame::after {
+  content: '';
+  position: absolute;
+  width: 24px; height: 24px;
+  border: 1px solid rgba(168, 124, 42, 0.55);
+}
+.cover-frame::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.cover-frame::after  { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.cover-series {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  text-align: center;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+.cover-author-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.45);
+  text-align: center;
+  margin-bottom: 36px;
+}
+.cover-title-en {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(48px, 9vw, 84px);
+  color: var(--gold-light);
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+}
+.cover-title-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-weight: 600;
+  font-size: clamp(20px, 3.4vw, 28px);
+  color: rgba(242, 239, 228, 0.9);
+  text-align: center;
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+}
+.cover-divider {
+  width: 64px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 28px;
+}
+.cover-subtitle {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(242, 239, 228, 0.65);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+}
+.cover-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+.cover-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  border: 1px solid rgba(168, 124, 42, 0.4);
+  padding: 6px 12px;
+  font-weight: 500;
+}
+.cover-edition {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(242, 239, 228, 0.4);
+  text-align: center;
+  position: absolute;
+  bottom: 64px;
+  left: 0;
+  right: 0;
+}
+.cover-author-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--paper-deep);
+  text-align: center;
+  margin-bottom: 6px;
+}
+.cover-date {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold-light);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ============ CHAPTER OPENING ============ */
+.chapter-open {
+  background: var(--paper-mid);
+  padding: 84px var(--page-pad-h) 64px;
+  border-bottom: 1px solid var(--paper-shadow);
+  position: relative;
+}
+.chapter-open::after {
+  content: '';
+  display: block;
+  width: 48px; height: 2px;
+  background: var(--accent);
+  margin-top: 32px;
+}
+.ch-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 128px;
+  font-weight: 400;
+  color: var(--paper-shadow);
+  position: absolute;
+  top: 56px;
+  right: var(--page-pad-h);
+  line-height: 1;
+  opacity: 0.7;
+}
+.ch-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.ch-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-weight: 700;
+  font-size: clamp(28px, 4.5vw, 38px);
+  color: var(--ink);
+  line-height: 1.25;
+  margin: 0;
+}
+.ch-title em {
+  display: block;
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--ink-muted);
+  margin-top: 10px;
+  letter-spacing: 0.3px;
+}
+.ch-essence {
+  font-family: 'Noto Serif Thai', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-mid);
+  line-height: 1.8;
+  max-width: 560px;
+  margin-top: 28px;
+  border-left: 2px solid var(--accent);
+  padding-left: 18px;
+}
+
+/* ============ PAGE ============ */
+.page {
+  background: var(--paper);
+  padding: var(--page-pad-v) var(--page-pad-h);
+}
+.eyebrow {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.page h1 {
+  font-family: 'Noto Serif Thai', serif;
+  font-weight: 600;
+  font-size: clamp(24px, 3.5vw, 32px);
+  color: var(--ink);
+  line-height: 1.3;
+  margin: 0 0 24px;
+}
+.page h2 {
+  font-family: 'Noto Serif Thai', serif;
+  font-weight: 600;
+  font-size: clamp(18px, 2.6vw, 22px);
+  color: var(--ink-soft);
+  margin: 48px 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--accent-rule);
+  position: relative;
+  line-height: 1.4;
+}
+.page h2::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 36px; height: 2px;
+  background: var(--accent);
+}
+.page h3 {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin: 32px 0 12px;
+}
+.page p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+  margin: 0 0 18px;
+}
+.page p strong, .page p b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.page ul, .page ol {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  padding-left: 24px;
+  margin: 0 0 20px;
+}
+.page li { margin-bottom: 8px; }
+.page code {
+  font-family: 'Consolas', 'Monaco', monospace;
+  background: var(--paper-mid);
+  padding: 2px 6px;
+  font-size: 14px;
+  color: var(--accent-deep);
+  border-radius: 3px;
+}
+
+/* ============ PULL QUOTE ============ */
+.pullquote {
+  margin: 40px 0;
+  padding: 0 0 0 28px;
+  border-left: 3px solid var(--accent);
+}
+.pullquote p {
+  font-family: 'Noto Serif', serif;
+  font-size: 19px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.65;
+  margin: 0 0 8px;
+}
+.pullquote cite {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-style: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ============ BLOCKQUOTE FULL ============ */
+.blockquote-full {
+  background: var(--ink);
+  padding: 56px 48px;
+  margin: 48px 0;
+  text-align: center;
+  position: relative;
+}
+.blockquote-full::before {
+  content: '"';
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 72px;
+  color: var(--gold);
+  opacity: 0.4;
+  position: absolute;
+  top: 8px; left: 24px;
+  line-height: 1;
+}
+.bq-en {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: clamp(17px, 2.4vw, 22px);
+  color: rgba(242, 239, 228, 0.85);
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+.bq-th {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: rgba(201, 164, 78, 0.7);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ============ AUTHOR VOICE BOX ============ */
+.author-box {
+  display: flex;
+  gap: 18px;
+  padding: 24px 28px;
+  background: var(--paper-mid);
+  border-left: 3px solid var(--accent);
+  margin: 32px 0;
+  align-items: flex-start;
+}
+.author-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--accent-deep);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.author-meta {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.author-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ============ INSIGHT BOX ============ */
+.insight-box {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-rule);
+  border-left: 3px solid var(--accent);
+  padding: 22px 26px;
+  margin: 32px 0;
+  border-radius: 0 4px 4px 0;
+}
+.insight-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.insight-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ============ LADDER (misconception → truth → action) ============ */
+.ladder { margin: 36px 0; }
+.ladder-step { padding: 20px 26px; margin: 0; }
+.ladder-step.wrong { background: var(--red-bg); border-left: 3px solid var(--red); }
+.ladder-step.truth { background: var(--accent-bg); border-left: 3px solid var(--accent-deep); }
+.ladder-step.action { background: var(--green-bg); border-left: 3px solid var(--green); }
+.ladder-tag {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.ladder-step.wrong .ladder-tag { color: var(--red); }
+.ladder-step.truth .ladder-tag { color: var(--accent-deep); }
+.ladder-step.action .ladder-tag { color: var(--green); }
+.ladder-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.ladder-text strong { color: var(--ink); }
+.ladder-arrow {
+  text-align: center;
+  padding: 8px;
+  color: var(--ink-faint);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* ============ SIGNAL BOX (buy / sell) ============ */
+.signal-box {
+  padding: 22px 26px;
+  margin: 24px 0;
+  border-radius: 0 4px 4px 0;
+}
+.signal-box.buy { background: var(--green-bg); border-left: 3px solid var(--green); }
+.signal-box.sell { background: var(--red-bg); border-left: 3px solid var(--red); }
+.signal-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.signal-box.buy .signal-title { color: var(--green); }
+.signal-box.sell .signal-title { color: var(--red); }
+.signal-list { list-style: none; padding: 0; margin: 0; }
+.signal-list li {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  padding: 4px 0 4px 22px;
+  position: relative;
+}
+.signal-list li::before {
+  position: absolute;
+  left: 0; top: 4px;
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+.signal-box.buy .signal-list li::before { content: '+'; color: var(--green); }
+.signal-box.sell .signal-list li::before { content: '−'; color: var(--red); }
+
+/* ============ CMP TABLE ============ */
+.cmp-table-wrap {
+  margin: 28px 0;
+  overflow-x: auto;
+  border: 1px solid var(--paper-shadow);
+}
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px;
+  background: var(--paper);
+  min-width: 460px;
+}
+.cmp-table th {
+  background: var(--ink-soft);
+  color: var(--gold-light);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 11px;
+  border-bottom: 1px solid var(--ink);
+}
+.cmp-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--paper-shadow);
+  color: var(--ink-soft);
+  vertical-align: top;
+  line-height: 1.6;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: rgba(234, 229, 210, 0.4); }
+.cmp-table .col-type {
+  font-family: 'Noto Serif Thai', serif;
+  font-weight: 600;
+  color: var(--ink);
+}
+.cmp-table .num {
+  font-family: 'Noto Serif', serif;
+  font-weight: 600;
+  color: var(--accent-deep);
+  text-align: center;
+}
+
+/* ============ STAT ROW ============ */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 32px 0;
+}
+.stat-item {
+  background: var(--paper-mid);
+  padding: 26px 18px;
+  text-align: center;
+}
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 38px);
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* ============ TWO COL GRID (cards) ============ */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--paper-shadow);
+  border: 1px solid var(--paper-shadow);
+  margin: 28px 0;
+}
+.grid-card {
+  background: var(--paper);
+  padding: 24px;
+}
+.grid-card-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent-deep);
+  margin-bottom: 10px;
+}
+.grid-card h4 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+.grid-card p {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-muted);
+  margin: 0 0 8px;
+}
+
+/* ============ FORMULA BLOCK ============ */
+.formula-block {
+  background: var(--ink);
+  padding: 28px 32px;
+  margin: 28px 0;
+  text-align: center;
+  border-radius: 2px;
+}
+.formula-label {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.formula-eq {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(18px, 2.6vw, 22px);
+  color: var(--paper);
+  font-style: italic;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.formula-note {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13px;
+  color: rgba(201, 164, 78, 0.75);
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* ============ REFLECTION ============ */
+.reflection {
+  background: var(--paper-mid);
+  border-top: 2px solid var(--accent);
+  padding: 32px 36px 28px;
+  margin: 56px 0 8px;
+}
+.reflection-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.reflection-list {
+  list-style: none;
+  counter-reset: r;
+  padding: 0;
+  margin: 0;
+}
+.reflection-list li {
+  counter-increment: r;
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  padding: 8px 0 8px 36px;
+  position: relative;
+}
+.reflection-list li::before {
+  content: counter(r);
+  position: absolute;
+  left: 0; top: 8px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--accent-light);
+  opacity: 0.5;
+  font-weight: 600;
+}
+
+/* ============ CHAPTER CARD (TOC) ============ */
+.ch-card {
+  display: flex;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--paper-shadow);
+  align-items: flex-start;
+}
+.ch-card:last-child { border-bottom: none; }
+.ch-card-num {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--accent);
+  font-weight: 400;
+  line-height: 1;
+  min-width: 52px;
+  padding-top: 4px;
+}
+.ch-card-title {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.ch-card-one-liner {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.ch-tag {
+  display: inline-block;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  padding: 3px 8px;
+  margin-right: 6px;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+/* ============ CHECKLIST ============ */
+.checklist {
+  margin: 32px 0;
+  border: 1px solid var(--paper-shadow);
+}
+.checklist-cap {
+  background: var(--ink-soft);
+  padding: 18px 24px;
+}
+.checklist-cap h3 {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin: 0 0 4px;
+}
+.checklist-cap p {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: rgba(242, 239, 228, 0.65);
+  margin: 0;
+}
+.cl-group {
+  border-top: 1px solid var(--paper-shadow);
+}
+.cl-group-title {
+  background: var(--paper-mid);
+  padding: 10px 20px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.cl-items li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--paper-shadow);
+}
+.cl-items li:last-child { border-bottom: none; }
+.cl-box {
+  width: 16px; height: 16px;
+  border: 1.5px solid var(--paper-shadow);
+  background: var(--paper);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.cl-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.cl-text strong { color: var(--ink); font-weight: 600; }
+.cl-note {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* ============ TIMELINE ============ */
+.timeline { margin: 32px 0; padding-left: 8px; }
+.timeline-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px dashed var(--paper-shadow);
+  align-items: flex-start;
+}
+.timeline-row:last-child { border-bottom: none; }
+.timeline-time {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--accent);
+  padding-top: 2px;
+}
+.timeline-body {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.timeline-body strong { color: var(--ink); font-weight: 600; }
+.timeline-body em {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 12px;
+  color: var(--ink-muted);
+  font-style: normal;
+  display: block;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* ============ CODE BLOCK (AI Prompts) ============ */
+.code-block {
+  background: #1A1814;
+  border: 1px solid #2C2820;
+  border-radius: 4px;
+  margin: 24px 0;
+  overflow: hidden;
+}
+.code-header {
+  background: #232019;
+  padding: 10px 16px;
+  border-bottom: 1px solid #2C2820;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.code-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  font-weight: 600;
+}
+.code-badge {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(201, 164, 78, 0.6);
+  text-transform: uppercase;
+}
+.code-body {
+  padding: 20px 24px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.75;
+  color: #E8E0CC;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
+}
+.code-body .tag {
+  color: var(--gold-light);
+  font-weight: 600;
+}
+.code-body .var {
+  color: #BFA98C;
+  font-style: italic;
+}
+
+/* ============ RISK WARNING BOX ============ */
+.risk-warning {
+  background: var(--red-bg);
+  border: 1px solid rgba(122, 26, 26, 0.25);
+  border-left: 3px solid var(--red);
+  padding: 22px 26px;
+  margin: 32px 0;
+  border-radius: 0 4px 4px 0;
+}
+.risk-warning-title {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.risk-warning-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ============ ORNAMENT DIVIDER ============ */
+hr.ornament {
+  border: none;
+  text-align: center;
+  margin: 48px 0;
+}
+hr.ornament::before {
+  content: '· · ·';
+  color: var(--accent-rule);
+  letter-spacing: 14px;
+  font-size: 14px;
+}
+
+/* ============ BOOK FOOTER ============ */
+.book-footer {
+  background: var(--ink);
+  padding: 64px var(--page-pad-h);
+  text-align: center;
+}
+.book-footer-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.book-footer-text {
+  font-family: 'Noto Serif Thai', serif;
+  font-size: 14px;
+  color: var(--paper-deep);
+  font-style: italic;
+  line-height: 1.8;
+  max-width: 480px;
+  margin: 0 auto 22px;
+}
+.book-footer-author {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 11px;
+  color: var(--gold-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 780px) {
+  :root { --page-pad-h: 28px; --page-pad-v: 56px; }
+  body { padding: 16px 8px; }
+  .ch-num { font-size: 96px; right: 24px; top: 32px; opacity: 0.5; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .two-col-grid { grid-template-columns: 1fr; }
+  .blockquote-full { padding: 40px 24px; margin-left: -28px; margin-right: -28px; }
+  .formula-block { padding: 24px 20px; }
+  .timeline-row { grid-template-columns: 1fr; gap: 4px; }
+  .timeline-time { font-size: 16px; }
+  .cover { padding: 64px 24px 48px; }
+  .cover-frame { top: 18px; right: 18px; bottom: 18px; left: 18px; }
+  .code-body { font-size: 12px; padding: 16px 18px; }
+  .author-box { padding: 18px 20px; }
+  .reflection { padding: 24px 22px; }
+  .page p, .page ul, .page ol { font-size: 15.5px; }
+}
+</style>
+</head>
+<body>
+<div class="book">
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="cover-frame"></div>
+  <div class="cover-series">The Daily Premium Series</div>
+  <div class="cover-author-label">Master Playbook · By</div>
+  <div class="cover-title-en">BTC Daily<br>Short Premium</div>
+  <div class="cover-title-th">ระบบเก็บพรีเมียมรายวันจาก BTC Options บน Bybit</div>
+  <div class="cover-divider"></div>
+  <div class="cover-subtitle">"เป็นบริษัทประกัน BTC ขนาดเล็ก — เก็บเบี้ยจากความกลัวของคนที่กลัว ปล่อยให้ Theta ทำงาน ปิดก่อน Gamma ตื่น"</div>
+  <div class="cover-tags">
+    <div class="cover-tag">Bybit</div>
+    <div class="cover-tag">Daily Options</div>
+    <div class="cover-tag">Short Premium</div>
+    <div class="cover-tag">AI-Activated</div>
+    <div class="cover-tag">USDT Collateral</div>
+  </div>
+  <div class="cover-author-name">Earthh Evans</div>
+  <div class="cover-date">พฤษภาคม 2026 · v2.0</div>
+  <div class="cover-edition">AI-Activated Complete Edition · แจกฟรี ห้ามจำหน่าย</div>
+</div>
+
+<!-- ============ TOC PAGE ============ -->
+<div class="page">
+  <div class="eyebrow">Contents · สารบัญ</div>
+  <h1>เนื้อหาทั้งเล่มใน 11 บท</h1>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-value">90%</div>
+      <div class="stat-label">Win Rate<br>(2 เดือน)</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">$9.3K</div>
+      <div class="stat-label">ทุนจริง<br>ในบัญชี</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">73</div>
+      <div class="stat-label">Trades<br>เสร็จสิ้น</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">+฿30K</div>
+      <div class="stat-label">กำไรสะสม<br>2 เดือน</div>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">01</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">"บริษัทประกัน BTC" · Concept ภาษาบ้านๆ</div>
+      <div class="ch-card-one-liner">Short Option คือการเป็นบริษัทประกัน — เก็บเบี้ยจากความกลัว จ่ายเฉพาะคนที่เคลมจริง</div>
+      <span class="ch-tag">Concept</span><span class="ch-tag">Insurance Metaphor</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">02</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">IV vs HV · หัวใจของคนขาย Option</div>
+      <div class="ch-card-one-liner">ทำไม "ความกลัวของตลาด" ที่แพงกว่า "ความจริง" เสมอ คือ edge ทางสถิติของคนขาย</div>
+      <span class="ch-tag">Volatility</span><span class="ch-tag">Edge</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">03</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Funding Rate · อ่านสมดุล Long/Short</div>
+      <div class="ch-card-one-liner">5 zones ของ Funding Rate ที่บอกว่าฝั่งไหนกำลังเบียดกัน และเสี่ยง squeeze ทางไหน</div>
+      <span class="ch-tag">Positioning</span><span class="ch-tag">Squeeze Risk</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">04</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Liquidation · กฎเหล็กที่ตัดสินทุกอย่าง</div>
+      <div class="ch-card-one-liner">Liquidation &gt; $200M = SKIP เสมอ ไม่ว่า setup จะดูดีแค่ไหน</div>
+      <span class="ch-tag">Hard Rule</span><span class="ch-tag">Risk Control</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">05</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Combination Read · กฎพิเศษที่ไม่มีใน textbook</div>
+      <div class="ch-card-one-liner">อย่าอ่านตัวเลขเดียว — Price + Volume + OI + Liquidation พร้อมกันเท่านั้นถึงจะเห็นความจริง</div>
+      <span class="ch-tag">Pattern</span><span class="ch-tag">4 Patterns</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">06</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">8-Check Framework + 7 No-Trade Rules</div>
+      <div class="ch-card-one-liner">8 ข้อที่ต้องผ่านก่อนเปิดทุกครั้ง และ 7 ข้อที่ถ้าเจอ = หยุดเลย</div>
+      <span class="ch-tag">Framework</span><span class="ch-tag">Checklist</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">07</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Strike Selection &amp; Risk Management</div>
+      <div class="ch-card-one-liner">Delta sweet spot · SD Distance · RR 1:2 · ทำไม SL ต้องตั้งด้วย Index Price ไม่ใช่ Mark Price</div>
+      <span class="ch-tag">Execution</span><span class="ch-tag">Stop Loss</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">08</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Field Notes · บทเรียนจริงจาก 13 วันเทรด</div>
+      <div class="ch-card-one-liner">บทเรียนที่ textbook ไม่เคยบอน — Mark Price ของปลอม · Pin Risk จริง · Combination Read แพ้ AI signal</div>
+      <span class="ch-tag">Field Notes</span><span class="ch-tag">Case Studies</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">09</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">เครื่องมือ 4 ตัว + Workflow ตลอดวัน</div>
+      <div class="ch-card-one-liner">Bybit · CoinGlass · TradingView · ForexFactory — timeline ตั้งแต่ 07:00 ถึง 15:00 settle</div>
+      <span class="ch-tag">Tools</span><span class="ch-tag">Workflow</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">10</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">AI Skill Activation · Prompts พร้อมใช้</div>
+      <div class="ch-card-one-liner">System Prompt + Daily Trigger + 5 Special Triggers — copy-paste ลง Claude/ChatGPT/Gemini ได้เลย</div>
+      <span class="ch-tag">AI Prompts</span><span class="ch-tag">Copy-Paste</span>
+    </div>
+  </div>
+
+  <div class="ch-card">
+    <div class="ch-card-num">11</div>
+    <div class="ch-card-body">
+      <div class="ch-card-title">Mark Price Anomaly · ความจริงที่ trader ส่วนใหญ่ไม่รู้</div>
+      <div class="ch-card-one-liner">ทำไม −27% / −195% Unrealized Loss ที่เห็นตอนเปิด position ไม่ใช่การขาดทุนจริง</div>
+      <span class="ch-tag">Bybit Mechanics</span><span class="ch-tag">Illusion</span>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <div class="insight-box">
+    <div class="insight-label">อ่านยังไง · เส้นทางที่แนะนำ</div>
+    <p class="insight-text"><strong>มือใหม่</strong> — อ่านบท 1–4 (Concepts) ให้ครบก่อน · ข้ามบท 5–7 ไว้ก่อน · ตั้งบท 10 (AI) เพื่อให้ AI ช่วยชั้นแรก · <strong>Paper trade 2 สัปดาห์</strong>ก่อนใช้เงินจริง</p>
+  </div>
+
+</div>
+
+<!-- ============ FOREWORD ============ -->
+<div class="chapter-open">
+  <div class="ch-num">F</div>
+  <div class="ch-label">Foreword · คำนำ</div>
+  <div class="ch-title">
+    จดหมายจาก Earthh
+    <em>"ทำไมผมถึงแชร์ระบบนี้ให้ฟรี"</em>
+  </div>
+  <div class="ch-essence">เป้าหมายของผมไม่ได้หวังรวยจากตรงนี้ แค่เฉลี่ยวันละประมาณ 500 บาท เอาไว้เป็นกระแสเงินสด — ค่าอาหารแมวที่บ้านสบายๆ แค่นั้นผมก็พอใจแล้ว</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Track Record · ผลลัพธ์จริง 2 เดือน</div>
+  <h1>เริ่มจากคำถามง่ายๆ — หาเงินวันละ 500 บาทได้ไหม?</h1>
+
+  <p>หลายคนถามว่าเวลาเทรด Option รายวัน ผมตัดสินใจยังไงว่าวันนี้ควรเปิดฝั่งไหน หรือควรอยู่เฉยๆ คำตอบสั้นๆ คือ — ผมไม่ได้เดาทิศทางราคา ผมเป็น "บริษัทประกัน BTC" ขนาดเล็กที่เก็บเบี้ยจากคนที่กลัว</p>
+
+  <p>ในช่วง 2 เดือนที่ผ่านมา ผมเปิด/ปิด position ไปทั้งหมด <strong>73 สถานะ</strong> — ชนะ 65 แพ้ 8 — ระบบแสดง Win Rate <strong>90%</strong> (หรือจริงๆ ประมาณ 89%) กำไรสะสมรวมประมาณ <strong>$971</strong> เฉลี่ยประมาณ $13.30 ต่อสถานะ ใช้ทุนประมาณ <strong>300,000 บาท ($9,300)</strong></p>
+
+  <p>ตัวเลขนี้เป็นผลรวมของบัญชี Option ทั้ง Short Put, Short Call และ Long Option, Strangle — ไม่ใช่กำไรจาก Short Put เพียงกลยุทธ์เดียวนะ ผสมๆ กัน</p>
+
+  <div class="author-box">
+    <div class="author-avatar">E</div>
+    <div class="author-content">
+      <div class="author-meta">Earthh Evans — Facebook Post</div>
+      <p class="author-text">"เป้าของผมไม่ได้หวังรวยจากตรงนี้ แค่เฉลี่ยวันละประมาณ 500 บาท ได้เดือนละหมื่นกว่าบาท เอาไว้เป็นกระแสเงินสด เป็นค่าอาหารแมวที่บ้านสบายๆ แค่นั้นผมก็พอใจแล้วครับ 🐱"</p>
+    </div>
+  </div>
+
+  <h2>ทำไมถึงแชร์ระบบนี้ให้ฟรี</h2>
+  <p>ผมเริ่มจริงจังตั้งแต่วันที่ 15 พฤษภาคม — เติมเงินเข้าไป $9,300 และ set ระบบให้ชัดเจน ก่อนหน้านั้นก็เทรดมานานแล้ว แต่พอได้กำไรเยอะเข้า บางทีก็โลภ ยัดเข้าไปบ้าง ผมเลยมา set ระบบให้มีวินัย</p>
+
+  <p>หลังจากลองผิดลองถูกมาเอง — ผมอยากแชร์สิ่งที่ได้เรียนรู้ ไม่ใช่เพื่อชวนทำตาม แต่เพื่อให้คนที่สนใจได้เห็น <strong>logic ที่อยู่เบื้องหลัง</strong> การตัดสินใจ และได้เครื่องมือ (ทั้ง Playbook และ AI Commands) ที่ทำให้เริ่มต้นได้เร็วขึ้นโดยไม่ต้องเสียค่าเรียนรู้มากเท่าที่ผมเสียไป</p>
+
+  <div class="insight-box">
+    <div class="insight-label">หลักคิดของระบบนี้</div>
+    <p class="insight-text">เกมนี้ไม่ใช่แค่ทายว่าราคาจะขึ้นหรือลง แต่ต้องบริหารพร้อมกันทั้งทิศทาง ความผันผวน ราคา Option และเวลาที่เหลือ — เพราะ Short Option ได้กำไรทีละนิด แต่เวลาผิดทาง ความเสียหายสามารถเร่งตัวได้เร็วมาก</p>
+  </div>
+
+  <h2>แหล่งข้อมูลในเล่มนี้</h2>
+  <p>หนังสือเล่มนี้รวบรวมจาก 3 เอกสารหลักของผม บวกกับคลิปสอนจริงครั้งเดียวที่อธิบาย workflow ครบทั้งวัน:</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">Source 1</div>
+      <h4>Master Playbook v2.0</h4>
+      <p>52 หน้า · 4 Parts (Concepts → Technical → Field Notes → AI Activation) — กระดูกสันหลังของเล่มนี้</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Source 2</div>
+      <h4>AI Commands Pack</h4>
+      <p>21 หน้า · System Prompt + Daily Trigger + 5 Special Triggers — copy-paste ลง Claude/ChatGPT ได้เลย</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Source 3</div>
+      <h4>คลิปสอน Daily Trade</h4>
+      <p>32 นาที · Live demo จริงตั้งแต่ setup Claude Project ถึงเปิด Short Call $75,000</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Source 4</div>
+      <h4>บทความ Facebook</h4>
+      <p>Track Record 2 เดือน + 4 เสาหลักของการตัดสินใจเปิด Short Put ต่อเนื่องหลายวัน</p>
+    </div>
+  </div>
+
+  <div class="risk-warning">
+    <div class="risk-warning-title">⚠ คำเตือนสำคัญก่อนอ่านต่อ</div>
+    <p class="risk-warning-text"><strong>บทความนี้เป็นการแชร์ความรู้และประสบการณ์ส่วนตัว ไม่ใช่คำแนะนำการลงทุน</strong> — การขาย Option มีความเสี่ยงสูง อาจขาดทุนมากกว่ากำไรที่คาดหวัง และ Stop Loss ไม่สามารถรับประกันราคาปิดสถานะได้ในทุกสภาวะตลาด ผลตอบแทนในอดีตไม่การันตีผลลัพธ์ในอนาคต — ศึกษาให้เข้าใจก่อนตัดสินใจทุกครั้ง</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านเข้าสู่บทที่ 1</div>
+    <ol class="reflection-list">
+      <li>คุณกำลังมองหา "กำไรดีในวันเดียว" หรือ "กระแสเงินสดสม่ำเสมอ" — เพราะระบบนี้ตอบแบบหลัง</li>
+      <li>คุณพร้อมที่จะ SKIP การเทรดในวันที่ตลาด "ดูเหมาะเทรดมากที่สุด" หรือไม่ (วันที่ Liquidation &gt; $200M)?</li>
+      <li>คุณยอมให้ AI เป็น co-pilot ได้ไหม — โดยที่ตัวคุณเองยังเป็นคนตัดสินใจสุดท้ายเสมอ?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 1 — บริษัทประกัน BTC ============ -->
+<div class="chapter-open">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่หนึ่ง · Concept</div>
+  <div class="ch-title">
+    "บริษัทประกัน BTC"
+    <em>ถ้าคุณเคยซื้อประกันรถ คุณเข้าใจกลยุทธ์นี้แล้ว 80%</em>
+  </div>
+  <div class="ch-essence">Short Option คือการเป็นบริษัทประกัน — เก็บเบี้ยจาก 100 คนที่กลัว จ่ายเฉพาะ 5% ที่เคลมจริง ส่วนต่างคือกำไร</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>เราไม่ได้ทายราคา — เราขายความกลัว</h1>
+
+  <p>คนส่วนใหญ่ที่เริ่มเทรด Option มักเข้าใจผิดตั้งแต่แรก — คิดว่า Option คือ "เครื่องมือทายราคา" แต่จริงๆ แล้ว Option คือ <strong>"สัญญาประกันราคา"</strong> ที่มีวันหมดอายุ คนที่ซื้อ Option จ่ายเบี้ยให้คนที่ขาย เพื่อซื้อความสบายใจว่าถ้าราคา BTC ไปในทิศที่ไม่ต้องการ จะมีใครรับผิดชอบให้</p>
+
+  <p>ในระบบนี้ เรารับบทเป็น <strong>"บริษัทประกัน BTC"</strong> — ขายประกันราคาให้คนที่กลัว BTC จะราคาขึ้น (Call) หรือลง (Put) เก็บ premium ทุกวัน ส่วนใหญ่ราคา BTC ไม่ถึง strike ที่เราขายไว้ — เราเก็บ premium ฟรีไป</p>
+
+  <h2>บริษัทประกันรถทำกำไรยังไง?</h2>
+  <p>ลองนึกถึงบริษัทประกันรถยนต์ — เขาเก็บเบี้ยจากคน 100 คนที่กลัวรถชน ใน 100 คนนั้น มีคนเคลมจริงประมาณ 5% ส่วนต่างระหว่าง "เบี้ยที่เก็บทั้งหมด" ลบด้วย "เคลมที่จ่าย" คือกำไรสุทธิ ไม่ใช่เรื่องของดวง แต่เป็นเรื่องของคณิตศาสตร์</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>เปรียบเทียบ</th>
+          <th>บริษัทประกันรถ</th>
+          <th>Short BTC Call</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">ธุรกิจหลัก</td>
+          <td>รับเบี้ยจากคนที่กลัวเสีย</td>
+          <td>รับ premium จากคนที่กลัวพลาด</td>
+        </tr>
+        <tr>
+          <td class="col-type">รายรับ</td>
+          <td>100 คน × เบี้ย $200 = $20,000</td>
+          <td>100 trades × premium $15 = $1,500</td>
+        </tr>
+        <tr>
+          <td class="col-type">รายจ่าย (เคลม)</td>
+          <td>5 คน × $1,500 = $7,500</td>
+          <td>SL trigger ~7% × $30 = $210</td>
+        </tr>
+        <tr>
+          <td class="col-type">กำไรสุทธิ</td>
+          <td><strong>+$12,500</strong></td>
+          <td><strong>+$1,290</strong></td>
+        </tr>
+        <tr>
+          <td class="col-type">หลักการเดียวกัน</td>
+          <td colspan="2">เบี้ยที่เก็บ &gt; ความเสียหายเฉลี่ย — ขาย "ความกลัว" ในราคาแพงกว่า "ความเสียหายจริง"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Call vs Put — คำนิยามภาษาบ้านๆ</h2>
+  <p>มี Option อยู่ 2 ประเภทในตลาด — คุณต้องเข้าใจความแตกต่างให้ชัด ก่อนที่จะเข้าใจว่าเรา "ขาย" ตัวไหน</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">Call Option · ประกันราคาขึ้น</div>
+      <h4>คนซื้อ Call</h4>
+      <p>จ่าย premium ให้คนขาย เพื่อสิทธิ์ "ซื้อ BTC ที่ราคา strike" ภายในวันหมดอายุ</p>
+      <p>ถ้า BTC ขึ้นเกิน strike → ใช้สิทธิ์ → คนขายต้องส่ง BTC ในราคาถูก</p>
+      <p>ถ้า BTC ไม่ถึง strike → option หมดอายุไร้ค่า → คนขายเก็บ premium ฟรี</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Put Option · ประกันราคาลง</div>
+      <h4>คนซื้อ Put</h4>
+      <p>จ่าย premium ให้คนขาย เพื่อสิทธิ์ "ขาย BTC ที่ราคา strike" ภายในวันหมดอายุ</p>
+      <p>ถ้า BTC ลงต่ำกว่า strike → ใช้สิทธิ์ → คนขายต้องรับ BTC ในราคาแพง</p>
+      <p>ถ้า BTC ไม่ลงมาถึง strike → option หมดอายุไร้ค่า → คนขายเก็บ premium ฟรี</p>
+    </div>
+  </div>
+
+  <h2>ทำไม "ขาย" ดีกว่า "ซื้อ" ในระยะยาว</h2>
+  <p>สถิติสำคัญ: <strong>70-90% ของ option ที่ออกในตลาด crypto หมดอายุไร้ค่า</strong> — คนชื้อต้องการ "เหตุการณ์เกิดขึ้น" (ราคาวิ่งแรง) แต่ราคาส่วนใหญ่ไม่วิ่งแรง คนขายต้องการ "ไม่มีอะไรเกิด" (ราคาทรงตัว) — ซึ่งเป็นเหตุการณ์ปกติ</p>
+
+  <p>มันเหมือนคาสิโน — บางครั้งมีคนถูก jackpot แต่คนคุมโต๊ะกำไรในระยะยาว เพราะ probability เอาเปรียบ</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Insurance companies don't predict accidents. They price fear higher than the average damage — and let the law of large numbers do the work."</div>
+    <div class="bq-th">บริษัทประกันไม่ได้ทายอุบัติเหตุ — พวกเขาคิดราคาความกลัวให้แพงกว่าความเสียหายเฉลี่ย แล้วปล่อยให้กฎของความน่าจะเป็นทำงาน</div>
+  </div>
+
+  <h2>แต่เกมนี้ไม่ได้ง่ายขนาดนั้น</h2>
+  <p>เกม Short Option ได้กำไรทีละนิด — premium แต่ละไม้ $10-30 — แต่เวลา "ผิดทาง" ความเสียหายสามารถเร่งตัวได้เร็วมาก (Gamma + Volatility Expansion) ดังนั้นทั้งระบบนี้ไม่ใช่แค่ "ขาย Option แล้วรอเก็บเงิน" — แต่ต้องบริหารพร้อมกันทั้งทิศทาง ความผันผวน ราคา Option และเวลาที่เหลือ</p>
+
+  <p>นั่นคือเหตุผลที่บทถัดไปทั้งหมดมีอยู่ — ทุกบทคือกลไกป้องกันความเสียหาย ไม่ใช่แค่เครื่องมือหากำไร</p>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">Short Option = เป็นบริษัทประกัน ไม่ใช่นักทายราคา · เก็บเบี้ยจากคนที่กลัว จ่ายเฉพาะคนที่เคลมจริง · 70-90% ของ option หมดอายุไร้ค่า = edge ทางสถิติของคนขาย</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>ถ้าคุณต้องเลือก — คุณจะเป็นบริษัทประกัน หรือ ลูกค้าที่ซื้อประกัน? เพราะอะไร?</li>
+      <li>70-90% ของ option หมดอายุไร้ค่า — แปลว่าคุณจะ "ชนะ 9 จาก 10 ครั้ง" เสมอหรือไม่? เงื่อนไขอะไรที่ทำให้ไม่ใช่?</li>
+      <li>ถ้า premium ที่ขายได้แค่ $15 แต่ SL อาจเสีย $30 — คุณยอมรับ reward:risk แบบนี้ไหม? ทำไม?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 2 — IV vs HV ============ -->
+<div class="chapter-open">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่สอง · Volatility</div>
+  <div class="ch-title">
+    IV vs HV
+    <em>หัวใจของคนขาย Option — ทำไม "ความกลัว" แพงกว่า "ความจริง" เสมอ</em>
+  </div>
+  <div class="ch-essence">สองตัวนี้คือคู่สำคัญที่สุดของ Option Seller — รู้แล้วบอกได้ทันทีว่า Option "แพง" หรือ "ถูก"</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>"ค่ากลัว" ที่ตลาดคิด กับ "ความจริง" ที่เกิด</h1>
+
+  <p>ทุกราคา Option ในตลาดฝัง "ความคาดหวังความผันผวน" ของตลาดไว้ข้างใน — ถ้าตลาดคิดว่า BTC จะวิ่งแรง ราคา Option จะแพงขึ้น ถ้าคิดว่าจะสงบ ราคาจะถูกลง ค่านี้คือ <strong>IV (Implied Volatility)</strong> — ความผันผวนที่ตลาด "คาดว่าจะเป็น"</p>
+
+  <p>ในขณะที่ <strong>HV (Historical Volatility)</strong> คือความผันผวนที่เกิดขึ้นจริงในอดีต — คำนวณจาก standard deviation ของ daily returns ปกติดูย้อนหลัง 30 วัน</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">HV · Historical Volatility</div>
+      <h4>ของจริงที่เกิดแล้ว</h4>
+      <p>วัดว่า BTC วิ่งจริงเท่าไหร่ในอดีต (30 วัน)</p>
+      <p>ตัวอย่าง: HV 20% = ปีที่ผ่านมา BTC มี realized volatility 20%</p>
+      <p><strong>ดูจาก:</strong> TradingView — เพิ่ม indicator "Historical Volatility" length 30</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">IV · Implied Volatility</div>
+      <h4>ที่ตลาดคาดว่าจะเป็น</h4>
+      <p>ค่าที่ฝังอยู่ในราคา Option ที่ซื้อขายกัน</p>
+      <p>ตัวอย่าง: IV 30% = ตลาดคาดว่าปีนี้ BTC จะมี volatility 30%</p>
+      <p><strong>ดูจาก:</strong> Bybit Option Chain — เปอร์เซ็นต์ข้างราคา Call/Put</p>
+    </div>
+  </div>
+
+  <h2>IV/HV Ratio — สูตรที่บอกหมดว่าแพงหรือถูก</h2>
+  <p>เมื่อเทียบ IV กับ HV คุณจะบอกได้ทันทีว่า Option ที่คุณกำลังจะขายนั้น "ราคาเกินจริง" หรือ "ราคาสมเหตุสมผล" — นี่คือสูตรที่ใช้ตัดสินใจเปิด position ทุกครั้ง</p>
+
+  <div class="formula-block">
+    <div class="formula-label">IV/HV Ratio · Threshold Guide</div>
+    <div class="formula-eq">IV ÷ HV = 1.59 &nbsp;→&nbsp; "Sweet Spot"</div>
+    <div class="formula-note">ตัวอย่างจริง: IV 31% ÷ HV 19.55% = <strong>1.59</strong> = ตลาดกลัวว่าจะวิ่งเยอะ แต่จริงๆ ไม่ได้วิ่งขนาดนั้น = edge ของคนขาย</div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>IV/HV Ratio</th>
+          <th>สถานะ</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">&lt; 1.0</td>
+          <td>SKIP — ขายของถูก ไม่มี edge</td>
+          <td>IV ต่ำกว่า HV = ตลาดคิดว่าจะสงบกว่าที่เป็นจริง — เสี่ยงเกินไป</td>
+        </tr>
+        <tr>
+          <td class="num">1.0 – 1.15</td>
+          <td>Borderline — edge เล็ก ระวัง</td>
+          <td>เปิดได้แต่ต้องลด size และเช็ค factor อื่นครบ</td>
+        </tr>
+        <tr>
+          <td class="num">1.15 – 1.5</td>
+          <td>OK — เปิดได้ edge ปกติ</td>
+          <td>เปิดได้ตามระบบ — premium คุ้มความเสี่ยง</td>
+        </tr>
+        <tr>
+          <td class="num">&gt; 1.5</td>
+          <td>Sweet Spot — vol spike opportunity</td>
+          <td>ตลาดกำลังกลัวมากผิดปกติ — โอกาสขายที่ดีที่สุด</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>ทำไม IV crypto สูงกว่า HV เสมอ 10-30%</h2>
+  <p>ในตลาด crypto IV มักสูงกว่า HV เสมอ — ไม่ใช่เรื่องบังเอิญ แต่เป็นเรื่องของโครงสร้างตลาด:</p>
+
+  <ul>
+    <li><strong>Crypto มี history ของ flash crash</strong> — คนกลัวเหตุการณ์รุนแรง ยอมจ่ายแพงเพื่อความคุ้มครอง</li>
+    <li><strong>Liquidity ต่ำกว่าตลาดดั้งเดิม</strong> — premium ถูก price แพงเป็น "ค่าชดเชยความเสี่ยงสภาพคล่อง"</li>
+    <li><strong>ส่วนใหญ่ option buyer คือ retail</strong> — ยอมจ่ายแพงเพราะไม่ได้คำนวณ edge แบบมืออาชีพ</li>
+  </ul>
+
+  <p>ส่วนต่างนี้คือ <strong>"edge ทางสถิติ"</strong> ของคนขาย — เหมือนบริษัทประกันคิดเบี้ยแพงกว่าความเสี่ยงจริง</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"IV สูง = ตลาดจะวิ่งแรง = อันตราย = ห้ามขาย Option"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text"><strong>IV &gt; HV = edge ของคนขาย</strong> — ตลาดกำลังคิดค่าเบี้ยประกันจากความผันผวนที่สูงกว่าสิ่งที่เกิดขึ้นจริง</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">เปิด position เมื่อ IV/HV ratio ≥ 1.15 · เล็ง Sweet Spot &gt; 1.5 · SKIP เมื่อ &lt; 1.0 (ไม่มี edge)</div>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Implied volatility is the price of fear. Realized volatility is the cost of reality. The seller profits from the spread between them."</div>
+    <div class="bq-th">IV คือราคาของความกลัว · HV คือต้นทุนของความจริง · คนขาย Option กำไรจากส่วนต่างของสองตัวนี้</div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">IV = ความกลัว · HV = ความจริง · IV/HV ratio ≥ 1.15 คือเกณฑ์ขั้นต่ำที่จะเปิด position · &gt; 1.5 คือ Sweet Spot · ตลาด crypto IV &gt; HV เสมอ 10-30% เพราะ flash crash history + low liquidity + retail demand</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>วันที่ IV/HV ratio = 1.8 (Sweet Spot มาก) แต่ Liquidation = $250M — คุณจะเปิดไหม? ทำไม?</li>
+      <li>ถ้า HV พุ่งขึ้นจน IV/HV ratio &lt; 1.0 กะทันหัน — คุณควรทำอะไรกับ positions ที่เปิดอยู่?</li>
+      <li>ในมุมมองคุณ — อะไรคือสาเหตุที่ทำให้ IV crypto "ไม่เคยสะท้อนความจริง" อย่างสมบูรณ์?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 3 — Funding Rate ============ -->
+<div class="chapter-open">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่สาม · Positioning</div>
+  <div class="ch-title">
+    Funding Rate
+    <em>อ่านสมดุล Long/Short — รู้ว่าฝั่งไหนกำลังเบียดกัน เสี่ยง squeeze ทางไหน</em>
+  </div>
+  <div class="ch-essence">Funding Rate คือค่า carry ที่ Long กับ Short จ่ายกันใน perpetual futures — ตัวเลขเดียวที่บอกว่าตลาดกำลัง "bet" ทิศไหน</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ค่าธรรมเนียมที่บอกทิศทางของตลาด</h1>
+
+  <p>ในตลาด perpetual futures (ที่เทรดส่วนใหญ่เกิดขึ้น) — Long และ Short จะจ่ายค่า "carry" ให้กันทุก 8 ชั่วโมง ค่านี้เรียกว่า <strong>Funding Rate</strong> — เป็นกลไกให้ราคา futures ไม่หลุดจากราคา spot มากเกินไป</p>
+
+  <p>แต่ที่สำคัญกว่ากลไกเอง — Funding Rate บอกเราว่า <strong>ฝั่งไหนกำลัง "crowded" (เบียดกันแน่น)</strong> ซึ่งเป็นสัญญาณเตือนว่าฝั่งนั้นเสี่ยงถูก squeeze (บีบให้ปิด position อัตโนมัติ) ได้ง่าย</p>
+
+  <h2>5 Zones ของ Funding Rate — ที่ต้องจำ</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Range</th>
+          <th>Zone</th>
+          <th>ความหมาย</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">&lt; −0.03%</td>
+          <td>Short Crowded</td>
+          <td>คลาสสิกสุด — Short เยอะเกินไป</td>
+          <td><strong>SKIP Short Call</strong> · squeeze risk ขึ้นแรง</td>
+        </tr>
+        <tr>
+          <td class="num">−0.03% ถึง −0.01%</td>
+          <td>Short Bias</td>
+          <td>Short เริ่มเข้าเยอะ แต่ยังไม่สุดซวย</td>
+          <td>CAUTION · ระวัง flip กลับ</td>
+        </tr>
+        <tr>
+          <td class="num">−0.01% ถึง +0.01%</td>
+          <td>Neutral Zone</td>
+          <td>คลาสสิกสมดุล · ไม่มีใครครอบงำ</td>
+          <td><strong>SAFE</strong> · Theta ทำงานดี · เปิดได้ทั้งสองฝั่ง</td>
+        </tr>
+        <tr>
+          <td class="num">+0.01% ถึง +0.03%</td>
+          <td>Long Bias</td>
+          <td>ตลาดเริ่มโลภเล็กน้อย · Long เริ่มเข้า</td>
+          <td>OK · edge ดี · aligned กับ Short Call</td>
+        </tr>
+        <tr>
+          <td class="num">&gt; +0.03%</td>
+          <td>Long Crowded</td>
+          <td>ตลาดโลภสุด — Long เยอะเกินไป</td>
+          <td><strong>SKIP Short Put</strong> · ราคาควรลงแรง</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>ตัวอย่างจริง:</strong> Funding +0.0038% = Neutral zone = เปิดได้ตามระบบ</p>
+
+  <h2>กฎ Short Call vs Short Put — แต่ละฝั่งต้องการ Funding ต่างกัน</h2>
+  <p>Funding Rate ที่ดีสำหรับเรา ขึ้นอยู่กับว่าเราขาย Call หรือ Put — คิดง่ายๆ ว่าเราต้องการขายฝั่งตรงข้ามกับที่ตลาด "bet"</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">Short Call · ต้องการ Funding แบบไหน</div>
+    <ul class="signal-list">
+      <li><strong>Funding บวกอ่อนๆ ถึง Neutral</strong> (Long bias นิดๆ) — ตลาดยังไม่โลภเกินไป แต่มี Long เข้าใหม่</li>
+      <li>หลีกเลี่ยง Funding &gt; +0.03% — Long crowded ตลาดโลภ ราคาจะตก</li>
+      <li>หลีกเลี่ยง Funding &lt; −0.03% — Short crowded จะ squeeze ขึ้น (Short Call เสี่ยงชน strike)</li>
+    </ul>
+  </div>
+
+  <div class="signal-box buy">
+    <div class="signal-title">Short Put · ต้องการ Funding แบบไหน</div>
+    <ul class="signal-list">
+      <li><strong>Funding Neutral ถึงบวกอ่อน</strong> — ไม่ short crowded (จะ squeeze ขึ้นทำให้ Put เสีย)</li>
+      <li>หลีกเลี่ยง Funding &gt; +0.03% — Long crowded จะมี correction ลงแรงทำให้ Put เสีย</li>
+      <li>หลีกเลี่ยง Funding &lt; −0.03% — Short crowded เสี่ยงทิศกลับ</li>
+    </ul>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">Funding Rate = ตลาดกำลัง bet ทิศไหน · Neutral zone (±0.01%) = safe ทั้งสองฝั่ง · หลีกเลี่ยง extreme ทั้งสองข้าง &gt;+0.03% (long crowded) และ &lt;−0.03% (short crowded) เพราะเสี่ยง squeeze</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>Funding = +0.05% แต่ IV/HV ratio = 2.0 — คุณจะเปิด Short Call, Short Put, หรือ SKIP?</li>
+      <li>ทำไม Long crowded (Funding &gt;+0.03%) ถึงเสี่ยงสำหรับ Short Put ทั้งที่ดูเหมือนฝั่ง Long กำลังแข็ง?</li>
+      <li>ถ้าคุณทราบว่า Funding Rate สามารถถูก "บิด" ชั่วคราวโดย whale ได้ — คุณจะยังใช้มันเป็นสัญญาณหลักไหม?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 4 — Liquidation ============ -->
+<div class="chapter-open">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่สี่ · Hard Rule</div>
+  <div class="ch-title">
+    Liquidation
+    <em>กฎเหล็กที่ตัดสินทุกอย่าง — ตัวเลขเดียวที่ override ทุก signal</em>
+  </div>
+  <div class="ch-essence">Liquidation &gt; $200M = SKIP เสมอ ไม่ว่า setup จะดูดีแค่ไหน — ตลาดที่กำลังบ้า ไม่มีทิศทางที่แน่นอน</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ตัวเลขเดียวที่บอก "ตลาดบ้า หรือสงบ"</h1>
+
+  <p>Liquidation 24h = ผลรวมของ leverage positions ที่ถูกบังคับปิดใน 24 ชั่วโมง เป็น metric ที่บอกได้ดีที่สุดว่าตลาดกำลัง "บ้า" (panic + forced selling) หรือ "สงบ" (normal deleveraging)</p>
+
+  <p>ในระบบนี้ Liquidation เป็น <strong>"กฎเหล็ก"</strong> ที่ override ทุก signal — ถ้า Liquidation สูงเกินเกณฑ์ ไม่ว่า Funding Rate จะดีแค่ไหน, IV/HV ratio จะ sweet แค่ไหน, Delta จะสวยแค่ไหน — ก็ <strong>SKIP เสมอ</strong></p>
+
+  <h2>4 Tiers ของ Liquidation — เกณฑ์ตัดสิน</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Liquidation 24h</th>
+          <th>Tier</th>
+          <th>สถานะตลาด</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">&lt; $50M</td>
+          <td><strong>Safe Zone</strong></td>
+          <td>ตลาดสงบ · ไม่มี cascade · positions ของ leverage ยังเหลือ</td>
+          <td><strong>OK</strong> · เปิดได้ตามระบบ · Theta ทำงานปกติ</td>
+        </tr>
+        <tr>
+          <td class="num">$50M – $150M</td>
+          <td>Borderline</td>
+          <td>เริ่มมีคนโดนล้าง · volatility เพิ่ม</td>
+          <td>CAUTION · ถ้าเปิด: ลด size + strike ไกลขึ้น + stop เข้ม</td>
+        </tr>
+        <tr>
+          <td class="num">$150M – $200M</td>
+          <td>Pre-Cascade</td>
+          <td>Stress event กำลังก่อตัว · vol expanding · wave 2 risk</td>
+          <td><strong>SKIP</strong> · ทิศทางไม่แน่นอน</td>
+        </tr>
+        <tr>
+          <td class="num">&gt; $200M</td>
+          <td><strong>CASCADE</strong></td>
+          <td>ตลาดบ้า · long capitulation · bounce risk 3-5% ใน 12-24 ชม</td>
+          <td><strong>SKIP เสมอ</strong> · รอ 12-24 ชม ให้ Liquidation ลง &lt; $50M ก่อน</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Liquidation &gt; $200M = SKIP. Always. No exceptions — no matter how beautiful the setup looks."</div>
+    <div class="bq-th">Liquidation เกิน $200M = หยุดเลย เสมอ ไม่มีข้อยกเว้น — ไม่ว่า setup จะดูดีแค่ไหน</div>
+  </div>
+
+  <h2>ทำไม cascade = อันตรายทั้งสองทาง</h2>
+  <p>เหตุผลที่ Liquidation สูงเป็น "กฎเหล็ก" — เพราะหลัง cascade ใหญ่ ตลาดมัก bounce กลับแรงในทิศตรงข้าม (mean reversion 3-5% บ่อย) ทำให้ทั้งสองฝั่งเสี่ยงเท่ากัน:</p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">ขาย Call → โดนเด้งชน strike</div>
+    <ul class="signal-list">
+      <li>BTC ลงหนัก → Long capitulation → bounce กลับขึ้นแรง → Call ที่คิดว่า safe กลายเป็น ITM</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">ขาย Put → โดนทุบต่อ</div>
+    <ul class="signal-list">
+      <li>BTC ลงหนักต่อเนื่อง → Put ที่คิดว่าห่างจากราคาเยอะกลายเป็น ITM</li>
+    </ul>
+  </div>
+
+  <p>ทั้งสองทางอันตราย — ทางที่ปลอดภัยคือ <strong>SKIP และรอ</strong></p>
+
+  <h2>"รอ Liquidation กลับลง &lt; $50M ก่อน"</h2>
+  <p>หลัง cascade ใหญ่ อย่ารีบเปิด position ในวันเดียวกัน — รอ 12-24 ชั่วโมงให้ Liquidation ลดลงต่ำกว่า $50M ก่อน แล้วค่อยกลับเข้าตลาด กฎนี้ทดสอบแล้วใน 13 วันที่ผมเทรด — ทุกครั้งที่ Liquidation &gt; $200M และผม SKIP = ถูกทุกครั้ง (รายละเอียดในบทที่ 8)</p>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">Liquidation = "อาการบ้า" ของตลาด · &lt;$50M Safe · $50-150M Caution · $150-200M Pre-Cascade SKIP · &gt;$200M CASCADE SKIP เสมอ · หลัง cascade รอ 12-24 ชม ก่อนกลับเข้าตลาด</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>วันที่ทุก factor (Funding, IV/HV, Delta) ดีพร้อมกัน แต่ Liquidation = $180M — คุณจะเปิดไหม?</li>
+      <li>ทำไม "bounce กลับ" หลัง cascade ถึงเสี่ยงทั้งสำหรับ Short Call และ Short Put?</li>
+      <li>ถ้าระบบเตือน "SKIP เพราะ Liquidation สูง" แต่คุณเห็นเพื่อนทำกำไรในวันนั้น — คุณจะรู้สึกอย่างไร และจะจัดการ emotion ยังไง?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 5 — Combination Read ============ -->
+<div class="chapter-open">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ห้า · Pattern Recognition</div>
+  <div class="ch-title">
+    Combination Read
+    <em>กฎพิเศษที่ไม่อยู่ใน textbook — มาจากการเทรดจริง 13 วัน</em>
+  </div>
+  <div class="ch-essence">ตัวเลขเดียวบอกอะไรไม่ได้ — ต้องอ่าน Price + Volume + OI + Liquidation พร้อมกัน เท่านั้นถึงจะเห็นความจริง</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ทำไม indicator เดี่ยวๆ มักหลอกตา</h1>
+
+  <p>คนส่วนใหญ่เริ่มเทรด Option ด้วยการดู indicator ทีละตัว — ดู Funding Rate อย่างเดียว ดู IV/HV ratio อย่างเดียว ดู Volume อย่างเดียว — แต่ละตัวเลขเดี่ยวๆ ล้วนหลอกตาได้ง่าย</p>
+
+  <p><strong>Volume บวก</strong> อาจแปลว่ามีเงินใหม่เข้ามา (bullish) หรือมี panic selling (bearish) — ขึ้นอยู่กับว่า Price ไปทางไหน และ OI เปลี่ยนยังไง</p>
+
+  <p><strong>สูตร Combination Read</strong> — ดู <strong>Price + Volume + OI + Liquidation พร้อมกัน</strong> เท่านั้น ถึงจะบอกได้ว่าตลาดกำลังเล่าเรื่องอะไรจริงๆ</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ตัวเลข</th>
+          <th>บวก = ?</th>
+          <th>ลบ = ?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Price (24h%)</td>
+          <td>ราคาขึ้น</td>
+          <td>ราคาลง</td>
+        </tr>
+        <tr>
+          <td class="col-type">Volume (24h%)</td>
+          <td>activity เพิ่ม / เงินใหม่เข้า</td>
+          <td>ตลาดเงียบ / ไม่มี conviction</td>
+        </tr>
+        <tr>
+          <td class="col-type">OI (24h%)</td>
+          <td>position ใหม่เข้า</td>
+          <td>position ถูกปิด (deleveraging)</td>
+        </tr>
+        <tr>
+          <td class="col-type">Liquidation (24h)</td>
+          <td colspan="2">ดูเป็น tier — ยิ่งสูงยิ่งบ้า (ดูบทที่ 4)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4 Patterns ของ Combination Read</h2>
+  <p>แต่ละ pattern คือ "เรื่องราว" ที่ตลาดกำลังเล่า — แต่ละเรื่องบอก action ที่ต่างกัน</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">Pattern 1 · Bullish Accumulation</div>
+      <h4>Price ↑ + Volume ↑ + OI ↑</h4>
+      <p><strong>เล่าเรื่อง:</strong> Long ใหม่เข้า · trend ขึ้นแข็ง · เงินใหม่กำลังเข้าฝั่ง bull · conviction สูง · momentum แข็ง</p>
+      <p><strong>Action:</strong> Short Put อาจเหมาะ (แต่ต้อง confirm view อื่นๆ ก่อน) · Short Call เสี่ยง</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Pattern 2 · Long Capitulation ⚠ สำคัญที่สุด</div>
+      <h4>Price ↓ + Volume ↑↑ + OI ↑ + Liq &gt; $200M</h4>
+      <p><strong>เล่าเรื่อง:</strong> Long ถูกล้าง · cascade event · mean reversion 3-5% ใน 12-24 ชม สูงมาก · ทิศทางไม่แน่นอน</p>
+      <p><strong>Action:</strong> <strong>SKIP ทั้งสองฝั่ง</strong> · รอ Liquidation ลง &lt; $50M ก่อน</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Pattern 3 · New Shorts Piling</div>
+      <h4>Price ↓ + Volume ↑ + OI ↑</h4>
+      <p><strong>เล่าเรื่อง:</strong> Short ใหม่เข้า · trend ลงแข็ง · ตลาด bet ว่าราคาจะลงต่อ · aligned กับ bear thesis</p>
+      <p><strong>Action:</strong> Short Call ได้ (aligned) · Short Put = สวน positioning</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Pattern 4 · Quiet Deleveraging</div>
+      <h4>Price flat + Volume ↓ + OI ↓ + Liq ↓</h4>
+      <p><strong>เล่าเรื่อง:</strong> ตลาดสงบ · regime ปกติ · no aggressive money ทั้งสองฝั่ง · Theta ทำงานชัดเจน</p>
+      <p><strong>Action:</strong> เปิดได้ทั้ง Call/Put · เลือกตาม macro view</p>
+    </div>
+  </div>
+
+  <h2>OI × Price Matrix — 4 Quadrants</h2>
+  <p>matrix นี้เป็นวิธีอ่านที่กระชับกว่า — เทียบการเปลี่ยนแปลงของ OI กับการเปลี่ยนแปลงของ Price ในเวลาเดียวกัน:</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>OI เพิ่ม (position ใหม่เข้า)</th>
+          <th>OI ลด (position ถูกปิด)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type"><strong>Price ↑</strong></td>
+          <td><strong>Bullish Conviction</strong><br>Long ใหม่เข้าดันราคาขึ้น · trend ขึ้นแข็ง<br>Action: Short Call เสี่ยง · Put OK</td>
+          <td><strong>Short Squeeze</strong><br>Short ปิด position ดันราคาขึ้น · bounce ไม่แข็ง<br>Action: Wait confirmation</td>
+        </tr>
+        <tr>
+          <td class="col-type"><strong>Price ↓</strong></td>
+          <td><strong>New Shorts</strong><br>Short ใหม่เข้ากดราคาลง · trend ลงแข็ง · aligned bear<br>Action: Short Call OK · Put SKIP</td>
+          <td><strong>Long Capitulation</strong><br>Long ถูกล้าง · deleveraging · forced selling · bounce risk สูง<br>Action: <strong>SKIP ทั้งสองฝั่ง</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>เพิ่ม Liquidation เข้ามาด้วย จะได้ Combination Read ที่สมบูรณ์ — ถ้า OI ลด + Price ลง + Liquidation &gt; $200M = Long Capitulation แน่นอน = SKIP เสมอ</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"A single number can lie. Only the pattern of all four — Price, Volume, OI, Liquidation — tells the truth."</div>
+    <div class="bq-th">ตัวเลขเดียวๆ มักหลอกตา — เฉพาะ pattern ของทั้ง 4 ตัว (Price + Volume + OI + Liquidation) เท่านั้นที่บอกความจริง</div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">อย่าอ่าน indicator เดี่ยวๆ · Pattern 2 (Long Capitulation) = อันตรายที่สุด = SKIP เสมอ · Pattern 4 (Quiet) = ดีที่สุดสำหรับ Short Premium · Pattern 1/3 บอกทิศที่ตลาดกำลังจะไป — เลือกฝั่งตามนั้น</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>Price ↑ + Volume ↑ + OI ↓ + Liquidation $30M — เป็น pattern ไหน และควรเปิด Short Put หรือ Short Call?</li>
+      <li>ทำไม Pattern 2 (Long Capitulation) ถึง SKIP ทั้งสองฝั่ง ทั้งที่ราคาลง — น่าจะเปิด Short Call สิ?</li>
+      <li>ถ้าคุณเห็น Pattern 4 (Quiet) แต่ Liquidation ขึ้นเป็น $80M ทันที — pattern เปลี่ยนเป็นอะไร และควรทำอย่างไร?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 6 — 8-Check + 7 No-Trade ============ -->
+<div class="chapter-open">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่หก · Framework</div>
+  <div class="ch-title">
+    8-Check Framework + 7 No-Trade Rules
+    <em>ก่อนเปิดทุกครั้ง — ต้องผ่าน 8 ข้อ และต้องไม่แตะ 7 ข้อ</em>
+  </div>
+  <div class="ch-essence">8-Check = รายการที่ต้องผ่านก่อนเปิด · 7 No-Trade = รายการที่ถ้าเจอ = หยุดเลย ขาดข้อเดียวก็ไม่เทรด</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>checklist ที่ทำให้ "รู้ตัวว่าจะเทรด"</h1>
+
+  <p>ทุก setup ที่ดูดีในตอนแรก มักจะมี "จุดบอด" ซึ่งกฎเหล็กของระบบนี้คือ — <strong>ก่อนเปิดทุกครั้ง ต้องผ่าน 8 checks และต้องไม่แตะ no-trade rules 7 ข้อ</strong> ขาดข้อเดียวก็ไม่เทรด และไม่ต้องเสียดาย</p>
+
+  <h2>8-Check Framework — เช็คก่อนเปิดทุก Trade</h2>
+  <p>ทุก check มีเกณฑ์ผ่านที่ชัดเจน — ถ้าไม่ผ่าน = ลด size หรือ skip</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Check</th>
+          <th>เกณฑ์ผ่าน</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td class="col-type">Macro Event</td>
+          <td>ไม่มี FOMC / CPI / NFP ก่อน settle</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td class="col-type">IV/HV Ratio</td>
+          <td>≥ 1.15 (ideal &gt; 1.5)</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td class="col-type">SD Distance</td>
+          <td>Strike &gt; 1.5 SD จาก spot</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td class="col-type">Funding Rate</td>
+          <td>Neutral zone (±0.01%)</td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td class="col-type">Delta</td>
+          <td>0.13 – 0.15 (sweet spot)</td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td class="col-type">Resistance / Support</td>
+          <td>Strike confluence กับ MA / level</td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td class="col-type">ATR Filter</td>
+          <td>Strike &gt; 1.5× ATR 4H</td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td class="col-type">Combination Read</td>
+          <td>ไม่ติด pattern อันตราย</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>7 No-Trade Rules — ข้อห้ามแตะ</h2>
+  <p>ถ้าเจอข้อใดข้อหนึ่ง = ห้ามเปิด ไม่ว่า setup จะดูดีแค่ไหน — 7 ข้อนี้คือ "ระบบภูมิคุ้มกัน" ที่ป้องกันความเสียหายหนัก</p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">No-Trade Rules — ข้อใดข้อหนึ่ง = SKIP</div>
+    <ul class="signal-list">
+      <li><strong>FOMC / CPI / NFP day</strong> — SKIP เสมอ · ข่าวใหญ่ทำราคากระโดดแรงเกินควบคุม</li>
+      <li><strong>IV &lt; HV (ratio &lt; 1.0)</strong> — SKIP · ไม่มี edge · ขายของถูก</li>
+      <li><strong>BTC rallied 5%+ วันก่อน</strong> — SKIP · vol expansion risk · ตลาดเต็ม</li>
+      <li><strong>ขาดทุน 3 ครั้งติด</strong> — หยุด 2-3 วัน · reset mindset</li>
+      <li><strong>Active liquidation event &gt; $200M</strong> — SKIP · cascade บ้า</li>
+      <li><strong>Funding &lt; −0.03%</strong> — SKIP Short Call · squeeze risk ขึ้นแรง</li>
+      <li><strong>Gut uncertainty</strong> — SKIP · ความสงสัยของตัวเองสำคัญที่สุด</li>
+    </ul>
+  </div>
+
+  <h2>ทำไม Gut Feel สำคัญที่สุด</h2>
+  <p>ข้อที่ 7 — "Gut uncertainty = SKIP" — อาจดูไม่เป็นวิทยาศาสตร์ แต่จริงๆ คือ check ที่ override ทุกตัว ผมเชื่อว่า <strong>ถ้าคุณรู้สึก "ไม่สบายใจ" กับ setup หนึ่ง — นั่นคือสัญญาณว่า sub-conscious ของคุณเห็นอะไรบางอย่างที่ checklist จับไม่ได้</strong></p>
+
+  <p>ผมเคยข้าม Gut feel หลายครั้ง — ทุกครั้งก็เสียใจทีหลัง ตอนนี้ถ้าไม่สบายใจ = SKIP ไม่ต้องอธิบายตัวเอง</p>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">8-Check ต้องผ่านครบทุกข้อก่อนเปิด · 7 No-Trade ถ้าแตะข้อใดข้อหนึ่ง = SKIP เลย · Gut uncertainty = check สุดท้ายที่ override ทุกอย่าง · ขาดข้อเดียวก็ไม่เทรด และไม่ต้องเสียดาย</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>ถ้า 8 ผ่านครบ แต่คุณ "ไม่สบายใจ" — คุณจะเปิดไหม? ทำไม No-Trade Rule ข้อที่ 7 ถึงสำคัญ?</li>
+      <li>วันที่คุณขาดทุน 3 ครั้งติดต่อกัน — อะไรคือสิ่งที่ยากที่สุดในการ "หยุด 2-3 วัน" ตาม rule ข้อ 4?</li>
+      <li>ถ้า AI บอก "TRADE ได้ 8/8 ผ่าน" แต่คุณเห็น Combination Read เป็น Pattern 2 — คุณจะเชื่อ AI หรือตัวเอง?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 7 — Strike Selection + Risk ============ -->
+<div class="chapter-open">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่เจ็ด · Execution</div>
+  <div class="ch-title">
+    Strike Selection &amp; Risk Management
+    <em>เลือก strike ยังไง · ขนาด position แค่ไหน · ทำไม SL ต้องเป็น Index Price</em>
+  </div>
+  <div class="ch-essence">หัวใจของ execution — Delta 0.13-0.15 · SD Distance ตาม regime · RR 1:2 · SL ด้วย Index Price เสมอ ไม่ใช่ Mark Price</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>Strike ที่ดี — "ซ่อนอยู่หลังแนวรับ"</h1>
+
+  <p>การเลือก strike ไม่ใช่เรื่องของ "premium สูงสุด" แต่เป็นเรื่องของ <strong>"strike ที่จะไม่ถึง"</strong> — เราต้องการ strike ที่ซ่อนอยู่หลังแนวรับ (สำหรับ Put) หรือแนวต้าน (สำหรับ Call) เพื่อให้ราคาต้องหลุดฐานหลายชั้นก่อนจะถึง</p>
+
+  <h2>Delta — Sweet Spot 0.13-0.15</h2>
+  <p>Delta คือ "โอกาสที่ Option จะหมดอายุ ITM" — Delta 0.15 = ตลาดกำลัง price โอกาส 15% ว่า Option จะหมดอายุในเงิน ค่านี้เปลี่ยนเร็วมากเมื่อ IV, เวลา, และราคา BTC เปลี่ยน</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Delta</th>
+          <th>โอกาส ITM</th>
+          <th>Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">0.13 – 0.15</td>
+          <td>13-15% (sweet spot)</td>
+          <td><strong>Full size</strong></td>
+        </tr>
+        <tr>
+          <td class="num">0.08 – 0.12</td>
+          <td>8-12%</td>
+          <td>70% size</td>
+        </tr>
+        <tr>
+          <td class="num">0.05 – 0.08</td>
+          <td>5-8%</td>
+          <td>50% size</td>
+        </tr>
+        <tr>
+          <td class="num">&lt; 0.05</td>
+          <td>&lt; 5% (premium น้อยไป)</td>
+          <td>30% or skip</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">จากประสบการณ์จริง</div>
+    <p class="insight-text">ในบทความและคลิปจริง ผมเลือก Delta ต่ำกว่า 0.13-0.15 ลงมา — ประมาณ 0.05-0.10 — เพราะต้องการความปลอดภัยสูงขึ้น แต่ premium ก็จะน้อยลงตาม สูตร sweet spot 0.13-0.15 คือจุดสมดุลที่ดีที่สุดระหว่าง premium และความเสี่ยง — ปรับตามความสบายใจของคุณ</p>
+  </div>
+
+  <h2>SD Distance — ตัวเลขที่บอกระยะปลอดภัย</h2>
+  <p>SD (Standard Deviation) ของ expected move คือวิธีคำนวณ "ระยะที่ BTC น่าจะวิ่งในอายุสัญญา" — strike ของเราต้องห่างจากราคา spot มากกว่าค่านี้เสมอ</p>
+
+  <div class="formula-block">
+    <div class="formula-label">SD Distance · Daily Option</div>
+    <div class="formula-eq">SD = Spot × IV × √(1/365)</div>
+    <div class="formula-note">ตัวอย่าง: BTC $74,000 · IV 30% → SD ≈ $74,000 × 0.30 × 0.0523 = <strong>$1,162</strong> · Strike ต้องห่าง spot &gt; 1.5 SD = <strong>$1,743</strong></div>
+  </div>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Regime</th>
+          <th>SD Distance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type">Quiet (Liq &lt; $50M)</td>
+          <td class="num">1.5 – 2 SD</td>
+        </tr>
+        <tr>
+          <td class="col-type">Borderline ($50-150M)</td>
+          <td class="num">2 – 2.5 SD</td>
+        </tr>
+        <tr>
+          <td class="col-type">Recovery (post-cascade)</td>
+          <td class="num">2.5+ SD</td>
+        </tr>
+        <tr>
+          <td class="col-type">Macro event nearby</td>
+          <td class="num">3+ SD or skip</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Risk Management — 3 กฎหลัก</h2>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>Risk Rules</h3>
+      <p>ทั้ง 3 ข้อนี้ = กฎเหล็กที่ไม่ข้ามได้</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Position Sizing</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text"><strong>Max 2-3% ของ portfolio ต่อ trade</strong>
+            <div class="cl-note">USDT $10K → max loss ≤ $200-300 · ใช้ USDT collateral ไม่ต้องถือ BTC</div>
+          </div>
+        </li>
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text"><strong>แพ้ 3 วันติด = หยุด 2-3 วัน</strong>
+            <div class="cl-note">reset mindset ก่อนกลับเข้าตลาด</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Risk/Reward</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text"><strong>RR 1:2</strong> — ตั้ง SL ให้ max loss = 2x premium ที่เก็บ
+            <div class="cl-note">ตัวอย่าง: ขาย Call ได้ premium $15 → SL เมื่อ loss = $30 · SL trigger จริงประมาณ 4-7% ของ trades</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Pin Risk Exit</div>
+      <ul class="cl-items">
+        <li>
+          <div class="cl-box"></div>
+          <div class="cl-text"><strong>ปิด position 13:30 TH</strong> (90 นาทีก่อน settle 15:00)
+            <div class="cl-note">หลีกเลี่ยง TWAP window (14:30-15:00) ที่ราคาผันผวนแรง · gamma squeeze ใน 30 นาทีสุดท้าย</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>SL Method — Index Price vs Mark Price (สำคัญที่สุด)</h2>
+  <p>นี่คือบทเรียนที่ทำให้ผมเสียเงินมาก่อน — <strong>ห้ามตั้ง SL ด้วย Mark Price</strong> (ราคา option ที่ระบบคำนวณ) เพราะมันพองตัวเองจาก IV spike</p>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"Mark Price = ราคา Option จริง → ตั้ง SL ด้วย Mark ปลอดภัยที่สุด"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text"><strong>Mark Price = Black-Scholes model price</strong> — พองตัวจาก IV spike · ตัวเลขลอย ไม่ตรงราคาในตลาดจริง · trigger false signal ง่าย</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">ใช้ <strong>Index Price (BTC Spot)</strong> เป็น SL trigger เสมอ — Short Call SL = Strike − $500 · Short Put SL = Strike + $500 · Order Type: Market (ออกให้ทันก่อน gamma squeeze)</div>
+    </div>
+  </div>
+
+  <p>ตัวอย่าง: Short Call $76,500 → ตั้ง SL Trigger = Index Price &gt; $76,000 (เผื่อ $500 buffer ก่อน strike)</p>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">Delta 0.13-0.15 sweet spot · SD Distance ตาม regime · Position size max 2-3% · RR 1:2 · แพ้ 3 ติด = หยุด · ปิด 13:30 TH · SL ด้วย <strong>Index Price</strong> เสมอ ไม่ใช่ Mark Price</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>ถ้า Delta 0.15 ให้ premium $30 แต่ Delta 0.05 ให้ premium $5 — คุณจะเลือกอันไหน? ทำไม?</li>
+      <li>วันที่ regime = Recovery (post-cascade) SD ต้องเป็น 2.5+ — แต่ premium ที่จะได้น้อยลงมาก — คุณจะยังเปิดอยู่ไหม?</li>
+      <li>ทำไม "Order Type: Market" ถึงสำคัญสำหรับ SL — ทั้งที่ Limit ดูเหมือนจะ "คุมราคาได้ดีกว่า"?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 8 — Field Notes (conversational tone) ============ -->
+<div class="chapter-open">
+  <div class="ch-num">08</div>
+  <div class="ch-label">บทที่แปด · Field Notes</div>
+  <div class="ch-title">
+    บทเรียนจริงจาก 13 วันเทรด
+    <em>Part 1-2 คือ framework บนกระดาษ · Part 3 คือ framework ในชีวิตจริง</em>
+  </div>
+  <div class="ch-essence">13 วันที่ผมเทรดจริงกับ AI แต่ละวันสอนบทเรียนใหม่ที่ textbook ไม่เคยบอก — Field Notes คือสิ่งที่ทำให้ระบบนี้ต่างจาก checklist ทั่วไป</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>บทเรียนที่ต้อง "เสียเงิน" ก่อนถึงรู้</h1>
+
+  <p>บทที่ 1-7 คือ <strong>framework บนกระดาษ</strong> — ดูสวยและมี logic ครบ แต่พอลงมือเทรดจริง จะพบว่ามี "nuance" ที่ checklist ไม่เคยจับได้ ผมจึงจดบันทึกทุกวันในช่วง 13 วันที่เทรดต่อเนื่อง — ทั้งที่ชนะและที่ขาดทุน — และเอามาเขียนเป็นบทนี้</p>
+
+  <p>บทนี้เล่าเรื่องแบบ <strong>"คุยกับเพื่อน"</strong> — เพราะบทเรียนเหล่านี้ไม่ใช่ทฤษฎี แต่เป็นเรื่องจริงที่เจอตอน 2 นาฬิกาเช้า ก่อน market open</p>
+
+  <h2>บทเรียนที่ 1 · Mark Price คือของปลอม</h2>
+  <p>วันที่ 5 ผมเปิด Short Call ที่ entry $25 — เห็น Unrealized Loss <strong>−27%</strong> ทันที วันที่ 7 เปิดอีก entry $15 — เห็น <strong>−195%</strong> ใจสั่น คิดว่าเสียหายหนัก — แต่จริงๆ ไม่ใช่</p>
+
+  <p>ปรากฏการณ์นี้คือ <strong>Mark Price Anomaly</strong> — Bybit Daily Option มี liquidity บาง bid/ask กว้างมาก Mark Price คำนวณจาก IV model (Black-Scholes) ไม่ใช่ราคาตลาดจริง ตอนเปิด: เราขายที่ Bid แต่ Mark ใช้ Mid Price → โชว์ขาดทุนทันที นี่คือ <strong>"noise"</strong> ไม่ใช่ขาดทุนจริง</p>
+
+  <div class="author-box">
+    <div class="author-avatar">E</div>
+    <div class="author-content">
+      <div class="author-meta">Earthh Evans — Field Note Day 5 + 7</div>
+      <p class="author-text">"วันที่ 5 entry $25 เห็น −27% ทันที วันที่ 7 entry $15 เห็น −195% — ใจสั่นทั้งสองครั้ง แต่จริงๆ ไม่ใช่ขาดทุน มันคือ noise จาก Mark Price ที่คำนวณจาก Black-Scholes model ไม่ใช่ราคาจริง"</p>
+    </div>
+  </div>
+
+  <p><strong>วิธีแก้ — ดู 2 สิ่งแทน Mark:</strong></p>
+  <ul>
+    <li><strong>BTC Spot Price</strong> — ราคาจริงที่กำหนดว่า Option ในเงินหรือไม่</li>
+    <li><strong>Ask Price</strong> ของ Option ที่ขาย — ราคาที่ต้องจ่ายถ้าจะปิด</li>
+  </ul>
+
+  <p>กฎทอง: <strong>อย่าตั้ง SL ด้วย Mark Price</strong> — มัน trigger ฟรีจาก noise · ใช้ Index Price (BTC Spot) เป็น trigger เสมอ</p>
+
+  <hr class="ornament">
+
+  <h2>บทเรียนที่ 2 · Combination Read สำคัญกว่า indicator เดียว</h2>
+  <p>วันที่ <strong>18 พฤษภาคม</strong> — AI ส่ง signal แนะนำ Short Put บอกว่า Funding ดี IV/HV ดี 8/8 checks ผ่านหมด แต่ผมเห็น OI <strong>+3.37%</strong> เพิ่มขึ้นต่อเนื่อง 3 วัน — และ Liquidation <strong>$377M</strong></p>
+
+  <p>ผม <strong>override AI signal</strong> → <strong>SKIP</strong> — วันต่อมา BTC ลงไป $74K ต่อ ถ้าเปิด Short Put = สวน positioning ของตลาด = อันตรายมาก</p>
+
+  <div class="insight-box">
+    <div class="insight-label">Lesson Learned</div>
+    <p class="insight-text">Metric เดี่ยวๆ มักหลอกตา — Funding ดี + IV/HV ดี ≠ เปิดได้ ถ้า OI กำลังพุ่งจาก new shorts · Liquidation เป็น lagging indicator — แต่บอก regime ที่อยู่ตอนนี้ · <strong>Trust your pattern recognition</strong> มากกว่า AI checklist</p>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>บทเรียนที่ 3 · รอ Liquidation ลง &lt; $50M</h2>
+  <p>จาก track record 13 วัน — <strong>ทุกครั้งที่ Liquidation &gt; $200M และเรา SKIP = ถูกทุกครั้ง</strong></p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>วันที่</th>
+          <th>Liquidation</th>
+          <th>ตัดสินใจ</th>
+          <th>ผล</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>18 พ.ค.</td><td class="num">$255M</td><td>SKIP</td><td><strong>✓ ถูก</strong> (BTC ลงต่อ)</td></tr>
+        <tr><td>19 พ.ค.</td><td class="num">$377M</td><td>SKIP</td><td><strong>✓ ถูก</strong> (cascade ต่อ)</td></tr>
+        <tr><td>20 พ.ค.</td><td class="num">$330M</td><td>SKIP</td><td><strong>✓ ถูก</strong> (ยังบ้า)</td></tr>
+        <tr><td>21 พ.ค.</td><td class="num">$152M</td><td>Trade $78,500</td><td><strong>✓ Win</strong></td></tr>
+        <tr><td>22 พ.ค.</td><td class="num">$45M</td><td>Trade $79,000</td><td><strong>✓ Win</strong></td></tr>
+        <tr><td>23 พ.ค.</td><td class="num">$103M</td><td>SKIP</td><td><strong>✓ ถูก</strong></td></tr>
+        <tr><td>24 พ.ค.</td><td class="num">$118M</td><td>SKIP</td><td><strong>✓ ถูก</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>กฎ "Liquidation &lt; $50M" คือเกณฑ์เดียวที่ <strong>override ทุก signal</strong> — ไม่ผ่าน = SKIP ไม่ว่าอะไรจะดูดี</p>
+
+  <hr class="ornament">
+
+  <h2>บทเรียนที่ 4 · Strike Selection vs SD Distance</h2>
+  <p>Delta 0.13-0.15 เป็น sweet spot — แต่ในตลาด vol สูง อาจไม่พอ ในวันที่ liquidation สูง — ATR ขยาย — ต้องใช้ SD Distance เพิ่ม</p>
+
+  <ul>
+    <li><strong>Quiet (Liq &lt; $50M):</strong> 1.5 SD พอ</li>
+    <li><strong>Borderline ($50-150M):</strong> 2 SD</li>
+    <li><strong>Recovery (post-cascade):</strong> 2.5 SD ขึ้นไป</li>
+    <li><strong>Pre-event:</strong> 3 SD หรือ skip</li>
+  </ul>
+
+  <hr class="ornament">
+
+  <h2>บทเรียนที่ 5 · Macro View กำหนด Strategy</h2>
+  <p>วันที่ <strong>26 พฤษภาคม</strong> — ผมบอก AI ว่า "ภาพใหญ่ยังลง" → เลือก <strong>Short Call</strong> (aligned) ทั้งที่ Funding/IV/HV บอกได้ทั้งสองทาง — แต่ macro thesis เป็นตัวตัดสิน</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">Strategy by Macro View</div>
+    <ul class="signal-list">
+      <li><strong>Bearish macro:</strong> Short Call (aligned · resistance ยืน strike สูงได้)</li>
+      <li><strong>Bullish macro:</strong> Short Put (aligned · support ยืน strike ต่ำได้)</li>
+      <li><strong>Neutral macro:</strong> เลือกตาม Funding (long crowded = Call · short crowded = Put)</li>
+      <li><strong>Conflicting signals:</strong> SKIP — รอความชัด</li>
+    </ul>
+  </div>
+
+  <p>→ AI ไม่รู้ macro view ของคุณ — ต้องบอก AI ทุกครั้งใน prompt (รายละเอียดในบทที่ 10)</p>
+
+  <hr class="ornament">
+
+  <h2>บทเรียนที่ 6 · Pin Risk Real</h2>
+  <p>วันที่ <strong>11 พฤษภาคม</strong> — Short Call $78,000 · BTC spot $77,950 ตอน <strong>14:00 TH</strong> ผมคิด "safe แล้ว ห่าง $50 จาก strike" → ไม่ปิด</p>
+
+  <p><strong>14:35 TH</strong> BTC spike ไป $78,015 · gamma squeeze ดัน premium ขึ้น <strong>5x</strong> ปิดได้ที่ 14:50 — เสียมากกว่าที่ควร</p>
+
+  <div class="signal-box sell">
+    <div class="signal-title">Pin Risk Rule</div>
+    <ul class="signal-list">
+      <li>ปิด position <strong>13:30 TH</strong> (90 นาทีก่อน settle 15:00)</li>
+      <li><strong>ห้ามถือผ่าน 14:00 TH</strong> ถ้า BTC ห่าง strike &lt; $200</li>
+      <li>TWAP window (14:30-15:00) มี gamma squeeze risk สูง</li>
+      <li>ปิดที่ 13:30 = ได้กำไรเกือบเต็ม — ไม่ต้องเสี่ยง</li>
+    </ul>
+  </div>
+
+  <h2>Case Study A · Day 22 May 2026 (Trade Win)</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>Phase</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td class="col-type">Setup เช้า 07:00 TH</td><td>BTC Spot <strong>$77,355</strong> · Funding +0.0021% (neutral) · Liquidation <strong>$45M ✓</strong> · OI 24h% −0.4% · Volume 24h% +18% · HV 30: 21.5% · IV: 32.4% → <strong>IV/HV = 1.51 ✓</strong></td></tr>
+        <tr><td class="col-type">Combination Read</td><td>Price ↓ slight + Volume ↑ + OI ↓ = <strong>Short squeeze tail end</strong> · regime normalizing</td></tr>
+        <tr><td class="col-type">Action</td><td>Macro: <strong>bearish</strong> · Strategy: <strong>Short Call</strong> · Strike: <strong>$79,000</strong> (delta 0.14 · 2.1 SD) · Premium: $35 × 0.5 BTC = <strong>$17.50 รับ</strong> · SL: Index Price &gt; $78,500 · Exit: <strong>13:30 TH</strong></td></tr>
+        <tr><td class="col-type"><strong>Result</strong></td><td>BTC settle ที่ $77,200 — Call หมดอายุไร้ค่า → <strong>เก็บ premium $17.50 เต็ม</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Case Study B · Day 18 May (Correctly Skipped)</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>Phase</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td class="col-type">Setup เช้า 07:00 TH</td><td>BTC Spot <strong>$80,200</strong> · Funding −0.012% (short bias) · Liquidation <strong>$255M</strong> (cascade) · OI 24h% +3.4% · Volume 24h% +85% (panic)</td></tr>
+        <tr><td class="col-type">AI Initial Signal</td><td>"Short Put $77,000 — Funding neutral · IV/HV 1.4 · 8/8 checks pass"</td></tr>
+        <tr><td class="col-type">Override Decision</td><td>Combination Read: Price ↓ + Vol ↑↑ + OI ↑ = <strong>NEW Shorts อัดกัน</strong> · Short Put = สวน positioning · Liquidation $255M = cascade · <strong>ตัดสินใจ: SKIP</strong></td></tr>
+        <tr><td class="col-type"><strong>Result</strong></td><td>BTC ลงต่อจาก $80,200 → <strong>$74,500</strong> ใน 5 วัน — ถ้าเปิด Short Put $77,000 = <strong>ITM เสียหนัก</strong></td></tr>
+        <tr><td class="col-type">Lesson</td><td>AI signal ดู 8 metrics แยกกัน — ผ่านหมด · Combination Read ดู pattern รวม — fail · <strong>Pattern แพ้ AI signal เสมอเมื่อชัดกัน</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Pattern recognition beats AI checklist — every single time the pattern is clear."</div>
+    <div class="bq-th">Pattern recognition แพ้ AI checklist ไม่เคยเลย — ทุกครั้งที่ pattern ชัดเจน</div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">6 บทเรียนจาก 13 วัน — Mark Price คือของปลอม · Combination Read &gt; indicator เดี่ยว · Liquidation &lt; $50M คือ gate · Macro view เลือกฝั่ง · Pin Risk real ต้องปิด 13:30 · Pattern &gt; AI signal</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>บทเรียนไหนจาก 6 ข้อที่ "ใช่ที่สุด" สำหรับคุณ? ทำไม?</li>
+      <li>ถ้า AI บอก "TRADE 8/8 ผ่าน" แต่คุณเห็น Combination Read เป็น Pattern 2 — คุณจะ override ไหม? อะไรคือสิ่งที่ทำให้ยากที่สุดในการ override?</li>
+      <li>Day 11 ที่ผมไม่ปิดและเสีย 5x — ถ้าคุณเป็นผม คุณจะปิดเมื่อไหร่? และทำไม "กฎ 13:30" ถึงเป็นกฎเหล็ก?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 9 — Tools + Workflow ============ -->
+<div class="chapter-open">
+  <div class="ch-num">09</div>
+  <div class="ch-label">บทที่เก้า · Setup</div>
+  <div class="ch-title">
+    เครื่องมือ 4 ตัว + Workflow ตลอดวัน
+    <em>Bybit · CoinGlass · TradingView · ForexFactory — 15 นาทีตื่นถึงเปิด position</em>
+  </div>
+  <div class="ch-essence">ก่อนใช้ Playbook ต้อง setup เครื่องมือทั้ง 4 ให้เรียบร้อย ใช้เวลาประมาณ 30 นาที — หลังจากนั้นใช้เวลาเพียง 15 นาทีต่อวัน</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>4 เครื่องมือที่ทำให้ระบบ "ทำงานได้"</h1>
+
+  <p>Playbook ทั้งหมดที่คุณอ่านมา — 8-Check, Combination Read, No-Trade Rules — เป็นแค่ "กรอบความคิด" สิ่งที่ทำให้กรอบนั้นเปลี่ยนเป็นการตัดสินใจจริง คือ <strong>4 เครื่องมือที่ดูข้อมูล</strong> ทั้งหมดนี้มีค่าใช้จ่ายรวม ~$20/เดือน (Claude Pro) + ฟรี 3 ตัว</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">Tool 1 · Bybit</div>
+      <h4>แพลตฟอร์มเทรด</h4>
+      <p><strong>ที่:</strong> bybit.com — สมัครและทำ KYC ก่อนใช้ Option</p>
+      <p><strong>ใช้เพื่อ:</strong> เทรด BTC Daily Option ด้วย USDT collateral — ไม่ต้องถือ BTC</p>
+      <p><strong>Setup:</strong> เปิด Option permission · Deposit USDT อย่างน้อย $500 · ทำ Unified Trading Account</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Tool 2 · CoinGlass</div>
+      <h4>Derivatives Aggregator</h4>
+      <p><strong>ที่:</strong> coinglass.com — สมัครฟรี ใช้ได้เลย</p>
+      <p><strong>ใช้เพื่อ:</strong> ดู Funding Rate, Open Interest, Liquidation รวมจากทุก exchange</p>
+      <p><strong>Setup:</strong> bookmark หน้า Derivatives · ตั้ง favorites เป็น BTC · ตั้งค่า columns: Price, Funding, OI, Volume, Liquidation</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Tool 3 · TradingView</div>
+      <h4>Chart Analysis</h4>
+      <p><strong>ที่:</strong> tradingview.com — Free plan พอใช้</p>
+      <p><strong>ใช้เพื่อ:</strong> ดูกราฟ 3 timeframe (Day/4H/1H) + HV indicator</p>
+      <p><strong>Setup:</strong> เพิ่ม indicator "Historical Volatility" length 30 · MA Ribbon (50/100/200) · MACD · Volume Delta · save layout</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Tool 4 · ForexFactory</div>
+      <h4>Economic Calendar</h4>
+      <p><strong>ที่:</strong> forexfactory.com/calendar — ฟรี ไม่ต้องสมัคร</p>
+      <p><strong>ใช้เพื่อ:</strong> เช็ค FOMC, CPI, NFP ก่อน option settle</p>
+      <p><strong>Setup:</strong> timezone Bangkok · filter USD high-impact only</p>
+    </div>
+  </div>
+
+  <h2>Workflow Timeline — 07:00 ถึง 15:00 Settle</h2>
+  <p>Playbook ออกแบบให้ใช้ได้ภายในกิจวัตร 1 วัน — timeline ที่แนะนำต่อไปนี้ใช้เวลารวม <strong>~15 นาที "active"</strong> และปล่อยให้ theta ทำงานเองในช่วงที่เหลือ</p>
+
+  <div class="timeline">
+    <div class="timeline-row">
+      <div class="timeline-time">07:00</div>
+      <div class="timeline-body"><strong>เปิด 4 tools + แคป 5 รูป</strong>
+        <em>เปิดทั้ง 4 tools ที่ setup ไว้ → แคปรวม ~3 นาที</em>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-time">07:15</div>
+      <div class="timeline-body"><strong>โยนรูปให้ AI พร้อม System Prompt</strong>
+        <em>เปิด Claude Project / Custom GPT → paste Daily Trigger + แนบรูป</em>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-time">07:30</div>
+      <div class="timeline-body"><strong>AI ตอบ Verdict: TRADE / SKIP / WAIT</strong>
+        <em>อ่านผลวิเคราะห์ + override ถ้า Combination Read บอกเป็นอย่างอื่น</em>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-time">07:45</div>
+      <div class="timeline-body"><strong>ถ้า TRADE: เปิด position + ตั้ง SL (Index Price)</strong>
+        <em>ใน Bybit → Sell Call/Put ที่ strike ที่ AI แนะนำ → ตั้ง SL Trigger Index Price</em>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-time">08:00–13:00</div>
+      <div class="timeline-body"><strong>ปล่อย theta ทำงาน · check 1-2 ครั้ง</strong>
+        <em>~5 นาทีต่อ check · ดู BTC spot และ distance จาก strike</em>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-time">13:30</div>
+      <div class="timeline-body"><strong>Pin Risk Exit — ปิด position ไม่ว่าตรงไหน</strong>
+        <em>90 นาทีก่อน settle · หลีกเลี่ยง TWAP window + gamma squeeze</em>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-time">15:00</div>
+      <div class="timeline-body"><strong>Settlement · log ผล trade ใน journal</strong>
+        <em>15:00 TH = 08:00 UTC settle · ใช้เวลา ~5 นาทีในการ log</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">ทำไมต้องปิดก่อน Settle 90 นาที</div>
+    <p class="insight-text">ช่วง 30 นาทีสุดท้ายก่อน settle = <strong>TWAP window</strong> · ราคา option แกว่งแรงจาก gamma squeeze + low liquidity · Pin risk = ราคาวิ่งใกล้ strike แล้วผันผวนแรง อาจ trigger SL ผิด · ปิดที่ 13:30 = ได้กำไรเกือบเต็ม · ไม่เสี่ยง</p>
+  </div>
+
+  <h2>5 รูปที่ต้องแคปก่อนถาม AI</h2>
+  <p>หัวใจของ Playbook คือ AI จะช่วยวิเคราะห์ได้แม่นยำเมื่อได้ข้อมูลครบทุกมุม — การแคปรูปก่อนถามทำให้ AI "เห็น" สิ่งเดียวกับเรา</p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>กฎเหล็ก: ขาดรูปใดรูปหนึ่ง = AI ตอบไม่ครบ</h3>
+      <p>ทั้ง 5 รูปสำคัญเท่ากัน — ไม่มีรูปไหนข้ามได้ · ใช้เวลาแคปรวม ~3 นาที</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">รูปที่ 1 · CoinGlass Derivatives — BTC row</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>วิธีแคป:</strong> coinglass.com → tab Derivatives → แคป row ของ BTC ให้เห็นครบทุกคอลัมน์
+          <div class="cl-note">ต้องเห็น: Price, Price 24h%, Funding Rate, Volume 24h, Volume 24h%, Market Cap, OI, OI 1h%, OI 24h%, Liquidation 24h</div>
+        </div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">รูปที่ 2 · Bybit Option Chain</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>วิธีแคป:</strong> Bybit → Trade → Options → BTC → เลือก expiry ของวันนั้น → แคปให้เห็น strikes รอบๆ ATM
+          <div class="cl-note">ต้องเห็น: Bid, Mark Price, Ask, Delta, IV (%) ของทั้ง Call และ Put</div>
+        </div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">รูปที่ 3 · TradingView Daily Chart (1D)</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>วิธีแคป:</strong> BTCUSDT Bybit · timeframe 1D · ต้องเห็น HV(30), MA Ribbon, MACD
+          <div class="cl-note">ใช้สำหรับ: macro trend · higher highs/lows · MA ribbon direction · HV value</div>
+        </div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">รูปที่ 4 · TradingView 4H Chart</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>วิธีแคป:</strong> timeframe 4H · ต้องเห็น MA cluster, ATR
+          <div class="cl-note">ใช้สำหรับ: mid-term structure · resistance/support ใกล้ๆ ที่กระทบ strike · ATR (สำหรับ 1.5× rule)</div>
+        </div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">รูปที่ 5 · TradingView 1H Chart</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text"><strong>วิธีแคป:</strong> timeframe 1H · ต้องเห็น MA, MACD, Volume Delta
+          <div class="cl-note">ใช้สำหรับ: short-term momentum · entry timing · local breakout/rejection · hard stop</div>
+        </div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>ทำไมต้องดู 3 Timeframes — แต่ละ TF ใช้ทำอะไร</h2>
+  <p>การดู timeframe เดียวไม่พอ — ทั้ง 3 ใช้ตอบคำถามที่ต่างกัน และต้อง "เล่าเรื่องตรงกัน" ถ้าจะเปิด position</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Timeframe</th>
+          <th>ดูเพื่อ</th>
+          <th>ใช้กำหนด</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type"><strong>Daily (1D)</strong></td>
+          <td>Macro trend ภาพใหญ่ · higher highs/lows · major support/resistance · MA ribbon · HV(30)</td>
+          <td><strong>Macro View</strong> (Call vs Put) · ภาพใหญ่ขึ้นหรือลง</td>
+        </tr>
+        <tr>
+          <td class="col-type"><strong>4-Hour (4H)</strong></td>
+          <td>Mid-term structure · resistance/support ใกล้ๆ · pattern (flag, channel) · MA cluster · ATR</td>
+          <td><strong>Strike Selection</strong> · หา R/S ที่จะ "ซ่อน strike ไว้ข้างหลัง"</td>
+        </tr>
+        <tr>
+          <td class="col-type"><strong>1-Hour (1H)</strong></td>
+          <td>Short-term momentum · entry timing · local breakout/rejection · MACD divergence · volume spike</td>
+          <td><strong>Entry Timing + Hard Stop</strong> · timing เข้า + ระดับ stop ที่ใกล้ที่สุด</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>กฎเหล็ก: <strong>ถ้า 3 Timeframe เล่าเรื่องไม่ตรงกัน — ผมไม่เทรด</strong></p>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>ถ้าคุณมีเวลาแค่ 30 นาทีต่อวัน — คุณจะตัด step ไหนออกจาก workflow? และทำไม?</li>
+      <li>5 รูปที่ต้องแคป — รูปไหนที่คุณคิดว่า "ข้ามได้" ถ้า setup ชัด? ทำไม?</li>
+      <li>ถ้า Daily บอก bullish แต่ 1H บอก bearish อย่างชัดเจน — คุณจะเลือกเปิด Short Call หรือ Short Put?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 10 — AI Activation (Full Prompts) ============ -->
+<div class="chapter-open">
+  <div class="ch-num">10</div>
+  <div class="ch-label">บทที่สิบ · AI Skill Activation</div>
+  <div class="ch-title">
+    ทำให้ AI ใช้ Framework คุณได้เลย
+    <em>System Prompt + Daily Trigger + 5 Special Triggers — copy-paste ลง Claude / ChatGPT / Gemini ได้เลย</em>
+  </div>
+  <div class="ch-essence">AI ทรงพลังแต่ไม่ใช่ silver bullet — หัวใจคือ "สอน AI ให้รู้ framework" ผ่าน System Prompt ครั้งเดียว แล้วใช้ทุกวัน</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>3 Tier ของคำสั่ง — Setup ครั้งเดียว ใช้ทุกวัน</h1>
+
+  <p>ทั้งหมดในบทนี้คือ <strong>คำสั่งสำเร็จรูป</strong> ที่ copy-paste ลง Claude / ChatGPT / Gemini ได้เลย — แบ่งเป็น 3 Tier ตามลำดับการใช้งาน:</p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>ลำดับการใช้คำสั่ง</h3>
+      <p>3 Tier ใช้ตามลำดับ — ไม่สลับ</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Tier 1 · Setup ครั้งเดียว</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">Copy <strong>System Prompt</strong> ใส่ใน Project Instructions / Custom GPT / system message — ครั้งเดียว ใช้ตลอด</div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Tier 2 · เช้าทุกวัน (07:00 TH)</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">Copy <strong>Daily Trigger</strong> ส่งพร้อมรูป 5 ภาพ</div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Tier 3 · ตามสถานการณ์</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">Copy <strong>Special Trigger</strong> ที่ตรงกับสถานการณ์ — A/B/C/D/E</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>4.1 เลือก AI Platform</h2>
+  <p>Playbook ทำงานได้กับ AI หลายเจ้า — แต่ละเจ้ามีจุดแข็งต่างกัน ค่าใช้จ่ายรวม ~$20/เดือน (หรือฟรีถ้ายอม paste ทุก chat)</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>AI</th>
+          <th>ค่าใช้จ่าย</th>
+          <th>จุดแข็ง</th>
+          <th>ข้อจำกัด</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-type"><strong>Claude Pro</strong> ★ แนะนำ</td>
+          <td>$20/เดือน</td>
+          <td>Project feature · ไฟล์ทั้งเล่ม · context ยาว · ภาพอ่านแม่น</td>
+          <td>ต้องสมัคร Pro</td>
+        </tr>
+        <tr>
+          <td class="col-type">ChatGPT Plus</td>
+          <td>$20/เดือน</td>
+          <td>Custom GPT · upload ไฟล์ · vision ดี</td>
+          <td>Context สั้นกว่า</td>
+        </tr>
+        <tr>
+          <td class="col-type">Gemini Advanced</td>
+          <td>$20/เดือน</td>
+          <td>API ฟรี · เริ่มต้นได้</td>
+          <td>Framework reading ยังไม่ smart เท่า</td>
+        </tr>
+        <tr>
+          <td class="col-type">AI ฟรี</td>
+          <td>$0</td>
+          <td>เริ่มต้นได้</td>
+          <td>Context หาย · ต้อง paste system prompt ทุก chat ใหม่</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>แนะนำ: Claude Pro + Project</strong> — Upload ไฟล์ Playbook ฉบับนี้ทั้งเล่มเข้า Project · ทุก chat ใน Project = AI จะใช้ framework อัตโนมัติ</p>
+
+  <h2>วิธี Setup ในแต่ละ Platform</h2>
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">Claude (claude.ai Pro)</div>
+      <h4>ใช้ Project feature</h4>
+      <p>1. ไปที่ claude.ai → กด <strong>Projects</strong> → <strong>New Project</strong></p>
+      <p>2. ตั้งชื่อ <strong>"BTC Short Premium Desk"</strong></p>
+      <p>3. กด <strong>Set custom instructions</strong> → paste System Prompt ด้านล่าง</p>
+      <p>4. (Optional) Upload ไฟล์ Master Playbook v2.0 เข้า Project Knowledge</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">ChatGPT (Plus)</div>
+      <h4>ใช้ Custom GPT</h4>
+      <p>1. ไปที่ chatgpt.com → กด <strong>Explore GPTs</strong> → <strong>Create</strong></p>
+      <p>2. ตั้งชื่อ <strong>"BTC Short Premium Assistant"</strong></p>
+      <p>3. ในช่อง <strong>Instructions</strong> → paste System Prompt</p>
+      <p>4. (Optional) Upload Master Playbook ใน Knowledge</p>
+    </div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>Tier 1 · System Prompt — Copy ทั้งหมด</h2>
+  <p>กฎสำคัญ: <strong>Copy ทั้งบล็อก ไม่ตัดทอน</strong> — ทุกบรรทัดมีหน้าที่ Prompt นี้ทำให้ AI ทำงานตาม framework Earthh ทันที — ไม่ต้องอธิบายซ้ำทุก chat</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">System Prompt v2.0</div>
+      <div class="code-badge">Tier 1 · Paste ใน Project Instructions</div>
+    </div>
+    <div class="code-body"><span class="tag">[ROLE]</span>
+You are a Senior Option Trader specialized in Bybit BTC Daily Options.
+You use the Earthh Evans BTC Short Premium Master Playbook v2.0 framework.
+Respond in Thai-English mix, hedge fund desk note tone.
+Direct, no fluff, no emotional bias.
+
+<span class="tag">[METHODOLOGY]</span>
+Every setup analysis must follow these 6 steps in order:
+1. Market Snapshot — extract all numbers from user's screenshots
+2. 8-Check Framework — Macro/IV-HV/SD/Funding/Delta/Confluence/ATR/Combination
+3. No-Trade Rules — verify all 7 rules, flag any trigger
+4. Combination Read — interpret Price+Volume+OI+Liquidation pattern
+5. Verdict — TRADE / SKIP / WAIT with confidence level
+6. Action — if TRADE: exact strike, size, entry price, SL level
+
+<span class="tag">[CRITICAL RULES — never override]</span>
+- Liquidation &gt; $200M = SKIP always, no exceptions
+- Liquidation $50-200M = caution, reduce size 30-50%
+- IV/HV ratio &lt; 1.15 = SKIP (no edge)
+- SD distance &lt; 1.5 = SKIP (too close to spot)
+- FOMC/CPI/NFP day = SKIP
+- 3 consecutive losses = pause 2-3 days
+- Funding &lt; -0.03% = SKIP Short Call (squeeze risk)
+
+<span class="tag">[SL METHOD — Strict]</span>
+- Never recommend SL based on Mark Price (it inflates from IV)
+- Always use Index Price as SL trigger
+- Short Call SL: Strike - $500
+- Short Put SL: Strike + $500
+- Pin risk exit: 13:30 TH (90 min before settle)
+
+<span class="tag">[COMBINATION READ PATTERNS]</span>
+Pattern 1 (Bullish): Price ↑ + Volume ↑ + OI ↑ = new longs entering
+Pattern 2 (Capitulation): Price ↓ + Vol ↑↑ + OI ↑ + Liq &gt; $200M = SKIP all
+Pattern 3 (Bearish): Price ↓ + Volume ↑ + OI ↑ = new shorts, Short Call OK
+Pattern 4 (Quiet): flat + Vol ↓ + OI ↓ + Liq ↓ = trade either side OK
+
+<span class="tag">[OUTPUT FORMAT]</span>
+- Use tables and bullets only when they improve clarity
+- Always state the exact numbers from screenshots, never approximate
+- If user pushes to trade despite framework saying SKIP: warn directly
+  but respect their final judgment
+- Every verdict must cite specific data from user's screenshots
+- Never give vague answers like 'it depends' — always commit to a
+  direction with reasoning
+
+<span class="tag">[USER CONTEXT]</span>
+User trades Daily BTC options on Bybit USDT-collateralized.
+Settle 15:00 TH (08:00 UTC) using TWAP last 30 min.
+Position size: 2-3% of portfolio per trade max.
+Target: $10-30 per day on $5-10K portfolio.</div>
+  </div>
+
+  <h3>ตรวจสอบว่า Setup สำเร็จ</h3>
+  <p>หลัง paste System Prompt แล้ว ส่งข้อความนี้เพื่อทดสอบ:</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Test Message</div>
+      <div class="code-badge">Verify setup</div>
+    </div>
+    <div class="code-body">ทดสอบระบบ: บอกหน่อยว่าคุณจะวิเคราะห์ setup ตามลำดับชั้นยังไง และ rules สำคัญที่จะใช้คืออะไรบ้าง</div>
+  </div>
+
+  <p>AI ที่ setup ถูกต้องจะตอบ:</p>
+  <ul>
+    <li>อธิบาย 6 ชั้นของ methodology</li>
+    <li>ระบุ Critical Rules ทั้งหมด (Liquidation &gt; $200M, IV/HV, SD, etc.)</li>
+    <li>พูดถึง Index Price SL ไม่ใช่ Mark Price</li>
+    <li>อธิบาย 4 Combination Read Patterns</li>
+  </ul>
+
+  <p>ถ้า AI ตอบไม่ครบ = System Prompt ไม่ได้ paste ครบ → ตรวจสอบและ paste ใหม่ หรือใช้ AI ฟรีที่ context หาย → ต้อง paste ทุก chat ใหม่</p>
+
+  <hr class="ornament">
+
+  <h2>Tier 2 · Daily Trigger — ใช้ทุกเช้า 07:00 TH</h2>
+
+  <h3>Daily Trigger v1 · Full Analysis</h3>
+  <p><strong>ใช้เมื่อ:</strong> ยังไม่มี position เปิด · ต้องการวิเคราะห์เต็มรูปแบบ</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Daily Trigger v1 · Full Analysis</div>
+      <div class="code-badge">Tier 2 · ใช้ทุกเช้า</div>
+    </div>
+    <div class="code-body">วันนี้ขอ Full Daily Analysis ตามระบบครับ
+แนบรูป 5 ภาพมาแล้ว:
+1. CoinGlass Derivatives (BTC row)
+2. Bybit Option Chain (expiry วันนี้)
+3. TradingView Daily chart
+4. TradingView 4H chart
+5. TradingView 1H chart
+
+Macro View ของผมตอนนี้: <span class="var">[BEARISH / BULLISH / NEUTRAL]</span>
+Portfolio size: <span class="var">[USDT ที่มี]</span>
+
+ขอวิเคราะห์ตามลำดับ 6 ชั้น:
+1. Market Snapshot
+2. 8-Check Framework
+3. No-Trade Rules check
+4. Combination Read pattern
+5. Verdict (TRADE/SKIP/WAIT)
+6. Action (ถ้า TRADE: strike, size, entry, SL exact)
+
+วิธีบอก Macro View:
+- BEARISH: ภาพใหญ่ลง (lower highs, MACD red, MA descending)
+- BULLISH: ภาพใหญ่ขึ้น (higher highs, MACD green, MA ascending)
+- NEUTRAL: sideways, no clear trend, range-bound
+ถ้าไม่แน่ใจ = ใส่ NEUTRAL · AI จะให้คำแนะนำ balanced</div>
+  </div>
+
+  <h3>Daily Trigger v2 · Quick Morning Check</h3>
+  <p><strong>ใช้เมื่อ:</strong> ตื่นมาเช็คตลาดเร็วๆ · ยังไม่ตัดสินใจว่าจะเทรดหรือไม่</p>
+
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Daily Trigger v2 · Quick Check</div>
+      <div class="code-badge">Tier 2 · 2 นาที</div>
+    </div>
+    <div class="code-body">Quick check ตอนนี้ครับ
+แนบ CoinGlass + 1H chart
+
+บอกหน่อย:
+1. ตลาดอยู่ใน regime ไหน (quiet/recovery/cascade)
+2. ควรเตรียมตัวเทรดวันนี้ไหม หรือ skip
+3. ถ้าน่าเทรด + ขอ macro view check list ก่อน</div>
+  </div>
+
+  <p><strong>ประโยชน์ของ Quick Check:</strong> ใช้เวลาแค่ 2 นาที — ดูว่าวันนี้ควรเสียเวลาทำ Full Analysis ไหม ถ้า Liquidation &gt; $200M → AI บอก SKIP ตั้งแต่ตอนนี้ ไม่ต้องแคปครบ 5 รูป — ประหยัดเวลาในวันที่ตลาดบ้า</p>
+
+  <hr class="ornament">
+
+  <h2>Tier 3 · 5 Special Triggers — ใช้ตามสถานการณ์</h2>
+  <p>คำสั่งเฉพาะสำหรับสถานการณ์ที่เกิดขึ้นบ่อย — ใช้เมื่อตรงกับสถานการณ์ของตัวเอง</p>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Trigger</th>
+          <th>ใช้เมื่อ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">A</td><td class="col-type">Position Check</td><td>มี position เปิดอยู่ · ต้องการเช็คว่า hold/close/adjust</td></tr>
+        <tr><td class="num">B</td><td class="col-type">Strategy Comparison</td><td>ไม่แน่ใจระหว่าง Short Call กับ Short Put</td></tr>
+        <tr><td class="num">C</td><td class="col-type">AI Signal Verification</td><td>ได้ signal จาก AI อื่น · ต้องการ verify</td></tr>
+        <tr><td class="num">D</td><td class="col-type">Mark Price Anomaly</td><td>เห็น Unrealized Loss แปลกๆ</td></tr>
+        <tr><td class="num">E</td><td class="col-type">Pin Risk Decision</td><td>ใกล้เวลา settle · ราคาใกล้ strike</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Trigger A · Position Check</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Trigger A · Position Check</div>
+      <div class="code-badge">Tier 3 · มี position เปิด</div>
+    </div>
+    <div class="code-body">Position Check ครับ
+แนบ option chain + 1H chart ล่าสุด
+
+Position ปัจจุบัน:
+- Strategy: Short <span class="var">[Call/Put]</span>
+- Strike: <span class="var">[ราคา strike]</span>
+- Entry premium: <span class="var">[ราคาที่ขายได้]</span>
+- Current spot BTC: <span class="var">[ราคา BTC ตอนนี้]</span>
+- Time to expiry: <span class="var">[ชั่วโมงที่เหลือ]</span>
+
+ต้องการรู้:
+1. Position อยู่ใน safe zone หรือ danger zone
+2. ควร hold ต่อ / ปิดกำไร / ปิดขาดทุน / adjust
+3. ถ้าควร hold — trigger ไหนที่ต้องระวัง
+4. TP zone ที่ควรปิดอยู่ตรงไหน</div>
+  </div>
+
+  <h3>Trigger B · Strategy Comparison</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Trigger B · Strategy Comparison</div>
+      <div class="code-badge">Tier 3 · ลังละ Call/Put</div>
+    </div>
+    <div class="code-body">Strategy Comparison ครับ
+Setup วันนี้น่า trade · แต่ไม่แน่ใจระหว่าง:
+
+Option 1: Short Call strike <span class="var">[ราคา]</span>
+Option 2: Short Put strike <span class="var">[ราคา]</span>
+
+Macro View ของผม: <span class="var">[BEARISH/BULLISH/NEUTRAL]</span>
+
+ขอเปรียบเทียบ 2 options นี้ในแง่:
+1. Aligned กับ macro view มากกว่าอันไหน
+2. Risk/Reward ดีกว่ากัน
+3. Probability of profit จากระบบ
+4. คำแนะนำสุดท้าย พร้อมเหตุผล</div>
+  </div>
+
+  <h3>Trigger C · AI Signal Verification</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Trigger C · AI Signal Verification</div>
+      <div class="code-badge">Tier 3 · ได้ signal จากที่อื่น</div>
+    </div>
+    <div class="code-body">AI Signal Verification ครับ
+ได้ signal จาก <span class="var">[bot/AI ชื่อ]</span>:
+<span class="var">[paste signal ทั้งหมดที่ได้รับ]</span>
+
+ขอตรวจสอบว่า signal นี้:
+1. ตรงกับ 8-Check Framework ของเราไหม
+2. มี No-Trade Rule trigger ที่ AI นั้นพลาดไหม
+3. Combination Read เห็นอะไร
+4. ตัดสินใจสุดท้าย: ตาม signal หรือ override
+
+⚠ ระวัง: AI signal จาก source อื่นมักไม่รู้ Combination Read ของเรา
+ใช้ framework เราเป็นตัวตัดสิน ไม่ใช่ตาม signal blindly
+บทเรียน Day 18: AI signal บอก trade แต่ Combination Read บอก SKIP — Combination Read ถูก</div>
+  </div>
+
+  <h3>Trigger D · Mark Price Anomaly</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Trigger D · Mark Price Anomaly</div>
+      <div class="code-badge">Tier 3 · เห็น Loss แปลกๆ</div>
+    </div>
+    <div class="code-body">Mark Price Anomaly ครับ
+เพิ่งเปิด position:
+- Strategy: Short <span class="var">[Call/Put]</span>
+- Strike: <span class="var">[ราคา]</span>
+- Entry premium: <span class="var">[ราคาที่ขายได้]</span>
+- Mark Price ตอนนี้: <span class="var">[ที่ระบบโชว์]</span>
+- Unrealized Loss: <span class="var">[-XX%]</span>
+- BTC spot: <span class="var">[ราคา BTC ตอนนี้]</span>
+
+ต้องการรู้:
+1. นี้คือ Mark Price Anomaly จริง หรือเสียจริง
+2. ดู Ask Price แทน Mark Price เพื่อรู้ราคาปิดจริง
+3. SL ควรตั้งที่ Index Price ระดับไหน (ไม่ใช่ Mark)
+4. ควร hold ต่อหรือปิด</div>
+  </div>
+
+  <h3>Trigger E · Pin Risk Decision</h3>
+  <div class="code-block">
+    <div class="code-header">
+      <div class="code-title">Trigger E · Pin Risk Decision</div>
+      <div class="code-badge">Tier 3 · ใกล้ 13:30 TH</div>
+    </div>
+    <div class="code-body">Pin Risk Decision ครับ
+ตอนนี้ <span class="var">[เวลา TH]</span>
+- Position: Short <span class="var">[Call/Put]</span> strike <span class="var">[X]</span>
+- BTC spot ตอนนี้: <span class="var">[ราคา]</span>
+- Distance from strike: <span class="var">[+/- ดอลลาร์]</span>
+- Premium ตอนนี้: <span class="var">[USDT]</span>
+- Entry premium: <span class="var">[USDT]</span>
+- Gain/Loss: <span class="var">[+/-%]</span>
+
+ขอคำแนะนำ:
+1. ไกล TWAP window แล้ว — gamma squeeze risk?
+2. ปิดทันที / hold ถึง 13:30 / hold ถึง settle
+3. ถ้า hold ต่อ — trigger ปิดอยู่ตรงไหน
+
+Note: Pin Rule บอกให้ปิด 13:30 TH ก่อน TWAP 30 นาที</div>
+  </div>
+
+  <hr class="ornament">
+
+  <h2>4.4 Troubleshooting — AI ตอบไม่ดี</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>ปัญหา</th>
+          <th>สาเหตุ</th>
+          <th>วิธีแก้</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>AI ตอบทั่วๆ ไป</td><td>ลืม Project / system prompt</td><td>ตรวจ Project setting · re-paste prompt</td></tr>
+        <tr><td>AI ไม่อ่านตัวเลข</td><td>รูปไม่ชัด / cropped</td><td>แคปใหม่ zoom 100%+</td></tr>
+        <tr><td>AI ไม่ใช้ Combination Read</td><td>Prompt ไม่ครบ</td><td>ตรวจ Master prompt ครบหรือไม่</td></tr>
+        <tr><td>AI แนะนำสวนตลาด</td><td>User ไม่บอก macro view</td><td>ระบุ view ใน prompt ทุกครั้ง</td></tr>
+        <tr><td>AI ใช้ Mark Price คำนวณ SL</td><td>เรียนแบบเก่ามา</td><td>บอก: "ใช้ Index Price เท่านั้น"</td></tr>
+        <tr><td>AI ตอบสั้นเกินไป</td><td>ไม่ระบุ format</td><td>เพิ่ม: "ตอบ 6 ชั้นตามลำดับ"</td></tr>
+        <tr><td>AI TRADE ทั้งที่ liq สูง</td><td>ข้าม No-Trade rules</td><td>บอก: "ตรวจ No-Trade Rules ก่อน"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4.5 ข้อจำกัดของ AI — AI คือ Co-pilot ไม่ใช่ Auto-pilot</h2>
+  <p>AI ทรงพลังแต่ไม่ใช่ silver bullet — สิ่งที่ user ต้องเข้าใจ</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">AI ทำให้ได้</div>
+    <ul class="signal-list">
+      <li>รัน 8-check framework ไม่มี emotional bias</li>
+      <li>คำนวณ IV/HV ratio, SD distance, ATR แม่นยำ</li>
+      <li>อ่าน option chain ระบุ delta, premium ดีที่สุด</li>
+      <li>เปรียบเทียบกับ rule ใน playbook</li>
+      <li>ให้เหตุผล pros และ cons แบบไม่เข้าข้าง</li>
+    </ul>
+  </div>
+
+  <div class="signal-box sell">
+    <div class="signal-title">AI ทำไม่ได้ — User ต้องทำเอง</div>
+    <ul class="signal-list">
+      <li><strong>Macro View</strong> — ใครจะบอก AI ว่า "ภาพใหญ่ขึ้นหรือลง" = user</li>
+      <li><strong>Gut feel</strong> — ความรู้สึกว่า "วันนี้ไม่ดี" ที่ระบบจับไม่ได้</li>
+      <li><strong>Risk tolerance</strong> — AI ไม่รู้ว่าคุณรับขาดทุนได้เท่าไหร่</li>
+      <li><strong>Black swan</strong> — เหตุการณ์ไม่เคยเกิด AI ไม่รู้จัก</li>
+      <li><strong>Learning</strong> — ทุก trade ต้อง log + reflect เอง</li>
+    </ul>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"AI is your co-pilot. You are still the captain. Long term, co-pilots win — auto-pilots lose money."</div>
+    <div class="bq-th">AI คือ co-pilot ของคุณ · คุณยังเป็นกัปตัน · ระยะยาว co-pilot ชนะเสมอ — auto-pilot คือ recipe สำหรับการเสียเงิน</div>
+  </div>
+
+  <h2>4.6 Quick Reference Card — พิมพ์/บันทึกไว้ดูเร็ว</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>สถานการณ์</th>
+          <th>Trigger ที่ใช้</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>ไม่มี position + ต้องการเทรด</td><td>Daily Trigger v1 (Full Analysis)</td></tr>
+        <tr><td>อยากเช็คตลาดเร็ว</td><td>Daily Trigger v2 (Quick Check)</td></tr>
+        <tr><td>มี position เปิดอยู่</td><td>Trigger A (Position Check)</td></tr>
+        <tr><td>ไม่แน่ใจ Call/Put</td><td>Trigger B (Strategy Comparison)</td></tr>
+        <tr><td>ได้ signal จาก AI อื่น</td><td>Trigger C (Signal Verification)</td></tr>
+        <tr><td>เห็น Loss แปลกๆ ตอนเปิด</td><td>Trigger D (Mark Anomaly)</td></tr>
+        <tr><td>ใกล้ 13:30 TH</td><td>Trigger E (Pin Risk Decision)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">Tier 1 System Prompt = สอน AI ครั้งเดียว · Tier 2 Daily Trigger = ใช้ทุกเช้า · Tier 3 Special Triggers = ใช้ตามสถานการณ์ · AI = co-pilot · user = captain · Co-pilot ชนะระยะยาว · Auto-pilot = เสียเงิน</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนผ่านไปบทถัดไป</div>
+    <ol class="reflection-list">
+      <li>ถ้า AI บอก TRADE แต่ gut feel ของคุณบอก SKIP — คุณจะทำตามใคร? ทำไม?</li>
+      <li>วันที่ AI แนะนำ Short Put แต่คุณเห็น Daily chart เป็น bearish ชัด — คุณจะ override อย่างไร?</li>
+      <li>ถ้าคุณทำตาม AI ทุกคำโดยไม่มี judgment ตัวเอง — คุณคิดว่า 3 เดือนข้างหน้าจะเป็นยังไง?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ บทที่ 11 — Mark Price Anomaly ============ -->
+<div class="chapter-open">
+  <div class="ch-num">11</div>
+  <div class="ch-label">บทที่สิบเอ็ด · Bybit Mechanics</div>
+  <div class="ch-title">
+    Mark Price Anomaly
+    <em>ความจริงที่ trader ส่วนใหญ่ไม่รู้ — −27% ที่คุณเห็นตอนเปิด position ไม่ใช่ขาดทุนจริง</em>
+  </div>
+  <div class="ch-essence">Bybit Daily Option มี liquidity บาง — Mark Price คำนวณจาก Black-Scholes model ไม่ใช่ราคาตลาดจริง → สร้าง illusion ของขาดทุนที่ไม่มีอยู่จริง</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>−27% / −195% ที่หลอกให้คุณ panic</h1>
+
+  <p>วันที่คุณเปิด Short Option บน Bybit เป็นครั้งแรก — คุณจะเห็น Unrealized Loss ขนาด <strong>−27%</strong> หรือแม้แต่ <strong>−195%</strong> ทันที ใจสั่น คิดว่าระบบผิดหรือตัวเองทำอะไรพลาด ความจริงคือ — <strong>ตัวเลขเหล่านั้นไม่ใช่ขาดทุนจริง</strong> มันคือ "Mark Price Anomaly"</p>
+
+  <h2>ทำไม Bybit ถึงโชว์ตัวเลขแปลกๆ</h2>
+  <p>มี 3 เหตุผลที่ทำให้ Mark Price ใน Daily Option ของ Bybit ไม่ตรงราคาจริง:</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">เหตุผลที่ 1</div>
+      <h4>Liquidity บาง</h4>
+      <p>Bybit Daily Option มี volume ต่ำกว่า weekly/monthly มาก — ทำให้ bid/ask spread กว้าง บางครั้งห่างกัน 50% ของราคา</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">เหตุผลที่ 2</div>
+      <h4>Mark = Black-Scholes model</h4>
+      <p>Mark Price ไม่ใช่ราคาจริงใน order book แต่คำนวณจาก Black-Scholes model ที่ใส่ IV, time, spot ในปัจจุบัน</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">เหตุผลที่ 3</div>
+      <h4>คุณขายที่ Bid แต่ Mark ใช้ Mid</h4>
+      <p>ตอนเปิด: คุณขายที่ Bid (ราคาที่มีคนยอมซื้อ) แต่ Mark ใช้ Mid Price = (Bid + Ask) ÷ 2 → Mid &gt; Bid เสมอ → โชว์ขาดทุนทันที</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">ผลลัพธ์</div>
+      <h4>Illusion ของขาดทุน</h4>
+      <p>คุณเห็น "Unrealized Loss" ทันทีหลังเปิด — ทั้งที่จริงๆ ราคาปิด position ที่แท้จริง = Ask Price ที่คุณต้องจ่าย ซึ่งมักใกล้ entry มากกว่า</p>
+    </div>
+  </div>
+
+  <h2>ตัวอย่างจริงจาก 2 วันแรกของผม</h2>
+
+  <div class="author-box">
+    <div class="author-avatar">E</div>
+    <div class="author-content">
+      <div class="author-meta">Earthh Evans — Field Note Day 5 + 7</div>
+      <p class="author-text">"วันที่ 5 ผมเปิด Short Call ที่ entry $25 — เห็น Unrealized Loss −27% ทันที วันที่ 7 เปิดอีก entry $15 — เห็น −195% ใจสั่นทั้งสองครั้ง แต่จริงๆ ไม่ใช่ขาดทุน มันคือ noise จาก Mark Price Anomaly"</p>
+    </div>
+  </div>
+
+  <p>เมื่อผมเข้าใจแล้ว — ผมเลิกสนใจ Mark Price ใน 30 นาทีแรกหลังเปิด position ทั้งหมด</p>
+
+  <h2>วิธีอ่านที่ถูก — ดู 2 สิ่งแทน Mark</h2>
+
+  <div class="signal-box buy">
+    <div class="signal-title">สิ่งที่ต้องดู แทน Mark Price</div>
+    <ul class="signal-list">
+      <li><strong>BTC Spot Price (Index Price)</strong> — ราคา BTC จริงที่กำหนดว่า Option ในเงินหรือไม่ — ถ้า spot ยังห่างจาก strike หลายร้อยดอลลาร์ = position ยัง safe</li>
+      <li><strong>Ask Price</strong> ของ Option ที่คุณขาย — ราคาที่คุณต้องจ่ายถ้าจะปิด position จริง — ตัวเลขนี้ต่ำกว่า Mark มากในช่วงแรก</li>
+      <li><strong>Distance from strike</strong> — เปอร์เซ็นต์ระยะห่างระหว่าง spot กับ strike — ยิ่งไกลยิ่งปลอดภัย</li>
+    </ul>
+  </div>
+
+  <h2>กฎทอง — อย่าตัดสินใจจาก Mark Price</h2>
+
+  <div class="ladder">
+    <div class="ladder-step wrong">
+      <div class="ladder-tag">ความเชื่อเดิม</div>
+      <div class="ladder-text">"Mark Price = ราคา Option จริง → เห็น −27% = ขาดทุนจริง → ต้องปิด position ด่วน"</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth">
+      <div class="ladder-tag">ความจริง</div>
+      <div class="ladder-text"><strong>Mark Price = model price</strong> ที่คำนวณจาก Black-Scholes + IV + time — ไม่ใช่ราคาตลาดจริง · ลอยไปลอยมาจาก IV spike · −27% ที่เห็นอาจเป็น illusion</div>
+    </div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action">
+      <div class="ladder-tag">ลงมือทำ</div>
+      <div class="ladder-text">ละเลย Mark Price ใน 30 นาทีแรกหลังเปิด · ดู BTC Spot + Ask Price แทน · SL ตั้งด้วย <strong>Index Price</strong> เสมอ (ไม่ใช่ Mark) · ใช้ Trigger D (Mark Anomaly) ใน AI Commands ถ้าไม่มั่นใจ</div>
+    </div>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Mark Price is the model's opinion. Ask Price is what you'll pay. Spot Price is what matters. Three numbers — only two are real."</div>
+    <div class="bq-th">Mark Price คือความเห็นของ model · Ask Price คือสิ่งที่คุณจะจ่ายจริง · Spot Price คือสิ่งที่สำคัญ · สามตัวเลข — แค่สองตัวที่จริง</div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-label">แก่นของบทนี้</div>
+    <p class="insight-text">Mark Price Anomaly = illusion ของขาดทุน · ดู BTC Spot + Ask Price แทน · SL ใช้ Index Price เสมอ · ใช้ Trigger D ถ้าไม่มั่นใจ · ละเลย Mark Price ใน 30 นาทีแรก</p>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามก่อนเข้า Synthesis</div>
+    <ol class="reflection-list">
+      <li>ถ้าคุณเปิด Short Call $76,500 เห็น Mark −150% ทันที แต่ BTC spot = $74,000 — คุณควรทำอะไร?</li>
+      <li>ทำไม "ตั้ง SL ด้วย Mark Price" ถึงเป็นความผิดพลาดที่อันตรายที่สุดสำหรับมือใหม่?</li>
+      <li>ถ้าระบบเตือน "Trigger D — Mark Anomaly" แต่คุณยังไม่มั่นใจ — คุณจะใช้ข้อมูลอะไรเป็นตัวตัดสินใจ?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ SYNTHESIS ============ -->
+<div class="chapter-open">
+  <div class="ch-num">∞</div>
+  <div class="ch-label">Synthesis · บทสรุปลงมือ</div>
+  <div class="ch-title">
+    Your Daily Premium Ritual
+    <em>ถ้าจำได้แค่อย่างเดียวจากเล่มนี้ — จำประโยคเดียวนี้</em>
+  </div>
+  <div class="ch-essence">Sell volatility you don't believe in · Skip every day the market is panicking · Let Theta do the work — close before Gamma wakes up</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Master One-Liner · ประโยคเดียวที่สรุปทั้งเล่ม</div>
+  <h1>ขายความกลัว ข้ามความบ้า ปิดก่อนตื่น</h1>
+
+  <p>ทั้ง 11 บท ที่คุณอ่านมา ทั้ง 8-Check Framework, 7 No-Trade Rules, 4 Combination Read Patterns, Tier 1/2/3 AI Prompts — ล้วนสรุปได้ในประโยคเดียว:</p>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"Sell volatility you don't believe in. Skip every day the market is panicking. Let Theta do the work — close before Gamma wakes up."</div>
+    <div class="bq-th">ขายความผันผวนที่คุณไม่เชื่อ · ข้ามทุกวันที่ตลาดกำลังบ้า · ปล่อยให้ Theta ทำงาน — ปิดก่อน Gamma ตื่น</div>
+  </div>
+
+  <p>ประโยคนี้คือ "เข็มทิศ" ที่จะนำคุณไปในทุกวันที่ตลาดสับสน — ถ้าคุณไม่แน่ใจว่าจะเทรดไหม ให้ถามตัวเอง 3 คำถามนี้:</p>
+
+  <div class="signal-box buy">
+    <div class="signal-title">3 คำถามเข็มทิศ · ถามตัวเองทุกวัน</div>
+    <ul class="signal-list">
+      <li><strong>"ฉันกำลังขายความกลัวที่ไม่จริงไหม?"</strong> — IV/HV ratio ≥ 1.15 หรือไม่? ถ้าไม่ → SKIP</li>
+      <li><strong>"ตลาดกำลังบ้าไหม?"</strong> — Liquidation &gt; $200M หรือไม่? ถ้าใช่ → SKIP เสมอ</li>
+      <li><strong>"ฉันจะปิดก่อน Gamma ตื่นไหม?"</strong> — ตั้ง alert ปิด 13:30 TH หรือยัง?</li>
+    </ul>
+  </div>
+
+  <h2>Pre-Trade Ritual — Checklist 15 Step</h2>
+  <p>checklist นี้คือ <strong>กิจวัตรที่ทำทุกเช้า 07:00 TH</strong> — ทำครบ 15 step = ปลอดภัย ข้าม step ใด = เสี่ยง</p>
+
+  <div class="checklist">
+    <div class="checklist-cap">
+      <h3>15-Step Daily Checklist</h3>
+      <p>4 phases · ใช้เวลารวม ~30 นาทีต่อวัน</p>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Part A · Pre-Trade (07:00 TH)</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">เช็ค ForexFactory — มี FOMC/CPI/NFP ก่อน settle ไหม</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เปิด CoinGlass — ดู Funding/OI/Liquidation</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เปิด TradingView — กราฟ Day/4H/1H</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">เปิด Bybit Option Chain — expiry วันนั้น</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">แคป 5 รูป + ส่งให้ AI วิเคราะห์</div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Part B · Strike Selection (07:15-07:30)</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">คำนวณ IV/HV ratio — ต้อง ≥ 1.15</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">หา strike ที่ delta 0.13-0.15</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">Cross-check strike กับ resistance/support 4H</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">คำนวณ SD distance — ต้อง &gt; 1.5 SD</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">คำนวณ 1.5× ATR — strike ต้องไกลกว่า</div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Part C · Risk Management (07:30-07:45)</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">กำหนด size (max 2-3% portfolio)</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">คำนวณ SL ที่ Strike ± $500 (Index Price)</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">ตั้ง alert TP ที่ 50-70% decay</div></li>
+      </ul>
+    </div>
+    <div class="cl-group">
+      <div class="cl-group-title">Part D · Execution (07:45-08:00)</div>
+      <ul class="cl-items">
+        <li><div class="cl-box"></div><div class="cl-text">เปิด limit order ใกล้ mark price</div></li>
+        <li><div class="cl-box"></div><div class="cl-text">หลังเปิด: ตั้ง SL ทันที (Trigger by Index Price)</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Quick Reference Card — พิมพ์ติดผนัง</h2>
+
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Rule</th>
+          <th>Threshold</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-type">Liquidation</td><td class="num">&gt; $200M</td><td><strong>SKIP เสมอ</strong></td></tr>
+        <tr><td class="col-type">IV/HV ratio</td><td class="num">&lt; 1.15</td><td><strong>SKIP</strong> (no edge)</td></tr>
+        <tr><td class="col-type">SD distance</td><td class="num">&lt; 1.5</td><td><strong>SKIP</strong></td></tr>
+        <tr><td class="col-type">Macro event</td><td>FOMC/CPI/NFP day</td><td><strong>SKIP</strong></td></tr>
+        <tr><td class="col-type">SL Method</td><td>Index Price</td><td><strong>ไม่ใช่ Mark</strong></td></tr>
+        <tr><td class="col-type">SL Distance</td><td>Strike ± $500</td><td>Order: Market</td></tr>
+        <tr><td class="col-type">Pin exit</td><td>13:30 TH</td><td>90 นาทีก่อน settle</td></tr>
+        <tr><td class="col-type">Position size</td><td class="num">2-3% portfolio</td><td>Max loss ≤ $200-300</td></tr>
+        <tr><td class="col-type">RR Ratio</td><td class="num">1:2</td><td>SL = 2× premium</td></tr>
+        <tr><td class="col-type">Losing streak</td><td class="num">3 losses ติด</td><td>หยุด 2-3 วัน</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Recommended Reading — แหล่งเรียนรู้เพิ่มเติม</h2>
+  <p>เล่มนี้เป็นจุดเริ่มต้น — ถ้าคุณอยากเก่งขึ้น แนะนำให้ไปต่อจาก 4 แหล่งนี้:</p>
+
+  <div class="two-col-grid">
+    <div class="grid-card">
+      <div class="grid-card-title">Source 1</div>
+      <h4>Tastylive Research</h4>
+      <p>เว็บวิจัย Option ที่ใช้สถิติจริง — เน้น "mechanical trading" เหมือนระบบนี้ · ใช้ verify กฎใน Playbook</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Source 2</div>
+      <h4>Option Alpha</h4>
+      <p>YouTube + Podcast ที่สอน option mechanics จากมุมมอง seller · เหมาะกับคนเริ่มต้น</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Source 3</div>
+      <h4>CoinGlass Documentation</h4>
+      <p>เอกสารที่อธิบาย Funding Rate, Open Interest, Liquidation แบบลึก — ทำให้เข้าใจตัวเลขที่เห็นทุกวัน</p>
+    </div>
+    <div class="grid-card">
+      <div class="grid-card-title">Source 4</div>
+      <h4>Earthh Evans — YouTube Clip</h4>
+      <p>คลิปสอน Daily Trade 32 นาที · live demo จริงตั้งแต่ setup Claude Project ถึงเปิด Short Call $75,000 · youtu.be/9lzGIZdsnuQ</p>
+    </div>
+  </div>
+
+  <h2>4 สิ่งที่ต้องทำต่อจากนี้</h2>
+  <p>AI ทำให้คุณเริ่มได้เร็ว — แต่ความเก่งระยะยาวต้องมาจาก 4 สิ่งนี้ ที่ AI ทำแทนไม่ได้:</p>
+
+  <ul>
+    <li><strong>Log</strong> ทุก trade ใน journal — ไม่ว่าชนะหรือแพ้ · บันทึก setup, decision, result, lesson</li>
+    <li><strong>Review</strong> weekly — หาว่าอะไรซ้ำในความผิดพลาด · pattern ที่คุณพลาดซ้ำๆ</li>
+    <li><strong>Refine</strong> framework ของตัวเอง — สิ่งที่ไม่อยู่ใน Playbook นี้ · ปรับ rules ตามสไตล์ของคุณ</li>
+    <li><strong>เคารพระบบ</strong> — แต่อย่าทำตาม blindly · ถาม "ทำไม?" ทุกครั้งที่ rule override gut feel</li>
+  </ul>
+
+  <div class="risk-warning">
+    <div class="risk-warning-title">⚠ คำเตือนสุดท้าย</div>
+    <p class="risk-warning-text"><strong>Option Trading มีความเสี่ยงสูง — ขาดทุนได้มากกว่า premium ที่เก็บ</strong> เริ่มต้นด้วย size เล็กเสมอ — <strong>0.5-1% ของ portfolio</strong> Paper trade 2 สัปดาห์ก่อนใช้เงินจริง ไม่ใช่ทุกคนเหมาะกับ option — ถ้าเครียดให้หยุด ผลตอบแทนในอดีต (90% win rate) ไม่การันตีผลลัพธ์ในอนาคต — ตลาดเปลี่ยน ระบบต้องปรับ</p>
+  </div>
+
+  <div class="blockquote-full">
+    <div class="bq-en">"The system is your compass, not your autopilot. Walk the path yourself."</div>
+    <div class="bq-th">ระบบคือเข็มทิศของคุณ ไม่ใช่ระบบขับอัตโนมัติ · เดินเส้นทางนี้ด้วยตัวคุณเอง</div>
+  </div>
+
+  <div class="reflection">
+    <div class="reflection-title">Reflection · คำถามสุดท้ายก่อนปิดเล่ม</div>
+    <ol class="reflection-list">
+      <li>3 เดือนข้างหน้า — คุณจะเป็น "co-pilot" หรือ "auto-pilot" ของ AI? ทำไม?</li>
+      <li>วันที่คุณขาดทุน 3 ครั้งติด — คุณจะ "หยุด 2-3 วัน" ตาม rule หรือ "ไล่ทวงคืน"? อะไรยากกว่ากัน?</li>
+      <li>ถ้าจำได้แค่ประโยคเดียวจากเล่มนี้ — คุณจะจำประโยคไหน? ทำไม?</li>
+    </ol>
+  </div>
+</div>
+
+
+<!-- ============ FOOTER ============ -->
+<div class="book-footer">
+  <div class="book-footer-mark">◆</div>
+  <div class="book-footer-text">"ขายความกลัว · เก็บ premium · ปิดก่อน Gamma ตื่น"</div>
+  <div class="book-footer-author">BTC Daily Short Premium · Earthh Evans · Personal Edition</div>
+</div>
+
+
+
+</div>
+</body>
+</html>
