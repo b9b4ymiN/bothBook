@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Almanack of Naval Ravikant — คู่มือสร้างความมั่งคั่งและความสุข (ฉบับตกผลึก)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --paper:#F0F0EE; --paper-mid:#E4E4E1; --paper-deep:#D5D6D3; --paper-shadow:#C0C1BE;
+  --ink:#17191A; --ink-soft:#2C2F30; --ink-mid:#4C5051; --ink-muted:#7B7F80; --ink-faint:#A9ADAD;
+  --accent:#4E5A5D; --accent-deep:#2E3739; --accent-light:#8F9A9C;
+  --accent-rule:rgba(78,90,93,.30); --accent-bg:rgba(78,90,93,.075);
+  --red:#7A2E2A; --red-bg:#F7F0EE; --green:#33564A; --green-bg:#EDF2EF;
+  --book-width:830px; --page-pad-h:78px; --page-pad-v:80px;
+  --th:'Noto Serif Thai',serif; --sans:'Sarabun',sans-serif; --disp:'Jost',sans-serif; --ser:'Playfair Display',serif;
+}
+.part-2{
+  --accent:#6E6355; --accent-deep:#463E34; --accent-light:#A79B8B;
+  --accent-rule:rgba(110,99,85,.32); --accent-bg:rgba(110,99,85,.08);
+}
+html{scroll-behavior:smooth}
+body{background:#191A1A;padding:40px 16px 80px;font-family:var(--th);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.book{max-width:var(--book-width);margin:0 auto;background:var(--paper);
+  box-shadow:0 0 0 1px rgba(0,0,0,.10),0 4px 40px rgba(0,0,0,.45),0 0 120px rgba(0,0,0,.30);overflow:hidden}
+
+/* ---------- progress + nav ---------- */
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:#8F9A9C;z-index:99}
+#totop{position:fixed;bottom:18px;right:18px;z-index:99;background:rgba(23,25,26,.90);color:#E4E4E1;
+  border:1px solid rgba(255,255,255,.14);font-family:var(--sans);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;padding:10px 14px;text-decoration:none;font-weight:600;backdrop-filter:blur(6px)}
+#totop:hover{background:#17191A}
+
+/* ---------- COVER ---------- */
+.cover{position:relative;background:linear-gradient(170deg,#EDEDEB 0%,#E7E8E7 55%,#DEDFDE 100%);
+  padding:88px var(--page-pad-h) 68px;text-align:left;border-bottom:1px solid var(--paper-shadow)}
+.cover:before,.cover:after{content:'';position:absolute;width:34px;height:34px;border:1px solid var(--ink-faint)}
+.cover:before{top:26px;left:26px;border-right:0;border-bottom:0}
+.cover:after{bottom:26px;right:26px;border-left:0;border-top:0}
+.cv-fw{font-family:var(--disp);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--ink-muted);text-align:right;line-height:2.1;margin-bottom:56px}
+.cv-t1{font-family:var(--disp);font-weight:300;font-size:clamp(30px,6vw,52px);letter-spacing:2px;line-height:1.12;color:#9DA1A1;text-transform:uppercase}
+.cv-t2{font-family:var(--disp);font-weight:500;font-size:clamp(34px,7.4vw,66px);letter-spacing:1px;line-height:1.06;color:#1C1E1E;text-transform:uppercase;margin-top:6px}
+.cv-sub{font-family:var(--th);font-size:15px;color:var(--ink-mid);margin-top:26px;letter-spacing:.3px}
+.cv-rule{height:1px;background:var(--ink-faint);margin:34px 0 26px;width:100%}
+.cv-th{font-family:var(--th);font-weight:600;font-size:19px;color:var(--ink);line-height:1.7}
+.cv-th span{color:var(--ink-muted);font-weight:400}
+.cv-meta{font-family:var(--sans);font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--ink-muted);margin-top:30px;line-height:2;font-weight:600}
+.cv-badge{display:inline-block;border:1px solid var(--ink-faint);padding:6px 12px;font-family:var(--sans);
+  font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-mid);margin-top:22px;font-weight:600}
+
+/* ---------- PAGE ---------- */
+.page{padding:var(--page-pad-v) var(--page-pad-h)}
+.page.mid{background:var(--paper-mid)}
+.eyebrow{font-family:var(--sans);font-size:10px;letter-spacing:3.4px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:18px}
+h1{font-family:var(--th);font-weight:700;font-size:29px;line-height:1.42;color:var(--ink);margin-bottom:22px;letter-spacing:-.2px}
+h2{font-family:var(--th);font-weight:700;font-size:21px;line-height:1.5;color:var(--ink);margin:44px 0 14px;padding-top:16px;border-top:1px solid var(--paper-shadow)}
+h3{font-family:var(--th);font-weight:600;font-size:17px;line-height:1.55;color:var(--accent-deep);margin:28px 0 10px}
+p{font-family:var(--th);font-size:16px;line-height:1.95;color:var(--ink-soft);margin-bottom:17px;font-weight:400}
+p.lead{font-size:18px;line-height:1.9;color:var(--ink);font-weight:500}
+p.small{font-size:14.5px;color:var(--ink-mid);line-height:1.85}
+b,strong{font-weight:700;color:var(--ink)}
+em{font-style:italic}
+.en{font-family:var(--disp);font-weight:500;letter-spacing:.3px;color:var(--accent-deep)}
+a{color:var(--accent-deep)}
+ul,ol{margin:0 0 18px 22px}
+li{font-family:var(--th);font-size:15.5px;line-height:1.9;color:var(--ink-soft);margin-bottom:9px}
+.hr{height:1px;background:var(--paper-shadow);margin:40px 0}
+.dot{text-align:center;color:var(--ink-faint);letter-spacing:10px;margin:38px 0;font-size:13px}
+
+/* ---------- TOC ---------- */
+.toc-h{font-family:var(--disp);font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--ink-muted);margin-bottom:8px;font-weight:400}
+.toc-title{font-family:var(--th);font-weight:700;font-size:26px;color:var(--ink);margin-bottom:34px}
+.toc-part{font-family:var(--sans);font-size:10.5px;letter-spacing:3.4px;text-transform:uppercase;color:var(--accent);font-weight:700;
+  margin:34px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--accent-rule)}
+.ch-card{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid var(--paper-shadow);align-items:flex-start;text-decoration:none}
+.ch-card:hover{background:rgba(0,0,0,.014)}
+.ch-card-num{font-family:var(--ser);font-style:italic;font-size:34px;color:var(--accent-light);font-weight:400;line-height:1;min-width:50px;padding-top:4px}
+.ch-card-title{font-family:var(--th);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.5}
+.ch-card-one-liner{font-family:var(--th);font-size:13.5px;color:var(--ink-muted);line-height:1.65;margin-bottom:8px}
+.ch-tag{display:inline-block;font-family:var(--sans);font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;
+  background:var(--accent-bg);color:var(--accent-deep);padding:3px 8px;margin:0 6px 4px 0;font-weight:700}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-shadow);margin:30px 0}
+.stat{background:var(--paper);padding:20px 16px;text-align:center}
+.stat-n{font-family:var(--ser);font-size:30px;color:var(--accent-deep);line-height:1;margin-bottom:7px}
+.stat-l{font-family:var(--sans);font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-muted);font-weight:600;line-height:1.6}
+
+/* ---------- PART OPENER ---------- */
+.part-open{background:var(--ink);padding:96px var(--page-pad-h);position:relative;overflow:hidden}
+.part-open .pn{position:absolute;right:24px;top:6px;font-family:var(--ser);font-size:180px;color:rgba(255,255,255,.055);line-height:1;font-style:italic}
+.part-lb{font-family:var(--sans);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-light);font-weight:700;margin-bottom:20px}
+.part-t{font-family:var(--disp);font-weight:300;font-size:clamp(34px,7vw,58px);letter-spacing:3px;text-transform:uppercase;color:#F0F0EE;line-height:1.1}
+.part-th{font-family:var(--th);font-weight:600;font-size:20px;color:var(--paper-deep);margin-top:16px}
+.part-ess{font-family:var(--th);font-size:15.5px;line-height:1.9;color:#B9BCBB;margin-top:26px;max-width:520px;border-left:2px solid var(--accent-light);padding-left:20px}
+
+/* ---------- CHAPTER OPEN ---------- */
+.chapter-open{background:var(--paper-mid);padding:66px var(--page-pad-h);position:relative;overflow:hidden;border-top:1px solid var(--paper-shadow);border-bottom:1px solid var(--paper-shadow)}
+.ch-num{position:absolute;right:30px;top:-6px;font-family:var(--ser);font-size:130px;font-style:italic;color:rgba(0,0,0,.045);line-height:1}
+.ch-label{font-family:var(--sans);font-size:10px;letter-spacing:3.4px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:14px}
+.ch-title{font-family:var(--disp);font-weight:500;font-size:clamp(24px,4.6vw,34px);letter-spacing:.6px;color:var(--ink);line-height:1.22;text-transform:uppercase}
+.ch-title em{display:block;font-family:var(--th);font-style:normal;font-weight:600;font-size:17px;letter-spacing:0;color:var(--ink-mid);text-transform:none;margin-top:10px}
+.ch-essence{font-family:var(--th);font-size:15.5px;line-height:1.9;color:var(--ink-soft);margin-top:24px;max-width:560px;font-style:italic;border-left:2px solid var(--accent);padding-left:18px}
+
+/* ---------- INSIGHT / CASE / BOXES ---------- */
+.insight-box{background:var(--accent-bg);border:1px solid var(--accent-rule);padding:24px 28px;margin:30px 0}
+.insight-box .lb{font-family:var(--sans);font-size:9.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--accent-deep);font-weight:700;margin-bottom:10px}
+.insight-box p{font-size:15.5px;margin-bottom:9px;color:var(--ink-soft)}
+.insight-box p:last-child{margin-bottom:0}
+.case{background:var(--paper);border:1px solid var(--paper-shadow);border-left:3px solid var(--ink-mid);padding:22px 26px;margin:28px 0}
+.page.mid .case{background:rgba(255,255,255,.5)}
+.case .lb{font-family:var(--sans);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--ink-mid);font-weight:700;margin-bottom:9px}
+.case .nm{font-family:var(--th);font-weight:700;font-size:15.5px;color:var(--ink);margin-bottom:7px}
+.case p{font-size:14.8px;line-height:1.85;margin-bottom:9px}
+.case p:last-child{margin-bottom:0}
+.author-box{display:flex;gap:18px;padding:24px 26px;background:var(--paper-deep);border-left:3px solid var(--accent);margin:28px 0}
+.author-avatar{width:44px;height:44px;border-radius:50%;background:var(--accent-deep);color:var(--paper);display:flex;
+  align-items:center;justify-content:center;font-family:var(--ser);font-size:17px;font-style:italic;flex-shrink:0}
+.author-meta{font-family:var(--sans);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-deep);margin-bottom:8px;font-weight:700}
+.author-text{font-family:var(--th);font-size:16px;line-height:1.85;color:var(--ink-soft);font-style:italic;margin:0}
+.aph{border-top:1px solid var(--ink);border-bottom:1px solid var(--paper-shadow);padding:20px 0;margin:28px 0}
+.aph-lb{font-family:var(--sans);font-size:9px;letter-spacing:2.4px;text-transform:uppercase;color:var(--ink-muted);font-weight:700;margin-bottom:12px}
+.aph-en{font-family:var(--disp);font-weight:400;font-size:20px;letter-spacing:.4px;color:var(--ink);line-height:1.4;margin-bottom:10px}
+.aph-th{font-family:var(--th);font-size:15px;line-height:1.85;color:var(--ink-mid)}
+.pullquote{font-family:var(--th);font-weight:600;font-size:20px;line-height:1.75;color:var(--accent-deep);
+  border-left:3px solid var(--accent);padding:6px 0 6px 24px;margin:32px 0}
+.blockquote-full{background:var(--ink);color:var(--paper);padding:52px 44px;margin:40px calc(var(--page-pad-h)*-1);text-align:center}
+.blockquote-full .q{font-family:var(--disp);font-weight:300;font-size:clamp(19px,3.4vw,26px);line-height:1.5;letter-spacing:.5px;color:#F0F0EE;margin-bottom:18px}
+.blockquote-full .th{font-family:var(--th);font-size:15.5px;line-height:1.9;color:#B9BCBB;max-width:520px;margin:0 auto}
+.blockquote-full .src{font-family:var(--sans);font-size:9.5px;letter-spacing:2.6px;text-transform:uppercase;color:var(--accent-light);margin-top:22px;font-weight:600}
+
+/* ---------- LADDER ---------- */
+.ladder{margin:32px 0}
+.ladder-step{padding:17px 22px}
+.ladder-step.wrong{background:var(--red-bg);border-left:3px solid var(--red)}
+.ladder-step.truth{background:var(--accent-bg);border-left:3px solid var(--accent-deep)}
+.ladder-step.action{background:var(--green-bg);border-left:3px solid var(--green)}
+.ladder-tag{font-family:var(--sans);font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.ladder-step.wrong .ladder-tag{color:var(--red)}
+.ladder-step.truth .ladder-tag{color:var(--accent-deep)}
+.ladder-step.action .ladder-tag{color:var(--green)}
+.ladder-text{font-family:var(--th);font-size:15px;line-height:1.8;color:var(--ink-soft)}
+.ladder-arrow{text-align:center;padding:5px;color:var(--ink-faint);font-size:17px}
+
+/* ---------- TABLES ---------- */
+.tbl{width:100%;border-collapse:collapse;margin:28px 0;font-family:var(--th)}
+.tbl th{background:var(--ink);color:var(--paper);font-family:var(--sans);font-size:10px;letter-spacing:1.8px;
+  text-transform:uppercase;padding:11px 13px;text-align:left;font-weight:700}
+.tbl td{padding:12px 13px;font-size:14.5px;line-height:1.75;color:var(--ink-soft);border-bottom:1px solid var(--paper-shadow);vertical-align:top}
+.tbl tr:nth-child(even) td{background:rgba(0,0,0,.018)}
+.tbl td b{color:var(--ink)}
+.tbl .n{font-family:var(--sans);font-weight:700;color:var(--accent-deep);font-size:13px;white-space:nowrap}
+
+/* ---------- SIGNAL / DEFLIST / CHECKLIST / REFLECTION ---------- */
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--paper-shadow);margin:30px 0}
+.sig-col{background:var(--paper);padding:20px 22px}
+.page.mid .sig-col{background:var(--paper-mid)}
+.sig-lb{font-family:var(--sans);font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase;font-weight:700;margin-bottom:12px}
+.sig-do .sig-lb{color:var(--green)}
+.sig-dont .sig-lb{color:var(--red)}
+.sig-col ul{margin:0 0 0 16px}
+.sig-col li{font-size:14.2px;line-height:1.8;margin-bottom:8px}
+.deflist{margin:26px 0;border-top:1px solid var(--paper-shadow)}
+.def{display:grid;grid-template-columns:190px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--paper-shadow)}
+.def-t{font-family:var(--disp);font-weight:500;font-size:14px;color:var(--accent-deep);letter-spacing:.3px;line-height:1.5}
+.def-t span{display:block;font-family:var(--th);font-weight:600;font-size:13px;color:var(--ink-muted);letter-spacing:0;margin-top:3px}
+.def-d{font-family:var(--th);font-size:14.5px;line-height:1.82;color:var(--ink-soft)}
+.checklist{margin:26px 0}
+.ck{display:flex;gap:14px;padding:13px 16px;border:1px solid var(--paper-shadow);margin-bottom:8px;background:var(--paper);cursor:pointer;transition:.15s}
+.page.mid .ck{background:rgba(255,255,255,.45)}
+.ck:hover{border-color:var(--accent)}
+.ck.on{background:var(--accent-bg);border-color:var(--accent-rule)}
+.ck.on .ck-t{text-decoration:line-through;color:var(--ink-muted)}
+.ck-b{width:16px;height:16px;border:1.5px solid var(--ink-mid);flex-shrink:0;margin-top:3px;position:relative}
+.ck.on .ck-b{background:var(--accent-deep);border-color:var(--accent-deep)}
+.ck.on .ck-b:after{content:'✓';position:absolute;inset:0;color:var(--paper);font-size:11px;display:flex;align-items:center;justify-content:center}
+.ck-t{font-family:var(--th);font-size:15px;line-height:1.75;color:var(--ink-soft)}
+.ck-t b{display:block;margin-bottom:2px}
+.reflection{background:var(--ink);padding:30px 32px;margin:38px 0 0}
+.reflection .lb{font-family:var(--sans);font-size:9.5px;letter-spacing:2.8px;text-transform:uppercase;color:var(--accent-light);font-weight:700;margin-bottom:16px}
+.reflection ol{margin:0 0 0 20px}
+.reflection li{font-family:var(--th);font-size:15px;line-height:1.9;color:#C6C9C8;margin-bottom:11px}
+.reflection li:last-child{margin-bottom:0}
+.formula{background:var(--paper-deep);border:1px solid var(--paper-shadow);padding:26px 28px;margin:30px 0;text-align:center}
+.formula .f{font-family:var(--disp);font-weight:400;font-size:clamp(15px,3vw,21px);color:var(--ink);letter-spacing:.6px;line-height:1.7}
+.formula .n{font-family:var(--th);font-size:13.5px;color:var(--ink-mid);margin-top:14px;line-height:1.8}
+.note{font-family:var(--sans);font-size:12.5px;line-height:1.85;color:var(--ink-muted);background:rgba(0,0,0,.025);
+  border-left:2px solid var(--ink-faint);padding:14px 18px;margin:26px 0}
+
+/* ---------- FOOTER ---------- */
+.book-footer{background:var(--ink);padding:60px var(--page-pad-h);text-align:center}
+.book-footer-mark{font-family:var(--ser);font-style:italic;font-size:30px;color:var(--accent-light);margin-bottom:16px}
+.book-footer-text{font-family:var(--th);font-size:14.5px;color:var(--paper-deep);font-style:italic;line-height:1.85;max-width:480px;margin:0 auto 22px}
+.book-footer-author{font-family:var(--sans);font-size:10.5px;color:var(--accent-light);letter-spacing:3px;text-transform:uppercase;font-weight:600}
+.book-footer-fine{font-family:var(--sans);font-size:10.5px;color:#6E7373;line-height:1.9;margin-top:24px;max-width:520px;margin-left:auto;margin-right:auto}
+
+@media (max-width:820px){
+  :root{--page-pad-h:26px;--page-pad-v:52px}
+  body{padding:14px 8px 70px}
+  .cover{padding:64px 26px 48px}
+  .cv-fw{margin-bottom:38px}
+  .part-open{padding:66px 26px}
+  .part-open .pn{font-size:120px;right:10px}
+  .chapter-open{padding:48px 26px}
+  .ch-num{font-size:88px;right:14px}
+  .stat-row,.sig{grid-template-columns:1fr}
+  .def{grid-template-columns:1fr;gap:5px}
+  .blockquote-full{padding:38px 24px;margin-left:-26px;margin-right:-26px}
+  h1{font-size:24px}h2{font-size:19px}p{font-size:15.5px}
+  .author-box{flex-direction:column;gap:12px}
+}
+@media print{
+  body{background:#fff;padding:0}.book{box-shadow:none;max-width:100%}
+  #bar,#totop{display:none}.page{padding:34px 30px}
+  .chapter-open,.part-open{page-break-before:always}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<a href="#toc" id="totop">สารบัญ</a>
+<div class="book">
+
+<!-- ============ 1. COVER ============ -->
+<div class="cover">
+  <div class="cv-fw">Foreword by<br>Tim Ferriss</div>
+  <div class="cv-t1">The<br>Almanack<br>of</div>
+  <div class="cv-t2">Naval<br>Ravikant</div>
+  <div class="cv-sub">a guide to wealth and happiness</div>
+  <div class="cv-rule"></div>
+  <div class="cv-th">คู่มือสร้างความมั่งคั่งและความสุข<br><span>ฉบับตกผลึก — First Principles · Mental Models · Decision Frameworks</span></div>
+  <div class="cv-meta">
+    รวบรวมโดย Eric Jorgenson · ภาพประกอบ Jack Butcher<br>
+    เอกสารฉบับละเอียด · 2 เล่มใน 1 · 14 บท
+  </div>
+  <div class="cv-badge">Personal Edition · Deep Dive</div>
+</div>
+
+<!-- ============ 2. TOC ============ -->
+<div class="page" id="toc">
+  <div class="toc-h">Table of Contents</div>
+  <div class="toc-title">สารบัญ</div>
+  <p class="small">เอกสารนี้แบ่งเป็น <b>สองเล่มใน 1 ไฟล์</b> ตามโครงของหนังสือจริง — เล่มแรกว่าด้วยการสร้างความมั่งคั่ง เล่มสองว่าด้วยความสุข อ่านเรียงตามลำดับได้ผลดีที่สุด เพราะเล่มสองคือ “เงื่อนไขที่ทำให้เล่มแรกไม่ทำลายคุณ”</p>
+
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l">เล่ม / Parts</div></div>
+    <div class="stat"><div class="stat-n">14</div><div class="stat-l">บทย่อย</div></div>
+    <div class="stat"><div class="stat-n">30</div><div class="stat-l">คำถามทบทวน</div></div>
+  </div>
+
+  <div class="toc-part">เล่ม I · Wealth — สร้างความมั่งคั่ง</div>
+  <a class="ch-card" href="#ch1"><div class="ch-card-num">01</div><div class="ch-card-body">
+    <div class="ch-card-title">Wealth ≠ Money — ความมั่งคั่งไม่ใช่เงิน</div>
+    <div class="ch-card-one-liner">แยกให้ออกระหว่างทรัพย์สินที่ทำงานแทนคุณ, หน่วยแลกเปลี่ยน, และเกมสถานะที่กินเวลาชีวิตคุณฟรี ๆ</div>
+    <span class="ch-tag">Wealth</span><span class="ch-tag">Positive-sum</span><span class="ch-tag">Status game</span>
+  </div></a>
+  <a class="ch-card" href="#ch2"><div class="ch-card-num">02</div><div class="ch-card-body">
+    <div class="ch-card-title">Specific Knowledge — ความรู้เฉพาะตัว</div>
+    <div class="ch-card-one-liner">ความรู้ที่ฝึกอบรมกันไม่ได้ หาไม่ได้ในหลักสูตร แต่ตลาดจ่ายแพงที่สุด — และวิธีขุดมันออกมาจากตัวคุณ</div>
+    <span class="ch-tag">Specific knowledge</span><span class="ch-tag">Talent stack</span>
+  </div></a>
+  <a class="ch-card" href="#ch3"><div class="ch-card-num">03</div><div class="ch-card-body">
+    <div class="ch-card-title">Learn to Build, Learn to Sell — สร้างได้ ขายได้</div>
+    <div class="ch-card-one-liner">ทักษะสองข้างที่เมื่ออยู่ในคนเดียวกัน จะหยุดคน ๆ นั้นไม่ได้เลย</div>
+    <span class="ch-tag">Build</span><span class="ch-tag">Sell</span><span class="ch-tag">Distribution</span>
+  </div></a>
+  <a class="ch-card" href="#ch4"><div class="ch-card-num">04</div><div class="ch-card-body">
+    <div class="ch-card-title">Leverage — คานงัด สามชนิด</div>
+    <div class="ch-card-one-liner">แรงงาน / ทุน / โค้ดกับสื่อ — ทำไมสองอย่างแรกต้องขออนุญาต แต่อย่างที่สามไม่ต้อง</div>
+    <span class="ch-tag">Leverage</span><span class="ch-tag">Zero marginal cost</span>
+  </div></a>
+  <a class="ch-card" href="#ch5"><div class="ch-card-num">05</div><div class="ch-card-body">
+    <div class="ch-card-title">Accountability &amp; Equity — รับผิดชอบ และถือหุ้น</div>
+    <div class="ch-card-one-liner">คุณจะไม่รวยจากการปล่อยเวลาให้เช่า — ทางออกคือรับความเสี่ยงในชื่อตัวเอง แล้วถือส่วนแบ่งของ upside</div>
+    <span class="ch-tag">Accountability</span><span class="ch-tag">Equity</span>
+  </div></a>
+  <a class="ch-card" href="#ch6"><div class="ch-card-num">06</div><div class="ch-card-body">
+    <div class="ch-card-title">Escape Competition — หนีการแข่งขันด้วยความเป็นตัวเอง</div>
+    <div class="ch-card-one-liner">ไม่มีใครแข่งกับคุณได้ในเรื่อง “การเป็นคุณ” — วิธีสร้างตลาดที่มีผู้เล่นคนเดียว</div>
+    <span class="ch-tag">Authenticity</span><span class="ch-tag">Monopoly of one</span>
+  </div></a>
+  <a class="ch-card" href="#ch7"><div class="ch-card-num">07</div><div class="ch-card-body">
+    <div class="ch-card-title">Judgment &amp; Compound — วิจารณญาณและดอกทบต้น</div>
+    <div class="ch-card-one-liner">เมื่อ leverage สูงพอ ค่าตอบแทนของคุณจะไม่ใช่ชั่วโมงทำงาน แต่คือคุณภาพการตัดสินใจ — และเกมยาวกับคนหน้าเดิม</div>
+    <span class="ch-tag">Judgment</span><span class="ch-tag">Long-term games</span><span class="ch-tag">Compounding</span>
+  </div></a>
+  <a class="ch-card" href="#ch8"><div class="ch-card-num">08</div><div class="ch-card-body">
+    <div class="ch-card-title">Read More &amp; Think Clearly — อ่านให้มาก คิดให้ใส</div>
+    <div class="ch-card-one-liner">คลังโมเดลความคิด, การกลับด้านปัญหาแบบ Munger, และการทิ้งอัตตาเพื่อเห็นความจริง</div>
+    <span class="ch-tag">Mental models</span><span class="ch-tag">Inversion</span><span class="ch-tag">Reading</span>
+  </div></a>
+
+  <div class="toc-part">เล่ม II · Happiness — ความสุข</div>
+  <a class="ch-card" href="#ch9"><div class="ch-card-num">09</div><div class="ch-card-body">
+    <div class="ch-card-title">Happiness Is a Skill — ความสุขคือทักษะ</div>
+    <div class="ch-card-one-liner">ไม่ใช่พรสวรรค์ ไม่ใช่ผลลัพธ์ปลายทาง แต่คือสิ่งที่ฝึกได้เหมือนกล้ามเนื้อ</div>
+    <span class="ch-tag">Skill</span><span class="ch-tag">Hedonic adaptation</span>
+  </div></a>
+  <a class="ch-card" href="#ch10"><div class="ch-card-num">10</div><div class="ch-card-body">
+    <div class="ch-card-title">Desire — ความอยากคือสัญญาที่จะทุกข์</div>
+    <div class="ch-card-one-liner">ทุกความอยากคือการเซ็นสัญญาว่าจะไม่มีความสุขจนกว่าจะได้มัน — จึงต้องเลือกอย่างประหยัด</div>
+    <span class="ch-tag">Desire</span><span class="ch-tag">One big desire</span>
+  </div></a>
+  <a class="ch-card" href="#ch11"><div class="ch-card-num">11</div><div class="ch-card-body">
+    <div class="ch-card-title">Envy — ศัตรูที่มองไม่เห็น</div>
+    <div class="ch-card-one-liner">คุณไม่สามารถอิจฉาชีวิตคนอื่นแบบเลือกเฉพาะส่วนได้ ต้องเอาทั้งชุด</div>
+    <span class="ch-tag">Envy</span><span class="ch-tag">Comparison</span>
+  </div></a>
+  <a class="ch-card" href="#ch12"><div class="ch-card-num">12</div><div class="ch-card-body">
+    <div class="ch-card-title">Peace &amp; Presence — ความสงบและปัจจุบัน</div>
+    <div class="ch-card-one-liner">ความสุขเวลาเคลื่อนไหวคือความสำเร็จ ความสุขเวลาอยู่นิ่งคือความสงบ</div>
+    <span class="ch-tag">Peace</span><span class="ch-tag">Equanimity</span>
+  </div></a>
+  <a class="ch-card" href="#ch13"><div class="ch-card-num">13</div><div class="ch-card-body">
+    <div class="ch-card-title">Habits &amp; Body — นิสัยและร่างกาย</div>
+    <div class="ch-card-one-liner">ความสุขถูกสร้างจากนิสัย ไม่ใช่แรงบันดาลใจ — และสมองที่เหนื่อยคิดอะไรก็ไม่เข้าท่า</div>
+    <span class="ch-tag">Habits</span><span class="ch-tag">Sleep</span><span class="ch-tag">Meditation</span>
+  </div></a>
+  <a class="ch-card" href="#ch14"><div class="ch-card-num">14</div><div class="ch-card-body">
+    <div class="ch-card-title">Freedom To vs Freedom From — อิสรภาพสองแบบ</div>
+    <div class="ch-card-one-liner">ครึ่งชีวิตแรกเราไล่ล่า “อิสรภาพที่จะทำ” ครึ่งหลังจึงรู้ว่าของจริงคือ “อิสรภาพจาก”</div>
+    <span class="ch-tag">Freedom</span><span class="ch-tag">Values</span><span class="ch-tag">Rational Buddhism</span>
+  </div></a>
+
+  <div class="toc-part">ภาคผนวก</div>
+  <a class="ch-card" href="#synth"><div class="ch-card-num">15</div><div class="ch-card-body">
+    <div class="ch-card-title">Synthesis — สมการเดียวของทั้งเล่ม + Checklist ลงมือ</div>
+    <div class="ch-card-one-liner">One-liner ที่จำได้ทั้งเล่ม, พิธีกรรมก่อนตัดสินใจ, โปรโตคอล 90 วัน, ศัพท์ทั้งหมดแปลไทย</div>
+    <span class="ch-tag">Checklist</span><span class="ch-tag">90-day protocol</span><span class="ch-tag">Glossary</span>
+  </div></a>
+
+  <div class="note"><b>หมายเหตุเรื่องการอ้างอิง:</b> วลีภาษาอังกฤษในเอกสารนี้เป็น “คำศัพท์แกน” และชื่อหัวข้อของหนังสือ ส่วนคำอธิบาย คำแปล และตัวอย่างทั้งหมดเป็นการ <b>ถอดความและเรียบเรียงใหม่</b> ไม่ใช่การคัดลอกข้อความต้นฉบับ — หนังสือเล่มนี้เผยแพร่เป็นบริการสาธารณะ ดาวน์โหลดต้นฉบับฟรีได้ที่ navalmanack.com และควรอ่านฉบับเต็มควบคู่ไปด้วย</div>
+</div>
+
+<!-- ============ 3. FOREWORD ============ -->
+<div class="page mid">
+  <div class="eyebrow">Foreword · จากผู้เรียบเรียง</div>
+  <h1>หนังสือเล่มนี้ไม่ใช่ “วิธีรวย” แต่คือ “วิธีคิดของคนที่รวยแล้วยังนอนหลับ”</h1>
+  <p class="lead">Naval Ravikant ไม่ได้เขียนหนังสือเล่มนี้ด้วยตัวเอง เขาแค่ทวีต พูดพอดแคสต์ และเขียนเรียงความมาสิบปี แล้วมีคนเก็บมันมาเรียงให้เป็นระบบ นั่นคือเหตุผลที่หนังสือเล่มนี้อ่านเหมือน “ปฏิทินโหร” มากกว่าคู่มือ — เปิดหน้าไหนก็ใช้ได้ แต่ถ้าไม่มีโครง มันจะกลายเป็นแค่คำคมสวย ๆ ที่อ่านแล้วรู้สึกดี 20 นาที แล้วไม่เปลี่ยนอะไรเลย</p>
+  <p>เอกสารฉบับนี้จึงทำสิ่งที่หนังสือต้นฉบับตั้งใจไม่ทำ — <b>ใส่โครงกระดูกให้มัน</b> เราจะแยกทุกแนวคิดออกเป็นสี่ชั้น ตามวิธีที่ Charlie Munger และ Shane Parrish ใช้อ่านโลก:</p>
+  <div class="deflist">
+    <div class="def"><div class="def-t">First Principles<span>หลักการพื้นฐาน</span></div><div class="def-d">ความจริงที่แยกย่อยต่อไปไม่ได้อีก ถ้าอันนี้ผิด ทุกอย่างที่ต่อยอดจากมันพังหมด เช่น “ความมั่งคั่งเกิดจากการสร้างสิ่งที่คนต้องการ” เป็นหลักการ ส่วน “ลงทุนหุ้นตัวไหนดี” ไม่ใช่</div></div>
+    <div class="def"><div class="def-t">Mental Models<span>โมเดลความคิด</span></div><div class="def-d">แผนที่ย่อของโลกที่หยิบมาใช้ซ้ำได้ในหลายสถานการณ์ เช่น leverage, compounding, opportunity cost — ยิ่งมีหลายโมเดล ยิ่งมองปัญหาเดียวได้หลายมุม</div></div>
+    <div class="def"><div class="def-t">Decision Frameworks<span>กรอบการตัดสินใจ</span></div><div class="def-d">ขั้นตอนที่แปลงความเข้าใจให้เป็นการเลือกจริง ณ วันจริง เช่น “ถ้าเรื่องนี้ต้องคิดนานกว่า 2 สัปดาห์ ให้ตอบว่าไม่”</div></div>
+    <div class="def"><div class="def-t">Application<span>วิธีนำไปใช้จริง</span></div><div class="def-d">สิ่งที่คุณจะทำต่างจากเดิมภายในสัปดาห์นี้ ถ้าไม่มีข้อนี้ สามข้อบนคือความบันเทิงทางปัญญาเท่านั้น</div></div>
+  </div>
+  <div class="author-box">
+    <div class="author-avatar">N</div>
+    <div class="author-content">
+      <div class="author-meta">ในน้ำเสียงของ Naval · ถอดความ</div>
+      <p class="author-text">ผมไม่ได้พยายามสอนให้คุณกลายเป็นผม ผมพยายามบอกว่าถ้าคุณอ่านสิ่งที่ผมอ่าน คิดอย่างที่ผมคิด คุณจะเดินไปสู่คำตอบของตัวคุณเอง ซึ่งไม่เหมือนคำตอบของผมเลย</p>
+    </div>
+  </div>
+  <h2>ทำไมต้องแยกเป็นสองเล่ม</h2>
+  <p>เพราะสองเล่มนี้แก้ปัญหาที่ตรงข้ามกัน <b>เล่ม Wealth</b> ตอบคำถามว่า “จะออกจากการขายเวลาได้อย่างไร” มันคือเกมของการเพิ่ม — เพิ่มความรู้เฉพาะตัว เพิ่มคานงัด เพิ่มสัดส่วนความเป็นเจ้าของ <b>เล่ม Happiness</b> ตอบคำถามที่ตรงกันข้ามว่า “จะพอได้อย่างไร” มันคือเกมของการลด — ลดความอยาก ลดการเปรียบเทียบ ลดเสียงในหัว</p>
+  <p>คนที่อ่านแค่เล่มแรกจะกลายเป็นคนรวยที่กระวนกระวาย คนที่อ่านแค่เล่มสองจะกลายเป็นคนสงบที่ไม่มีทางเลือก แก่นของหนังสือทั้งเล่มอยู่ตรงจุดตัด: <b>สะสมความรู้เฉพาะตัว ใช้คานงัด คิดยาว — เพื่อซื้ออิสรภาพ ไม่ใช่เพื่อซื้อสถานะ</b></p>
+  <div class="insight-box">
+    <div class="lb">อ่านเอกสารนี้อย่างไรให้ได้ผล</div>
+    <p><b>1.</b> อย่าอ่านรวดเดียว อ่านวันละบท แล้วตอบคำถามท้ายบทเป็นลายมือ — การเขียนบังคับให้คิด การอ่านไม่บังคับ</p>
+    <p><b>2.</b> ทุกบทมี “ลงมือทำ” หนึ่งข้อ ถ้าอ่านจบ 14 บทแล้วยังไม่ได้ทำอะไรเลย ให้ถือว่ายังไม่ได้อ่าน</p>
+    <p><b>3.</b> เก็บสมการหน้าสุดท้ายไว้ในที่ที่เห็นทุกวัน มันคือทั้งเล่มย่อในบรรทัดเดียว</p>
+  </div>
+</div>
+
+<!-- ============ PART I OPENER ============ -->
+<div class="part-open" id="part1">
+  <div class="pn">I</div>
+  <div class="part-lb">Part One · เล่มที่หนึ่ง</div>
+  <div class="part-t">Wealth</div>
+  <div class="part-th">สร้างความมั่งคั่ง — โดยไม่ต้องรอโชค</div>
+  <div class="part-ess">เป้าหมายของเล่มนี้ไม่ใช่เงินก้อนใหญ่ แต่คือ “การหยุดขายเวลาเป็นชั่วโมง” ทุกบทต่อจากนี้คือชิ้นส่วนของเครื่องจักรเดียวกัน: ความรู้เฉพาะตัว × คานงัด × ความรับผิดชอบ × เวลาที่นานพอ</div>
+</div>
+
+<!-- ============ CH 1 ============ -->
+<div class="chapter-open" id="ch1">
+  <div class="ch-num">01</div>
+  <div class="ch-label">บทที่ 1 · Understand How Wealth Is Created</div>
+  <div class="ch-title">Wealth ≠ Money<em>ความมั่งคั่งไม่ใช่เงิน และไม่ใช่สถานะ</em></div>
+  <div class="ch-essence">ถ้าคุณแยกสามคำนี้ไม่ออก คุณจะใช้ชีวิตทั้งชีวิตวิ่งในเกมที่ผิด และชนะแล้วก็ยังจน</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คุณกำลังสะสมทรัพย์สิน หรือกำลังสะสมใบเสร็จ?</h1>
+  <p class="lead">คนส่วนใหญ่ใช้คำว่า “รวย” กับสองอย่างที่ต่างกันโดยสิ้นเชิง แล้วจึงงงว่าทำไมเงินเดือนขึ้นทุกปีแต่ชีวิตไม่เคยอิสระขึ้นเลย</p>
+  <p>Naval แยกออกเป็นสามคำที่ต้องจำให้แม่น — <span class="en">Wealth</span> คือ <b>ทรัพย์สินที่หาเงินได้ตอนที่คุณหลับ</b> ธุรกิจที่เดินได้เอง โค้ดที่รันอยู่ตอนตีสาม สื่อที่ยังมีคนดูอยู่แม้คุณลาพักร้อน หุ้นในบริษัทที่พนักงานคนอื่นทำงานอยู่ ส่วน <span class="en">Money</span> ไม่ใช่ความมั่งคั่ง มันคือ <b>เครดิตทางสังคม</b> — ใบรับรองว่าคุณเคยส่งมอบคุณค่าให้คนอื่นมาแล้ว จึงมีสิทธิ์เรียกเวลาและแรงงานของคนอื่นกลับมาในอนาคต และ <span class="en">Status</span> คือ <b>อันดับของคุณในลำดับชั้นทางสังคม</b> — ใครใหญ่กว่าใคร ใครถูกฟังก่อน</p>
+  <div class="insight-box">
+    <div class="lb">First Principle · หลักการพื้นฐานข้อที่หนึ่ง</div>
+    <p>Wealth เป็นเกม <b>positive-sum</b> (ผลรวมเป็นบวก) — คุณสร้างของใหม่ขึ้นมา พายทั้งก้อนใหญ่ขึ้น คนอื่นรวยขึ้นได้พร้อมคุณ</p>
+    <p>Status เป็นเกม <b>zero-sum</b> (ผลรวมเป็นศูนย์) — คุณขึ้นได้ก็ต่อเมื่อมีคนลง ไม่มีของใหม่เกิดขึ้นเลย มีแค่การสลับที่นั่ง</p>
+    <p>ผลที่ตามมาสำคัญมาก: เกมสถานะดึงดูดคนที่พร้อมทำร้ายคนอื่นเพื่อขยับอันดับ และคนที่ติดอยู่ในเกมนี้จะเริ่ม “โจมตีคนสร้างของ” เพราะนั่นเป็นทางเดียวที่เขาจะขึ้นได้</p>
+  </div>
+  <h2>ทำไมเงินเดือนสูงจึงไม่ใช่ทางออก</h2>
+  <p>เงินเดือนคือการเช่าเวลา สัญญาการเช่าเวลามีข้อจำกัดที่แก้ไม่ได้สองข้อ — <b>หนึ่ง</b> วันมี 24 ชั่วโมงเท่ากันทุกคน คุณจึงมีเพดาน <b>สอง</b> รายได้ของคุณผูกกับ “การปรากฏตัว” เมื่อคุณหยุด รายได้หยุด สิ่งที่คุณสะสมไม่ใช่ทรัพย์สิน แต่คือใบเสร็จ (เงิน) ซึ่งจะหายไปตามเงินเฟ้อและค่าครองชีพหากไม่ถูกแปลงเป็นทรัพย์สิน</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ความแตกต่างที่ชัดที่สุด</div>
+    <div class="nm">Instagram ปี 2012 — พนักงาน 13 คน มูลค่าประมาณ 1,000 ล้านดอลลาร์</div>
+    <p>ตอน Facebook ซื้อ Instagram ทีมงานมีเพียงราวสิบกว่าคน สิ่งที่ทำให้ตัวเลขบ้าคลั่งขนาดนั้นไม่ใช่ “ชั่วโมงทำงานรวมของทีม” — ถ้าคิดเป็นชั่วโมง มันน้อยกว่าโรงงานหนึ่งกะเสียด้วย สิ่งที่ทำให้มันมีค่าคือ <b>ผลิตภัณฑ์ที่ทำสำเนาเพิ่มได้ฟรี</b> ผู้ใช้คนที่ 30 ล้านมีต้นทุนเพิ่มเกือบเป็นศูนย์ นี่คือรูปธรรมที่สุดของคำว่า “ทรัพย์สินที่ทำงานตอนคุณหลับ”</p>
+    <p>เทียบกับตำนานที่คนชอบพูดถึง: เงินเดือนของผู้ก่อตั้งบริษัทเทคโนโลยีระดับโลกส่วนใหญ่อยู่ในหลัก “แสนบาทต้น ๆ ต่อปี” หรือกระทั่งหนึ่งดอลลาร์ต่อปี — ความมั่งคั่งเกือบทั้งหมดของพวกเขาอยู่ในหุ้น ไม่ใช่สลิปเงินเดือน</p>
+  </div>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · เวอร์ชันขนาดเท่าชีวิตจริง</div>
+    <div class="nm">เภสัชกรสองคนที่จบรุ่นเดียวกัน</div>
+    <p>คนแรกเข้าทำงานร้านยาเชนใหญ่ เงินเดือนดี สวัสดิการดี ขึ้นเงินเดือนปีละ 5% สิบปีผ่านไปรายได้เพิ่มขึ้นราวครึ่งเท่า แต่ถ้าเดือนไหนไม่เข้ากะ เดือนนั้นไม่มีรายได้</p>
+    <p>คนที่สองทำงานสามปีเพื่อเก็บทุนและเรียนวิธีบริหาร แล้วเปิดร้านของตัวเองหนึ่งสาขา ปีที่ห้าเปิดสาขาที่สอง ปีที่แปดจ้างเภสัชกรประจำสองคน ตัวเขาเข้าร้านสัปดาห์ละสองวัน รายได้ของคนที่สองอาจน้อยกว่าคนแรกใน 3 ปีแรกด้วยซ้ำ แต่สิ่งที่เขาสร้างคือทรัพย์สินที่มีมูลค่าขายต่อได้ และไม่ผูกกับการปรากฏตัวของเขา</p>
+    <p><b>บทเรียน:</b> ความมั่งคั่งไม่ได้วัดที่ตัวเลขรายได้ต่อเดือน แต่วัดที่คำถามว่า “ถ้าคุณหายไป 6 เดือน เงินยังเข้าไหม”</p>
+  </div>
+  <h2>ความมั่งคั่งถูกสร้างขึ้นอย่างไร</h2>
+  <p>สูตรที่ Naval พูดซ้ำที่สุดสั้นมาก: <b>มอบสิ่งที่สังคมต้องการ แต่สังคมยังไม่รู้วิธีจะได้มันมา — แล้วทำให้มันขยายขนาดได้</b> คำสำคัญมีสามคำ ทุกคำละไม่ได้</p>
+  <div class="formula">
+    <div class="f">Wealth = (สิ่งที่สังคมต้องการ) × (ยังไม่มีวิธีได้มา) × (ขยายขนาดได้)</div>
+    <div class="n">ขาดข้อแรก = งานอดิเรก · ขาดข้อสอง = แข่งราคาชนกันตาย · ขาดข้อสาม = อาชีพฟรีแลนซ์ที่เหนื่อยตลอดชีวิต</div>
+  </div>
+  <p>สังเกตว่าไม่มีคำว่า “โชค” ในสมการ โชคมีผลกับ <em>ความเร็ว</em> แต่ไม่ได้กำหนด <em>ทิศทาง</em> คุณควบคุมทิศทางได้ทั้งหมด</p>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ถ้าฉันเก่งขึ้นและขยันขึ้น เงินเดือนจะสูงขึ้นเรื่อย ๆ แล้วสักวันจะอิสระ” — ความขยันในระบบเช่าเวลา ทำให้คุณกลายเป็นคนที่บริษัทจ้างในราคาแพงขึ้น ไม่ใช่คนที่เป็นเจ้าของ</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความมั่งคั่งเกิดจากการเป็น “เจ้าของ” ผลลัพธ์ที่ทำสำเนาได้ ไม่ใช่การเป็น “ผู้ให้เช่า” เวลา — เงินคือใบเสร็จ ไม่ใช่ทรัพย์สิน สถานะคือกับดักที่กินเวลาคุณฟรี</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (สัปดาห์นี้)</div><div class="ladder-text">เขียนรายการรายได้ทั้งหมดของคุณลงกระดาษ แล้วขีดเส้นแบ่งสองคอลัมน์: “ต้องปรากฏตัวจึงได้เงิน” กับ “ได้เงินแม้ไม่ปรากฏตัว” เป้าหมายทั้งชีวิตคือย้ายตัวเลขจากคอลัมน์ซ้ายไปขวา ปีนี้ขอแค่ 1 บาทแรกในคอลัมน์ขวา</div></div>
+  </div>
+  <table class="tbl">
+    <tr><th>เกม</th><th>ได้มาจาก</th><th>ผลรวม</th><th>สิ่งที่คุณเสียถ้าเล่นผิด</th></tr>
+    <tr><td class="n">Wealth<br>ความมั่งคั่ง</td><td>สร้างของที่คนต้องการและทำสำเนาได้</td><td><b>บวก</b> — ทุกคนได้พร้อมกัน</td><td>ไม่มี นอกจากเวลาช่วงสร้าง</td></tr>
+    <tr><td class="n">Money<br>เงิน</td><td>แลกคุณค่าที่ส่งมอบแล้ว</td><td>เป็นกลาง — เป็นแค่หน่วยวัด</td><td>เข้าใจผิดว่าเป็นเป้าหมาย จึงไม่รู้ว่า “พอ” เมื่อไหร่</td></tr>
+    <tr><td class="n">Status<br>สถานะ</td><td>ขยับอันดับเหนือคนอื่น</td><td><b>ศูนย์</b> — มีคนต้องลง</td><td>เวลา, มิตรภาพ, ความสงบ — และคุณจะเริ่มเกลียดคนที่สร้างของ</td></tr>
+  </table>
+  <div class="aph">
+    <div class="aph-lb">คำศัพท์แกน · Key term</div>
+    <div class="aph-en">“Wealth is assets that earn while you sleep.”</div>
+    <div class="aph-th"><b>คำแปล:</b> ความมั่งคั่งคือทรัพย์สินที่หาเงินได้ในขณะที่คุณหลับ<br><b>ทดสอบตัวเอง:</b> ถ้าคำตอบของคำถาม “คืนนี้มีอะไรทำงานแทนคุณ” คือ “ไม่มี” — คุณยังมีแต่เงิน ยังไม่มีความมั่งคั่ง</div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ในหนึ่งเดือนที่ผ่านมา คุณใช้เวลาไปกับเกมสถานะ (เปรียบเทียบ เอาชนะในที่ประชุม ตอบคอมเมนต์ที่ไม่สำคัญ) กี่ชั่วโมง? ถ้าเอาเวลานั้นไปสร้างทรัพย์สินชิ้นเล็กชิ้นหนึ่ง วันนี้มันจะอยู่ตรงไหนแล้ว?</li>
+      <li>สิ่งที่คุณรู้ดีในงานประจำ มีชิ้นไหนที่แปลงเป็น “สำเนาได้ฟรี” ได้บ้าง (เทมเพลต, สคริปต์, คอร์ส, ระบบ)?</li>
+      <li>ถ้าพรุ่งนี้ต้องหยุดทำงาน 6 เดือนโดยไม่แจ้งล่วงหน้า รายได้จะเหลือเท่าไหร่ — ตัวเลขนี้คือความมั่งคั่งจริงของคุณ</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 2 ============ -->
+<div class="chapter-open" id="ch2">
+  <div class="ch-num">02</div>
+  <div class="ch-label">บทที่ 2 · Find and Build Specific Knowledge</div>
+  <div class="ch-title">Specific Knowledge<em>ความรู้เฉพาะตัว — สิ่งที่โรงเรียนสอนไม่ได้ แต่ตลาดจ่ายแพงที่สุด</em></div>
+  <div class="ch-essence">ถ้าความรู้ของคุณฝึกอบรมให้ใครก็ได้ในสามเดือน ค่าตัวของคุณจะถูกกดลงสู่ราคาของคนที่ยอมรับน้อยที่สุด</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ความรู้ที่ “เทรนไม่ได้” คือคูเมืองเดียวที่คุณเป็นเจ้าของจริง</h1>
+  <p class="lead">นิยามสั้นที่สุดของ <span class="en">specific knowledge</span> คือ ความรู้ที่ <b>สอนกันเป็นหลักสูตรไม่ได้</b> ถ้ามันมีคอร์สสอน มีใบรับรอง มีตำราเรียน — แปลว่าใครก็เรียนได้ และเมื่อใครก็เรียนได้ อุปทานจะล้น ราคาจะถูกกด</p>
+  <p>ความรู้เฉพาะตัวไม่ได้มาจากห้องเรียน มันมาจากสามทาง: <b>ความอยากรู้ที่แท้ (genuine curiosity)</b> ที่คุณมีมาตั้งแต่เด็กโดยไม่มีใครสั่ง, <b>ความหมกมุ่นที่ห้ามไม่ได้ (obsession)</b> ที่คุณทำแล้วรู้สึกเหมือนเล่นแต่คนอื่นมองว่าเป็นงานหนัก, และ <b>การฝึกงานจริงในสนามจริง (apprenticeship)</b> ข้างคนที่เก่งกว่า</p>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · แบบทดสอบสี่ข้อ</div>
+    <p>ความรู้ชิ้นหนึ่งเป็น “ความรู้เฉพาะตัว” หรือไม่ ให้ถามสี่ข้อนี้:</p>
+    <p><b>1.</b> มีคอร์สหรือปริญญาที่สอนสิ่งนี้ตรง ๆ ไหม? (ถ้ามี → ยังไม่ใช่)<br>
+    <b>2.</b> คุณเรียนมันตอนที่ไม่มีใครบังคับ และไม่มีใครจ่ายเงินให้ ใช่ไหม? (ถ้าใช่ → ใช่)<br>
+    <b>3.</b> คนอื่นมองว่านี่เป็นงาน แต่คุณรู้สึกเหมือนเล่น ใช่ไหม? (ถ้าใช่ → ใช่)<br>
+    <b>4.</b> ถ้าให้เวลาคนฉลาดสามเดือน เขาไล่ตามคุณทันไหม? (ถ้าทัน → ยังไม่ใช่)</p>
+  </div>
+  <h2>ความรู้เฉพาะตัวมักไม่ใช่ทักษะเดียว แต่คือ “ชั้นซ้อน” ของหลายทักษะ</h2>
+  <p>นี่คือจุดที่คนเข้าใจผิดบ่อยที่สุด หลายคนตีความว่าต้องเก่งอันดับหนึ่งของโลกในเรื่องใดเรื่องหนึ่ง ซึ่งเกือบเป็นไปไม่ได้ ความจริงคือ <b>คุณเพียงต้องเก่งระดับ 25% แรกในสามเรื่องที่คนอื่นไม่ค่อยเอามารวมกัน</b> Scott Adams ผู้เขียนการ์ตูน Dilbert เรียกมันว่า <span class="en">talent stack</span> — เขาวาดรูปไม่เก่งเท่านักวาดมืออาชีพ เขียนไม่เก่งเท่านักเขียนอาชีพ และไม่ตลกเท่านักแสดงเดี่ยวไมโครโฟน แต่เขาเป็นคนเดียวที่ <em>วาดพอได้ + เขียนพอได้ + เข้าใจการเมืองในออฟฟิศบริษัทใหญ่จากประสบการณ์จริง</em> ชั้นซ้อนนี้ทำให้ Dilbert ไม่มีคู่แข่ง</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ชั้นซ้อนในสายเทคโนโลยีและการเงิน</div>
+    <div class="nm">วิศวกรซอฟต์แวร์ที่เข้าใจงบการเงิน</div>
+    <p>โปรแกรมเมอร์ในตลาดมีเป็นแสน นักวิเคราะห์การเงินก็มีเป็นแสน แต่คนที่ <em>เขียนโค้ดได้ระดับสร้างระบบเองทั้งหมด</em> + <em>อ่านงบการเงินและเข้าใจว่าตัวเลขไหนหลอกตา</em> + <em>สื่อสารกับผู้บริหารที่ไม่รู้เทคโนโลยีได้</em> มีน้อยมาก คนกลุ่มนี้ไม่ได้แข่งกับใครในสามตลาดข้างต้น เพราะเขาอยู่ในตลาดที่สี่ที่ตัวเองสร้างขึ้น — และตลาดที่สี่นี้ไม่มีเรตเงินเดือนกลางให้อ้างอิง จึงต่อรองได้ตามคุณค่าที่ส่งมอบจริง</p>
+    <p>สิ่งที่ทำให้ชั้นซ้อนนี้ “เทรนไม่ได้” ไม่ใช่แต่ละชิ้น (แต่ละชิ้นเรียนได้) แต่คือ <b>ลำดับและบริบทเฉพาะที่คุณสะสมมัน</b> — 5 ปีในสายงานหนึ่ง 3 ปีในอีกสาย บวกความอยากรู้ส่วนตัวที่ไม่มีใครสั่งให้ทำ</p>
+  </div>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ความหมกมุ่นที่ดูไร้ประโยชน์</div>
+    <div class="nm">Jack Butcher — คนที่วาดภาพประกอบให้หนังสือเล่มนี้</div>
+    <p>เขาทำงานเอเจนซีโฆษณามาสิบปี ทักษะที่สะสมคือ “การบีบไอเดียซับซ้อนให้เหลือภาพเดียว” ซึ่งในระบบเอเจนซีเป็นแค่ส่วนหนึ่งของงาน เมื่อเขาออกมาทำเอง ทักษะนี้กลายเป็นตัวธุรกิจทั้งหมด — เพราะโลกที่ข้อมูลท่วมนั้นต้องการคนบีบอัดความหมาย ไม่มีหลักสูตรใดสอน “การบีบอัดความหมาย” ได้ตรง ๆ มันมาจากการทำซ้ำหมื่นครั้งในสนามจริง</p>
+  </div>
+  <div class="pullquote">คนอื่นสอนคุณให้ทำสิ่งที่เขารู้ได้ แต่ไม่มีใครสอนคุณให้เป็นคุณได้ — ความรู้เฉพาะตัวจึงเริ่มจากคำถามว่า “อะไรที่ผมทำแล้วลืมเวลา และคนอื่นมองว่าผมเพี้ยน”</div>
+  <h2>วิธีขุดความรู้เฉพาะตัวออกมาจากตัวเอง (ทำได้จริงในหนึ่งชั่วโมง)</h2>
+  <p>Naval พูดถึงมันในเชิงปรัชญา แต่เราแปลงเป็นขั้นตอนได้:</p>
+  <ol>
+    <li><b>ย้อนไปวัยเด็ก</b> — เขียนสิ่งที่คุณทำตอนอายุ 8–14 ปีโดยไม่มีใครบังคับ ให้ได้ 10 อย่าง ความอยากรู้ตอนนั้นยังไม่ถูกบิดโดยเงินและสายตาคนอื่น</li>
+    <li><b>หา “เล่นของคุณ = งานของคนอื่น”</b> — ในสิบข้อนั้น อันไหนที่ถ้าให้คนทั่วไปทำ เขาจะบ่นว่าน่าเบื่อ แต่คุณทำได้ทั้งวันเสาร์</li>
+    <li><b>ผสมกับสิ่งที่ตลาดจ่ายเงิน</b> — ลาก 2–3 อย่างมาชนกับทักษะที่มีมูลค่าทางเศรษฐกิจ (โปรแกรมมิ่ง, การเงิน, การขาย, การออกแบบ, การสอน)</li>
+    <li><b>ทดสอบด้วยการเผยแพร่</b> — ทำผลงานสาธารณะเล็ก ๆ 12 ชิ้นในหนึ่งปี ปฏิกิริยาของตลาดคือข้อมูล ไม่ใช่คำตัดสิน</li>
+  </ol>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ฉันต้องหาสิ่งที่ตลาดต้องการก่อน แล้วค่อยไปเรียนสิ่งนั้น” — วิธีนี้ทำให้คุณเข้าตลาดตอนที่คนแห่เข้าไปแล้ว และคุณจะแข่งด้วยราคาเพราะไม่มีอะไรพิเศษ</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความรู้เฉพาะตัวเริ่มจาก “ข้างใน” แล้วค่อยหาจุดตัดกับตลาด เพราะพลังของมันอยู่ที่การทำซ้ำได้นานกว่าคนอื่นโดยไม่หมดไฟ ซึ่งเกิดได้เฉพาะเมื่อคุณสนใจมันจริง</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (วันนี้)</div><div class="ladder-text">เขียน “ชั้นซ้อนสามชั้น” ของคุณลงกระดาษหนึ่งบรรทัด รูปแบบ: ผมเป็นคนที่ ___ + ___ + ___ ในเวลาเดียวกัน แล้วค้นหาว่ามีคนขายบริการนี้อยู่กี่คนในตลาดของคุณ ถ้าหาเจอเยอะ ให้เพิ่มชั้นที่สี่</div></div>
+  </div>
+  <div class="aph">
+    <div class="aph-lb">คำศัพท์แกน · Key term</div>
+    <div class="aph-en">“Specific knowledge cannot be taught, but it can be learned.”</div>
+    <div class="aph-th"><b>คำแปล:</b> ความรู้เฉพาะตัวสอนกันไม่ได้ แต่เรียนรู้เองได้<br><b>เส้นแบ่ง:</b> “สอน (taught)” คือมีคนป้อนให้เป็นหลักสูตร · “เรียนรู้ (learned)” คือคุณไปเก็บมันเองจากความอยากรู้และการลงมือ — ค่าตัวสูงอยู่ในกลุ่มหลังเสมอ</div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>อะไรคือสิ่งที่คุณอ่าน/ทำในวันหยุดโดยไม่มีใครจ่ายเงินให้ และทำมาแล้วเกินสามปี? (นี่คือวัตถุดิบตั้งต้นของความรู้เฉพาะตัวคุณ)</li>
+      <li>ถ้าบริษัทคุณต้องหาคนมาแทนคุณพรุ่งนี้ ต้องใช้เวลาเทรนกี่เดือน? ยิ่งตอบตัวเลขน้อย ยิ่งอันตราย</li>
+      <li>ชั้นซ้อนของคุณขาดชั้นไหนอยู่ — และชั้นที่ขาดนั้นเรียนได้ในหกเดือนไหม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 3 ============ -->
+<div class="chapter-open" id="ch3">
+  <div class="ch-num">03</div>
+  <div class="ch-label">บทที่ 3 · Learn to Build, Learn to Sell</div>
+  <div class="ch-title">Build &amp; Sell<em>สร้างได้ ขายได้ — สองข้างของกรรไกรเดียวกัน</em></div>
+  <div class="ch-essence">ถ้าคุณทำได้ทั้งสองอย่าง จะไม่มีใครหยุดคุณได้ ถ้าทำได้อย่างเดียว คุณจะต้องพึ่งคนอื่นไปตลอด</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>สิ่งที่คุณเกลียด มักคือด้านที่คุณขาด</h1>
+  <p class="lead">โลกแบ่งคนทำงานออกเป็นสองเผ่าอย่างเงียบ ๆ <b>เผ่าผู้สร้าง (builders)</b> — วิศวกร นักออกแบบ นักเขียน นักบัญชี คนที่ทำของให้เสร็จ และ <b>เผ่าผู้ขาย (sellers)</b> — นักขาย นักการตลาด นักเจรจา คนหาเงินทุน คนที่ทำให้ของเดินทางไปถึงคนที่ต้องการ</p>
+  <p>สังเกตให้ดี ทั้งสองเผ่ามักดูถูกกันเงียบ ๆ ผู้สร้างคิดว่าการขายคือการปั่นและพูดเกินจริง ผู้ขายคิดว่าคนสร้างของหลงอยู่กับรายละเอียดที่ลูกค้าไม่สนใจ — และ <b>ความดูถูกนี้เองคือสิ่งที่ตรึงทั้งสองฝ่ายให้อยู่ในเพดานของตัวเองไปตลอดชีวิต</b> เพราะคุณจะไม่ยอมเรียนสิ่งที่คุณเชื่อว่าต่ำกว่าตัวเอง</p>
+  <div class="insight-box">
+    <div class="lb">นิยามใหม่ที่ต้องยอมรับก่อน</div>
+    <p><b>“การขาย” ไม่ใช่การหลอก</b> — มันคือทักษะการทำให้คนที่ได้ประโยชน์จากสิ่งที่คุณสร้าง <em>รู้ว่ามันมีอยู่</em> และ <em>เข้าใจว่ามันช่วยเขาอย่างไร</em> ถ้าคุณสร้างของดีแล้วเก็บไว้เงียบ ๆ คุณไม่ได้ถ่อมตัว คุณกำลังปฏิเสธประโยชน์ที่ควรถึงมือคนอื่น</p>
+    <p><b>“การสร้าง” ไม่ใช่แค่ของวิศวกร</b> — การทำระบบ กระบวนการ เนื้อหา หรือทีมที่ทำงานได้เอง ล้วนคือการสร้าง คนขายที่สร้างระบบการขายซ้ำได้ ก็คือผู้สร้าง</p>
+  </div>
+  <h2>คู่ที่ประวัติศาสตร์พิสูจน์แล้ว</h2>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · คู่ Builder + Seller ที่ดังที่สุด</div>
+    <div class="nm">Wozniak &amp; Jobs · Gates &amp; Ballmer · Bloomberg &amp; Secunda</div>
+    <p><b>Steve Wozniak</b> ออกแบบ Apple I และ II ด้วยตัวคนเดียวในระดับที่วิศวกรยุคนั้นเรียกว่างานศิลปะ แต่คนที่ทำให้มันกลายเป็นบริษัทคือ <b>Steve Jobs</b> — คนที่หา distributor ได้ หาเงินทุนได้ และเล่าเรื่องได้ ถ้าขาด Woz ไม่มีสินค้า ถ้าขาด Jobs สินค้านั้นจะจบลงที่ชมรมคอมพิวเตอร์ในโรงรถ</p>
+    <p><b>Bill Gates</b> เขียนโค้ดตั้งแต่วัยรุ่น แต่คนที่ผลักดันการขายเชิงองค์กรให้ Microsoft ครองโลกคือ <b>Steve Ballmer</b> ซึ่งไม่ได้มาจากสายวิศวกรรม</p>
+    <p><b>Michael Bloomberg</b> มาจากสายค้าหลักทรัพย์และการขาย ส่วนระบบเทอร์มินัลที่พลิกวงการข้อมูลการเงินถูกสร้างโดยทีมวิศวกรที่ร่วมก่อตั้งกับเขา — เขารู้ว่าลูกค้าต้องการอะไรเพราะเคยเป็นลูกค้าเอง คนสร้างรู้ว่าจะทำให้เกิดขึ้นได้อย่างไร</p>
+    <p><b>บทเรียนที่คนมองข้าม:</b> ทุกคู่นี้ “เก่งไม่เท่ากัน” ในด้านของกันและกัน แต่ทุกคน <em>เคารพ</em> ด้านของอีกฝ่ายมากพอที่จะเรียนภาษาของกันได้ — คุณไม่จำเป็นต้องเก่งสองข้างเท่ากัน แต่ต้องเก่งข้างหนึ่งจนหาคู่ที่เก่งอีกข้างมาร่วมได้ หรือเก่งพอทั้งสองข้างจนไม่ต้องรอใคร</p>
+  </div>
+  <h2>Distribution-first thinking — คิดเรื่องช่องทางก่อนเริ่มสร้าง</h2>
+  <p>ในวงสตาร์ตอัปมีคำพูดที่ถูกอ้างกันบ่อย: ผู้ก่อตั้งครั้งแรกหมกมุ่นกับสินค้า ผู้ก่อตั้งครั้งที่สองหมกมุ่นกับ <span class="en">distribution</span> (ช่องทางกระจายสินค้า) เพราะครั้งแรกเขาเรียนบทเรียนราคาแพงว่าสินค้าที่ดีที่สุดในตลาดไม่ชนะ — <b>สินค้าที่ดีพอและถึงมือคนมากที่สุดชนะ</b></p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · สร้างผู้ฟังก่อนสร้างสินค้า</div>
+    <div class="nm">37signals / Basecamp — บล็อกมาก่อนซอฟต์แวร์</div>
+    <p>ก่อนที่ Basecamp จะเป็นซอฟต์แวร์บริหารโครงการที่มีผู้ใช้หลายล้าน ทีมงานเขียนบล็อกเรื่องวิธีทำงานและปรัชญาการออกแบบมาก่อนหลายปี จนมีคนอ่านจำนวนมหาศาล เมื่อเปิดตัวสินค้า พวกเขาไม่ต้องซื้อโฆษณาเลย เพราะช่องทางถูกสร้างไว้แล้ว</p>
+    <p><b>แปลงเป็นสูตรใช้ได้จริง:</b> ถ้าคุณเป็นผู้สร้างที่กลัวการขาย ให้เลี่ยงการขายแบบตัวต่อตัว แล้วใช้ “การขายแบบไม่ต้องขาย” — เผยแพร่ความรู้ที่คุณมีอยู่แล้วอย่างสม่ำเสมอ 12–24 เดือน ให้ผลงานทำหน้าที่ขายแทนปากของคุณ</p>
+  </div>
+  <div class="sig">
+    <div class="sig-col sig-do"><div class="sig-lb">ทำ · ถ้าคุณเป็นผู้สร้าง</div><ul>
+      <li>เขียนสิ่งที่คุณสร้างให้คนนอกสายงานอ่านรู้เรื่อง สัปดาห์ละครั้ง</li>
+      <li>ฝึกอธิบายงานตัวเองใน 30 วินาที โดยไม่ใช้ศัพท์เทคนิค</li>
+      <li>ก่อนสร้างอะไร ให้ตอบก่อนว่า “ใครจะรู้ว่ามันมีอยู่ และรู้ผ่านช่องทางไหน”</li>
+      <li>ขายให้คน 10 คนแรกด้วยตัวเองก่อนจ้างคนขาย</li>
+    </ul></div>
+    <div class="sig-col sig-dont"><div class="sig-lb">ระวัง · ถ้าคุณเป็นผู้ขาย</div><ul>
+      <li>อย่าขายสิ่งที่คุณไม่เข้าใจโครงสร้างข้างใน — คุณจะสัญญาสิ่งที่ทีมทำไม่ได้</li>
+      <li>เรียนพื้นฐานของสิ่งที่คุณขายให้ลึกพอจะโต้กับผู้เชี่ยวชาญได้</li>
+      <li>สร้าง “ระบบ” การขาย ไม่ใช่พึ่งเสน่ห์ส่วนตัว เพราะเสน่ห์ขยายขนาดไม่ได้</li>
+      <li>อย่าเข้าใจผิดว่า network คือทรัพย์สิน ถ้าไม่มีของจริงไปส่งมอบ</li>
+    </ul></div>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ถ้าของฉันดีจริง เดี๋ยวคนก็รู้เอง” — นี่คือคำปลอบใจของคนที่ไม่อยากเรียนการขาย และเป็นเหตุผลอันดับหนึ่งที่สินค้าดี ๆ ตายเงียบ</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ทักษะสร้างและทักษะขายคูณกัน ไม่ใช่บวกกัน — เก่งสร้าง 10 ขาย 0 ผลลัพธ์เท่ากับศูนย์ เก่งสร้าง 6 ขาย 6 ได้ 36</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (สัปดาห์นี้)</div><div class="ladder-text">เผยแพร่สิ่งที่คุณสร้างหนึ่งชิ้นสู่สาธารณะ พร้อมคำอธิบาย 3 บรรทัดที่พ่อแม่คุณอ่านรู้เรื่อง — นี่คือบทเรียนการขายบทแรกที่ไม่ต้องขายใคร</div></div>
+  </div>
+  <div class="aph">
+    <div class="aph-lb">คำศัพท์แกน · Key term</div>
+    <div class="aph-en">“Learn to build. Learn to sell.”</div>
+    <div class="aph-th"><b>คำแปล:</b> เรียนที่จะสร้าง เรียนที่จะขาย<br><b>ส่วนขยายที่คนลืม:</b> ถ้าทำได้ทั้งสองอย่างในคนเดียว คุณจะไม่ต้องขออนุญาตใครเพื่อเริ่มอะไรเลย — นี่เป็นสะพานตรงไปสู่บทถัดไปเรื่องคานงัดแบบที่ไม่ต้องขออนุญาต</div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>คุณอยู่เผ่าไหน และคุณเคยพูดประโยคดูถูกอีกเผ่าออกมาเมื่อไหร่ครั้งล่าสุด?</li>
+      <li>ในสามปีที่ผ่านมา คุณลงทุนเวลาเรียน “ด้านที่ขาด” ไปกี่ชั่วโมง เทียบกับด้านที่เก่งอยู่แล้ว?</li>
+      <li>ถ้าห้ามใช้เงินซื้อโฆษณาเลย คุณมีช่องทางอะไรที่จะทำให้คน 1,000 คนรู้จักงานของคุณในหนึ่งปี?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 4 ============ -->
+<div class="chapter-open" id="ch4">
+  <div class="ch-num">04</div>
+  <div class="ch-label">บทที่ 4 · Find a Position of Leverage</div>
+  <div class="ch-title">Leverage<em>คานงัด — สิ่งที่ทำให้แรงเท่าเดิมได้ผลลัพธ์ต่างกันพันเท่า</em></div>
+  <div class="ch-essence">อาร์คิมิดีสบอกว่าให้เขาคานยาวพอ เขาจะงัดโลกได้ คำถามคือคุณกำลังยืนอยู่ปลายคานด้านไหน</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คนสองคนที่เก่งเท่ากัน ผลลัพธ์ต่างกันพันเท่า เพราะคานงัดไม่เท่ากัน</h1>
+  <p class="lead">นี่คือแนวคิดที่ทรงพลังที่สุดในเล่มแรก และเป็นแนวคิดที่คนไทยเข้าใจผิดบ่อยที่สุดเพราะคำว่า “leverage” ในภาษาการเงินหมายถึงการกู้เงินมาลงทุน แต่ในความหมายของ Naval มันกว้างกว่านั้นมาก</p>
+  <p><b>Leverage คือสิ่งที่คูณผลลัพธ์ของการตัดสินใจหนึ่งครั้งของคุณ</b> คุณตัดสินใจถูกหนึ่งครั้ง ถ้าไม่มีคานงัด ได้ผลหนึ่งหน่วย ถ้ามีคานงัดสูง ได้ผลล้านหน่วย และมันมีเพียงสามรูปแบบในโลกนี้</p>
+  <div class="deflist">
+    <div class="def"><div class="def-t">1. Labor<span>คานงัดจากแรงงานคน</span></div><div class="def-d">มีคนทำงานตามที่คุณสั่ง เป็นคานงัดที่เก่าแก่ที่สุดและมนุษย์ประทับใจที่สุด (คนชอบพูดว่า “ผมดูแลทีม 200 คน”) แต่แย่ที่สุดในทางปฏิบัติ — ต้องบริหารคน จัดการอารมณ์ ประชุม และ <b>ต้องมีคนอนุญาตให้คุณเป็นหัวหน้า</b> ขยายขนาดยากและช้า</div></div>
+    <div class="def"><div class="def-t">2. Capital<span>คานงัดจากเงินทุน</span></div><div class="def-d">ใช้เงินขยายผลการตัดสินใจ ทรงพลังและขยายขนาดได้เร็ว แต่ <b>ต้องมีคนอนุญาต</b> — ต้องมีคนเชื่อใจให้คุณดูแลเงินของเขา ซึ่งได้มาจากประวัติผลงานและชื่อเสียงที่สะสมมานาน คนที่มีคานงัดนี้จึงมักเป็นคนวัยกลางคนขึ้นไป</div></div>
+    <div class="def"><div class="def-t">3. Products with no marginal cost<span>คานงัดจากผลิตภัณฑ์ที่ทำสำเนาฟรี — โค้ดและสื่อ</span></div><div class="def-d">โค้ด, หนังสือ, พอดแคสต์, วิดีโอ, เทมเพลต, โมเดล — สิ่งที่ผลิตชิ้นที่ล้านหนึ่งด้วยต้นทุนเกือบศูนย์ นี่คือคานงัดชนิดเดียวที่ <b>ไม่ต้องขออนุญาตใคร</b> (permissionless) คุณไม่ต้องมีทีม ไม่ต้องมีนักลงทุน ไม่ต้องมีใบอนุญาต แค่มีเวลากับความรู้เฉพาะตัว</div></div>
+  </div>
+  <div class="pullquote">คานงัดสองแบบแรกต้องรอให้คนอื่นอนุญาต แบบที่สามอนุญาตตัวเองได้ตั้งแต่คืนนี้ — นี่คือเหตุผลที่คนรวยใหม่ในยี่สิบปีที่ผ่านมามาจากโค้ดและสื่อเกือบทั้งหมด</div>
+  <h2>Zero marginal cost — ตัวเลขที่เปลี่ยนทุกอย่าง</h2>
+  <p><span class="en">Marginal cost</span> คือ “ต้นทุนของการผลิตหน่วยถัดไปหนึ่งหน่วย” ร้านอาหารทำจานที่ 101 ต้องซื้อวัตถุดิบเพิ่ม โรงงานผลิตชิ้นที่ 10,001 ต้องใช้เหล็กเพิ่ม แต่ซอฟต์แวร์ที่มีผู้ใช้คนที่ 1,000,001 มีต้นทุนเพิ่มแค่ค่าเซิร์ฟเวอร์เศษสตางค์ วิดีโอที่คนดูคนที่ล้านหนึ่งมีต้นทุนเท่ากับศูนย์</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · คานงัดในตัวเลขจริง</div>
+    <div class="nm">WhatsApp ปี 2014 — พนักงานราว 55 คน มูลค่าซื้อขายราว 19,000 ล้านดอลลาร์</div>
+    <p>ตอน Facebook ประกาศซื้อ WhatsApp ทีมงานทั้งบริษัทมีขนาดเท่าแผนกเดียวของธนาคารขนาดกลาง แต่ให้บริการผู้ใช้หลายร้อยล้านคน ถ้าคิดเป็น “มูลค่าต่อพนักงานหนึ่งคน” ตัวเลขจะไม่มีทางเกิดขึ้นได้ในธุรกิจที่ต้องใช้แรงงานต่อหน่วย</p>
+    <p>สิ่งที่ทีมนั้นทำคือเขียนโค้ดที่ <em>ทำงานแทนคนหลายแสนคน</em> ตลอด 24 ชั่วโมง โดยไม่ต้องจ่ายเงินเดือน ไม่ป่วย ไม่ลาออก — นี่คือคำว่า “กองทัพหุ่นยนต์” ที่ Naval พูดถึงในความหมายตรงตัว</p>
+  </div>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ขนาดที่คุณเริ่มได้จริงเดือนนี้</div>
+    <div class="nm">สคริปต์ 200 บรรทัด กับรายงานที่เคยกินเวลา 6 ชั่วโมงต่อสัปดาห์</div>
+    <p>พนักงานคนหนึ่งทำรายงานสรุปข้อมูลด้วยมือทุกสัปดาห์ ใช้เวลา 6 ชั่วโมง เขาเขียนสคริปต์ให้มันทำงานเอง ใช้เวลาสร้าง 20 ชั่วโมง ผ่านไปหนึ่งปี เขาได้เวลาคืน ~300 ชั่วโมง คิดเป็นผลตอบแทน 15 เท่าของเวลาที่ลงไป และปีที่สองได้ฟรีทั้งหมด</p>
+    <p>ต่อมาเขาเอาสคริปต์นั้นไปเผยแพร่ให้อีก 8 ทีมใช้ ต้นทุนของการ “ผลิตซ้ำ” เท่ากับศูนย์ ผลลัพธ์คูณเป็น 2,400 ชั่วโมงต่อปีขององค์กร — <b>นี่คือคานงัดขนาดเล็กที่สุดที่คนทำงานประจำเข้าถึงได้ทันที และมันคือหลักฐานผลงานที่ต่อรองค่าตัวได้จริง</b></p>
+  </div>
+  <h2>สมการรวมของเล่มแรก</h2>
+  <div class="formula">
+    <div class="f">Output = Specific Knowledge × Leverage × Accountability</div>
+    <div class="n">ความรู้เฉพาะตัวกำหนด “ทิศทางว่าจะงัดอะไร” · คานงัดกำหนด “ขนาดของผลลัพธ์” · ความรับผิดชอบกำหนด “ว่าคุณได้ส่วนแบ่งหรือเปล่า”<br>เป็นการคูณ ไม่ใช่การบวก — ถ้าตัวไหนเป็นศูนย์ ผลลัพธ์เป็นศูนย์ทั้งหมด</div>
+  </div>
+  <h2>คำเตือนสำคัญ — คานงัดขยายทั้งความถูกและความผิด</h2>
+  <p>Charlie Munger เตือนเรื่องนี้ไว้ตลอดชีวิตในบริบทการเงิน: คานงัดจากหนี้ทำให้คนฉลาดล้มละลายได้ในคืนเดียว หลักการเดียวกันใช้กับคานงัดทุกชนิด — โค้ดที่มีบั๊กรันบนผู้ใช้ล้านคนคือความเสียหายล้านเท่า ข้อความที่พูดพลาดบนสื่อที่มีผู้ติดตามล้านคนก็เช่นกัน</p>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · ลำดับที่ถูกต้องของการสะสมคานงัด</div>
+    <p><b>ขั้นที่ 1</b> — สร้างวิจารณญาณให้แม่นก่อนในสนามเล็กที่ความผิดพลาดราคาถูก</p>
+    <p><b>ขั้นที่ 2</b> — เพิ่มคานงัดแบบไม่ต้องขออนุญาต (โค้ด/สื่อ) เพราะไม่ต้องรอใคร และล้มแล้วไม่เจ็บมาก</p>
+    <p><b>ขั้นที่ 3</b> — เมื่อมีผลงานสาธารณะแล้ว คานงัดจากทุนและคนจะไหลมาหาคุณเอง (คนจะเสนอเงินและเสนอตัวมาร่วมงาน)</p>
+    <p>คนส่วนใหญ่ทำสลับลำดับ — ไปกู้เงินหรือจ้างทีมก่อนที่วิจารณญาณจะแม่น จึงขยายความผิดพลาดของตัวเอง</p>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ผมยังไม่มีทุน ยังไม่มีทีม ยังไม่มีคอนเนกชัน เลยยังเริ่มไม่ได้” — เป็นเหตุผลที่ฟังดูสมเหตุสมผล แต่มันอ้างถึงคานงัดสองแบบที่ต้องรออนุญาตเท่านั้น</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">คานงัดแบบที่สาม (โค้ดและสื่อ) เปิดให้ทุกคนแล้วโดยไม่ต้องขอใคร ทุนเริ่มต้นคือเวลาว่างหลังเลิกงานกับความรู้เฉพาะตัวที่คุณมีอยู่แล้ว</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (30 วัน)</div><div class="ladder-text">เลือกงานซ้ำ ๆ ที่คุณทำทุกสัปดาห์หนึ่งอย่าง แล้วเปลี่ยนมันให้เป็นสิ่งที่ทำสำเนาได้ — สคริปต์, เทมเพลต, เช็กลิสต์, วิดีโอสอน แล้วส่งให้คนอื่นใช้ต่อ วัดผลว่าประหยัดเวลารวมได้กี่ชั่วโมง</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ตอนนี้คุณมีคานงัดชนิดใดอยู่ในมือบ้าง และชนิดไหนที่คุณ “ยังไม่ได้เริ่มเลย” แม้ไม่ต้องขออนุญาตใคร?</li>
+      <li>งานอะไรที่คุณทำซ้ำมากกว่า 4 ครั้งต่อเดือน โดยที่ยังไม่เคยแปลงเป็นระบบหรือโค้ด?</li>
+      <li>ถ้าความผิดพลาดของคุณถูกขยายพันเท่าในวันนี้ เรื่องไหนที่คุณยังไม่แม่นพอจะให้มันขยาย?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 5 ============ -->
+<div class="chapter-open" id="ch5">
+  <div class="ch-num">05</div>
+  <div class="ch-label">บทที่ 5 · Take on Accountability &amp; Build Equity</div>
+  <div class="ch-title">Accountability &amp; Equity<em>รับผิดชอบในชื่อตัวเอง แล้วถือส่วนแบ่งของผลลัพธ์</em></div>
+  <div class="ch-essence">คุณจะไม่รวยจากการปล่อยเวลาให้เช่า เพราะการปล่อยเช่ามีเพดาน และคนที่ได้ upside คือเจ้าของ ไม่ใช่ผู้เช่า</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>สังคมจ่ายค่าตอบแทนให้ “คนที่ยอมรับผลของความผิดพลาด”</h1>
+  <p class="lead">มีเหตุผลที่ลึกกว่าเรื่องภาษีและตัวเลขว่าทำไมพนักงานเงินเดือนสูงยังไม่รวย: <b>เขาไม่ได้ถือความเสี่ยงในชื่อของตัวเอง</b> และในระบบเศรษฐกิจ ผู้ที่ไม่ถือความเสี่ยงจะไม่ได้ส่วนแบ่งของ upside ไม่ว่าจะเก่งแค่ไหน</p>
+  <p><span class="en">Accountability</span> ในความหมายนี้ไม่ใช่ “ความรับผิดชอบต่องานที่ได้รับมอบหมาย” แต่คือ <b>การเอาชื่อ ชื่อเสียง และผลลัพธ์ของตัวเองไปผูกกับความสำเร็จหรือความล้มเหลวอย่างเปิดเผย</b> เมื่อคุณทำเช่นนั้น สังคมจะตอบกลับด้วยสามสิ่ง — ความน่าเชื่อถือ (credibility), คานงัด (leverage) และส่วนแบ่งความเป็นเจ้าของ (equity)</p>
+  <div class="deflist">
+    <div class="def"><div class="def-t">ระดับ 1 — Anonymous<span>ไม่มีชื่อ</span></div><div class="def-d">ทำงานอยู่ในระบบ ผลงานถูกนับเป็นของทีมหรือของบริษัท ข้อดี: ผิดแล้วไม่มีใครโทษคุณตรง ๆ ข้อเสีย: ถูกแล้วก็ไม่มีใครจำคุณได้ ค่าตัวถูกตั้งโดยเรตกลางของตลาด</div></div>
+    <div class="def"><div class="def-t">ระดับ 2 — Named<span>มีชื่อกำกับ</span></div><div class="def-d">ผลงานสาธารณะที่มีชื่อคุณติดอยู่ — งานเขียน โอเพนซอร์ส งานวิเคราะห์ที่เผยแพร่ ข้อเสีย: ผิดแล้วโดนจริง ข้อดี: เริ่มมีคนเดินเข้ามาหาคุณเอง (inbound) และคุณเริ่มต่อรองได้</div></div>
+    <div class="def"><div class="def-t">ระดับ 3 — Skin in the game<span>มีเนื้อหนังอยู่ในเกม</span></div><div class="def-d">รายได้ของคุณผูกกับผลลัพธ์จริง — ถือหุ้น, ส่วนแบ่งรายได้, ธุรกิจของตัวเอง ขาดทุนก็เจ็บด้วย กำไรก็ได้ด้วย นี่คือระดับเดียวที่ทำให้ upside ไม่มีเพดาน</div></div>
+  </div>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · เส้นทางของตัว Naval เอง</div>
+    <div class="nm">จากบล็อกที่เขียนฟรี สู่แพลตฟอร์มระดมทุน</div>
+    <p>ก่อนจะมี AngelList, Naval กับหุ้นส่วนเขียนบล็อกเกี่ยวกับกลไกการระดมทุนของสตาร์ตอัป — เนื้อหาที่นักลงทุนบางกลุ่มไม่อยากให้ผู้ก่อตั้งรู้ พวกเขาเขียนโดยใส่ชื่อตัวเองเต็ม ๆ และยืนยันจุดยืนที่ทำให้คนบางกลุ่มไม่พอใจ</p>
+    <p>ผลลัพธ์ไม่ใช่ค่าโฆษณาจากบล็อก แต่คือ <b>ชื่อเสียงเฉพาะทาง</b> ที่ทำให้ผู้ก่อตั้งทั่วโลกเชื่อถือ และกลายเป็นฐานของแพลตฟอร์มที่เชื่อมสตาร์ตอัปกับนักลงทุนในเวลาต่อมา — ความรับผิดชอบในชื่อตัวเอง (การกล้ายืนยันสิ่งที่คิดโดยเปิดเผย) คือสิ่งที่แปลงความรู้เฉพาะตัวให้เป็นธุรกิจ</p>
+  </div>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ตัวเลขที่เห็นชัดในไทย</div>
+    <div class="nm">ที่ปรึกษาสองคน คิดค่าตัวสองแบบ</div>
+    <p>คนแรกคิดค่าที่ปรึกษาเป็นรายชั่วโมง 3,000 บาท ทำได้เต็มที่ 100 ชั่วโมงต่อเดือน = เพดาน 300,000 บาท/เดือน และต้องนั่งอยู่ตรงนั้นทุกชั่วโมง</p>
+    <p>คนที่สองรับงานแบบ <b>ส่วนแบ่งจากผลลัพธ์</b> — “ผมช่วยลดต้นทุนให้ได้ ขอ 15% ของส่วนที่ลดได้ในปีแรก” ถ้าเขาลดต้นทุนได้ 20 ล้าน เขาได้ 3 ล้าน จากงานที่ใช้เวลาอาจน้อยกว่า และถ้าลดไม่ได้ เขาได้ศูนย์</p>
+    <p><b>ประเด็นไม่ใช่ว่าแบบที่สองดีกว่าเสมอ</b> — แบบที่สองต้องมีความรู้เฉพาะตัวแม่นพอที่จะกล้ารับความเสี่ยง สิ่งที่บทนี้ต้องการให้เห็นคือ: ตราบใดที่คุณคิดเงินเป็นชั่วโมง คุณกำลังตกลงกับตัวเองว่าจะมีเพดาน</p>
+  </div>
+  <div class="blockquote-full">
+    <div class="q">“You will never get rich renting out your time.”</div>
+    <div class="th">คำแปล: คุณจะไม่มีวันร่ำรวยจากการเอาเวลาไปให้เช่า — เพราะเวลาของคุณมีจำกัดตายตัว และราคาเช่าถูกกำหนดโดยตลาดแรงงาน ไม่ใช่โดยคุณค่าที่คุณสร้าง</div>
+    <div class="src">Key Aphorism · บทที่ 5</div>
+  </div>
+  <h2>Equity — สองประเภทที่ต้องแยกให้ออก</h2>
+  <p><b>1. Business equity (ส่วนแบ่งในธุรกิจ)</b> — หุ้น, หุ้นส่วน, option, ส่วนแบ่งรายได้ นี่คือของที่จับต้องได้และขายต่อได้</p>
+  <p><b>2. Intellectual / audience equity (ทุนทางปัญญาและผู้ติดตาม)</b> — ชื่อเสียงเฉพาะทาง, ผลงานสาธารณะ, กลุ่มคนที่เชื่อถือคุณ อันนี้ขายต่อไม่ได้แต่ <em>ย้ายไปกับตัวคุณได้ทุกที่</em> และเป็นเชื้อเพลิงที่ทำให้ได้ประเภทแรกมาโดยไม่ต้องใช้เงินตั้งต้น</p>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · เช็กก่อนรับงานหรือรับตำแหน่งใหม่</div>
+    <p>ถามสามข้อนี้เสมอ ก่อนตอบรับข้อเสนออะไรก็ตาม:</p>
+    <p><b>1. ผมได้ upside เท่าไหร่ถ้าเรื่องนี้สำเร็จเกินคาด 10 เท่า?</b> (ถ้าคำตอบคือ “เงินเดือนเท่าเดิม” ให้รู้ว่าคุณกำลังขายเวลา)<br>
+    <b>2. ชื่อผมติดอยู่กับผลงานนี้ไหม?</b> (ถ้าไม่ติด คุณกำลังสะสมเงิน ไม่ได้สะสมทรัพย์สินทางชื่อเสียง)<br>
+    <b>3. ถ้าล้มเหลว ผมเจ็บแค่ไหน และเจ็บแบบที่ฟื้นได้หรือไม่ได้?</b> (รับความเสี่ยงที่ล้มแล้วลุกได้ — ห้ามรับความเสี่ยงที่ล้มแล้วออกจากเกมถาวร)</p>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“เงินเดือนมั่นคงกว่า ไม่ต้องเสี่ยง” — จริงในระยะสั้น แต่ความมั่นคงที่แลกมาคือการยกสิทธิ์ใน upside ทั้งหมดให้คนอื่น และความเสี่ยงที่ถูกซ่อนไว้คือ “ถ้าวันหนึ่งคุณถูกแทนที่ คุณไม่มีอะไรเป็นของตัวเองเลย”</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความเสี่ยงไม่ได้หายไปเมื่อคุณเป็นลูกจ้าง มันเพียงย้ายจาก “ความเสี่ยงที่คุณเลือกเอง” ไปเป็น “ความเสี่ยงที่คนอื่นเลือกให้คุณ” — และแบบหลังไม่มีค่าตอบแทนแนบมาด้วย</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (ไตรมาสนี้)</div><div class="ladder-text">หา “ความเสี่ยงขนาดเล็กที่ล้มได้” หนึ่งอย่างที่ผูกกับชื่อคุณ — เผยแพร่งานวิเคราะห์ในชื่อจริง, รับงานแบบส่วนแบ่งผลลัพธ์หนึ่งชิ้น, หรือขอ option/ส่วนแบ่งแทนเงินเดือนบางส่วนในโครงการใหม่</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>รายได้ของคุณตอนนี้อยู่ในระดับความรับผิดชอบข้อใด (1, 2 หรือ 3) — และอะไรคือสิ่งที่กันคุณไว้จากระดับถัดไป?</li>
+      <li>ถ้าโครงการที่คุณทำอยู่สำเร็จเกินคาดสิบเท่า ใครได้ประโยชน์มากที่สุด และคุณได้อะไร?</li>
+      <li>ความล้มเหลวขนาดไหนที่คุณ “รับได้จริง” ในหนึ่งปีข้างหน้า — ตัวเลขนี้คือขนาดของความเสี่ยงที่คุณควรกล้ารับ</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 6 ============ -->
+<div class="chapter-open" id="ch6">
+  <div class="ch-num">06</div>
+  <div class="ch-label">บทที่ 6 · Escape Competition Through Authenticity</div>
+  <div class="ch-title">Escape Competition<em>หนีการแข่งขันด้วยการเป็นตัวเอง — ตลาดที่มีผู้เล่นคนเดียว</em></div>
+  <div class="ch-essence">ถ้าคุณกำลังแข่งกับใคร แปลว่าคุณกำลังเลียนแบบเขา — และคุณจะชนะได้ดีที่สุดเพียงเท่าเทียมกับเขา</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ไม่มีใครแข่งกับคุณได้ในเรื่อง “การเป็นคุณ”</h1>
+  <p class="lead">การแข่งขันบีบกำไรให้เป็นศูนย์ ทั้งในธุรกิจและในชีวิตคน เมื่อมีคนสิบคนขายของเหมือนกัน ผู้ชนะคือคนที่ยอมได้กำไรน้อยที่สุด — ซึ่งไม่ใช่รางวัลที่ควรวิ่งไปหา</p>
+  <p>Peter Thiel เขียนไว้ตรง ๆ ในหนังสือ <em>Zero to One</em> ว่า “การแข่งขันมีไว้สำหรับผู้แพ้” เป้าหมายของธุรกิจที่ดีคือการสร้างสิ่งที่ไม่มีใครเหมือน จนกลายเป็นผูกขาดในนิยามของตัวเอง Naval พูดเรื่องเดียวกันในระดับ <em>บุคคล</em> — วิธีผูกขาดที่ถูกกฎหมายและยั่งยืนที่สุดคือ <b>การเป็นตัวเองอย่างสุดโต่งจนไม่มีใครลอกได้</b> เพราะไม่มีใครมีชุดประสบการณ์ ความสนใจ และวิธีมองโลกเหมือนคุณ</p>
+  <div class="insight-box">
+    <div class="lb">Mental Model · Monopoly of One</div>
+    <p>สูตรสร้างตลาดที่มีผู้เล่นคนเดียว: <b>ความหมกมุ่นของคุณ × สื่อที่คุณถนัด × กลุ่มคนที่คุณเข้าใจดีที่สุด</b></p>
+    <p>ยิ่งเจาะจงยิ่งไม่มีคู่แข่ง ตัวอย่างการไล่ระดับ: “ที่ปรึกษาการเงิน” (คู่แข่งหลายหมื่น) → “ที่ปรึกษาการเงินสำหรับหมอ” (คู่แข่งหลายร้อย) → “ที่ปรึกษาการเงินสำหรับหมอที่เพิ่งเปิดคลินิกปีแรกและอ่านงบไม่เป็น” (คู่แข่งเกือบศูนย์ และลูกค้ารู้ทันทีว่านี่คือคนที่พูดกับเขา)</p>
+  </div>
+  <h2>ตัวอย่างของ “นิชที่มีคนเดียว” ที่พิสูจน์แล้ว</h2>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · จุดตัดที่ไม่มีใครยืนอยู่</div>
+    <div class="nm">Morgan Housel — การเงิน × การเล่าเรื่อง × จิตวิทยา</div>
+    <p>ในโลกที่มีนักวิเคราะห์การเงินเป็นแสนคนที่เขียนรายงานตัวเลข และมีนักเขียนเก่งเป็นแสนคนที่ไม่เข้าใจการเงิน Housel ยืนอยู่ตรงจุดตัด — เขาเขียนเรื่องเงินโดยไม่พูดถึงสูตร แต่พูดถึงพฤติกรรมมนุษย์ผ่านเรื่องเล่า ผลลัพธ์คือหนังสือที่ขายได้หลายล้านเล่มในหมวดที่คนคิดว่าอิ่มตัวแล้ว</p>
+    <p><b>สิ่งที่ต้องสังเกต:</b> เขาไม่ได้เป็นนักวิเคราะห์ที่เก่งที่สุด และไม่ใช่นักเขียนที่ฝีมือดีที่สุด แต่ไม่มีใครอยู่ตรงจุดตัดนั้นได้เหมือนเขา — นี่คือกลไกเดียวกับ talent stack ในบทที่ 2 เพียงมองจากมุมของ “การหนีคู่แข่ง”</p>
+  </div>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · เวอร์ชันที่ทำได้ในตลาดไทย</div>
+    <div class="nm">คนที่อธิบาย “งบการเงินสำหรับคนที่ไม่เคยเรียนบัญชี”</div>
+    <p>ในไทยมีคนสอนวิเคราะห์หุ้นเยอะมาก ส่วนใหญ่พูดกับคนที่มีพื้นฐานอยู่แล้ว คนที่เลือกกลุ่มเฉพาะ “คนทำงานประจำอายุ 28–35 ที่เพิ่งเริ่มลงทุนและกลัวอ่านงบ” แล้วพูดด้วยภาษาของคนกลุ่มนั้นทุกประโยค จะไม่ได้แข่งกับกูรูรายใหญ่เลย เพราะเขาไม่ได้ขายความรู้ เขาขาย <b>ความรู้สึกว่า “คนนี้พูดกับฉัน”</b> ซึ่งลอกกันไม่ได้</p>
+  </div>
+  <h2>กับดักสามอย่างที่ทำให้คนหนีการแข่งขันไม่พ้น</h2>
+  <p><b>1. ความอยากที่ยืมมาจากคนอื่น</b> — René Girard เรียกว่า <span class="en">mimetic desire</span> (ความอยากแบบเลียนแบบ) เราไม่ได้อยากสิ่งนั้นเอง เราอยากเพราะเห็นคนรอบตัวอยาก แล้วเราจึงไปแข่งในสนามที่ตัวเองไม่เคยเลือก ทดสอบง่าย ๆ: ถ้าไม่มีใครรู้เลยว่าคุณได้สิ่งนี้ คุณยังอยากได้อยู่ไหม</p>
+  <p><b>2. เข้าใจผิดว่า authenticity คือการเล่าเรื่องส่วนตัวทุกอย่าง</b> — ไม่ใช่ ความเป็นตัวเองในบริบทนี้หมายถึง “เลือกเล่นเกมที่คุณอยากเล่นจริง ด้วยวิธีที่เป็นธรรมชาติของคุณ” ไม่ใช่การเปิดเผยชีวิตส่วนตัว</p>
+  <p><b>3. กลัวว่านิชเล็กเกินจะเลี้ยงตัวเองได้</b> — ในโลกอินเทอร์เน็ต ตลาดที่ “เล็กมาก” ในระดับจังหวัด อาจมีคนหลายหมื่นในระดับโลก และคุณต้องการลูกค้าจริงเพียงหลักร้อยเพื่อมีรายได้ที่ดี</p>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ต้องดูว่าคู่แข่งทำอะไร แล้วทำให้ดีกว่าเขา 20%” — ทำให้คุณติดอยู่ในสนามของคนอื่น ใช้ตัวชี้วัดของคนอื่น และดีที่สุดคือเป็นเวอร์ชันที่ดีกว่าเล็กน้อยของเขา</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">การชนะที่ยั่งยืนไม่ได้มาจากการทำเหมือนเขาแต่ดีกว่า มันมาจากการทำสิ่งที่เขาทำไม่ได้ — และสิ่งที่คนอื่นทำแทนคุณไม่ได้เลยคือชุดประสบการณ์ + วิธีมองโลกของคุณ</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (สัปดาห์นี้)</div><div class="ladder-text">เขียนประโยคเดียวให้ได้: “ผมคือคนที่ช่วย [กลุ่มคนเฉพาะเจาะจงมาก] ให้ [ผลลัพธ์ที่วัดได้] ด้วย [วิธีที่มาจากประสบการณ์เฉพาะของผม]” ถ้าเขียนแล้วมีคนอื่นพูดประโยคนี้ได้เหมือนกัน ให้เจาะจงขึ้นอีกหนึ่งชั้น</div></div>
+  </div>
+  <div class="aph">
+    <div class="aph-lb">คำศัพท์แกน · Key term</div>
+    <div class="aph-en">“Escape competition through authenticity.”</div>
+    <div class="aph-th"><b>คำแปล:</b> หนีการแข่งขันด้วยความเป็นตัวเอง<br><b>ข้อควรระวัง:</b> ประโยคนี้ไม่ได้อนุญาตให้คุณทำอะไรตามใจแล้วเรียกว่า “เป็นตัวเอง” — มันต้องมาคู่กับความรู้เฉพาะตัว (บทที่ 2) และการส่งมอบคุณค่าจริง (บทที่ 1) มิฉะนั้นก็คือการเป็นตัวเองในตลาดที่ไม่มีใครต้องการ</div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ตอนนี้คุณกำลังแข่งกับใครอยู่ในใจ — และคุณเลือกสนามนั้นเองหรือแค่เดินเข้าไปเพราะคนรอบตัวอยู่ในนั้น?</li>
+      <li>อะไรคือสิ่งที่คุณเข้าใจดีกว่าคนอื่นเพราะ “คุณเคยเป็นคนกลุ่มนั้นมาก่อน”?</li>
+      <li>ถ้าไม่มีใครรู้ว่าคุณได้เป้าหมายที่ไล่อยู่ตอนนี้ คุณจะยังไล่มันต่อไหม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 7 ============ -->
+<div class="chapter-open" id="ch7">
+  <div class="ch-num">07</div>
+  <div class="ch-label">บทที่ 7 · Get Paid for Your Judgment · Play Long-Term Games</div>
+  <div class="ch-title">Judgment &amp; Compound<em>วิจารณญาณและดอกทบต้น — สองสิ่งที่ต้องใช้เวลาซื้อ</em></div>
+  <div class="ch-essence">เมื่อคานงัดสูงพอ ค่าตอบแทนของคุณจะไม่ผูกกับความขยัน แต่ผูกกับความแม่นของการตัดสินใจ — และเกมที่เล่นซ้ำกับคนหน้าเดิม</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>ในโลกที่มีคานงัด ความขยัน 10 เท่าไม่ได้ผล 10 เท่า แต่การคิดถูกได้ 1,000 เท่า</h1>
+  <p class="lead">นักบัญชีที่ทำงานเร็วขึ้นสองเท่าได้ผลลัพธ์สองเท่า แต่คนที่ควบคุมคานงัดขนาดใหญ่ — ผู้บริหารกองทุน, คนออกแบบสถาปัตยกรรมระบบ, คนตัดสินใจกลยุทธ์ — การตัดสินใจครั้งเดียวของเขาต่างกันได้เป็นร้อยเท่าพันเท่า ในตำแหน่งแบบนั้น <b>ตลาดไม่ได้จ่ายค่าชั่วโมง มันจ่ายค่าวิจารณญาณ</b></p>
+  <p>นี่คือเหตุผลที่คนซึ่งมาถึงจุดนี้แล้วมักดู “ทำงานน้อย” — พวกเขาใช้เวลาส่วนใหญ่ไปกับการคิด อ่าน และคุยกับคนที่ฉลาด ไม่ใช่การทำงานตามรายการที่คนอื่นสั่ง เพราะงานจริงของเขาคือการเลือกให้ถูกในไม่กี่ครั้งที่สำคัญ</p>
+  <div class="insight-box">
+    <div class="lb">First Principle · หลักการพื้นฐานข้อที่สอง</div>
+    <p>วิจารณญาณ = ประสบการณ์ที่ถูกย่อยแล้ว + โมเดลความคิดที่ยืมมาจากคนอื่น (การอ่าน) + ความสามารถในการเห็นความจริงโดยไม่ให้อัตตาบิดภาพ</p>
+    <p>สังเกตว่าสองอย่างแรกซื้อด้วยเวลาได้ แต่อย่างที่สามซื้อไม่ได้ — ต้องฝึก (และนี่คือสะพานเชื่อมไปเล่มที่สองเรื่องความสุข เพราะจิตที่กระวนกระวายมองความจริงไม่ชัด)</p>
+  </div>
+  <h2>เกมยาว กับคนที่เล่นเกมยาวเหมือนกัน</h2>
+  <p>หนึ่งในหลักที่ Naval ย้ำที่สุดคือ <span class="en">“Play long-term games with long-term people.”</span> — ผลตอบแทนแบบทบต้นเกิดขึ้นได้เฉพาะเมื่อ “ตัวเลขไม่ถูกรีเซ็ต” ทุกครั้งที่คุณเปลี่ยนคน เปลี่ยนวงการ หรือทำลายความไว้ใจ คุณกลับไปเริ่มนับหนึ่งใหม่</p>
+  <p>สิ่งที่ทบต้นได้มีมากกว่าเงิน: <b>ความไว้ใจ</b> (คนที่เคยร่วมงานกันสำเร็จจะกลับมาหาคุณโดยไม่เปรียบเทียบราคา), <b>ชื่อเสียง</b> (คนแนะนำต่อ), <b>ความรู้</b> (ความเข้าใจใหม่ต่อยอดจากของเก่า), และ <b>ความสัมพันธ์</b> (มิตรภาพยี่สิบปีมีค่าที่สร้างใหม่ไม่ได้ด้วยเงิน)</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ดอกทบต้นในชีวิตจริง</div>
+    <div class="nm">Warren Buffett &amp; Charlie Munger — หุ้นส่วนที่ยาวกว่าสี่ทศวรรษ</div>
+    <p>Buffett เริ่มลงทุนตอนอายุ 11 และยังทำอยู่จนอายุเกินเก้าสิบ Morgan Housel ชี้ให้เห็นในหนังสือ <em>The Psychology of Money</em> ว่าความมั่งคั่งของ Buffett เกิดขึ้น <b>หลังอายุ 50 มากกว่า 99%</b> — ไม่ใช่เพราะฝีมือเขาดีขึ้นเป็นร้อยเท่าตอนแก่ แต่เพราะเวลาเดินมาถึงช่วงที่ดอกทบต้นออกฤทธิ์</p>
+    <p>ในขณะเดียวกัน หุ้นส่วนของเขา Charlie Munger อยู่ข้างเขามาสี่สิบกว่าปี ทั้งสองแทบไม่มีสัญญาซับซ้อนต่อกัน — สิ่งที่ยึดพวกเขาไว้คือความไว้ใจที่ทบต้นมาหลายทศวรรษ ซึ่งลดต้นทุนการตัดสินใจร่วมกันลงมหาศาล</p>
+    <p><b>คณิตศาสตร์ที่คนมองข้าม:</b> ผลตอบแทน 15% ต่อปี 10 ปี = ~4 เท่า, แต่ 30 ปี = ~66 เท่า อีกยี่สิบปีหลังไม่ได้เพิ่มอีก 4 เท่า มันเพิ่มอีก 62 เท่า — ผลของการทบต้นเกือบทั้งหมดอยู่ที่ปลายทาง นี่คือเหตุผลที่คนใจร้อนไม่เคยได้เห็นมัน</p>
+  </div>
+  <table class="tbl">
+    <tr><th>สิ่งที่ทบต้น</th><th>รีเซ็ตเมื่อไหร่</th><th>วิธีป้องกันการรีเซ็ต</th></tr>
+    <tr><td class="n">เงินทุน</td><td>เมื่อขาดทุนหนัก / ถอนออกมาใช้</td><td>อย่าใช้คานงัดหนี้เกินตัว อย่าออกจากเกมกลางทาง</td></tr>
+    <tr><td class="n">ชื่อเสียง</td><td>เมื่อโกงครั้งเดียว</td><td>ยอมเสียเงินก้อนเดียวเพื่อรักษาคำพูด — คิดเป็นการลงทุน ไม่ใช่การเสียโอกาส</td></tr>
+    <tr><td class="n">ความสัมพันธ์</td><td>เมื่อคุณเล่นเกมครั้งเดียวกับเขา (เอาเปรียบแล้วจบ)</td><td>ตั้งคำถามทุกดีลว่า “ผมอยากเจอคนนี้อีกในสิบปีไหม”</td></tr>
+    <tr><td class="n">ความรู้</td><td>เมื่อเปลี่ยนสายทุกสองปี</td><td>ลึกในแกนเดียว แล้วต่อกิ่งจากแกนนั้น (ไม่ใช่เริ่มต้นใหม่ทุกครั้ง)</td></tr>
+  </table>
+  <h2>วิธีแยกคนเล่นเกมยาว ออกจากคนเล่นเกมครั้งเดียว</h2>
+  <p>คนเล่นเกมครั้งเดียว (one-shot player) มีลายเซ็นที่สังเกตได้: เร่งให้ตัดสินใจเร็วผิดปกติ, พูดถึงคนที่ร่วมงานก่อนหน้าในแง่ลบเสมอ, ต่อรองทุกบาทแม้เสียความสัมพันธ์, และไม่เคยพูดถึงอะไรที่ไกลกว่าดีลนี้ — <b>วิธีป้องกันที่ดีที่สุดไม่ใช่การเจรจาเก่งขึ้น แต่คือการไม่เข้าดีลกับคนประเภทนี้ตั้งแต่ต้น</b></p>
+  <div class="sig">
+    <div class="sig-col sig-do"><div class="sig-lb">สัญญาณของคนเล่นเกมยาว</div><ul>
+      <li>ยอมเสียเปรียบเล็กน้อยเพื่อรักษาความสัมพันธ์</li>
+      <li>พูดถึงคู่ค้าเก่าด้วยความเคารพ และคู่ค้าเก่ายังกลับมาหา</li>
+      <li>เขียนสิ่งที่ตกลงไว้ให้ชัด เพราะไม่อยากมีปัญหาในอนาคต</li>
+      <li>ให้เวลาคุณคิด ไม่กดดัน</li>
+    </ul></div>
+    <div class="sig-col sig-dont"><div class="sig-lb">สัญญาณอันตราย</div><ul>
+      <li>“ต้องตอบวันนี้ ไม่งั้นเสียโอกาส”</li>
+      <li>เล่าว่าตัวเองเคยเอาชนะ/เอาเปรียบใครมาอย่างภูมิใจ</li>
+      <li>ผลตอบแทนสูงผิดปกติโดยไม่มีคำอธิบายของกลไก</li>
+      <li>ไม่อยากให้อะไรเป็นลายเซ็นหรือเป็นลายลักษณ์อักษร</li>
+    </ul></div>
+  </div>
+  <div class="blockquote-full">
+    <div class="q">“Play long-term games with long-term people.”</div>
+    <div class="th">คำแปล: เล่นเกมระยะยาว กับคนที่คิดระยะยาวเหมือนกัน — เพราะดอกทบต้นทุกชนิด ไม่ว่าเงิน ความรู้ ชื่อเสียง หรือความสัมพันธ์ ต้องการเวลาที่ไม่ถูกรีเซ็ต</div>
+    <div class="src">Key Aphorism · บทที่ 7</div>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ต้องรีบให้ทัน ก่อนโอกาสหมด” — ความรีบทำให้คุณเข้าดีลกับคนผิด และรีเซ็ตดอกทบต้นของตัวเองซ้ำ ๆ โดยไม่รู้ตัว</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความอดทนไม่ใช่คุณธรรม มันคือทักษะทางเทคนิคที่จำเป็นต่อการเก็บเกี่ยวดอกทบต้น — และของที่ควรรีบมีอย่างเดียวคือ “การเริ่ม” ไม่ใช่ “การได้ผลลัพธ์”</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (วันนี้)</div><div class="ladder-text">เขียนชื่อคน 5 คนที่คุณต้องการอยู่ในเกมเดียวกันอีกยี่สิบปี แล้วทำสิ่งเล็ก ๆ ให้หนึ่งในนั้นวันนี้โดยไม่ขออะไรตอบแทน — และในทางกลับกัน ระบุ 1 ความสัมพันธ์ทางธุรกิจที่คุณรู้อยู่ว่าเป็นเกมครั้งเดียว แล้ววางแผนถอนตัวอย่างสุภาพ</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>การตัดสินใจสามครั้งล่าสุดที่สำคัญของคุณ — คุณใช้เวลาคิดกี่ชั่วโมง เทียบกับเวลาที่ใช้ทำงานประจำในสัปดาห์เดียวกัน?</li>
+      <li>อะไรคือสิ่งที่คุณทำอยู่ตอนนี้ ซึ่ง “รีเซ็ต” ดอกทบต้นของคุณทุก ๆ 1–2 ปี?</li>
+      <li>ถ้าคุณต้องอยู่ในวงการนี้อีกสามสิบปี วันนี้คุณจะทำอะไรต่างไปจากที่คิดไว้?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 8 ============ -->
+<div class="chapter-open" id="ch8">
+  <div class="ch-num">08</div>
+  <div class="ch-label">บทที่ 8 · Learn to Love to Read · How to Think Clearly</div>
+  <div class="ch-title">Read More, Think Clearly<em>อ่านให้มาก คิดให้ใส — คลังโมเดลความคิดและการกลับด้านปัญหา</em></div>
+  <div class="ch-essence">การอ่านคือการซื้อประสบการณ์ของคนอื่นในราคาถูกที่สุดในประวัติศาสตร์ — และการคิดใสคือการไม่ให้อัตตาบิดภาพที่เห็น</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>อ่านสิ่งที่รัก ไปเรื่อย ๆ จนกว่าคุณจะรักการอ่าน</h1>
+  <p class="lead">คนส่วนใหญ่ล้มเหลวกับการอ่านเพราะเริ่มจากหนังสือที่ “ควรอ่าน” ไม่ใช่หนังสือที่ “อยากอ่าน” แล้วสรุปว่าตัวเองไม่ใช่คนรักการอ่าน ทางแก้ของ Naval ตรงข้ามกับคำแนะนำทั่วไปโดยสิ้นเชิง: <b>อ่านอะไรก็ได้ที่สนุกสำหรับคุณ นิยาย การ์ตูน อะไรก็ตาม — จนกว่านิสัยการอ่านจะติด แล้วรสนิยมจะยกระดับตัวเองโดยอัตโนมัติ</b> และเมื่ออ่านเล่มไหนไม่สนุก ให้วางลงกลางเล่มได้โดยไม่รู้สึกผิด</p>
+  <p>เรื่องที่สองที่สวนกระแส: <b>อ่านของเก่าและของพื้นฐานมากกว่าของใหม่</b> คณิตศาสตร์ ฟิสิกส์ เศรษฐศาสตร์ ปรัชญา — ความรู้เหล่านี้ไม่เสื่อมค่า ในขณะที่หนังสือขายดีเรื่องกลยุทธ์ธุรกิจปีนี้อาจใช้ไม่ได้ในอีกห้าปี Naval ถึงกับบอกว่าอ่านหนังสือเล่มเดียวซ้ำสิบครั้งดีกว่าอ่านสิบเล่มผ่าน ๆ</p>
+  <div class="note"><b>ข้อสารภาพที่ยุติธรรมกับผู้อ่าน:</b> เอกสารที่คุณกำลังอ่านคือ “บทสรุป” ซึ่งตามหลักของบทนี้ ต้นฉบับดีกว่าเสมอ ใช้เอกสารนี้เป็นแผนที่และโครงกระดูก แล้วไปอ่านฉบับเต็ม (ดาวน์โหลดฟรีที่ navalmanack.com) — บทสรุปช่วยให้คุณ <em>รู้ว่ามีอะไร</em> แต่การอ่านต้นฉบับคือสิ่งที่ทำให้คุณ <em>คิดได้เอง</em></div>
+  <h2>Mental models — คลังเครื่องมือที่ Munger สะสมทั้งชีวิต</h2>
+  <p>Charlie Munger เรียกมันว่า <span class="en">latticework of mental models</span> (ตะแกรงโมเดลความคิดที่สานกัน) หลักการของเขาคือ ถ้าคุณมีเครื่องมือแค่ค้อน ทุกปัญหาจะดูเหมือนตะปู ยิ่งมีโมเดลจากหลายศาสตร์ ยิ่งเห็นปัญหาเดียวได้หลายมุมและผิดน้อยลง นี่คือชุดที่ใช้บ่อยที่สุดในบริบทของหนังสือเล่มนี้:</p>
+  <table class="tbl">
+    <tr><th>โมเดล</th><th>ความหมายภาษาไทย</th><th>คำถามที่ใช้จริง</th></tr>
+    <tr><td class="n">Inversion</td><td>การกลับด้านปัญหา — แทนที่จะถามว่าจะสำเร็จอย่างไร ให้ถามว่าจะล้มเหลวแน่นอนอย่างไร แล้วเลี่ยงสิ่งนั้น</td><td>“อะไรจะทำให้เรื่องนี้พังแน่ ๆ ?” แล้วจัดการมันก่อน</td></tr>
+    <tr><td class="n">Second-order<br>thinking</td><td>การคิดชั้นที่สอง — ผลของผลลัพธ์ คนส่วนใหญ่หยุดคิดที่ผลชั้นแรก</td><td>“แล้วหลังจากนั้นเกิดอะไรขึ้น?” ถามซ้ำสามครั้ง</td></tr>
+    <tr><td class="n">Opportunity<br>cost</td><td>ต้นทุนค่าเสียโอกาส — การเลือกทำสิ่งหนึ่งคือการปฏิเสธทุกสิ่งที่เหลือในเวลาเดียวกัน</td><td>“ถ้าไม่ทำสิ่งนี้ ผมจะเอาเวลานี้ไปทำอะไรที่ดีที่สุด?”</td></tr>
+    <tr><td class="n">Circle of<br>competence</td><td>วงความรู้จริง — ขอบเขตที่คุณรู้จริง นอกวงนี้คุณเดา ไม่ใช่คิด</td><td>“ผมอธิบายกลไกของสิ่งนี้ให้คนอื่นฟังได้เองไหม โดยไม่อ้างคำของใคร?”</td></tr>
+    <tr><td class="n">Compounding</td><td>ดอกทบต้น — ผลลัพธ์เล็กที่ไม่รีเซ็ต จะระเบิดในปลายทาง</td><td>“สิ่งนี้ทบต้นได้ไหม หรือหายไปทุกครั้งที่ผมหยุด?”</td></tr>
+    <tr><td class="n">Asymmetry</td><td>ความไม่สมมาตรของผลลัพธ์ — เดิมพันที่เสียน้อยแต่ได้มาก</td><td>“ถ้าผิด ผมเสียเท่าไหร่ ถ้าถูก ผมได้เท่าไหร่?”</td></tr>
+  </table>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · Inversion ในการทำงานจริง</div>
+    <div class="nm">Munger: “ผมแค่พยายามหลีกเลี่ยงความโง่ ไม่ได้พยายามเป็นคนฉลาด”</div>
+    <p>เวลาทีมงานถามว่า “จะทำให้โครงการนี้สำเร็จได้อย่างไร” คำตอบมักเป็นลิสต์ยาวและคลุมเครือ แต่ถ้ากลับด้านเป็น “อะไรจะทำให้โครงการนี้ล้มเหลวแน่นอน” คำตอบจะคมและเป็นรูปธรรมทันที เช่น “ถ้าไม่มีใครเป็นเจ้าของงานนี้ชัด ๆ”, “ถ้าเราไม่ได้คุยกับผู้ใช้จริงเลยก่อนสร้าง”, “ถ้าเงินหมดก่อนเดือนที่หก”</p>
+    <p>เมื่อได้ลิสต์ของ “วิธีล้มเหลว” มาแล้ว งานของคุณเปลี่ยนจากการไล่ล่าความสำเร็จที่คลุมเครือ ไปเป็นการปิดความเสี่ยงที่ชัดเจน — <b>นี่คือเทคนิคเดียวจากบทนี้ที่ใช้ได้ในการประชุมพรุ่งนี้เช้า</b></p>
+  </div>
+  <h2>Shed your identity to see reality — ทิ้งอัตตาเพื่อเห็นความจริง</h2>
+  <p>อุปสรรคใหญ่ที่สุดของการคิดใสไม่ใช่ความไม่รู้ แต่คือ <b>ความผูกพันกับการเป็นคนที่เชื่อสิ่งนั้น</b> เมื่อคุณประกาศจุดยืนออกไปแล้ว สมองจะเปลี่ยนงานตัวเองจาก “หาความจริง” เป็น “ปกป้องภาพลักษณ์” ทันที ยิ่งประกาศเสียงดัง ยิ่งกลับตัวยาก</p>
+  <p>ตัวอย่างที่นักลงทุนเห็นบ่อยที่สุด: คนที่ประกาศต่อสาธารณะว่าหุ้นตัวหนึ่งดี แล้วเมื่อข้อมูลใหม่ออกมาสวนกับสมมติฐาน เขาไม่ได้กำลังวิเคราะห์หุ้นอีกแล้ว เขากำลังปกป้องตัวเอง — ผลคือถือขาดทุนยาวกว่าที่เหตุผลควรจะบอก คนที่ไม่มีอัตตาผูกกับความเห็น จะเปลี่ยนใจได้เร็วเมื่อข้อเท็จจริงเปลี่ยน และนั่นแปลเป็นเงินโดยตรง</p>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · Decision Journal (สมุดบันทึกการตัดสินใจ)</div>
+    <p>เครื่องมือที่ Shane Parrish แนะนำและใช้ได้ทันที: ก่อนตัดสินใจเรื่องสำคัญ เขียนสี่บรรทัดนี้ลงไป</p>
+    <p><b>1.</b> สิ่งที่ผมกำลังตัดสินใจ และตัดสินใจว่าอะไร<br>
+    <b>2.</b> สมมติฐานที่ผมเชื่ออยู่ (ข้อไหนถ้าผิด แล้วการตัดสินใจนี้ผิดทั้งหมด)<br>
+    <b>3.</b> ผลลัพธ์ที่ผมคาดไว้ พร้อมกรอบเวลา<br>
+    <b>4.</b> อารมณ์ของผมตอนนี้ (เหนื่อย? กลัวตกรถ? โกรธ?)</p>
+    <p>เปิดอ่านย้อนหลังทุกไตรมาส สิ่งที่คุณจะเห็นคือ “แบบแผนความผิดพลาดซ้ำ ๆ ของตัวเอง” ซึ่งเป็นข้อมูลที่หาจากหนังสือเล่มไหนไม่ได้ เพราะมันคือของคุณคนเดียว</p>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ต้องอ่านหนังสือธุรกิจใหม่ ๆ ให้ทันคนอื่น และต้องอ่านให้จบทุกเล่มที่ซื้อมา”</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">คุณค่าของการอ่านอยู่ที่ “จำนวนโมเดลที่ใช้ได้จริงในหัว” ไม่ใช่จำนวนเล่มที่อ่านจบ — อ่านของพื้นฐานซ้ำ ๆ ให้ลึก ดีกว่าอ่านของใหม่ให้ครบ และวางหนังสือที่ไม่ใช่ลงได้ทุกเมื่อ</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (คืนนี้)</div><div class="ladder-text">วางหนังสือที่คุณอ่านค้างเพราะ “รู้สึกว่าควรอ่าน” ลง แล้วหยิบเล่มที่คุณอยากอ่านจริงขึ้นมา 20 นาที · และเปิดไฟล์ใหม่ชื่อ Decision Journal เขียนการตัดสินใจสำคัญข้อล่าสุดของคุณลงไปตามสี่บรรทัดข้างบน</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ความเห็นไหนของคุณที่ “ถ้ากลับคำ จะเสียหน้ามากที่สุด” — นั่นคือจุดที่อัตตาบิดสายตาคุณอยู่</li>
+      <li>ในสามเดือนที่ผ่านมา คุณเปลี่ยนใจเรื่องสำคัญเพราะข้อมูลใหม่กี่ครั้ง? (ถ้าศูนย์ ให้ตั้งข้อสงสัยกับตัวเอง ไม่ใช่ภูมิใจ)</li>
+      <li>ถ้ากลับด้านเป้าหมายปีนี้ของคุณเป็น “อะไรจะทำให้พังแน่นอน” คำตอบสามข้อแรกคืออะไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ PART I RECAP ============ -->
+<div class="page mid">
+  <div class="eyebrow">Interlude · สรุปเล่มที่หนึ่ง</div>
+  <h1>บันไดความมั่งคั่ง — เรียงลำดับให้ถูก แล้วมันจะไม่ยากเท่าที่คิด</h1>
+  <p>แปดบทที่ผ่านมาไม่ใช่แปดเรื่อง มันคือเครื่องจักรเดียวที่ต่อกันเป็นลำดับ ถ้าทำสลับลำดับ คุณจะเหนื่อยมากและได้ผลน้อย</p>
+  <table class="tbl">
+    <tr><th>ขั้น</th><th>ทำอะไร</th><th>ตัวชี้วัดว่าผ่านขั้นนี้แล้ว</th></tr>
+    <tr><td class="n">1</td><td>เลิกเล่นเกมสถานะ เข้าเกมสร้างของ (บทที่ 1)</td><td>คุณเลิกวัดตัวเองด้วยตำแหน่ง เริ่มวัดด้วย “สิ่งที่สร้างเสร็จ”</td></tr>
+    <tr><td class="n">2</td><td>ระบุและสะสมความรู้เฉพาะตัว (บทที่ 2)</td><td>เขียนชั้นซ้อนสามชั้นของตัวเองได้ในหนึ่งบรรทัด</td></tr>
+    <tr><td class="n">3</td><td>เติมด้านที่ขาด — สร้างหรือขาย (บทที่ 3)</td><td>มีผลงานสาธารณะที่คนนอกวงเข้าใจได้</td></tr>
+    <tr><td class="n">4</td><td>ติดคานงัดที่ไม่ต้องขออนุญาต (บทที่ 4)</td><td>มีบางอย่างที่ทำสำเนาได้และทำงานตอนคุณหลับ</td></tr>
+    <tr><td class="n">5</td><td>รับผิดชอบในชื่อตัวเอง + ถือ equity (บทที่ 5)</td><td>รายได้ส่วนหนึ่งผูกกับผลลัพธ์ ไม่ใช่ชั่วโมง</td></tr>
+    <tr><td class="n">6</td><td>หนีคู่แข่งด้วยนิชที่มีคุณคนเดียว (บทที่ 6)</td><td>ลูกค้าเดินเข้ามาหาโดยไม่เทียบราคา</td></tr>
+    <tr><td class="n">7</td><td>เล่นเกมยาว ปล่อยให้ทบต้น (บทที่ 7–8)</td><td>คุณปฏิเสธข้อเสนอดี ๆ ได้ เพราะรู้ว่ากำลังสร้างอะไรอยู่</td></tr>
+  </table>
+  <p class="small">ถึงจุดนี้หลายคนจะเจอความจริงที่ไม่มีใครเตือน: <b>ยิ่งขึ้นบันไดนี้สูง ชีวิตยิ่งกระวนกระวายได้มากขึ้น</b> เพราะเครื่องจักรที่ทำให้คุณเก่งขึ้น — ความไม่พอใจในสิ่งที่มี ความอยากเปรียบเทียบ ความหมกมุ่นในเป้าหมาย — คือเครื่องจักรเดียวกับที่ทำลายความสุขของคุณ นั่นคือเหตุผลที่หนังสือเล่มนี้มีเล่มที่สอง และเหตุผลที่ Naval บอกว่าถ้าให้เลือกได้อย่างเดียว เขาจะเลือกเล่มที่สอง</p>
+</div>
+
+<div class="part-2">
+<!-- ============ PART II OPENER ============ -->
+<div class="part-open" id="part2">
+  <div class="pn">II</div>
+  <div class="part-lb">Part Two · เล่มที่สอง</div>
+  <div class="part-t">Happiness</div>
+  <div class="part-th">ความสุข — ทักษะที่ต้องฝึก ไม่ใช่รางวัลที่รอรับ</div>
+  <div class="part-ess">เล่มแรกคือเกมของการเพิ่ม เล่มนี้คือเกมของการลด — ลดความอยาก ลดการเปรียบเทียบ ลดเสียงในหัว ถ้าคุณอ่านแค่เล่มแรก คุณจะได้เครื่องจักรที่ทรงพลังแต่ไม่มีเบรก</div>
+</div>
+
+<!-- ============ CH 9 ============ -->
+<div class="chapter-open" id="ch9">
+  <div class="ch-num">09</div>
+  <div class="ch-label">บทที่ 9 · Happiness Is Learned · Happiness Is a Choice</div>
+  <div class="ch-title">Happiness Is a Skill<em>ความสุขคือทักษะ — ฝึกได้เหมือนกล้ามเนื้อ</em></div>
+  <div class="ch-essence">ถ้าความสุขเป็นทักษะ แปลว่าคุณเลิกโทษดวง เลิกรอเงื่อนไข และเริ่มฝึกได้ทันทีเหมือนที่คุณฝึกวิ่ง</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คุณไม่ได้ “มีความสุข” หรือ “ไม่มีความสุข” — คุณกำลังฝึกอย่างใดอย่างหนึ่งอยู่ทุกวัน</h1>
+  <p class="lead">คนทั่วไปมองความสุขเป็นสองแบบ — เป็นนิสัยที่ติดตัวมา (“ฉันเป็นคนคิดมาก”) หรือเป็นรางวัลปลายทาง (“พอถึงเป้าหมายนี้ก็จะมีความสุข”) Naval ปฏิเสธทั้งสองแบบ เขาบอกว่าความสุขเป็น <b>ทักษะ</b> — ซึ่งหมายความว่ามันฝึกได้ ทำแล้วดีขึ้น หยุดทำแล้วถอย และมีวิธีฝึกที่ถูกกับผิด</p>
+  <p>นิยามที่เขาใช้คมและใช้งานได้: <b>ความสุขคือสภาวะที่คุณไม่รู้สึกว่ามีอะไรขาดไป</b> สังเกตว่านิยามนี้เป็นการ “ลบ” ไม่ใช่การ “เพิ่ม” — เราไม่ได้เพิ่มความสุขเข้าไป เราเอาความรู้สึกขาดออก ซึ่งพลิกทิศทางของความพยายามทั้งหมด: จากการวิ่งหาสิ่งของ ไปเป็นการจัดการกับความรู้สึกขาด</p>
+  <div class="insight-box">
+    <div class="lb">แยกสามคำที่คนใช้ปนกัน</div>
+    <p><b>Pleasure (ความเพลิดเพลิน)</b> — มาจากสิ่งกระตุ้นภายนอก มาเร็วไปเร็ว และมี “ราคาต้องจ่าย” ด้านหลัง (น้ำตาล แอลกอฮอล์ การเลื่อนฟีด)</p>
+    <p><b>Joy (ความปลาบปลื้ม)</b> — ช่วงที่สว่างวาบ เช่นวันแต่งงาน วันที่ลูกเกิด สำคัญแต่บังคับให้เกิดไม่ได้</p>
+    <p><b>Peace (ความสงบ)</b> — สภาวะพื้นฐานที่นิ่ง ไม่ต้องมีอะไรมากระตุ้น นี่คือสิ่งที่ฝึกได้และเป็นเป้าหมายจริงของเล่มนี้ — Naval ใช้คำว่า “ความสุขเวลาเคลื่อนไหวคือความสำเร็จ ความสุขเวลาอยู่นิ่งคือความสงบ”</p>
+  </div>
+  <h2>ทำไมความสำเร็จจึงไม่ซื้อความสุข — และงานวิจัยว่าอย่างไร</h2>
+  <p>ปรากฏการณ์ชื่อ <span class="en">hedonic adaptation</span> (การปรับตัวทางความสุข) อธิบายเรื่องนี้ได้ตรงที่สุด งานวิจัยคลาสสิกปี 1978 ของ Brickman และคณะ เปรียบเทียบผู้ถูกรางวัลลอตเตอรี่รายใหญ่กับผู้ประสบอุบัติเหตุจนพิการ พบว่าหลังผ่านช่วงเวลาหนึ่ง ระดับความสุขที่รายงานของทั้งสองกลุ่มขยับกลับเข้าใกล้เส้นฐานเดิมของแต่ละคนมากกว่าที่ใครคาด</p>
+  <p>สมองเราถูกออกแบบให้ปรับตัวเข้ากับของใหม่อย่างรวดเร็ว รถใหม่ทำให้ตื่นเต้นสามสัปดาห์ ตำแหน่งใหม่ทำให้ภูมิใจสองเดือน แล้วมันกลายเป็นพื้นฐานใหม่ที่คุณไม่รู้สึกอะไรอีก — <b>นี่ไม่ใช่ความบกพร่องของคุณ มันคือกลไกของสมองทุกคน</b> และเป็นเหตุผลที่การไล่ตามความสุขด้วยการเพิ่มของ เป็นเกมที่แพ้ตั้งแต่ออกแบบ</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ตัวเลขที่ขยับ แต่ความรู้สึกไม่ขยับ</div>
+    <div class="nm">คนที่เงินเดือนขึ้นสองเท่าในสามปี</div>
+    <p>วิศวกรคนหนึ่งย้ายงานสองครั้งในสามปี รายได้เพิ่มจาก 60,000 เป็น 130,000 บาทต่อเดือน ตอนได้ข้อเสนอครั้งแรกเขานอนไม่หลับเพราะดีใจ สามเดือนต่อมาความรู้สึกนั้นหายไปหมด สิ่งที่เพิ่มขึ้นแทนคือ ค่าผ่อนคอนโดที่ใหญ่ขึ้น มาตรฐานที่สูงขึ้น และการเปรียบเทียบกับกลุ่มเพื่อนใหม่ที่รายได้สูงกว่าเดิม</p>
+    <p><b>สิ่งที่น่าสังเกต:</b> เขาไม่ได้ทุกข์เพราะรายได้ เขาทุกข์เพราะ <em>เส้นอ้างอิงเลื่อนตามขึ้นไปทุกครั้ง</em> ถ้าไม่มีการฝึกจิตควบคู่ ตัวเลขจะวิ่งขึ้นตลอดชีวิตโดยความรู้สึกอยู่ที่เดิม — และคนกลุ่มนี้คือคนที่พูดว่า “ไม่รู้จะหาไปทำไม แต่หยุดไม่ได้”</p>
+  </div>
+  <div class="blockquote-full">
+    <div class="q">“Happiness is a skill you can develop.”</div>
+    <div class="th">คำแปล: ความสุขคือทักษะที่พัฒนาได้ — และเมื่อคุณยอมรับประโยคนี้ ความรับผิดชอบก็ย้ายกลับมาที่คุณ ไม่ใช่ที่สถานการณ์ ไม่ใช่ที่คนอื่น ไม่ใช่ที่ตัวเลขในบัญชี</div>
+    <div class="src">Key Aphorism · บทที่ 9</div>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ตอนนี้ยังไม่มีความสุขเพราะยังไม่ถึงเป้า พอถึงแล้วจะมีความสุข” — โครงสร้างประโยคนี้เลื่อนความสุขไปอนาคตเสมอ และอนาคตไม่เคยมาถึงเพราะเป้าเลื่อนตามทุกครั้ง</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความสุขไม่ใช่ผลลัพธ์ของเงื่อนไขภายนอก มันคือทักษะการอยู่กับสิ่งที่เป็นอยู่โดยไม่รู้สึกขาด — ฝึกได้ วัดได้ และดีขึ้นได้ในหน่วยสัปดาห์ ไม่ใช่หน่วยปี</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (วันนี้)</div><div class="ladder-text">เขียนเป้าหมายที่คุณคิดว่า “ถ้าได้แล้วจะมีความสุข” ลงไป แล้วเขียนถัดจากมันว่า สามเดือนหลังได้มันมา ชีวิตประจำวันของคุณจะต่างจากวันนี้ตรงไหน <em>อย่างเป็นรูปธรรม</em> — ถ้าเขียนไม่ได้ ให้รู้ว่านั่นคือความอยากที่คุณยืมมาจากคนอื่น</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ครั้งล่าสุดที่คุณได้สิ่งที่อยากได้มาก ๆ ความรู้สึกดีนั้นอยู่กับคุณกี่วัน?</li>
+      <li>ถ้าความสุขเป็นทักษะ วันนี้คุณฝึกมันวันละกี่นาที — เทียบกับที่คุณฝึกทักษะทำเงิน?</li>
+      <li>อะไรคือสิ่งที่คุณรู้สึกว่า “ขาด” อยู่ตอนนี้ และถ้ามันไม่มีอยู่จริงในความคิดคุณ วันนี้จะเปลี่ยนไปอย่างไร?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 10 ============ -->
+<div class="chapter-open" id="ch10">
+  <div class="ch-num">10</div>
+  <div class="ch-label">บทที่ 10 · Every Desire Is a Chosen Unhappiness</div>
+  <div class="ch-title">Desire<em>ความอยากคือความทุกข์ที่คุณเลือกเอง</em></div>
+  <div class="ch-essence">ทุกครั้งที่คุณอยากอะไร คุณกำลังเซ็นสัญญากับตัวเองว่าจะไม่มีความสุขจนกว่าจะได้มัน — คำถามคือคุณเซ็นไปกี่ฉบับแล้ว</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คุณเซ็นสัญญาความทุกข์กี่ฉบับพร้อมกันอยู่ในตอนนี้?</h1>
+  <p class="lead">นี่คือแนวคิดที่ผู้อ่านหลายคนบอกว่าเปลี่ยนวิธีมองชีวิตของเขาในหน้าเดียว: <b>ความอยากหนึ่งอย่าง = สัญญาหนึ่งฉบับที่คุณเซ็นกับตัวเองว่า “ฉันจะไม่มีความสุข จนกว่าฉันจะได้สิ่งนี้”</b></p>
+  <p>ประโยคนี้ไม่ได้บอกว่าความอยากเป็นสิ่งชั่วร้ายหรือให้เลิกอยากทุกอย่าง — Naval เองก็อยาก เขาสร้างบริษัท ลงทุน และไล่เป้าหมายมาตลอดชีวิต ประเด็นของเขาคือ <b>ให้รู้ตัวว่ากำลังจ่ายราคาอะไรอยู่ และเซ็นสัญญาให้น้อยฉบับ</b> เพราะคนส่วนใหญ่เซ็นวันละหลายฉบับโดยไม่รู้ตัว — อยากได้โปรโมต อยากให้คนนั้นตอบแชท อยากให้พอร์ตกลับมาเท่าทุน อยากผอมลงห้าโลก่อนงานแต่งเพื่อน แล้วก็สงสัยว่าทำไมใจไม่เคยว่าง</p>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · One Big Desire</div>
+    <p>Naval บอกว่าเขาอนุญาตให้ตัวเองมี <b>ความอยากใหญ่ได้เพียงหนึ่งอย่างในเวลาหนึ่ง</b> เพราะสองเหตุผล:</p>
+    <p><b>1. เพื่อความสุข</b> — ความอยากคือความทุกข์ที่รอเงื่อนไข ยิ่งมีน้อยฉบับ ใจยิ่งว่าง</p>
+    <p><b>2. เพื่อผลลัพธ์</b> — ความอยากคือที่ที่คุณเทความสนใจลงไป เมื่อกระจายไปห้าเรื่อง ไม่มีเรื่องไหนได้พลังพอจะทะลุ</p>
+    <p>สังเกตว่ามันตรงกับหลักการโฟกัสในเล่มแรก: <em>“หนึ่งเรื่องทำให้สุด” เป็นทั้งกลยุทธ์ความมั่งคั่งและกลยุทธ์ความสุข</em> — จุดที่สองเล่มบรรจบกันครั้งแรก</p>
+  </div>
+  <h2>สะพานเชื่อมกับสิ่งที่เราคุ้นเคย</h2>
+  <p>Naval เรียกจุดยืนของตัวเองว่า <span class="en">rational Buddhism</span> — เอาสิ่งที่ผ่านการตรวจสอบด้วยเหตุผลและประสบการณ์ตรงมาใช้ ตัดความเชื่อที่พิสูจน์ไม่ได้ออก สำหรับผู้อ่านไทย แนวคิดในบทนี้จึงคุ้นทันที: <b>ตัณหา (ความอยาก) → ทุกข์</b> เป็นสิ่งที่เราได้ยินตั้งแต่เด็ก แต่สิ่งที่ Naval เพิ่มเข้ามาคือ <em>ภาษาแบบสัญญาและต้นทุน</em> ซึ่งทำให้จับต้องได้ในชีวิตคนทำงาน — เปลี่ยนจากหลักธรรมที่ฟังแล้วพยักหน้า เป็นบัญชีที่ตรวจได้ว่าตอนนี้เรามีหนี้กี่ก้อน</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ความอยากที่ทำให้ตัดสินใจแย่ลง</div>
+    <div class="nm">นักลงทุนที่ “ต้องการ” ให้หุ้นกลับมาเท่าทุน</div>
+    <p>นักลงทุนคนหนึ่งซื้อหุ้นที่ราคา 100 บาท ราคาลงมาที่ 70 ข้อมูลใหม่ออกมาว่าธุรกิจแย่ลงจริงตามที่ราคาบอก แต่เขาไม่ขาย เพราะได้เซ็นสัญญากับตัวเองไว้แล้วว่า “ฉันจะไม่โอเคจนกว่าจะกลับมาที่ 100”</p>
+    <p>สิ่งที่เกิดขึ้นคือความอยากได้เข้ามาแทนที่การวิเคราะห์ — เลข 100 ไม่มีความหมายต่อธุรกิจเลย มันมีความหมายต่ออัตตาของเขาเท่านั้น (เชื่อมกับบทที่ 8 เรื่องการทิ้งอัตตาเพื่อเห็นความจริง) ผลลัพธ์คือทั้ง <b>เสียเงินมากขึ้น</b> และ <b>ทุกข์ยาวนานขึ้น</b> จากสัญญาฉบับเดียว</p>
+    <p><b>วิธีแก้ที่ใช้ได้จริง:</b> เปลี่ยนภาษาจาก “ผมต้องได้ X” เป็น “ผมชอบให้เป็น X แต่ถ้าไม่เป็น ผมก็ยังโอเค” — การเปลี่ยนคำนี้ไม่ใช่การหลอกตัวเอง มันเปลี่ยนสถานะของสัญญาจาก “เงื่อนไขบังคับ” เป็น “ความชอบ” ซึ่งสมองประมวลผลต่างกันจริง</p>
+  </div>
+  <h2>Desire Audit — ตรวจบัญชีความอยาก (ทำได้ใน 15 นาที)</h2>
+  <ol>
+    <li>เขียนทุกอย่างที่คุณ “อยาก” อยู่ตอนนี้ให้หมด ทั้งเรื่องงาน เงิน ร่างกาย ความสัมพันธ์ การยอมรับ — เขียนให้ครบแม้เรื่องเล็ก</li>
+    <li>ทำเครื่องหมายข้อที่ <b>ถ้าไม่มีใครรู้เลยว่าคุณได้มัน คุณก็ยังอยากอยู่</b> (ข้อที่ไม่ผ่านเกณฑ์นี้คือความอยากที่ยืมมาจากสายตาคนอื่น — ตัดออกได้เลย)</li>
+    <li>จากข้อที่เหลือ เลือก <b>หนึ่งข้อ</b> เป็นความอยากใหญ่ประจำช่วงนี้ (3–12 เดือน)</li>
+    <li>ข้อที่เหลือ เขียนใหม่ด้วยภาษา “ชอบให้เป็น” แทน “ต้องเป็น” แล้วปล่อยมันไว้อย่างนั้น</li>
+  </ol>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ยิ่งมีความอยากมาก ยิ่งมีแรงผลักดันมาก” — ความอยากหลายอย่างพร้อมกันไม่ได้เพิ่มแรง มันหักล้างกันเอง และทำให้ใจไม่เคยว่างพอจะคิดชัด</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความอยากคือต้นทุน ไม่ใช่เชื้อเพลิงฟรี — ให้เลือกจ่ายในเรื่องที่คุ้มที่สุดหนึ่งเรื่อง แล้วเก็บใจที่ว่างไว้ใช้ทำเรื่องนั้นให้ดี</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (คืนนี้)</div><div class="ladder-text">ทำ Desire Audit ข้างบนให้จบ แล้วเขียน “ความอยากใหญ่หนึ่งอย่าง” ของคุณติดไว้ในที่ที่เห็นทุกเช้า พร้อมประโยคกำกับว่า “นอกจากข้อนี้ ที่เหลือคือความชอบ ไม่ใช่เงื่อนไข”</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ตอนนี้คุณมีสัญญาความทุกข์กี่ฉบับที่ยังเปิดค้างอยู่ — และฉบับไหนที่คุณเซ็นเพราะคนอื่นเซ็น?</li>
+      <li>มีความอยากไหนที่คุณไล่มาเกินสามปีแล้วยังไม่ได้ และมันเอาความสงบของคุณไปเท่าไหร่ในสามปีนั้น?</li>
+      <li>ถ้าอนุญาตให้ตัวเองอยากได้แค่หนึ่งอย่างใน 12 เดือนข้างหน้า คุณจะเลือกอะไร และทำไม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 11 ============ -->
+<div class="chapter-open" id="ch11">
+  <div class="ch-num">11</div>
+  <div class="ch-label">บทที่ 11 · Envy Is the Enemy of Happiness</div>
+  <div class="ch-title">Envy<em>ความอิจฉา — ศัตรูที่ทำงานเงียบที่สุด</em></div>
+  <div class="ch-essence">คุณเลือกอิจฉาชีวิตคนอื่นเป็นชิ้น ๆ ไม่ได้ ถ้าจะแลก ต้องแลกทั้งชุด — รวมทุกอย่างที่คุณมองไม่เห็นด้วย</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>การทดสอบที่ฆ่าความอิจฉาได้ในสามสิบวินาที</h1>
+  <p class="lead">ความอิจฉาอันตรายกว่าความอยากธรรมดา เพราะมันไม่มีเส้นชัย ความอยากมีวันจบเมื่อคุณได้สิ่งนั้น แต่ความอิจฉาเปลี่ยนเป้าตามคนที่คุณเห็นล่าสุดตลอดเวลา — และในยุคที่คุณเห็นชีวิตคนอื่นวันละสองร้อยครั้งผ่านหน้าจอ นี่คือเครื่องจักรผลิตความทุกข์ที่ทำงานยี่สิบสี่ชั่วโมง</p>
+  <p>เครื่องมือที่ Naval ใช้แก้เรื่องนี้เรียบง่ายและได้ผลจริง เรียกว่า <b>การทดสอบแลกชีวิตทั้งชุด (whole-life swap test)</b> — เวลาคุณอิจฉาใคร ให้ถามว่า “ผมยินดีแลกชีวิตกับคนนี้ <em>ทั้งหมด</em> ไหม” ไม่ใช่แลกแค่บ้าน ตำแหน่ง หรือพอร์ตของเขา แต่รวมความสัมพันธ์ ประวัติวัยเด็ก โรคที่เขามี ความกลัวที่เขาตื่นมาเจอทุกเช้า ภาระที่เขาแบก และสิ่งที่เขาต้องแลกไปเพื่อได้สิ่งนั้นมา</p>
+  <p>คำตอบเกือบทุกครั้งคือ “ไม่” — และเมื่อคำตอบคือไม่ ความอิจฉาก็ไร้เหตุผลโดยอัตโนมัติ เพราะคุณเพิ่งยอมรับว่าคุณไม่ได้อยากเป็นเขา คุณอยากได้แค่ชิ้นเดียวของเขาโดยไม่จ่ายราคา ซึ่งไม่มีขายในโลกนี้</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · สิ่งที่ไม่ปรากฏในภาพที่คุณเห็น</div>
+    <div class="nm">ผู้ก่อตั้งที่ขายบริษัทได้ 300 ล้าน</div>
+    <p>สิ่งที่คนเห็น: โพสต์ประกาศดีล รูปถ่ายวันเซ็นสัญญา ตัวเลขในข่าว</p>
+    <p>สิ่งที่ไม่มีในรูป: สิบสองปีที่รายได้ต่ำกว่าเพื่อนรุ่นเดียวกัน, สองปีที่จ่ายเงินเดือนพนักงานด้วยการกู้ยืมส่วนตัว, ปัญหาสุขภาพจากการนอนไม่พอเรื้อรัง, ความสัมพันธ์ที่พังไปในช่วงปีที่ห้า, และช่วงหกเดือนที่เขาตื่นตอนตีสามทุกคืนเพราะกลัวไม่มีเงินจ่ายเงินเดือนเดือนถัดไป</p>
+    <p><b>ประเด็น:</b> ไม่ได้บอกว่าเขาไม่คู่ควรกับผลลัพธ์ หรือว่าคุณควรพอใจกับที่มีอยู่ — ประเด็นคือถ้าคุณจะอิจฉา คุณต้องอิจฉา <em>ทั้งชุด</em> และเมื่อเห็นทั้งชุดแล้ว คำถามจะเปลี่ยนจาก “ทำไมฉันไม่มีอย่างเขา” เป็นคำถามที่ดีกว่ามาก: “ราคาแบบไหนที่ฉันเต็มใจจ่าย และเพื่ออะไร”</p>
+  </div>
+  <div class="pullquote">คนที่คุณอิจฉา ก็กำลังอิจฉาคนอื่นอยู่ — ถ้าเกมนี้แก้ได้ด้วยการไล่ให้ทัน ต้องมีใครถึงเส้นชัยไปแล้ว แต่ไม่มีใครถึง เพราะมันไม่มีเส้นชัย</div>
+  <h2>ทำไมความอิจฉาจึงเกิดกับ “คนใกล้ตัว” มากที่สุด</h2>
+  <p>เราไม่อิจฉามหาเศรษฐีระดับโลก แต่เราอิจฉาเพื่อนร่วมรุ่นที่เพิ่งได้ตำแหน่งสูงกว่าเราหนึ่งขั้น เพราะสมองเปรียบเทียบกับ <b>กลุ่มอ้างอิงที่ใกล้ที่สุด</b> เท่านั้น นี่คือสาเหตุที่การเลื่อนขั้นทางสังคมไม่ช่วยแก้ความอิจฉาเลย — คุณเพียงเปลี่ยนกลุ่มอ้างอิง แล้วเริ่มเปรียบเทียบใหม่ในระดับที่สูงขึ้น (นี่คือกลไกเดียวกับ hedonic adaptation ในบทที่ 9)</p>
+  <div class="sig">
+    <div class="sig-col sig-do"><div class="sig-lb">โปรโตคอลลดความอิจฉา</div><ul>
+      <li>เปรียบเทียบกับตัวเองเมื่อ 12 เดือนก่อน ไม่ใช่กับคนอื่นวันนี้</li>
+      <li>เลิกติดตามบัญชีที่ทำให้คุณรู้สึกไม่พอ 5 บัญชีในสัปดาห์นี้</li>
+      <li>ใช้ whole-life swap test ทุกครั้งที่รู้สึกจี๊ดในอก</li>
+      <li>เขียนสิ่งที่คุณมีซึ่งคนที่คุณอิจฉาอาจไม่มี (เวลา สุขภาพ ครอบครัว ความสงบ)</li>
+    </ul></div>
+    <div class="sig-col sig-dont"><div class="sig-lb">สิ่งที่ไม่ช่วย</div><ul>
+      <li>พยายามชนะเขาเพื่อให้หายอิจฉา (เป้าจะเลื่อนทันที)</li>
+      <li>ดูถูกความสำเร็จของเขาเพื่อให้ตัวเองรู้สึกดีขึ้น (เกมสถานะ บทที่ 1)</li>
+      <li>ห้ามตัวเองไม่ให้รู้สึก — ความอิจฉาเป็นสัญญาณ ให้อ่านมัน ไม่ใช่กดมัน</li>
+      <li>เชื่อว่าเมื่อรวยพอแล้วจะเลิกเปรียบเทียบเอง</li>
+    </ul></div>
+  </div>
+  <div class="insight-box">
+    <div class="lb">Mental Model · อ่านความอิจฉาให้เป็นข้อมูล</div>
+    <p>ความอิจฉาไม่ใช่ศัตรูที่ต้องกำจัดเสมอ — มันเป็นเข็มทิศที่ชี้ว่า <b>คุณให้ค่ากับอะไรจริง ๆ</b> ถ้าคุณอิจฉาคนที่มีเวลาว่างอยู่กับลูก ไม่ใช่คนที่มีรถหรู นั่นคือข้อมูลชั้นดีเรื่องคุณค่าของคุณ</p>
+    <p>วิธีใช้: เวลารู้สึกอิจฉา ให้เขียนสองบรรทัด — “ผมอิจฉาอะไรของเขาแน่ ๆ” และ “ราคาที่เขาจ่ายเพื่อสิ่งนั้นคืออะไร” จากนั้นตัดสินใจอย่างตั้งใจว่าจะจ่ายราคานั้นหรือไม่ — ทั้งสองคำตอบถูกต้องได้ ขอเพียงคุณเลือกเอง ไม่ใช่ถูกความอิจฉาลากไป</p>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ใครคือคนที่คุณอิจฉาเงียบ ๆ อยู่ตอนนี้ — และคุณยินดีแลกชีวิตกับเขาทั้งชุดไหม?</li>
+      <li>ความอิจฉาของคุณกำลังชี้ว่าคุณให้คุณค่ากับอะไร (ไม่ใช่ว่าคุณขาดอะไร)?</li>
+      <li>คุณกับตัวคุณเองเมื่อปีที่แล้ว — เปลี่ยนไปในทางที่ดีขึ้นเรื่องอะไรบ้าง ที่คุณยังไม่เคยยอมรับกับตัวเอง?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 12 ============ -->
+<div class="chapter-open" id="ch12">
+  <div class="ch-num">12</div>
+  <div class="ch-label">บทที่ 12 · Happiness Requires Presence &amp; Peace</div>
+  <div class="ch-title">Peace &amp; Presence<em>ความสงบและปัจจุบัน — ที่ที่ความสุขอยู่จริง</em></div>
+  <div class="ch-essence">ความสุขเวลาเคลื่อนไหวคือความสำเร็จ ความสุขเวลาอยู่นิ่งคือความสงบ — และคุณฝึกได้แค่อย่างหลัง</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>จิตของคุณใช้เวลาส่วนใหญ่อยู่ในสองที่ที่ไม่มีอยู่จริง</h1>
+  <p class="lead">อดีตกับอนาคตไม่มีอยู่จริงในเชิงประสบการณ์ — คุณเข้าถึงมันได้เพียงในรูปความคิด แต่จิตที่ไม่ได้ฝึกจะใช้เวลาเกือบทั้งวันอยู่ในสองที่นั้น: <b>เสียใจกับอดีต</b> (regret) และ <b>กังวลกับอนาคต</b> (anxiety) เหลือเวลาอยู่กับปัจจุบันเพียงเศษเสี้ยว</p>
+  <p>Naval พูดถึงความสงบ (peace) เป็นเป้าหมายหลักของเล่มที่สอง ไม่ใช่ความตื่นเต้น เพราะความตื่นเต้นต้องมีสิ่งกระตุ้นตลอดเวลา ในขณะที่ความสงบคือสภาวะพื้นฐาน — คุณไม่ต้องหาอะไรมาเพิ่ม แค่หยุดกวนน้ำแล้วตะกอนจะตกเอง</p>
+  <div class="insight-box">
+    <div class="lb">คำที่คนไทยมีอยู่แล้ว · Equanimity = อุเบกขา</div>
+    <p><span class="en">Equanimity</span> แปลว่า “ใจที่ตั้งมั่นเสมอกันไม่ว่าอะไรเกิดขึ้น” — ไม่ใช่การไม่รู้สึก แต่คือการรู้สึกได้เต็มที่โดยไม่ถูกเหวี่ยงไปตามมัน</p>
+    <p>สังเกตว่านี่ไม่ใช่แนวคิดที่คุณต้องนำเข้า มันอยู่ในวัฒนธรรมไทยมาตลอด สิ่งที่ Naval เพิ่มคือมุมมองว่ามันเป็น <b>ทักษะทางเทคนิคที่ให้ผลตอบแทนสูงต่อการตัดสินใจ</b> — ไม่ใช่แค่คุณธรรมทางศาสนา คนที่ใจไม่เหวี่ยงตัดสินใจแม่นกว่าอย่างวัดผลได้</p>
+  </div>
+  <h2>ความสงบคือกำไรที่มองไม่เห็นในการตัดสินใจ</h2>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · ราคาของจิตที่ไม่สงบ</div>
+    <div class="nm">คนที่เปิดดูพอร์ตวันละ 20 ครั้ง</div>
+    <p>นักลงทุนสองคนถือหุ้นตัวเดียวกัน ด้วยสมมติฐานเดียวกัน กรอบเวลาสามปีเหมือนกัน คนแรกเปิดแอปดูราคาวันละยี่สิบครั้ง คนที่สองดูเดือนละครั้ง</p>
+    <p>สิ่งที่เกิดขึ้นกับคนแรก: เขาเห็นความผันผวนระยะสั้นเป็นร้อยครั้งต่อเดือน ทุกครั้งที่ราคาลง สมองจะส่งสัญญาณเจ็บ (การสูญเสียให้ความเจ็บมากกว่าที่กำไรให้ความสุขในขนาดเท่ากัน) ผลคือเขามีโอกาสสูงมากที่จะขายทิ้งกลางทางด้วยเหตุผลทางอารมณ์ ทั้งที่สมมติฐานยังไม่เปลี่ยน</p>
+    <p><b>บทเรียนที่ใช้ได้ทั้งชีวิต ไม่ใช่แค่การลงทุน:</b> ความสงบไม่ใช่รางวัลที่ได้ตอนแก่ มันคือ <em>ปัจจัยการผลิต</em> ที่ทำให้การตัดสินใจของคุณดีขึ้นวันนี้ — จิตที่กระวนกระวายมองความจริงไม่ชัด (บทที่ 8) และตัดสินใจแย่ (บทที่ 7) ซึ่งแปลเป็นเงินโดยตรง</p>
+  </div>
+  <h2>วิธีฝึกที่ Naval แนะนำจริง — และเวอร์ชันที่เริ่มได้วันนี้</h2>
+  <p>คำแนะนำของเขาสวนทางกับคอร์สสมาธิทั่วไปที่ให้เพ่งลมหายใจหรือท่องคำ เขาเสนอสิ่งที่เรียกว่า <b>“การนั่งเฉย ๆ โดยไม่ทำอะไรเลย”</b> — นั่งหลับตา ไม่พยายามควบคุมความคิด ไม่พยายามสงบ ไม่มีเป้าหมาย ปล่อยให้ความคิดทุกอย่างขึ้นมาจนหมด เขาแนะนำถึง 60 นาทีต่อวันเป็นเวลา 60 วันสำหรับคนที่เอาจริง</p>
+  <p>เหตุผลเชิงกลไก: สิ่งที่รบกวนใจเรามักเป็นเรื่องค้างที่ไม่เคยได้รับอนุญาตให้ขึ้นมาบนพื้นผิว เมื่อคุณนั่งเฉย ๆ นานพอ มันจะขึ้นมาเอง — สองสัปดาห์แรกจะรู้สึกแย่ลง (นี่คือสัญญาณว่ากำลังทำถูก) หลังจากนั้นคิวจะเริ่มว่าง</p>
+  <div class="insight-box">
+    <div class="lb">Application · เวอร์ชันเริ่มต้นที่ทำได้จริงกับตารางคนทำงาน</div>
+    <p><b>สัปดาห์ที่ 1–2:</b> นั่งเฉย 10 นาที ตอนเช้าก่อนหยิบโทรศัพท์ (ข้อสำคัญ: ก่อนหยิบโทรศัพท์)</p>
+    <p><b>สัปดาห์ที่ 3–4:</b> เพิ่มเป็น 20 นาที และเพิ่ม “เดินโดยไม่ใส่หูฟัง” วันละ 15 นาที</p>
+    <p><b>ตลอดวัน:</b> ตั้งจุดสะดุด 3 จุด (ก่อนเปิดคอมพิวเตอร์ / ก่อนกินข้าวเที่ยง / ก่อนเข้านอน) หายใจลึกสามครั้งแล้วถามคำถามเดียว — “ตอนนี้ผมอยู่ที่นี่จริงไหม หรือกำลังอยู่ในหัวตัวเอง”</p>
+    <p><b>สิ่งที่ต้องเลิกคาดหวัง:</b> ไม่ใช่การทำให้ความคิดหยุด — ความคิดจะไม่หยุด สิ่งที่เปลี่ยนคือคุณเลิกเชื่อทุกความคิดที่ผ่านมา</p>
+  </div>
+  <div class="blockquote-full">
+    <div class="q">“Peace is happiness at rest. Success is happiness in motion.”</div>
+    <div class="th">คำแปล: ความสงบคือความสุขในยามหยุดนิ่ง ความสำเร็จคือความสุขในยามเคลื่อนไหว — คนส่วนใหญ่ทุ่มทั้งชีวิตให้อย่างหลัง แล้วแปลกใจว่าทำไมพอหยุดแล้วไม่มีอะไรเหลือ</div>
+    <div class="src">Key Aphorism · บทที่ 12</div>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ตอนนี้ไม่มีเวลานั่งเฉย ๆ ต้องเร่งทำงานก่อน เดี๋ยวเรื่องสงบไว้ทำตอนเกษียณ”</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความสงบไม่ใช่ค่าใช้จ่าย มันคือการลงทุนที่คืนกำไรเป็นคุณภาพการตัดสินใจ — และการตัดสินใจคือสิ่งที่กำหนดผลลัพธ์ทั้งหมดของคุณเมื่อคุณมีคานงัด (บทที่ 4, 7)</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (พรุ่งนี้เช้า)</div><div class="ladder-text">นั่งเฉย 10 นาทีก่อนหยิบโทรศัพท์ ทำ 14 วันติดโดยไม่ต้องประเมินผล และปิดการแจ้งเตือนราคา/ตัวเลขทุกชนิดในโทรศัพท์ตั้งแต่คืนนี้</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>วันนี้คุณอยู่กับปัจจุบันจริง ๆ กี่นาที (ไม่นับตอนที่กำลังคิดเรื่องอื่นพร้อมกัน)?</li>
+      <li>สิ่งแรกที่คุณทำหลังตื่นคืออะไร — และมันตั้งโหมดของจิตคุณไว้แบบไหนสำหรับทั้งวัน?</li>
+      <li>ความกังวลข้อไหนของคุณที่กินพลังมากที่สุด และคุณควบคุมมันได้จริงกี่เปอร์เซ็นต์?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 13 ============ -->
+<div class="chapter-open" id="ch13">
+  <div class="ch-num">13</div>
+  <div class="ch-label">บทที่ 13 · Happiness Is Built by Habits · Choosing to Care for Yourself</div>
+  <div class="ch-title">Habits &amp; Body<em>นิสัยและร่างกาย — ฐานรากที่ทุกอย่างวางอยู่บน</em></div>
+  <div class="ch-essence">ความสุขไม่ได้ถูกสร้างจากการตัดสินใจครั้งใหญ่ แต่ถูกสร้างจากสิ่งที่คุณทำซ้ำทุกวันโดยไม่ต้องคิด</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>คุณไม่ได้ตัดสินใจเรื่องความสุข คุณสะสมมันเป็นนิสัย</h1>
+  <p class="lead">Naval พูดเรื่องนี้แบบไม่โรแมนติกเลย: จิตที่สงบสร้างจากร่างกายที่ทำงานปกติ และคุณไม่สามารถคิดชัดหรือสงบได้ ถ้านอนไม่พอเรื้อรัง ไม่เคยขยับร่างกาย และเลี้ยงตัวเองด้วยของที่ทำให้ระดับพลังงานเหวี่ยงทั้งวัน</p>
+  <p>สามคานที่ให้ผลตอบแทนสูงสุดและถูกละเลยที่สุดคือ <b>การนอน</b>, <b>การเคลื่อนไหว</b>, และ <b>สิ่งที่คุณกิน</b> — เรียงตามลำดับความสำคัญ ที่สำคัญคือทั้งสามอย่างไม่ใช่เรื่องวินัยที่ต้องฝืน มันเป็นเรื่องของ “ทำให้เป็นค่าเริ่มต้น (default)” เพื่อไม่ต้องใช้กำลังใจในการเลือกใหม่ทุกวัน</p>
+  <div class="deflist">
+    <div class="def"><div class="def-t">1. Sleep<span>การนอน — คานที่ยาวที่สุด</span></div><div class="def-d">งานวิจัยด้านประสาทวิทยาชี้ตรงกันว่าการนอนสั้นเรื้อรังทำให้ความจำ การตัดสินใจ และการควบคุมอารมณ์แย่ลงอย่างวัดได้ นี่หมายความว่าการอดนอนเพื่อทำงานให้เสร็จ คือการยืมคุณภาพการตัดสินใจของวันพรุ่งนี้มาใช้ — ซึ่งเป็นการแลกที่ขาดทุนเมื่อคุณมีคานงัด แนวทางสาธารณสุขทั่วไปอยู่ที่ 7–9 ชั่วโมงสำหรับผู้ใหญ่</div></div>
+    <div class="def"><div class="def-t">2. Movement<span>การเคลื่อนไหว — ทุกวัน มากกว่าหนักหน่วง</span></div><div class="def-d">Naval ให้ความสำคัญกับ “ทุกวัน” มากกว่า “หนัก” — เพราะสิ่งที่เราต้องการคือการควบคุมอารมณ์และความชัดของหัว ไม่ใช่การแข่งขัน เดินเร็ว ยกน้ำหนักเบา ๆ หรือยืดเส้น 20–30 นาทีทุกวัน ให้ผลดีต่อจิตมากกว่าการเข้ายิมหนักสัปดาห์ละครั้งแล้วเจ็บ</div></div>
+    <div class="def"><div class="def-t">3. Food<span>อาหาร — ลดของที่ทำให้เหวี่ยง</span></div><div class="def-d">หลักที่เขาใช้เรียบง่าย: กินของที่เป็นอาหารจริง ลดของหวานและของแปรรูปหนัก และระวังแอลกอฮอล์เพราะมันรบกวนการนอนซึ่งเป็นคานที่ยาวที่สุด — ไม่ใช่เรื่องรูปร่าง แต่เป็นเรื่องความคงที่ของพลังงานและอารมณ์ตลอดวัน</div></div>
+  </div>
+  <h2>วินัยไม่ใช่ศัตรูของอิสรภาพ มันคือราคาของอิสรภาพ</h2>
+  <p>คนมักคิดว่าอิสรภาพคือการทำอะไรก็ได้ตามใจ แต่คนที่ทำตามใจทุกอย่างจะกลายเป็นทาสของแรงกระตุ้นระยะสั้น — ต้องหยิบโทรศัพท์ทันทีที่ว่าง ต้องกินทันทีที่เบื่อ ต้องตอบทันทีที่ถูกยั่ว <b>อิสรภาพที่แท้คือการมีทางเลือกว่าจะไม่ตอบสนอง</b> และสิ่งเดียวที่สร้างมันได้คือนิสัยที่ฝึกไว้แล้ว</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · การเปลี่ยนนิสัยด้วยการรู้ตัว ไม่ใช่ด้วยการฝืน</div>
+    <div class="nm">นิสัยเลื่อนฟีดก่อนนอน 90 นาที</div>
+    <p>วิธีที่คนส่วนใหญ่ใช้: ตั้งกฎว่า “ห้ามเล่นโทรศัพท์บนเตียง” แล้วพลาดในคืนที่สาม เพราะกฎที่ต้องใช้กำลังใจจะแพ้ในวันที่เหนื่อย</p>
+    <p>วิธีที่ได้ผลกว่า ตามหลักที่ทั้ง Naval และงานเขียนเรื่องนิสัยเห็นตรงกัน คือ <b>เปลี่ยนสภาพแวดล้อมแทนการเปลี่ยนกำลังใจ</b> — วางที่ชาร์จโทรศัพท์ไว้ห้องอื่น (แรงเสียดทานเพิ่ม), วางหนังสือไว้บนหมอน (ทางเลือกที่ง่ายกว่า), และเพิ่มการรู้ตัวด้วยการถามหนึ่งคำถามเมื่อจับตัวเองได้ว่า “ตอนนี้ผมกำลังหนีจากความรู้สึกอะไร” — คำตอบมักคือความเหนื่อยหรือความเครียดที่ยังไม่ได้จัดการ ซึ่งนั่นคือปัญหาจริงที่ต้องแก้</p>
+    <p><b>ผลลัพธ์ที่ทบต้น:</b> นอนดีขึ้น 30 นาทีต่อคืน = 180 ชั่วโมงต่อปีของสมองที่ทำงานเต็มประสิทธิภาพ — ซึ่งย้อนกลับไปเพิ่มคุณภาพการตัดสินใจในเล่มแรกโดยตรง</p>
+  </div>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · โปรโตคอลนิสัยเดียว 30 วัน</div>
+    <p>อย่าเปลี่ยนห้านิสัยพร้อมกัน (นี่คือ Desire Audit ในรูปของนิสัย) เลือกหนึ่งอย่างที่เป็น “คานยาวที่สุด” ของคุณตอนนี้ แล้วทำตามนี้:</p>
+    <p><b>1.</b> ระบุนิสัยเดียว และทำให้เล็กจนปฏิเสธไม่ลง (เดิน 10 นาที ไม่ใช่วิ่ง 5 กม.)<br>
+    <b>2.</b> ผูกกับสิ่งที่ทำอยู่แล้ว (หลังแปรงฟัน / หลังปิดคอมพิวเตอร์)<br>
+    <b>3.</b> เปลี่ยนสภาพแวดล้อมให้ทางเลือกที่ถูกง่ายกว่าทางเลือกที่ผิด<br>
+    <b>4.</b> วัดแค่ “ทำหรือไม่ทำ” ไม่ต้องวัดคุณภาพ 30 วัน<br>
+    <b>5.</b> วันที่พลาด ให้กลับมาวันถัดไปทันทีโดยไม่ต้องชดเชย — การพลาดไม่ทำลายอะไร การเลิกทำต่างหากที่ทำลาย</p>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“ถ้ามีวินัยพอ ผมจะเปลี่ยนได้” — วินัยเป็นทรัพยากรจำกัดที่หมดตอนเย็นทุกวัน คนที่พึ่งวินัยล้วน ๆ จึงล้มเหลวในวันที่เหนื่อย ซึ่งคือวันที่สำคัญที่สุด</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ความสุขและผลงานถูกสร้างจากค่าเริ่มต้นของสภาพแวดล้อมและนิสัย ไม่ใช่จากกำลังใจ — ออกแบบสภาพแวดล้อมให้ตัวเองไม่ต้องตัดสินใจ</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (คืนนี้)</div><div class="ladder-text">เลือกนิสัยเดียวจากสามคาน (นอน / เคลื่อนไหว / อาหาร) ที่พังที่สุดในตอนนี้ แล้วเปลี่ยนสภาพแวดล้อมหนึ่งอย่างคืนนี้ให้มันง่ายขึ้น — ไม่ต้องตั้งกฎ ไม่ต้องประกาศให้ใครรู้</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทถัดไป</div>
+    <ol>
+      <li>ในสามคาน (นอน / เคลื่อนไหว / อาหาร) อันไหนที่คุณรู้อยู่แล้วว่าพัง และหลีกเลี่ยงที่จะยอมรับมานานแค่ไหน?</li>
+      <li>นิสัยไหนของคุณที่ “ทำเพื่อหนีความรู้สึก” มากกว่าทำเพราะชอบจริง?</li>
+      <li>ถ้าคุณนอนเพิ่มวันละ 45 นาทีตลอดหนึ่งปี คุณคิดว่าคุณภาพการตัดสินใจของคุณจะต่างไปแค่ไหน — และคุณยินดีแลกอะไรเพื่อมัน?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ CH 14 ============ -->
+<div class="chapter-open" id="ch14">
+  <div class="ch-num">14</div>
+  <div class="ch-label">บทที่ 14 · Choosing to Free Yourself · Live by Your Values</div>
+  <div class="ch-title">Freedom To vs Freedom From<em>อิสรภาพสองแบบ — และแบบที่คนค้นพบทีหลังเสมอ</em></div>
+  <div class="ch-essence">ครึ่งชีวิตแรกเราไล่ล่า “อิสรภาพที่จะทำอะไรก็ได้” ครึ่งหลังจึงรู้ว่าของจริงคือ “อิสรภาพจากสิ่งที่ลากเราไป”</div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Core Idea · แก่นสาร</div>
+  <h1>เงินซื้ออิสรภาพแบบแรกได้ แต่ซื้อแบบที่สองไม่ได้เลย</h1>
+  <p class="lead">Naval เล่าถึงการเปลี่ยนความเข้าใจของตัวเองอย่างตรงไปตรงมา ตอนหนุ่มเขาต้องการ <span class="en">freedom to</span> — อิสรภาพที่จะทำอะไรก็ได้ ไปที่ไหนก็ได้ ซื้ออะไรก็ได้ ซึ่งเป็นสิ่งที่เงินซื้อได้จริง แต่เมื่อได้มันมาแล้วเขาพบว่ายังไม่พอ สิ่งที่เขาต้องการจริงคือ <span class="en">freedom from</span> — อิสรภาพจากความโกรธของตัวเอง จากความอิจฉา จากความต้องการให้คนอื่นยอมรับ จากภาระที่รับมาเพราะไม่กล้าปฏิเสธ</p>
+  <p>ข้อสังเกตสำคัญที่สุดของบทนี้: <b>อิสรภาพแบบที่สองไม่ต้องรอให้รวยก่อน</b> คุณเริ่มได้วันนี้ในระดับที่คุณเป็น และคนที่ไม่ได้ฝึกมันไว้ก่อน เมื่อรวยแล้วก็ยังพูดว่า “ไม่” ไม่ได้อยู่ดี</p>
+  <div class="case">
+    <div class="lb">กรณีศึกษา · คนที่มีอิสรภาพทางการเงินแล้วแต่ยังไม่มีอิสรภาพ</div>
+    <div class="nm">เจ้าของธุรกิจที่ขายกิจการได้แล้ว แต่ตารางยังเต็มเหมือนเดิม</div>
+    <p>เขาไม่ต้องทำงานเพื่อเงินอีกแล้ว แต่ยังรับทุกงานที่มีคนขอ ยังนั่งในบอร์ดหกที่ ยังตอบข้อความทุกอย่างในสามนาที เพราะสิ่งที่เขาไม่มีอิสรภาพจากมันไม่ใช่เงิน — มันคือ <b>ความกลัวที่จะทำให้คนผิดหวัง</b> และ <b>ความต้องการรู้สึกว่าตัวเองสำคัญ</b></p>
+    <p><b>บทเรียน:</b> คนที่คิดว่า “พอมีเงินแล้วจะเลิกเครียด” มักพบว่าเงินขยายขนาดของสิ่งที่ต้องบริหาร ไม่ได้ลด — อิสรภาพภายในต้องฝึกแยกจากกันโดยเจตนา ไม่ได้แถมมากับเงิน</p>
+  </div>
+  <h2>คุณค่าส่วนตัว (values) คือระบบตัดสินใจที่ไม่ต้องคิดใหม่ทุกครั้ง</h2>
+  <p>Naval นิยามคุณค่าไว้ชัดเจนและใช้งานได้: <b>คุณค่าคือสิ่งที่คุณไม่ยอมแลก แม้จะมีข้อเสนอที่ดีมาก</b> ถ้าคุณยอมแลกมันได้ในราคาที่สูงพอ นั่นไม่ใช่คุณค่า นั่นคือความชอบ ประโยชน์ทางปฏิบัติของการมีคุณค่าที่ชัดคือ <em>คุณไม่ต้องตัดสินใจใหม่ทุกครั้ง</em> — คำถามยาก ๆ 80% ถูกตอบไปแล้วล่วงหน้า และนั่นคือที่มาของความสงบส่วนใหญ่ในชีวิตคนที่ดูมั่นคง</p>
+  <p>เขาเขียนหลักปฏิบัติส่วนตัวไว้ท้ายเล่ม ซึ่งถอดความเป็นหลักที่ใช้ได้จริงได้ประมาณนี้ — <b>โกรธคือการลงโทษตัวเองด้วยความผิดของคนอื่น</b>, <b>ถ้าเรื่องหนึ่งต้องใช้เวลาตัดสินใจนานเกินไป คำตอบคือไม่</b>, <b>เลือกใช้เวลาเฉพาะกับคนและกิจกรรมที่ตรงกับคุณค่าของตัวเอง</b>, <b>สิ่งที่สำคัญคือสิ่งที่คุณทำ ไม่ใช่สิ่งที่คุณพูดว่าจะทำ</b> และ <b>สร้างสิ่งที่คุณต้องการเห็นในโลก แล้วปล่อยให้ผลลัพธ์เป็นเรื่องของมัน</b></p>
+  <div class="insight-box">
+    <div class="lb">Decision Framework · การพูด “ไม่” เป็นคานงัดที่ทรงพลังที่สุด</div>
+    <p><b>กฎสองสัปดาห์:</b> ถ้าคุณคิดเรื่องข้อเสนอหนึ่งเกินสองสัปดาห์แล้วยังไม่ชัด ให้ตอบว่าไม่ — เพราะถ้ามันดีจริงคุณจะรู้เร็ว ความลังเลยาว ๆ คือคำตอบที่ปลอมตัวมา</p>
+    <p><b>กฎคุณค่า:</b> เขียนคุณค่าของคุณ 3–5 ข้อลงกระดาษ แล้วใช้มันเป็นตะแกรงกรองข้อเสนอทุกอย่าง ถ้าข้อเสนอชนกับคุณค่า ปฏิเสธได้ทันทีโดยไม่ต้องอธิบายยาว</p>
+    <p><b>กฎเวลา:</b> ทุกครั้งที่ตอบ “ได้” คุณกำลังตอบ “ไม่” กับทุกอย่างที่จะเกิดในเวลาเดียวกัน (opportunity cost จากบทที่ 8) — ผู้ที่ตารางเต็มไม่ใช่ผู้ที่มีคานงัดสูง แต่คือผู้ที่ยังไม่ได้เลือก</p>
+  </div>
+  <div class="blockquote-full">
+    <div class="q">“The most important skill for getting rich is becoming a perpetual learner.”</div>
+    <div class="th">คำแปล: ทักษะสำคัญที่สุดในการสร้างความมั่งคั่งคือการเป็นผู้เรียนรู้ตลอดชีวิต — และเมื่ออ่านทั้งสองเล่มจบ คุณจะเห็นว่ามันเป็นทักษะเดียวกับที่ทำให้มีความสุข เพราะทั้งความมั่งคั่งและความสุขล้วนเป็นทักษะ ไม่ใช่โชค</div>
+    <div class="src">Key Aphorism · บทที่ 14</div>
+  </div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">“พอมีอิสรภาพทางการเงินแล้วชีวิตจะเป็นของตัวเอง” — เงินให้ทางเลือก แต่ไม่ได้ให้ความสามารถที่จะเลือก ถ้าคุณยังไม่กล้าปฏิเสธ ทางเลือกที่เพิ่มมาจะกลายเป็นภาระที่เพิ่มมา</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">อิสรภาพที่แท้คือ freedom from — จากความโกรธ ความอิจฉา การต้องได้รับการยอมรับ และภาระที่รับมาเพราะกลัวทำให้คนผิดหวัง ฝึกได้ตั้งแต่วันนี้โดยไม่ต้องรอตัวเลขในบัญชี</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (สัปดาห์นี้)</div><div class="ladder-text">เขียนคุณค่า 3 ข้อของคุณ แล้วปฏิเสธสิ่งหนึ่งที่ชนกับมันภายในสัปดาห์นี้ — สั้น สุภาพ ไม่ต้องอธิบายเหตุผลยาว การปฏิเสธครั้งแรกยากที่สุด ครั้งที่สามจะกลายเป็นเรื่องปกติ</div></div>
+  </div>
+  <div class="reflection">
+    <div class="lb">Reflection · คำถามก่อนไปบทสรุป</div>
+    <ol>
+      <li>คุณค่า 3 ข้อของคุณคืออะไร — และครั้งล่าสุดที่คุณยอมแลกมันไปเพื่ออะไร?</li>
+      <li>อะไรคือ “ได้” ที่คุณตอบไปทั้งที่ใจอยากตอบ “ไม่” และมันกินเวลาคุณกี่ชั่วโมงต่อเดือน?</li>
+      <li>ถ้าคุณไม่ต้องการการยอมรับจากใครเลยเป็นเวลาหนึ่งปี คุณจะใช้เวลาต่างจากที่เป็นอยู่ตรงไหน?</li>
+    </ol>
+  </div>
+</div>
+</div><!-- /part-2 -->
+
+<!-- ============ SYNTHESIS ============ -->
+<div class="chapter-open" id="synth">
+  <div class="ch-num">15</div>
+  <div class="ch-label">Synthesis · บทสรุปลงมือ</div>
+  <div class="ch-title">One Equation<em>ทั้งเล่มในบรรทัดเดียว + พิธีกรรมก่อนตัดสินใจ + โปรโตคอล 90 วัน</em></div>
+  <div class="ch-essence">ถ้าคุณจำได้แค่อย่างเดียวจากสองเล่มนี้ ให้จำสามคำนี้ แล้วที่เหลือจะไหลตามมาเอง</div>
+</div>
+<div class="page">
+  <div class="eyebrow">Master One-Liner · ประโยคเดียวของทั้งเล่ม</div>
+  <div class="blockquote-full">
+    <div class="q">Own your leverage.<br>Want one thing.<br>Play long.</div>
+    <div class="th">เป็นเจ้าของคานงัดของตัวเอง · อยากได้ทีละอย่าง · แล้วเล่นเกมให้ยาว</div>
+    <div class="src">The Almanack of Naval Ravikant · ฉบับตกผลึก</div>
+  </div>
+  <p class="lead">สังเกตว่าสามประโยคนี้ไม่ได้บอกให้คุณ “ทำมากขึ้น” เลย ทั้งสามข้อคือการเปลี่ยนกรอบ ไม่ใช่การเพิ่มงาน</p>
+  <p><b>“เป็นเจ้าของคานงัดของตัวเอง”</b> เปลี่ยนคำถามประจำวันจาก “วันนี้ผมทำงานได้เท่าไหร่” เป็น “วันนี้ผมสร้างอะไรที่จะทำงานแทนผมต่อไป” — คำถามแรกวัดชั่วโมง คำถามที่สองวัดทรัพย์สิน (บทที่ 1–5)</p>
+  <p><b>“อยากได้ทีละอย่าง”</b> เปลี่ยนความอยากจากเชื้อเพลิงฟรีเป็นต้นทุนที่ต้องจัดสรร ทำให้ทั้งโฟกัสดีขึ้นและใจว่างขึ้นในเวลาเดียวกัน (บทที่ 9–11)</p>
+  <p><b>“เล่นเกมให้ยาว”</b> เปลี่ยนหน่วยเวลาในหัวคุณจากไตรมาสเป็นทศวรรษ ซึ่งทำให้คำตอบของคำถามเกือบทุกข้อในชีวิตเปลี่ยนไปทันที — จะรับดีลนี้ไหม จะทำงานกับคนนี้ไหม จะโกงทางลัดไหม (บทที่ 7, 12, 14)</p>
+
+  <h2>พิธีกรรมก่อนตัดสินใจครั้งใหญ่ (Pre-Decision Ritual)</h2>
+  <p class="small">ใช้ทุกครั้งก่อนตัดสินใจเรื่องที่มีผลเกินหนึ่งปี — เปลี่ยนงาน, เริ่มธุรกิจ, ลงทุนก้อนใหญ่, รับตำแหน่ง, เข้าหุ้นกับใคร แตะที่ข้อเพื่อทำเครื่องหมาย</p>
+  <div class="checklist">
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>1. ผมได้ upside เท่าไหร่ถ้าสำเร็จเกินคาด 10 เท่า</b>ถ้าคำตอบคือ “เท่าเดิม” — นี่คือการขายเวลา ไม่ใช่การสร้างทรัพย์สิน (บทที่ 5)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>2. สิ่งนี้ทบต้นได้ไหม หรือรีเซ็ตเมื่อผมหยุด</b>ถามถึงทั้งเงิน ความรู้ ชื่อเสียง และความสัมพันธ์ (บทที่ 7)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>3. ผมกำลังใช้คานงัดชนิดไหน และมันต้องขออนุญาตใครหรือไม่</b>ถ้าต้องรอคนอื่นอนุญาต ให้เตรียมแผนสำรองที่ไม่ต้องรอ (บทที่ 4)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>4. Inversion — อะไรจะทำให้เรื่องนี้พังแน่นอน</b>เขียนสามข้อ แล้วปิดความเสี่ยงนั้นก่อนเริ่ม (บทที่ 8)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>5. คนที่ผมจะร่วมงานด้วย เล่นเกมยาวหรือเกมครั้งเดียว</b>ถ้าเป็นเกมครั้งเดียว ไม่มีเงื่อนไขไหนคุ้ม — ปฏิเสธ (บทที่ 7)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>6. เรื่องนี้ชนกับคุณค่า 3 ข้อของผมหรือไม่</b>ถ้าชน จบที่ข้อนี้ ไม่ต้องคำนวณต่อ (บทที่ 14)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>7. ผมอยากสิ่งนี้จริง หรืออยากเพราะคนอื่นอยาก</b>ทดสอบ: ถ้าไม่มีใครรู้เลยว่าผมได้มัน ผมยังอยากไหม (บทที่ 6, 10)</div></div>
+    <div class="ck"><div class="ck-b"></div><div class="ck-t"><b>8. ผมกำลังตัดสินใจด้วยจิตที่สงบ หรือด้วยความกลัวตกรถ</b>ถ้าคิดเกินสองสัปดาห์แล้วยังไม่ชัด คำตอบคือไม่ (บทที่ 12, 14)</div></div>
+  </div>
+
+  <h2>โปรโตคอล 90 วัน — จากอ่านจบ สู่ชีวิตที่เปลี่ยนจริง</h2>
+  <table class="tbl">
+    <tr><th>ช่วง</th><th>เล่ม I · Wealth</th><th>เล่ม II · Happiness</th></tr>
+    <tr><td class="n">วันที่<br>1–30</td><td>เขียนชั้นซ้อนสามชั้นของตัวเอง (บทที่ 2) · แยกตารางรายได้เป็นสองคอลัมน์ “ต้องปรากฏตัว/ไม่ต้อง” (บทที่ 1) · เผยแพร่ผลงานสาธารณะชิ้นแรกในชื่อจริง (บทที่ 3, 5)</td><td>นั่งเฉย 10 นาทีทุกเช้าก่อนหยิบโทรศัพท์ (บทที่ 12) · ทำ Desire Audit เลือกความอยากใหญ่หนึ่งอย่าง (บทที่ 10) · ปิดการแจ้งเตือนทุกชนิด</td></tr>
+    <tr><td class="n">วันที่<br>31–60</td><td>แปลงงานซ้ำหนึ่งอย่างเป็นสิ่งที่ทำสำเนาได้ — สคริปต์/เทมเพลต/วิดีโอ (บทที่ 4) · เริ่ม Decision Journal (บทที่ 8)</td><td>เพิ่มเป็น 20 นาที · ทำโปรโตคอลนิสัยเดียว 30 วันในคานที่พังที่สุด (บทที่ 13) · เลิกติดตาม 5 บัญชีที่ทำให้รู้สึกไม่พอ (บทที่ 11)</td></tr>
+    <tr><td class="n">วันที่<br>61–90</td><td>เจรจาให้รายได้ส่วนหนึ่งผูกกับผลลัพธ์ หรือรับงานส่วนแบ่งหนึ่งชิ้น (บทที่ 5) · เขียนประโยคนิชที่มีคุณคนเดียว (บทที่ 6)</td><td>เขียนคุณค่า 3 ข้อ แล้วปฏิเสธหนึ่งเรื่องที่ชนกับมัน (บทที่ 14) · ทบทวน Decision Journal หาแบบแผนความผิดพลาดของตัวเอง (บทที่ 8)</td></tr>
+  </table>
+  <div class="note"><b>เกณฑ์วัดผลเดียวที่ต้องดูตอนวันที่ 90:</b> ไม่ใช่รายได้ (ยังเร็วเกินไป) แต่คือสองข้อนี้ — <b>(1)</b> มีบางอย่างที่ทำงานแทนคุณอยู่แม้จะเล็กมาก และ <b>(2)</b> คุณปฏิเสธอะไรได้ง่ายกว่าเมื่อ 90 วันก่อน ถ้าสองข้อนี้จริง เครื่องจักรทั้งสองเล่มติดแล้ว ที่เหลือเป็นเรื่องของเวลา</div>
+
+  <h2>คลังศัพท์ — แปลไทยทุกคำที่ใช้ในเอกสารนี้</h2>
+  <div class="deflist">
+    <div class="def"><div class="def-t">Wealth<span>ความมั่งคั่ง</span></div><div class="def-d">ทรัพย์สินที่สร้างรายได้ได้เองแม้คุณไม่ทำงาน — ธุรกิจ หุ้น โค้ด สื่อ ต่างจาก “เงิน” ซึ่งเป็นแค่หน่วยแลกเปลี่ยน</div></div>
+    <div class="def"><div class="def-t">Status game<span>เกมสถานะ</span></div><div class="def-d">การแข่งขันเพื่อขยับอันดับทางสังคม เป็นเกมผลรวมศูนย์ (มีคนขึ้นต้องมีคนลง) ไม่สร้างมูลค่าใหม่</div></div>
+    <div class="def"><div class="def-t">Positive-sum / Zero-sum<span>ผลรวมเป็นบวก / ผลรวมเป็นศูนย์</span></div><div class="def-d">เกมที่ทุกฝ่ายได้พร้อมกันเพราะมีของใหม่เกิดขึ้น (บวก) เทียบกับเกมที่ต้องมีคนเสียเพื่อให้อีกคนได้ (ศูนย์)</div></div>
+    <div class="def"><div class="def-t">Specific knowledge<span>ความรู้เฉพาะตัว</span></div><div class="def-d">ความรู้ที่สอนกันเป็นหลักสูตรไม่ได้ ได้มาจากความอยากรู้จริง ความหมกมุ่น และการลงสนาม — เป็นฐานของค่าตัวที่ตลาดกดไม่ได้</div></div>
+    <div class="def"><div class="def-t">Talent stack<span>ชั้นซ้อนของทักษะ</span></div><div class="def-d">การรวมทักษะหลายอย่างที่แต่ละอย่างไม่ได้เก่งที่สุด แต่รวมกันแล้วไม่มีใครเหมือน (คำของ Scott Adams)</div></div>
+    <div class="def"><div class="def-t">Leverage<span>คานงัด</span></div><div class="def-d">สิ่งที่คูณผลลัพธ์ของการตัดสินใจหนึ่งครั้ง มีสามชนิด: แรงงานคน, เงินทุน, และผลิตภัณฑ์ที่ทำสำเนาฟรี (โค้ด/สื่อ)</div></div>
+    <div class="def"><div class="def-t">Permissionless leverage<span>คานงัดที่ไม่ต้องขออนุญาต</span></div><div class="def-d">โค้ดและสื่อ — ใช้ได้โดยไม่ต้องมีใครอนุมัติ ไม่ต้องมีทุน ไม่ต้องมีทีม</div></div>
+    <div class="def"><div class="def-t">Zero marginal cost<span>ต้นทุนส่วนเพิ่มเป็นศูนย์</span></div><div class="def-d">ต้นทุนการผลิตหน่วยถัดไปเกือบเท่าศูนย์ เช่น ผู้ใช้ซอฟต์แวร์คนที่หนึ่งล้าน หรือผู้ชมวิดีโอคนที่หนึ่งล้าน</div></div>
+    <div class="def"><div class="def-t">Accountability<span>ความรับผิดชอบในชื่อตัวเอง</span></div><div class="def-d">การเอาชื่อและชื่อเสียงไปผูกกับผลลัพธ์อย่างเปิดเผย — เป็นราคาที่ต้องจ่ายเพื่อได้ส่วนแบ่ง upside</div></div>
+    <div class="def"><div class="def-t">Equity<span>ส่วนแบ่งความเป็นเจ้าของ</span></div><div class="def-d">หุ้น หุ้นส่วน หรือส่วนแบ่งรายได้ — สิ่งเดียวที่ทำให้รายได้ไม่มีเพดาน</div></div>
+    <div class="def"><div class="def-t">Skin in the game<span>มีเนื้อหนังอยู่ในเกม</span></div><div class="def-d">การที่คุณเจ็บด้วยจริงถ้าผลลัพธ์แย่ ทำให้คำแนะนำและการตัดสินใจน่าเชื่อถือ</div></div>
+    <div class="def"><div class="def-t">Mimetic desire<span>ความอยากแบบเลียนแบบ</span></div><div class="def-d">ความอยากที่ยืมมาจากคนรอบตัวโดยไม่รู้ตัว (แนวคิดของ René Girard) — ต้นตอของการแข่งขันในสนามที่เราไม่ได้เลือกเอง</div></div>
+    <div class="def"><div class="def-t">Judgment<span>วิจารณญาณ</span></div><div class="def-d">ความสามารถในการเลือกให้ถูกในเรื่องสำคัญ = ประสบการณ์ที่ย่อยแล้ว + โมเดลความคิด + การเห็นความจริงโดยไม่ให้อัตตาบิด</div></div>
+    <div class="def"><div class="def-t">Compounding<span>ดอกทบต้น</span></div><div class="def-d">การเติบโตแบบทวีคูณเมื่อผลลัพธ์ไม่ถูกรีเซ็ต ใช้กับเงิน ความรู้ ชื่อเสียง และความสัมพันธ์</div></div>
+    <div class="def"><div class="def-t">Inversion<span>การกลับด้านปัญหา</span></div><div class="def-d">เครื่องมือของ Charlie Munger — ถามว่า “อะไรจะทำให้ล้มเหลวแน่นอน” แทน “จะสำเร็จอย่างไร”</div></div>
+    <div class="def"><div class="def-t">Second-order thinking<span>การคิดชั้นที่สอง</span></div><div class="def-d">คิดถึง “ผลของผลลัพธ์” ไม่หยุดที่ผลชั้นแรก — ถาม “แล้วหลังจากนั้นอะไรเกิดขึ้น” ซ้ำสามครั้ง</div></div>
+    <div class="def"><div class="def-t">Circle of competence<span>วงความรู้จริง</span></div><div class="def-d">ขอบเขตที่คุณเข้าใจกลไกจริง นอกวงนี้คือการเดา — ทดสอบด้วยการอธิบายให้คนอื่นฟังโดยไม่อ้างคำใคร</div></div>
+    <div class="def"><div class="def-t">Opportunity cost<span>ต้นทุนค่าเสียโอกาส</span></div><div class="def-d">ทุกครั้งที่ตอบ “ได้” กับสิ่งหนึ่ง คุณกำลังตอบ “ไม่” กับทุกอย่างที่เกิดในเวลาเดียวกัน</div></div>
+    <div class="def"><div class="def-t">Hedonic adaptation<span>การปรับตัวทางความสุข</span></div><div class="def-d">กลไกที่สมองปรับตัวเข้ากับสิ่งใหม่อย่างเร็ว ทำให้ความสุขจากสิ่งของและตำแหน่งกลับสู่เส้นฐานเดิม</div></div>
+    <div class="def"><div class="def-t">Equanimity<span>อุเบกขา / ใจที่ตั้งมั่น</span></div><div class="def-d">การรู้สึกได้เต็มที่โดยไม่ถูกเหวี่ยงไปตามความรู้สึกนั้น — เป็นทักษะที่ให้ผลตอบแทนสูงต่อคุณภาพการตัดสินใจ</div></div>
+    <div class="def"><div class="def-t">Rational Buddhism<span>พุทธแบบใช้เหตุผล</span></div><div class="def-d">จุดยืนที่ Naval ใช้เรียกตัวเอง: เอาสิ่งที่ตรวจสอบด้วยเหตุผลและประสบการณ์ตรงได้มาใช้ ตัดความเชื่อที่พิสูจน์ไม่ได้ออก</div></div>
+    <div class="def"><div class="def-t">Freedom to / Freedom from<span>อิสรภาพที่จะทำ / อิสรภาพจาก</span></div><div class="def-d">แบบแรกเงินซื้อได้ (ทางเลือก ทรัพยากร) แบบที่สองซื้อไม่ได้ (อิสรภาพจากความโกรธ ความอิจฉา ความต้องการการยอมรับ)</div></div>
+  </div>
+
+  <h2>อ่านอะไรต่อ — และทำไม</h2>
+  <table class="tbl">
+    <tr><th>เล่ม</th><th>ทำไมต้องอ่านต่อจากเล่มนี้</th></tr>
+    <tr><td class="n">Poor Charlie’s Almanack<br><span style="font-weight:400;color:#7B7F80">Charlie Munger</span></td><td>คู่แฝดของเล่มนี้ในฝั่งวิจารณญาณ — คลังโมเดลความคิดและบทว่าด้วยการตัดสินใจผิดของมนุษย์ ถ้าบทที่ 8 จับใจคุณ นี่คือเล่มถัดไป</td></tr>
+    <tr><td class="n">The Psychology of Money<br><span style="font-weight:400;color:#7B7F80">Morgan Housel</span></td><td>ต่อยอดบทที่ 7 เรื่องดอกทบต้นและความอดทน ด้วยภาษาที่เป็นเรื่องเล่า อ่านง่ายที่สุดในกลุ่มนี้</td></tr>
+    <tr><td class="n">Sapiens<br><span style="font-weight:400;color:#7B7F80">Yuval Noah Harari</span></td><td>หนึ่งในเล่มที่ Naval แนะนำบ่อยที่สุด — ช่วยให้เห็นว่าเงิน สถานะ และความเชื่อของกลุ่มเป็น “เรื่องเล่าร่วม” ซึ่งเปลี่ยนวิธีมองบทที่ 1 ไปเลย</td></tr>
+    <tr><td class="n">The Beginning of Infinity<br><span style="font-weight:400;color:#7B7F80">David Deutsch</span></td><td>เล่มที่ Naval ยกว่ายากและคุ้มที่สุด — ว่าด้วยธรรมชาติของความรู้และคำอธิบายที่ดี เป็นรากของ first principles</td></tr>
+    <tr><td class="n">Meditations<br><span style="font-weight:400;color:#7B7F80">Marcus Aurelius</span></td><td>เล่มคู่ของเล่ม Happiness ในเวอร์ชันสองพันปีก่อน — สั้น อ่านซ้ำได้ตลอดชีวิต</td></tr>
+    <tr><td class="n">ต้นฉบับของเล่มนี้<br><span style="font-weight:400;color:#7B7F80">navalmanack.com</span></td><td>ดาวน์โหลดฟรีอย่างถูกลิขสิทธิ์ (จัดทำเป็นบริการสาธารณะ) — เอกสารนี้เป็นแผนที่ ต้นฉบับคือพื้นที่จริง</td></tr>
+  </table>
+
+  <div class="reflection">
+    <div class="lb">คำถามสุดท้าย · ถามตัวเองทุกไตรมาส</div>
+    <ol>
+      <li>ตอนนี้มีอะไรทำงานแทนผมอยู่บ้าง — และไตรมาสหน้าจะเพิ่มอะไร?</li>
+      <li>ความอยากใหญ่ของผมยังเป็นข้อเดิมไหม หรือผมเผลอเซ็นสัญญาเพิ่มอีกหลายฉบับ?</li>
+      <li>ผมยังอยู่ในเกมเดียวกับคนที่ผมเคารพอยู่ไหม — หรือเปลี่ยนสนามไปเพราะความรีบ?</li>
+      <li>ถ้าอีกยี่สิบปีผมมองย้อนกลับมาที่วันนี้ ผมจะเสียใจกับสิ่งที่ทำ หรือกับสิ่งที่ไม่ได้เริ่ม?</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<div class="book-footer">
+  <div class="book-footer-mark">∞</div>
+  <div class="book-footer-text">“ทั้งความมั่งคั่งและความสุขเป็นทักษะ — และทักษะทุกอย่างเริ่มจากการฝึกวันนี้ ไม่ใช่จากการรอเงื่อนไขที่พร้อม”</div>
+  <div class="book-footer-author">The Almanack of Naval Ravikant · Personal Edition</div>
+  <div class="book-footer-fine">เอกสารสรุปและเรียบเรียงเพื่อการเรียนรู้ส่วนบุคคล · แนวคิดทั้งหมดเป็นของ Naval Ravikant รวบรวมโดย Eric Jorgenson · คำอธิบาย คำแปล และตัวอย่างในเอกสารนี้เป็นการถอดความและเรียบเรียงใหม่ ไม่ใช่การคัดลอกต้นฉบับ · ต้นฉบับดาวน์โหลดฟรีที่ navalmanack.com · เนื้อหานี้ไม่ใช่คำแนะนำการลงทุนหรือคำแนะนำทางการแพทย์</div>
+</div>
+</div><!-- /book -->
+<script>
+(function(){
+  var bar=document.getElementById('bar');
+  function upd(){
+    var h=document.documentElement,b=document.body;
+    var st=h.scrollTop||b.scrollTop;
+    var sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+    bar.style.width=(sh>0?(st/sh)*100:0)+'%';
+  }
+  window.addEventListener('scroll',upd,{passive:true});
+  window.addEventListener('resize',upd);upd();
+  document.querySelectorAll('.ck').forEach(function(el){
+    el.addEventListener('click',function(){el.classList.toggle('on');});
+  });
+})();
+</script>
+</body>
+</html>
