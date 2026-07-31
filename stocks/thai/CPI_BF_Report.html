@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ชุมพรพาล์มออยล์อุตสาหกรรม (CPI) — Equity Research</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:36px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+  .toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+              background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--slate);
+              cursor:pointer;}
+  .toc-toggle .hamb{width:20px;height:14px;position:relative;flex-shrink:0;}
+  .toc-toggle .hamb span{display:block;position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                         border-radius:1px;transition:transform .25s, opacity .25s, top .25s;}
+  .toc-toggle .hamb span:nth-child(1){top:0;} .toc-toggle .hamb span:nth-child(2){top:6px;} .toc-toggle .hamb span:nth-child(3){top:12px;}
+  .toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+  .toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+  .toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+  .logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+        background:var(--white);border:var(--border);padding:4px;}
+  @media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;}}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  h3[id]{scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;min-width:0;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat.good{border-left:4px solid var(--good);}
+  .stat .v{font-family:var(--serif);font-size:34px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;margin:6px 0 0;}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+  .table-wrap table{min-width:640px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+  tbody td{padding:12px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout.good{background:var(--white);border-left:4px solid var(--good);}
+  .callout h3{margin-top:0;}
+  .chart-frame{background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;margin:12px 0 18px;}
+  .chart-frame img{display:block;width:100%;height:auto;}
+  .chart-caption{font-family:var(--mono);font-size:11px;color:var(--gray-500);padding:10px 14px;border-top:var(--rule);}
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-scale .seg.mid{background:var(--watch);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);padding:10px 8px;}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;padding:10px 8px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+    section, h3[id]{scroll-margin-top:64px;}
+    .toc{position:fixed;top:0;left:0;right:0;z-index:100;margin:0;padding:0;
+         border-radius:0;border:none;border-bottom:var(--rule);background:var(--ivory);
+         box-shadow:0 1px 6px rgba(0,0,0,.05);}
+    .toc-toggle{display:flex;border-radius:0;border:none;border-bottom:1px solid var(--gray-100);background:var(--ivory);}
+    .toc .eyebrow{display:none;}
+    .toc ol{margin:0;padding:6px 14px 16px;max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+    .toc.collapsed ol{max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .stat .v{font-size:28px;}
+    h1{font-size:28px;}
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  }
+  @media(max-width:520px){
+    .band{grid-template-columns:1fr;}
+  }
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="toc" aria-label="Contents">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">Contents</div>
+    <ol id="toc-list">
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · ธุรกิจ &amp; เรื่องราว</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดล &amp; รายได้</a></li>
+      <li><a class="sub" href="#s1-2">1.2 จุดแข็งของธุรกิจ</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; ตลาด</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโต &amp; ลงทุน</a></li>
+      <li><a class="sub" href="#s1-5">1.5 ช่วงอายุธุรกิจ</a></li>
+      <li><a href="#s2">2 · สถานะการเงิน</a></li>
+      <li><a href="#s3">3 · การประเมินมูลค่า</a></li>
+      <li><a href="#s4">4 · ผลประกอบการ &amp; ตลาด</a></li>
+      <li><a href="#s5">5 · จังหวะเข้าซื้อ</a></li>
+      <li><a href="#s6">6 · สถานการณ์ &amp; แผน</a></li>
+      <li><a class="sub" href="#s6-5">6.5 ตรวจสอบ SEPA</a></li>
+      <li><a href="#s7">7 · ความเสี่ยง</a></li>
+      <li><a href="#s8">8 · คำถามนักลงทุน — ปิดรายงาน</a></li>
+      <li><a class="sub" href="#s8-1">8.1 ทำไมไม่มีคนวิเคราะห์?</a></li>
+      <li><a class="sub" href="#s8-2">8.2 ขายออกยังไง?</a></li>
+      <li><a class="sub" href="#s8-3">8.3 มีจุดเด่นอะไร?</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <img class="logo" src="data:image/png;base64,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" alt="CPI logo" width="64" height="64">
+          <h1>ชุมพรพาล์มออยล์อุตสาหกรรม</h1>
+        </div>
+        <span class="pill">Equity Research · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">ผู้ผลิตน้ำมันปาล์มครบวงจร (ต้นน้ำ-ปลายน้ำ) ขนาดกลางในไทย รับซื้อ FFB → สกัด CPO → กลั่น RBD → จำหน่ายอุตสาหกรรม + ขายปลีกตรา "ลีลา" + ไฟฟ้าชีวมวล/ชีวภาพ</div>
+      <div class="meta mono">CPI.BK · SET · THB · ข้อมูล ณ 31 กรกฎาคม 2026</div>
+    </header>
+
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+
+      <div class="callout" style="margin-bottom:14px; background:var(--gray-100);">
+        <h3 style="margin-top:0;">📖 คำศัพท์ที่ใช้ในรายงานนี้ (อ่านก่อน)</h3>
+        <p class="small">รายงานนี้มีคำศัพท์การเงินที่อาจดูยากสำหรับนักลงทุนทั่วไป สรุปความหมายสั้น ๆ ไว้ที่นี่:</p>
+        <table class="small" style="background:transparent; font-size:12.5px;">
+          <thead><tr><th>คำศัพท์</th><th>แปล/ความหมายง่าย ๆ</th></tr></thead>
+          <tbody>
+            <tr><td><strong>มูลค่าที่แท้จริง (Fair Value)</strong></td><td>ราคาที่หุ้น "ควรคุ้ม" ตามพื้นฐานธุรกิจ — ถ้าราคาตลาดต่ำกว่า = น่าสนใจ (ถูก), ถ้าสูงกว่า = แพงไป</td></tr>
+            <tr><td><strong>P/E (ราคาต่อกำไร)</strong></td><td>ราคาหุ้นหารด้วยกำไรต่อหุ้น — ยิ่งต่ำยิ่งถูก (เทียบกับเพื่อนในกลุ่มเดียวกัน)</td></tr>
+            <tr><td><strong>P/B (ราคาต่อมูลค่าบัญชี)</strong></td><td>ราคาหุ้นเทียบกับทุนสะสมในบัญชี — ต่ำกว่า 1 = ซื้อถูกกว่ามูลค่าสินทรัพย์</td></tr>
+            <tr><td><strong>ROIC vs WACC</strong></td><td>ROIC = ผลตอบแทนที่บริษัททำได้จากเงินลงทุน; WACC = ต้นทุนเงินทุน — ถ้า ROIC &gt; WACC = บริษัทสร้างมูลค่าเพิ่ม (ดี)</td></tr>
+            <tr><td><strong>FCF (เงินสดอิสระ)</strong></td><td>เงินสดที่เหลือหลังจ่ายค่าทำการผลิตและลงทุน — ใช้จ่ายปันผล/ลงทุนต่อได้จริง</td></tr>
+            <tr><td><strong>Mid-cycle / Peak / Trough</strong></td><td>ช่วงปกติ / ช่วงดีสุด / ช่วงแย่สุด ของวัฏจักรธุรกิจ — หุ้นปาล์มเป็น cyclical (ขึ้น ๆ ลง ๆ ตามราคาสินค้า)</td></tr>
+            <tr><td><strong>D/E (หนี้สินต่อส่วนของผู้ถือหุ้น)</strong></td><td>ยิ่งต่ำยิ่งปลอดภัย — D/E 0.18 หมายถึงมีหนี้น้อยมาก</td></tr>
+            <tr><td><strong>Yield (ปันผลให้/ราคา)</strong></td><td>เงินปันผลที่ได้เป็น % ของราคาหุ้นที่จ่าย — 7.4% = ลงทุน 100 บาท ได้ปันผล 7.4 บาท/ปี</td></tr>
+            <tr><td><strong>Catalyst</strong></td><td>เหตุการณ์ที่จะ "ดัน" ราคาหุ้น เช่น เปิดโรงงานใหม่, กำไรโต</td></tr>
+            <tr><td><strong>Pullback / Breakout</strong></td><td>Pullback = ราคาลงมาเล็กน้อย (โอกาสซื้อ); Breakout = ราคาทะลุจุดสูงสุดเดิม</td></tr>
+            <tr><td><strong>Bull / Base / Bear</strong></td><td>กรณีดีขึ้น / กรณีปกติ / กรณีแย่ลง — ใช้ประเมิน "ถ้าเกิดอย่างนี้จะเป็นยังไง"</td></tr>
+            <tr><td><strong>GF Score</strong></td><td>คะแนนคุณภาพบริษัทจาก GuruFocus (0-100) — 68 = ปานกลาง, คาดการณ์ผลตอบแทนในอนาคต "ไม่ดีนัก"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout" style="margin-bottom:18px;">
+        <h3>Key Investment Insight (สาระสำคัญ)</h3>
+        <p>CPI เป็นหุ้นน้ำมันปาล์มไทยขนาดเล็ก-กลางที่ <strong>ตลาดมองข้าม</strong> — ซื้อขายในระดับ <strong>ถูกกว่าหุ้นปาล์นไทยตัวอื่น ๆ อย่างชัดเจน</strong> (P/E ~7-8 เท่า เทียบกับค่ากลางของกลุ่ม 11 เท่า; P/B 0.64 เท่า เทียบกับ 1.20). หลังตรวจสอบกับข้อมูลจาก 3 แหล่งภายนอก (valueinvesting.io + GuruFocus + คำนวณเอง), <strong>มูลค่าที่แท้จริงน่าจะอยู่ราว ฿6-7 ต่อหุ้น</strong> (ช่วงกว้าง ฿4.73 ถึง ฿11.7) — เทียบกับราคาปัจจุบัน ฿3.64 = <strong>มีโอกาสขึ้น 30-114%</strong>. จุดเด่น: บริษัททำกำไรได้ดี (ROIC 12% &gt; WACC 8%), ปันผลสูง 7.4%, ลดหนี้มาก. <strong>⚠️ แต่มีสัญญาณตื่นตัว:</strong> GuruFocus ให้คะแนนคุณภาพเพียง 68/100 (คาดว่าผลตอบแทนอนาคตไม่ดีนัก) และตลาดกลัวว่ากำไรจะหดลง <strong>-8.65% ต่อปี</strong> — ดังนั้นอย่าเพิ่งไล่ตามที่ราคา 3.64. <strong>จังหวะที่เหมาะ:</strong> รอราคาปรับลงมาที่ ฿3.42-3.50 และรอผลประกอบการไตรมาส 2/2026 ยืนยันว่ากำไรยังโต</p>
+      </div>
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">฿4.73–11.7</div><div class="k">ช่วงมูลค่าที่แท้จริง</div>
+          <div class="d up">โอกาสขึ้น +30% ถึง +114%</div>
+        </div>
+        <div class="stat"><div class="v">฿3.64</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">31 ก.ค. 2026</div></div>
+        <div class="stat warn"><div class="v">รอก่อน</div><div class="k">สถานะ / ความมั่นใจ</div><div class="d flat">ปานกลาง — รอราคาลงที่ 3.42-3.50 + ผล Q2/26</div></div>
+        <div class="stat good"><div class="v">7.4%</div><div class="k">ปันผลให้</div><div class="d up">0.27 บาท/หุ้น</div></div>
+      </div>
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis (เหตุผลสนับสนุน)</h3>
+        <p><strong>สิ่งที่คุณจ่าย:</strong> 3.64 บาทต่อหุ้น (มูลค่าตลาด ~2,303 ล้านบาท) — <strong>ถูกกว่าหุ้นปาล์มไทยตัวอื่น 47-53%</strong> ไม่ว่าจะวัดด้วยค่าใด ๆ (P/E, P/B, EV/EBITDA). <strong>สิ่งที่คุณได้:</strong> ธุรกิจน้ำมันปาล์มครบวงจร (ตั้งแต่พันธุ์ → โรงสกัด → กลั่น → ขายปลีกตรา "ลีลา" พร้อมไฟฟ้าเป็นผลพลอยได้ที่ลดต้นทุน) ที่ทำกำไรได้ดี (ผลตอบแทนเงินลงทุน 12% เทียบกับต้นทุนเงินทุน 8% = สร้างมูลค่าเพิ่ม). <strong>สิ่งที่ต้องเป็นจริง:</strong> (1) ราคาน้ำมันปาล์มโลกไม่ collapse (คงอยู่ที่ 30-37 บาท/กก.) และ (2) โรงงานใหม่ที่ลงทุน 940 ล้านบาทเปิดตามแผนในปี 2027-2028. <strong>ความเสี่ยงไม่สมดุล (เหมาะที่จะลอง):</strong> แม้ในกรณีแย่ที่สุด (Bear), มูลค่ายังอยู่ที่ ~3.15 บาท (ใกล้ราคาปัจจุบัน = ขาดทุนจำกัด), ส่วนในกรณีดี (Bull) อาจขึ้นไป 7.5-16 บาท — <strong>โอกาสได้มากกว่าเสี่ยง</strong></p>
+        <p class="small muted">รายละเอียดการคำนวณใน <a href="#s3">§3</a>; จังหวะเข้าซื้อใน <a href="#s5">§5</a>; แผนการลงทุนใน <a href="#s6">§6</a>; ความเสี่ยงใน <a href="#s7">§7</a>.</p>
+      </div>
+    </section>
+
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจ &amp; Narrative</h2></div>
+      <hr class="div">
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้</h3>
+      <p>CPI ดำเนินธุรกิจน้ำมันปาล์ม<strong>ครบวงจรตั้งแต่ต้นน้ำสู่ปลายน้ำ</strong> ภายใต้บริษัทย่อย 3 ตัวหลัก: (1) <strong>ซีพีไอ อะโกรเทค</strong> — ผลิตพันธุ์ปาล์ม CPI Hybrid TS1/CR1 + ต้นกล้า + ปุ๋ย; (2) <strong>ซีพีพี</strong> — โรงสกัด CPO + โรงไฟฟ้าชีวมวล ≤4 MW; (3) <strong>ซีพีไอ เพาเวอร์</strong> — ไฟฟ้าก๊าซชีวภาพ ≤3 MW ที่โรงงานชุมพร. บริษัทจำหน่ายทั้งสินค้าอุตสาหกรรม (RPO, RKO, ROL, PFAD) และขายปลีกน้ำมันพืชตรา <strong>"ลีลา"</strong> (ได้รับ Superior Taste Award Belgium 4 ปีซ้อน) รวมถึงรับผลิต OEM</p>
+      <table>
+        <thead><tr><th>Segment (งบรวม 2024)</th><th class="num">รายได้ (ล้านบาท)</th><th class="num">% รวม</th><th>ลักษณะ</th></tr></thead>
+        <tbody>
+          <tr><td>น้ำมันปาล์ม + ต้นกล้า/พันธุ์</td><td class="num">5,047.2</td><td class="num">97.1%</td><td class="small muted">profit engine — margin ตามราคา CPO</td></tr>
+          <tr><td>ไฟฟ้า (ขาย กฟภ. 5y rolling PPA)</td><td class="num">141.1</td><td class="num">2.7%</td><td class="small muted">annuity-like, low risk</td></tr>
+          <tr><td>ไบโอแก๊ส</td><td class="num">4.6</td><td class="num">0.1%</td><td class="small muted">เล็กมาก</td></tr>
+        </tbody>
+        <tfoot><tr><td>รวมรายได้ 2024</td><td class="num">5,192.9</td><td class="num">100%</td><td>(2023: 5,255.2; -1.2% YoY)</td></tr></tfoot>
+      </table>
+      <p class="small muted">แหล่ง: 56-1 One Report 2024 (งบการเงินรวม ณ 31 ธ.ค. 2024), หมายเหตุ 25. บริษัทมีพนักงาน ~936 คน, ก่อตั้ง 1979, สำนักงานใหญ่ อ.ท่าแซะ จ.ชุมพร</p>
+
+      <h3 id="s1-2">1.2 จุดแข็งของธุรกิจ (Moat)</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">ครบวงจร</span> <span class="tag">ต้นทุนต่ำ</span> <span class="tag">แบรนด์ลีลา</span> <span class="tag">วิจัยพันธุ์ปาล์ม</span> <span class="tag">สิทธิประโยชน์ BOI</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="ความแข็งแกร่งของจุดแข็ง">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg mid"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">ปานกลาง-แคบ</span>
+          <span class="chip"><span class="dot good"></span>ความคงทน: คงที่ →</span>
+          <span class="mono small">ผลตอบแทนเงินลงทุน − ต้นทุนเงินทุน: +6 ถึง +8 จุด</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,20 30,22 60,12 90,9 120,7"/>
+          </svg>
+        </div>
+      </div>
+      <p>จุดแข็ง: <strong>(1) ครบวงจร</strong> ทำให้คุมต้นทุนตั้งแต่พันธุ์-สกัด-กลั่น; <strong>(2) ใช้ไฟฟ้าที่ผลิตเอง</strong> (ก๊าซชีวภาพจากน้ำเสียของโรงงาน + เชื้อเพลิงชีวมวลจากกากปาล์ม) → ลดค่าไฟฟ้าภายนอกเกือบเหลือศูนย์; <strong>(3) แบรนด์ลีลา</strong> ได้รับการยอมรับระดับสากล (รางวัล Superior Taste Award จากเบลเยียม); <strong>(4) วิจัยพันธุ์ปาล์ม CPI Hybrid</strong> ที่พัฒนามานานกว่า 20 ปี. <strong>ความเสี่ยงใหญ่ที่สุด:</strong> CPI <strong>ไม่สามารถตั้งราคาขายเองได้</strong> — ต้องตามราคาน้ำมันปาล์มโลกที่อินโดนีเซียและมาเลเซียเป็นผู้กำหนด (ทั้งคู่คุม 80%+ ของผลผลิตโลก)</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรม &amp; ขนาดตลาด</h3>
+      <p><strong>ปัจจัยหนุน (Tailwinds):</strong> (1) ความต้องการจากไบโอดีเซล (อินโดนีเซียบังคับใช้ B40), (2) ความต้องการน้ำมันพืชทั่วโลกเติบโตตามประชากร, (3) อุตสาหกรรมสบู่/เครื่องสำอาง. <strong>ปัจจัยกดดัน (Headwinds):</strong> (1) ราคาน้ำมันปาล์มผันผวนสูงตามนโยบายส่งออกของอินโดนีเซีย/มาเลเซีย, (2) แรงกดดันด้านสิ่งแวดล้อม (การตัดไม้ทำลายป่า), (3) การแข่งขันจากน้ำมันถั่วเหลือง/ทานตะวัน. <strong>ขนาดตลาดไทย:</strong> ผลผลิตผลปาล์มสด ~19 ล้านตัน/ปี, น้ำมันปาล์มดิบ ~3.4 ล้านตัน/ปี (2568). ส่วนแบ่งตลาด CPI &lt;5% ของไทย → ไม่ใช่ผู้นำตลาด. <strong>แนวโน้มราคา 2569:</strong> SCB EIC คาดน้ำมันปาล์มไทยเฉลี่ย <strong>33.9 บาท/กก.</strong> (ลด 6.8% จากปีก่อน) — แต่เม.ย. 2569 ราคาผลปาล์มสดพุ่งเป็น 7.0-7.9 บาท/กก. สะท้อนปัจจัยขาดแคลนระยะสั้น</p>
+
+      <h3 id="s1-4">1.4 การเติบโต &amp; การลงทุนที่คุ้มค่า</h3>
+      <p>รายได้ 5 ปี (2564→2568): 7,681 → 5,326 ล้านบาท (<strong>ลดลง 8.7% ต่อปี</strong> — ลดลงเพราะราคาปาล์มลดจากจุดสูงสุดปี 2022, ไม่ใช่ว่าธุรกิจแย่ลงถาวร). <strong>ตัวเร่ง (Catalyst) ใหญ่:</strong> 12 พ.ย. 2568 บริษัทอนุมัติ <strong>ลงทุน 940 ล้านบาท</strong> ก่อสร้างโรงงานสกัดน้ำมันปาล์มดิบแห่งใหม่ (กำลังการผลิต ≤60 ตันผลปาล์ม/ชม.) พร้อมโรงไฟฟ้าชีวมวล/ชีวภาพ → เพิ่มกำลังการผลิตและลดต้นทุนโดยรวม. ผลตอบแทนเงินลงทุน ~12-14% เทียบกับต้นทุนเงินทุน ~6% → <strong>สร้างมูลค่าเพิ่ม</strong>. การลงทุนปี 2568 = 147 ล้าน + จะเพิ่มขึ้นมากในปี 2569-70 สำหรับโรงงานใหม่ — ต้องติดตามว่าเงินสดกลับมาหรือไม่</p>
+
+      <h3 id="s1-5">1.5 ช่วงอายุธุรกิจ &amp; การประเมินความน่าจะเป็น</h3>
+      <p><span class="tag">บริษัทที่โตเต็มที่แล้ว (Mature)</span> — อายุ 45+ ปี, การเติบโตตามวัฏจักรราคาปาล์ม, เน้นที่กำไรและความยั่งยืนของปันผล. <strong>ตัวขับเคลื่อนหลัก:</strong> อัตรากำไร + การบริหารเงินทุนที่มีวินัย</p>
+      <div class="callout">
+        <h3>ทำได้ · มีเหตุผล · น่าจะเป็นไปได้ (Possible · Plausible · Probable)</h3>
+        <p class="small"><strong>ทำได้:</strong> ราคาปาล์มขาขึ้นจาก supply จำกัด + โรงงานใหม่เปิด → ใช่. <strong>มีเหตุผล:</strong> มีกลไก (ความต้องการไบโอดีเซล, supply จำกัด) และเคยเกิดแล้ว (รอบปี 2022) → ใช่. <strong>น่าจะเป็นไปได้:</strong> กรณีปกติราคาปาล์ม 30-37 บาท/กก. ในปี 2569-70 → โอกาสปานกลาง, ไม่ใช่แน่นอน (ขึ้นกับนโยบายส่งออกอินโดนีเซีย, สภาพอากาศ El Niño/La Niña).</p>
+        <p class="small muted"><strong>ข้อควรระวัง:</strong> ห้ามสมมติว่าราคาปาล์มจะอยู่ที่จุดสูงสุดตลอด — ใช้ค่ากลางของวัฏจักร ~30-35 บาท/กก.; อย่าคาดหวังต่อจากผล Q2/2568 (จุดสูงสุดของวัฏจักร)</p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>สถานะการเงิน (Financial Dashboard)</h2></div>
+      <hr class="div">
+      <p class="small muted">~20 ตัวชี้วัด, แนวโน้ม 5 ปี, คำอธิบายต่อตัว. สี = การประเมิน (ดีขึ้น / ระวัง / แย่ลง) ไม่ใช่เครื่องหมาย. เริ่มจากตัวชี้วัดหลักก่อน</p>
+
+      <table>
+        <thead><tr><th>ตัวชี้วัดหลัก</th><th class="num">ล่าสุด (2568)</th><th>แนวโน้ม 5 ปี</th><th>คำอธิบาย</th><th>การประเมิน</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ผลตอบแทนเงินลงทุน − ต้นทุนเงินทุน (ROIC − WACC)</td><td class="num">+6 ถึง +8 จุด</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,22 30,24 60,12 90,10 120,7"/></svg></td>
+            <td class="small">สร้างมูลค่าเพิ่ม (วัฏจักร)</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแรง</span></td>
+          </tr>
+          <tr>
+            <td>การลงทุนเทียบกับเงินสดอิสระ (CapEx vs FCF)</td><td class="num">147 vs 147 ล้าน</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,20 30,22 60,9 90,5 120,17"/></svg></td>
+            <td class="small">ปี 2567 เงินสดสูง (ปลดเงินทุนหมุนเวียน), ปี 2568 กลับเข้าสู่การลงทุนโรงงานใหม่ — ติดตามว่าคุ้มไหม</td>
+            <td><span class="chip"><span class="dot watch"></span>ระวัง</span></td>
+          </tr>
+          <tr>
+            <td>หนี้สิน (Net debt/EBITDA)</td><td class="num">~0.7 เท่า</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,8 30,11 60,17 90,21 120,23"/></svg></td>
+            <td class="small">D/E 0.67 → 0.18 — ลดความเสี่ยงชัดเจน</td>
+            <td><span class="chip"><span class="dot good"></span>ดีขึ้น</span></td>
+          </tr>
+          <tr>
+            <td><strong>คะแนนคุณภาพ GuruFocus (GF Score)</strong></td><td class="num"><strong>68/100</strong></td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,15 30,14 60,13 90,12 120,13"/></svg></td>
+            <td class="small">"คาดผลตอบแทนอนาคตปานกลาง-ไม่ดีนัก" — บริษัทมีความผันผวนสูง (cyclical)</td>
+            <td><span class="chip"><span class="dot watch"></span>ปานกลาง</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="grid2" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>Profitability</th><th class="num">2025</th><th class="num">5y direction</th><th>Judgement</th></tr></thead>
+          <tbody>
+            <tr><td>Gross margin</td><td class="num">17.4%</td><td class="num">10→17%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>Operating margin</td><td class="num">10.2%</td><td class="num">5→10%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>Net margin</td><td class="num">7.8%</td><td class="num">4→8%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>Returns &amp; efficiency</th><th class="num">2025</th><th class="num">5y direction</th><th>Judgement</th></tr></thead>
+          <tbody>
+            <tr><td>ROE</td><td class="num">13.6%</td><td class="num">5→14%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>ROA</td><td class="num">8.8%</td><td class="num">3→9%</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>WACC</td><td class="num">5.5-6.0%</td><td class="num">—</td><td><span class="chip"><span class="dot good"></span>—</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid2" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>Cash flow (ล้านบาท)</th><th class="num">2025</th><th class="num">2024</th><th>Judgement</th></tr></thead>
+          <tbody>
+            <tr><td>Operating CF</td><td class="num">294</td><td class="num">967</td><td><span class="chip"><span class="dot watch"></span>↓</span></td></tr>
+            <tr><td>CapEx</td><td class="num">(147)</td><td class="num">(99)</td><td><span class="chip"><span class="dot watch"></span>↑</span></td></tr>
+            <tr><td>Free CF</td><td class="num">147</td><td class="num">868</td><td><span class="chip"><span class="dot watch"></span>↓</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>Balance sheet (ล้านบาท)</th><th class="num">2025</th><th class="num">2022</th><th>Judgement</th></tr></thead>
+          <tbody>
+            <tr><td>Total Debt</td><td class="num">645</td><td class="num">1,761</td><td><span class="chip"><span class="dot good"></span>↓</span></td></tr>
+            <tr><td>D/E ratio</td><td class="num">0.18</td><td class="num">0.67</td><td><span class="chip"><span class="dot good"></span>↓</span></td></tr>
+            <tr><td>Current ratio</td><td class="num">1.59</td><td class="num">0.94</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid2" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>Valuation multiples</th><th class="num">CPI</th><th class="num">Peer median</th><th>Judgement</th></tr></thead>
+          <tbody>
+            <tr><td>P/E (ttm)</td><td class="num">5.2x</td><td class="num">11.1x</td><td><span class="chip"><span class="dot good"></span>deep discount</span></td></tr>
+            <tr><td>P/B</td><td class="num">0.64x</td><td class="num">1.20x</td><td><span class="chip"><span class="dot good"></span>-47%</span></td></tr>
+            <tr><td>EV/EBITDA</td><td class="num">3.4x</td><td class="num">6.8x</td><td><span class="chip"><span class="dot good"></span>-49%</span></td></tr>
+            <tr><td>P/S</td><td class="num">0.43x</td><td class="num">0.57x</td><td><span class="chip"><span class="dot watch"></span>-25%</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>Dividend</th><th class="num">2025</th><th class="num">Trend</th><th>Judgement</th></tr></thead>
+          <tbody>
+            <tr><td>DPS (บาท)</td><td class="num">0.27</td><td class="num">0.11→0.27</td><td><span class="chip"><span class="dot good"></span>↑</span></td></tr>
+            <tr><td>Yield @ 3.64</td><td class="num">7.4%</td><td class="num">—</td><td><span class="chip"><span class="dot good"></span>high</span></td></tr>
+            <tr><td>Payout ratio</td><td class="num">41%</td><td class="num">policy ≥40%</td><td><span class="chip"><span class="dot good"></span>compliant</span></td></tr>
+            <tr><td>vs Thai 10Y bond</td><td class="num">3.6x</td><td class="num">2.06%</td><td><span class="chip"><span class="dot good"></span>high</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="small muted" style="margin-top:14px;">แหล่ง: งบการเงิน 2021-2025 จาก yfinance + 56-1 One Report 2024. หมายเหตุ: ROIC estimate ~12-14% คำนวณจาก NOPAT/invested capital; spread สูงแต่ cyclical</p>
+    </section>
+
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>การประเมินมูลค่า (Valuation)</h2></div>
+      <hr class="div">
+      <p><strong>มูลค่าที่แท้จริงอยู่ในช่วง ฿4.73 (คำนวณอย่างระมัดระวัง) ถึง ฿11.7 (จากแหล่งภายนอก)</strong> เทียบกับราคาปัจจุบัน ฿3.64 → <strong>โอกาสขึ้น 30% ถึง 114%</strong>. หลังตรวจสอบกับข้อมูลจาก valueinvesting.io + GuruFocus + คำนวณเองด้วยสมมติฐานที่ผ่านการตรวจสอบแล้ว</p>
+
+      <table>
+        <thead><tr><th>Method</th><th class="num">Implied price (บาท)</th><th class="num">Weight</th><th>Rationale</th></tr></thead>
+        <tbody>
+          <tr><td><strong>My DCF (verified WACC 8.15%, hold disc 12%)</strong></td><td class="num">6.33</td><td class="num">40%</td><td class="small muted">mid-cycle EBIT 8.5%, Kroll 10a size premium 3.31%, holding disc 12%</td></tr>
+          <tr><td>My Relative (peer × 0.70, adj)</td><td class="num">3.20</td><td class="num">30%</td><td class="small muted">mid-cycle EPS 0.50 + holding disc</td></tr>
+          <tr><td>My SOTP (palm 5x + energy 6.5x, adj)</td><td class="num">4.13</td><td class="num">30%</td><td class="small muted">แยก palm core จาก energy (utility-like)</td></tr>
+        </tbody>
+        <tfoot><tr><td><strong>My blended (conservative)</strong></td><td class="num">4.73</td><td class="num">100%</td><td>+30% vs current</td></tr></tfoot>
+      </table>
+
+      <h3>เทียบกับแหล่งภายนอก (valueinvesting.io + GuruFocus)</h3>
+      <table>
+        <thead><tr><th>แหล่ง</th><th class="num">มูลค่า (บาท)</th><th>สมมติฐาน</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>valueinvesting.io (DCF)</td><td class="num">12.23</td><td class="num">ต้นทุนเงินทุน 6.9%</td><td class="small muted">เติบโต 0.5%, ช่วง 9.90-16.11</td></tr>
+          <tr><td>valueinvesting.io (สัดส่วน)</td><td class="num">9.41</td><td class="num">—</td><td class="small muted">P/E 13.8x, ช่วง 8.27-10.59</td></tr>
+          <tr><td><strong>GuruFocus (มูลค่าที่แท้จริง)</strong></td><td class="num">13.40</td><td class="num">—</td><td class="small muted"><strong>คะแนนคุณภาพ 68/100</strong> ("ผลตอบแทนอนาคตไม่ดีนัก"); ตลาดคาดว่ากำไรจะหด <strong>-8.65% ต่อปี</strong></td></tr>
+          <tr><td><strong>ค่ากลางแหล่งภายนอก</strong></td><td class="num">~11.7</td><td class="num">—</td><td class="small muted">3 ค่าใกล้กันมาก</td></tr>
+          <tr><td><strong>ของผม (อย่างระมัดระวัง)</strong></td><td class="num">4.73</td><td class="num">ต้นทุนเงินทุน 8.15%</td><td class="small muted">+ เพิ่มค่าเสี่ยงขนาดบริษัท + ส่วนลดกรรมการครอบครัว</td></tr>
+          <tr><td><strong>ช่วงมูลค่าที่แท้จริง</strong></td><td class="num">4.73 – 11.7</td><td class="num">—</td><td class="small muted">ผมระมัดระวังกว่า; แหล่งภายนอกเป็นขอบบน</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted"><strong>ข้อสังเกตสำคัญ:</strong> ทั้ง valueinvesting.io (฿10-12) และ GuruFocus (฿13.40, คะแนน 68) ต่างเห็น CPI เป็นหุ้นถูก <strong>แต่ทั้งสองแหล่งก็เตือน</strong> — valueinvesting.io ใช้ต้นทุนเงินทุนต่ำเกินไป (6.9%, ไม่มีค่าเสี่ยงขนาด), GuruFocus บอกเองว่า "คาดการณ์ยาก" + ตลาดคาดว่ากำไรจะหด <strong>-8.65% ต่อปี</strong>. ผมเลือกใช้ค่าระมัดระวัง ฿4.73 เพราะใส่ค่าเสี่ยงที่แหล่งอื่นไม่ใส่ — แต่ก็แสดงค่าแหล่งภายนอกเป็นขอบบนให้ผู้ลงทุนเห็นด้วย. <strong>สรุป: มูลค่าที่แท้จริงอยู่ในช่วง ฿4.73 (ระมัดระวัง) ถึง ฿11.7 (ขอบบน)</strong>, ค่ากลางราว ฿6-7</p>
+
+      <h3>DCF assumptions</h3>
+      <table>
+        <thead><tr><th>Input</th><th class="num">Value</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Revenue growth path (5y)</td><td class="num">+4% → +6% → +5% → +3.5% → +2.5%</td><td class="small muted">cyclical recovery + โรงงานใหม่ Y1-3</td></tr>
+          <tr><td>EBIT margin (mid-cycle)</td><td class="num">8.5%</td><td class="small muted">ระหว่าง trough 4% (2023) และ peak 10% (2025)</td></tr>
+          <tr><td>D&A / Revenue</td><td class="num">3.6%</td><td class="small muted">3-yr median</td></tr>
+          <tr><td>CapEx / Revenue path</td><td class="num">4% → 4.5% → 3.5% → 2.5% → 2%</td><td class="small muted">โรงงานใหม่ 940 ล้าน front-load</td></tr>
+          <tr><td>WACC</td><td class="num">8.15%</td><td class="small muted">rf 2.06% + β 0.85 · ERP 6.30% (Damodaran Jan 2026) + Kroll size premium 3.31% (decile 10a published)</td></tr>
+          <tr><td>Terminal growth</td><td class="num">2.0%</td><td class="small muted">≤ Thai nominal GDP ~4%</td></tr>
+          <tr><td>Terminal multiple (EV/EBITDA)</td><td class="num">5.5x</td><td class="small muted">peer median 6.75x − small-cap discount</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">5-yr FCFF projection: Y1 299M → Y2 229M → Y3 302M → Y4 376M → Y5 419M ล้านบาท (capex heavy ปีแรก). TV Gordon ~6,032M + TV exit ~4,353M → TV base ~5,192M. PV(FCFF) ~1,236M + PV(TV) ~3,363M = EV ~4,599M → equity ~4,065M → price/share 6.42 (ก่อน holding discount 12%) → 6.33 บาท. TV/EV ~73% (ในเกณฑ์ 45-85%)</p>
+
+      <h3>Sensitivity — WACC × terminal growth (implied price)</h3>
+      <table class="heat">
+        <thead><tr><th>WACC ＼ g</th><th>1.5%</th><th>2.0%</th><th>2.5%</th><th>3.0%</th><th>3.5%</th></tr></thead>
+        <tbody>
+          <tr><th>7.15%</th><td style="background:rgba(120,140,93,.35)">8.48</td><td style="background:rgba(120,140,93,.45)">9.24</td><td style="background:rgba(120,140,93,.55)">10.16</td><td style="background:rgba(120,140,93,.65)">11.30</td><td style="background:rgba(120,140,93,.75)">12.76</td></tr>
+          <tr><th>7.65%</th><td style="background:rgba(215,119,87,.10)">7.69</td><td style="background:rgba(120,140,93,.18)">8.32</td><td style="background:rgba(120,140,93,.30)">9.06</td><td style="background:rgba(120,140,93,.42)">9.97</td><td style="background:rgba(120,140,93,.55)">11.09</td></tr>
+          <tr><th>8.15% (base)</th><td style="background:rgba(215,119,87,.18)">7.03</td><td style="background:rgba(215,119,87,.06)">7.55</td><td class="base" style="background:var(--white)">8.16</td><td style="background:rgba(120,140,93,.18)">8.89</td><td style="background:rgba(120,140,93,.32)">9.78</td></tr>
+          <tr><th>8.65%</th><td style="background:rgba(176,74,63,.18)">6.46</td><td style="background:rgba(215,119,87,.12)">6.89</td><td style="background:rgba(215,119,87,.06)">7.41</td><td style="background:rgba(215,119,87,.06)">8.01</td><td style="background:rgba(120,140,93,.12)">8.72</td></tr>
+          <tr><th>9.15%</th><td style="background:rgba(176,74,63,.32)">5.96</td><td style="background:rgba(176,74,63,.20)">6.33</td><td style="background:rgba(176,74,63,.12)">6.77</td><td style="background:rgba(215,119,87,.12)">7.27</td><td style="background:rgba(215,119,87,.06)">7.86</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">Cell = implied price บาท (หลัง holding discount 12%). Base (WACC 8.15%, g 2.0%) = 7.55. ค่าอยู่ในช่วง 5.96 (Bear) ถึง 12.76 (Bull). <strong>สรุป:</strong> แม้ใน worst case DCF ยังสูงกว่าราคาปัจจุบัน (3.64) — แสดงว่าตลาด price in cyclical trough + illiquidity มากเกินไป</p>
+
+      <h3>Relative valuation — peers (หุ้นปาล์มไทย)</h3>
+      <table>
+        <thead><tr><th>Peer</th><th class="num">P/E</th><th class="num">P/B</th><th class="num">EV/EBITDA</th><th class="num">EV/Rev</th><th class="num">Mcap (ล้าน)</th></tr></thead>
+        <tbody>
+          <tr><td>AAI.BK — Asian Palm Oil</td><td class="num">13.6</td><td class="num">1.68</td><td class="num">8.4</td><td class="num">1.08</td><td class="num">8,340</td></tr>
+          <tr><td>UPOIC.BK — United Palm Oil</td><td class="num">8.5</td><td class="num">1.21</td><td class="num">6.8</td><td class="num">1.13</td><td class="num">2,236</td></tr>
+          <tr><td>UVAN.BK — Univanich Palm Oil</td><td class="num">8.1</td><td class="num">2.57</td><td class="num">5.2</td><td class="num">0.75</td><td class="num">14,852</td></tr>
+          <tr><td>VPO.BK — Vichitbhan Palm Oil</td><td class="num">16.3</td><td class="num">0.91</td><td class="num">6.7</td><td class="num">0.33</td><td class="num">461</td></tr>
+          <tr><td>LST.BK — Lam Soon</td><td class="num">7.0</td><td class="num">0.69</td><td class="num">5.0</td><td class="num">0.40</td><td class="num">3,903</td></tr>
+          <tr><td>PCE.BK — Petchsieng Visa</td><td class="num">22.0</td><td class="num">1.19</td><td class="num">19.7</td><td class="num">0.22</td><td class="num">6,050</td></tr>
+        </tbody>
+        <tfoot><tr><td>Median (peers)</td><td class="num">11.1</td><td class="num">1.20</td><td class="num">6.8</td><td class="num">0.58</td><td class="num">—</td></tr></tfoot>
+      </table>
+      <p class="small muted"><strong>CPI @ P/E 5.2, P/B 0.64, EV/EBITDA 3.4</strong> — ซื้อขายในระดับ <strong>discount 47-53%</strong> เทียบกับ peer median ทุก multiple. เป็นหุ้นที่ถูกที่สุดในกลุ่มหุ้นปาล์มไทยเกือบทุกตัว — ทั้งที่ CPI มี vertically integrated model และ brand ลีลาที่ดีกว่าหลาย peer. <strong>เหตุผลของ discount:</strong> (1) small-cap + illiquid, (2) family-controlled (57%), (3) cyclical earnings, (4) no analyst coverage → under-followed</p>
+
+      <h3>SOTP (light)</h3>
+      <table>
+        <thead><tr><th>Segment</th><th class="num">Rev 2026E (ล้าน)</th><th class="num">EBITDA margin</th><th class="num">EBITDA (ล้าน)</th><th class="num">Multiple</th><th class="num">EV (ล้าน)</th></tr></thead>
+        <tbody>
+          <tr><td>Palm core (cyclical)</td><td class="num">5,249</td><td class="num">13%</td><td class="num">682</td><td class="num">5.0x</td><td class="num">3,411</td></tr>
+          <tr><td>Energy (PPA-backed)</td><td class="num">145</td><td class="num">55%</td><td class="num">80</td><td class="num">6.5x</td><td class="num">520</td></tr>
+          <tr><td>(−) Unallocated corp cost</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">(162)</td></tr>
+        </tbody>
+        <tfoot><tr><td>SOTP EV</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">3,769 → price 4.70</td></tr></tfoot>
+      </table>
+    </section>
+
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการ &amp; ความเชื่อมั่นของตลาด</h2></div>
+      <hr class="div">
+
+      <h3>ไตรมาสล่าสุด — Q1/2026 (ม.ค.-มี.ค. 2026)</h3>
+      <table>
+        <thead><tr><th>Metric</th><th class="num">Q1/2026</th><th class="num">Q1/2025</th><th class="num">YoY</th></tr></thead>
+        <tbody>
+          <tr><td>Revenue (ล้านบาท)</td><td class="num">1,334</td><td class="num">1,040</td><td class="num">+28%</td></tr>
+          <tr><td>Net Income (ล้านบาท)</td><td class="num">74.9</td><td class="num">47.7</td><td class="num">+57%</td></tr>
+          <tr><td>EPS (บาท)</td><td class="num">0.118</td><td class="num">0.075</td><td class="num">+57%</td></tr>
+          <tr><td>EBITDA (ล้านบาท)</td><td class="num">142</td><td class="num">110</td><td class="num">+29%</td></tr>
+        </tbody>
+      </table>
+      <p>Q1/2026 <strong>แตะ cycle recovery</strong>: กำไรโต +57% YoY จากราคาปาล์มที่ยังอยู่ในระดับดี + volume ที่เพิ่มขึ้น. ไม่มี analyst estimate เปรียบเทียบ (no coverage)</p>
+
+      <h3>ผลประกอบการย้อนหลัง 4 ไตรมาส — cyclical pattern ชัด</h3>
+      <table>
+        <thead><tr><th>Quarter</th><th class="num">Revenue (ล้าน)</th><th class="num">Net Income (ล้าน)</th><th class="num">EPS (บาท)</th><th>Phase</th></tr></thead>
+        <tbody>
+          <tr><td>Q2/2025</td><td class="num">1,702</td><td class="num">253.0</td><td class="num">0.40</td><td><span class="chip"><span class="dot good"></span>peak cycle</span></td></tr>
+          <tr><td>Q3/2025</td><td class="num">1,308</td><td class="num">110.3</td><td class="num">0.17</td><td><span class="chip"><span class="dot watch"></span>decelerating</span></td></tr>
+          <tr><td>Q4/2025</td><td class="num">1,275</td><td class="num">7.5</td><td class="num">~0.01</td><td><span class="chip"><span class="dot bad"></span>trough (loss reserve)</span></td></tr>
+          <tr><td>Q1/2026</td><td class="num">1,334</td><td class="num">74.9</td><td class="num">0.12</td><td><span class="chip"><span class="dot good"></span>recovery</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>2025 full year</h3>
+      <p>Net Income <strong>418.5 ล้านบาท</strong> (+30.5% YoY จาก 320.6), EPS 0.66, DPS 0.27 (paid มี.ค. 2026, payout 41% — เป็นไปตามนโยบาย ≥40%)</p>
+
+      <h3>Q2/2026 setup</h3>
+      <p>ไม่มี analyst consensus (numberOfAnalysts = 0). Seasonal: Q2/Q3 เป็น low-season ผลผลิต (หน้าฝนขยาย supply). <strong>Watch items:</strong> (1) ราคา CPO ไทย H2/2026 (SCB EIC คาดเฉลี่ย 33.9 บาท/kg, -6.8% YoY), (2) capex progress โรงงานใหม่ 940 ล้าน</p>
+
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>Sentiment read</h3>
+        <p><strong>Priced for pessimism ที่กำลัง re-rate.</strong> หุ้นไม่มี analyst coverage → under-followed, retail-driven. ราคาขึ้น +40.5% ใน 1Y แต่ P/E ยังถูก (5.2x) → market เริ่มตื่นตัวแต่ยังไม่ full re-rating. Volume 30d (211k) ต่ำกว่า 90d (338k) → cooling off หลัง rally → รอ catalyst (Q2/2026 results, progress โรงงานใหม่) เพื่อ drive re-rating ต่อ</p>
+      </div>
+    </section>
+
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>จังหวะเข้าซื้อ (Technical Timing)</h2></div>
+      <hr class="div">
+      <div class="chart-frame">
+        <img src="data:image/png;base64,eyJSZXRDb2RlIjotMTQ4NjYwLCAiRXJyTXNnIjoicmVxdWVzdCBleHBpcmVkIn0=" alt="TradingView weekly chart CPI SET">
+        <div class="chart-caption">TradingView · SET:CPI · Weekly · captured 31 ก.ค. 2026</div>
+      </div>
+      <div class="chart-frame">
+        <img src="data:image/png;base64,eyJSZXRDb2RlIjotMTQ4NjYwLCAiRXJyTXNnIjoicmVxdWVzdCBleHBpcmVkIn0=" alt="TradingView daily chart CPI SET">
+        <div class="chart-caption">TradingView · SET:CPI · Daily · captured 31 ก.ค. 2026</div>
+      </div>
+
+      <div class="grid2">
+        <div class="callout accent">
+          <h3>Chart condition</h3>
+          <p><strong>Weekly:</strong> 3 ปีผ่าน cycle 2.50 → 4.00 → 2.76 → 3.64 — base และกำลัง recovery. <strong>Daily:</strong> Last 3.64, MA20 3.57 (+1.9%), MA50 3.49 (+4.2%), MA100 3.47 (+5.0%), MA200 3.27 (+11.4%) — <strong>stacked bullish</strong> (MA20 &gt; MA50 &gt; MA100 &gt; MA200) = uptrend confirmed. RSI(14) 66.7 (ใกล้ overbought แต่ไม่ extreme). 52w range 2.57 – 3.70 (อยู่ใกล้ 52w high ที่ -1.6%). Volume 30d/90d = 0.63 (ลดลงหลัง rally) → <strong>Stage 2 breakout ติดขัด</strong></p>
+        </div>
+        <div class="callout">
+          <h3>Risk geometry</h3>
+          <p><strong>Resistance:</strong> 3.70 (52w high), 3.80 (มี.ค. 2026 high), 4.00 (psych + 2022 peak zone)<br>
+          <strong>Support:</strong> 3.50 (MA50), 3.27 (MA200), 3.09 (ก.พ. 2026 low), 2.76 (52w low)<br>
+          <strong>Entry zone:</strong> 3.40 – 3.60 (pullback สู่ MA50) — หลีกเลี่ยง chase ที่ 3.70+<br>
+          <strong>Stop/invalidation:</strong> 3.20 (ใต้ MA200 + ก.พ. low) → -10% จาก entry กลาง<br>
+          <strong>T1:</strong> 4.20 (+20%) · <strong>T2 (FV magnet):</strong> 5.50 (+50%) · <strong>T3 (Bull):</strong> 7.50+ (+105%)<br>
+          <strong>R-multiple:</strong> entry 3.50, stop 3.22, T2 5.50 → risk 0.28, reward 2.00 = <strong>7.1R</strong></p>
+        </div>
+      </div>
+      <p><strong>Timing verdict:</strong> <span class="tag">Stage 2 — WAIT for trigger</span> — uptrend ชัดแต่อยู่ใกล้ 52w high + RSI 67 + ยังไม่มี VCP → <strong>ไม่ซื้อที่ 3.64</strong>. รอ Scenario A: pullback สู่ <strong>3.42-3.50</strong> บน drying volume (entry, stop 3.22, risk ~7%) หรือ Scenario B: consolidate 10-15 วัน แล้ว breakout ทะลุ <strong>3.72</strong> บน volume ≥450k (entry 3.72-3.78, stop 3.52, risk ~5.5%). Targets T1 4.20 → T2 5.50 (FV) → T3 7.50+. ดู §6.5 SEPA cross-check สำหรับเหตุผลเต็ม</p>
+    </section>
+
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>สถานการณ์ &amp; แผนการลงทุน</h2></div>
+      <hr class="div">
+
+      <table>
+        <thead><tr><th>Scenario</th><th>Levers</th><th class="num">~12 mo</th><th class="num">~24 mo</th><th class="num">~36 mo</th><th class="num">Return</th><th class="num">Prob.</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="chip"><span class="dot good"></span>Bull</span></td>
+            <td class="small muted">g×1.15, margin×1.25, WACC 7.65%, g_t 3.0% + โรงงานใหม่เปิด + ราคาปาล์ม &gt;40 บาท/kg</td>
+            <td class="num">5.50</td><td class="num">8.00</td><td class="num">10.00+</td>
+            <td class="num">+120% ถึง +175%</td><td class="num">25%</td>
+          </tr>
+          <tr>
+            <td>Base</td>
+            <td class="small muted">mid-cycle CPO 33-37 บาท/kg, โรงงานใหม่เปิด 2027-28 ตามแผน, WACC 8.15%</td>
+            <td class="num">4.50</td><td class="num">5.50</td><td class="num">6.50</td>
+            <td class="num">+50% ถึง +80%</td><td class="num">50%</td>
+          </tr>
+          <tr>
+            <td><span class="chip"><span class="dot bad"></span>Bear</span></td>
+            <td class="small muted">g×0.85, margin×0.65, WACC 9.15%, g_t 1.5% + ราคาปาล์ม collapse &lt;28 บาท/kg + โรงงาน delay</td>
+            <td class="num">3.40</td><td class="num">3.15</td><td class="num">3.30</td>
+            <td class="num">-10% ถึง -14%</td><td class="num">25%</td>
+          </tr>
+        </tbody>
+        <tfoot><tr><td colspan="5">Prob-weighted expected value</td><td class="num">+50% (≈ 5.40-5.60)</td><td class="num">100%</td></tr></tfoot>
+      </table>
+
+      <div class="callout" style="margin-top:18px;">
+        <h3>Investment plan <span class="small muted">— conditional, not a buy/sell command. อัปเดตตาม SEPA cross-check (§6.5)</span></h3>
+        <p class="small"><strong>Setup archetype:</strong> <span class="tag">Deep-value cyclical</span> — Thai small-cap cyclical commodity ที่ถูกตีความผิด + under-followed + catalyst (โรงงานใหม่). <strong>ไม่ใช่ SEPA growth-momentum play</strong> (ดู §6.5). ต้องการ large margin of safety + staging + confirmation</p>
+        <p class="small"><strong>⚠️ ณ ราคาปัจจุบัน 3.64 — ยังไม่ซื้อ</strong> (RSI 67, near 52w high, no VCP). รอ 1 ใน 2 scenarios ด้านล่าง</p>
+        <table style="margin-top:8px;">
+          <thead><tr><th>Scenario</th><th>Entry zone</th><th class="num">Stop</th><th class="num">Risk</th><th>Trigger ที่ต้องเห็น</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>A. Pullback Buy</strong> <span class="tag">เป็นไปได้สูงสุด</span></td>
+              <td class="num">3.42–3.50</td>
+              <td class="num">3.22</td>
+              <td class="num">~7%</td>
+              <td class="small muted">ดึงลงแตะ MA50/MA100 cluster บน <strong>drying volume</strong> (วันลง vol &lt; avg), ไม่มี distribution day หนัก (&gt;2x vol ปิดลง). RSI กลับ &lt;50 แล้ว bounce. MA50 ยังเหนือ MA200</td>
+            </tr>
+            <tr>
+              <td><strong>B. Breakout</strong> <span class="tag">ต้องการ base ใหม่</span></td>
+              <td class="num">3.72–3.78</td>
+              <td class="num">3.52</td>
+              <td class="num">~5.5%</td>
+              <td class="small muted">consolidate แคบ 3.55–3.70 อย่างน้อย <strong>10–15 วัน</strong> + volume ตาย + ทะลุ 3.72 บน <strong>volume ≥450k</strong> (1.5× avg 300k)</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Targets (ทั้ง 2 scenarios):</strong> T1 = <strong>4.20</strong> (R:R ~3:1) → T2 = <strong>5.50</strong> (fair value magnet, R:R ~7:1) → T3 = <strong>7.50+</strong> (Bull)</p>
+        <p class="small"><strong>Sizing:</strong> ≤ 1.5–2% portfolio (illiquid float 273M หุ้น + cyclical uncertainty). 3 tranches: 30% ที่ entry zone, 40% หลัง first confirmation (Q2/2026 EPS ≥ 0.15 หรือ breakout retest), 30% trailing</p>
+        <p class="small"><strong>Conviction-builders (watch ทุกไตรมาส):</strong> (1) <strong>Q2/2026 EPS ≥ 0.15</strong> = acceleration จาก Q1/2026 0.12 → <span class="tag">single most important</span>; (2) ราคา CPO ไทย &gt;33 บาท/kg; (3) โรงงานใหม่ construction milestones; (4) D/E &lt; 0.30; (5) dividend yield ≥ 7%</p>
+        <p class="small"><strong>Thesis-breakers (ลืม CPI ไปเลย):</strong> (1) ปิดต่ำกว่า <strong>3.27 (MA200) บน heavy volume</strong> → Stage 2 พัง; (2) ทะลุ 3.70 แต่ volume ไม่พุ่ง (fake breakout); (3) <strong>Q2/2026 EPS &lt; 0.12</strong> หรือ guidance ตัด; (4) ราคา CPO &lt; 25 บาท/kg นาน &gt; 2 ไตรมาส; (5) โรงงานใหม่ delay &gt; 12 เดือน; (6) dividend ตัด</p>
+        <p class="small"><strong>Timeframe สำหรับ setup:</strong> ให้เวลา <strong>4–6 สัปดาห์</strong> สร้าง base/contraction. ถ้าเกิน <strong>8 สัปดาห์</strong> ยัง choppy ไม่ contract → setup stale, ย้ายกระสุนไปเลย</p>
+        <p class="small"><strong>Horizon หลังเข้า:</strong> Base case 24–36 เดือน (รอโรงงานเปิด 2027–28); Bull case 12–18 เดือนถ้าราคาปาล์ม spike</p>
+      </div>
+
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>One-line takeaway</h3>
+        <p>CPI เป็นหุ้นน้ำมันปาล์มไทยที่ <strong>ถูกที่สุดในกลุ่ม</strong> (mid-cycle P/E ~7-8x vs peer median 11.1x), มี vertically integrated model, ROE 13.6%, ROIC 11.85% > WACC 8.15%, yield 7.4% — fair value range <strong>4.73-7.78 บาท</strong> (+30% ถึง +114%). <strong>แต่ ณ ราคา 3.64 ยังไม่ซื้อ</strong> — RSI 67, near 52w high, ยังไม่มี VCP confirm. <strong>รอ pullback สู่ 3.42-3.50</strong> หรือ breakout ทะลุ 3.72 บน volume, และรอ <strong>Q2/2026 EPS ≥ 0.15</strong> เป็น single most important catalyst</p>
+      </div>
+
+      <h3 id="s6-5">6.5 SEPA Cross-Check — มุมมองของ Mark Minervini</h3>
+      <p class="small muted">ครอส-เช็คผ่านเลนส์ SEPA/VCP (Specific Entry Point Analysis) — เปรียบเทียบกับ deep-value thesis ด้านบน. <strong>สำคัญ:</strong> SEPA เป็น framework สำหรับ <em>growth-momentum</em>, CPI เป็น <em>cyclical deep-value</em> — เลนส์ไม่ตรงกันโดยกำเนิด แต่การครอส-เช็คช่วยเผยจุดอ่อนที่ valuation มองข้าม</p>
+
+      <table>
+        <thead><tr><th>SEPA Gate</th><th>ผล</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Gate 1 — Fundamental Quality</strong></td>
+            <td><span class="chip"><span class="dot bad"></span>FAIL</span></td>
+            <td class="small muted">EPS quarterly: Q2/25 0.40 → Q3/25 0.17 → Q4/25 ~0.01 → Q1/26 0.12 — <strong>earnings พังลงจาก peak แล้วฟื้นแฉะๆ</strong>, ตรงข้ามกับ "accelerating growth". Revenue ลด 4 ปีติด. เป็น cyclical commodity ไม่ใช่ growth compounder. <strong>No analyst estimate = ไม่มี next-year EPS confirmation</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Gate 2 — Trend Template</strong></td>
+            <td><span class="chip"><span class="dot watch"></span>ผ่านโครงสร้าง แต่ EXTENDED</span></td>
+            <td class="small muted">Stack เรียบ (MA20&gt;50&gt;100&gt;200), price เหนือทุก MA, 52w range ผ่าน floor 30% และ 75% of high = <strong>Stage 2 confirmed</strong>. <strong>แต่</strong> ห่างจาก high แค่ 1.6%, RSI 66.7 — <em>within 25% of high เป็น floor ไม่ใช่เป้า</em>; อยู่ใกล้ high ขนาดนี้คือ extended สำหรับ fresh entry</td>
+          </tr>
+          <tr>
+            <td><strong>Gate 3 — VCP (Volatility Contraction)</strong></td>
+            <td><span class="chip"><span class="dot bad"></span>NO CONFIRMATION</span></td>
+            <td class="small muted">Volume แห้ง (30d &lt; 90d) เข้าได้กับ contraction แต่ก็เข้าได้กับ "move หมดแรง topping". <strong>ไม่มี evidence ว่า price contract เป็น T2/T3/T4</strong>. ราคา near high + RSI 67 ดูเหมือนอยู่บนสุด rally ไม่ใช่ tight-action phase ใต้ pivot. ต้องเห็น daily/weekly contraction sequence (C1&gt;C2&gt;C3) + 5-10 dead days ใต้ pivot ก่อน</td>
+          </tr>
+          <tr>
+            <td><strong>Gate 4 — Risk Geometry</strong></td>
+            <td><span class="chip"><span class="dot watch"></span>ตั้งบนทราย</span></td>
+            <td class="small muted">Stop เดิม 3.20 = -12% จาก 3.64 → <strong>เกินกฎ 7-8%</strong>. ต้องซื้อ ≤3.50 ถึงจะ stop 3.22 compliance (risk ~7%). R:R ไป 5.50 สวย (6:1+) แต่อยู่บน Gate 1 fail + Gate 3 ไม่ confirm — เลขดีไม่ช่วยถ้าตัวเลขไม่จริง</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>Verdict ของ Mark — <span class="tag">PASS / SIDELINES</span></h3>
+        <p class="small">"นี่คือ <strong>deep-value / mean-reversion play คนละเกมกับ SEPA growth-momentum</strong>. ผมไม่ซื้อ cyclical ที่ earnings ลงจาก peak — <strong>value trap มักดูถูกตอน 'E' อยู่ที่ peak พอดี</strong>". ที่จะพลิกคำเรียก: (1) EPS ไตรมาสกลับมา accelerate ชัด (Q2/26 &gt; Q1/26 &gt; 0.12), (2) VCP สะอาดใต้ pivot ใหม่, (3) breakout บน volume ≥1.5x avg</p>
+      </div>
+
+      <div class="callout" style="margin-top:14px;">
+        <h3>สิ่งที่ deep-value thesis พลาด (มองจากฝั่งเทคนิค/คุณภาพ)</h3>
+        <p class="small">▸ <strong>Earnings momentum ผิดทิศ</strong> — P/E 5.2x ดูถูกเพราะ E ลงจาก peak. Cheap-on-peak-E = value-trap classic ใน cyclical. <strong>Headline metric ที่ถูกต้อง: mid-cycle P/E ~7-8x</strong> (ใช้ EPS 0.50 ไม่ใช่ 0.66)</p>
+        <p class="small">▸ <strong>Dividend 7.4% อาจเป็น yield trap</strong> — payout ≥40% ของ EPS ที่ลดลง ไม่ sustainable; ถ้า EPS ตกเป็น 0.40, payout จะเป็น 67% → DPS ต้องลด. <strong>Track EPS Q2-Q4/2026</strong></p>
+        <p class="small">▸ <strong>Illiquidity = execution risk จริง</strong> — ขายออกยากตอน panic, spread กว้าง, slippage กิน upside. Institutional buying (เชื้อเพลิงของ SEPA breakout) เกิดไม่ได้จริงใน stock ตัวนี้</p>
+        <p class="small">▸ <strong>Entry timing แย่</strong> — RSI 67 + near high. ถ้าซื้อ value จริง รอ pullback ไป MA50 (~3.49) หรือต่ำกว่า; ซื้อที่ 3.64 = <em>chase ที่ผิดจุด</em></p>
+        <p class="small">▸ <strong>สิ่งที่บวก:</strong> trend ขึ้นจริง (Stage 2) = value catalyst มี tailwind. แต่ tailwind ≠ trigger — ยังไม่มีสัญญาณว่า smart money เข้า. <em>"The stock doesn't know you own it."</em></p>
+      </div>
+
+      <div class="callout good" style="margin-top:14px;">
+        <h3>สังเคราะห์ — Value + SEPA</h3>
+        <p class="small"><strong>ความขัดแย้งสำคัญคือ "คนละเกม":</strong> Value lens บอก "ถูก" (FV range 4.73-7.78), SEPA lens บอก "ยังไม่ใช่เวลา + ประเภทผิด". <strong>จุดตัดที่ทั้งสองเห็นด้วยกัน:</strong></p>
+        <p class="small">▸ Value: accumulate <em>below 3.50</em> (margin of safety 37%)</p>
+        <p class="small">▸ SEPA: entry ที่ <em>3.42-3.50</em> pullback (Scenario A)</p>
+        <p class="small">→ <strong>ทั้งสองสไตล์เข้ากันได้ที่ entry 3.42-3.50 + Q2/2026 EPS confirmation ≥ 0.15</strong></p>
+        <p class="small"><strong>Headline ที่ปรับ:</strong> ไม่ใช่ "P/E 5.2x ถูกสุด" (หลอก) แต่ "<strong>mid-cycle P/E ~7-8x vs peer 11x — ยังถูก แต่ต้องซื้อให้ถูกจังหวะ</strong>"</p>
+      </div>
+    </section>
+
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+      <table>
+        <thead><tr><th>ความเสี่ยง</th><th>ทิศทาง</th><th class="num">ผลกระทบต่อมูลค่า</th><th>วิธีลดเสี่ยง / สิ่งที่ต้องดู</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>1. ราคาปาล์มผันผวน</strong> — CPI ตั้งราคาเองไม่ได้ (ตามตลาดโลกของอินโดนีเซีย/มาเลเซีย)</td>
+            <td class="small muted">ราคาปาล์มตก → กำไรลด</td>
+            <td class="num">~30-40%</td>
+            <td class="small muted">การครบวงจร + แบรนด์ช่วยรับมือได้ส่วนหนึ่ง; ดูราคาปาล์มทุกเดือน</td>
+          </tr>
+          <tr>
+            <td><strong>2. โรงงานใหม่อาจล่าช้า/เกินงบ</strong> — ลงทุน 940 ล้าน, เปิด 2027-2028</td>
+            <td class="small muted">ล่าช้า/เกินงบ → เงินสดรั่ว</td>
+            <td class="num">~15-20%</td>
+            <td class="small muted">ติดตามความคืบหน้าการก่อสร้างทุกไตรมาส; BOI ช่วยลดภาษี</td>
+          </tr>
+          <tr>
+            <td><strong>3. หุ้นซื้อขายยาก (สภาพคล่องต่ำ)</strong> — float ~273 ล้านหุ้น, volume วันละ ~300k</td>
+            <td class="small muted">ขายยาก ราคาตกถ้าเทรดใหญ่</td>
+            <td class="num">~5-10% (ค่าเข้า/ออก)</td>
+            <td class="small muted">ใช้ limit orders, แบ่งซื้อทีละส่วน; ไม่เหมาะสำหรับเงินลงทุนก้อนใหญ่</td>
+          </tr>
+          <tr>
+            <td><strong>4. ผู้ถือหุ้นใหญ่เป็นครอบครัว</strong> — top 5 + holding ~57%</td>
+            <td class="small muted">ความเสี่ยงรายการเกี่ยวโยง, ผู้ถือหุ้นส่วนน้อยไม่มีอำนาจ</td>
+            <td class="num">~5-10%</td>
+            <td class="small muted">ตรวจรายการเกี่ยวโยงใน 56-1; ดูว่าจ่ายปันผลตามนโยบายหรือไม่</td>
+          </tr>
+          <tr>
+            <td><strong>5. กฎระเบียบ / สิ่งแวดล้อม</strong> — กฎการตัดไม้ทำลายป่า, การเปลี่ยนแปลงนโยบาย B40</td>
+            <td class="small muted">ความต้องการตก หรือต้นทุนเพิ่ม</td>
+            <td class="num">~10-15%</td>
+            <td class="small muted">CPI มีโรงไฟฟ้าชีวมวล (ด้านสิ่งแวดล้อมดี); ดูนโยบายอินโดนีเซีย/สหภาพยุโรป</td>
+          </tr>
+          <tr>
+            <td><strong>6. ⚠️ ตลาดคาดว่ากำไรจะหด -8.65% ต่อปี (จาก GuruFocus Reverse DCF)</strong></td>
+            <td class="small muted">ถ้าตลาดถูกต้อง = P/E "ถูก" ปัจจุบันเป็นภาพลวง</td>
+            <td class="num">~20-30% (กลายเป็น value trap)</td>
+            <td class="small muted"><strong>ตัวเร่งสำคัญที่สุด:</strong> รอผล Q2/2026 — ถ้ากำไรต่อหุ้น ≥ 0.15 บาท = ตลาดผิด; ถ้า &lt; 0.12 = ตลาดอาจถูก</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="small muted">จับคู่กับ §6 thesis-breakers, §5 technical invalidation (stop 3.20), และ §3 sensitivity grid (WACC +100bp = price 8.22; margin -35% = Bear 3.82)</p>
+    </section>
+
+    <section id="s8">
+      <div class="sec-h"><span class="sec-no">8</span><h2>คำถามที่นักลงทุนต้องตอบให้ได้ — ปิดรายงาน</h2></div>
+      <hr class="div">
+      <p class="small muted">ก่อนตัดสินใจลงทุน นักลงทุนต้องตอบ 3 คำถามให้ได้. ผม research หาคำตอบจริงจากข้อมูลเฉพาะ CPI + งานวิจัยเกี่ยวกับตลาด Thai small-cap</p>
+
+      <h3 id="s8-1">Q1 — ถ้า CPI ถูกจริง ทำไมไม่มี analyst coverage?</h3>
+      <div class="callout">
+        <h3>คำตอบจาก research: <span class="tag">"Neglected by design — ไม่ใช่ by mistake"</span></h3>
+        <p class="small"><strong>[FACT]</strong> ในไทยมีหุ้นประมาณ <strong>~300 ตัว</strong>ที่ไม่มี analyst coverage (เรียก "uncovered stocks"), จากทั้งหมด ~600+ ตัวใน SET + mai. Project <strong>"Uncovered Thai Stocks"</strong> โดย A. Stotz Investment Research (สนับสนุนโดย <strong>Thailand Capital Market Development Fund (CMDF)</strong>) ทำ research ตัวนี้มาต่อเนื่อง</p>
+        <p class="small"><strong>[FACT]</strong> เกณฑ์ที่ broker ไม่ cover: ในไทย "analytical resources concentrate on large-cap, high-liquidity stocks". บริษัทที่ mcap &lt; 2,000M THB (~$57M) หรือ daily turnover ต่ำมาก = <strong>not worth broker's time</strong> (cost of analyst &gt; potential commission)</p>
+        <p class="small"><strong>[FACT] CPI fit เกณฑ์ "uncovered" ทุกข้อ:</strong></p>
+        <ul class="small">
+          <li>Market cap 2,329M THB (~$66M) — ใกล้เส้น 2,000M threshold</li>
+          <li>Avg daily turnover 30d ~774k THB (~$22k) — ต่ำกว่าเกณฑ์ institutional ทั่วไป</li>
+          <li>Family control 57% → free float 273M = 43% — illiquid</li>
+          <li>CPI อยู่ในกลุ่ม "commodity producer" ที่ broker มองว่า <em>หากำไรยากเพราะ earnings volatile</em></li>
+        </ul>
+        <p class="small"><strong>[ANALYSIS] คำตอบคือ: ตลาดไม่ได้ "ผิด" — ตลาดแค่ "ไม่สนใจ"</strong> เพราะ CPI ไม่ผ่านเกณฑ์ size/liquidity ที่ broker จะลงทุนทำ research. <strong>นี่คือ double-edged:</strong> ดีข้างคือเป็น source ของ "neglected stock premium" (ดู Q3), แย่ข้างคือ price discovery ช้า + information asymmetry สูง</p>
+        <p class="small"><strong>[ANALYSIS] แต่!</strong> ตามงานวิจัย 20 ประเทศ (Finance Research Letters 2022) — มี <strong>15 ประเทศที่ uncovered stocks ให้ return สูงกว่า</strong>, 12 ประเทศ significant ทางสถิติ. ไทยมี project CMDF สนับสนุนเรื่องนี้โดยเฉพาะ → <strong>มี evidence ว่า neglected effect เกิดจริงในไทย</strong></p>
+      </div>
+
+      <h3 id="s8-2">Q2 — คุณจะขายออกยังไงตอน panic?</h3>
+      <div class="callout accent">
+        <h3>คำตอบจาก liquidity analysis: <span class="tag">"Exit door แคบมาก — plan ไว้ก่อน"</span></h3>
+        <p class="small"><strong>[FACT] CPI liquidity profile (1Y data):</strong></p>
+        <table>
+          <thead><tr><th>Metric</th><th class="num">CPI</th><th class="num">Peer median</th><th>Read</th></tr></thead>
+          <tbody>
+            <tr><td>Avg daily volume</td><td class="num">357k</td><td class="num">~1M+</td><td><span class="chip"><span class="dot bad"></span>ต่ำ</span></td></tr>
+            <tr><td>Median daily volume</td><td class="num">168k</td><td class="num">—</td><td><span class="chip"><span class="dot bad"></span>ต่ำกว่า mean = distribution บิดเบี้ยว</span></td></tr>
+            <tr><td>Days with vol &lt; 100k</td><td class="num">74/248 (30%)</td><td class="num">—</td><td><span class="chip"><span class="dot bad"></span>1 ใน 3 วัน "ไม่มีคนเล่น"</span></td></tr>
+            <tr><td><strong>Days with vol = 0</strong></td><td class="num"><strong>8 วัน</strong></td><td class="num">0</td><td><span class="chip"><span class="dot bad"></span>ไม่สามารถขายได้เลย</span></td></tr>
+            <tr><td>Bid-Ask spread</td><td class="num">3.68 / 3.70</td><td class="num">—</td><td><span class="chip"><span class="dot watch"></span>2 satang = ~0.5% cost</span></td></tr>
+            <tr><td>Float turnover/day</td><td class="num">0.13%</td><td class="num">—</td><td><span class="chip"><span class="dot watch"></span>ปีนึง float หมุน ~33%</span></td></tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>[FACT] Liquidation time (สมมติใช้ avg volume 357k/day):</strong></p>
+        <ul class="small">
+          <li><strong>1 ล้านบาท position</strong> (~275k หุ้น) = <strong>0.8 วัน</strong> → ใช้ได้ปกติ</li>
+          <li><strong>5 ล้านบาท</strong> (~1.37M หุ้น) = <strong>3.8 วัน</strong> → ต้อง stage การขาย</li>
+          <li><strong>10 ล้านบาท</strong> (~2.75M หุ้น) = <strong>7.7 วัน</strong> → ต้องใช้ limit orders + ยอมรับ slippage</li>
+        </ul>
+        <p class="small"><strong>[FACT] ในวันที่ vol = 0 (8 วันในปีที่ผ่านมา) — ไม่สามารถขายได้แม้แต่หุ้นเดียว</strong>. วันพวกนี้กระจุกอยู่ช่วง เม.ย.-ก.ค. 2026 (low season)</p>
+        <p class="small"><strong>[ANALYSIS] คำตอบคือ:</strong> ถ้า position ≤ 1 ล้านบาท = ขายได้ภายในวัน. ถ้า &gt; 5 ล้าน = <strong>ต้องวางแผนล่วงหน้า 3-5 วัน</strong>, ใช้ limit orders, ยอมรับ slippage 1-3%. <strong>ห้าม hold position ที่ &gt; 10% ของ daily volume</strong> — คือการสร้าง "forced seller" problem ให้ตัวเอง</p>
+        <p class="small"><strong>[ANALYSIS] Stress test:</strong> ในวัน panic (ดู max daily loss -3.91%) — ถ้า vol พุ่ง 3-5x = avg ~1.5M/day → ขาย 5M ได้ในวันเดียว แต่ <strong>ราคาจะตกเพิ่ม</strong>. <strong>"Exit strategy คือ size ให้เล็กตั้งแต่ต้น"</strong> — 1.5-2% portfolio max</p>
+      </div>
+
+      <h3 id="s8-3">Q3 — คุณมี edge อะไรที่ตลาดไม่มี?</h3>
+      <div class="callout good">
+        <h3>คำตอบจาก edge framework: <span class="tag">"4 edge ที่เป็นไปได้ — เลือกให้ได้"</span></h3>
+        <p class="small">ตามงานวิจัย (Stotz, neglected stock literature, behavioral finance), <strong>edge ที่นักลงทุน retail ในไทยสามารถมีได้จริง มี 4 ประเภท</strong>. ประเมินตัวเองตามนี้:</p>
+        <table>
+          <thead><tr><th>Edge type</th><th>ใช้ได้กับ CPI มั้ย</th><th>Source / วิธีสร้าง</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Information edge</strong><br><span class="small muted">(รู้ก่อนตลาด)</span></td>
+              <td><span class="chip"><span class="dot watch"></span>ยาก แต่ทำได้</span></td>
+              <td class="small muted">ไป AGM, เยี่ยมโรงงานชุมพร, คุยกับ management ตรง, track ความคืบหน้าโรงงานใหม่ 940M รายสัปดาห์. <strong>Retail มีข้อได้เปรียบ: บริษัทเล็ก = IR ให้เวลา</strong>. ตลาด institutional ไม่ยอมเสียเวลา</td>
+            </tr>
+            <tr>
+              <td><strong>2. Analytical edge</strong><br><span class="small muted">(วิเคราะห์ลึกกว่า)</span></td>
+              <td><span class="chip"><span class="dot good"></span>ทำได้</span></td>
+              <td class="small muted">เจาะ 56-1 One Report 234 หน้า (มีคน cover น้อย), คำนวณ ROIC ของโรงงานใหม่, ติดตาม segment margin. <strong>รายงานนี้คือ analytical edge</strong> — คุณกำลังอ่านสิ่งที่คนส่วนใหญ่ไม่ได้อ่าน</td>
+            </tr>
+            <tr>
+              <td><strong>3. Behavioral edge (Patience)</strong><br><span class="small muted">(อดทนนานกว่า)</span></td>
+              <td><span class="chip"><span class="dot good"></span>ทำได้ดีที่สุด</span></td>
+              <td class="small muted">Neglected stocks ต้องการ holding period 2-5 ปีให้ thesis play out. <strong>Institutional ไม่สามารถรอได้</strong> (quarterly performance pressure, mandate). Retail ที่ patient = edge ที่ยั่งยืนที่สุด</td>
+            </tr>
+            <tr>
+              <td><strong>4. Structural / Time horizon edge</strong><br><span class="small muted">(รอ re-rating)</span></td>
+              <td><span class="chip"><span class="dot good"></span>ทำได้</span></td>
+              <td class="small muted">ซื้อก่อนที่ CPI จะโตพอให้ institutional buy (mcap &gt; $200M = ~7B THB). <strong>"Buy the neglect, sell the recognition"</strong>. Catalyst: โรงงานใหม่ 940M, ถ้าสำเร็จ → mcap อาจขยับขึ้น tier</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>[ANALYSIS] คำตอบสุดท้าย:</strong> ถ้าคุณเป็นนักลงทุนที่ <strong>(a) ไม่ใช่ momentum trader ที่ต้องการ catalyst ภายใน 3 เดือน</strong>, <strong>(b) มีเวลาไป AGM / คุย IR</strong>, <strong>(c) ยอมถือ 2-5 ปี</strong> — คุณมี edge 3 ข้อ (analytical, behavioral, structural). ถ้าคุณเป็น <em>active trader ที่ต้องการ liquidity + catalyst</em> — <strong>คุณไม่มี edge, และ CPI ไม่ใช่หุ้นสำหรับคุณ</strong></p>
+        <p class="small"><strong>[FACT] จาก neglected stock literature:</strong> "retail investors can capitalize on mispricings by doing old-fashioned, boots-on-the-ground research" + "patient investors can beat institutional giants at their own game" (Uncovered Thai Stocks, 2026). <strong>แต่ edge นี้ใช้ได้ก็ต่อเมื่อคุณใช้มันจริง</strong> — ถ้าแค่อ่านรายงานแล้วซื้อ = ไม่มี edge</p>
+      </div>
+
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>ปิดรายงาน — สรุป 3 คำตอบ</h3>
+        <table>
+          <thead><tr><th>คำถาม</th><th>คำตอบสั้น</th><th>Implication</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Q1: ทำไม no coverage?</strong></td>
+              <td class="small">"Neglected by design" — ไม่ผ่าน size/liquidity threshold ของ broker ($66M mcap). ไม่ใช่ตลาด "ผิด"</td>
+              <td class="small muted">Source ของ neglected premium แต่ก็ = slow price discovery</td>
+            </tr>
+            <tr>
+              <td><strong>Q2: ขายออกยังไง?</strong></td>
+              <td class="small">Position ≤ 1M = วันเดียว. &gt; 5M = 3-5 วัน + slippage. 8 วันในปีมี vol = 0</td>
+              <td class="small muted">Size ≤ 1.5-2% portfolio, exit plan ล่วงหน้า</td>
+            </tr>
+            <tr>
+              <td><strong>Q3: มี edge อะไร?</strong></td>
+              <td class="small">3 edge ถ้าเป็น patient investor: analytical (56-1 ลึก), behavioral (ถือ 2-5 ปี), structural (รอ re-rating)</td>
+              <td class="small muted">ไม่มี edge ถ้าเป็น momentum trader — หลีกเลี่ยง CPI</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="small"><strong>Final verdict:</strong> CPI เหมาะสำหรับ <strong>patient Thai retail investor</strong> ที่ยอมทำ homework + ถือนาน + size เล็ก. <strong>ไม่เหมาะ</strong>สำหรับ active trader, institutional mandate ที่ต้องการ liquidity, หรือคนที่ต้องการ catalyst ใน &lt; 6 เดือน</p>
+      </div>
+    </section>
+
+    <section id="appendix">
+      <div class="sec-h"><h2>Appendix</h2></div>
+      <hr class="div">
+      <h3>WACC components</h3>
+      <table>
+        <thead><tr><th>Input</th><th class="num">Value</th><th>Source / rationale</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate (rf)</td><td class="num">2.06%</td><td class="small muted">Thai 10Y govt bond yield @ 30 ก.ค. 2026 (ThaiBMA / worldgovernmentbonds.com)</td></tr>
+          <tr><td>Equity risk premium (ERP)</td><td class="num">6.30%</td><td class="small muted">Damodaran Jan 2026: mature ERP 4.23% + Thailand CRP 2.07% (Baa1, default spread 1.36%)</td></tr>
+          <tr><td>Beta (adjusted)</td><td class="num">0.85</td><td class="small muted">yfinance 0.24 (ต่ำผิดปกติ เพราะ illiquid) → adjusted ขึ้นสำหรับ Thai small-cap cyclical commodity</td></tr>
+          <tr><td>Small-cap premium (Kroll)</td><td class="num">3.31%</td><td class="small muted">Kroll 2021 decile 10a (mcap $190M); CPI $66M → conservative floor (actual 10b/10c สูงกว่า)</td></tr>
+          <tr><td>Holding company discount</td><td class="num">12%</td><td class="small muted">applied post-DCF; top-5 + holding = 57%</td></tr>
+          <tr><td>Cost of equity (Ke)</td><td class="num">8.97%</td><td class="small muted">rf + β·ERP + Kroll size premium</td></tr>
+          <tr><td>Cost of debt (Kd, after-tax)</td><td class="num">5.20%</td><td class="small muted">interest expense/debt ~6.5% × (1-20%)</td></tr>
+          <tr><td>Capital structure</td><td class="num">We 78.1% / Wd 21.9%</td><td class="small muted">mkt cap / (mkt cap + total debt)</td></tr>
+          <tr><td><strong>WACC</strong></td><td class="num"><strong>8.15%</strong></td><td class="small muted">Sanity: Thai small-cap cyclical 8.0-10.5% ✓ (verified vs valueinvesting.io 6.9%)</td></tr>
+          <tr><td>Tax rate</td><td class="num">20%</td><td class="small muted">Thai statutory; effective 2024 ~10.6% เพราะ BOI</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Major shareholders (31 ธ.ค. 2024)</h3>
+      <table>
+        <thead><tr><th>Shareholder</th><th class="num">Shares</th><th class="num">%</th></tr></thead>
+        <tbody>
+          <tr><td>1. บริษัท ชุมพรโฮลดิ้ง จำกัด</td><td class="num">216,063,100</td><td class="num">34.15%</td></tr>
+          <tr><td>2. กลุ่มนายกิตติ ฉัตรเลขวนิช</td><td class="num">38,545,701</td><td class="num">6.09%</td></tr>
+          <tr><td>3. กลุ่มนายถกล ถวิลเติมทรัพย์</td><td class="num">37,295,601</td><td class="num">5.89%</td></tr>
+          <tr><td>4. บมจ. กรุงเทพประกันภัย</td><td class="num">32,456,181</td><td class="num">5.13%</td></tr>
+          <tr><td>5. กลุ่มนายชูศักดิ์ ปรัชญางค์ปรีชา</td><td class="num">30,794,961</td><td class="num">4.87%</td></tr>
+          <tr><td>6. นายอภิรุม ปัญญาพล</td><td class="num">21,703,000</td><td class="num">3.43%</td></tr>
+          <tr><td>7. บริษัท ไทยเอ็นวีดีอาร์ จำกัด</td><td class="num">13,442,743</td><td class="num">2.12%</td></tr>
+        </tbody>
+        <tfoot><tr><td>หมายเหตุ: ชุมพรโฮลดิ้ง ถือโดยกลุ่มถวิลเติมทรัพย์ 56.67%</td><td class="num">—</td><td class="num">top 5 + holding ≈ 57%</td></tr></tfoot>
+      </table>
+
+      <h3>Data sources &amp; dates</h3>
+      <p class="small muted">
+      • <strong>56-1 One Report 2024</strong> (ปี 2567): ดาวน์โหลดจาก SEC iDisc, 26 มี.ค. 2025 — segment revenue, shareholders, dividend policy, products<br>
+      • <strong>งบการเงิน 2021-2025</strong>: yfinance (TTM data); cross-check กับ 56-1 2024 — ตัวเลขตรงกัน<br>
+      • <strong>RAW data external cross-check</strong>: <strong>valueinvesting.io</strong> (DCF FV 12.23, Rel FV 9.41, WACC 6.9%) + <strong>stockanalysis.com</strong> (5yr ROIC/ROE/ROA/ROCE) + <strong>GuruFocus</strong> (Intrinsic DCF ฿13.40, GF Score 68/100, Reverse DCF growth -8.65%, peer table cross-region) — ทั้ง 3 แหล่งใช้ Playwright browser bypass Cloudflare ณ 31 ก.ค. 2026<br>
+      • <strong>ราคาหุ้น + volume</strong>: yfinance ณ 31 ก.ค. 2026<br>
+      • <strong>Charts</strong>: TradingView MCP `tradingview_chart_image` SET:CPI interval W และ D, captured 31 ก.ค. 2026<br>
+      • <strong>Thai 10Y bond</strong>: ThaiBMA / worldgovernmentbonds.com @ 30 ก.ค. 2026 = 2.063%<br>
+      • <strong>Thailand ERP + CRP</strong>: Damodaran Jan 2026 update (Thailand Baa1, ERP 6.30%, CRP 2.07%, mature ERP 4.23%)<br>
+      • <strong>Size premium</strong>: Kroll 2021 Cost of Capital Navigator, decile 10a ($190M mcap) = 3.31%<br>
+      • <strong>Peer multiples</strong>: yfinance สำหรับ AAI, UPOIC, UVAN, VPO, LST, PCE ณ 31 ก.ค. 2026<br>
+      • <strong>อุตสาหกรรมปาล์ม</strong>: SCB EIC, Krungsri Research, Kaohoon (เม.ย. 2025), DIT กระทรวงพาณิชย์<br>
+      • <strong>ข่าวโรงงานใหม่ 940 ล้าน</strong>: ประกาศ SET 14 พ.ย. 2025; Infoquest, RYT9
+      </p>
+
+      <p class="small muted"><strong>Disclaimer.</strong> เอกสารนี้เป็นผลงานวิจัยและการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> (not financial advice), ไม่ใช่คำแนะนำให้ซื้อหรือขาย, และไม่ได้ปรับให้เหมาะกับสถานการณ์ของแต่ละบุคคล. ข้อมูลจาก yfinance, Yahoo Finance, TradingView เป็น unofficial — อาจล่าช้า, ไม่สมบูรณ์, หรือถูกแก้ไขภายหลัง. cross-check ตัวเลขที่สำคัญกับเอกสารหลักฐาน primary (56-1, งบการเงินตรวจสอบแล้ว) ก่อนตัดสินใจลงทุน. ผู้ลงทุนควรปรึกษาที่ปรึกษาการเงินที่มีใบอนุญาตสำหรับคำแนะนำเฉพาะบุคคล</p>
+    </section>
+
+    <footer>
+      ชุมพรพาล์มออยล์อุตสาหกรรม · CPI.BK · Equity research · Generated 31 ก.ค. 2026 · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  function initReportInteractivity() {
+    try {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              links.forEach(function(a){a.classList.remove('active');});
+              var a = map[e.target.id]; if(a) a.classList.add('active');
+            }
+          });
+        }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+        document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+      }
+    } catch(err) { }
+
+    try {
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if(!toc || !btn) return;
+      function isMobile(){ return window.matchMedia('(max-width:900px)').matches; }
+      if(isMobile()) toc.classList.add('collapsed');
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var collapsed = toc.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+      toc.addEventListener('click', function(e){
+        if(e.target.tagName === 'A' && isMobile()) toc.classList.add('collapsed');
+      });
+      window.addEventListener('resize', function(){
+        if(!isMobile()){ toc.classList.remove('collapsed'); btn.setAttribute('aria-expanded','true'); }
+      });
+    } catch(err) { console.error('BF-Report TOC init failed:', err); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReportInteractivity);
+  } else {
+    initReportInteractivity();
+  }
+</script>
+</body>
+</html>
