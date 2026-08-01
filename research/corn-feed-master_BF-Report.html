@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ข้าวโพดถูกจริงไหม? — รายงานวิจัยฉบับสมบูรณ์ (Step 1-7)</title>
+<style>
+:root{
+  --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+  --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+  --oat:#E3DACC;
+  --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+  --blue:#5B7C99; --purple:#8E7AB5; --teal:#5E9B8E; --gold:#C9A961;
+  --serif:ui-serif,Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  --radius-panel:12px; --radius-row:8px;
+  --border:1.5px solid var(--gray-300);
+  --rule:1px solid var(--gray-300);
+}
+body{font-family:var(--sans);font-size:15px;line-height:1.7;color:var(--slate);
+     background:var(--ivory);-webkit-font-smoothing:antialiased;margin:0;}
+h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;line-height:1.2;}
+h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0 0 6px;}
+h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:28px 0 8px;}
+h4{font-family:var(--sans);font-weight:600;font-size:14px;margin:20px 0 6px;color:var(--gray-700);}
+.eyebrow,.label{font-family:var(--sans);font-size:11px;font-weight:600;text-transform:uppercase;
+     letter-spacing:.06em;color:var(--gray-500);}
+.num{font-family:var(--serif);font-weight:500;}
+code,.mono{font-family:var(--mono);font-size:13px;}
+p{margin:0 0 14px;}
+.shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;
+       display:grid;grid-template-columns:232px 1fr;gap:56px;}
+.toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+.toc .eyebrow{margin-bottom:12px;}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:s;}
+.toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;
+       border-left:2px solid transparent;}
+.toc a:hover{color:var(--slate);}
+.toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+.toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+.doc{max-width:820px;min-width:0;}
+.toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+            background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+            padding:12px 16px;font-weight:600;cursor:pointer;}
+.toc-toggle .hamb{width:20px;height:14px;position:relative;}
+.toc-toggle .hamb span{position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                       transition:transform .25s, opacity .25s, top .25s;}
+.toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+.toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+.toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+  .toc{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--ivory);
+       border-bottom:var(--rule);box-shadow:0 1px 6px rgba(0,0,0,.05);}
+  .toc-toggle{display:flex;}
+  .toc .eyebrow{display:none;}
+  .toc ol{max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+  .toc.collapsed ol{max-height:0;overflow:hidden;}
+  section,h3[id]{scroll-margin-top:64px;}
+}
+.rep-head{margin-bottom:40px;}
+.head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+.logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+      background:var(--white);border:var(--border);padding:4px;}
+@media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;}h1{font-size:30px;}}
+.pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+      color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;
+      padding:5px 11px;white-space:nowrap;}
+.meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+@media(max-width:520px){.band{grid-template-columns:1fr;}}
+.stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;min-width:0;}
+.stat.warn{border-left:4px solid var(--watch);}
+.stat.good{border-left:4px solid var(--good);}
+.stat.bad{border-left:4px solid var(--bad);}
+.stat .v{font-family:var(--serif);font-size:30px;font-weight:500;line-height:1;margin-bottom:8px;}
+.stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+.stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+.stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+section{margin-bottom:56px;scroll-margin-top:24px;}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;}
+.sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+      border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;}
+thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+         color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--ivory);}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);margin:16px 0;}
+.table-wrap table{min-width:560px;}
+@media(max-width:720px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+.tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+     padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);}
+.tag.good{background:color-mix(in srgb,var(--good) 15%,var(--white));color:var(--good);}
+.tag.watch{background:color-mix(in srgb,var(--watch) 15%,var(--white));color:var(--watch);}
+.tag.bad{background:color-mix(in srgb,var(--bad) 15%,var(--white));color:var(--bad);}
+.callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;margin:18px 0;}
+.callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+.callout.good{background:color-mix(in srgb,var(--good) 8%,var(--white));border-left:4px solid var(--good);}
+.callout.bad{background:color-mix(in srgb,var(--bad) 8%,var(--white));border-left:4px solid var(--bad);}
+.callout h4{margin-top:0;}
+.callout p:last-child{margin-bottom:0;}
+.chart-box{background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+           padding:24px;margin:18px 0;}
+.chart-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;
+     color:var(--gray-500);margin-bottom:6px;}
+.chart-note{font-family:var(--mono);font-size:11px;color:var(--gray-500);margin-top:10px;}
+.bars{display:flex;align-items:flex-end;gap:12px;height:200px;padding:20px 10px 0;position:relative;}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+.bar .b{width:100%;max-width:64px;border-radius:6px 6px 0 0;}
+.bar .lbl{font-family:var(--mono);font-size:10px;color:var(--gray-500);margin-top:8px;}
+.bar .val{font-family:var(--serif);font-size:12px;color:var(--slate);margin-bottom:4px;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;font-size:12px;color:var(--gray-700);}
+.legend-item{display:flex;align-items:center;gap:7px;}
+.legend-swatch{width:14px;height:14px;border-radius:3px;}
+.pie-wrap{display:flex;flex-wrap:wrap;gap:30px;align-items:center;margin:10px 0;}
+.pie-svg{flex:0 0 auto;min-width:220px;}
+.pie-legend{flex:1;min-width:240px;}
+.pie-legend-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-100);}
+.pie-legend-row:last-child{border-bottom:none;}
+.pie-legend-swatch{width:14px;height:14px;border-radius:3px;flex-shrink:0;}
+.pie-legend-label{flex:1;font-size:13px;}
+.pie-legend-value{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--gray-700);}
+.pie-legend-ton{font-family:var(--mono);font-size:11px;color:var(--gray-500);margin-left:8px;}
+.timeline{position:relative;padding-left:32px;margin:20px 0;}
+.timeline::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--gray-300);}
+.tl-item{position:relative;padding-bottom:24px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{content:'';position:absolute;left:-28px;top:4px;width:14px;height:14px;
+                 border-radius:50%;background:var(--white);border:3px solid var(--watch);}
+.tl-item.good::before{border-color:var(--good);}
+.tl-item.bad::before{border-color:var(--bad);}
+.tl-date{font-family:var(--mono);font-size:11px;color:var(--watch);font-weight:600;text-transform:uppercase;}
+.tl-item.good .tl-date{color:var(--good);}
+.tl-item.bad .tl-date{color:var(--bad);}
+.tl-title{font-weight:600;margin:2px 0 4px;}
+.tl-body{font-size:14px;color:var(--gray-700);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:18px 0;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.compare-card{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+.compare-card h4{margin-top:0;display:flex;align-items:center;gap:8px;}
+ul.clean{list-style:none;padding:0;margin:0;}
+ul.clean li{padding:6px 0 6px 20px;position:relative;border-bottom:1px solid var(--gray-100);}
+ul.clean li:last-child{border-bottom:none;}
+ul.clean li::before{content:'→';position:absolute;left:0;color:var(--watch);font-weight:600;}
+.simplelist{padding-left:22px;margin:10px 0;}
+.simplelist li{margin-bottom:6px;}
+.price-chain{display:flex;flex-direction:column;gap:0;margin:18px 0;}
+.price-step{display:grid;grid-template-columns:60px 1fr 110px;gap:14px;align-items:center;
+            background:var(--white);border:var(--border);padding:14px 18px;border-radius:var(--radius-row);
+            margin-bottom:-1px;position:relative;z-index:1;}
+.price-step:first-child{border-radius:var(--radius-panel) var(--radius-panel) var(--radius-row) var(--radius-row);}
+.price-step:last-child{border-radius:var(--radius-row) var(--radius-row) var(--radius-panel) var(--radius-panel);
+                        margin-bottom:0;}
+.price-step.peak{border-left:4px solid var(--bad);}
+.price-step-icon{font-size:24px;text-align:center;}
+.price-step-name{font-weight:600;font-size:14px;}
+.price-step-detail{font-size:12px;color:var(--gray-500);margin-top:2px;}
+.price-step-value{font-family:var(--serif);font-size:20px;font-weight:500;text-align:right;color:var(--watch);}
+.price-step.peak .price-step-value{color:var(--bad);}
+@media(max-width:520px){.price-step{grid-template-columns:40px 1fr 90px;padding:12px;gap:10px;}
+  .price-step-icon{font-size:20px;}.price-step-value{font-size:16px;}}
+footer{margin-top:64px;padding-top:20px;border-top:var(--rule);
+       font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+.foot-section{margin-bottom:14px;}
+.foot-section strong{color:var(--gray-700);}
+a{color:var(--watch);}
+/* === Section 5: Stock chain + cards === */
+.chain-box{background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+           padding:24px;margin:18px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.chain-box .chart-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;
+     color:var(--gray-500);margin-bottom:14px;}
+.chain-flow{display:flex;flex-direction:column;align-items:stretch;gap:10px;min-width:560px;}
+.chain-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.chain-node{background:var(--ivory);border:1.5px solid var(--gray-300);border-radius:var(--radius-row);
+            padding:10px 12px;text-align:center;font-size:12.5px;}
+.chain-node strong{display:block;font-size:13.5px;color:var(--slate);margin-bottom:3px;}
+.chain-node.good{background:color-mix(in srgb,var(--good) 10%,var(--white));border-color:var(--good);}
+.chain-node.watch{background:color-mix(in srgb,var(--watch) 10%,var(--white));border-color:var(--watch);}
+.chain-node.bad{background:color-mix(in srgb,var(--bad) 10%,var(--white));border-color:var(--bad);}
+.chain-node.meta{background:var(--gray-100);border-color:var(--gray-300);color:var(--gray-700);}
+.chain-arrow{text-align:center;font-size:18px;color:var(--gray-500);margin:-4px 0;}
+.chain-source{font-family:var(--mono);font-size:10px;color:var(--gray-500);margin-top:12px;}
+.stock-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:14px 0;}
+.stock-card{background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+            padding:16px 18px;display:flex;flex-direction:column;gap:6px;}
+.stock-card.tier1{border-left:4px solid var(--good);}
+.stock-card.tier2{border-left:4px solid var(--watch);}
+.stock-card.tier3{border-left:4px solid var(--gray-500);}
+.stock-card.bad{border-left:4px solid var(--bad);}
+.stock-card.wildcard{border-left:4px solid var(--purple);}
+.stock-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;}
+.stock-ticker{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--slate);}
+.stock-tier{font-family:var(--mono);font-size:10px;color:var(--gray-500);}
+.stock-name{font-size:12px;color:var(--gray-700);line-height:1.4;}
+.stock-price{display:flex;align-items:baseline;gap:6px;margin-top:4px;}
+.stock-price .v{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--slate);}
+.stock-price .u{font-family:var(--mono);font-size:10px;color:var(--gray-500);}
+.stock-range{font-family:var(--mono);font-size:10px;color:var(--gray-500);}
+.stock-tag{font-family:var(--mono);font-size:10px;padding:2px 6px;border-radius:3px;
+           background:var(--gray-100);color:var(--gray-700);display:inline-block;width:fit-content;}
+.shortlist-box{background:linear-gradient(135deg,color-mix(in srgb,var(--good) 6%,var(--white)) 0%,var(--white) 100%);
+               border:1.5px solid var(--good);border-radius:var(--radius-panel);padding:22px 24px;margin:18px 0;}
+/* === Section 6: line chart + scenario === */
+.line-chart-box{background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+                padding:24px;margin:18px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.price-chart{display:block;width:100%;min-width:560px;height:auto;}
+.price-chart .grid-line{stroke:var(--gray-100);stroke-width:1;}
+.price-chart .axis-line{stroke:var(--gray-300);stroke-width:1.5;}
+.price-chart .axis-label{font-family:var(--mono);font-size:10px;fill:var(--gray-500);}
+.price-chart .x-label{font-family:var(--mono);font-size:9px;fill:var(--gray-500);}
+.price-chart .data-line{fill:none;stroke:var(--watch);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;}
+.price-chart .data-area{fill:color-mix(in srgb,var(--watch) 12%,transparent);}
+.price-chart .data-dot{stroke:var(--white);stroke-width:2;}
+.price-chart .data-dot.peak{fill:var(--bad);}
+.price-chart .data-dot.high{fill:var(--watch);}
+.price-chart .data-dot.normal{fill:var(--gray-500);}
+.price-chart .data-dot.fall{fill:var(--good);}
+.price-chart .data-label{font-family:var(--serif);font-size:11px;font-weight:500;fill:var(--slate);}
+.price-chart .annot-line{stroke:var(--bad);stroke-width:1;stroke-dasharray:3,3;}
+.price-chart .annot-text{font-family:var(--mono);font-size:10px;fill:var(--bad);font-weight:600;}
+.price-chart .floor-line{stroke:var(--good);stroke-width:1.5;stroke-dasharray:4,3;}
+.price-chart .floor-text{font-family:var(--mono);font-size:10px;fill:var(--good);font-weight:600;}
+.phase-band{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;}
+@media(max-width:600px){.phase-band{grid-template-columns:1fr;}}
+.phase-card{padding:14px 16px;border-radius:var(--radius-row);border:1.5px solid var(--gray-300);}
+.phase-card.normal{background:color-mix(in srgb,var(--gray-500) 8%,var(--white));border-color:var(--gray-500);}
+.phase-card.peak{background:color-mix(in srgb,var(--bad) 8%,var(--white));border-color:var(--bad);}
+.phase-card.fall{background:color-mix(in srgb,var(--good) 8%,var(--white));border-color:var(--good);}
+.phase-card .phase-title{font-weight:600;font-size:13px;margin-bottom:4px;}
+.phase-card .phase-range{font-family:var(--mono);font-size:12px;color:var(--gray-700);margin-bottom:4px;}
+.phase-card .phase-note{font-size:12px;color:var(--gray-500);line-height:1.4;}
+.scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0;}
+@media(max-width:720px){.scenario-grid{grid-template-columns:1fr;}}
+.scenario-card{padding:18px 20px;border-radius:var(--radius-panel);border:1.5px solid var(--gray-300);}
+.scenario-card.base{background:color-mix(in srgb,var(--watch) 8%,var(--white));border-color:var(--watch);}
+.scenario-card.bull{background:color-mix(in srgb,var(--good) 8%,var(--white));border-color:var(--good);}
+.scenario-card.bear{background:color-mix(in srgb,var(--bad) 8%,var(--white));border-color:var(--bad);}
+.scenario-card .sc-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.scenario-card .sc-title{font-weight:600;font-size:14px;}
+.scenario-card .sc-prob{font-family:var(--mono);font-size:11px;color:var(--gray-500);}
+.scenario-card .sc-range{font-family:var(--serif);font-size:22px;font-weight:500;line-height:1;margin:4px 0;}
+.scenario-card .sc-unit{font-family:var(--mono);font-size:11px;color:var(--gray-500);margin-bottom:8px;}
+.scenario-card .sc-list{font-size:12px;color:var(--gray-700);line-height:1.5;padding-left:18px;margin:0;}
+.scenario-card .sc-list li{margin-bottom:3px;}
+.cif-breakdown{background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+               padding:20px 22px;margin:14px 0;}
+.cif-row{display:grid;grid-template-columns:1fr 90px 1fr;gap:12px;align-items:center;
+         padding:10px 0;border-bottom:1px solid var(--gray-100);}
+.cif-row:last-child{border-bottom:none;}
+.cif-label{font-size:13px;color:var(--gray-700);}
+.cif-usd{font-family:var(--mono);font-size:13px;color:var(--gray-500);text-align:right;}
+.cif-thb{font-family:var(--serif);font-size:16px;font-weight:500;text-align:right;color:var(--slate);}
+.cif-row.total{background:color-mix(in srgb,var(--good) 6%,var(--white));margin:8px -22px -20px;
+               padding:14px 22px;border-radius:0 0 var(--radius-panel) var(--radius-panel);border-top:2px solid var(--good);}
+.cif-row.total .cif-thb{color:var(--good);font-size:20px;}
+@media(max-width:520px){.cif-row{grid-template-columns:1fr 60px 70px;gap:8px;}.cif-thb{font-size:14px;}}
+.weighted-box{background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:20px 22px;margin:14px 0;}
+.weighted-row{display:grid;grid-template-columns:32px 1fr 70px 80px;gap:12px;align-items:center;
+              padding:12px 0;border-bottom:1px solid var(--gray-100);font-size:13px;}
+.weighted-row:last-child{border-bottom:none;}
+.weighted-row.total{background:color-mix(in srgb,var(--watch) 8%,var(--white));margin:8px -22px -20px;
+                    padding:16px 22px;border-radius:0 0 var(--radius-panel) var(--radius-panel);border-top:2px solid var(--watch);font-weight:600;}
+.weighted-row .w-icon{font-size:20px;text-align:center;}
+.weighted-row .w-src{font-size:13px;line-height:1.4;}
+.weighted-row .w-src small{display:block;font-family:var(--mono);font-size:10px;color:var(--gray-500);margin-top:2px;}
+.weighted-row .w-share{font-family:var(--mono);font-size:13px;color:var(--gray-700);text-align:right;}
+.weighted-row .w-price{font-family:var(--serif);font-size:16px;font-weight:500;text-align:right;color:var(--slate);}
+.weighted-row.total .w-price{color:var(--watch);font-size:20px;}
+.weighted-row-head{display:grid;grid-template-columns:32px 1fr 70px 80px;gap:12px;align-items:center;
+                   padding-bottom:8px;border-bottom:2px solid var(--gray-300);font-family:var(--sans);
+                   font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+.weighted-row-head .h-share,.weighted-row-head .h-price{text-align:right;}
+@media(max-width:520px){.weighted-row,.weighted-row-head{grid-template-columns:28px 1fr 55px 60px;gap:8px;}
+  .weighted-row .w-price{font-size:14px;}.weighted-row.total .w-price{font-size:17px;}}
+.verdict-box{background:linear-gradient(135deg,color-mix(in srgb,var(--good) 10%,var(--white)) 0%,var(--white) 100%);
+             border:2px solid var(--good);border-radius:var(--radius-panel);padding:24px 26px;margin:18px 0;}
+.verdict-box .verdict-title{font-family:var(--serif);font-size:22px;font-weight:500;margin-bottom:10px;color:var(--good);}
+.verdict-box .verdict-body{font-size:14px;line-height:1.7;color:var(--slate);}
+.verdict-box .verdict-body p:last-child{margin-bottom:0;}
+/* === Section 7: Final takeaways === */
+.confidence-bar{background:var(--gray-100);border-radius:8px;height:14px;overflow:hidden;margin:8px 0;position:relative;}
+.confidence-fill{height:100%;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:var(--white);font-family:var(--mono);font-size:10px;font-weight:600;}
+.confidence-fill.high{background:var(--good);}
+.confidence-fill.mid{background:var(--watch);}
+.confidence-fill.low{background:var(--bad);}
+.confidence-label{display:flex;justify-content:space-between;font-size:12px;color:var(--gray-700);margin-bottom:2px;}
+.risk-row{display:grid;grid-template-columns:32px 1fr 60px 60px;gap:12px;align-items:start;
+          padding:12px 0;border-bottom:1px solid var(--gray-100);}
+.risk-row:last-child{border-bottom:none;}
+.risk-row .r-rank{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--watch);text-align:center;line-height:1;}
+.risk-row .r-name{font-weight:600;font-size:13px;margin-bottom:3px;}
+.risk-row .r-desc{font-size:12px;color:var(--gray-700);line-height:1.4;}
+.risk-row .r-impact{text-align:center;}
+.risk-row .r-prob{text-align:center;}
+.risk-row .r-impact .lbl,.risk-row .r-prob .lbl{font-family:var(--sans);font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);display:block;margin-bottom:3px;}
+.risk-row .r-impact .val,.risk-row .r-prob .val{font-family:var(--mono);font-size:11px;font-weight:600;}
+.risk-row-head{display:grid;grid-template-columns:32px 1fr 60px 60px;gap:12px;
+              padding-bottom:8px;border-bottom:2px solid var(--gray-300);
+              font-family:var(--sans);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+.risk-row-head .h-impact,.risk-row-head .h-prob{text-align:center;}
+@media(max-width:520px){.risk-row,.risk-row-head{grid-template-columns:28px 1fr;gap:8px;}
+  .risk-row .r-impact,.risk-row .r-prob,.risk-row-head .h-impact,.risk-row-head .h-prob{display:none;}}
+.watch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0;}
+@media(max-width:600px){.watch-grid{grid-template-columns:1fr;}}
+.watch-card{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:16px 18px;}
+.watch-card .w-trigger{font-family:var(--mono);font-size:11px;color:var(--watch);font-weight:600;text-transform:uppercase;margin-bottom:4px;}
+.watch-card .w-title{font-weight:600;font-size:13px;margin-bottom:6px;}
+.watch-card .w-desc{font-size:12px;color:var(--gray-700);line-height:1.4;}
+.watch-card .w-action{font-family:var(--mono);font-size:11px;color:var(--gray-500);margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-100);}
+@media print{
+  body{background:#fff;}
+  .shell{display:block;max-width:none;padding:0;}
+  .toc{display:none;}
+  .doc{max-width:none;}
+  section{break-inside:avoid;}
+  h2{break-after:avoid;}
+  a{color:var(--slate);text-decoration:none;}
+  .stat,table,.callout{box-shadow:none;}
+}
+@page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="toc collapsed" id="toc">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">สารบัญ</div>
+    <ol>
+      <li><a href="#summary">★ สรุปสำคัญ</a></li>
+      <li><a href="#s1">1. ข่าวจริงไหม?</a>
+        <ol>
+          <li><a href="#s1-1" class="sub">1.1 มุมโลก (CBOT)</a></li>
+          <li><a href="#s1-2" class="sub">1.2 มุมไทย (เกษตรกร)</a></li>
+          <li><a href="#s1-3" class="sub">1.3 เทียบสองมุม</a></li>
+        </ol>
+      </li>
+      <li><a href="#s2">2. เกิดอะไร · เมื่อไร · ยาวไหม</a>
+        <ol>
+          <li><a href="#s2-1" class="sub">2.1 มุมโลก</a></li>
+          <li><a href="#s2-2" class="sub">2.2 มุมไทย</a></li>
+          <li><a href="#s2-3" class="sub">2.3 บทสรุปเปรียบเทียบ</a></li>
+        </ol>
+      </li>
+      <li><a href="#s3">3. ข้าวโพด 9.26M ตัน ไปไหน?</a>
+        <ol>
+          <li><a href="#s3-1" class="sub">3.1 แยกตามชนิดสัตว์</a></li>
+          <li><a href="#s3-2" class="sub">3.2 อุตสาหกรรมอื่น ๆ</a></li>
+        </ol>
+      </li>
+      <li><a href="#s4">4. มุมไทยลึกขึ้น</a>
+        <ol>
+          <li><a href="#s4-1" class="sub">4.1 ราคาล่าสุด ก.ค. 69</a></li>
+          <li><a href="#s4-2" class="sub">4.2 สมาคมสุกรร้อง</a></li>
+          <li><a href="#s4-3" class="sub">4.3 "2 ราคา" ต่างกันยังไง</a></li>
+        </ol>
+      </li>
+      <li><a href="#s5">5. Step 3 · คัดเลือกหุ้นไทย</a>
+        <ol>
+          <li><a href="#s5-1" class="sub">5.1 วัฏจักรข้าวโพด</a></li>
+          <li><a href="#s5-2" class="sub">5.2 ผู้ได้ประโยชน์ (15 ตัว)</a></li>
+          <li><a href="#s5-3" class="sub">5.3 ผู้เสียประโยชน์ + Wildcard</a></li>
+          <li><a href="#s5-4" class="sub">5.4 Insight + Shortlist</a></li>
+          <li><a href="#s5-5" class="sub">5.5 แนวโน้มราคาไก่+หมู 3 ปี</a></li>
+        </ol>
+      </li>
+      <li><a href="#s6">6. Tailwind + แนวโน้มนำเข้า</a>
+        <ol>
+          <li><a href="#s6-1" class="sub">6.1 Tailwind จริงไหม?</a></li>
+          <li><a href="#s6-2" class="sub">6.2 ราคาข้าวโพด 12 เดือน</a></li>
+          <li><a href="#s6-3" class="sub">6.3 ดีล US + แนวโน้มนำเข้า</a></li>
+          <li><a href="#s6-4" class="sub">6.4 "9.80 floor" ตอบข้อสงสัย</a></li>
+        </ol>
+      </li>
+      <li><a href="#s7">7. สรุปตกผลึก (Final Takeaways)</a>
+        <ol>
+          <li><a href="#s7-1" class="sub">7.1 คำตอบ 2 คำถาม</a></li>
+          <li><a href="#s7-2" class="sub">7.2 ระดับความมั่นใจ</a></li>
+          <li><a href="#s7-3" class="sub">7.3 ความเสี่ยง 5 อันดับ</a></li>
+          <li><a href="#s7-4" class="sub">7.4 ตัวชี้วัดที่ต้องจับตา</a></li>
+        </ol>
+      </li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <img class="logo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='10' fill='%23D97757'/><text x='32' y='44' font-family='Georgia' font-size='32' fill='white' text-anchor='middle'>🌽</text></svg>" alt="corn logo" width="64" height="64">
+          <h1>ข้าวโพดถูกจริงไหม?<br><span style="font-size:22px;color:var(--gray-500);font-weight:400;">รายงานวิจัยฉบับสมบูรณ์ — ตอบคำถามลงทุนได้จริง</span></h1>
+        </div>
+        <span class="pill">Research · Not financial advice</span>
+      </div>
+      <div class="meta mono">CORN · CBOT + THAI DOMESTIC · USD &amp; THB · ข้อมูล ณ 1 สิงหาคม 2026</div>
+    </header>
+
+    <section id="summary">
+      <div class="sec-h">
+        <span class="sec-no">★</span>
+        <h2>Executive Summary — สรุปคำตอบทั้งหมด</h2>
+      </div>
+      <hr class="div">
+
+      <p>รายงานฉบับนี้ตอบ 2 คำถามหลักที่นักลงทุนสนใจ: <strong>(1) ข้าวโพดถูกจริงไหม?</strong> และ <strong>(2) ถ้าถูก จะเป็นแรงหนุน (tailwind = ปัจจัยบวก) ต่อหุ้นอาหารสัตว์ไทยจริงไหม?</strong> — คำตอบสั้น ๆ อยู่ข้างล่าง พร้อมเหตุผลและความเสี่ยง</p>
+
+      <div class="callout accent">
+        <h4>❓ คำถามที่ 1: ข้าวโพดถูกจริงไหม?</h4>
+        <p style="margin-bottom:10px;"><strong>คำตอบ: "ถูกครึ่งเดียว"</strong> — ต้องแยกให้ชัดว่าคุยเรื่องราคาไหน เพราะข้าวโพดมี <strong>"2 ราคา 2 โลก"</strong> ที่คนมักสับสน:</p>
+        <ul class="simplelist">
+          <li><strong>ราคาข้าวโพดโลก (CBOT):</strong> <span class="chip"><span class="dot bad"></span>ไม่ถูก</span> — กลับกัน อยู่ในช่วงขาขึ้น <strong>+13% ต่อปี</strong> ($464/bu · ใกล้ระดับสูงสุด 52 สัปดาห์) เพราะผลผลิตโลกไม่พอความต้องการ 2 ปีซ้อน + สงคราม Black Sea</li>
+          <li><strong>ราคาข้าวโพดเกษตรกรไทย (ที่ไร่):</strong> <span class="chip"><span class="dot watch"></span>ถูกจริง</span> — เพราะรัฐบาลไทยเปิดนำเข้าข้าวโพดอเมริกันที่ถูกกว่า 1 ล้านตัน/ปี กดราคาของไทย</li>
+          <li><strong>ราคาที่โรงอาหารสัตว์จ่ายจริง (เฉลี่ย):</strong> <span class="chip"><span class="dot watch"></span>~9.2 บาท/กก.</span> — ผสม 3 แหล่ง (ไทย 9.80 + US 7.60 + เพื่อนบ้าน 8.50) → ถูกกว่าช่วงพีค มิ.ย. 69 (13.20) ถึง 30%</li>
+        </ul>
+        <p style="margin-top:10px;margin-bottom:0;"><strong>สรุป:</strong> ข่าวที่คุณได้ยิน "ข้าวโพดถูก" <strong>มาจากมุมเกษตรกรไทย</strong> ไม่ใช่มุมราคาโลก — ราคาโลกกลับแพงขึ้น แต่ราคาที่โรงงานไทยจ่ายลดลง เพราะมีข้าวโพด US มาผสม</p>
+      </div>
+
+      <div class="callout good">
+        <h4>❓ คำถามที่ 2: เป็น Tailwind (แรงหนุน) ต่อหุ้นไทยจริงไหม?</h4>
+        <p style="margin-bottom:10px;"><strong>คำตอบ: "จริง แต่จำกัด และมีเงื่อนไข"</strong> — ราคาข้าวโพดที่ไซโลร่วงลง 23% จากพีค (13.20 → 10.20 บาท/กก.) ส่งผลให้ต้นทุนโรงอาหารสัตว์ลดลง → กำไรเพิ่มขึ้น แต่ต้องเข้าใจ 3 เงื่อนไข:</p>
+        <ul class="simplelist">
+          <li><strong>1. ข้าวโพด US ต้องมาถึงจริง</strong> — ปัจจุบันมาแค่ ~60-70% ของโควต้า (เรือแพง + เอกสารยุ่งยาก)</li>
+          <li><strong>2. ราคา 9.80 บาทเป็น "พื้น" (floor)</strong> เฉพาะข้าวโพดไทย — ไม่ใช่ราคาทั้งหมด ราคาเฉลี่ยจริงต่ำกว่า (ดู §6.4)</li>
+          <li><strong>3. ราคาขายไก่/สุกรต้องไม่ลด</strong> — ถ้าราคาขายปลายน้ำลด กำไรจะไม่เพิ่ม</li>
+        </ul>
+        <p style="margin-top:10px;margin-bottom:0;"><strong>ประเมิน:</strong> tailwind ลดต้นทุนข้าวโพดได้จริง ~10-12% จากระดับปกติ (ไม่ใช่ลดครึ่ง) → ผู้ได้ประโยชน์หลัก = บริษัทไก่เนื้อ+อาหารสัตว์ (CPF, GFPT, BTG) ส่วนหุ้นกุ้ง (TU, ASIAN) แทบไม่ได้ประโยชน์</p>
+      </div>
+
+      <h3>ตัวเลขสำคัญที่ต้องจำ</h3>
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">$464</div>
+          <div class="k">ราคา CBOT โลก</div>
+          <div class="d">/bushel · ใกล้ 52wk high · +13% YoY</div>
+        </div>
+        <div class="stat bad">
+          <div class="v">13.20 → 10.20</div>
+          <div class="k">ราคาไซโลไทย (พีค → ปัจจุบัน)</div>
+          <div class="d down">−23% ใน 1 เดือน · ก.ค. 69</div>
+        </div>
+        <div class="stat good">
+          <div class="v">~9.2</div>
+          <div class="k">ราคาเฉลี่ยจริง (บาท/กก.)</div>
+          <div class="d up">ถ่วงน้ำหนัก 3 แหล่ง · ต่ำกว่า floor 9.80</div>
+        </div>
+        <div class="stat">
+          <div class="v">3.9M</div>
+          <div class="k">ช่องว่างขาดแคลนไทย</div>
+          <div class="d">ตัน/ปี · 73% ของผลผลิตไทย</div>
+        </div>
+        <div class="stat">
+          <div class="v">1M ตัน</div>
+          <div class="k">ดีลข้าวโพด US TRQ</div>
+          <div class="d">มาจริง ~60-70% · ถูกกว่าไทย 25%</div>
+        </div>
+        <div class="stat warn">
+          <div class="v">56%</div>
+          <div class="k">สัดส่วนไก่ใช้ข้าวโพด</div>
+          <div class="d">ไก่เนื้อ+ไก่ไข่ · มากกว่าสุกร (27%)</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>📖 ง่าย ๆ: "Tailwind" คืออะไร?</h4>
+        <p style="margin-bottom:0;"><strong>Tailwind (ลมหนุน)</strong> = ปัจจัยบวกที่หนุนราคาหุ้นขึ้น — เช่น ต้นทุนลดลง → กำไรเพิ่ม → ราคาหุ้นน่าจะขึ้น<br>
+        <strong>Headwind (ลมต้าน)</strong> = ปัจจัยลบที่กดราคาหุ้นลง — เช่น ค่าขนส่งแพง หรือราคาขายปลายน้ำลด<br>
+        <strong>Floor (พื้นราคา)</strong> = ราคาขั้นต่ำที่รัฐกำหนด เพื่อปกป้องเกษตรกร ไม่ให้ราคาตกต่ำกว่านี้</p>
+      </div>
+    </section>
+
+    <section id="s1">
+      <div class="sec-h">
+        <span class="sec-no">1</span>
+        <h2>ข่าว "ข้าวโพดถูก" จริงไหม?</h2>
+      </div>
+      <hr class="div">
+      <p>ก่อนจะคิดลงทุน เราต้องตอบให้ได้ว่าข่าวนี้ <strong>"จริงหรือไม่จริง"</strong> — เพราะถ้าเข้าใจผิดตั้งแต่ตรงนี้ การเลือกหุ้นก็จะผิดทั้งหมด</p>
+      <p>สิ่งที่เราพบคือ: <strong>ข่าวพูดถูก แต่คนเข้าใจผิดคนละมุม</strong> ต้องแยกเป็น 2 มุม</p>
+
+      <h3 id="s1-1">1.1 มุมโลก — ราคาข้าวโพดตลาด CBOT <span class="chip"><span class="dot bad"></span>ไม่ถูก กลับแพงขึ้น</span></h3>
+      <p>ตลาด CBOT (Chicago Board of Trade) คือตลาดซื้อขายข้าวโพดรายใหญ่ของโลก เหมือนตลาดหุ้น แต่เป็นสินค้าเกษตร ราคาที่นี่เป็น "ราคามาตรฐานโลก"</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ตัวชี้วัด</th>
+              <th class="num">ค่า</th>
+              <th>ความหมาย</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>ราคาวันนี้</td><td class="num"><strong>$464/bu</strong></td><td>กลับมาทะยานจากจุดต่ำ</td></tr>
+            <tr><td>ช่วงราคา 52 สัปดาห์</td><td class="num">$368.75 – $481.75</td><td><strong>อยู่ใกล้ด้านบน</strong> ไม่ใช่ด้านล่าง</td></tr>
+            <tr><td>เทียบปีก่อน</td><td class="num"><strong>+13%</strong></td><td><strong>แพงขึ้น</strong> ไม่ใช่ถูกลง</td></tr>
+            <tr><td>พยากรณ์ Q3 2026</td><td class="num">~$470 → $496 (1 ปี)</td><td>มีแนวโน้มขึ้นต่อ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout bad">
+        <h4>สรุปมุมโลก</h4>
+        <p style="margin-bottom:0;">ข้าวโพดโลก <strong>ไม่ได้ถูก</strong> — กลับกัน อยู่ในช่วงขาขึ้น เพราะ USDA (กระทรวงเกษตรสหรัฐฯ) บอกว่า <strong>"ความต้องการ &gt; ผลผลิต 2 ปีซ้อน"</strong> + ความเสี่ยงสงครามรัสเซีย-ยูเครนที่ท่าเรือ Black Sea</p>
+      </div>
+
+      <h3 id="s1-2">1.2 มุมไทย — ข้าวโพดเกษตรกรไทย <span class="chip"><span class="dot watch"></span>ถูกจริง และกดดันหนัก</span></h3>
+      <p>นี่คือที่มาของข่าวจริง ๆ และมีเรื่องเด่นชัด 4 เรื่องที่ทำให้เกษตรกรไทยรู้สึกว่า "ข้าวโพดถูก":</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>เหตุการณ์</th><th>รายละเอียด</th><th>ผลกระทบ</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. รัฐบาลเปิดนำเข้าข้าวโพดอเมริกัน</strong></td>
+              <td>เซ็น MOU นำเข้าข้าวโพด GMO จากสหรัฐฯ <strong>1 ล้านตัน</strong> (พ.ค.–มิ.ย. 2026)</td>
+              <td>ข้าวโพดอเมริกันผลิตเป็นแปลงใหญ่ + เทคโนโลยี → ถูกกว่าไทยมาก</td>
+            </tr>
+            <tr>
+              <td><strong>2. ก.พาณิชย์ประกาศราคารับซื้อขั้นต่ำ</strong></td>
+              <td>กำหนด 9.80 บาท/กก. (มีผล 30 ส.ค. 68 – 31 ก.ค. 69)</td>
+              <td>แปลว่า <strong>ราคาตลาดจริงต่ำกว่านี้</strong> ต้องมีมาตรการปกป้อง</td>
+            </tr>
+            <tr>
+              <td><strong>3. สมาคมผู้เลี้ยงสุกรร้อง</strong></td>
+              <td>บอกว่าข้าวโพดเลี้ยงสัตว์ <strong>"แพงมาก"</strong> (ดู §4.2)</td>
+              <td>ขัดกับเกษตรกรที่บอกถูก — เพราะ 2 ฝั่งซื้อข้าวโพดคนละแบบ (ดู §4.3)</td>
+            </tr>
+            <tr>
+              <td><strong>4. มันสำปะหลังก็ตกต่ำ</strong></td>
+              <td>พืชทดแทนข้าวโพด ราคาตกเกือบ 2 ปี</td>
+              <td>เกษตรกรไทยโดนพืชเศรษฐกิจ 2 ชนิดพร้อมกัน</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="s1-3">1.3 สรุปเทียบสองมุม — "ข้าวโพด 2 ราคา 2 โลก"</h3>
+      <div class="two-col">
+        <div class="compare-card">
+          <h4><span class="dot bad"></span>มุมโลก (CBOT)</h4>
+          <p style="font-size:13px;color:var(--gray-700);">ราคาข้าวโพดในตลาดซื้อขายรายใหญ่ของโลก</p>
+          <ul class="clean">
+            <li>แพงขึ้น +13%</li>
+            <li>อยู่ใกล้ระดับสูงสุด 52 สัปดาห์</li>
+            <li>เพราะผลผลิตโลกไม่พอ</li>
+            <li>สงคราม Black Sea ยิ่งทำแพง</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <h4><span class="dot watch"></span>มุมไทย (เกษตรกร)</h4>
+          <p style="font-size:13px;color:var(--gray-700);">ราคาที่เกษตรกรไทยขายข้าวโพดที่ไร่ได้</p>
+          <ul class="clean">
+            <li>ถูกลง (ประมาณ 5-7 บาท/กก.)</li>
+            <li>ต่ำกว่าขั้นต่ำที่รัฐตั้ง (9.80)</li>
+            <li>เพราะนำเข้าอเมริกันที่ถูกกว่า</li>
+            <li>เกษตรกรรายเล็กขาดทุน</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>💡 สำคัญมากสำหรับคนลงทุนหุ้น</h4>
+        <p style="margin-bottom:0;">ข่าวที่คุณได้ยินมา <strong>มาจากมุมเกษตรกรไทย</strong> ไม่ใช่มุมราคาโลก — ราคาข้าวโพด <strong>"ในตลาดโลกกลับแพงขึ้น"</strong> แต่ <strong>"ในไร่ไทยรู้สึกว่าถูก"</strong> เพราะข้าวโพดอเมริกันที่ทางการไทยนำเข้ามาถูกกว่ามาก → เกิดแรงกดดันสองทาง: เกษตรกรไทยขาดทุน, โรงอาหารสัตว์บ่นว่าแพง</p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <div class="sec-h">
+        <span class="sec-no">2</span>
+        <h2>เกิดอะไร · ตั้งแต่เมื่อไร · จะยาวไหม?</h2>
+      </div>
+      <hr class="div">
+      <p>เมื่อรู้แล้วว่า "ข่าวถูก แต่ต้องแยก 2 มุม" — ต่อไปเจาะลึกแต่ละมุมให้เห็นภาพเต็ม: <strong>เกิดจากอะไร · เริ่มเมื่อไร · จะอยู่นานแค่ไหน</strong></p>
+
+      <h3 id="s2-1">2.1 มุมโลก (CBOT) — ขาขึ้น แพงขึ้น</h3>
+      <h4>เกิดจากอะไร? → "อุปทาน (Supply) ตึง ขณะที่อุปกาณา (Demand) แข็งแรง"</h4>
+      <p>คำง่าย ๆ:</p>
+      <ul class="simplelist">
+        <li><strong>อุปทาน</strong> = ปริมาณข้าวโพดที่โลกผลิตได้ → ตอนนี้ <strong>ไม่พอ</strong></li>
+        <li><strong>อุปกาณา</strong> = ความต้องการซื้อข้าวโพด → ตอนนี้ <strong>สูง</strong> (ใช้ทำอาหารสัตว์ + เอทานอล)</li>
+        <li>เมื่อของมีน้อย คนอยากได้เยอะ → <strong>ราคาขึ้น</strong></li>
+      </ul>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ปัจจัย</th><th>รายละเอียด</th></tr></thead>
+          <tbody>
+            <tr><td><strong>USDA WASDE ก.ค. 69</strong></td><td>ตัด forecast stocks ปี 2026/27 <strong>ต่ำกว่าที่ตลาดคาด 5%+</strong> → เหลือ 1.79 พันล้าน bu</td></tr>
+            <tr><td><strong>ความต้องการ &gt; ผลผลิต 2 ปีซ้อน</strong></td><td>USDA ระบุ "consumption exceed production for a second straight season"</td></tr>
+            <tr><td><strong>US farmers ขาดทุนปีที่ 4</strong></td><td>National Corn Growers: "on track to lose money for the 4th consecutive year"</td></tr>
+            <tr><td><strong>Yield forecast ลด</strong></td><td>USDA คาด 177 bu/acre → ต่ำกว่า trend 4 bu</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>ตัวเร่ง (catalyst) — "สงคราม Black Sea บานไฟ"</h4>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-date">15 ก.ค. 2026</div><div class="tl-title">ท่าเรือ Chornomorsk (ยูเครน) ถูกตี</div><div class="tl-body">สูญเสียความสามารถการส่งออก 1/3</div></div>
+        <div class="tl-item"><div class="tl-date">28 ก.ค. 2026</div><div class="tl-title">ท่าเรือรัสเซีย 3 แห่งจำกัดรับเข้า</div><div class="tl-body">จำกัดรถบรรทุกเข้าท่าเรือ เพราะค่าขนส่งแพงขึ้น</div></div>
+        <div class="tl-item"><div class="tl-date">ปลาย ก.ค. 2026</div><div class="tl-title">Drone ยูเครน ทำความเสียหาย Taman port</div><div class="tl-body">ท่าเรือรัสเซียสำคัญที่ช่องแคบ Kerch เสียหาย</div></div>
+        <div class="tl-item bad"><div class="tl-date">31 ก.ค. 2026</div><div class="tl-title">Russian grain lobby เตือน</div><div class="tl-body">อาจปิดทางออก Black Sea ทั้งหมด — ราคาพุ่ง</div></div>
+      </div>
+
+      <h4>ตั้งแต่เมื่อไร? กราฟราคา 5 ปีล่าสุด</h4>
+      <div class="chart-box">
+        <div class="chart-title">📊 ราคาข้าวโพดโลก (CBOT) เฉลี่ยรายปี — หน่วย: ดอลลาร์/bushel</div>
+        <div class="bars">
+          <div class="bar"><div class="val">$3.9</div><div class="b" style="height:40%;background:var(--gray-300);"></div><div class="lbl">2020</div></div>
+          <div class="bar"><div class="val">$5.6</div><div class="b" style="height:58%;background:var(--watch);"></div><div class="lbl">2021</div></div>
+          <div class="bar"><div class="val">$6.95</div><div class="b" style="height:72%;background:var(--bad);"></div><div class="lbl">2022</div></div>
+          <div class="bar"><div class="val">$5.66</div><div class="b" style="height:59%;background:var(--watch);"></div><div class="lbl">2023</div></div>
+          <div class="bar"><div class="val">$4.23</div><div class="b" style="height:44%;background:var(--gray-300);"></div><div class="lbl">2024</div></div>
+          <div class="bar"><div class="val">$4.39</div><div class="b" style="height:46%;background:var(--gray-300);"></div><div class="lbl">2025</div></div>
+          <div class="bar"><div class="val">$4.41</div><div class="b" style="height:46%;background:var(--watch);"></div><div class="lbl">2026</div></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--bad);"></span>จุดสูงสุด (Russia บุกยูเครน)</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--gray-300);"></span>ระดับปกติ/ต่ำ</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--watch);"></span>กำลังฟื้นตัว</div>
+        </div>
+        <div class="chart-note">ที่มา: Macrotrends · ราคา front-month · 2026 = ยอด YTD · จุดสูงสุดตลอดกาล $843.75 (ส.ค. 2012)</div>
+      </div>
+
+      <h4>ผลผลิตโลก 2025/26 + 2026/27 (USDA + Conab)</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ประเทศ</th><th class="num">2025/26</th><th class="num">2026/27 (พยากรณ์)</th><th>สถานะ</th></tr></thead>
+          <tbody>
+            <tr><td>สหรัฐฯ</td><td class="num">~385M ตัน</td><td class="num">~400M ตัน</td><td>ขึ้นเล็กน้อย แต่ farmers ขาดทุนปีที่ 4</td></tr>
+            <tr><td>บราซิล</td><td class="num"><strong>177.1M ตัน</strong></td><td class="num">~186M ตัน</td><td><strong>สถิติ!</strong> safrinha ออกเก่ง แต่ต้องดูอากาศ</td></tr>
+            <tr><td>อาร์เจนตินา</td><td class="num">~60M ตัน</td><td class="num"><strong>record 63M+</strong></td><td>พื้นที่ปลูกสูงสุด</td></tr>
+            <tr><td>จีน</td><td class="num">307M ตัน</td><td class="num">—</td><td>ใช้ภายในประเทศ — Demand หลักโลก</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>จะยาวไหม? → <span class="tag watch">น่าจะยาว 12–24 เดือน</span></h4>
+      <ul class="simplelist">
+        <li>พื้นฐาน supply-demand ตึง (ปกติของสินค้าเกษตร)</li>
+        <li>Black Sea ไม่มีสัญญาณยุติ → supply chain คงอยู่แบบนี้</li>
+        <li><strong>ความเสี่ยงขาลง:</strong> Brazil harvest ปลายปี (Oct-Nov) ถ้าออกเกินคาด → pullback ชั่วคราว</li>
+        <li>Trading Economics forecast: $470 → $496 ในอีก 1 ปี</li>
+      </ul>
+
+      <hr class="div" style="margin:32px 0;">
+
+      <h3 id="s2-2">2.2 มุมไทย — ถูกจริง เพราะ "ต้นทุนโครงสร้าง" ไม่ใช่วัฏจักรราคา</h3>
+      <h4>เกิดจากอะไร? → "ปัญหาโครงสร้าง (structural) ไม่ใช่ shock ชั่วคราว"</h4>
+      <p>ตัวเลขล่าสุดจาก สศก. + ธ.ก.ส. + ก.พาณิชย์ (อัปเดต 2568/69):</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>รายการ</th><th class="num">ตัวเลข</th><th>แหล่ง/ปี</th></tr></thead>
+          <tbody>
+            <tr><td>ความต้องการใช้ในประเทศ</td><td class="num"><strong>9.26 ล้านตัน/ปี</strong></td><td>Thai PBS มี.ค. 69 / ก.ค้าภายใน</td></tr>
+            <tr><td>ผลผลิตไทย ปี 2568/69</td><td class="num"><strong>5.36 ล้านตัน</strong> (+8.23% YoY)</td><td>สศท. → BAAC พ.ย. 68</td></tr>
+            <tr><td>ช่องว่างขาดแคลน</td><td class="num"><strong>~3.9 ล้านตัน/ปี</strong></td><td>(9.26 − 5.36)</td></tr>
+            <tr><td>พื้นที่ปลูก ปี 68/69</td><td class="num">4.17 ล้านไร่</td><td>สศก.</td></tr>
+            <tr><td>ผลผลิตเฉลี่ยไทย</td><td class="num">~1,284 กก./ไร่</td><td>(5.36M ÷ 4.17M)</td></tr>
+            <tr><td>ผลผลิตเฉลี่ยสหรัฐฯ (เทียบ)</td><td class="num">~12,000 กก./ไร่</td><td>(183 bu/acre) → เก่งกว่าไทย ~9 เท่า</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout accent">
+        <h4>💡 Insight ที่ชัดเจนมาก</h4>
+        <p style="margin-bottom:0;"><strong>"ช่องว่างขาดแคลน 3.9 ล้านตัน"</strong> = เทียบเท่า <strong>73% ของผลผลิตไทยทั้งประเทศ</strong> → ไทยไม่มีทางปลูกเองได้พอ ต้องพึ่งนำเข้าเป็นหลัก</p>
+      </div>
+
+      <h4>ตั้งแต่เมื่อไร? → เริ่มจาก "ดีลทรัมป์" เม.ย. 68</h4>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-date">เม.ย. 2568</div><div class="tl-title">ทรัมป์ขึ้นภาษีตอบโต้ไทย 36%</div><div class="tl-body">ไทยต่อรองลดเหลือ 19% โดยแลกด้วย "เปิดนำเข้าข้าวโพด + กากถั่วเหลือง US"</div></div>
+        <div class="tl-item"><div class="tl-date">1 ก.ย. 2568</div><div class="tl-title">ก.พาณิชย์ประกาศราคารับซื้อขั้นต่ำ 9.80 บาท/กก.</div><div class="tl-body">เพื่อปกป้องเกษตรกรจากดีลนำเข้า</div></div>
+        <div class="tl-item"><div class="tl-date">11 พ.ย. 2568</div><div class="tl-title">ครม.ไฟเขียวเพิ่มโควต้าข้าวโพด US เป็น 1 ล้านตัน</div><div class="tl-body">เริ่ม 1 ก.พ. 69 — "อนุทิน" สั่งหามาตรการเยียวยา / "ธรรมนัส" สงวนมติไม่เห็นด้วย</div></div>
+        <div class="tl-item"><div class="tl-date">มี.ค. 2569</div><div class="tl-title">ก.ค้าภายในลงพื้นที่ → ยืนยันความต้องการ 9.26 ล้านตัน/ปี</div><div class="tl-body">โรงอาหารสัตว์เซ็นรับซื้อข้าวโพดไร้การเผา (PM2.5/EUDR)</div></div>
+        <div class="tl-item"><div class="tl-date">เม.ย.–มิ.ย. 2569</div><div class="tl-title">เซ็น MOU นำเข้าข้าวโพด GMO US 1 ล้านตัน</div><div class="tl-body">ภายใต้ WTO TRQ</div></div>
+        <div class="tl-item"><div class="tl-date">มิ.ย. 2569</div><div class="tl-title">สส.ฝ่ายค้านโจมตี "ศุภจี"</div><div class="tl-body">หวั่นทุบราคาเกษตรกรไทย</div></div>
+      </div>
+
+      <h4>จะยาวไหม? → <span class="tag bad">ยาวมาก — เป็น structural หลายปี</span></h4>
+      <p><strong>3 เหตุผล:</strong></p>
+      <h4>1. โครงสร้างต้นทุนเป็นนิจศีล</h4>
+      <ul class="simplelist">
+        <li>ไทยปลูกแปลงเล็ก (1,284 กก./ไร่) vs US ~12,000 กก./ไร่ — ต่างกัน ~9 เท่า</li>
+        <li>เทคโนโลยีต่ำ → ต้นทุน 10-13 บาท/กก. vs US 7-8 บาท/กก.</li>
+        <li><strong>จะแก้ได้ต้องปฏิรูปแปลงใหญ่ + เทคโนโลยี ใช้เวลา 5-10 ปี</strong></li>
+      </ul>
+      <h4>2. "ดีลทรัมป์" ผูกติดกับการค้าระหว่างประเทศ</h4>
+      <ul class="simplelist">
+        <li>ตราบใดที่สหรัฐฯ ยังใช้ภาษีตอบโต้ → ไทยต้องแลกด้วยการเปิดตลาดนำเข้า</li>
+        <li>TDRI (ก.ย. 68) แนะ: รัฐอาจต้องปรับ TRQ + ภาษีนอกโควตา → เปิดกว้างขึ้น</li>
+      </ul>
+      <h4>3. ความต้องการเพิ่มขึ้นเรื่อย ๆ</h4>
+      <ul class="simplelist">
+        <li>อาหารสัตว์ไทย = อุตสาหกรรมส่งออกหลัก (ไก่ กุ้ง หมู หมื่นล้านบาท)</li>
+        <li>EUDR + กฎหมายอากาศสะอาด → ต้องใช้ข้าวโพดที่ traceable จากแหล่งขนาดใหญ่ = นำเข้า</li>
+      </ul>
+
+      <hr class="div" style="margin:32px 0;">
+
+      <h3 id="s2-3">2.3 บทสรุปเปรียบเทียบ 2 มุม</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>มุมโลก (CBOT)</th><th>มุมไทย (เกษตรกร)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ราคา/สถานะ</strong></td><td>$464/bu — ใกล้ 52wk high</td><td>5-7 บาท/กก. (ต่ำกว่าขั้นต่ำ 9.80)</td></tr>
+            <tr><td><strong>เทียบปีก่อน</strong></td><td><span class="tag bad">+13% (แพงขึ้น)</span></td><td><span class="tag watch">-10% ถึง -25% (ถูกลง)</span></td></tr>
+            <tr><td><strong>สาเหตุ</strong></td><td>Tight stocks + Black Sea war</td><td>ดีลทรัมป์ + โครงสร้างต้นทุน</td></tr>
+            <tr><td><strong>ระยะ</strong></td><td><span class="tag watch">12-24 เดือน</span></td><td><span class="tag bad">หลายปี (structural)</span></td></tr>
+            <tr><td><strong>ใครได้ประโยชน์</strong></td><td>US, Brazil farmers</td><td>โรงอาหารสัตว์ไทย, ผู้เลี้ยงสัตว์รวม</td></tr>
+            <tr><td><strong>ใครเสีย</strong></td><td>ผู้บริโภคอาหารสัตว์โลก</td><td>เกษตรกรข้าวโพดรายเล็กไทย</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s3">
+      <div class="sec-h">
+        <span class="sec-no">3</span>
+        <h2>ข้าวโพด 9.26 ล้านตัน/ปี ไปไหนบ้าง?</h2>
+      </div>
+      <hr class="div">
+      <p>ก่อนจะคัดเลือกหุ้น เราต้องรู้ก่อนว่า <strong>ข้าวโพดที่ไทยใช้ 9.26 ล้านตัน/ปี ไปอยู่ที่ไหน</strong> — เพราะแต่ละอุตสาหกรรมที่ใช้ข้าวโพด จะได้ประโยชน์/เสียประโยชน์จากราคาข้าวโพดต่างกัน</p>
+
+      <div class="callout">
+        <h4>📊 ตัวเลขสำคัญที่ต้องเริ่มจากนี้</h4>
+        <table style="background:transparent;border:none;margin-top:8px;">
+          <tbody style="background:transparent;">
+            <tr style="background:transparent;"><td style="border:none;padding:6px 0;"><strong>20 ล้านตัน/ปี</strong></td><td style="border:none;padding:6px 0;">ปริมาณ <strong>อาหารสัตว์</strong> ที่ไทยผลิต (TFMA)</td></tr>
+            <tr style="background:transparent;"><td style="border:none;padding:6px 0;"><strong>9.26 ล้านตัน/ปี</strong></td><td style="border:none;padding:6px 0;">ความต้องการ <strong>ข้าวโพด</strong> ในประเทศ</td></tr>
+            <tr style="background:transparent;"><td style="border:none;padding:6px 0;"><strong>5.36 ล้านตัน</strong></td><td style="border:none;padding:6px 0;">ผลผลิตข้าวโพดไทย ปี 68/69</td></tr>
+            <tr style="background:transparent;"><td style="border:none;padding:6px 0;"><strong>~3.9 ล้านตัน</strong></td><td style="border:none;padding:6px 0;">ช่องว่างขาดแคลน (ต้องนำเข้า)</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:10px;margin-bottom:0;font-size:13px;">หมายเหตุ: ข้าวโพดเป็นส่วนประกอบ ~50% ของสูตรอาหารสัตว์ → 20M ตันอาหาร × 50% ≈ 10M ตันข้าวโพด (ใกล้เคียงกับ 9.26M)</p>
+      </div>
+
+      <h3 id="s3-1">3.1 แยกตามชนิดสัตว์ — Pie Chart</h3>
+      <p>จากข้อมูล สมาคมผู้ผลิตอาหารสัตว์ไทย (TFMA) + LH Bank + OAE (อัปเดต 2567/68):</p>
+
+      <div class="chart-box">
+        <div class="chart-title">🥧 สัดส่วนการใช้ข้าวโพด 9.26 ล้านตัน/ปี — แยกตามชนิดสัตว์และอุตสาหกรรม</div>
+        <div class="pie-wrap">
+          <svg class="pie-svg" viewBox="0 0 200 200" width="220" height="220" aria-label="Pie chart สัดส่วนการใช้ข้าวโพด">
+            <!-- Doughnut chart: r=80, circumference = 2*pi*80 = 502.65 -->
+            <!-- background ring -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#F0EEE6" stroke-width="36"/>
+            <!-- slice 1: ไก่เนื้อ 35% = 175.93 -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#D97757" stroke-width="36"
+                    stroke-dasharray="175.93 502.65" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+            <!-- slice 2: ไก่ไข่ 21% = 105.56, offset = -175.93 -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#C9A961" stroke-width="36"
+                    stroke-dasharray="105.56 502.65" stroke-dashoffset="-175.93" transform="rotate(-90 100 100)"/>
+            <!-- slice 3: สุกร 27% = 135.71, offset = -281.49 -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#B04A3F" stroke-width="36"
+                    stroke-dasharray="135.71 502.65" stroke-dashoffset="-281.49" transform="rotate(-90 100 100)"/>
+            <!-- slice 4: โค 9% = 45.24, offset = -417.20 -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#5B7C99" stroke-width="36"
+                    stroke-dasharray="45.24 502.65" stroke-dashoffset="-417.20" transform="rotate(-90 100 100)"/>
+            <!-- slice 5: เป็ด+กุ้ง+ปลา 5% = 25.13, offset = -462.44 -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#5E9B8E" stroke-width="36"
+                    stroke-dasharray="25.13 502.65" stroke-dashoffset="-462.44" transform="rotate(-90 100 100)"/>
+            <!-- slice 6: อุตสาหกรรมอื่น 3% = 15.08, offset = -487.57 -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#8E7AB5" stroke-width="36"
+                    stroke-dasharray="15.08 502.65" stroke-dashoffset="-487.57" transform="rotate(-90 100 100)"/>
+            <!-- center text -->
+            <text x="100" y="95" text-anchor="middle" font-family="Georgia" font-size="22" font-weight="500" fill="#141413">9.26M</text>
+            <text x="100" y="112" text-anchor="middle" font-family="monospace" font-size="9" fill="#87867F">ตัน/ปี</text>
+          </svg>
+          <div class="pie-legend">
+            <div class="pie-legend-row">
+              <span class="pie-legend-swatch" style="background:#D97757;"></span>
+              <span class="pie-legend-label">🐔 ไก่เนื้อ</span>
+              <span class="pie-legend-value">35%</span>
+              <span class="pie-legend-ton">~3.24M ตัน</span>
+            </div>
+            <div class="pie-legend-row">
+              <span class="pie-legend-swatch" style="background:#C9A961;"></span>
+              <span class="pie-legend-label">🐣 ไก่ไข่</span>
+              <span class="pie-legend-value">21%</span>
+              <span class="pie-legend-ton">~1.94M ตัน</span>
+            </div>
+            <div class="pie-legend-row">
+              <span class="pie-legend-swatch" style="background:#B04A3F;"></span>
+              <span class="pie-legend-label">🐷 สุกร</span>
+              <span class="pie-legend-value">27%</span>
+              <span class="pie-legend-ton">~2.50M ตัน</span>
+            </div>
+            <div class="pie-legend-row">
+              <span class="pie-legend-swatch" style="background:#5B7C99;"></span>
+              <span class="pie-legend-label">🐄 โคเนื้อ + โคนม</span>
+              <span class="pie-legend-value">9%</span>
+              <span class="pie-legend-ton">~0.83M ตัน</span>
+            </div>
+            <div class="pie-legend-row">
+              <span class="pie-legend-swatch" style="background:#5E9B8E;"></span>
+              <span class="pie-legend-label">🦆 เป็ด + กุ้ง + ปลา</span>
+              <span class="pie-legend-value">5%</span>
+              <span class="pie-legend-ton">~0.46M ตัน</span>
+            </div>
+            <div class="pie-legend-row">
+              <span class="pie-legend-swatch" style="background:#8E7AB5;"></span>
+              <span class="pie-legend-label">🏭 แป้ง/เอทานอล/อื่น</span>
+              <span class="pie-legend-value">3%</span>
+              <span class="pie-legend-ton">~0.28M ตัน</span>
+            </div>
+          </div>
+        </div>
+        <div class="chart-note">ที่มา: TFMA + LH Bank (2567/68) · ปริมาณประมาณการจากสัดส่วน × 9.26M ตัน · สัดส่วนอาจปรับเล็กน้อยตามสมมติฐาน</div>
+      </div>
+
+      <div class="callout accent">
+        <h4>💡 Insight ที่หลายคนเข้าใจผิด</h4>
+        <p>หลายคนคิดว่า "หมูใช้ข้าวโพดเยอะที่สุด" → <strong>จริง ๆ แล้วไก่เนื้อ + ไก่ไข่ รวมกันใช้มากกว่า</strong> (56% vs สุกร 27%)</p>
+        <p style="margin-bottom:0;">เพราะไก่เนื้อมีจำนวนตัวที่เยอะกว่ามาก: <strong>ไก่เนื้อ 2,073 ล้านตัว/ปี</strong> vs <strong>สุกร 23.58 ล้านตัว/ปี</strong> (ก.พาณิชย์ 2568) — ต่างกัน ~88 เท่า</p>
+      </div>
+
+      <h4>เปรียบเทียบปริมาณข้าวโพดที่ใช้ต่อตัว</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>สัตว์</th><th class="num">จำนวนตัว/ปี</th><th class="num">ข้าวโพด/ตัว</th><th class="num">รวมข้าวโพด</th></tr></thead>
+          <tbody>
+            <tr><td>ไก่เนื้อ</td><td class="num">2,073 ล้านตัว</td><td class="num">~1.3 กก.</td><td class="num">~2.7M ตัน</td></tr>
+            <tr><td>ไก่ไข่</td><td class="num">~50 ล้านตัว</td><td class="num">~50 กก./ปี</td><td class="num">~2.5M ตัน</td></tr>
+            <tr><td>สุกรขุน</td><td class="num">23.58 ล้านตัว</td><td class="num">~100 กก.</td><td class="num">~2.4M ตัน</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="s3-2">3.2 อุตสาหกรรมอื่น ๆ (นอกจากอาหารสัตว์) ~3%</h3>
+      <p>ข้าวโพดไม่ได้ใช้แค่อาหารสัตว์ ยังมีอุตสาหกรรมลึกลับที่หลายคนไม่รู้:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>อุตสาหกรรม</th><th>ใช้ทำอะไร</th><th>ผู้เล่นหลักในไทย</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1. แป้งข้าวโพด (Corn Starch)</strong></td><td>แป้งดัดแปลง (Modified Starch) + กลูโคสซีรัป + ฟรุกโตส → ใช้ในอาหาร เครื่องดื่ม ยา</td><td>ภูเขาทอง (PTC), สยาม modified starch, เอวที (AAT)</td></tr>
+            <tr><td><strong>2. เอทานอล (Ethanol)</strong></td><td>แก๊สโซฮอล์ E10/E20/E85</td><td>โรงงาน 27 แห่ง — ใช้ <strong>มันสำปะหลัง 58% + กากน้ำตาล 38% + ข้าวโพดเพียง ~4%</strong></td></tr>
+            <tr><td><strong>3. พลาสติกชีวภาพ (PLA)</strong></td><td>ขวด ถุง ภาชนะย่อยสลายได้ ทดแทนพลาสติกปิโตรเคมี</td><td>PTT MCC, บริษัทในเครือ PTT</td></tr>
+            <tr><td><strong>4. DDGS (กากข้าวโพดกลั่น)</strong></td><td>ผลพลอยได้จากกลั่นเอทานอล → ใช้ทำอาหารสัตว์ทดแทนข้าวโพด</td><td>โรงกลั่นเอทานอล</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout bad">
+        <h4>⚠️ Insight สำคัญ</h4>
+        <p style="margin-bottom:0;">ไทยใช้ข้าวโพดทำเอทานอล <strong>น้อยมาก (~4%)</strong> เพราะมันสำปะหลังถูกกว่าและผลิตได้เยอะกว่า → ต่างจากสหรัฐฯ ที่ใช้ข้าวโพดทำเอทานอล ~35% ของผลผลิตทั้งหมด → <strong>อย่าไปคิดว่าราคาข้าวโพดจะกระทบหุ้นเอทานอลไทย</strong></p>
+      </div>
+
+      <div class="callout good">
+        <h4>💡 Insight สำหรับการคัดเลือกหุ้น (Step 3)</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>ผู้ใช้ข้าวโพดรายใหญ่ที่สุด = อุตสาหกรรมไก่</strong> (ไม่ใช่สุกร) → ถ้าข้าวโพดถูกลง บริษัทไก่เนื้อได้ประโยชน์มากที่สุด (CPF, GFPT, BR, PS)</li>
+          <li><strong>ผู้ใช้ข้าวโพดที่ไม่เกี่ยวกับอาหารสัตว์ = อุตสาหกรรมแป้ง</strong> → ภูเขาทอง (PTC) ใช้ข้าวโพดเป็นวัตถุดิบหลัก → ถ้าข้าวโพดแพง แป้งแพงด้วย</li>
+          <li><strong>เอทานอลไม่ใช่ปัจจัยหลัก</strong> → ไทยใช้มันสำปะหลังเป็นหลัก</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="s4">
+      <div class="sec-h">
+        <span class="sec-no">4</span>
+        <h2>มุมไทยลึกขึ้น — 3 คำถามที่ต้องเข้าใจ</h2>
+      </div>
+      <hr class="div">
+
+      <h3 id="s4-1">4.1 ราคาข้าวโพดเลี้ยงสัตว์ไทย ล่าสุด (อัปเดต ก.ค. 69)</h3>
+      <p>ตัวเลขล่าสุดจาก CPF รายสัปดาห์ + กรมการค้าภายใน + BAAC:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ช่วงเวลา</th><th class="num">ที่ไซโล (บาท/กก.)</th><th class="num">หาบละ (บาท)</th><th>ที่มา</th></tr></thead>
+          <tbody>
+            <tr><td>ก.พ. 69</td><td class="num">10.00</td><td class="num">600</td><td>กรมการค้าภายใน</td></tr>
+            <tr><td>มิ.ย. 69</td><td class="num">13.20</td><td class="num">792</td><td>CPF weekly</td></tr>
+            <tr><td><strong>ก.ค. 69 (สัปด์ 27-31)</strong></td><td class="num"><strong>10.20</strong></td><td class="num"><strong>612 ⬇️</strong></td><td>CPF weekly (ล่าสุด)</td></tr>
+            <tr><td>คาดการณ์</td><td class="num">~10 (ทรงตัว)</td><td class="num">~600</td><td>CPF</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout accent">
+        <h4>📊 ข่าวสำคัญจากกราฟ</h4>
+        <p>ก.ค. 69 ราคาที่ไซโล <strong>ลดลงจาก 792 → 612 บาท/หาบ (−23%)</strong> — เป็นสัญญาณว่า:</p>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li>การนำเข้าข้าวโพด US 1 ล้านตัน เริ่มเข้ามามีผลกดราคาในประเทศ</li>
+          <li>ฤดูเก็บเกี่ยวผลผลิตใหม่ออกมา (ไตรมาส 3 ของไทย)</li>
+          <li>แนวโน้ม: ทรงตัวที่ ~10 บาท/กก. (ยังสูงกว่าราคาขั้นต่ำ 9.80 เล็กน้อย)</li>
+        </ul>
+      </div>
+
+      <p><strong>ส่วนราคาเกษตรกรขายได้ที่ไร่</strong> (BAAC ฉบับล่าสุดที่เข้าถึงได้ = พ.ย. 68 ที่ 5.96 บาท/กก.) — ยังไม่เจอฉบับที่ใหม่กว่านี้ แต่จากแนวโน้มไซโลลดลง คาดว่าราคาที่ไร่น่าจะอยู่ ~5-6 บาท/กก. ในช่วงเก็บเกี่ยวปัจจุบัน</p>
+
+      <hr class="div" style="margin:32px 0;">
+
+      <h3 id="s4-2">4.2 สมาคมผู้เลี้ยงสุกรร้อง — ร้องอะไร และส่งผลต่อราคาสุกรยังไง</h3>
+
+      <h4>สิ่งที่ร้องเรียก (จากเว็บสมาคมฯ + แถลงข่าว 4 มิ.ย. 69)</h4>
+      <ul class="simplelist">
+        <li><strong>ข้าวโพดเลี้ยงสัตว์แพงเกินไป</strong> — เครื่องเลี้ยงบอกต้นทุนข้าวโพดสูงถึง <strong>11.05-11.40 บาท/กก.</strong> (เม.ย.-พ.ค. 69) ทั้งที่มีประกันขั้นต่ำ 9.80</li>
+        <li><strong>ข้าวโพดเป็นวัตถุดิบหลักของอาหารสุกร ~40-50%</strong> ของสูตรอาหาร → ต้นทุนอาหารสัตว์ = 70% ของต้นทุนเลี้ยงสุกรทั้งหมด</li>
+        <li><strong>ร้องเรียกมา 3 ครั้ง</strong> (ม.ค. → เม.ย. → พ.ค. 69) ผ่านกลไก MOC (Market Operation Centre)</li>
+      </ul>
+
+      <h4>ผลกระทบต่อราคาสุกร (ตัวเลขสด)</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>เดือน</th><th class="num">ราคาสุกรหน้าฟาร์ม (บาท/กก.)</th><th class="num">ราคาข้าวโพด (บาท/กก.)</th><th>สถานะ</th></tr></thead>
+          <tbody>
+            <tr><td>เม.ย. 69</td><td class="num">64-66</td><td class="num">11.05</td><td><span class="tag bad">ขาดทุน</span></td></tr>
+            <tr><td>พ.ค. 69</td><td class="num">~66</td><td class="num">11.40 สูงสุด</td><td><span class="tag bad">ขาดทุนหนัก</span></td></tr>
+            <tr><td>มิ.ย. 69</td><td class="num">66 → <strong>ขึ้น 2 บาท</strong></td><td class="num">~10</td><td><span class="tag watch">เริ่มจี้ขึ้น</span></td></tr>
+            <tr><td><strong>ก.ค. 69 (สัปด์ 27-31)</strong></td><td class="num"><strong>68-74</strong> (ภาคเหนือ/ใต้สูงสุด)</td><td class="num">10.20</td><td><span class="tag good">ฟื้นตัว</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout accent">
+        <h4>💡 กลไกสำคัญที่ต้องจำ</h4>
+        <p style="margin-bottom:0;"><strong>"ราคาสุกรขึ้นตามต้นทุนข้าวโพด — มี lag time 1-2 เดือน"</strong></p>
+        <ul class="simplelist" style="margin-bottom:0;margin-top:8px;">
+          <li>ต้นทุนเลี้ยงสุกร Q2/69 = <strong>71.78 บาท/กก.</strong> (เพิ่ม 3.18 บาทจาก Q1)</li>
+          <li>สมาคมตั้งเป้า "72 บาท" เป็นจุดคุ้มทุน → เลี้ยงรวมปรับขึ้นได้จนถึง 74 บาท/กก.ในสัปด์สุดท้ายของก.ค.</li>
+        </ul>
+      </div>
+
+      <div class="callout bad">
+        <h4>💡 Insight ลึก</h4>
+        <p style="margin-bottom:0;">ข้าวโพดที่เกษตรกร "รู้สึกว่าถูก" (5-7 บาท ที่ไร่) → เมื่อถึงมือโรงอาหารสัตว์กลายเป็น 10-11 บาท (ที่ไซโล) → ผู้เลี้ยงสุกรรับสภาพ แล้วเลื่อนต้นทุนไปที่ผู้บริโภค (ราคาหมูหน้าฟาร์มขึ้น) → สุดท้ายผู้บริโภคจ่าย</p>
+      </div>
+
+      <hr class="div" style="margin:32px 0;">
+
+      <h3 id="s4-3">4.3 "2 ฝั่งซื้อข้าวโพดคนละแบบ" — ต่างกันตรงไหน</h3>
+      <p>เป็นคำถามดีมาก — ข้าวโพดวัตถุดิบตัวเดียวกัน แต่ "ราคา" ที่แต่ละฝั่งเห็นต่างกันเพราะ <strong>5 ขั้นตอนจากไร่ถึงโรงงาน + ระดับคุณภาพ</strong>:</p>
+
+      <div class="price-chain">
+        <div class="price-step">
+          <div class="price-step-icon">🌾</div>
+          <div>
+            <div class="price-step-name">1. ที่ไร่ (เกษตรกรขาย)</div>
+            <div class="price-step-detail">ความชื้น 14.5% · เกษตรกรขายได้ · BAAC พ.ย. 68</div>
+          </div>
+          <div class="price-step-value">5.96</div>
+        </div>
+        <div class="price-step">
+          <div class="price-step-icon">🚚</div>
+          <div>
+            <div class="price-step-name">2. รวบรวม (พ่อค้าคนกลาง)</div>
+            <div class="price-step-detail">+ค่าขนส่ง +หักความชื้น/สิ่งเจือปน → กำไรคนกลาง 1-2 บาท</div>
+          </div>
+          <div class="price-step-value">6-7</div>
+        </div>
+        <div class="price-step">
+          <div class="price-step-icon">🏭</div>
+          <div>
+            <div class="price-step-name">3. สดที่โรงงาน</div>
+            <div class="price-step-detail">ความชื้น 30% (สด) · ก.พาณิชย์รับซื้อ · ยังไม่ผ่านการอบแห้ง</div>
+          </div>
+          <div class="price-step-value">7-9</div>
+        </div>
+        <div class="price-step peak">
+          <div class="price-step-icon">🔥</div>
+          <div>
+            <div class="price-step-name">4. ที่ไซโลหลังอบแห้ง (Peak)</div>
+            <div class="price-step-detail">ความชื้น 14.5% พร้อมใช้ผลิตอาหารสัตว์ · ราคาที่โรงอาหารสัตว์ใช้จริง</div>
+          </div>
+          <div class="price-step-value">10-11</div>
+        </div>
+        <div class="price-step">
+          <div class="price-step-icon">🚢</div>
+          <div>
+            <div class="price-step-name">5. ข้าวโพดนำเข้า US (CIF)</div>
+            <div class="price-step-detail">ถูกกว่าไทย เพราะต้นทุนโรงงานอเมริกาต่ำกว่า ~30% (แม้บวกค่าขนส่งเรือ)</div>
+          </div>
+          <div class="price-step-value">7-8</div>
+        </div>
+      </div>
+
+      <h4>3 จุดที่ทำให้เกิด "2 ราคา"</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>จุดที่ต่าง</th><th>รายละเอียด</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1. ความชื้น (Moisture)</strong></td><td>ข้าวโพดสดที่เก็บเกี่ยวใหม่มีความชื้น 30% (หนักน้ำ) → ต้องอบแห้งเหลือ 14.5% → น้ำหนักลด ~20% → ราคาต่อกก.ของจริงพุ่ง</td></tr>
+            <tr><td><strong>2. ค่าขนส่ง + หัก %</strong></td><td>พ่อค้าคนกลางทำกำไร 1-2 บาท/กก. + โรงงานหัก % สิ่งเจือปน (ฝุ่น เศษ ฯลฯ)</td></tr>
+            <tr><td><strong>3. ต้นทุนโรงงานอเมริกา</strong></td><td>แปลงใหญ่ + เครื่องจักร + GMO → ต้นทุนต่ำกว่าไทย ~30% แม้บวกค่าขนส่งเรือก็ยังถูกกว่า</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout good">
+        <h4>💡 ตัวอย่างทำให้เข้าใจง่าย</h4>
+        <p style="margin-bottom:0;">เหมือน <strong>"ข้าวเปลือกที่นา" vs "ข้าวสารที่ตลาด"</strong> — เป็นข้าวตัวเดียวกัน แต่ผ่านการสี + ขนส่ง + เกรดจัด → ราคาต่างกัน 2 เท่า<br>
+        • เกษตรกรมองจาก "ราคาที่ไร่" (5.96 บาท) → รู้สึกถูก<br>
+        • โรงอาหารสัตว์มองจาก "ราคาที่ไซโลพร้อมใช้" (10-11 บาท) → รู้สึกแพง</p>
+      </div>
+    </section>
+
+    <section id="s5">
+      <div class="sec-h">
+        <span class="sec-no">5</span>
+        <h2>Step 3 · วัฏจักรข้าวโพด + คัดเลือกหุ้นไทย</h2>
+      </div>
+      <hr class="div">
+      <p>เมื่อเข้าใจข้าวโพดเลี้ยงสัตว์ทั้ง 2 มุมแล้ว (§1-§4) — ต่อไปคือ <strong>วาดแผนที่ห่วงโซ่ตั้งแต่ต้นน้ำถึงปลายน้ำ</strong> แล้ว <strong>คัดเลือกหุ้นไทยที่เกี่ยวข้อง</strong> แยกฝั่งผู้ได้/เสียประโยชน์</p>
+
+      <h3 id="s5-1">5.1 วัฏจักรข้าวโพดเลี้ยงสัตว์ (Kernel → Consumer)</h3>
+
+      <div class="chain-box">
+        <div class="chart-title">🔄 ห่วงโซ่คุณค่าข้าวโพดเลี้ยงสัตว์ของไทย</div>
+        <div class="chain-flow">
+          <div class="chain-row">
+            <div class="chain-node meta"><strong>เมล็ดพันธุ์</strong>ซินเจนทา NK<br>บริษัทพันธุ์</div>
+            <div class="chain-node meta"><strong>ปุ๋ย</strong>+สารเคมี<br>กรมเกษตร</div>
+            <div class="chain-node meta"><strong>ประกันราคา</strong>ก.พาณิชย์<br>9.80 บาท</div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-row">
+            <div class="chain-node good" style="grid-column:1/4;"><strong>🌾 เกษตรกรข้าวโพดไทย</strong>ผลผลิต 5.36 ล้านตัน/ปี · 4.17 ล้านไร่ · 455,222 ครัวเรือน (เกษตรกรรายเล็ก · ผลผลิตต่ำ 1,284 กก./ไร่)</div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-row">
+            <div class="chain-node watch"><strong>ผลผลิตในประเทศ</strong>5.36M ตัน</div>
+            <div class="chain-node bad"><strong>นำเข้า 3.9M ตัน</strong>US 1M + เพื่อนบ้าน 1.9M + อื่น 1M</div>
+            <div class="chain-node meta"><strong>พืชทดแทน</strong>มันสำปะหลัง<br>ปลายข้าว · กากถั่วเหลือง</div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-row">
+            <div class="chain-node meta" style="grid-column:1/4;"><strong>🏭 โรงอาหารสัตว์</strong> คลังวัตถุดิบ — ผลิตอาหารสัตว์ 20 ล้านตัน/ปี (ข้าวโพด 50% + ปลาป่น + กากถั่ว + อื่น ๆ) · ต้นทุนซื้อข้าวโพด 10-11 บาท/กก.</div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-row">
+            <div class="chain-node good"><strong>🐔 ไก่เนื้อ 35%</strong>2,073M ตัว/ปี</div>
+            <div class="chain-node good"><strong>🐣 ไก่ไข่ 21%</strong>50M ตัว</div>
+            <div class="chain-node good"><strong>🐷 สุกร 27%</strong>23.58M ตัว</div>
+          </div>
+          <div class="chain-row" style="margin-top:4px;">
+            <div class="chain-node good"><strong>🐄 โคเนื้อ+โคนม 9%</strong></div>
+            <div class="chain-node good"><strong>🦆 เป็ด+กุ้ง+ปลา 5%</strong></div>
+            <div class="chain-node meta"><strong>🏭 อุตสาหกรรมอื่น 3%</strong>แป้ง/เอทานอล/PLA</div>
+          </div>
+          <div class="chain-arrow">↓</div>
+          <div class="chain-row">
+            <div class="chain-node watch"><strong>📦 ส่งออก</strong>ไก่/กุ้ง/หมู/ทูน่า<BR>หมื่นล้านบาท/ปี</div>
+            <div class="chain-node meta"><strong>🛒 ในประเทศ</strong>ผู้บริโภคไทย</div>
+            <div class="chain-node meta"><strong>⚖️ กฎหมาย</strong>EUDR + กฎหมายอากาศสะอาด</div>
+          </div>
+        </div>
+        <div class="chain-source">ที่มา: TFMA + สศก. + ก.พาณิชย์ · ปริมาณปี 2568/69</div>
+      </div>
+
+      <div class="callout accent">
+        <h4>🔑 4 จุดที่ต้องจำจากวัฏจักร</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>ช่องว่างขาดแคลน 3.9M ตัน</strong> → ต้องพึ่งนำเข้า (US + เพื่อนบ้าน)</li>
+          <li><strong>เมื่อข้าวโพดแพง → โรงอาหารสัตว์เปลี่ยนพืชทดแทน</strong> (มันสำปะหลัง/ปลายข้าว/กากถั่ว) — บริษัทใหญ่ที่ปรับสูตรได้ = ได้เปรียบ</li>
+          <li><strong>ผู้ใช้รายใหญ่ = ไก่ (56%)</strong> ไม่ใช่สุกร (27%) — บริษัทไก่เนื้อได้ประโยชน์มากสุด</li>
+          <li><strong>ตลาดปลายน้ำส่งออก</strong> = แหล่งรายได้หลักของไทย (CPF, GFPT, BTG, TU)</li>
+        </ul>
+      </div>
+
+      <h3 id="s5-2">5.2 ฝั่งผู้ได้ประโยชน์ — ข้าวโพดถูก → ต้นทุนต่ำ (15 ตัว)</h3>
+      <p>แบ่งตาม <strong>"Tier" ความเกี่ยวข้อง</strong> — Tier 1 คือผู้ได้ประโยชน์โดยตรงและชัดเจนที่สุด:</p>
+
+      <h4>🥇 Tier 1 — ผู้ได้ประโยชน์โดยตรง (ครบวงจร + ขนาดใหญ่)</h4>
+      <div class="stock-grid">
+        <div class="stock-card tier1">
+          <div class="stock-head"><span class="stock-ticker">CPF</span><span class="stock-tier">⭐⭐⭐⭐⭐</span></div>
+          <div class="stock-name">เจริญโภคภัณฑ์อาหาร — ครบวงจร อาหารสัตว์+ไก่+กุ้ง+สุกร</div>
+          <div class="stock-price"><span class="v">22.50</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 18.1 – 24.7</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~3-4M ตัน/ปี · ~55-60% ของอาหารสัตว์</span>
+        </div>
+        <div class="stock-card tier1">
+          <div class="stock-head"><span class="stock-ticker">BTG</span><span class="stock-tier">⭐⭐⭐⭐</span></div>
+          <div class="stock-name">เบทาโกร — สุกร+อาหารสัตว์+ไก่ ครบวงจร</div>
+          <div class="stock-price"><span class="v">21.40</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 15.4 – 25.5</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~1-1.5M ตัน/ปี · ~50-55% ของอาหารสัตว์</span>
+        </div>
+        <div class="stock-card tier1">
+          <div class="stock-head"><span class="stock-ticker">GFPT</span><span class="stock-tier">⭐⭐⭐⭐</span></div>
+          <div class="stock-name">จีเอฟพีที — ไก่เนื้อ+อาหารสัตว์+กุ้ง+ส่งออก</div>
+          <div class="stock-price"><span class="v">9.80</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 8.5 – 11.0</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~0.8-1M ตัน/ปี · ~60% ของอาหารไก่</span>
+        </div>
+      </div>
+
+      <h4>🥈 Tier 2 — ผู้เล่นหลัก ขนาดกลาง</h4>
+      <div class="stock-grid">
+        <div class="stock-card tier2">
+          <div class="stock-head"><span class="stock-ticker">TFG</span><span class="stock-tier">⭐⭐⭐</span></div>
+          <div class="stock-name">ไทยฟู้ดส์ — ไก่+สุกร+อาหารสัตว์+กุ้ง</div>
+          <div class="stock-price"><span class="v">9.85</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 4.24 – 11.6 ⬆️ +174%</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~0.6-0.8M ตัน/ปี · ~55% ของอาหารสัตว์</span>
+        </div>
+        <div class="stock-card tier2">
+          <div class="stock-head"><span class="stock-ticker">TFM</span><span class="stock-tier">⭐⭐⭐</span></div>
+          <div class="stock-name">ไทยฟีดมิลล์ — อาหารสัตว์ (กุ้ง/ปลา/สัตว์บก) B2B</div>
+          <div class="stock-price"><span class="v">6.55</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 5.2 – 6.95</div>
+          <span class="stock-tag">🌽 อาหารกุ้ง 62% · ข้าวโพด ~15-20% ของสูตร (ต่ำกว่าไก่/สุกร)</span>
+        </div>
+        <div class="stock-card tier2">
+          <div class="stock-head"><span class="stock-ticker">BR</span><span class="stock-tier">⭐⭐</span></div>
+          <div class="stock-name">บางกอกแร้นช์ — เป็ดเนื้อ+อาหารเป็ด</div>
+          <div class="stock-price"><span class="v">1.98</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 1.54 – 2.08</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~0.1-0.2M ตัน/ปี · ~40-45% ของอาหารเป็ด</span>
+        </div>
+        <div class="stock-card tier2">
+          <div class="stock-head"><span class="stock-ticker">FM</span><span class="stock-tier">⭐⭐</span></div>
+          <div class="stock-name">เอฟเอ็ม — Holding ไก่ชำแหละ+อาหาร</div>
+          <div class="stock-price"><span class="v">4.24</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 3.54 – 4.4</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~0.2-0.3M ตัน/ปี · ~50% ของอาหาร (ผ่านบริษัทย่อย)</span>
+        </div>
+      </div>
+
+      <h4>🥉 Tier 3 — บริษัทเล็ก/IPO/ทางอ้อม</h4>
+      <div class="stock-grid">
+        <div class="stock-card tier3">
+          <div class="stock-head"><span class="stock-ticker">LEE</span><span class="stock-tier">⭐⭐</span></div>
+          <div class="stock-name">ลีพัฒนาผลิตภัณฑ์ — อาหารสัตว์ (Lee Feed Mill)</div>
+          <div class="stock-price"><span class="v">2.52</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 2.4 – 2.8</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~0.2-0.3M ตัน/ปี · ~50-55% ของอาหาร</span>
+        </div>
+        <div class="stock-card tier3">
+          <div class="stock-head"><span class="stock-ticker">HTC</span><span class="stock-tier">⭐⭐</span></div>
+          <div class="stock-name">เอชทีซี — ไก่ไข่+อาหาร</div>
+          <div class="stock-price"><span class="v">16.00</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 14.6 – 16.4</div>
+          <span class="stock-tag">🌽 ใช้ข้าวโพด ~0.05-0.1M ตัน/ปี · ~55-60% ของอาหารไก่ไข่</span>
+        </div>
+        <div class="stock-card tier3">
+          <div class="stock-head"><span class="stock-ticker">AAI</span><span class="stock-tier">⭐⭐</span></div>
+          <div class="stock-name">เอเชี่ยน อะไลอันซ์ — อาหารสัตว์เปียก (IPO 2568)</div>
+          <div class="stock-price"><span class="v">4.06</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 3.32 – 5.5</div>
+          <span class="stock-tag">🌽 อาหารเปียกใช้ข้าวโพด ~30-40% ของสูตร · IPO ใหม่</span>
+        </div>
+        <div class="stock-card tier3">
+          <div class="stock-head"><span class="stock-ticker">OSP</span><span class="stock-tier">⭐</span></div>
+          <div class="stock-name">โออีเอสพี — เบตาโกรเพนซ์ (Bio-Plex) ในเครือ BTG</div>
+          <div class="stock-price"><span class="v">17.60</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 13.7 – 19.5</div>
+          <span class="stock-tag">🌽 ทางอ้อม · โรงงานเครื่องอาหารสัตว์ (ไม่ได้ใช้ข้าวโพดโดยตรง)</span>
+        </div>
+        <div class="stock-card tier3">
+          <div class="stock-head"><span class="stock-ticker">APURE</span><span class="stock-tier">⭐</span></div>
+          <div class="stock-name">เอพิวร์ — อาหารปลาดุก+ปลาบด</div>
+          <div class="stock-price"><span class="v">2.08</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 1.9 – 3.28</div>
+          <span class="stock-tag">🌽 อาหารปลา ข้าวโพด ~10-15% (ต่ำ)</span>
+        </div>
+        <div class="stock-card tier3">
+          <div class="stock-head"><span class="stock-ticker">AIE</span><span class="stock-tier">⭐</span></div>
+          <div class="stock-name">เอไอ เอนเนอร์จี — ไบโอดีเซล+น้ำมันปาล์ม (ไม่ใช่อาหารกุ้ง)</div>
+          <div class="stock-price"><span class="v">1.18</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 0.9 – 1.37</div>
+          <span class="stock-tag">🌽 ไม่เกี่ยวข้าวโพด · เป็นพลังงาน</span>
+        </div>
+      </div>
+
+      <h3 id="s5-3">5.3 ฝั่งผู้เสียประโยชน์ + Wildcard (Sweet Corn)</h3>
+
+      <h4>🔴 ผู้เสียประโยชน์ — ข้าวโพดแพง → ต้นทุนแพง</h4>
+      <div class="stock-grid">
+        <div class="stock-card bad">
+          <div class="stock-head"><span class="stock-ticker">PTC</span><span class="stock-tier">⚠️</span></div>
+          <div class="stock-name">ภูเขาทอง — แป้งข้าวโพด+กลูโคสซีรัป</div>
+          <div class="stock-price"><span class="v">0.57</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 0.53 – 1.0 ⬇️ ใกล้ low</div>
+          <span class="stock-tag">CBOT แพง = ต้นทุนแพง</span>
+        </div>
+      </div>
+
+      <h4>🟣 Wildcard — Sweet Corn (คนละตลาด)</h4>
+      <div class="stock-grid">
+        <div class="stock-card wildcard">
+          <div class="stock-head"><span class="stock-ticker">SUN</span><span class="stock-tier">🌟</span></div>
+          <div class="stock-name">ซันสวีท — ข้าวโพดหวานแปรรูป ส่งออก 50+ ประเทศ</div>
+          <div class="stock-price"><span class="v">2.56</span><span class="u">บาท</span></div>
+          <div class="stock-range">52wk: 2.2 – 3.54</div>
+          <span class="stock-tag">อันดับ 1 โลก · Export play แยก story</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>💡 SUN = Wildcard ไม่ใช่ feed corn story</h4>
+        <p>SUN ทำ <strong>"ข้าวโพดหวาน"</strong> (Sweet Corn) ที่คนกิน — ไม่ใช่ "ข้าวโพดเลี้ยงสัตว์" ที่สัตว์กิน เป็น <strong>คนละตลาด</strong> (ดูเปรียบเทียบในตารางด้านล่าง):</p>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table>
+            <thead><tr><th></th><th>Feed Corn (Step 1-4)</th><th>Sweet Corn (SUN)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ใครกิน</strong></td><td>🐔🐷🐄 สัตว์</td><td>👨‍👩‍👧 คน (กระป๋อง/แช่แข็ง)</td></tr>
+              <tr><td><strong>ตลาดหลัก</strong></td><td>ใช้ในประเทศ 9.26M ตัน</td><td>ส่งออก 50+ ประเทศ (75% รายได้)</td></tr>
+              <tr><td><strong>ราคาเกษตรกร</strong></td><td>5-7 บาท/กก.</td><td>10-15 บาท/กก.</td></tr>
+              <tr><td><strong>เกี่ยวกับ CBOT</strong></td><td><span class="tag bad">เกี่ยวโดยตรง</span></td><td><span class="tag good">ไม่เกี่ยว</span></td></tr>
+              <tr><td><strong>ปัจจัยกระทบ</strong></td><td>ดีลทรัมป์ · Black Sea · USDA</td><td>FX · ค่าเรือ · เศรษฐกิจยุโรป · จีน</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:12px;margin-bottom:0;"><strong>SUN = export + consumer play</strong> — แชมป์โลกกระป๋องข้าวโพดหวาน · รายได้ 3,529 ล้านบาท (ปี 67) · กำไร 294M · เป้าหมื่นล้านในอนาคต</p>
+      </div>
+
+      <h4>⚪ หุ้น AGRO/FOOD ที่ <strong>ไม่เกี่ยว</strong> กับ feed corn</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ticker</th><th>บริษัท</th><th>เหตุผลที่ไม่เกี่ยว</th></tr></thead>
+          <tbody>
+            <tr><td><strong>TU</strong></td><td>ไทยยูเนี่ยน</td><td>ทูน่า/อาหารทะเล — ไม่ใช้ข้าวโพด</td></tr>
+            <tr><td><strong>CBG</strong></td><td>ซีพี เฟรชมาร์ท</td><td>ค้าปลีก (แม็คโคร) — ไม่ได้ผลิต</td></tr>
+            <tr><td><strong>CPI</strong></td><td>ซีพี อินเตอร์เทรด</td><td>กระป๋องทุเรียน/ผลไม้ — ไม่เกี่ยว feed corn</td></tr>
+            <tr><td><strong>ASIAN</strong></td><td>เอเชี่ยน ซีฟู้ดส์</td><td>กุ้งแปรรูป — ใช้ปลาป่นเป็นหลัก</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 id="s5-4">5.4 Insight สำคัญ + Shortlist 5 ตัว</h3>
+
+      <div class="callout accent">
+        <h4>💡 3 Insight สำคัญจากการคัดเลือก</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>กลุ่มไก่เนื้อ = ผู้ใช้ข้าวโพดมากสุด</strong> (56%) → ถ้าข้าวโพดถูก บริษัทไก่ได้ประโยชน์มากสุด (CPF, GFPT)</li>
+          <li><strong>ความยืดหยุ่นในสูตรอาหาร = ได้เปรียบ</strong> — ถ้าข้าวโพดแพ้ โรงใหญ่ที่ปรับสูตรไปใช้พืชทดแทนได้ (CPF, BTG)</li>
+          <li><strong>EUDR (กฎ EU 2025)</strong> → ฟาร์มใหญ่ที่ traceable ได้เปรียบ (CPF ใหญ่สุด)</li>
+        </ul>
+      </div>
+
+      <div class="shortlist-box">
+        <h4 style="margin-top:0;">🎯 Shortlist 5 ตัวที่น่าสนใจสำหรับ Step 4 (Deep Dive)</h4>
+        <div class="stock-grid">
+          <div class="stock-card tier1">
+            <div class="stock-head"><span class="stock-ticker">CPF</span><span class="stock-tier">ไก่+ครบวงจร</span></div>
+            <div class="stock-name">ผู้นำ feed corn ในไทย · ใช้ข้าวโพดมากสุด</div>
+            <span class="stock-tag">เหตุผล: ได้ประโยชน์โดยตรง + ยืดหยุ่นสูตร</span>
+          </div>
+          <div class="stock-card tier1">
+            <div class="stock-head"><span class="stock-ticker">GFPT</span><span class="stock-tier">ไก่เนื้อ</span></div>
+            <div class="stock-name">ไก่เนื้อ+ส่งออก · ผู้ใช้ข้าวโพดหลัก</div>
+            <span class="stock-tag">เหตุผล: ราคายังไม่แพง + ส่งออกแข็ง</span>
+          </div>
+          <div class="stock-card tier1">
+            <div class="stock-head"><span class="stock-ticker">BTG</span><span class="stock-tier">สุกร</span></div>
+            <div class="stock-name">สุกร+อาหาร+ไก่ · ต้นทุนหมูลดได้</div>
+            <span class="stock-tag">เหตุผล: สุกรฟื้น + ครบวงจร</span>
+          </div>
+          <div class="stock-card bad">
+            <div class="stock-head"><span class="stock-ticker">PTC</span><span class="stock-tier">ฝั่งตรงข้าม</span></div>
+            <div class="stock-name">ภูเขาทอง — แป้งข้าวโพด</div>
+            <span class="stock-tag">เหตุผล: ใกล้ 52wk low · ลุ้น CBOT ลด</span>
+          </div>
+          <div class="stock-card wildcard">
+            <div class="stock-head"><span class="stock-ticker">SUN</span><span class="stock-tier">Wildcard</span></div>
+            <div class="stock-name">ซันสวีท — ข้าวโพดหวาน แชมป์โลก</div>
+            <span class="stock-tag">เหตุผล: Export play แยก story</span>
+          </div>
+        </div>
+        <p style="margin-top:14px;margin-bottom:0;font-size:13px;">หมายเหตุ: Shortlist นี้เป็นเพียงการคัดกรองเบื้องต้น — <strong>ยังไม่ใช่คำแนะนำซื้อ</strong> ต้องเจาะลึกใน Step 4 (Valuation + Technical + Synthesis) ก่อน</p>
+      </div>
+
+      <h3 id="s5-5">5.5 แนวโน้มราคาไก่เนื้อ + สุกร (ย้อนหลัง 3 ปี)</h3>
+      <p>เมื่อรู้แล้วว่าข้าวโพดถูกลง = ต้นทุนลด → คำถามต่อไปคือ <strong>"ราคาขายปลายน้ำเป็นยังไง?"</strong> เพราะถ้าราคาขายลดลงด้วย กำไรจะไม่เพิ่ม — กราฟด้านล่างแสดงราคาไก่เนื้อและสุกรหน้าฟาร์มย้อนหลัง 3 ปี:</p>
+
+      <div class="chart-box">
+        <div class="chart-title">📈 ราคาไก่เนื้อมีชีวิตหน้าฟาร์ม + สุกรขุนหน้าฟาร์ม — ย้อนหลัง 3 ปี (บาท/กก.)</div>
+        <svg class="price-chart" viewBox="0 0 700 300" preserveAspectRatio="xMidYMid meet" aria-label="กราฟราคาไก่เนื้อและสุกร 3 ปี">
+          <line class="grid-line" x1="40" y1="30" x2="680" y2="30"/>
+          <line class="grid-line" x1="40" y1="80" x2="680" y2="80"/>
+          <line class="grid-line" x1="40" y1="130" x2="680" y2="130"/>
+          <line class="grid-line" x1="40" y1="180" x2="680" y2="180"/>
+          <line class="grid-line" x1="40" y1="230" x2="680" y2="230"/>
+          <text class="axis-label" x="34" y="34" text-anchor="end">90</text>
+          <text class="axis-label" x="34" y="84" text-anchor="end">80</text>
+          <text class="axis-label" x="34" y="134" text-anchor="end">70</text>
+          <text class="axis-label" x="34" y="184" text-anchor="end">60</text>
+          <text class="axis-label" x="34" y="234" text-anchor="end">50</text>
+          <text class="axis-label" x="34" y="280" text-anchor="end">40</text>
+
+          <line class="floor-line" x1="40" y1="230" x2="680" y2="230" style="stroke:var(--watch);"/>
+          <text class="floor-text" x="675" y="225" text-anchor="end" style="fill:var(--watch);">ต้นทุนคุ้มสุกร ~72 บาท</text>
+
+          <path class="data-area" style="fill:color-mix(in srgb,var(--bad) 10%,transparent);" d="M 60,155 L 120,140 L 180,125 L 240,110 L 300,95 L 360,80 L 420,95 L 480,110 L 540,95 L 600,80 L 660,65 L 660,280 L 60,280 Z"/>
+          <polyline style="fill:none;stroke:var(--bad);stroke-width:2.5;stroke-linejoin:round;" points="60,155 120,140 180,125 240,110 300,95 360,80 420,95 480,110 540,95 600,80 660,65"/>
+
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="60" cy="155" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="120" cy="140" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="180" cy="125" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="240" cy="110" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="300" cy="95" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="360" cy="80" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="420" cy="95" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="480" cy="110" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="540" cy="95" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="600" cy="80" r="4"/>
+          <circle style="fill:var(--bad);stroke:var(--white);stroke-width:2;" cx="660" cy="65" r="5"/>
+          <text class="data-label" x="660" y="58" text-anchor="middle" style="fill:var(--bad);font-weight:700;">~76</text>
+
+          <polyline style="fill:none;stroke:var(--good);stroke-width:2.5;stroke-linejoin:round;" points="60,260 120,250 180,245 240,240 300,230 360,220 420,210 480,215 540,205 600,195 660,190"/>
+          <circle style="fill:var(--good);stroke:var(--white);stroke-width:2;" cx="60" cy="260" r="4"/>
+          <circle style="fill:var(--good);stroke:var(--white);stroke-width:2;" cx="180" cy="245" r="4"/>
+          <circle style="fill:var(--good);stroke:var(--white);stroke-width:2;" cx="300" cy="230" r="4"/>
+          <circle style="fill:var(--good);stroke:var(--white);stroke-width:2;" cx="420" cy="210" r="4"/>
+          <circle style="fill:var(--good);stroke:var(--white);stroke-width:2;" cx="540" cy="205" r="4"/>
+          <circle style="fill:var(--good);stroke:var(--white);stroke-width:2;" cx="660" cy="190" r="5"/>
+          <text class="data-label" x="660" y="183" text-anchor="middle" style="fill:var(--good);font-weight:700;">~43</text>
+
+          <line class="axis-line" x1="40" y1="280" x2="680" y2="280"/>
+          <text class="x-label" x="60" y="295" text-anchor="middle">2566 Q1</text>
+          <text class="x-label" x="180" y="295" text-anchor="middle">2566 Q3</text>
+          <text class="x-label" x="300" y="295" text-anchor="middle">2567 Q2</text>
+          <text class="x-label" x="420" y="295" text-anchor="middle">2568 Q1</text>
+          <text class="x-label" x="540" y="295" text-anchor="middle">2568 Q3</text>
+          <text class="x-label" x="660" y="295" text-anchor="middle">2569 Q2</text>
+        </svg>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--bad);"></span>🐷 สุกรขุนหน้าฟาร์ม (บาท/กก.)</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--good);"></span>🐔 ไก่เนื้อมีชีวิตหน้าฟาร์ม (บาท/กก.)</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:transparent;border:1.5px dashed var(--watch);width:14px;height:2px;"></span>ต้นทุนคุ้มสุกร ~72</div>
+        </div>
+        <div class="chart-note">ที่มา: สมาคมผู้เลี้ยงสุกรแห่งชาติ + กรมปศุสัตว์ + ก.พาณิชย์ · ค่าเฉลี่ยรายไตรมาส · ประมาณการจากข้อมูลรายสัปดาห์ · 1 ส.ค. 2026</div>
+      </div>
+
+      <div class="two-col">
+        <div class="compare-card">
+          <h4>🐷 สุกร — วัฏจักรฟื้นตัว</h4>
+          <ul class="clean">
+            <li><strong>2566:</strong> ~55-60 บาท (ต่ำ ขาดทุน)</li>
+            <li><strong>2567:</strong> ~65-72 บาท (ฟื้น)</li>
+            <li><strong>2568:</strong> ~70-78 บาท (ดีขึ้น)</li>
+            <li><strong>2569 Q2:</strong> <strong>~76 บาท</strong> (เหนือต้นทุน 72)</li>
+          </ul>
+          <p style="font-size:12px;color:var(--gray-500);margin-top:8px;margin-bottom:0;">💡 สุกรอยู่เหนือต้นทุน → กำไรเริ่มดีขึ้น + ข้าวโพดถูก = tailwind ซ้ำเติม</p>
+        </div>
+        <div class="compare-card">
+          <h4>🐔 ไก่เนื้อ — คงที่แข็งแรง</h4>
+          <ul class="clean">
+            <li><strong>2566:</strong> ~40-41 บาท</li>
+            <li><strong>2567:</strong> ~41-42 บาท</li>
+            <li><strong>2568:</strong> ~41-43 บาท</li>
+            <li><strong>2569 Q2:</strong> <strong>~43 บาท</strong> (ขึ้นจาก 41)</li>
+          </ul>
+          <p style="font-size:12px;color:var(--gray-500);margin-top:8px;margin-bottom:0;">💡 ราคาไก่นิ่งแต่ต้นทุนลด → margin ขยาย = tailwind ชัดเจน</p>
+        </div>
+      </div>
+
+      <div class="callout good">
+        <h4>💡 Insight สำคัญจากกราฟ</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>สุกร:</strong> ราคาขึ้นจาก 55 → 76 บาทใน 3 ปี (+38%) → อยู่เหนือต้นทุนแล้ว → ข้าวโพดถูก = <strong>กำไรเพิ่มเติม</strong></li>
+          <li><strong>ไก่เนื้อ:</strong> ราคานิ่งแต่ไม่ลด (~41-43 บาท) → ต้นทุนลด = <strong>margin ขยายโดยตรง</strong></li>
+          <li><strong>สรุป:</strong> ราคาขายปลายน้ำ <strong>ไม่ลด</strong> → เงื่อนไขข้อ 3 ของ tailwind (§6.1) ใช้ได้ ✅</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="s6">
+      <div class="sec-h">
+        <span class="sec-no">6</span>
+        <h2>Tailwind + แนวโน้มนำเข้าข้าวโพด</h2>
+      </div>
+      <hr class="div">
+      <p>มาถึงคำถามสำคัญที่สุดของการลงทุน: <strong>"ข่าวข้าวโพดถูก จะเป็นแรงหนุน (tailwind) จริงต่อหุ้นอาหารสัตว์ไทย หรือไม่?"</strong> — Section นี้จะตอบด้วยตัวเลข ไม่ใช่ความรู้สึก</p>
+
+      <h3 id="s6-1">6.1 Tailwind จริงไหม? — คำตอบสั้น</h3>
+
+      <div class="verdict-box">
+        <div class="verdict-title">✅ จริง — แต่ต้องเข้าใจเงื่อนไข</div>
+        <div class="verdict-body">
+          <p>ข่าวข้าวโพดถูก <strong>เป็น tailwind จริง</strong> เพราะเดือน ก.ค. 69 ราคาข้าวโพดที่ไซโล <strong>ร่วงลง 23%</strong> (จากพีค 13.20 → 10.20 บาท/กก.) ส่งผลให้ต้นทุนโรงอาหารสัตว์ลดลง → กำไรเพิ่มขึ้น</p>
+          <p>แต่ต้องเข้าใจ <strong>3 เงื่อนไข</strong> ที่ทำให้ไม่ใช่ลมฝั่งเดียว:</p>
+          <ul class="simplelist">
+            <li><strong>1. ข้าวโพด US ต้องมาถึงจริง</strong> — ปัจจุบันมาแค่ ~60-70% ของโควต้า 1 ล้านตัน (ค่าเรือแพง + เอกสารยุ่งยาก)</li>
+            <li><strong>2. ราคา 9.80 บาท เป็น "พื้น" (floor) เฉพาะข้าวโพดไทย</strong> — ไม่ใช่ราคาข้าวโพดนำเข้า US ที่ถูกกว่า (7.6 บาท) → ต้องดูราคาเฉลี่ยถ่วงน้ำหนัก (ดู §6.4)</li>
+            <li><strong>3. ราคาขายไก่/สุกรต้องไม่ลด</strong> — ถ้าราคาขายปลายน้ำลดลงด้วย กำไรจะไม่เพิ่ม</li>
+          </ul>
+          <p style="margin-top:12px;"><strong>สรุป:</strong> tailwind จริง แต่จำกัด — ลดต้นทุนข้าวโพดได้แค่ <strong>~10-12%</strong> ของต้นทุนข้าวโพดทั้งหมด (เพราะ floor 9.80 ของข้าวโพดไทย + ปลาป่น/กากถั่วยังแพง)</p>
+        </div>
+      </div>
+
+      <h3 id="s6-2">6.2 ราคาข้าวโพด ณ ไซโล 12 เดือนล่าสุด (ส.ค. 68 – ก.ค. 69)</h3>
+      <p>ตัวเลขราคาข้าวโพดเลี้ยงสัตว์ ณ ไซโลโรงงานอาหารสัตว์ — รวบรวมจาก CPF weekly + Pasusart News + Bangkokbiznews + กรมการค้าภายใน:</p>
+
+      <div class="line-chart-box">
+        <div class="chart-title">📈 ราคาข้าวโพดเลี้ยงสัตว์ ณ ไซโล 12 เดือน (บาท/กก.)</div>
+        <svg class="price-chart" viewBox="0 0 700 280" preserveAspectRatio="xMidYMid meet" aria-label="กราฟราคาข้าวโพด 12 เดือน">
+          <!-- Grid lines + Y axis labels -->
+          <line class="grid-line" x1="40" y1="30" x2="680" y2="30"/>
+          <line class="grid-line" x1="40" y1="76" x2="680" y2="76"/>
+          <line class="grid-line" x1="40" y1="123" x2="680" y2="123"/>
+          <line class="grid-line" x1="40" y1="170" x2="680" y2="170"/>
+          <line class="grid-line" x1="40" y1="217" x2="680" y2="217"/>
+          <text class="axis-label" x="34" y="34" text-anchor="end">13.5</text>
+          <text class="axis-label" x="34" y="80" text-anchor="end">12.5</text>
+          <text class="axis-label" x="34" y="127" text-anchor="end">11.5</text>
+          <text class="axis-label" x="34" y="174" text-anchor="end">10.5</text>
+          <text class="axis-label" x="34" y="221" text-anchor="end">9.5</text>
+
+          <!-- Floor line at 9.80 (y=203) -->
+          <line class="floor-line" x1="40" y1="203" x2="680" y2="203"/>
+          <text class="floor-text" x="675" y="198" text-anchor="end">⚠️ Floor 9.80 (ขั้นต่ำ ก.พาณิชย์)</text>
+
+          <!-- Area fill under the line -->
+          <path class="data-area" d="M 50,238 L 100,203 L 150,203 L 200,201 L 250,201 L 300,196 L 350,193 L 400,193 L 450,147 L 500,100 L 550,43 L 600,189 L 600,260 L 50,260 Z"/>
+
+          <!-- Main line -->
+          <polyline class="data-line" points="50,238 100,203 150,203 200,201 250,201 300,196 350,193 400,193 450,147 500,100 550,43 600,189"/>
+
+          <!-- Peak annotation -->
+          <line class="annot-line" x1="550" y1="43" x2="550" y2="25"/>
+          <text class="annot-text" x="550" y="20" text-anchor="middle">พีค 13.20 ⬆️ +32%</text>
+
+          <!-- Data dots + value labels -->
+          <circle class="data-dot normal" cx="50" cy="238" r="5"/>
+          <text class="data-label" x="50" y="230" text-anchor="middle">9.05</text>
+
+          <circle class="data-dot normal" cx="100" cy="203" r="5"/>
+          <text class="data-label" x="100" y="195" text-anchor="middle">9.80</text>
+
+          <circle class="data-dot normal" cx="150" cy="203" r="5"/>
+
+          <circle class="data-dot normal" cx="200" cy="201" r="5"/>
+
+          <circle class="data-dot normal" cx="250" cy="201" r="5"/>
+
+          <circle class="data-dot normal" cx="300" cy="196" r="5"/>
+          <text class="data-label" x="300" y="188" text-anchor="middle">9.95</text>
+
+          <circle class="data-dot normal" cx="350" cy="193" r="5"/>
+
+          <circle class="data-dot normal" cx="400" cy="193" r="5"/>
+
+          <circle class="data-dot high" cx="450" cy="147" r="5"/>
+          <text class="data-label" x="450" y="139" text-anchor="middle">11.00</text>
+
+          <circle class="data-dot peak" cx="500" cy="100" r="5"/>
+          <text class="data-label" x="500" y="92" text-anchor="middle">12.00</text>
+
+          <circle class="data-dot peak" cx="550" cy="43" r="6"/>
+          <text class="data-label" x="565" y="48" text-anchor="start" style="font-weight:700;">13.20</text>
+
+          <circle class="data-dot fall" cx="600" cy="189" r="6"/>
+          <text class="data-label" x="600" y="181" text-anchor="middle" style="fill:var(--good);font-weight:700;">10.20</text>
+
+          <!-- Fall annotation -->
+          <line class="annot-line" x1="600" y1="189" x2="600" y2="260" style="stroke:var(--good);"/>
+          <text class="annot-text" x="600" y="275" text-anchor="middle" style="fill:var(--good);">ร่วง −23% ⬇️</text>
+
+          <!-- X axis labels -->
+          <line class="axis-line" x1="40" y1="260" x2="680" y2="260"/>
+          <text class="x-label" x="50" y="275" text-anchor="middle">ส.ค.68</text>
+          <text class="x-label" x="150" y="275" text-anchor="middle">ต.ค.68</text>
+          <text class="x-label" x="250" y="275" text-anchor="middle">ธ.ค.68</text>
+          <text class="x-label" x="350" y="275" text-anchor="middle">ก.พ.69</text>
+          <text class="x-label" x="450" y="275" text-anchor="middle">เม.ย.69</text>
+          <text class="x-label" x="550" y="275" text-anchor="middle">มิ.ย.69</text>
+          <text class="x-label" x="600" y="275" text-anchor="middle">ก.ค.69</text>
+        </svg>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--gray-500);border-radius:50%;width:10px;height:10px;"></span>ฐานปกติ (9.80-10.00)</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--watch);border-radius:50%;width:10px;height:10px;"></span>เริ่มขยับ</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--bad);border-radius:50%;width:10px;height:10px;"></span>พีค!</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:var(--good);border-radius:50%;width:10px;height:10px;"></span>ร่วง</div>
+          <div class="legend-item"><span class="legend-swatch" style="background:transparent;border:1.5px dashed var(--good);width:14px;height:2px;"></span>Floor 9.80</div>
+        </div>
+        <div class="chart-note">หน่วย: บาท/กก. ที่ไซโล · แปลงจากหาบละ 60 กก. · ที่มา: CPF weekly + Pasusart News + Bangkokbiznews · 1 ส.ค. 2026</div>
+      </div>
+
+      <h4>3 ช่วงที่ต้องเข้าใจ (แบบเข้าใจง่าย)</h4>
+      <div class="phase-band">
+        <div class="phase-card normal">
+          <div class="phase-title">🔹 ช่วงฐานปกติ</div>
+          <div class="phase-range">9.05 – 10.00 บาท/กก.</div>
+          <div class="phase-note"><strong>ส.ค. 68 – มี.ค. 69 (8 เดือน)</strong><br>ราคานิ่ง 8 เดือน → ตลาดยอมรับว่านี่คือ "ราคาปกติ" ของข้าวโพดไทย</div>
+        </div>
+        <div class="phase-card peak">
+          <div class="phase-title">🔥 ช่วงพุ่งพีค</div>
+          <div class="phase-range">11.00 → 13.20 บาท/กก. (+32%)</div>
+          <div class="phase-note"><strong>เม.ย. – มิ.ย. 69 (3 เดือน)</strong><br>3 เหตุ: สมาคมสุกรร้องเรียกร้อง + ค่าขนส่งเรือแพง (Red Sea) + ก่อนเก็บเกี่ยวอุปทานน้อย</div>
+        </div>
+        <div class="phase-card fall">
+          <div class="phase-title">📉 ช่วงร่วงกลับ</div>
+          <div class="phase-range">10.20 บาท/กก. (−23% จากพีค)</div>
+          <div class="phase-note"><strong>ก.ค. 69 (1 เดือน)</strong><br>2 เหตุ: ข้าวโพด US 1 ล้านตันเริ่มถึงไทย + ฤดูเก็บเกี่ยวผลผลิตไทยรอบใหม่ (Q3/69)</div>
+        </div>
+      </div>
+
+      <div class="callout accent">
+        <h4>💡 Insight สำคัญจากกราฟ</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li>ราคาวันนี้ (10.20) <strong>ยังสูงกว่าฐานปกติ</strong> (9.80) → ยังมีที่ให้ลดลงอีก ถ้าข้าวโพด US มาเต็มโควต้า</li>
+          <li>ถ้าราคากลับไปที่ 9.80 (floor) = <strong>บริษัทอาหารสัตว์ประหยัดต้นทุนเพิ่ม ~4%</strong> จากระดับปัจจุบัน</li>
+          <li>แต่ถ้า CBOT พุ่ง (Black Sea) → CIF US ขึ้น → <strong>ข้าวโพดนำเข้าไม่คุ้ม → กลับไปแพง</strong></li>
+        </ul>
+      </div>
+
+      <h3 id="s6-3">6.3 ดีลข้าวโพด US + แนวโน้มนำเข้า</h3>
+
+      <h4>📋 Timeline ดีลข้าวโพด US 1 ล้านตัน (ภายใต้ WTO TRQ)</h4>
+      <p>เรื่องราวเริ่มจาก <strong>"ดีลทรัมป์"</strong> — ไทยต่อรองลดภาษี 36% → 19% โดยแลกกับการเปิดนำเข้าข้าวโพด US 1 ล้านตัน ภาษี 0%:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:100px;">วันที่</th>
+              <th>เหตุการณ์</th>
+              <th style="width:130px;">สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>เม.ย. 68</strong></td>
+              <td>🇺🇸 <strong>ทรัมป์ขึ้นภาษีตอบโต้ไทย 36%</strong> → ไทยต่อรองลดเหลือ 19% แลกเปิดนำเข้าข้าวโพด+กากถั่วเหลือง US</td>
+              <td><span class="tag">เริ่มดีล</span></td>
+            </tr>
+            <tr>
+              <td><strong>11 พ.ย. 68</strong></td>
+              <td>✅ <strong>ครม.เห็นชอบ TRQ 1 ล้านตัน</strong> · เริ่ม 1 ก.พ. 69 – 31 ส.ค. 69 · ภาษีในโควต้า 0%, นอกโควต้า 73.13% · เงื่อนไข 1:3 (นำเข้า 1 ต้องรับซื้อข้าวโพดไทย 3)</td>
+              <td><span class="tag good">อนุมัติ</span></td>
+            </tr>
+            <tr>
+              <td><strong>1 ก.พ. 69</strong></td>
+              <td>🚀 <strong>เริ่มนำเข้า</strong> — 6 บริษัทได้โควต้า (ส่วนใหญ่ในเครือ CPF, BTG, GFPT, TFM)</td>
+              <td><span class="tag good">เริ่มใช้</span></td>
+            </tr>
+            <tr>
+              <td><strong>เม.ย.–มิ.ย. 69</strong></td>
+              <td>🐌 <strong>นำเข้าช้ากว่าคาด</strong> — เหตุ: ค่าเรือแพง (Red Sea) + ฝนไทยผลผลิตออกพอใช้ + เอกสารยุ่งยาก</td>
+              <td><span class="tag watch">ล่าช้า</span></td>
+            </tr>
+            <tr>
+              <td><strong>มิ.ย. 69</strong></td>
+              <td>📈 <strong>ครม.ขยาย AFTA TRQ</strong> ถึง 31 ส.ค. + เพิ่มโควต้าจากเพื่อนบ้าน (อินเดีย/บราซิล/อาร์เจนตินา)</td>
+              <td><span class="tag watch">ขยาย</span></td>
+            </tr>
+            <tr>
+              <td><strong>ก.ค. 69</strong></td>
+              <td>📦 <strong>ข้าวโพด US ทยอยถึงไทย</strong> → ราคาไซโลร่วง 23% (จาก 13.20 → 10.20) — สะท้อนว่าข้าวโพดนำเข้าเริ่มมีผลจริง</td>
+              <td><span class="tag good">ได้ผล</span></td>
+            </tr>
+            <tr>
+              <td><strong>31 ส.ค. 69</strong></td>
+              <td>⏰ <strong>สิ้นสุด TRQ</strong> — จุดตัดสินใจสำคัญ: รัฐบาลจะต่ออายุโควต้าปี 69/70 ไหม?</td>
+              <td><span class="tag bad">ด่วน</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>💰 ราคาข้าวโพด US (CIF Thailand) — ถูกกว่าไทยเท่าไหร่?</h4>
+      <p>การคำนวณต้นทุนข้าวโพด US ตั้งแต่เมล็ดที่อเมริกา จนถึงถึงไซโลที่ไทย:</p>
+
+      <div class="cif-breakdown">
+        <div class="cif-row">
+          <div class="cif-label"><strong>1. CBOT</strong> (ราคาเมล็ดที่อเมริกา)</div>
+          <div class="cif-usd">$173/ตัน</div>
+          <div class="cif-thb">5,700 บาท</div>
+        </div>
+        <div class="cif-row">
+          <div class="cif-label"><strong>2. + ค่าขนส่งเรือ</strong> (US Gulf → ท่าเรือไทย)</div>
+          <div class="cif-usd">+$50/ตัน</div>
+          <div class="cif-thb">+1,650 บาท</div>
+        </div>
+        <div class="cif-row">
+          <div class="cif-label"><strong>3. + ประกัน + ธรรมเนียมท่าเรือ</strong></div>
+          <div class="cif-usd">+$5/ตัน</div>
+          <div class="cif-thb">+165 บาท</div>
+        </div>
+        <div class="cif-row total">
+          <div class="cif-label"><strong>= CIF Thailand (ราคาถึงท่าเรือไทย)</strong></div>
+          <div class="cif-usd"><strong>~$228/ตัน</strong></div>
+          <div class="cif-thb"><strong>7,515 บาท</strong></div>
+        </div>
+        <div class="chart-note" style="margin-top:10px;">
+          เทียบราคาไทยที่ไซโล 10.20 บาท/กก. → <strong>ข้าวโพด US ถูกกว่า ~25%</strong><br>
+          หมายเหตุ: CIF เป็นการประมาณการ (เพราะ CIF แท้จริงไม่เปิดเผย) · อัตราแลกเงิน 33 บาท/ดอลลาร์ · Red Sea premium ทำให้ค่าเรือแพงขึ้น 2 เท่าจากปกติ
+        </div>
+      </div>
+
+      <h4>📊 ปริมาณนำเข้าจริง vs เป้าหมาย</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>รอบ TRQ</th><th class="num">เป้าหมาย</th><th class="num">นำเข้าจริง (ประมาณ)</th><th class="num">% ของเป้า</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>1 ก.พ. – 31 ส.ค. 69</td><td class="num"><strong>1,000,000 ตัน</strong></td><td class="num">~600,000-700,000 ตัน</td><td class="num"><strong>~60-70%</strong></td><td>ยังไม่เต็มโควต้า</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>เหตุที่ไม่เต็ม:</strong> ค่าเรือแพง (Red Sea) + เอกสารยุ่งยาก + ฤดูฝนไทยผลผลิตออกพอใช้ + ความล่าช้าของกระบวนการ</p>
+
+      <div class="callout accent">
+        <h4>❓ คำถามสำคัญ: TRQ จะต่ออายุหลัง 31 ส.ค. 69 ไหม?</h4>
+        <p><strong>คำตอบ: น่าจะต่อ — แต่ยังไม่ยืนยันทางการ</strong></p>
+        <p><strong>เหตุผลที่น่าจะต่อ (base case 60%):</strong></p>
+        <ul class="simplelist">
+          <li><strong>ดีลทรัมป์ผูกติดกับการค้า</strong> — ตราบใดที่สหรัฐฯ ยังใช้ภาษีตอบโต้ ไทยต้องแลกเปิดตลาดนำเข้า</li>
+          <li><strong>ก.พาณิชย์ ประกาศ 4 ระเบียบใหม่</strong> (ปี 69) คุมเข้มการนำเข้า — สัญญาณว่ารัฐเตรียมต่อระบบ ไม่ใช่ยกเลิก</li>
+          <li><strong>อุตสาหกรรมอาหารสัตว์ต้องการวัตถุดิบ</strong> — ช่องว่างขาดแคลน 3.9M ตัน/ปี ไม่มีทางปลูกเองได้ทัน</li>
+        </ul>
+        <p><strong>เหตุผลที่อาจไม่ต่อ (tail risk 15-20%):</strong></p>
+        <ul class="simplelist">
+          <li>เปลี่ยนรัฐบาลไทย → นโยบายเปลี่ยน</li>
+          <li>เลือกตั้งสหรัฐ พ.ย. 69 → ทรัมป์แพ้ → ดีลสูญ</li>
+          <li>เกษตรกรกดดันรัฐบาล → จำกัดนำเข้า</li>
+        </ul>
+        <p style="margin-top:10px;margin-bottom:0;"><strong>จุดตัดสินใจ:</strong> ครม. น่าจะมีมติช่วง <strong>ส.ค.-ก.ย. 69</strong> — ต้องจับตา</p>
+      </div>
+
+      <div class="callout good">
+        <h4>📦 ปริมาณนำเข้าจริง — อัปเดตล่าสุด</h4>
+        <p>จากการรวบรวมข้อมูลกรมศุลกากร + ก.พาณิชย์ + สมาคมผู้ผลิตอาหารสัตว์:</p>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>นำเข้าจริง (ก.ค. 69):</strong> ~600,000-700,000 ตัน = <strong>60-70% ของโควต้า</strong></li>
+          <li><strong>คาดการณ์สิ้นปี 69:</strong> ~800,000-900,000 ตัน (80-90%) — ถ้าค่าเรือไม่แพงขึ้น</li>
+          <li><strong>แนวโน้มปี 70:</strong> ถ้าต่อ TRQ น่าจะเริ่มต้นที่ 1M ตันเลย (ไม่ต้องเริ่มใหม่)</li>
+        </ul>
+        <p style="margin-top:8px;margin-bottom:0;font-size:12px;color:var(--gray-500);">หมายเหตุ: ตัวเลขเป็นการประมาณการจากแหล่งรวบรวม — ตัวเลขทางการกรมศุลกากรอาจเผยแพร่ล่าช้า 1-2 เดือน</p>
+      </div>
+
+      <h4>🔮 แนวโน้มนำเข้าข้าวโพด 3 สถานการณ์ (ปี 2569/70)</h4>
+      <p>จากข้อมูลปัจจุบัน + ปัจจัย structural + ความเสี่ยง ตั้งไว้ 3 สถานการณ์:</p>
+
+      <div class="scenario-grid">
+        <div class="scenario-card bear">
+          <div class="sc-head">
+            <span class="sc-title">🔴 Bear</span>
+            <span class="sc-prob">15%</span>
+          </div>
+          <div class="sc-range">3.0 – 3.5M</div>
+          <div class="sc-unit">ล้านตัน/ปี</div>
+          <ul class="sc-list">
+            <li>เปลี่ยนรัฐบาลไทย → ยกเลิกดีล</li>
+            <li>CBOT พุ่ง (Black Sea)</li>
+            <li>เกษตรกรกดดันจำกัดนำเข้า</li>
+          </ul>
+        </div>
+        <div class="scenario-card base">
+          <div class="sc-head">
+            <span class="sc-title">🟡 Base ← น่าจะที่สุด</span>
+            <span class="sc-prob">60%</span>
+          </div>
+          <div class="sc-range">4.0 – 4.5M</div>
+          <div class="sc-unit">ล้านตัน/ปี</div>
+          <ul class="sc-list">
+            <li>ดีลทรัมป์ TRQ ต่ออายุ</li>
+            <li>เพื่อนบ้านยังส่งมา 2-3M</li>
+            <li>ความต้องการเพิ่มตามส่งออก</li>
+          </ul>
+        </div>
+        <div class="scenario-card bull">
+          <div class="sc-head">
+            <span class="sc-title">🟢 Bull</span>
+            <span class="sc-prob">25%</span>
+          </div>
+          <div class="sc-range">5.0 – 5.5M</div>
+          <div class="sc-unit">ล้านตัน/ปี</div>
+          <ul class="sc-list">
+            <li>ทรัมป์ขยาย TRQ → 2M</li>
+            <li>ผลผลิตไทยตก (ฝนแล้ง)</li>
+            <li>EUDR บังคับ → ต้องใช้ US</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout accent">
+        <h4>📅 จุดที่ต้องจับตา (H2/69 – 2569/70)</h4>
+        <div class="table-wrap" style="margin-top:8px;">
+          <table>
+            <thead><tr><th>เดือน</th><th>เหตุการณ์</th><th>ผลกระทบต่อ tailwind</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ก.ย. 69</strong></td><td>TRQ US สิ้นสุด (31 ส.ค.)</td><td>รัฐบาลตัดสินใจต่ออายุไหม — <strong>จุดสำคัญที่สุด</strong></td></tr>
+              <tr><td><strong>ต.ค. 69</strong></td><td>เก็บเกี่ยวข้าวโพดไทยรอบใหม่</td><td>ราคาไซโลอ่อนแรง → tailwind ทำงานต่อ</td></tr>
+              <tr><td><strong>พ.ย. 69</strong></td><td>เลือกตั้งสหรัฐ (Mid-term)</td><td>นโยบายทรัมป์อาจเปลี่ยน → ความเสี่ยงใหญ่</td></tr>
+              <tr><td><strong>ม.ค. 70</strong></td><td>TRQ US ปีใหม่ (ถ้าต่อ)</td><td>ปริมาณนำเข้าปี 70</td></tr>
+              <tr><td><strong>Q1/70</strong></td><td>EUDR บังคับเต็มที่</td><td>ต้องใช้ข้าวโพดที่ traceable → เฟavor US</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3 id="s6-4">6.4 "ถ้าราคายืน 9.80 = ไม่มีใครได้ประโยชน์จริง ใช่ไหม?"</h3>
+      <p>นี่เป็นคำถามสำคัญที่ต้องทำความเข้าใจ — คำตอบคือ <strong>"ไม่ใช่"</strong> เพราะ 9.80 ไม่ใช่ราคาเดียวที่โรงอาหารสัตว์จ่าย</p>
+
+      <h4>📖 ความจริง: 9.80 บาท คือ "พื้นราคาข้าวโพดไทย" ไม่ใช่ราคาทั้งหมด</h4>
+      <div class="callout">
+        <h4>3 ข้อที่ต้องกระจ่าง</h4>
+        <ol style="margin:0;padding-left:22px;line-height:1.7;">
+          <li><strong>9.80 = floor เฉพาะ "ข้าวโพดไทย 14.5% ความชื้น"</strong><br>
+          เป็นมาตรการ ก.พาณิชย์ (มีผล 30 ส.ค. 68 – 31 ก.ค. 69) เพื่อปกป้องเกษตรกรไทย ไม่ให้ราคาตกต่ำกว่านี้<br>
+          → <strong>ไม่ใช้กับข้าวโพดนำเข้า US</strong> (เพราะ US มาเป็น CIF 7.6 บาท)</li>
+          <li><strong>ราคาที่โรงอาหารสัตว์จ่ายจริง = ผสม 3 แหล่ง</strong><br>
+          ไม่ใช่ 9.80 ล้วน — แต่เป็น "ราคาเฉลี่ยถ่วงน้ำหนัก" ของ ข้าวโพดไทย + US + เพื่อนบ้าน</li>
+          <li><strong>สัดส่วนข้าวโพดไทยลดลง เมื่อมีนำเข้า</strong><br>
+          ยิ่งนำเข้า US มาก → สัดส่วนข้าวโพดไทย (ที่ต้องยืน 9.80) ลดลง → ราคาเฉลี่ยลดลง</li>
+        </ol>
+      </div>
+
+      <h4>📊 ตัวอย่าง: ราคาเฉลี่ยถ่วงน้ำหนักที่โรงอาหารสัตว์จ่ายจริง</h4>
+      <p>สมมติโรงอาหารสัตว์ใช้ข้าวโพด 9.26 ล้านตัน/ปี จาก 3 แหล่ง:</p>
+
+      <div class="weighted-box">
+        <div class="weighted-row-head">
+          <div></div>
+          <div>แหล่งข้าวโพด</div>
+          <div class="h-share">สัดส่วน</div>
+          <div class="h-price">ราคา/กก.</div>
+        </div>
+        <div class="weighted-row">
+          <div class="w-icon">🇹🇭</div>
+          <div class="w-src"><strong>ข้าวโพดไทย</strong><small>Floor 9.80 · 5.36M ตัน</small></div>
+          <div class="w-share">58%</div>
+          <div class="w-price">9.80</div>
+        </div>
+        <div class="weighted-row">
+          <div class="w-icon">🇺🇸</div>
+          <div class="w-src"><strong>ข้าวโพด US</strong><small>TRQ · 1.0M ตัน</small></div>
+          <div class="w-share">11%</div>
+          <div class="w-price" style="color:var(--good);">7.60</div>
+        </div>
+        <div class="weighted-row">
+          <div class="w-icon">🌏</div>
+          <div class="w-src"><strong>เพื่อนบ้าน</strong><small>อินเดีย/บราซิล/อาร์ · 2.9M ตัน</small></div>
+          <div class="w-share">31%</div>
+          <div class="w-price">8.50</div>
+        </div>
+        <div class="weighted-row total">
+          <div class="w-icon">⚖️</div>
+          <div class="w-src"><strong>ราคาเฉลี่ยถ่วงน้ำหนัก</strong><small>9.26M ตันที่โรงอาหารสัตว์ใช้จริง</small></div>
+          <div class="w-share">100%</div>
+          <div class="w-price">9.16</div>
+        </div>
+      </div>
+
+      <div class="callout good">
+        <h4>💡 คำตอบจากตาราง</h4>
+        <p><strong>ราคาเฉลี่ยที่โรงอาหารสัตว์จ่ายจริง ≈ 9.16 บาท/กก.</strong> — ไม่ใช่ 9.80 เพราะมีข้าวโพด US และเพื่อนบ้านผสมอยู่</p>
+        <p style="margin-bottom:0;">เทียบกับช่วงพีค (มิ.ย. 69) ที่ราคาไซโลพุ่งเป็น 13.20 → <strong>ตอนนี้ประหยัดต้นทุนได้ ~30%</strong> จากพีค หรือ ~10% จากระดับปกติ (10.00)</p>
+      </div>
+
+      <h4>🎯 3 สถานการณ์ตอบ "tailwind จริงไหม" ตามปริมาณนำเข้า</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>สถานการณ์</th><th>ราคาเฉลี่ยโรงงาน</th><th class="num">ประหยัด vs พีค</th><th>ใครได้ประโยชน์</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>🔴 <strong>A: นำเข้า US ไม่มา</strong> (เรือแพง)</td>
+              <td class="num"><strong>10.20</strong> (ไทยล้วน)</td>
+              <td class="num">น้อย</td>
+              <td>❌ ไม่มีใคร — ราคาสูงเท่าเดิม</td>
+            </tr>
+            <tr>
+              <td>🟡 <strong>B: นำเข้า US มาบางส่วน</strong> (60-70% ปัจจุบัน)</td>
+              <td class="num"><strong>~9.2 – 9.5</strong></td>
+              <td class="num">ปานกลาง</td>
+              <td>🟡 ได้บ้าง — ประหยัดต้นทุน ~5-7%</td>
+            </tr>
+            <tr>
+              <td>🟢 <strong>C: นำเข้า US เต็มโควต้า 1M</strong></td>
+              <td class="num"><strong>~9.0 – 9.3</strong></td>
+              <td class="num">มาก</td>
+              <td>✅ ได้จริง — ประหยัดต้นทุน ~10-12%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>💡 ตัวอย่างทำให้เข้าใจง่าย (CPF)</h4>
+      <div class="callout accent">
+        <p>สมมติ CPF ใช้ข้าวโพด 3 ล้านตัน/ปี:</p>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li>ถ้าราคาเฉลี่ย <strong>10.20</strong> (ไทยล้วน) = ต้นทุน <strong>30,600 ล้านบาท</strong></li>
+          <li>ถ้าราคาเฉลี่ย <strong>9.16</strong> (มี US ผสม) = ต้นทุน <strong>27,480 ล้านบาท</strong></li>
+          <li><strong>ประหยัดได้ ~3,120 ล้านบาท/ปี</strong> → กำไรเพิ่มขึ้น (ถ้าราคาขายไก่คงที่)</li>
+        </ul>
+        <p style="margin-top:10px;margin-bottom:0;font-size:13px;color:var(--gray-500);">หมายเหตุ: ตัวอย่างนี้เป็นการประมาณการ — จริง ๆ ขึ้นกับสัดส่วนข้าวโพดแต่ละแหล่ง + ราคาขาวปลายน้ำ</p>
+      </div>
+
+      <div class="callout bad">
+        <h4>⚠️ ข้อจำกัดของการวิเคราะห์</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>CIF ข้าวโพด US</strong> = การประมาณการ ($228/ตัน) — แท้จริงไม่เปิดเผย อาจคลาดเคลื่อน ±10%</li>
+          <li><strong>ปริมาณนำเข้าจริง</strong> = คาดการณ์ (~60-70% ของโควต้า)</li>
+          <li><strong>"9.80 floor"</strong> จำกัด tailwind — แม้นำเข้า US มาเต็ม ก็ลดได้แค่ ~10-12%</li>
+          <li><strong>ปัจจัยอื่นที่ไม่ได้คำนึง:</strong> ปลาป่นแพง + กากถั่วเหลืองแพง → แม้ข้าวโพดถูก ต้นทุนอาหารรวมอาจไม่ลด</li>
+          <li><strong>นี่ไม่ใช่คำแนะนำซื้อ</strong> — ต้องเช็ค valuation + technical + synthesis ก่อน</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="s7">
+      <div class="sec-h">
+        <span class="sec-no">7</span>
+        <h2>สรุปตกผลึก (Final Takeaways)</h2>
+      </div>
+      <hr class="div">
+      <p>Section สุดท้ายนี้รวบยอดทุก Section 1-6 ให้เห็นภาพเดียวจบ — ตอบคำถาม ประเมินความมั่นใจ จัดอันดับความเสี่ยง และบอกตัวชี้วัดที่ต้องจับตา</p>
+
+      <h3 id="s7-1">7.1 คำตอบ 2 คำถามหลัก</h3>
+
+      <div class="verdict-box">
+        <div class="verdict-title">❓ คำถาม 1: ข้าวโพดถูกจริงไหม?</div>
+        <div class="verdict-body">
+          <p style="font-size:18px;"><strong>✅ ถูกครึ่งเดียว — ต้องแยก "ราคาไหน"</strong></p>
+          <p>ข้าวโพดมี <strong>2 ราคา 2 โลก</strong> ที่คนมักสับสน:</p>
+          <ul class="simplelist">
+            <li><strong>โลก (CBOT):</strong> <span style="color:var(--bad);">แพงขึ้น +13%</span> — ผลผลิตไม่พอ + สงคราม Black Sea</li>
+            <li><strong>เกษตรกรไทย (ที่ไร่):</strong> <span style="color:var(--watch);">ถูกจริง</span> — ข้าวโพด US ถูกกว่าเข้ามาแข่ง</li>
+            <li><strong>โรงอาหารสัตว์ (เฉลี่ยจริง):</strong> <span style="color:var(--good);">~9.2 บาท</span> — ต่ำกว่าพีค 30% แต่ยังสูงกว่า floor 9.80 เล็กน้อย</li>
+          </ul>
+          <p style="margin-top:10px;margin-bottom:0;">ข่าวที่คุณได้ยินมาจากมุมเกษตรกรไทย — <strong>ไม่ใช่มุมราคาโลก</strong></p>
+        </div>
+      </div>
+
+      <div class="verdict-box" style="background:linear-gradient(135deg,color-mix(in srgb,var(--watch) 10%,var(--white)) 0%,var(--white) 100%);border-color:var(--watch);">
+        <div class="verdict-title" style="color:var(--watch);">❓ คำถาม 2: เป็น Tailwind (แรงหนุน) ต่อหุ้นไทยจริงไหม?</div>
+        <div class="verdict-body">
+          <p style="font-size:18px;"><strong>✅ จริง แต่จำกัด และมีเงื่อนไข</strong></p>
+          <p>ราคาข้าวโพดที่ไซโลร่วง 23% จากพีค → ต้นทุนโรงอาหารสัตว์ลด → กำไรเพิ่ม <strong>แต่มีเงื่อนไข 3 ข้อ:</strong></p>
+          <ul class="simplelist">
+            <li><strong>1.</strong> ข้าวโพด US ต้องมาถึงจริง (ตอนนี้มาแค่ 60-70% ของโควต้า)</li>
+            <li><strong>2.</strong> Floor 9.80 จำกัดการลดของราคาไทย → tailwind ลดต้นทุนได้แค่ ~10-12%</li>
+            <li><strong>3.</strong> ราคาขายไก่/สุกรต้องไม่ลด — ถ้าลด กำไรจะไม่เพิ่ม</li>
+          </ul>
+          <p style="margin-top:10px;margin-bottom:0;"><strong>ผู้ได้ประโยชน์หลัก:</strong> CPF, GFPT, BTG (ไก่+อาหารสัตว์) — ส่วนหุ้นกุ้ง (TU, ASIAN) แทบไม่ได้ประโยชน์เพราะกุ้งใช้ข้าวโพดน้อย (15-20%)</p>
+        </div>
+      </div>
+
+      <h3 id="s7-2">7.2 ระดับความมั่นใจ (Confidence Level)</h3>
+      <p>การประเมินนี้ไม่ใช่ "แน่นอน 100%" — มีความไม่แน่นอนหลายจุด นี่คือระดับความมั่นใจของเราต่อข้อความต่าง ๆ:</p>
+
+      <h4>📊 ความมั่นใจต่อข้อความหลัก</h4>
+
+      <div style="margin:14px 0;">
+        <div class="confidence-label">
+          <span><strong>"ข้าวโพดโลกแพงขึ้น"</strong> (CBOT +13%)</span>
+          <span>90%</span>
+        </div>
+        <div class="confidence-bar"><div class="confidence-fill high" style="width:90%;">มั่นใจมาก</div></div>
+        <p style="font-size:11px;color:var(--gray-500);margin:2px 0 10px;">ที่มา: USDA WASDE + Macrotrends — ข้อมูลยืนยันชัดเจน</p>
+      </div>
+
+      <div style="margin:14px 0;">
+        <div class="confidence-label">
+          <span><strong>"ข้าวโพดเกษตรกรไทยถูก"</strong> (ดีลทรัมป์กดราคา)</span>
+          <span>85%</span>
+        </div>
+        <div class="confidence-bar"><div class="confidence-fill high" style="width:85%;">มั่นใจมาก</div></div>
+        <p style="font-size:11px;color:var(--gray-500);margin:2px 0 10px;">ที่มา: ก.พาณิชย์ + ครม. + BAAC — เอกสารทางการยืนยัน</p>
+      </div>
+
+      <div style="margin:14px 0;">
+        <div class="confidence-label">
+          <span><strong>"ราคาเฉลี่ยที่โรงงานจ่าย ~9.2 บาท"</strong></span>
+          <span>60%</span>
+        </div>
+        <div class="confidence-bar"><div class="confidence-fill mid" style="width:60%;">ปานกลาง</div></div>
+        <p style="font-size:11px;color:var(--gray-500);margin:2px 0 10px;">CIF US = ประมาณการ ±10% · ปริมาณนำเข้าจริง = คาดการณ์ · สัดส่วน 3 แหล่งอาจเปลี่ยน</p>
+      </div>
+
+      <div style="margin:14px 0;">
+        <div class="confidence-label">
+          <span><strong>"Tailwind ลดต้นทุน ~10-12%"</strong></span>
+          <span>55%</span>
+        </div>
+        <div class="confidence-bar"><div class="confidence-fill mid" style="width:55%;">ปานกลาง</div></div>
+        <p style="font-size:11px;color:var(--gray-500);margin:2px 0 10px;">ขึ้นกับปัจจัยหลายตัว: ปลาป่น/กากถั่ว อาจแพงขึ้น → แม้ข้าวโพดถูก ต้นทุนอาหารรวมอาจไม่ลด</p>
+      </div>
+
+      <div style="margin:14px 0;">
+        <div class="confidence-label">
+          <span><strong>"CPF ได้ประโยชน์มากสุด"</strong></span>
+          <span>75%</span>
+        </div>
+        <div class="confidence-bar"><div class="confidence-fill high" style="width:75%;">มั่นใจ</div></div>
+        <p style="font-size:11px;color:var(--gray-500);margin:2px 0 10px;">เป็นผู้ใช้ข้าวโพดมากสุด + ครบวงจร — แต่ราคาหุ้นอาจสะท้อน tailwind ไปบางส่วนแล้ว</p>
+      </div>
+
+      <div class="callout accent">
+        <h4>💡 อ่านอย่างไร?</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li><strong>มั่นใจมาก (75-90%):</strong> ข้อมูลทางการยืนยันชัด — เช่น ราคา CBOT, ดีลทรัมป์</li>
+          <li><strong>ปานกลาง (55-65%):</strong> มีการประมาณการ — เช่น CIF, ปริมาณนำเข้า, ผลกระทบต่อกำไร</li>
+          <li><strong>ต่ำกว่า 50%:</strong> เก็บไว้เป็น hypothesis — ไม่ควรใช้ตัดสินใจลงทุนโดยไม่ตรวจสอบเพิ่ม</li>
+        </ul>
+      </div>
+
+      <h3 id="s7-3">7.3 ความเสี่ยง 5 อันดับแรก</h3>
+      <p>เรียงตาม <strong>Impact (ผลกระทบต่อ thesis)</strong> + <strong>Probability (ความน่าจะเป็น)</strong> — ถ้าเกิดขึ้น = ต้องคิดใหม่:</p>
+
+      <div class="table-wrap" style="background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:18px 22px;">
+        <div class="risk-row-head">
+          <div>#</div>
+          <div>ความเสี่ยง</div>
+          <div class="h-impact">Impact</div>
+          <div class="h-prob">Prob</div>
+        </div>
+        <div class="risk-row">
+          <div class="r-rank">1</div>
+          <div>
+            <div class="r-name">🇺🇸 ทรัมป์เปลี่ยนนโยบาย / เลือกตั้งสหรัฐ พ.ย. 69</div>
+            <div class="r-desc">ถ้าทรัมป์แพ้เลือกตั้ง → ดีล TRQ อาจไม่ต่อ → ข้าวโพด US หาย → ราคาไทยกลับแพง</div>
+          </div>
+          <div class="r-impact"><span class="lbl">Impact</span><span class="val" style="color:var(--bad);">สูงมาก</span></div>
+          <div class="r-prob"><span class="lbl">Prob</span><span class="val" style="color:var(--watch);">กลาง</span></div>
+        </div>
+        <div class="risk-row">
+          <div class="r-rank">2</div>
+          <div>
+            <div class="r-name">🔥 Black Sea escalation → CBOT พุ่ง</div>
+            <div class="r-desc">ถ้ารัสเซียปิดท่าเรือ Black Sea จริง → CBOT พุ่ง → CIF US แพงขึ้น → นำเข้าไม่คุ้ม → ราคาไทยแพง</div>
+          </div>
+          <div class="r-impact"><span class="lbl">Impact</span><span class="val" style="color:var(--bad);">สูงมาก</span></div>
+          <div class="r-prob"><span class="lbl">Prob</span><span class="val" style="color:var(--watch);">กลาง</span></div>
+        </div>
+        <div class="risk-row">
+          <div class="r-rank">3</div>
+          <div>
+            <div class="r-name">🇹🇭 เปลี่ยนรัฐบาลไทย → ยกเลิกดีล</div>
+            <div class="r-desc">ถ้ารัฐบาลใหม่ไม่สนับสนุนการนำเข้า → TRQ ยกเลิก → กลับไปขาดแคลนข้าวโพด</div>
+          </div>
+          <div class="r-impact"><span class="lbl">Impact</span><span class="val" style="color:var(--bad);">สูง</span></div>
+          <div class="r-prob"><span class="lbl">Prob</span><span class="val" style="color:var(--good);">ต่ำ</span></div>
+        </div>
+        <div class="risk-row">
+          <div class="r-rank">4</div>
+          <div>
+            <div class="r-name">📉 ราคาไก่/สุกรปลายน้ำลด</div>
+            <div class="r-desc">ถ้าส่งออกไก่อ่อนแอ (เศรษฐกิจโลก) → ราคาขายลด → แม้ข้าวโพดถูก กำไรก็ไม่เพิ่ม</div>
+          </div>
+          <div class="r-impact"><span class="lbl">Impact</span><span class="val" style="color:var(--watch);">สูง</span></div>
+          <div class="r-prob"><span class="lbl">Prob</span><span class="val" style="color:var(--watch);">กลาง</span></div>
+        </div>
+        <div class="risk-row">
+          <div class="r-rank">5</div>
+          <div>
+            <div class="r-name">🐟 ปลาป่น + กากถั่วเหลืองแพง</div>
+            <div class="r-desc">ข้าวโพดเป็นแค่ 50% ของอาหาร — ถ้าส่วนประกอบอื่นแพง → ต้นทุนอาหารรวมไม่ลด</div>
+          </div>
+          <div class="r-impact"><span class="lbl">Impact</span><span class="val" style="color:var(--watch);">กลาง</span></div>
+          <div class="r-prob"><span class="lbl">Prob</span><span class="val" style="color:var(--watch);">กลาง</span></div>
+        </div>
+      </div>
+
+      <h3 id="s7-4">7.4 ตัวชี้วัดที่ต้องจับตา (Watchlist)</h3>
+      <p>ถ้าตัวเลขเหล่านี้ <strong>เปลี่ยนทิศ</strong> = ต้องกลับมาคิด thesis ใหม่:</p>
+
+      <div class="watch-grid">
+        <div class="watch-card">
+          <div class="w-trigger">📌 จุดตัดสินใจ #1</div>
+          <div class="w-title">ก.ย. 69 — TRQ US สิ้นสุด (31 ส.ค.)</div>
+          <div class="w-desc">รัฐบาลตัดสินใจว่าจะต่ออายุโควต้าข้าวโพด US ปี 69/70 ไหม — ถ้าไม่ต่อ = tailwind หาย</div>
+          <div class="w-action">ถ้าต่อ → tailwind ยังใช้ได้ / ถ้าไม่ต่อ → ลด position</div>
+        </div>
+        <div class="watch-card">
+          <div class="w-trigger">📊 ราคาไซโลรายเดือน</div>
+          <div class="w-title">ราคาข้าวโพดที่ไซโล ณ โรงอาหารสัตว์</div>
+          <div class="w-desc">ปัจจุบัน 10.20 บาท — ถ้ากลับไป 12+ = tailwind หาย / ถ้าลงไป 9.80 = tailwind แข็งขึ้น</div>
+          <div class="w-action">ติดตาม CPF weekly + Pasusart News ทุกสัปดาห์</div>
+        </div>
+        <div class="watch-card">
+          <div class="w-trigger">📦 ปริมาณนำเข้าจริง</div>
+          <div class="w-title">% ของโควต้า US ที่มาถึงจริง</div>
+          <div class="w-desc">ปัจจุบัน ~60-70% — ถ้าไป 90%+ = tailwind แข็ง / ถ้าต่ำกว่า 50% = ค่าเรือแพงเกิน</div>
+          <div class="w-action">เช็คกรมศุลกากร + ก.พาณิชย์ รายไตรมาส</div>
+        </div>
+        <div class="watch-card">
+          <div class="w-trigger">🐔 ราคาไก่/สุกรส่งออก</div>
+          <div class="w-title">ราคาขายปลายน้ำ</div>
+          <div class="w-desc">ถ้าราคาขายคงที่ = ต้นทุนลด = กำไรเพิ่ม / ถ้าราคาขายลด = กำไรไม่เพิ่ม</div>
+          <div class="w-action">ติดตาม CPF, GFPT, BTG quarterly earnings</div>
+        </div>
+        <div class="watch-card">
+          <div class="w-trigger">🌍 CBOT corn price</div>
+          <div class="w-title">ราคาข้าวโพดโลก</div>
+          <div class="w-desc">ปัจจุบัน $464/bu — ถ้าพุ่ง $550+ = CIF US แพง → นำเข้าไม่คุ้ม</div>
+          <div class="w-action">ติดตาม USDA WASDE รายเดือน + Black Sea news</div>
+        </div>
+        <div class="watch-card">
+          <div class="w-trigger">🐟 ราคาปลาป่น + กากถั่วเหลือง</div>
+          <div class="w-title">ต้นทุนอาหารส่วนอื่น</div>
+          <div class="w-desc">ข้าวโพดเป็นแค่ 50% — ถ้าปลาป่น/กากถั่วแพง → ต้นทุนอาหารรวมไม่ลด</div>
+          <div class="w-action">เช็คราคา Peru fishmeal + CBOT soybean meal</div>
+        </div>
+      </div>
+
+      <div class="callout bad">
+        <h4>⚠️ ข้อจำกัดของรายงานนี้ทั้งหมด</h4>
+        <ul class="simplelist" style="margin-bottom:0;">
+          <li>เป็น <strong>การวิจัยเชิงคุณภาพ</strong> — ยังไม่ได้ทำ valuation/DCF/technical analysis ของหุ้นแต่ละตัว</li>
+          <li><strong>CIF ข้าวโพด US</strong> = ประมาณการ ($228/ตัน) — อาจคลาดเคลื่อน ±10%</li>
+          <li><strong>ปริมาณนำเข้าจริง</strong> = คาดการณ์ — ต้องเช็คกรมศุลกากร</li>
+          <li><strong>ข้อมูลตลาด</strong> (CBOT, ราคาไซโล) = ข้อมูลสด ณ 1 ส.ค. 2026 — อาจเปลี่ยนทุกวัน</li>
+          <li><strong>นี่ไม่ใช่คำแนะนำซื้อ-ขาย</strong> — เป็นการวิเคราะห์เพื่อการศึกษาและวิจัยเท่านั้น</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="appendix">
+      <div class="sec-h">
+        <span class="sec-no">§</span>
+        <h2>ภาคผนวก · แหล่งข้อมูล</h2>
+      </div>
+      <hr class="div">
+
+      <h3>แหล่งข้อมูลหลัก (ข้อมูล ณ 1 สิงหาคม 2026)</h3>
+
+      <h4>มุมโลก (CBOT)</h4>
+      <ul class="simplelist">
+        <li><a href="https://www.macrotrends.net/2532/corn-prices-historical-chart-data">Macrotrends Corn 5-year</a> — กราฟราคา 2020-2026</li>
+        <li><a href="https://www.usda.gov/oce/commodity/wasde/wasde0726.pdf">USDA WASDE July 2026</a> — forecast 2026/27</li>
+        <li><a href="https://tradingeconomics.com/commodity/corn">Trading Economics Corn</a> — ราคาสด</li>
+        <li><a href="https://time.com/article/2026/07/31/russia-attack-odesa-ukraine-black-sea-ports">TIME: Black Sea attacks</a> — สงครามท่าเรือ</li>
+        <li><a href="https://www.reuters.com/world/ukraines-black-sea-ports-lose-third-grain-export-capacity-farmers-union-says-2026-07-15/">Reuters: Ukraine ports lose capacity</a></li>
+        <li><a href="https://www.riotimesonline.com/brazil-agribusiness-2026-guide/">Rio Times: Brazil Conab</a> — สถิติผลผลิต Brazil</li>
+      </ul>
+
+      <h4>มุมไทย — ราคาและสถานการณ์</h4>
+      <ul class="simplelist">
+        <li><a href="https://www.baac.or.th">BAAC สถานการณ์ราคาสินค้าเกษตร พ.ย. 68 + มี.ค. 69</a></li>
+        <li><a href="https://www.thaipbs.or.th/news/content/503647">Thai PBS 22 มี.ค. 69</a> — ความต้องการ 9.26M ตัน/ปี</li>
+        <li><a href="https://chainat.moc.go.th/th/content/category/detail/id/112/iid/133949">ก.พาณิชย์ เชียงนาท</a> — ผลผลิต 5.36M ตัน</li>
+        <li><a href="https://www.swinethailand.com/17488458/moc-swine-updated-22-05-2026">สมาคมผู้เลี้ยงสุกร — MOC Swine Updated</a> — ราคาสุกร + ข้าวโพด</li>
+        <li><a href="https://www.swinethailand.com/17489182/press-conference-about-expensive-corn">สมาคมผู้เลี้ยงสุกร — Press conference</a> — แถลงข่าวข้าวโพดแพง</li>
+        <li><a href="https://siamrath.co.th/article/articles-analysis/161408">สยามรัฐ — ภาวะสินค้าเกษตร ก.ค. 69</a></li>
+        <li><a href="https://www.bluechipthai.com/news-แนวโน้มสินค้าเกษตรกา-3633313337">CPF weekly — ราคาข้าวโพด 27-31 ก.ค. 69</a></li>
+        <li><a href="https://tdri.or.th/2025/09/thai-feed-corn-in-transition-article/">TDRI ก.ย. 68</a> — ข้าวโพดในความเปลี่ยนแปลง</li>
+      </ul>
+
+      <h4>สัดส่วนการใช้ + อุตสาหกรรม</h4>
+      <ul class="simplelist">
+        <li><a href="https://www.thaifeedmill.org/data-all/">สมาคมผู้ผลิตอาหารสัตว์ไทย (TFMA)</a> — ปริมาณความต้องการอาหารสัตว์</li>
+        <li><a href="https://www.lhbank.co.th/getattachment/fc8fcc4e-59df-4297-9e7e-3939bae8de41/economic-analysis-Industry-Outlook-2024-Animal-Feed-2024">LH Bank — ธุรกิจผลิตอาหารปศุสัตว์ 2567</a> — สัดส่วนชนิดสัตว์</li>
+        <li><a href="https://www.dit.go.th/media/35hn02fv/ปฏ-ทน-ฤด-กาล-สิน-ค้า-เกษ-ตร-ป-2568.pdf">กรมการค้าภายใน — ปฏิทินฤดูกาล 2568</a> — จำนวนสัตว์</li>
+        <li><a href="https://bioinnovationlinkage.oie.go.th/a_AttachPlant/Plant_5_20220727_115523_1.pdf">ห่วงโซ่คุณค่าของข้าวโพด</a> — อุตสาหกรรมอื่น ๆ</li>
+        <li><a href="https://bitha.dede.go.th/bitha/reporteth-view.aspx?p=142">รายงานสถานการณ์เชื้อเพลิงชีวภาพ</a> — เอทานอล</li>
+      </ul>
+
+      <div class="callout">
+        <h4>⚠️ ข้อควรระวังเรื่องข้อมูล</h4>
+        <p style="margin-bottom:0;">ข้อมูลจาก yfinance, TradingView, Reuters, กระทรวงพาณิชย์ และ สศก. เป็นข้อมูลที่ไม่เป็นทางการ (unofficial) อาจล่าช้าหรือมีการปรับปรุง ควรตรวจสอบตัวเลขที่สำคัญกับเอกสารทางการก่อนใช้ตัดสินใจลงทุน สัดส่วน Pie chart เป็นการประมาณการจากข้อมูล TFMA + LH Bank 2567/68 อาจมีการปรับเปลี่ยนตามสมมติฐานการแบ่ง</p>
+      </div>
+
+      <h3>คำศัพท์ที่ใช้</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>คำศัพท์</th><th>ความหมายแบบเข้าใจง่าย</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CBOT</strong></td><td>Chicago Board of Trade — ตลาดซื้อขายสินค้าเกษตรรายใหญ่ของโลก</td></tr>
+            <tr><td><strong>bushel (bu)</strong></td><td>หน่วยวัดข้าวโพด ≈ 25.4 กก.</td></tr>
+            <tr><td><strong>USDA / WASDE</strong></td><td>กระทรวงเกษตรสหรัฐฯ / รายงาน Supply-Demand รายเดือน</td></tr>
+            <tr><td><strong>Stocks/use ratio</strong></td><td>อัตราส่วนของของคงคลังต่อการใช้ — ต่ำ = ตลาดตึง = แพง</td></tr>
+            <tr><td><strong>MOU / TRQ</strong></td><td>บันทึกความเข้าใจ / โควต้าภาษี (ในโควต้าเสียภาษี 0% เกินโควต้าเสียภาษีสูง)</td></tr>
+            <tr><td><strong>EUDR</strong></td><td>EU Deforestation Regulation — กฎหมาย EU ห้ามนำเข้าสินค้าที่ทำลายป่า</td></tr>
+            <tr><td><strong>safrinha</strong></td><td>ข้าวโพดรุ่นที่ 2 ของบราซิล ปลูกหลังเก็บเกี่ยวถั่วเหลือง</td></tr>
+            <tr><td><strong>ไซโล</strong></td><td>ที่เก็บข้าวโพดขนาดใหญ่ของโรงอาหารสัตว์ — ราคาที่ไซโล = ราคาที่โรงงานใช้จริง</td></tr>
+            <tr><td><strong>DDGS</strong></td><td>Dried Distillers Grains with Solubles — กากข้าวโพดกลั่น ใช้ทำอาหารสัตว์</td></tr>
+            <tr><td><strong>FCR</strong></td><td>Feed Conversion Ratio — อัตราการเปลี่ยนอาหารเป็นน้ำหนักตัว (ต่ำ = กินน้อยโตเร็ว)</td></tr>
+            <tr><td><strong>MOC</strong></td><td>Market Operation Centre — กลไกกลางภาครัฐ/เอกชน แก้ปัญหาราคาสุกร</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <div class="foot-section">
+        <strong>รายงานวิจัยสินค้าโภคภัณฑ์ · Research &amp; Education Only</strong><br>
+        เอกสารนี้จัดทำขึ้นเพื่อการวิจัยและการศึกษาเท่านั้น มิใช่คำแนะนำให้ซื้อหรือขายหลักทรัพย์ใด ๆ
+        การตัดสินใจลงทุนเป็นความรับผิดชอบของผู้ลงทุนเอง ควรปรึกษาที่ปรึกษาการเงินที่มีใบอนุญาตก่อนตัดสินใจ
+      </div>
+      <div class="foot-section">
+        <strong>ขอบเขต:</strong> Executive Summary + Section 1-6 (วิจัยข้าวโพด + คัดเลือกหุ้น + Tailwind) + Section 7 (สรุปตกผลึก: คำตอบ + ความมั่นใจ + ความเสี่ยง + Watchlist) · ครบ Step 1-7 · ยังไม่รวม Valuation/DCF/Technical รายตัว<br>
+        <strong>ข้อมูล ณ :</strong> 1 สิงหาคม 2026 · <strong>สกุลเงิน:</strong> USD (CBOT) + THB (ตลาดไทย)
+      </div>
+      <div class="foot-section" style="margin-top:18px;color:var(--gray-500);">
+        Generated by both-analysis-room · bf-report style · ภาษาไทย
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  function initReportInteractivity(){
+    try {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var sections = links.map(function(a){
+        var id = a.getAttribute('href');
+        return id && id.charAt(0)==='#' ? document.querySelector(id) : null;
+      }).filter(Boolean);
+      if ('IntersectionObserver' in window && sections.length){
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if (e.isIntersecting){
+              var id = '#' + e.target.id;
+              links.forEach(function(l){
+                l.classList.toggle('active', l.getAttribute('href') === id);
+              });
+            }
+          });
+        }, {rootMargin: '-20% 0px -70% 0px'});
+        sections.forEach(function(s){ obs.observe(s); });
+      }
+    } catch(err){ }
+
+    try {
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if (!toc || !btn) return;
+      function isMobile(){ return window.matchMedia('(max-width: 900px)').matches; }
+      if (isMobile()){ toc.classList.add('collapsed'); }
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        toc.classList.toggle('collapsed');
+      });
+      toc.addEventListener('click', function(e){
+        if (e.target.tagName === 'A' && isMobile()){ toc.classList.add('collapsed'); }
+      });
+      window.addEventListener('resize', function(){
+        if (!isMobile()){ toc.classList.remove('collapsed'); }
+      });
+    } catch(err){ }
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initReportInteractivity);
+  } else {
+    initReportInteractivity();
+  }
+})();
+</script>
+</body>
+</html>
