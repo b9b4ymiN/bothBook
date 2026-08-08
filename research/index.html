@@ -307,7 +307,7 @@
     }
 
     async function latestCommitDate(file) {
-      if (file.source !== "github") return "";
+      if (file.source !== "github" && file.source !== "jekyll") return "";
       try {
         const path = `${config.folder}/${file.name}`;
         const apiBase = `https://api.github.com/repos/${config.owner}/${config.repo}`;

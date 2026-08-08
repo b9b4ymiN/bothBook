@@ -2575,9 +2575,10 @@
       return response.text();
     }
 
-    async function getLatestCommitDate(filename) {
+    async function getLatestCommitDate(file) {
+      if (file.source !== "github" && file.source !== "jekyll") return "";
       try {
-        const commits = await fetchJson(`${apiBase}/commits?path=${encodeURIComponent(filename)}&per_page=1`);
+        const commits = await fetchJson(`${apiBase}/commits?path=${encodeURIComponent(file.name)}&per_page=1`);
         return commits[0]?.commit?.committer?.date?.slice(0, 10) || "";
       } catch (error) {
         return "";
@@ -2599,7 +2600,7 @@
         // Keep filename-derived metadata if the page cannot be fetched locally.
       }
 
-      const date = file.date || "";
+      const date = await getLatestCommitDate(file);
       const inferred = inferCategory(`${title} ${file.name}`);
 
       return {
