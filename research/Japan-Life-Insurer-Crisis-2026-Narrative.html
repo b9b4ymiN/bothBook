@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>วิกฤตบริษัทประกันชีวิตญี่ปุ่น 2026 — Narrative Report</title>
+<style>
+  :root {
+    --bg: #fafbfc;
+    --surface: #ffffff;
+    --ink: #1a202c;
+    --ink-soft: #4a5568;
+    --ink-faint: #718096;
+    --border: #e2e8f0;
+    --accent: #c53030;
+    --accent-soft: #fed7d7;
+    --navy: #1a365d;
+    --navy-soft: #ebf4ff;
+    --green: #276749;
+    --green-soft: #c6f6d5;
+    --amber: #975a16;
+    --amber-soft: #fefcbf;
+    --blue: #2c5282;
+    --blue-soft: #bee3f8;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Sarabun", "Noto Sans Thai", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .topbar h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  .topbar .meta { font-size: 13px; opacity: 0.85; }
+  .topbar nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .topbar nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .topbar nav a:hover { background: rgba(255,255,255,0.15); }
+
+  /* Layout */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #2a4365 100%);
+    color: #fff;
+    padding: 48px 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 40px rgba(26,54,93,0.2);
+  }
+  .hero h1 { font-size: 32px; margin: 0 0 12px; line-height: 1.25; font-weight: 700; }
+  .hero .sub { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
+  .hero .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero .chip {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+  }
+
+  /* Key stats banner */
+  .stats-banner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    border-left: 4px solid var(--accent);
+  }
+  .stat-card .label { font-size: 12px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .stat-card .value { font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .stat-card .note { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* Section */
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  section.act { border-left: 4px solid var(--navy); }
+  section.act-star { border-left: 4px solid var(--accent); }
+  section h2 {
+    font-size: 24px;
+    margin: 0 0 8px;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  section h2 .num {
+    display: inline-block;
+    background: var(--navy);
+    color: #fff;
+    font-size: 13px;
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  section.act-star h2 .num { background: var(--accent); }
+  section h3 {
+    font-size: 18px;
+    color: var(--ink);
+    margin: 24px 0 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  section h3:first-of-type { border-top: none; padding-top: 0; }
+  section h4 { font-size: 15px; color: var(--ink-soft); margin: 16px 0 6px; }
+  section p { margin: 10px 0; }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .badge.verified { background: var(--green-soft); color: var(--green); }
+  .badge.realtime { background: var(--blue-soft); color: var(--blue); }
+  .badge.estimate { background: var(--amber-soft); color: var(--amber); }
+  .badge.judgment { background: #e9d8fd; color: #6b46c1; }
+  .badge.assumption { background: var(--accent-soft); color: var(--accent); }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .callout .title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .analogy { background: var(--navy-soft); border-left: 4px solid var(--navy); }
+  .analogy .title { color: var(--navy); }
+  .warning { background: var(--accent-soft); border-left: 4px solid var(--accent); }
+  .warning .title { color: var(--accent); }
+  .insight { background: var(--amber-soft); border-left: 4px solid var(--amber); }
+  .insight .title { color: var(--amber); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+    background: var(--surface);
+  }
+  th {
+    background: var(--navy);
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f7fafc; }
+  table.compact th, table.compact td { padding: 8px 10px; font-size: 13px; }
+
+  /* Lists */
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+
+  /* Flow chart */
+  .flow {
+    background: #f7fafc;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 16px 0;
+    border: 1px solid var(--border);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.9;
+    overflow-x: auto;
+  }
+  .flow .arrow { color: var(--accent); font-weight: 700; }
+
+  /* Trigger checklist */
+  .trigger-list { list-style: none; padding: 0; }
+  .trigger-list li {
+    background: #fff5f5;
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 14px;
+  }
+  .trigger-list li strong { color: var(--accent); }
+
+  /* Path cards */
+  .paths { display: grid; gap: 12px; margin: 16px 0; }
+  .path {
+    border-radius: 10px;
+    padding: 16px 20px;
+    border: 1px solid var(--border);
+  }
+  .path.soft { background: #f0fff4; border-left: 4px solid var(--green); }
+  .path.muddle { background: #fffaf0; border-left: 4px solid var(--amber); }
+  .path.lehman { background: #fff5f5; border-left: 4px solid var(--accent); }
+  .path .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .path .name { font-weight: 700; font-size: 17px; }
+  .path .prob { font-size: 13px; padding: 3px 10px; border-radius: 999px; font-weight: 600; }
+  .path.soft .prob { background: var(--green); color: #fff; }
+  .path.muddle .prob { background: var(--amber); color: #fff; }
+  .path.lehman .prob { background: var(--accent); color: #fff; }
+
+  /* TL;DR */
+  .tldr {
+    background: linear-gradient(135deg, var(--navy-soft) 0%, #f0f8ff 100%);
+    border: 2px solid var(--navy);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .tldr h2 { margin-top: 0; }
+
+  /* Sources */
+  .source-list { font-size: 13px; color: var(--ink-soft); }
+  .source-list a { color: var(--blue); text-decoration: none; }
+  .source-list a:hover { text-decoration: underline; }
+  .source-list li { margin: 6px 0; }
+
+  /* Disclaimer */
+  .disclaimer {
+    background: #fff5f5;
+    border: 1px solid var(--accent-soft);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 16px 0;
+  }
+  .disclaimer strong { color: var(--accent); }
+
+  /* Print */
+  @media print {
+    .topbar { position: static; box-shadow: none; }
+    .wrap { padding: 0; max-width: 100%; }
+    section, .hero, .stat-card, .path { box-shadow: none; break-inside: avoid; }
+    body { font-size: 11px; }
+    section { padding: 16px; }
+  }
+
+  @media (max-width: 640px) {
+    .topbar { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero { padding: 28px 20px; }
+    .hero h1 { font-size: 22px; }
+    section { padding: 20px 18px; }
+    section h2 { font-size: 19px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>🇯🇵 วิกฤตบริษัทประกันชีวิตญี่ปุ่น 2026</h1>
+    <div class="meta">Narrative Report · 10 สิงหาคม 2026</div>
+  </div>
+  <nav>
+    <a href="#act1">Act 1</a>
+    <a href="#act2">Act 2</a>
+    <a href="#act3">⭐ Act 3</a>
+    <a href="#act4">⭐ Act 4</a>
+    <a href="#interlude">1997</a>
+    <a href="#compare">เปรียบเทียบ</a>
+    <a href="#fx">FX</a>
+    <a href="#tldr">TL;DR</a>
+    <a href="#sources">Sources</a>
+  </nav>
+</div>
+
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>วิกฤตบริษัทประกันชีวิตญี่ปุ่น 2026</h1>
+    <div class="sub">เล่าเป็นเรื่องตั้งแต่ "ทำไมญี่ปุ่นถึงมาถึงจุดนี้" จนถึง "จะจบยังไง" — อ่านจบเข้าใจทั้งระบบ</div>
+    <div class="chips">
+      <span class="chip">📅 10 ส.ค. 2026</span>
+      <span class="chip">📊 Verified Data</span>
+      <span class="chip">🌐 Macro Analysis</span>
+      <span class="chip">⏱️ ~25 นาทีอ่าน</span>
+    </div>
+  </div>
+
+  <!-- Key Stats Banner -->
+  <div class="stats-banner">
+    <div class="stat-card">
+      <div class="label">ขาดทุนสะสม 4 lifers ใหญ่</div>
+      <div class="value">¥15.13 ล้านล้าน</div>
+      <div class="note">$96B <span class="badge verified">Verified</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">เพิ่มใน 3 เดือน</div>
+      <div class="value">+7%</div>
+      <div class="note">เทียบไตรมาสก่อน</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">USD/JPY (10 ส.ค. 2026)</div>
+      <div class="value">158.55</div>
+      <div class="note">52w: 146-164 <span class="badge realtime">Real-time</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">EUR/JPY (10 ส.ค. 2026)</div>
+      <div class="value">183.34</div>
+      <div class="note">ลดจาก peak 2.5% <span class="badge realtime">Real-time</span></div>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <strong>📌 อ่านก่อน:</strong> เอกสารนี้แยกข้อมูล 3 ระดับ —
+    <span class="badge verified">Verified</span> ยืนยันจากแหล่งหลัก (Bloomberg, Kobeissi, Yahoo Finance) ·
+    <span class="badge realtime">Real-time</span> ราคาตลาด ณ วันที่ระบุ ·
+    <span class="badge estimate">ประมาณการ</span> จากความรู้เดิม (search rate-limited ถึง 5 ก.ย. 2026)
+  </div>
+
+  <!-- ============ ACT 1 ============ -->
+  <section class="act" id="act1">
+    <h2><span class="num">ACT 1</span>Prologue — "30 ปีแห่งความผิดหวัง"</h2>
+
+    <h3>1.1 ฟองสบู่ที่ใหญ่ที่สุดในประวัติศาสตร์ญี่ปุ่น</h3>
+    <p>เรื่องนี้เริ่มตั้งแต่ปี <strong>1989</strong> — ปีที่ฟองสบู่อสังหาริมทรัพย์ของญี่ปุ่นพองจนสวนกระเป๋าสตางค์ของคนทั้งประเทศ</p>
+    <p>สมัยนั้น เรื่องปกติที่จะได้ยินคือ: ที่ดินย่าน Ginza ในโตเกียว ราคาตารางเมตรละ ~$140,000 บริษัท Golf club membership card ขายหลักแสนถึงล้านดอลลาร์ คนญี่ปุ่นเชื่อว่าราคาที่ดินจะขึ้นต่อไปตลอดกาล</p>
+    <p>แล้วฟองก็แตก</p>
+    <p>ปี 1991 ราคาอสังหาฯ เริ่มตก → ธนาคารที่ปล่อยกู้ที่ดินเจอหนี้เสียมหาศาล → Nikkei 225 ร่วงจาก <strong>~38,000 ในปี 1989 เหลือ ~7,600 ในปี 2003 — ลดลง 80% ใน 14 ปี</strong></p>
+
+    <h3>1.2 Japanification — "ประเทศที่ติดอยู่ในวงจรเงินฝืด"</h3>
+    <p>หลังฟองแตก รัฐบาลพยายามกระตุ้นเศรษฐกิจทุกวิถีทาง — ลดดอกเบี้ย, ฉีดเงิน, ก่อสร้างสาธารณะ — แต่ไม่ได้ผล ราคาสินค้ายังตกต่อเนื่อง (deflation) ประชาชนเลย "เก็บเงิน" ไม่ยอมใช้ เพราะคิดว่าปีหน้าของจะถูกกว่า</p>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy (ตัวอย่าง ไม่ใช่ข้อเท็จจริง)</div>
+      ลองนึกภาพว่าคุณจะซื้อ iPhone วันนี้ แต่รู้ว่าอีก 3 เดือนราคาจะถูกลง 20% → คุณรอ → ร้านค้าขายของไม่ได้ → สั่งของจากโรงงานน้อยลง → โรงงานลดคนจ้าง → คนมีเงินน้อยลง → รอซื้อของต่อไป → วงจรนี้ไม่มีวันจบ
+    </div>
+
+    <p>นี่คือ "วงจร deflation" ที่ญี่ปุ่นติดอยู่ <strong>30 ปี</strong> ในระหว่างนั้น BOJ ลดดอกเบี้ยจนเหลือ <strong>0%</strong> ในปี 1999 (ZIRP) และปี 2013–2016 ก้าวไปอีกขั้นคือ <strong>Negative Interest Rate</strong> + <strong>Yield Curve Control (YCC)</strong> — BOJ บังคับว่าดอกเบี้ยพันธบัตร 10 ปีต้องอยู่แถว 0%</p>
+
+    <h3>1.3 พันธบัตรคืออะไร — อธิบายให้เข้าใจใน 2 นาที</h3>
+    <p><strong>พันธบัตรรัฐบาล (JGB - Japanese Government Bond)</strong> คือ "ใบเซ็งชอง" ที่รัฐบาลญี่ปุ่นออกมาเพื่อกู้เงินจากนักลงทุน</p>
+    <p>เหมือนคุณไปกู้เงินธนาคาร — แต่สลับฝั่ง: รัฐเป็นฝั่ง "กู้", นักลงทุนเป็นฝั่ง "ให้กู้" รัฐสัญญา 2 อย่าง: (1) จ่ายดอกเบี้ยทุกปี (2) คืนเงินต้นเมื่อครบกำหนด</p>
+
+    <div class="callout insight">
+      <div class="title">⚖️ กฎเหล็กที่ต้องจำ</div>
+      ดอกเบี้ย (yield) กับ ราคาพันธบัตร เป็น "คนละทิศทาง"<br>
+      • ดอกเบี้ยขึ้น → ราคาพันธบัตรเก่าลดลง<br>
+      • ดอกเบี้ยลง → ราคาพันธบัตรเก่าเพิ่มขึ้น
+    </div>
+
+    <p><strong>Analogy:</strong> สมมติคุณซื้อพันธบัตรให้ดอกเบี้ย 1% ต่อปี ปีต่อมาธนาคารปล่อยพันธบัตรใหม่ให้ดอกเบี้ย 3% คนที่มีของเก่าอยากขาย ต้องลดราคาลง (เช่นจาก 100 เหลือ 95) เพื่อให้ผู้ซื้อได้ผลตอบแทนรวมเท่าของใหม่ — นี่คือเหตุผลที่ yield ขึ้น ราคาพันธบัตรลง</p>
+
+    <h3>1.4 ทำไมบริษัทประกันถึงถือพันธบัตรเป็นกองเงินเดือน</h3>
+    <p>บริษัทประกันชีวิต ("lifers") ทำธุรกิจง่ายๆ:</p>
+    <ol>
+      <li>รับเงินจากประชาชน (ค่าประกัน + ส่วนออมของกรมธรรม์)</li>
+      <li>เก็บเงินไว้ลงทุนให้พอจ่ายค่าสินไหม + คืนเงินออมตอนครบกำหนด</li>
+      <li>หวังว่าผลตอบแทนการลงทุน &gt; ที่ต้องจ่ายให้ลูกค้า → กำไร</li>
+    </ol>
+    <p>เงินที่รับมาส่วนใหญ่ <strong>ถูกลงทุนในพันธบัตรรัฐบาล</strong> เพราะปลอดภัย, มีรายได้คงที่, ระยะยาวเหมาะกับกรมธรรม์ประกันที่ผูกพัน 20-30 ปี</p>
+
+    <h3>1.5 จุดเริ่มต้นของปัญหา 2025-2026</h3>
+    <p>ปี 2024 BOJ เริ่มออกจากนโยบายดอกเบี้ยติดลบ → ค่อยๆ ปรับขึ้นดอกเบี้ย → <strong>ดอกเบี้ยพันธบัตรรัฐบาลปรับสูงขึ้นตาม</strong> → ราคาพันธบัตรเก่าที่ lifers ถืออยู่ <strong>ตกลง</strong></p>
+
+    <table>
+      <thead>
+        <tr><th>ช่วงเวลา</th><th>ขาดทุนสะสมรวม 4 รายใหญ่</th><th>สถานะ</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ก่อนหน้า</td><td>¥9.838 ล้านล้าน ($67B)</td><td><span class="badge verified">Verified</span></td></tr>
+        <tr><td>กลางปี 2025</td><td>Nippon Life ¥4.164 ล้านล้าน ($28B)</td><td><span class="badge verified">Verified</span></td></tr>
+        <tr><td>Q4 2025</td><td>+125% YoY ($86B)</td><td><span class="badge verified">Verified</span></td></tr>
+        <tr><td><strong>7 ส.ค. 2026</strong></td><td><strong>¥15.13 ล้านล้าน ($96B)</strong></td><td><span class="badge verified">Verified</span></td></tr>
+      </tbody>
+    </table>
+
+    <p>ตัวเลข 7 ส.ค. 2026 เพิ่มขึ้น <strong>7% ใน 3 เดือน</strong> และเพิ่ม ~54% เทียบกับปีก่อน — สถิติใหม่ตลอดกาล</p>
+
+    <p><strong>4 บริษัทใหญ่ที่แบกตัวเลขนี้:</strong></p>
+    <ol>
+      <li><strong>Nippon Life</strong> (เจ้าใหญ่ที่สุด แบกส่วนเด่นชัด)</li>
+      <li><strong>Dai-ichi Life</strong></li>
+      <li><strong>Meiji Yasuda</strong></li>
+      <li><strong>Sumitomo Life</strong></li>
+    </ol>
+
+    <h3>1.6 แต่ lifers ไม่ได้ถือแค่พันธบัตร</h3>
+    <table>
+      <thead><tr><th>ประเภทสินทรัพย์</th><th>สัดส่วนโดยประมาณ</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td>พันธบัตรรัฐบาลญี่ปุ่น (JGB)</td><td>30-35%</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>พันธบัตรต่างประเทศ (US, EU)</td><td>15-20%</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>หุ้น (ใน/นอกประเทศ)</td><td>10-15%</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>หุ้นกู้ + อสังหาฯ + อื่นๆ</td><td>35-40%</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+      </tbody>
+    </table>
+
+    <h4>เรื่องสำคัญ: Cross-Shareholdings (持ち合い - mochiai)</h4>
+    <p>lifers ถือหุ้นบริษัทใหญ่ๆ ผ่านระบบ <strong>"cross-shareholdings"</strong> — คือ ธนาคาร/ประกัน/บริษัทอุตสาหกรรม ถือหุ้นกันและกันเพื่อรักษาความสัมพันธ์</p>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy (ตัวอย่าง)</div>
+      ลองนึกถึงวงแหวนกลุ่มทุนใหญ่ของไทย — บริษัท A ถือหุ้นธนาคาร B, ธนาคาร B ถือหุ้นบริษัท A, ทั้งคู่ถือหุ้นบริษัท C — ทุกคน "จับมือกัน" ไม่มีใครอยากขายเพราะเสียความสัมพันธ์ + คนอื่นจะขายตอบโต้
+    </div>
+
+    <p>ตัวอย่างหุ้นที่ lifers มักถือ: ธนาคารใหญ่ (Mizuho, MUFG, SMFG) · กลุ่ม keiretsu (Mitsubishi, Mitsui, Sumitomo) · อุตสาหกรรม (Toyota, Sony, Hitachi)</p>
+
+    <div class="callout insight">
+      <div class="title">✅ ข่าวดี</div>
+      ตั้งแต่ปี 2010s Tokyo Stock Exchange บังคับ unwind cross-shareholdings ลดลง <strong>~50%</strong> <span class="badge estimate">ประมาณการ</span> — lifers ถือหุ้นกันและกันน้อยลงมาก ทำให้ domino effect ใน 2026 ไม่รุนแรงเท่า 1997
+    </div>
+  </section>
+
+  <!-- ============ ACT 2 ============ -->
+  <section class="act" id="act2">
+    <h2><span class="num">ACT 2</span>The Trap — "BOJ เลือกไม่ถูก"</h2>
+
+    <h3>2.1 Trilemma — ทางตันสามทาง</h3>
+    <p>ตอนนี้ BOJ ติดอยู่ในสถานการณ์ที่เรียกว่า "trilemma" — เลือกทางไหนก็เจ็บ</p>
+
+    <table>
+      <thead><tr><th>ทางเลือก</th><th>ผลที่ได้</th><th>ผลข้างเคียงเจ็บ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>เพิ่มดอกเบี้ย</strong></td><td>หยุดเยนตก, ลดเงินเฟ้อ</td><td>JGB ราคาตก → lifers ขาดทุนพุ่ง</td></tr>
+        <tr><td><strong>ไม่เพิ่มดอกเบี้ย</strong></td><td>lifers ไม่เจ็บเพิ่ม</td><td>เยนอ่อนต่อ → เงินเฟ้อ + carry trade บาน</td></tr>
+        <tr><td><strong>แทรกแซง FX</strong></td><td>ทำเยนแข็งค่า ลดเงินเฟ้อ</td><td>ใช้เงินทุนสำรอง, ชั่วคราว, ตลาดจะ test</td></tr>
+      </tbody>
+    </table>
+
+    <h3>2.2 ถ้า lifers ล้มจริง — Ladder of Destruction (6 ขั้น)</h3>
+
+    <h4>ขั้นที่ 1 — ทุนถูกกัดกร่อน</h4>
+    <p>ขาดทุนสะสม ¥15.13 ล้านล้าน ทำให้ "ทุนส่วนของผู้ถือหุ้น" ลดลง บริษัทประกันรายเล็ก-กลางเครียดก่อน</p>
+
+    <h4>ขั้นที่ 2 — Policyholder Run (คนถอนประกันพร้อมกัน)</h4>
+    <p>ผู้ถือกรมธรรม์กลัวบริษัทล้ม → ถอนเงินกันพร้อมกัน เหมือน "bank run" → บริษัทประกฤษาะหาเงินสดด่วน → ขายสินทรัพย์ที่ขาดทุนจริง (realized loss)</p>
+
+    <h4>ขั้นที่ 3 — Fire Sale (ขายทุกอย่าง)</h4>
+    <p>ขาย JGB → ราคาพันธบัตรตกเพิ่ม → ขาดทุนสะสมของบริษัทอื่นเพิ่ม → วงจรลูกโซ่ ขายหุ้น → ราคาหุ้นร่วง → ทุนธนาคารลด → ธนาคารเครียด</p>
+
+    <h4>ขั้นที่ 4 — Cross-Shareholding Unwind (จุดอันตรายที่สุด)</h4>
+    <p>ประกันขายหุ้นธนาคาร → ธนาคารสั่นคลอน → ขายหุ้นประกันกลับ → ทำลายกันและกัน → <strong>Nikkei อาจร่วง 20-30% ในเวลาสั้น</strong></p>
+
+    <h4>ขั้นที่ 5 — Repatriation (เงินทุนไหลออกต่างประเทศ)</h4>
+    <p>lifers บังคับขาย US Treasury + หุ้น US/EU → ดัน yield US ขึ้น, ดอลลาร์อ่อน, ตลาดหุ้นโลกแย่</p>
+
+    <h4>ขั้นที่ 6 — Yen Shock</h4>
+    <p>เงินทุนไหลกลับญี่ปุ่น → เยนแข็งค่าทันที → บริษัทส่งออก (Toyota, Honda, Sony) กำไรลด → Nikkei ร่วงต่อ</p>
+
+    <h3>2.3 ระดับความรุนแรง — 3 สถานการณ์</h3>
+    <table>
+      <thead><tr><th>สถานการณ์</th><th>โอกาส</th><th>คำอธิบาย</th></tr></thead>
+      <tbody>
+        <tr><td><strong>เจ็บปวดแต่คุมได้</strong></td><td>~70%</td><td>บริษัทเล็ก-กลางล้ม 2-3 ราย รัฐเข้าช่วยทัน Nikkei -15-25% ฟื้น 1-2 ปี</td></tr>
+        <tr><td><strong>วิกฤตรุนแรง</strong></td><td>~20%</td><td>lifers ใหญ่รายใดรายหนึ่งล้ม → unwind ลาม Nikkei -30-40%, เยนแกว่งรุนแรง</td></tr>
+        <tr><td><strong>Lehman 2.0</strong></td><td>~10%</td><td>หลายรายใหญ่ล้ม + ธนาคารใหญ่ตาม ระบบแช่แข็ง ลามเป็นวิกฤตโลก ฟื้น 3-5 ปี</td></tr>
+      </tbody>
+    </table>
+    <p><em>Probability เป็น judgment ของผู้วิเคราะห์ ไม่ใช่ consensus <span class="badge judgment">Judgment</span></em></p>
+
+    <div class="callout warning">
+      <div class="title">⚠️ สถานะปัจจุบัน</div>
+      ตอนนี้ยังอยู่ในขั้น "ความเครียด" ไม่ใช่ "การล่มสลาย" — แต่ละครั้งที่ yield JGB ขยับขึ้น → ตัวเลขขาดทุนจะพุ่งตาม
+    </div>
+
+    <h3>2.4 ผลกระทบต่อเศรษฐกิจญี่ปุ่น</h3>
+    <p><strong>ธุรกิจประกัน — เครียดแต่ยังไม่ล่ม:</strong> Fitch + Morningstar ประเมินว่าสถาบันใหญ่ยังทนได้ เพราะถือ equity ที่มีกำไรสะสมชดเชย + ดอกเบี้ยที่สูงขึ้นทำให้เงินใหม่ลงทุนได้ผลตอบแทนดีขึ้น</p>
+    <p><strong>รัฐบาลญี่ปุ่น — ปวดหัวใหญ่:</strong> ญี่ปุ่นมีหนี้สาธารณะสูงที่สุดในโลก (~250% ของ GDP) พอดอกเบี้ยสูง → รัฐต้องจ่ายดอกเบี้ยหนี้เพิ่ม → งบถูกดูด</p>
+
+    <h3>2.5 ผลกระทบต่อโลก</h3>
+    <p><strong>Repatriation (ใหญ่ที่สุด):</strong> lifers ถือสินทรัพย์ต่างประเทศมหาศาล เมื่อ JGB yield สูงพอ → จะดึงเงินกลับ → US Treasury yield ขึ้น, ตลาดหุ้นโลกแย่, ดอลลาร์อ่อน</p>
+    <p><strong>JGB สถานะ "สินทรัพย์ปลอดภัย" สั่นคลอน:</strong> ความผันผวนทำให้นักลงทุนต้องคิดใหม่</p>
+
+    <h3>2.6 ผู้ได้ประโยชน์ vs เสียประโยชน์</h3>
+    <table class="compact">
+      <thead><tr><th>ผู้ได้ประโยชน์</th><th>เหตุผล</th></tr></thead>
+      <tbody>
+        <tr><td>นักลงทุนใหม่ใน JGB</td><td>yield สูงกว่าปกติ (superlong เคยแตะ 3%+)</td></tr>
+        <tr><td>บริษัทประกันระยะยาว</td><td>เงินใหม่ลงทุน yield ดีขึ้น → กำไรเพิ่ม</td></tr>
+        <tr><td>Hedge funds / short sellers</td><td>ทำกำไรจาก short JGB futures</td></tr>
+        <tr><td>เงินเยนระยะสั้น</td><td>ถ้า BOJ ขึ้นดอกเบี้ย → เยนแข็ง</td></tr>
+      </tbody>
+    </table>
+    <table class="compact">
+      <thead><tr><th>ผู้เสียประโยชน์</th><th>เหตุผล</th></tr></thead>
+      <tbody>
+        <tr><td>ผู้ถือกรมธรรม์เก่า</td><td>บริษัทอาจลดผลตอบแทน / ความเสี่ยงไม่จ่าย</td></tr>
+        <tr><td>ผู้ถือหุ้นบริษัทประกัน</td><td>มูลค่าหุ้นลด, ปันผลถูกบีบ</td></tr>
+        <tr><td>นักลงทุนต่างชาติ US/EU</td><td>lifers ถอนเงิน → สินทรัพย์ตก</td></tr>
+        <tr><td>ผู้ใช้ carry trade</td><td>ต้นทุนกู้เพิ่ม, อาจโดน margin call</td></tr>
+        <tr><td>รัฐบาลญี่ปุ่น</td><td>ค่าดอกเบี้ยหนี้บาน → งบบีบ</td></tr>
+        <tr><td>ผู้บริโภคญี่ปุ่น</td><td>เงินเฟ้อนำเข้า + ค่าครองชีพสูง</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ ACT 3 ============ -->
+  <section class="act-star" id="act3">
+    <h2><span class="num">ACT 3 ⭐</span>Hidden Mechanics — 4 กลไกที่คนมองข้าม</h2>
+    <p><em>ส่วนนี้บอกว่า "ทำไมวิกฤตนี้ซับซ้อนกว่าที่คิด" — 4 กลไกที่ทำให้ปัญหาลามได้เร็ว และทำไม "แก้" ไม่ง่าย</em></p>
+
+    <h3>3.1 Carry Trade Unwind — "เมื่อนักลงทุนทั่วโลกต้องหนีตายพร้อมกัน"</h3>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy</div>
+      สมมติคุณป้าใจดีให้คุณกู้เงินดอกเบี้ย <strong>0%</strong> จำนวน 1 ล้านบาท คุณเอาเงินนี้ไปลงทุนในกองทุนที่ให้ผลตอบแทน <strong>8%</strong> ต่อปี → คุณได้กำไร 8% ฟรีๆ (ส่วนต่างดอกเบี้ย)
+    </div>
+
+    <p>นี่คือ "carry trade" ในระดับโลก — นักลงทุนกู้เงินเยน (ดอกเบี้ย 0%) ไปลงทุนในสินทรัพย์ที่ให้ผลตอบแทนสูงกว่า: US Treasury (~4-5%), หุ้น US/Europe, emerging markets (รวมไทย), Bitcoin</p>
+    <p><strong>ขนาดตลาด carry trade ญี่ปุ่น ~$4-5 ล้านล้าน</strong> <span class="badge estimate">ประมาณการ</span> — ใหญ่พอจะสั่นโลก</p>
+
+    <h4>ทำไม carry trade อันตรายเมื่อ unwind</h4>
+    <p>ปัญหาคือ <strong>"ทุกคนทำแบบเดียวกัน"</strong> — เมื่อดอกเบี้ยเยนขึ้น หรือเยนแข็งค่า นักลงทุนทุกคนต้อง unwind พร้อมกัน:</p>
+    <ol>
+      <li>นักลงทุน A ต้องคืนเงินกู้เยน → ขายสินทรัพย์ US + ซื้อเยน</li>
+      <li>การซื้อเยน → เยนแข็งค่าขึ้น</li>
+      <li>นักลงทุน B เห็นเยนแข็ง → กลัวขาดทุนเงินตรา → unwind ด้วย</li>
+      <li>วงจรลูกโซ่ → <strong>margin call cascade</strong></li>
+    </ol>
+
+    <h4>ตัวอย่างจริง: ส.ค. 2024</h4>
+    <p>วันที่ 5 ส.ค. 2024 ตลาดโลกเห็น carry trade unwind ครั้งใหญ่:</p>
+    <table class="compact">
+      <thead><tr><th>ตลาด</th><th>การร่วง</th></tr></thead>
+      <tbody>
+        <tr><td>Nikkei</td><td><strong>-12.4% ในวันเดียว</strong> (มากที่สุดตั้งแต่ Black Monday 1987)</td></tr>
+        <tr><td>KOSPI</td><td>-8.8%</td></tr>
+        <tr><td>TAIEX</td><td>-8.4%</td></tr>
+        <tr><td>S&P 500</td><td>-3%</td></tr>
+        <tr><td>Bitcoin</td><td>-20%+ จาก peak</td></tr>
+      </tbody>
+    </table>
+
+    <h4>ใน 2026 ต่างจาก 2024 ยังไง</h4>
+    <p>ถ้า lifers เริ่มล้มจริง → unwind จะรุนแรงกว่า เพราะ:</p>
+    <ol>
+      <li><strong>ไม่ใช่แค่ hedge funds</strong> — lifers ที่ถือสินทรัพย์ต่างประเทศมหาศาลต้องขายจริง</li>
+      <li><strong>ขนาดใหญ่กว่า</strong> — lifers ถือต่างประเทศหลายล้านล้านดอลลาร์</li>
+      <li><strong>ระยะเวลานานกว่า</strong> — lifers ขายทีละนิด ไม่ใช่ panic วันเดียว</li>
+    </ol>
+
+    <h3>3.2 Cross-Shareholding Domino — "เมื่อเพื่อนต้องขายเพื่อน"</h3>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy (ตัวอย่าง)</div>
+      ลองนึกถึงวงแหวนกลุ่มทุนใหญ่ของไทย — สมมติ บริษัท A (CP Group) ถือหุ้นธนาคาร B (SCB) 10% · ธนาคาร B ถือหุ้นบริษัท A 5% · ทั้งคู่ถือหุ้นบริษัท C (supplier) รวม 15% — ทุกคน "จับมือกัน" ไม่มีใครอยากขายเพราะเสียความสัมพันธ์ + คนอื่นจะขายตอบโต้
+    </div>
+
+    <p>ญี่ปุ่นมีระบบนี้หนาแน่นมากในยุค 1980-2000s โดยเฉพาะในกลุ่ม keiretsu (Mitsubishi, Mitsui, Sumitomo, Mizuho) — lifers อยู่ใจกลางวงแหวนนี้</p>
+
+    <h4>ทำไม cross-shareholding ลามลูกโซ่</h4>
+    <p>ถ้า lifers ต้องหาเงินสดด่วน → ขายหุ้นธนาคาร → ธนาคารที่ถือหุ้น lifers กลัว → ขายหุ้น lifers ตอบ → lifers ราคาตก → ทุนหาย → ต้องขายต่อ → <strong>domino effect</strong></p>
+
+    <div class="callout insight">
+      <div class="title">✅ ทำไม 2026 อาจไม่รุนแรงเท่า 1990s</div>
+      TSE บังคับ unwind cross-shareholdings ลดลง <strong>~50%</strong> <span class="badge estimate">ประมาณการ</span> — ความเสี่ยงยังอยู่ แค่ลดลง
+    </div>
+
+    <h3>3.3 BOJ Trilemma — "เลือกไม่ถูกจริงๆ"</h3>
+    <p>BOJ มีเป้าหมายขัดแย้งกัน 3 อย่าง (impossible trinity):</p>
+    <ol>
+      <li><strong>เสถียรภาพราคาพันธบัตร</strong> (ปกป้อง lifers) — ต้องการ yield ต่ำ</li>
+      <li><strong>เสถียรภาพค่าเงินเยน</strong> (ลดเงินเฟ้อ) — ต้องการดอกเบี้ยสูง</li>
+      <li><strong>เสถียรภาพเศรษฐกิจ</strong> (กระตุ้นการเติบโต) — ต้องการดอกเบี้ยต่ำ</li>
+    </ol>
+    <p><strong>ทำได้แค่ 2 อย่างพร้อมกัน ไม่มากกว่า</strong></p>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy</div>
+      ลองนึกถึงพ่อบ้านที่มีเงินเดือนเดียว ต้องเลือกระหว่าง: (1) จ่ายค่าผ่อนบ้าน, (2) จ่ายค่าเรียนลูก, (3) ออมไว้ใช้ยามป่วย — ทำได้แค่ 2 อย่าง
+    </div>
+
+    <h3>3.4 Intervention Illusion — "ทำไมแทรกแซง FX ไม่ใช่ยาวิเศษ"</h3>
+    <p>เมื่อ BOJ ไม่สามารถใช้ดอกเบี้ยแก้ปัญหา → ทางเลือกสุดท้ายคือ <strong>FX intervention</strong> — MOF ใช้เงินทุนสำรองระหว่างประเทศไป <strong>ขายเยน ซื้อดอลลาร์</strong> (หรือยูโร) เพื่อหยุดเยนตก</p>
+
+    <p>แต่ intervention มีข้อจำกัด 4 อย่าง:</p>
+    <ol>
+      <li><strong>ชั่วคราว ไม่ใช่วิธีถาวร</strong> — "ซื้อเวลา" ไม่ได้แก้ปัญหาพื้นฐาน</li>
+      <li><strong>ใช้เงินทุนสำรอง</strong> — ปี 2022 ใช้ไป ~¥6.3 ล้านล้าน <span class="badge estimate">ประมาณการ</span></li>
+      <li><strong>ตลาดจะ test</strong> — ถ้ารู้ BOJ ไม่กล้าทำซ้ำ → push กลับ</li>
+      <li><strong>Moral hazard</strong> — lifers ไม่ปรับพอร์ต ปัญหาสะสม</li>
+    </ol>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy</div>
+      ลองนึกถึงแม่ที่คอย "เคลียร์หนี้" ให้ลูกทุกครั้ง → ลูกไม่เรียนรู้ → ทำหนี้ซ้ำ → วันหนึ่งแม่เงินหมด → ปัญหาลูกกลายเป็นวิกฤตใหญ่
+    </div>
+  </section>
+
+  <!-- ============ ACT 4 ============ -->
+  <section class="act-star" id="act4">
+    <h2><span class="num">ACT 4 ⭐</span>Future Paths — 3 เส้นทางข้างหน้า</h2>
+    <p><em>Probability เป็น judgment ของผู้วิเคราะห์ ไม่ใช่ consensus <span class="badge judgment">Judgment</span></em></p>
+
+    <div class="paths">
+      <div class="path soft">
+        <div class="head">
+          <span class="name">Path A: Soft Landing</span>
+          <span class="prob">~50%</span>
+        </div>
+        <p><strong>เหตุการณ์:</strong> BOJ ค่อยๆ ปรับนโยบาย ไม่ช้าไม่เร็วเกินไป · lifers ปรับพอร์ตทีละนิด · ไม่มี policyholder run · Nikkei แกว่ง ±15% แต่ไม่ล่ม · yield JGB คงที่</p>
+        <p><strong>สัญญาณเกิดจริง:</strong> Nikkei ฟื้นใน 3-6 เดือน · BOJ สื่อสารชัดเจน · lifers ผลประกอบการดีขึ้น</p>
+        <p><strong>เหตุผล 50%:</strong> ระบบการเงินญี่ปุ่นเข้มแข็งกว่า 1997 มาก + lifers ยังมี equity gains + BOJ มีเครื่องมือหลายตัว</p>
+      </div>
+
+      <div class="path muddle">
+        <div class="head">
+          <span class="name">Path B: Muddle Through</span>
+          <span class="prob">~35%</span>
+        </div>
+        <p><strong>เหตุการณ์:</strong> lifers เล็ก-กลางล้ม 2-3 ราย · รัฐเข้าแทรกซึ้งเหมือน 2008 (AIG) · Nikkei -15-25% ในไตรมาส · ฟื้นใน 1-2 ปี · ตลาดโลกกระเทือนแต่ไม่ล่ม</p>
+        <p><strong>สัญญาณกำลังเกิด:</strong> lifers รายเล็กขอความช่วยเหลือ FSA · Nikkei ร่วง 5+ วัน · BOJ ประชุมฉุกเฉิน</p>
+        <p><strong>เหตุผล 35%:</strong> ปัญหา lifers สะสมมานาน + yield ยังขึ้นต่อ — แต่รัฐมีเครื่องมือ + ประสบการณ์ 1997</p>
+      </div>
+
+      <div class="path lehman">
+        <div class="head">
+          <span class="name">Path C: Lehman 2.0</span>
+          <span class="prob">~15%</span>
+        </div>
+        <p><strong>เหตุการณ์:</strong> lifers ใหญ่รายใดรายหนึ่งล้ม → unwind ลาม · Nikkei -30-40% · เยนแกว่ง 10-15% · US Treasury yield พุ่ง · ตลาดหุ้นสหรัฐ -10-15% · carry trade unwind ทั่วโลก · เศรษฐกิจญี่ปุ่นหด 3-5% · ฟื้น 3-5 ปี</p>
+        <p><strong>สัญญาณใกล้เกิด:</strong> lifers รายใหญ่ (Nippon Life/Dai-ichi) ประกาศปัญหา · policyholder run รุนแรง · BOJ + FSA + MOF ประกาศมาตรการฉุกเฉิน</p>
+        <p><strong>เหตุผล 15%:</strong> lifers 4 รายใหญ่ยังมี equity gains + regulation เข้มข้น + บทเรียน 1997 — แต่ tail risk ยังมี</p>
+      </div>
+    </div>
+
+    <h3>Trigger Checklist — สัญญาณเตือนล่วงหน้า</h3>
+    <ul class="trigger-list">
+      <li><strong>Nikkei ร่วง &gt;5% ติดต่อกัน 5 วัน</strong> — ตลาดเริ่ม panic</li>
+      <li><strong>USD/JPY ทะลุ 163 หรือต่ำกว่า 145</strong> — ค่าเงินผิดปกติ BOJ อาจต้องแทรกแซง</li>
+      <li><strong>lifers รายเล็กขอความช่วยเหลือ FSA</strong> — ปัญหาลามจากใหญ่ไปเล็ก</li>
+      <li><strong>BOJ ประชุมนอกกำหนด</strong> — มีเรื่องฉุกเฉิน</li>
+      <li><strong>US Treasury yield พุ่ง &gt;50 bps/สัปดาห์</strong> — เงิน lifers ไหลออกสหรัฐ</li>
+      <li><strong>FSA ประกาศ stress test lifers</strong> — รัฐเตรียมรับสถานการณ์</li>
+      <li><strong>BOJ กลับไป QE / ZIRP</strong> — ยอมแพ้นโยบาย normalize</li>
+    </ul>
+
+    <h3>ทำอะไรได้บ้าง (ไม่ใช่คำแนะนำ — เป็นทางเลือก)</h3>
+    <div class="callout warning">
+      <div class="title">⚠️ หมายเหตุ</div>
+      ผมไม่ทราบพอร์ตการลงทุนของคุณ — สิ่งต่อไปนี้เป็น "ทางเลือก" ไม่ใช่คำแนะนำ การตัดสินใจขึ้นกับสถานการณ์เฉพาะบุคคล
+    </div>
+    <table class="compact">
+      <thead><tr><th>ถ้าคุณถือ...</th><th>ทางเลือกที่คิดได้</th></tr></thead>
+      <tbody>
+        <tr><td>เงินสด</td><td>เก็บไว้รอจังหวะ — ถ้าวิกฤตเกิด ราคาสินทรัพย์จะถูกลง</td></tr>
+        <tr><td>หุ้นไทย</td><td>จับตา carry trade unwind ระยะสั้น (SET อาจ -3 ถึง -5%) — แต่ถ้าเยนแข็งช้าๆ SET อาจได้ประโยชน์ (ท่องเที่ยว)</td></tr>
+        <tr><td>LTF/RMF</td><td>ระยะยาว 5-10 ปี วิกฤตนี้อาจเป็น "จังหวะ" — ระวัง exposure ต่างประเทศ</td></tr>
+        <tr><td>สนใจ JGB</td><td>yield สูง = โอกาสถ้าถือจนครบกำหนด — ต้องยอมความผันผวนระยะสั้น</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ INTERLUDE ============ -->
+  <section class="act" id="interlude">
+    <h2><span class="num">INTERLUDE</span>บทเรียนจาก 1997-2001 — "เมื่อ lifers ล้ม 7 ราย"</h2>
+
+    <h3>วิกฤตที่เคยเกิดจริง</h3>
+    <table>
+      <thead><tr><th>บริษัท</th><th>ปี</th><th>หนี้สิน</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td>Nissan Mutual Life</td><td>เม.ย. 1997</td><td>~¥300 พันล้าน</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>Toho Mutual Life</td><td>มิ.ย. 1999</td><td>~¥2.3 ล้านล้าน</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>Kyoei Life</td><td>ต.ค. 2000</td><td>~¥4.5 ล้านล้าน</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>Chiyoda Mutual</td><td>ต.ค. 2000</td><td>~¥2.9 ล้านล้าน</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>Tokyo Mutual Life</td><td>มี.ค. 2001</td><td>~¥980 พันล้าน</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td colspan="2">(รวม Daihyaku, Taiyo)</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>สาเหตุราก — Negative Spread</h3>
+    <p>วิกฤตปี 1997 เกิดจาก <strong>ดอกเบี้ยตก + ผลตอบแทนรับประกันสูง</strong> ตรงข้ามกับ 2026</p>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy</div>
+      ลองนึกถึงบริษัทที่ "รับประกัน" จะจ่ายดอกเบี้ย 5% ต่อปีให้ลูกค้า แต่วันหนึ่งธนาคารลดดอกเบี้ยเงินฝากเหลือ 0.5% → บริษัทฝากเงินได้แค่ 0.5% แต่ต้องจ่าย 5% → ขาดทุน 4.5% ต่อปี → สักวันทุนหมด
+    </div>
+
+    <p><strong>เรื่องราว:</strong> ในยุค 1980s ดอกเบี้ยสูง บริษัทประกันขายกรมธรรม์ออมทรัพย์+บำนาญ โดย <strong>รับประกันผลตอบแทน 4-6% ต่อปี</strong> หลังฟองสบู่แตก ดอกเบี้ยตกลงเหลือเกือบ 0% → lifers ลงทุนได้แค่ 1-2% แต่ต้องจ่าย 4-6% → ขาดทุนทุกปี → ทุนหมด</p>
+
+    <h3>หลังวิกฤต — เกิดอะไรขึ้น</h3>
+    <ol>
+      <li><strong>ตลาดหุ้น/สินทรัพย์ร่วงต่อเนื่อง:</strong> Nikkei ตกจาก ~20,000 (1997) เหลือ ~7,600 (2003) — ลดลง 60%+ ใน 6 ปี</li>
+      <li><strong>เครดิตแช่แข็ง:</strong> Sanyo Securities, Hokkaido Takushoku Bank, Yamaichi Securities ล้มพร้อมกัน → ธนาคารหยุดให้กู้</li>
+      <li><strong>เกิด deflation 20+ ปี:</strong> ผู้บริโภคเก็บเงิน → ยอดขายลด → เงินเดือนลด → ใช้จ่ายน้อยลง → วงจร</li>
+      <li><strong>ค่าจ้างลด:</strong> อัตราว่างงานจาก 3% เป็น 5.5% — ระบบ "จ้างตลอดชีพ" สั่นคลอน</li>
+    </ol>
+
+    <h3>การปฏิรูปครั้งใหญ่หลังวิกฤต</h3>
+    <h4>ชั้นที่ 1 — กู้ระบบเอาไว้</h4>
+    <ul>
+      <li><strong>ฉีดทุนธนาคาร 2 รอบ:</strong> ¥1.8 ล้านล้าน (มี.ค. 1998) + <strong>¥7.5 ล้านล้าน</strong> (มี.ค. 1999)</li>
+      <li><strong>Payoff Freeze:</strong> รัฐคุ้มครองเงินฝาก 100% จนถึง มี.ค. 2005</li>
+    </ul>
+    <h4>ชั้นที่ 2 — ปฏิรูปโครงสร้าง</h4>
+    <ul>
+      <li><strong>FSA (2000):</strong> ดึงอำนาจตรวจสอบจาก MOF → regulator อิสระ</li>
+      <li><strong>Financial Big Bang (1996-2001):</strong> เปิดเสรีภาคการเงินครบวงจร</li>
+      <li><strong>Mark-to-market accounting:</strong> ทำให้ "ขาดทุนซ่อน" ไม่ได้อีก</li>
+    </ul>
+    <h4>ชั้นที่ 3 — ปฏิรูปประกัน</h4>
+    <ul>
+      <li><strong>Life Insurance Policyholders Protection Corporation (1998):</strong> กองทุนคุ้มครองผู้ถือกรมธรรม์ 90% → 80%</li>
+      <li><strong>ลดผลตอบแทนรับประกัน:</strong> จาก 4-6% → 0.25-0.5%</li>
+      <li><strong>Demutualization:</strong> เปลี่ยนเป็น stock company → ระดมทุนได้ (Dai-ichi Life จดทะเบียน 2010)</li>
+      <li><strong>เปิดต่างชาติ:</strong> Prudential, AIG, GE Capital, ING เข้ามาซื้อ lifers</li>
+    </ul>
+    <h4>ชั้นที่ 4 — นโยบายการเงิน</h4>
+    <ul>
+      <li><strong>ZIRP (1999):</strong> ดอกเบี้ย 0% เป็นครั้งแรก</li>
+      <li><strong>QE (2001):</strong> ฉีดเงินเข้าระบบ — ทดลองการณ์ที่ Fed/ECB เอาไปใช้ 2008</li>
+    </ul>
+
+    <h3>บทเรียนสำคัญ 3 ข้อ</h3>
+    <ol>
+      <li><strong>อย่าใช้ "regulatory forbearance"</strong> — ยิ่งชะลอ ยิ่งเสียหาย (สหรัฐเอาบทเรียนนี้ไปใช้ใน 2008)</li>
+      <li><strong>ฉีดทุนสาธารณะเร็วและเยอะ</strong> — รอบที่ 2 (¥7.5 ล้านล้าน) ทำงานได้จริง</li>
+      <li><strong>Mark-to-market คืออาวุธสองคม</strong> — โปร่งใส แต่บังคับให้รับรู้ขาดทุนทันที</li>
+    </ol>
+  </section>
+
+  <!-- ============ COMPARISON ============ -->
+  <section class="act" id="compare">
+    <h2><span class="num">COMPARE</span>2026 vs 1997 — เหมือน/ต่างกันยังไง</h2>
+    <table>
+      <thead><tr><th>ปัจจัย</th><th>ปี 1997</th><th>ปี 2026</th></tr></thead>
+      <tbody>
+        <tr><td>ทิศทางดอกเบี้ย</td><td>ลง (deflation)</td><td>ขึ้น (BOJ normalize)</td></tr>
+        <tr><td>ผลตอบแทนรับประกันกรมธรรม์</td><td>สูงมาก (3-6%)</td><td>ต่ำแล้ว (~0.25-0.5%)</td></tr>
+        <tr><td>Negative spread</td><td>หนักมาก</td><td>ไม่มี (กลับด้าน)</td></tr>
+        <tr><td>ทุนตาม regulation</td><td>อ่อน</td><td>เข้มข้นขึ้นหลังปฏิรูป</td></tr>
+        <tr><td>Cross-shareholdings</td><td>หนาแน่นมาก</td><td>ลดลง ~50% <span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>ความโปร่งใสบัญชี</td><td>ต่ำ</td><td>สูง (mark-to-market)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>จุดที่ 2026 อาจไม่เลวร้ายเท่า 1997</h3>
+    <ul>
+      <li>ผลตอบแทนใหม่จาก yield ที่สูงขึ้น → กำไรในอนาคตดีขึ้น</li>
+      <li>equity gains สะสมชดเชยขาดทุนพันธบัตรได้บางส่วน</li>
+      <li>กรมธรรม์ใหม่ใช้ผลตอบแทนลดลง → หนี้ผูกพันน้อยลง</li>
+    </ul>
+
+    <h3>จุดที่ 2026 มีความเสี่ยงใหม่ที่ 1997 ไม่มี</h3>
+    <ul>
+      <li><strong>Global carry trade ใหญ่กว่ามาก</strong> ~$4-5 ล้านล้าน <span class="badge estimate">ประมาณการ</span></li>
+      <li><strong>สหรัฐเองก็มีปัญหา</strong> — ถ้า lifers ขาย US Treasury สหรัพไม่พร้อมรับ</li>
+      <li><strong>lifers ถือต่างประเทศมหาศาล</strong> — ขายออกมา → กระทบทุกตลาดโลก</li>
+      <li><strong>Deflation 30 ปี</strong> ทำให้ญี่ปุ่นไม่คุ้นกับดอกเบี้ยสูง</li>
+    </ul>
+  </section>
+
+  <!-- ============ FX CHAPTER ============ -->
+  <section class="act" id="fx">
+    <h2><span class="num">FX</span>Short EUR/JPY — เชื่อมกับวิกฤตยังไง</h2>
+
+    <div class="callout warning">
+      <div class="title">⚠️ หมายเหตุสำคัญ</div>
+      ส่วนนี้เป็นการวิเคราะห์ <strong>สมมติฐาน</strong> ที่ผู้อ่านแจ้งมาว่ามี intervention short EUR/JPY — ผมไม่สามารถ verify ด้วย search ได้ในตอนนี้ <span class="badge assumption">User-reported</span>
+    </div>
+
+    <h3>บริบทตลาด ณ 10 ส.ค. 2026</h3>
+    <table>
+      <thead><tr><th>คู่เงิน</th><th>ราคา</th><th>52w สูง</th><th>52w ต่ำ</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td>USD/JPY</td><td>158.55</td><td>163.98</td><td>146.22</td><td><span class="badge realtime">Real-time</span></td></tr>
+        <tr><td>EUR/JPY</td><td>183.34</td><td>187.94</td><td>170.97</td><td><span class="badge realtime">Real-time</span></td></tr>
+      </tbody>
+    </table>
+    <p>EUR/JPY ลดลงจากจุดสูงสุด 187.94 → 183.34 = <strong>เยนแข็งค่าขึ้นเทียบยูโร ~2.5%</strong></p>
+
+    <h3>ทำไม "Short EUR/JPY" ไม่ใช่ "Short USD/JPY"</h3>
+    <table>
+      <thead><tr><th>วิธี</th><th>ข้อดี</th><th>ข้อเสีย</th></tr></thead>
+      <tbody>
+        <tr><td><strong>USD/JPY intervention</strong></td><td>ลดเงินเฟ้อนำเข้า</td><td>แตะ interests สหรัฐ · ดอลลาร์อ่อน · ตลาดใหญ่ intervention ยาก</td></tr>
+        <tr><td><strong>EUR/JPY intervention</strong></td><td>ทำเยนแข็งได้ · ไม่แตะดอลลาร์ · สหรัฐไม่โกรธ · ยุโรปไม่วิจารณ์ · ตลาดเล็กได้ผลดีกว่า</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout analogy">
+      <div class="title">💡 Analogy</div>
+      ลองนึกถึงคุณที่อยาก "ปรับ" น้ำหนักตัว แต่ไม่อยากให้คนรอบข้างสังเกตเห็น → คุณอาจปรับ "น้ำหนักกล้ามเนื้อ" แทน "ไขมัน" เพราะดูเหมือนเรื่องเล็ก — แต่ได้ผลลัพธ์ที่ต้องการ
+    </div>
+
+    <h3>ทำไมสหรัพต้อง "ร่วม" ด้วย</h3>
+    <ol>
+      <li><strong>กัน lifers ถอนเงินจากสหรัฐ</strong> — ถ้าวิกฤตลาม lifers ขาย US Treasury มหาศาล → US yield ขึ้น → บ้านสหรัพดอกเบี้ยกู้พุ่ง</li>
+      <li><strong>เสถียรภาพตลาดตราสารหนี้โลก</strong> — ถ้า lifers เละ → ตลาดตราสารหนี้ทั่วโลกสั่น</li>
+      <li><strong>การเมือง</strong> — รัฐบาลสหรัพอาจต้องการแสดงภาพ "control inflation"</li>
+    </ol>
+
+    <h3>ลำดับเหตุการณ์เชื่อมโยงทั้งหมด</h3>
+    <div class="flow">
+1. JGB yield ขึ้นต่อเนื่อง (2025-2026)
+   <span class="arrow">↓</span>
+2. Lifers แบกขาดทุน ¥15.13 ล้านล้าน
+   <span class="arrow">↓</span>
+3. BOJ ลำบาก: เพิ่มดอกเบี้ยไม่ได้ (lifers ตาย)
+   <span class="arrow">↓</span>
+4. ตัวเลือก: แทรกแซง FX เพื่อทำเยนแข็ง → ลดเงินเฟ้อโดยไม่แตะดอกเบี้ย
+   <span class="arrow">↓</span>
+5. Japan + US intervention short EUR/JPY (ทางอ้อม ไม่แตะดอลลาร์)
+   <span class="arrow">↓</span>
+6. เยนแข็งค่า → ลดแรงกดดันเงินเฟ้อ → BOJ ไม่ต้องเพิ่มดอกเบี้ย
+   <span class="arrow">↓</span>
+7. JGB yield คงที่ → lifers ขาดทุนไม่พุ่งเพิ่ม
+   <span class="arrow">↓</span>
+8. ผู้ส่งออกญี่ปุ่นเจ็บ (Toyota, Honda) → Nikkei รับแรงกดดัน
+    </div>
+
+    <h3>ข้อจำกัดของ intervention (เตือนอีกครั้ง)</h3>
+    <ul>
+      <li><strong>ชั่วคราว</strong> — ปัญหา lifers ยังอยู่</li>
+      <li><strong>ใช้เงินทุนสำรอง</strong> — intervention ต่อเนื่องกินเงินเร็ว</li>
+      <li><strong>ตลาดจะ test</strong> — นักลงทุนลองว่า BOJ หนักแค่ไหน</li>
+      <li><strong>Moral hazard</strong> — lifers ไม่ปรับพอร์ต ปัญหาสะสม</li>
+    </ul>
+  </section>
+
+  <!-- ============ TLDR ============ -->
+  <section class="tldr" id="tldr">
+    <h2>📋 TL;DR — สรุปทั้งเรื่องใน 1 หน้า</h2>
+
+    <p><strong>เริ่มตั้งแต่ ปี 1989</strong> ฟองสบู่อสังหาฯ แตก → ญี่ปุ่นติด deflation 30 ปี → BOJ ลดดอกเบี้ยจนติดลบ → lifers สะสมพันธบัตรรัฐบาล (JGB) เป็นกองเงินเดือน</p>
+
+    <p><strong>ปี 2024-2026</strong> BOJ เริ่มออกจาก negative rate → ดอกเบี้ย JGB ขึ้น → ราคาพันธบัตรเก่าตก → lifers 4 รายใหญ่แบกขาดทุนสะสม <strong>¥15.13 ล้านล้าน ($96B)</strong> ในวันที่ 7 ส.ค. 2026 — เพิ่ม 7% ใน 3 เดือน</p>
+
+    <p><strong>จุดสำคัญ:</strong> ขาดทุน "ยังไม่รับรู้" ≠ ล้มละลาย ถ้าถือจนครบกำหนดก็ได้เงินคืน ปัญหาคือถ้าคนถอนประกันพร้อมกัน → บังคับขายขาดทุนจริง → วิกฤต</p>
+
+    <h4>กลไกที่ทำให้ปัญหาลาม (4 อย่าง)</h4>
+    <ol>
+      <li><strong>Carry trade unwind</strong> — นักลงทุนทั่วโลกกู้เงินเยนไปลงทุด พอเยนแข็งต้องปิดสถานะพร้อมกัน</li>
+      <li><strong>Cross-shareholding domino</strong> — lifers ขายหุ้นธนาคาร → ธนาคารขายหุ้น lifers → ลูกโซ่</li>
+      <li><strong>BOJ trilemma</strong> — เลือกไม่ถูกระหว่าง lifers / เงินเฟ้อ / ผู้ส่งออก</li>
+      <li><strong>Intervention illusion</strong> — FX intervention แค่ซื้อเวลา ไม่ใช่วิธีแก้</li>
+    </ol>
+
+    <h4>3 เส้นทางข้างหน้า</h4>
+    <ul>
+      <li><strong>Path A: Soft Landing (~50%)</strong> — BOJ คุมได้, Nikkei แกว่งแต่ไม่ล่ม</li>
+      <li><strong>Path B: Muddle Through (~35%)</strong> — lifers เล็ก-กลางล้ม 2-3 ราย, Nikkei -15-25%</li>
+      <li><strong>Path C: Lehman 2.0 (~15%)</strong> — หลายรายใหญ่ล้ม + unwind ลามทั่วโลก</li>
+    </ul>
+
+    <h4>Trigger สังเกต</h4>
+    <p>Nikkei ร่วง &gt;5% ติด 5 วัน · USD/JPY ทะลุ 163 หรือต่ำกว่า 145 · lifers รายเล็กขอความช่วยเหลือ · BOJ ประชุมนอกกำหนด · US Treasury yield พุ่ง &gt;50 bps/สัปดาห์</p>
+
+    <h4>Intervention short EUR/JPY (ถ้าเกิดจริง)</h4>
+    <p>เป็นทางอ้อมที่ทำเยนแข็งค่า ลดเงินเฟ้อ โดยไม่แตะดอกเบี้ย (ปกป้อง lifers) และไม่ก่อ friction กับสหรัพ — แต่เป็นแค่ "ซื้อเวลา" ไม่ใช่วิธีแก้ถาวร</p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section id="sources">
+    <h2>📚 Source Verification — ทุกตัวเลขสำคัญ</h2>
+
+    <table class="compact">
+      <thead><tr><th>ตัวเลข</th><th>ค่า</th><th>สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td>ขาดทุนสะสม 4 lifers (7 ส.ค. 2026)</td><td>¥15.13 ล้านล้าน ($96B)</td><td><span class="badge verified">Verified</span> Bloomberg</td></tr>
+        <tr><td>Nippon Life ขาดทุน (กลางปี 2025)</td><td>¥4.164 ล้านล้าน ($28B)</td><td><span class="badge verified">Verified</span> Bloomberg</td></tr>
+        <tr><td>Q4 2025 เพิ่มขึ้น</td><td>+125% YoY ($86B)</td><td><span class="badge verified">Verified</span> Kobeissi</td></tr>
+        <tr><td>ตัวเลขก่อนหน้า</td><td>¥9.838 ล้านล้าน ($67B)</td><td><span class="badge verified">Verified</span> Bloomberg Law</td></tr>
+        <tr><td>USD/JPY (10 ส.ค. 2026)</td><td>158.55</td><td><span class="badge realtime">Real-time</span> Yahoo Finance</td></tr>
+        <tr><td>EUR/JPY (10 ส.ค. 2026)</td><td>183.34</td><td><span class="badge realtime">Real-time</span> Yahoo Finance</td></tr>
+        <tr><td>4 บริษัทใหญ่</td><td>Nippon Life, Dai-ichi, Meiji Yasuda, Sumitomo Life</td><td><span class="badge verified">Verified</span></td></tr>
+        <tr><td>สัดส่วนสินทรัพย์ lifers</td><td>JGB ~30-35% ฯลฯ</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>หนี้สิน lifers 1997-2001</td><td>รายบริษัท</td><td><span class="badge estimate">ประมาณการ</span></td></tr>
+        <tr><td>ขนาด carry trade</td><td>~$4-5T</td><td><span class="badge estimate">ประมาณการ</span> BIS</td></tr>
+        <tr><td>Cross-shareholdings ลดลง</td><td>~50%</td><td><span class="badge estimate">ประมาณการ</span> TSE</td></tr>
+        <tr><td>Intervention ปี 2022</td><td>~¥6.3 ล้านล้าน</td><td><span class="badge estimate">ประมาณการ</span> MOF</td></tr>
+        <tr><td>Probability 50/35/15</td><td>—</td><td><span class="badge judgment">Judgment</span></td></tr>
+        <tr><td>Intervention short EUR/JPY</td><td>—</td><td><span class="badge assumption">User-reported</span> verify ไม่ได้</td></tr>
+      </tbody>
+    </table>
+
+    <h3>แหล่งข้อมูลหลัก</h3>
+    <ul class="source-list">
+      <li><strong>Bloomberg</strong> — <a href="https://www.bloomberg.com/news/articles/2026-08-07/japan-s-biggest-insurers-post-96-billion-in-bond-paper-losses" target="_blank">Japan's Biggest Insurers Post $96B in Bond Paper Losses (7 ส.ค. 2026)</a></li>
+      <li><strong>Kobeissi Letter</strong> — <a href="https://www.facebook.com/KobeissiLetter/posts/" target="_blank">4 largest life insurers unrealized losses +125% YoY Q4 2025</a></li>
+      <li><strong>Bloomberg Law</strong> — <a href="https://news.bloomberglaw.com/insurance/top-4-japan-life-insurers-paper-bond-losses-reach-67-billion" target="_blank">Top 4 Japan Life Insurers' Paper Bond Losses Hit $67B</a></li>
+      <li><strong>Bloomberg</strong> — <a href="https://www.bloomberg.com/news/articles/2025-08-07/nippon-life-s-paper-losses-on-japanese-bonds-widen-to-record" target="_blank">Nippon Life's Record $28B Paper Losses</a></li>
+      <li><strong>Morningstar</strong> — <a href="https://www.morningstar.com/markets/how-japans-bond-selloff-impacts-banks-insurers" target="_blank">How Japan's Bond Selloff Impacts Banks and Insurers</a></li>
+      <li><strong>Fitch</strong> — <a href="https://www.fitchratings.com/research/banks/japan-issuers-appear-resilient-to-super-long-bond-yield-spike-29-05-2025" target="_blank">Japan Issuers Resilient to Super-Long Bond Yield Spike</a></li>
+      <li><strong>Forbes</strong> — <a href="https://www.forbes.com/sites/investor-hub/article/how-japan-bond-market-affects-your-portfolio/" target="_blank">How Japan's Bond Market Affects Your Portfolio</a></li>
+      <li><strong>StoneX</strong> — <a href="https://www.stonex.com/en-us/insights/japan-yield-curve-pressure-threatens-global-carry-trades/" target="_blank">Japan Yield Curve Pressure Threatens Global Carry Trades</a></li>
+    </ul>
+
+    <h3>ควรเช็คเพิ่มเมื่อ search กลับมา (5 ก.ย. 2026)</h3>
+    <ul class="source-list">
+      <li><a href="https://www.mof.go.jp" target="_blank">Ministry of Finance Japan</a> — intervention data</li>
+      <li><a href="https://www.boj.or.jp" target="_blank">Bank of Japan</a> — policy statements</li>
+      <li><a href="https://www.fsa.go.jp" target="_blank">Financial Services Agency</a> — lifer solvency data</li>
+    </ul>
+  </section>
+
+  <!-- Final Disclaimer -->
+  <div class="disclaimer">
+    <strong>📌 Disclaimer:</strong> เอกสารนี้เป็นการวิเคราะห์เพื่อความเข้าใจ ไม่ใช่คำแนะนำการลงทุน การลงทุนมีความเสี่ยง ตัดสินใจด้วยตัวเองหรือปรึกษาผู้เชี่ยวชาญ<br><br>
+    <strong>Honest disclosure:</strong> บางตัวเลขเป็นประมาณการจากความรู้เดิม เนื่องจาก search rate-limited ในตอนนี้ — ดูตาราง Source Verification เพื่อดูว่าตัวเลขไหนแน่นอน ตัวเลขไหนประมาณการ
+  </div>
+
+</div>
+
+</body>
+</html>
