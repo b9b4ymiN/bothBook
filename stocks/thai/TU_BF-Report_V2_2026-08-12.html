@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="th"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TU · Thai Union Group · BF-Report V2 · 12 สิงหาคม 2026</title>
+<style>
+:root{--bg:#f5f7f9;--ink:#0d1b2a;--muted:#5a6b7b;--line:#d8dee4;--accent:#003b5c;--accent2:#0a7c8a;
+--deep:#022d4a;--pos:#157f3f;--neg:#b3261e;--warn:#c77700;--gold:#b8860b;--card:#fff;--panel:#eef2f6;--tint:#e7f0f7}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+background:var(--bg);color:var(--ink);line-height:1.68;font-size:15px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+header.mast{background:linear-gradient(135deg,#022d4a 0%,#0a4a7a 45%,#1a5490 80%,#0a7c8a 100%);color:#fff;padding:44px 0 34px;position:relative;overflow:hidden}
+header.mast::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(10,124,138,.30),transparent 55%),radial-gradient(circle at 10% 90%,rgba(184,134,11,.18),transparent 50%)}
+.mast .wrap{position:relative;z-index:1}
+.mast h1{font-size:32px;font-weight:800;letter-spacing:-.5px;line-height:1.15;margin-bottom:6px}
+.mast .sub{font-size:13.5px;color:#cfe2f0;margin-bottom:12px;font-weight:500}
+.badges{display:flex;flex-wrap:wrap;gap:7px}
+.badge{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);padding:4px 11px;border-radius:20px;font-size:11.5px;font-weight:600}
+.vband{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:22px}
+.vcard{background:#fff;border-radius:8px;padding:13px 11px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.10);border-top:3px solid var(--accent2)}
+.vcard .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.vcard .val{font-size:19px;font-weight:800;margin-top:4px;color:var(--ink)}
+.vcard .note{font-size:10px;color:var(--muted);margin-top:2px}
+.vcard.neg .val{color:var(--neg)}.vcard.pos .val{color:var(--pos)}.vcard.warn .val{color:var(--warn)}
+nav.toc{position:sticky;top:0;z-index:100;background:rgba(245,247,249,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:9px 0}
+nav.toc .wrap{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+nav.toc a{color:var(--ink);text-decoration:none;font-size:12px;font-weight:600;padding:5px 8px;border-radius:6px;white-space:nowrap}
+nav.toc a:hover{background:var(--accent);color:#fff}
+.toc-toggle{display:none;background:var(--accent);color:#fff;border:none;padding:9px 14px;border-radius:6px;font-weight:700;cursor:pointer;width:100%;font-size:13px}
+section{padding:38px 0;border-bottom:1px solid var(--line)}
+h2{font-size:23px;font-weight:800;color:var(--accent);margin-bottom:8px;letter-spacing:-.3px;padding-bottom:9px;border-bottom:2px solid var(--accent)}
+h2 .num{display:inline-block;background:var(--accent);color:#fff;font-size:13px;padding:2px 10px;border-radius:6px;margin-right:9px;vertical-align:middle}
+h3{font-size:17.5px;font-weight:700;margin:22px 0 9px;color:var(--deep)}
+h4{font-size:15px;font-weight:700;margin:15px 0 7px;color:var(--accent2)}
+.kicker{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:12px}
+.lede{font-size:16.5px;line-height:1.72;color:#1f2d3a;margin-bottom:18px;font-weight:500}
+p{margin-bottom:11px}
+ul,ol{margin:0 0 12px 22px}li{margin-bottom:5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:17px;margin:13px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card.warn{border-left:4px solid var(--warn);background:#fffdf5}
+.card.danger{border-left:4px solid var(--neg);background:#fff6f5}
+.card.good{border-left:4px solid var(--pos);background:#f4fbf6}
+.card.key{border-left:4px solid var(--accent2);background:var(--tint)}
+.card h4{margin-top:0}
+table{width:100%;border-collapse:collapse;margin:13px 0;font-size:13.2px;background:#fff}
+th{background:var(--accent);color:#fff;padding:9px 10px;text-align:left;font-weight:700;font-size:12.3px;border:1px solid var(--accent)}
+td{padding:8px 10px;border:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#fafbfc}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.pos{color:var(--pos);font-weight:700}.neg{color:var(--neg);font-weight:700}.warnx{color:var(--warn);font-weight:700}
+.mono{font-variant-numeric:tabular-nums}
+.tag{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:700}
+.tag.err{background:#fde8e6;color:var(--neg)}.tag.ok{background:#e6f4ea;color:var(--pos)}
+.tag.miss{background:#fff3e0;color:var(--warn)}.tag.new{background:#e3f2fd;color:var(--ocean,#1a5490)}
+.src{font-size:11px;color:var(--muted);font-style:italic}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.chart{background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px;margin:14px 0}
+.chart .ct{font-size:13px;font-weight:700;color:var(--deep);margin-bottom:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+footer{background:var(--deep);color:#cfe2f0;padding:28px 0;font-size:12.5px}
+footer a{color:#8fd4e0}
+.disc{background:#fff8e1;border:1px solid #ffd54f;border-radius:8px;padding:14px;font-size:12.5px;margin:16px 0}
+@media(max-width:820px){
+ .vband{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}
+ .mast h1{font-size:24px}h2{font-size:20px}body{font-size:14.5px}
+ nav.toc .wrap{display:block}.toc-toggle{display:block}
+ nav.toc .links{display:none;margin-top:8px}nav.toc .links.open{display:flex;flex-wrap:wrap;gap:4px}
+ table{font-size:12px}th,td{padding:6px 7px}
+}
+@media print{nav.toc{display:none}section{page-break-inside:avoid}body{font-size:11pt}}
+</style></head><body>
+
+<header class="mast"><div class="wrap">
+<h1>Thai Union Group (SET: TU)</h1>
+<div class="sub">BF-Report V2 · การวิเคราะห์เชิงลึกด้วยกรอบ Damodaran + Seth Klarman · ตรวจสอบกับงบการเงินตรวจสอบ FY2025 และ 56-1 One Report · 12 สิงหาคม 2026</div>
+<div class="badges">
+<span class="badge">SET50</span><span class="badge">Consumer Staples</span>
+<span class="badge">ราคา ฿13.30 (12 ส.ค. 2569)</span><span class="badge">Mkt Cap ฿51.27bn</span>
+<span class="badge">รายได้ FY2025 ฿132.7bn</span><span class="badge">ผู้ผลิตทูน่ากระป๋องอันดับ 1 ของโลก</span>
+<span class="badge">แทนที่รายงานฉบับ 10 ส.ค. 2569</span></div>
+<div class="vband">
+<div class="vcard"><div class="lbl">ราคาปัจจุบัน</div><div class="val">฿13.30</div><div class="note">12 ส.ค. 2569</div></div>
+<div class="vcard neg"><div class="lbl">Fair Value (blended)</div><div class="val">฿11.21</div><div class="note">−15.7% จากราคา</div></div>
+<div class="vcard neg"><div class="lbl">Margin of Safety</div><div class="val">−19%</div><div class="note">ติดลบ = จ่ายแพงกว่ามูลค่า</div></div>
+<div class="vcard warn"><div class="lbl">Stance</div><div class="val" style="font-size:16px">รอราคา</div><div class="note">ไม่ใช่คำแนะนำซื้อขาย</div></div>
+<div class="vcard"><div class="lbl">ราคาเข้าซื้อ (MOS 30%)</div><div class="val">≤ ฿7.85</div><div class="note">Track ลงทุนยาว</div></div>
+</div></div></header>
+
+<nav class="toc"><div class="wrap">
+<button class="toc-toggle" onclick="document.querySelector('nav.toc .links').classList.toggle('open')">≡ สารบัญ</button>
+<div class="links">
+<a href="#s1">§1 บทสรุปผู้บริหาร</a><a href="#s2">§2 เปลี่ยนอะไรจากฉบับเดิม</a>
+<a href="#s3">§3 ธุรกิจ</a><a href="#s4">§4 Forensics</a><a href="#s5">§5 Valuation</a>
+<a href="#s6">§6 Earnings</a><a href="#s7">§7 Catalysts</a><a href="#s8">§8 Technical</a>
+<a href="#s9">§9 แผนลงทุน</a><a href="#s10">§10 ความเสี่ยง</a><a href="#s11">§11 วิธีการ</a><a href="#s12">§12 ภาคผนวก</a>
+</div></div></nav>
+<section id="s1"><div class="wrap">
+<div class="kicker">§1 · บทสรุปผู้บริหาร · 12 สิงหาคม 2026</div>
+<h2><span class="num">1</span>บทสรุปผู้บริหารและคำตัดสิน</h2>
+
+<p class="lede">TU คือผู้ผลิตทูน่ากระป๋องรายใหญ่ที่สุดในโลก มีแบรนด์ระดับ #1 ในหลายประเทศ (Chicken of the Sea, John West, Petit Navire, Mareblu, King Oscar, Sealect) โรงงานใน 14 ประเทศ และรายได้ ฿132.7bn ในปี 2568 — <strong>แต่คำถามการลงทุนที่แท้จริงไม่ได้อยู่ที่คุณภาพของธุรกิจ มันอยู่ที่ว่าราคา ฿13.30 จ่ายเผื่อไว้เท่าไรแล้ว และงบดุลรับความผิดพลาดได้แค่ไหน</strong></p>
+
+<div class="card key">
+<h4>🎯 ข้อค้นพบหลักหนึ่งเดียว — TU ไม่ใช่ "หุ้นถูกที่ตลาดมองข้าม" แต่เป็น "สิทธิเลือกที่มี leverage สูงบนการฟื้นตัวของ EBITDA"</h4>
+<p>ตลาดตี TU ที่ <strong>EV ฿126.50bn = 11.58× TTM EBITDA</strong> ขณะที่ peer อาหารทะเลแบรนด์ระดับโลกอยู่ที่ 8.82× และ staples ไทยอยู่ที่ 7.80× — TU <em>ไม่ได้ถูก</em> บน EV/EBITDA ที่ดู "ถูก" คือ P/E 10.9× ซึ่งถูกทำให้ดูดีโดยหนี้สินที่สูง</p>
+<p>เหตุผลเชิงโครงสร้าง: <strong>หุ้น ITC (i-Tail) ที่ TU ถือ 79.30% มีมูลค่าตลาด ฿40.68bn = 79% ของ market cap ของ TU ทั้งบริษัท</strong> เมื่อหักส่วนนี้ออก ธุรกิจอาหารทะเลหลัก (87% ของรายได้ = ฿114.8bn, EBITDA ฿7.12bn) เหลือ equity เพียง ฿10.6bn ขณะที่แบก look-through net debt ~฿73bn = <strong>~10× core EBITDA</strong></p>
+<p style="margin-bottom:0"><strong>ผลลัพธ์เชิงคณิตศาสตร์: 1 turn ของ EV/EBITDA = ฿2.91/หุ้น = 21.8% ของราคาหุ้น</strong> — leverage ทำให้มูลค่าหุ้นเหวี่ยงแรงทั้งขาขึ้นและขาลง ไม่ใช่ "ขาลงจำกัด"</p>
+</div>
+
+<h3>1.1 Verdict Band</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>เมตริก</th><th class="n">ค่า</th><th>หมายเหตุ</th></tr></thead><tbody>
+<tr><td><strong>Blended Fair Value</strong></td><td class="n"><strong>฿11.21</strong></td><td>DCF ถ่วงน้ำหนัก 13.56 (40%) + SOTP 8.41 (30%) + Relative 10.88 (30%)</td></tr>
+<tr><td>ราคาปัจจุบัน</td><td class="n">฿13.30</td><td>ปิด 12 ส.ค. 2569 · ช่วง 52 สัปดาห์ ฿10.40–14.10</td></tr>
+<tr><td>ส่วนต่างจาก FV</td><td class="n neg">−15.7%</td><td>ราคาสูงกว่ามูลค่าที่ประเมินได้</td></tr>
+<tr><td>Margin of Safety ปัจจุบัน</td><td class="n neg">−19%</td><td><strong>ไม่มี margin of safety ที่ราคานี้</strong></td></tr>
+<tr><td>Scenario: Bear (p=30%)</td><td class="n neg">~฿0</td><td>EV ฿48.2bn ต่ำกว่าหนี้สุทธิ+NCI ⇒ equity เข้าใกล้ศูนย์</td></tr>
+<tr><td>Scenario: Base (p=45%)</td><td class="n">฿9.25</td><td>ตาม guidance 2569 + Cost Reset/Sonar ลงได้ราวครึ่ง</td></tr>
+<tr><td>Scenario: Bull (p=20%)</td><td class="n pos">฿34.23</td><td>cost program ลงเต็ม + วัฏจักรทูน่าคลี่คลาย</td></tr>
+<tr><td>Scenario: เป้าผู้บริหาร 2030 เต็ม (p=5%)</td><td class="n pos">฿72.10</td><td>USD 7.0bn sales / EBITDA USD 700–800m</td></tr>
+<tr><td>ราคาเข้าซื้อ MOS 25% / 30% / 35%</td><td class="n">฿8.41 / <strong>฿7.85</strong> / ฿7.29</td><td>Track ลงทุนยาว 3–5 ปี</td></tr>
+<tr><td>Technical (แยกจากมูลค่า)</td><td class="n">entry ฿12.20–12.55</td><td>stop ฿11.85 · T1 13.50 / T2 14.10 · verdict <strong>รอ pullback</strong></td></tr>
+<tr><td>Catalyst skew 12 เดือน</td><td class="n warnx">Neutral</td><td>เอียงบวกเล็กน้อยแต่เปราะบาง (weighted score +1)</td></tr>
+</tbody></table></div>
+
+<h3>1.2 สามสิ่งที่ต้องจำ</h3>
+<div class="card danger">
+<h4>1 · ไม่มีพื้นจากงบดุล</h4>
+<p style="margin-bottom:0">NAV เลิกกิจการหลัง haircut อนุรักษ์นิยมและหัก NCI แล้ว ≈ <strong>ติดลบ</strong> · P/TBV 3.19× (tangible book ฿4.17/หุ้น) — margin of safety ต้องมาจาก <em>ราคาที่จ่าย</em> ไม่ใช่จากสินทรัพย์ ข้ออ้างในรายงานฉบับก่อนว่า "asset replacement value ฿22–25/หุ้น" เป็นไปไม่ได้ทางเลขคณิต (ต้องมีสินทรัพย์ ฿191–202bn แต่สินทรัพย์รวมจริงมี ฿158.3bn)</p>
+</div>
+<div class="card warn">
+<h4>2 · กระแสเงินสดอิสระบางกว่าที่ตัวเลขกำไรบอก</h4>
+<p style="margin-bottom:0">FY2568: OCF ฿4.59bn (ทรุด −68% จาก ฿14.53bn) − capex ฿3.78bn = <strong>FCF ฿0.81bn</strong> แต่จ่ายปันผล ฿2.79bn + ซื้อหุ้นคืน ฿4.31bn = <strong>฿7.10bn คืนผู้ถือหุ้น</strong> ⇒ หนี้เพิ่ม ฿6.72bn · H1/2569 ฟื้นตัวจริง (OCF ฿5.01bn เกินทั้งปี 2568) แต่ net debt แทบไม่ลด (฿61.47bn → ฿61.40bn บนนิยามเดียวกัน)</p>
+</div>
+<div class="card good">
+<h4>3 · แต่โมเมนตัมเชิงปฏิบัติการกำลังดีขึ้นจริง — ต้องให้เครดิต</h4>
+<p style="margin-bottom:0">Q2/2569 (รายงาน 3 ส.ค.): <strong>gross margin 21.4% สูงสุดเป็นประวัติการณ์</strong> · operating profit +12.6% · ปรับ guidance <em>ขึ้น</em> เป็นยอดขาย +4–6% และ GPM 19.5–20.5% · ลด capex guidance ลงเป็น ฿5.0–5.5bn · ปันผลระหว่างกาล ฿0.40 (+14.3%) · TRIS ยืนยัน A+/Stable (1 ต.ค. 2568) · covenant ยังห่าง (ND/E 1.15× vs เพดาน 2.0×)</p>
+</div>
+
+<h3>1.3 Thesis สรุปแบบ Damodaran</h3>
+<div class="tblwrap"><table>
+<thead><tr><th style="width:22%">คำถาม</th><th>คำตอบที่ตรวจสอบแล้ว</th></tr></thead><tbody>
+<tr><td><strong>จ่ายอะไร</strong></td><td>฿13.30/หุ้น ⇒ EV ฿126.50bn = <strong>11.58× TTM EBITDA</strong> (10.93bn), 11.29× normalised (11.20bn), P/E TTM 10.9×, P/B 1.15×, P/TBV 3.19×</td></tr>
+<tr><td><strong>ได้อะไร</strong></td><td>(1) แบรนด์อันดับ 1 ในหลายตลาด — ส่วนแบ่ง Sealect ไทย 58.5%, Petit Navire ฝรั่งเศส 23.2%, John West UK 19.7%, ไอร์แลนด์ 30.4%, Chicken of the Sea US 14.6%; (2) โรงงาน 14 ประเทศ; (3) หุ้น ITC 79.30% มูลค่า ฿40.68bn; (4) ปันผล 2569E ~฿0.80 = yield 6.02%</td></tr>
+<tr><td><strong>คุ้มไหม</strong></td><td>ROIC (NOPAT@20% / IC) FY2568 = <strong>4.3%</strong> ต่ำกว่า WACC ที่ประเมิน 6.2–7.0% ⇒ <strong>ΔValue = (ROIC − WACC) × Reinvestment เป็นลบ</strong> การเติบโตในสภาพปัจจุบัน<em>ทำลาย</em>มูลค่า ไม่ใช่สร้าง เว้นแต่ margin จะขยับขึ้นจริงตามแผน cost program</td></tr>
+<tr><td><strong>Asymmetry</strong></td><td>Bull ฿34.23 (+157%) vs Bear ~฿0 (−100%) · reward:risk เทียบ base = 5.17:1 แต่เทียบ bear = 1.57:1 · <strong>1% ที่ core EBITDA ขยับ ≈ 1.4% ที่มูลค่าหุ้น</strong></td></tr>
+</tbody></table></div>
+
+<div class="chart"><div class="ct">Fair Value Ladder — ราคาปัจจุบันเทียบกับ scenario และจุดอ้างอิงภายนอก (฿/หุ้น)</div>
+<svg viewBox="0 0 900 300" style="width:100%;height:auto">
+<line x1="70" y1="265" x2="880" y2="265" stroke="#d8dee4"/>
+<g font-size="11" fill="#5a6b7b" text-anchor="end">
+<text x="64" y="42">฿36</text><text x="64" y="100">฿27</text><text x="64" y="158">฿18</text><text x="64" y="216">฿9</text><text x="64" y="268">฿0</text></g>
+<g stroke="#eef2f6"><line x1="70" y1="38" x2="880" y2="38"/><line x1="70" y1="96" x2="880" y2="96"/><line x1="70" y1="154" x2="880" y2="154"/><line x1="70" y1="212" x2="880" y2="212"/></g>
+<rect x="95"  y="265" width="62" height="0"   fill="#b3261e"/><text x="126" y="260" font-size="10.5" text-anchor="middle" fill="#b3261e" font-weight="700">฿0.00</text>
+<rect x="190" y="205" width="62" height="60"  fill="#c77700"/><text x="221" y="199" font-size="10.5" text-anchor="middle" font-weight="700">฿9.25</text>
+<rect x="285" y="193" width="62" height="72"  fill="#0a7c8a"/><text x="316" y="187" font-size="10.5" text-anchor="middle" font-weight="700">฿11.21</text>
+<rect x="380" y="179" width="62" height="86"  fill="#5a6b7b"/><text x="411" y="173" font-size="10.5" text-anchor="middle" font-weight="700">฿13.30</text>
+<rect x="475" y="168" width="62" height="97"  fill="#8a9aa8"/><text x="506" y="162" font-size="10.5" text-anchor="middle" font-weight="700">฿15.10</text>
+<rect x="570" y="45"  width="62" height="220" fill="#157f3f"/><text x="601" y="39"  font-size="10.5" text-anchor="middle" font-weight="700">฿34.23</text>
+<rect x="665" y="20"  width="62" height="245" fill="#b8860b"/><text x="696" y="14"  font-size="10.5" text-anchor="middle" font-weight="700">฿72.10↑</text>
+<rect x="760" y="105" width="62" height="160" fill="#b3261e" opacity=".55"/><text x="791" y="99" font-size="10.5" text-anchor="middle" font-weight="700">฿24.90</text>
+<g font-size="9.5" fill="#5a6b7b" text-anchor="middle">
+<text x="126" y="281">Bear 30%</text><text x="221" y="281">Base 45%</text><text x="316" y="281" font-weight="700" fill="#0a7c8a">FV V2</text>
+<text x="411" y="281" font-weight="700">ราคาตลาด</text><text x="506" y="281">DBS TP</text><text x="601" y="281">Bull 20%</text>
+<text x="696" y="281">เป้า 2030</text><text x="791" y="281" fill="#b3261e">รายงานเดิม</text></g>
+</svg>
+<p class="src">แท่งขวาสุดคือ fair value ฿24.90 ของรายงานฉบับ 10 ส.ค. 2569 ที่รายงานฉบับนี้แทนที่ · DBS ฿15.10 และ Maybank ฿14.50 เป็นเป้าล่าสุด (5 ส.ค. 2569) · CLSA ฿8.70 (เก่ากว่า) · consensus ~฿13.25</p></div>
+</div></section>
+<section id="s2"><div class="wrap">
+<div class="kicker">§2 · การตรวจสอบรายงานฉบับก่อน</div>
+<h2><span class="num">2</span>เปลี่ยนอะไรจากรายงานฉบับเดิม และทำไม</h2>
+<p class="lede">รายงานฉบับ 10 ส.ค. 2569 สรุป fair value ฿24.90 · upside +87% · "Branded Accumulate" · "ราคาปัจจุบันอยู่ใน buy zone" — เมื่อสาวทุกตัวเลขกลับไปหางบการเงินตรวจสอบ FY2025, 56-1 One Report และ filing Q2/2569 พบ <strong>14 จุดที่ตัวเลขไม่ตรง</strong> และ <strong>15 ประเด็นสำคัญที่ขาดหายไปทั้งหมด</strong></p>
+
+<h3>2.1 เส้นทางของคำตอบ (Fair Value Walk)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>ขั้น</th><th class="n">FV</th><th>สาเหตุที่เปลี่ยน</th></tr></thead><tbody>
+<tr><td>รายงานเดิม (10 ส.ค. 2569)</td><td class="n">฿24.90</td><td>ถ่วง 40% SOTP / 35% DCF / 25% reverse-DCF — แต่ใช้ตัวเลข net debt, PetCare growth และ FCF ที่ไม่ตรงกับงบ และตั้ง bear case ไว้ที่ ฿18.60 ซึ่ง<em>สูงกว่า</em>ราคาตลาด</td></tr>
+<tr><td>V2 รอบแรก</td><td class="n">฿11.17</td><td>สร้าง dataset ใหม่จากงบตรวจสอบทั้งหมด · แก้ net debt · ใส่ ITC look-through · ใส่ภาษี US · ใส่ผล Q2/2569 จริง</td></tr>
+<tr><td>หลังผู้ตรวจอิสระ #1 (model auditor)</td><td class="n">฿9.57</td><td>ตรวจ 33 รายการ พบ FAIL 3: ใช้นิยาม net debt แคบกว่าที่ TU เองใช้ · ลืมตีราคา TFM ตามตลาดใน NCI · ใช้งบ ธ.ค. 2568 ทั้งที่มี มิ.ย. 2569</td></tr>
+<tr><td><strong>หลังผู้ตรวจอิสระ #2 (bear refuter)</strong></td><td class="n"><strong>฿11.21</strong></td><td>รับข้อโต้แย้งที่ถูกต้อง: multiple ที่ยุติธรรมต้องถ่วงตาม mix (pet 31% ของ EBITDA เทรด 13.8×) ⇒ <strong>10.46×</strong> ไม่ใช่ 8.82× · terminal growth ควรอิงสกุลเงินที่รายได้อยู่จริง (70% US/EU) แบบ USD-consistent · normalise EBITDA เป็น ฿11.20bn</td></tr>
+</tbody></table></div>
+
+<h3>2.2 จุดที่ตัวเลขไม่ตรง — 14 รายการ</h3>
+<div class="tblwrap"><table>
+<thead><tr><th style="width:24%">รายการ</th><th style="width:24%">รายงานเดิมระบุ</th><th style="width:28%">ตัวเลขที่ตรวจสอบแล้ว</th><th>ผลกระทบ</th></tr></thead><tbody>
+<tr><td><strong>Free cash flow</strong></td><td>"฿2–11bn ต่อปี"</td><td><strong>FY2568 = ฿0.81bn</strong> (OCF 4.59 − capex 3.78)</td><td><span class="tag err">ทำให้เข้าใจผิดอย่างมีนัยสำคัญ</span> ปันผลไม่ได้ "ครอบคลุมด้วย FCF"</td></tr>
+<tr><td><strong>PetCare growth</strong></td><td>"Q1/2569 +28.6% ตลาดยังไม่ priced-in"</td><td>Q1/2569 จริง <strong>+22.6%</strong> · FY2568 <strong>+2.8%</strong> · Q2/2569 <strong>+2.3%</strong> · กำไรขั้นต้น pet FY2568 <strong>−6.2%</strong> margin <strong>−253bps</strong></td><td><span class="tag err">พลิก thesis</span> "second curve" อ่อนกว่าที่อ้างมาก</td></tr>
+<tr><td><strong>หนี้สิน</strong></td><td>"฿77.8bn"</td><td>หนี้สินรวม <strong>฿106.24bn</strong> · หนี้มีดอกเบี้ย <strong>฿75.23bn</strong></td><td><span class="tag err">ไม่ตรงกับตัวเลขใดในงบ</span></td></tr>
+<tr><td><strong>Bear case</strong></td><td>FV ต่ำสุด ฿18.60</td><td>฿18.60 <strong>สูงกว่าราคาตลาด 40%</strong></td><td><span class="tag err">ผิดตรรกะ</span> bear case ที่ให้กำไร +40% ไม่ใช่ bear case</td></tr>
+<tr><td><strong>Dividend yield</strong></td><td>"6.02%" (นำเสนอเป็นปัจจุบัน)</td><td>FY2568 DPS จริง ฿0.70 ⇒ <strong>5.26%</strong> · 6.02% คือ forward 2569E (฿0.80)</td><td><span class="tag miss">ต้องระบุฐาน</span></td></tr>
+<tr><td>Asset replacement value</td><td>"฿22–25/หุ้น"</td><td>ต้องมีสินทรัพย์ ฿191–202bn แต่สินทรัพย์รวมจริง <strong>฿158.3bn</strong></td><td><span class="tag err">เป็นไปไม่ได้ทางเลขคณิต</span></td></tr>
+<tr><td>Net debt/EBITDA</td><td>"~6.5× อยู่ใน normal range"</td><td><strong>6.42×</strong> (นิยามแคบ) / 5.07× (นิยาม TU) — <strong>เกินเป้าภายในของ TU เองที่ ≤4.0×</strong></td><td><span class="tag err">ผิดที่การตัดสิน</span></td></tr>
+<tr><td>Through-cycle ROIC</td><td>"7–8%"</td><td>FY2568 NOPAT@20%/IC = <strong>4.3%</strong> · ROCE ตาม 56-1 = 7.5% (คนละนิยาม)</td><td><span class="tag miss">ต้องระบุนิยาม</span></td></tr>
+<tr><td>ROE 2568</td><td>11.0%</td><td><strong>10.31%</strong></td><td><span class="tag miss">คลาดเคลื่อนเล็กน้อย</span></td></tr>
+<tr><td>P/B</td><td>1.11×</td><td><strong>1.15×</strong> (BVPS ฿11.60)</td><td><span class="tag miss">เล็กน้อย</span></td></tr>
+<tr><td>ที่ดิน อาคาร อุปกรณ์</td><td>฿31.2bn</td><td><strong>฿29.89bn</strong></td><td><span class="tag miss">−4%</span></td></tr>
+<tr><td>Goodwill / บริษัทร่วม</td><td>฿13.5bn / ฿8.6bn</td><td><strong>฿13.22bn / ฿8.95bn</strong></td><td><span class="tag miss">เล็กน้อย</span></td></tr>
+<tr><td>Impairment 2566</td><td>฿19.6bn / ขาดทุน ฿14.2bn</td><td><strong>฿18.4bn / ฿13.9bn</strong> (56-1)</td><td><span class="tag miss">เล็กน้อย</span></td></tr>
+<tr><td>สัดส่วนตระกูล</td><td>"กลุ่ม Chansiri ~33%"</td><td>Chansiri <strong>17.65%</strong> + Niruttinanon 7.44% + หุ้นซื้อคืน 13.47% — คุมได้จริงแต่ตัวเลข 33% ไม่ใช่สัดส่วนตระกูลเดียว</td><td><span class="tag miss">ถ้อยคำคลาดเคลื่อน</span></td></tr>
+</tbody></table></div>
+
+<h3>2.3 ประเด็นที่หายไปทั้งหมดจากรายงานเดิม — 15 รายการ</h3>
+<div class="tblwrap"><table>
+<thead><tr><th style="width:30%">ประเด็น</th><th>ทำไมถึงสำคัญ</th></tr></thead><tbody>
+<tr><td><strong>ITC = 79% ของ market cap</strong> <span class="tag new">สำคัญที่สุด</span></td><td>TU ถือ ITC 79.30% มูลค่า ฿40.68bn จาก market cap ฿51.27bn ⇒ ธุรกิจหลักเหลือ equity ฿10.6bn — นี่คือ<em>ทั้งหมด</em>ของคำถามมูลค่า</td></tr>
+<tr><td><strong>ภาษีสหรัฐฯ</strong></td><td>Reciprocal 19% (1 ส.ค. 2568) + <strong>Section 301 12.5% (24 ก.ค. 2569)</strong> รวม ~31.5% บนทูน่ากระป๋อง ambient · <strong>สหรัฐฯ = 38% ของยอดขาย</strong> — ความเสี่ยง margin เดี่ยวที่ใหญ่ที่สุด</td></tr>
+<tr><td><strong>OCF ทรุด 68%</strong></td><td>฿14.53bn → ฿4.59bn จากการสะสมสินค้าคงเหลือ +฿4.01bn ขณะยอดขายลด 4.1%</td></tr>
+<tr><td><strong>ซื้อหุ้นคืน ฿4.31bn + ปันผล ฿2.79bn จากเงินกู้</strong></td><td>คืนผู้ถือหุ้น ฿7.10bn จาก FCF ฿0.81bn ⇒ หนี้เพิ่ม ฿6.72bn</td></tr>
+<tr><td><strong>คดี Fortress Credit Corp v. TUNA</strong></td><td>สัญญาค้ำประกัน USD 65m ยื่นฟ้อง ต.ค. 2567 คาดจบ <strong>ธ.ค. 2569</strong> ≈ −฿0.56/หุ้น หากแพ้เต็มจำนวน</td></tr>
+<tr><td><strong>ผลขาดทุนสะสมทางภาษีที่จะหมดอายุพุ่ง 4 เท่า</strong></td><td>฿7.22bn (2567) → <strong>฿30.07bn</strong> (2568) — บ่งชี้ผลขาดทุนที่ลึกขึ้นในกิจการต่างประเทศ</td></tr>
+<tr><td><strong>Covenant และเป้าภายใน</strong></td><td>Covenant: ND/E ≤2.0× (จริง 1.15–1.28×), interest cover ≥3.0× (จริง 4.36×) — <em>ยังไม่ชน</em> · แต่เป้าภายใน ND/E ≤1.1× และ ND/EBITDA ≤4.0× <strong>เกินทั้งคู่</strong></td></tr>
+<tr><td><strong>Goodwill กระจุกตัว</strong></td><td>CGU ยุโรป-Ambient = <strong>92.4% ของ goodwill (฿12.21bn)</strong> · g=2.0%, discount 6.9–11.8% · <strong>ไม่เปิดเผย headroom</strong> ทั้งที่เป็น Key Audit Matter</td></tr>
+<tr><td><strong>ผล Q2/2569 จริง (3 ส.ค. 2569)</strong></td><td>ยอดขาย ฿33.8bn +1.4% · GM <strong>21.4% สถิติ</strong> · OP +12.6% · NP −0.7% · ปันผล ฿0.40 · <strong>ปรับ guidance ขึ้น</strong> — รายงานเดิมลงวันที่ 10 ส.ค. แต่ไม่ได้ใช้</td></tr>
+<tr><td><strong>H1/2569 OCF ฿5.01bn เกินทั้งปี 2568</strong></td><td>วิกฤตกระแสเงินสดกลับตัวแล้ว (ข้อดีที่รายงานเดิมก็ไม่ได้ใส่)</td></tr>
+<tr><td><strong>ราคาทูน่าพุ่ง</strong></td><td>Bangkok CFR skipjack: ม.ค.'69 $1,500 → มี.ค. $2,000 → ก.ค. $1,850/t — แรงกดดันต้นทุน H2 ด้วย lag 1–2 ไตรมาส</td></tr>
+<tr><td><strong>Mitsubishi Corp เสนอซื้อ ฿12.50 แล้วล้ม</strong></td><td>ผู้ซื้อเชิงกลยุทธ์ตีราคาเงินสด <strong>ต่ำกว่า</strong>ราคาวันนี้ (ส.ค. 2568) · ดีลยกเลิก พ.ย. 2568 เพราะผู้ถือหุ้นตอบรับไม่พอ</td></tr>
+<tr><td><strong>เป้าผู้บริหาร 2030</strong></td><td>ยอดขาย USD 7.0bn · EBITDA USD 700–800m (ปัจจุบัน ~USD 320m) · Project Sonar USD 75m · Cost Reset USD 118m · Tailwind USD 50m — <em>นี่คือหลักยึดของ bull case ตัวจริง</em></td></tr>
+<tr><td><strong>TRIS A+/Stable ยืนยัน 1 ต.ค. 2568</strong></td><td>หลักยึดด้านเครดิต</td></tr>
+<tr><td><strong>เป้าสำนักวิจัย ฿8.70–16.00</strong></td><td>FV ฿24.90 ของรายงานเดิมสูงกว่าเป้าสูงสุดในตลาด 56% โดยไม่มีคำอธิบาย</td></tr>
+</tbody></table></div>
+</div></section>
+<section id="s3"><div class="wrap">
+<div class="kicker">§3 · เรื่องราวธุรกิจ → ตัวเลข (Damodaran)</div>
+<h2><span class="num">3</span>ธุรกิจ · Segment · Moat · แปลงเรื่องเล่าเป็นตัวเลข</h2>
+
+<h3>3.1 โครงสร้าง Segment — ตัวเลขจากหมายเหตุ 6 งบตรวจสอบ FY2025</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>Segment</th><th class="n">รายได้ FY68 (฿bn)</th><th class="n">% รายได้</th><th class="n">Gross margin</th><th class="n">% ของกำไรขั้นต้น</th><th class="n">รายได้ YoY</th><th class="n">GP YoY</th><th class="n">Δ margin</th></tr></thead><tbody>
+<tr><td><strong>Ambient seafood</strong><br><span class="src">ทูน่า/ซาร์ดีน/แมคเคอเรลกระป๋อง</span></td><td class="n">64.28</td><td class="n">48.4%</td><td class="n">19.36%</td><td class="n">49.0%</td><td class="n neg">−6.0%</td><td class="n pos">+4.4%</td><td class="n pos">+193bps</td></tr>
+<tr><td><strong>Frozen &amp; chilled</strong><br><span class="src">กุ้ง แซลมอน อาหารสัตว์น้ำ (TFM)</span></td><td class="n">41.15</td><td class="n">31.0%</td><td class="n">13.24%</td><td class="n">21.4%</td><td class="n neg">−2.5%</td><td class="n pos">+11.8%</td><td class="n pos">+170bps</td></tr>
+<tr><td><strong>Pet food (ITC 79.30%)</strong><br><span class="src">อาหารสัตว์เลี้ยงเปียก ส่วนใหญ่ private label</span></td><td class="n">17.88</td><td class="n">13.5%</td><td class="n">26.33%</td><td class="n">18.5%</td><td class="n">+2.8%</td><td class="n neg">−6.2%</td><td class="n neg">−253bps</td></tr>
+<tr><td><strong>Value-added &amp; other</strong><br><span class="src">บรรจุภัณฑ์ ingredients by-products</span></td><td class="n">9.42</td><td class="n">7.1%</td><td class="n">29.93%</td><td class="n">11.1%</td><td class="n neg">−9.5%</td><td class="n neg">−15.4%</td><td class="n neg">−207bps</td></tr>
+<tr style="background:var(--panel);font-weight:700"><td>รวม</td><td class="n">132.72</td><td class="n">100%</td><td class="n">18.94%</td><td class="n">100%</td><td class="n neg">−4.1%</td><td class="n neg">−1.9%</td><td class="n pos">+43bps</td></tr>
+</tbody></table></div>
+<div class="card warn"><p style="margin-bottom:0"><strong>สิ่งที่ตัวเลขนี้บอก:</strong> ปี 2568 TU <em>หดตัวแต่มีกำไรดีขึ้น</em> — รายได้ลด 4.1% ในทุก segment แต่ margin ธุรกิจอาหารทะเลหลัก (ambient + frozen) <em>ขยายตัว</em> +193/+170bps จากวินัยด้านราคาและต้นทุนวัตถุดิบที่ต่ำในปีนั้น · ตรงข้าม <strong>Pet food ซึ่งถูกวางเป็น "growth engine" กลับโตแค่ 2.8% และ margin หดลง 253bps</strong> — และ Q2/2569 ยอดขาย pet โตเพียง +2.3% (แม้ปริมาณ +7.8% ซึ่งแปลว่าราคาต่อหน่วยลดลง)</p></div>
+
+<div class="chart"><div class="ct">รายได้และ Gross Margin แยกตาม Segment · FY2025</div>
+<svg viewBox="0 0 900 250" style="width:100%;height:auto">
+<line x1="60" y1="200" x2="880" y2="200" stroke="#d8dee4"/>
+<g font-size="10.5" fill="#5a6b7b" text-anchor="end"><text x="54" y="45">฿70bn</text><text x="54" y="97">฿48bn</text><text x="54" y="149">฿25bn</text><text x="54" y="204">0</text></g>
+<g stroke="#eef2f6"><line x1="60" y1="41" x2="880" y2="41"/><line x1="60" y1="93" x2="880" y2="93"/><line x1="60" y1="145" x2="880" y2="145"/></g>
+<rect x="110" y="53"  width="110" height="147" fill="#003b5c"/><text x="165" y="47" text-anchor="middle" font-size="11.5" font-weight="700">64.3</text>
+<rect x="300" y="107" width="110" height="93"  fill="#1a5490"/><text x="355" y="101" text-anchor="middle" font-size="11.5" font-weight="700">41.1</text>
+<rect x="490" y="160" width="110" height="40"  fill="#0a7c8a"/><text x="545" y="154" text-anchor="middle" font-size="11.5" font-weight="700">17.9</text>
+<rect x="680" y="179" width="110" height="21"  fill="#b8860b"/><text x="735" y="173" text-anchor="middle" font-size="11.5" font-weight="700">9.4</text>
+<g font-size="11" fill="#157f3f" font-weight="700" text-anchor="middle">
+<text x="165" y="130">GM 19.4%</text><text x="355" y="160">GM 13.2%</text><text x="545" y="185">GM 26.3%</text><text x="735" y="196">GM 29.9%</text></g>
+<g font-size="10.5" fill="#0d1b2a" text-anchor="middle" font-weight="600">
+<text x="165" y="222">Ambient</text><text x="355" y="222">Frozen &amp; Chilled</text><text x="545" y="222">Pet food (ITC)</text><text x="735" y="222">Value-added</text></g>
+<g font-size="10" text-anchor="middle">
+<text x="165" y="238" fill="#b3261e">รายได้ −6.0%</text><text x="355" y="238" fill="#b3261e">−2.5%</text>
+<text x="545" y="238" fill="#c77700">+2.8% · GP −6.2%</text><text x="735" y="238" fill="#b3261e">−9.5%</text></g>
+</svg></div>
+
+<h3>3.2 Moat — มีจริง แต่แปลงเป็นผลตอบแทนไม่ได้</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>องค์ประกอบ moat</th><th>หลักฐานเชิงตัวเลข</th><th>ข้อจำกัด</th></tr></thead><tbody>
+<tr><td>ส่วนแบ่งตลาดแบรนด์</td><td>Sealect ไทย <strong>58.5%</strong> · Petit Navire ฝรั่งเศส 23.2% · John West ไอร์แลนด์ 30.4% / เนเธอร์แลนด์ 26.6% / UK 19.7% · Chicken of the Sea US 14.6% · King Oscar นอร์เวย์ 14.1% <span class="src">(Nielsen/Circana/NIQ, 52 สัปดาห์ถึง ธ.ค. 2568)</span></td><td>ส่วนแบ่งสูงในหมวดที่<em>โตช้าหรือหดตัว</em> · ambient ~55.7% เป็น branded ส่วนที่เหลือเป็น private label ที่ไม่มี pricing power</td></tr>
+<tr><td>เครือข่ายโรงงาน</td><td>โรงงานใน 14 ประเทศ · PP&amp;E ฿29.9bn · ครอบคลุมตั้งแต่แหล่งวัตถุดิบถึงตลาดปลายทาง</td><td>เป็น capital intensity ไม่ใช่ moat โดยตัวมันเอง — capex/ยอดขาย ~2.8% (2568) และ guidance 2569 ขึ้นเป็น ~3.8%</td></tr>
+<tr><td>ต้นทุนวัตถุดิบ</td><td>จัดซื้อทูน่าปริมาณมาก ต่อรองได้ดีกว่ารายเล็ก</td><td>ยังเป็น price-taker ในระดับหนึ่ง — ราคา Bangkok CFR ผันผวน $1,250–2,000/t ใน 3 ปี</td></tr>
+<tr><td colspan="3" style="background:#fff6f5"><strong>บททดสอบ Damodaran:</strong> moat ที่แท้จริงต้องปรากฏเป็น <strong>ROIC &gt; WACC</strong> · TU: ROIC FY2568 (NOPAT@20% / invested capital) = <strong>4.3%</strong> vs WACC ที่ประเมิน <strong>6.2–7.0%</strong> ⇒ <strong>spread เป็นลบ ~−2 ถึง −3%</strong> · ROCE ตามนิยาม 56-1 = 7.5% (ลดจาก 8.4% ปี 2567) ⇒ แม้ใช้นิยามที่เอื้อที่สุด spread ก็แทบเป็นศูนย์ · <strong>ΔValue = (ROIC − WACC) × Reinvestment ⇒ การเติบโตในสภาพปัจจุบันทำลายมูลค่า</strong></td></tr>
+</tbody></table></div>
+
+<h3>3.3 แปลงเรื่องเล่าเป็นตัวเลข (Story → Numbers)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>เรื่องเล่า</th><th>ตัวขับเคลื่อนใน DCF</th><th class="n">ค่าใน Base case</th><th>เงื่อนไขที่ต้องเป็นจริง</th></tr></thead><tbody>
+<tr><td>"ยอดขายกลับมาโตตาม guidance"</td><td>Revenue growth</td><td class="n">+5.0% (2569) → 2.0% terminal</td><td>guidance ยอดขาย +4–6% ทำได้จริง · H1/2569 ทำได้ +4.3%</td></tr>
+<tr><td>"Cost Reset + Project Sonar ลดต้นทุนได้"</td><td>EBITDA margin</td><td class="n">7.82% → 9.2% ในปี 10</td><td>USD 118m + USD 75m ลงจริงราว<em>ครึ่งหนึ่ง</em> หักกลบภาษี US · Q2/2569 GM 21.4% เป็นสัญญาณบวกแต่มี lag ทูน่ารออยู่</td></tr>
+<tr><td>"ลงทุนต่อเนื่องเพื่อโต"</td><td>Capex / Reinvestment</td><td class="n">3.6% ของยอดขาย</td><td>guidance 2569 ฿5.0–5.5bn ≈ 3.8% · ปี 2568 จริงเพียง 2.8% ⇒ กำลังเร่งลงทุน</td></tr>
+<tr><td>"เงินทุนหมุนเวียนคุมได้"</td><td>ΔNWC</td><td class="n">32% ของรายได้ที่เพิ่ม</td><td>NWC ปัจจุบัน ~35% ของยอดขาย · inventory 161 วัน ⇒ ต้องลดลงจริง</td></tr>
+<tr><td>"ความเสี่ยงประเทศไทยต่ำ ดอกเบี้ยต่ำ"</td><td>WACC</td><td class="n">7.0%</td><td>Thai 10Y 2.03% · ERP ไทย 6.30% · beta ไม่มี levered ขึ้นจากหนี้ที่เพิ่ม</td></tr>
+</tbody></table></div>
+<p class="src">แหล่งข้อมูล: งบการเงินตรวจสอบ FY2025 (หมายเหตุ 6, 15, 17, 18, 33), 56-1 One Report FY2025 (Financial Highlights, Brand Share, Strategy 2030), ข่าวประชาสัมพันธ์ผลประกอบการ Q1/Q2 2569</p>
+</div></section>
+<section id="s4"><div class="wrap">
+<div class="kicker">§4 · Forensics — มุมมอง Seth Klarman (ขาลงมาก่อน)</div>
+<h2><span class="num">4</span>งบการเงินเชิงนิติวิทยาศาสตร์ · หนี้ · คุณภาพกำไร</h2>
+
+<h3>4.1 ประวัติ 6 ปี — บริษัทนี้เล็กลงและมีหนี้มากขึ้น</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>฿bn</th><th class="n">2563</th><th class="n">2564</th><th class="n">2565</th><th class="n">2566</th><th class="n">2567</th><th class="n">2568</th></tr></thead><tbody>
+<tr><td>ยอดขาย</td><td class="n">132.4</td><td class="n">141.0</td><td class="n">155.6</td><td class="n">136.2</td><td class="n">138.4</td><td class="n">132.7</td></tr>
+<tr><td>EBITDA (นิยาม TU)</td><td class="n">13.0</td><td class="n">14.9</td><td class="n">12.9</td><td class="n">12.3</td><td class="n">13.4</td><td class="n">12.2</td></tr>
+<tr><td>กำไรสุทธิ (ส่วนผู้ถือหุ้น)</td><td class="n">6.2</td><td class="n">8.0</td><td class="n">7.1</td><td class="n neg">−13.9</td><td class="n">5.0</td><td class="n">4.6</td></tr>
+<tr><td>EPS (฿)</td><td class="n">1.26</td><td class="n">1.66</td><td class="n">1.47</td><td class="n neg">−3.15</td><td class="n">1.08</td><td class="n">1.16</td></tr>
+<tr><td>DPS (฿)</td><td class="n">0.72</td><td class="n">0.95</td><td class="n">0.84</td><td class="n">0.54</td><td class="n">0.66</td><td class="n">0.70</td></tr>
+<tr><td>สินทรัพย์รวม</td><td class="n">144.6</td><td class="n">166.6</td><td class="n">182.6</td><td class="n">165.5</td><td class="n">154.9</td><td class="n">158.3</td></tr>
+<tr><td>ส่วนของผู้ถือหุ้น</td><td class="n">55.7</td><td class="n">62.2</td><td class="n">88.1</td><td class="n">66.0</td><td class="n">56.3</td><td class="n neg">52.1</td></tr>
+<tr><td><strong>หนี้สุทธิมีดอกเบี้ย</strong></td><td class="n">52.1</td><td class="n">61.3</td><td class="n">47.3</td><td class="n">51.5</td><td class="n">53.0</td><td class="n neg"><strong>61.5</strong></td></tr>
+<tr><td><strong>กระแสเงินสดจากดำเนินงาน</strong></td><td class="n">13.4</td><td class="n">6.3</td><td class="n">5.9</td><td class="n">11.2</td><td class="n">14.5</td><td class="n neg"><strong>4.6</strong></td></tr>
+<tr><td>D/E (หนี้สินรวม/ทุน)</td><td class="n">1.6</td><td class="n">1.7</td><td class="n">1.1</td><td class="n">1.5</td><td class="n">1.8</td><td class="n neg">2.0</td></tr>
+<tr><td>ROE %</td><td class="n">14.1</td><td class="n">16.1</td><td class="n">11.1</td><td class="n neg">−21.9</td><td class="n">9.8</td><td class="n">9.9</td></tr>
+<tr><td>ROCE %</td><td class="n">9.2</td><td class="n">10.4</td><td class="n">6.8</td><td class="n">6.5</td><td class="n">8.4</td><td class="n neg">7.5</td></tr>
+</tbody></table></div>
+<p class="src">แหล่ง: 56-1 One Report FY2025 · ปี 2566 สะท้อนการตั้งด้อยค่า Red Lobster ฿18.4bn (ครั้งเดียว ไม่ใช่เงินสด)</p>
+
+<div class="chart"><div class="ct">ยอดขาย · EBITDA · กำไรสุทธิ 6 ปี (฿bn) — ยอดขายลดจากจุดสูงสุดปี 2565 ลง 15%</div>
+<svg viewBox="0 0 900 260" style="width:100%;height:auto">
+<line x1="60" y1="200" x2="880" y2="200" stroke="#d8dee4"/>
+<g font-size="10" fill="#5a6b7b" text-anchor="end"><text x="54" y="45">160</text><text x="54" y="97">107</text><text x="54" y="149">53</text><text x="54" y="204">0</text></g>
+<g stroke="#eef2f6"><line x1="60" y1="41" x2="880" y2="41"/><line x1="60" y1="93" x2="880" y2="93"/><line x1="60" y1="145" x2="880" y2="145"/></g>
+<g fill="#003b5c">
+<rect x="90"  y="72" width="34" height="128"/><rect x="222" y="64" width="34" height="136"/><rect x="354" y="49" width="34" height="151"/>
+<rect x="486" y="68" width="34" height="132"/><rect x="618" y="66" width="34" height="134"/><rect x="750" y="71" width="34" height="129"/></g>
+<g fill="#0a7c8a">
+<rect x="126" y="187" width="34" height="13"/><rect x="258" y="186" width="34" height="14"/><rect x="390" y="188" width="34" height="12"/>
+<rect x="522" y="188" width="34" height="12"/><rect x="654" y="187" width="34" height="13"/><rect x="786" y="188" width="34" height="12"/></g>
+<g fill="#157f3f">
+<rect x="162" y="194" width="34" height="6"/><rect x="294" y="192" width="34" height="8"/><rect x="426" y="193" width="34" height="7"/>
+<rect x="558" y="200" width="34" height="14" fill="#b3261e"/><rect x="690" y="195" width="34" height="5"/><rect x="822" y="195" width="34" height="5"/></g>
+<g font-size="10.5" fill="#0d1b2a" text-anchor="middle" font-weight="600">
+<text x="143" y="234">2563</text><text x="275" y="234">2564</text><text x="407" y="234">2565</text><text x="539" y="234">2566</text><text x="671" y="234">2567</text><text x="803" y="234">2568</text></g>
+<g font-size="9.5" fill="#5a6b7b" text-anchor="middle">
+<text x="143" y="248">132.4 / 13.0 / 6.2</text><text x="275" y="248">141.0 / 14.9 / 8.0</text><text x="407" y="248">155.6 / 12.9 / 7.1</text>
+<text x="539" y="248" fill="#b3261e">136.2 / 12.3 / −13.9</text><text x="671" y="248">138.4 / 13.4 / 5.0</text><text x="803" y="248">132.7 / 12.2 / 4.6</text></g>
+<g font-size="10"><rect x="620" y="14" width="11" height="11" fill="#003b5c"/><text x="636" y="24">ยอดขาย</text>
+<rect x="700" y="14" width="11" height="11" fill="#0a7c8a"/><text x="716" y="24">EBITDA</text>
+<rect x="785" y="14" width="11" height="11" fill="#157f3f"/><text x="801" y="24">กำไรสุทธิ</text></g>
+</svg></div>
+
+<h3>4.2 กระแสเงินสด FY2568 — เกิดอะไรขึ้น</h3>
+<div class="card danger">
+<h4>OCF ทรุด 68% ในปีเดียว: ฿14,525m → ฿4,592m</h4>
+<p><strong>สาเหตุ:</strong> เงินทุนหมุนเวียนพลิกจาก <em>แหล่งเงินสด</em> +฿4,797m (2567) เป็น <em>การใช้เงินสด</em> −฿6,281m (2568) = <strong>สวิงรวม −฿11,078m</strong></p>
+<p>ตัวขับหลักคือ<strong>สินค้าคงเหลือ</strong>: ปี 2567 ระบายสต็อกได้ +฿6,148m ปี 2568 กลับมาสะสม −฿4,375m — งบดุลยืนยัน: สินค้าคงเหลือเพิ่ม <strong>+฿4,013m (+9.2%) เป็น ฿47,639m ขณะที่ยอดขายลด 4.1%</strong> · inventory days 141 → <strong>161 วัน</strong></p>
+<p style="margin-bottom:0"><span class="tag ok">คลี่คลายแล้ว</span> H1/2569 OCF = ฿5.01bn เกินทั้งปี 2568 ไปแล้ว ⇒ ปัญหานี้เป็นเรื่องปีเดียว ไม่ใช่โครงสร้าง — <strong>แต่หนี้สุทธิยังแทบไม่ลด</strong> (฿61.47bn ธ.ค. 2568 → ฿61.40bn มิ.ย. 2569 บนนิยามเดียวกัน) เพราะเงินสดที่ได้ไหลออกไปที่ capex และปันผล</p>
+</div>
+
+<h3>4.3 การจัดสรรเงินทุน — คืนเงินผู้ถือหุ้นด้วยเงินกู้</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>รายการ FY2568</th><th class="n">฿bn</th><th>ความหมาย</th></tr></thead><tbody>
+<tr><td>กระแสเงินสดจากดำเนินงาน</td><td class="n">4.59</td><td rowspan="3" style="vertical-align:middle">FCF ที่หาได้จริงคือ <strong>฿0.81bn</strong> — 1.6% ของ market cap</td></tr>
+<tr><td>หัก เงินลงทุน (capex)</td><td class="n">−3.78</td></tr>
+<tr><td><strong>= Free cash flow</strong></td><td class="n"><strong>0.81</strong></td></tr>
+<tr><td>เงินปันผลจ่ายผู้ถือหุ้นบริษัทใหญ่</td><td class="n">−2.79</td><td rowspan="3" style="vertical-align:middle">คืนผู้ถือหุ้นรวม <strong>฿7.10bn = 8.8 เท่าของ FCF</strong></td></tr>
+<tr><td>ซื้อหุ้นคืน (400 ล้านหุ้น ม.ค.–มิ.ย. 2568)</td><td class="n">−4.31</td></tr>
+<tr><td><strong>= รวมคืนผู้ถือหุ้น</strong></td><td class="n neg"><strong>−7.10</strong></td></tr>
+<tr style="background:#fff6f5"><td><strong>หนี้มีดอกเบี้ยที่เพิ่มขึ้น</strong></td><td class="n neg"><strong>+6.72</strong></td><td>฿68.51bn → <strong>฿75.23bn</strong> — ส่วนต่างมาจากตรงนี้</td></tr>
+</tbody></table></div>
+<p>หมายเหตุ: หุ้นซื้อคืนงวดปี 2567 จำนวน 200 ล้านหุ้นขายต่อไม่สำเร็จและถูก<strong>ยกเลิก</strong>เมื่อ 8 ม.ค. 2569 · หุ้นที่ออกจำหน่ายลดเหลือ 4,255,132,696 หุ้น หุ้นซื้อคืนคงเหลือ 400 ล้านหุ้น ⇒ <strong>หุ้นหมุนเวียน 3,855,132,696 หุ้น</strong> (ตรวจสอบกับหมายเหตุ 26 และ 34)</p>
+
+<h3>4.4 หนี้และ Covenant</h3>
+<div class="grid2">
+<div class="tblwrap"><table>
+<thead><tr><th>หนี้มีดอกเบี้ย 31 ธ.ค. 2568</th><th class="n">฿m</th></tr></thead><tbody>
+<tr><td>เงินเบิกเกินบัญชี + เงินกู้ระยะสั้น</td><td class="n">13,271</td></tr>
+<tr><td>ส่วนของเงินกู้ระยะยาวที่ถึงกำหนด 1 ปี</td><td class="n">5,588</td></tr>
+<tr><td>ส่วนของหุ้นกู้ที่ถึงกำหนด 1 ปี</td><td class="n">8,879</td></tr>
+<tr><td>หนี้สินตามสัญญาเช่า (ส่วนสั้น)</td><td class="n">375</td></tr>
+<tr><td>เงินกู้ระยะยาว</td><td class="n">23,089</td></tr>
+<tr><td>หุ้นกู้</td><td class="n">23,476</td></tr>
+<tr><td>หนี้สินตามสัญญาเช่า (ส่วนยาว)</td><td class="n">555</td></tr>
+<tr style="background:var(--panel);font-weight:700"><td>รวมหนี้มีดอกเบี้ย</td><td class="n">75,233</td></tr>
+<tr><td>หัก เงินสด</td><td class="n">−8,563</td></tr>
+<tr><td>หัก เงินลงทุนระยะสั้น</td><td class="n">−5,199</td></tr>
+<tr style="background:var(--panel);font-weight:700"><td>= หนี้สุทธิ (นิยาม TU)</td><td class="n">61,471</td></tr>
+</tbody></table></div>
+<div class="tblwrap"><table>
+<thead><tr><th>อัตราส่วน</th><th class="n">จริง</th><th class="n">เกณฑ์</th></tr></thead><tbody>
+<tr><td>Net debt / Equity (covenant)</td><td class="n pos">1.15–1.28×</td><td class="n">≤ 2.00× ✅</td></tr>
+<tr><td>Interest coverage (covenant)</td><td class="n pos">4.36–5.14×</td><td class="n">≥ 3.00× ✅</td></tr>
+<tr><td>เพดานปันผลตามหุ้นกู้</td><td class="n">58.5%</td><td class="n">≤ 60% ของกำไรสุทธิ ✅</td></tr>
+<tr style="background:#fffdf5"><td><strong>Net debt / Equity (เป้าภายใน)</strong></td><td class="n warnx">1.28×</td><td class="n">≤ 1.10× ⚠️</td></tr>
+<tr style="background:#fffdf5"><td><strong>Net debt / EBITDA (เป้าภายใน)</strong></td><td class="n neg">5.07–6.42×</td><td class="n">≤ 4.00× ⚠️</td></tr>
+<tr><td>อันดับเครดิต TRIS</td><td class="n pos">A+ / Stable</td><td class="n">ยืนยัน 1 ต.ค. 2568</td></tr>
+</tbody></table>
+<p class="src">Net debt/EBITDA 6.42× ใช้ EBITDA นิยามแคบ (operating profit + D&amp;A = ฿10.38bn) · 5.07× ใช้นิยาม TU (฿12.12bn รวมรายได้อื่นและส่วนแบ่งกำไรบริษัทร่วม) — <strong>รายงานนี้ใช้นิยามแคบตลอดทั้งฉบับเพื่อให้เทียบกับ multiple ของ peer ได้อย่างสอดคล้อง</strong></p>
+</div></div>
+
+<h3>4.5 ธงเตือนอื่นจากงบตรวจสอบ</h3>
+<div class="tblwrap"><table>
+<thead><tr><th style="width:24%">ประเด็น</th><th>ตัวเลข</th><th>นัยต่อการลงทุน</th></tr></thead><tbody>
+<tr><td><strong>ผลขาดทุนสะสมทางภาษีที่จะหมดอายุ</strong></td><td>฿7,225m (2567) → <strong>฿30,065m (2568)</strong> หมดอายุ 2569–2584</td><td>เพิ่ม 4 เท่าในปีเดียว บ่งชี้ผลขาดทุนที่ลึกขึ้นในกิจการต่างประเทศที่ถูกกลบด้วยกำไรจากส่วนอื่น</td></tr>
+<tr><td><strong>อัตราภาษีที่แท้จริงติดลบ</strong></td><td>FY2568 = <strong>−0.29%</strong> (เครดิตภาษี ฿16.5m บนกำไรก่อนภาษี ฿5,629m)</td><td>มาจากการกลับรายการภาษีเงินได้รอตัดบัญชีจากการปรับโครงสร้างภายในกลุ่ม ไม่ใช่ความแข็งแรงเชิงโครงสร้าง — <strong>ห้ามใช้เป็นฐานพยากรณ์</strong> รายงานนี้ใช้ 15–20% ในโมเดล</td></tr>
+<tr><td><strong>Goodwill กระจุกตัว (Key Audit Matter)</strong></td><td>CGU ยุโรป-Ambient = <strong>฿12,211m = 92.4%</strong> ของ goodwill ฿13,215m · สมมติฐานทดสอบ: g = 2.0%, discount rate 6.9–11.8%, พยากรณ์ 5 ปี</td><td><strong>ไม่เปิดเผย headroom หรือ sensitivity</strong> ทั้งที่ผู้สอบบัญชีระบุเป็นเรื่องสำคัญ — เป็นความเสี่ยงตั้งด้อยค่าที่ประเมินขนาดไม่ได้จากภายนอก</td></tr>
+<tr><td><strong>คดี Fortress Credit Corp v. TUNA</strong></td><td>สัญญาค้ำประกัน <strong>USD 65m ≈ ฿2.16bn ≈ ฿0.56/หุ้น</strong> · ยื่นฟ้อง ต.ค. 2567 · บริษัทระบุคาดจบ <strong>ธ.ค. 2569</strong></td><td>ผลพวงสุดท้ายจาก Red Lobster · TU ยืนยันว่าสัญญาค้ำประกันสิ้นผลแล้วและกำลังต่อสู้คดี · <strong>ไม่ได้ตั้งสำรอง</strong></td></tr>
+<tr><td><strong>หุ้นบุริมสิทธิถาวร (perpetual)</strong></td><td>ออก ฿6,000m ปี 2562 · <strong>ไถ่ถอนทั้งหมด พ.ย. 2567</strong> ด้วยเงินกู้ธนาคาร</td><td><span class="tag ok">ล้างแล้ว</span> ไม่มีหนี้แฝงในส่วนของทุนอีกต่อไป — แต่นี่คือส่วนหนึ่งของเหตุผลที่หนี้ปี 2568 สูงขึ้น</td></tr>
+<tr><td><strong>กำแพงหุ้นกู้ พ.ย. 2569</strong></td><td>TU26NA ฿2,000m (6 พ.ย.) + TU26NB ฿4,500m (10 พ.ย.) = <strong>฿6.5bn ใน 4 วัน</strong></td><td>ต้อง refinance ทันทีหลังประกาศผล Q3 (2 พ.ย.) · TRIS A+ และ interest cover 5.1× ทำให้ความเสี่ยงต่ำ แต่ต้นทุนใหม่จะสูงกว่าเดิม (คูปองเดิม 2.27–2.78%)</td></tr>
+</tbody></table></div>
+
+<h3>4.6 มีพื้นจากสินทรัพย์ไหม? — คำตอบคือไม่มี</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>สินทรัพย์</th><th class="n">มูลค่าตามบัญชี ฿bn</th><th class="n">Haircut</th><th class="n">มูลค่าปรับแล้ว</th></tr></thead><tbody>
+<tr><td>สินค้าคงเหลือ (ทูน่า/อาหารทะเล)</td><td class="n">47.64</td><td class="n">20%</td><td class="n">38.11</td></tr>
+<tr><td>ลูกหนี้การค้า</td><td class="n">18.07</td><td class="n">10%</td><td class="n">16.27</td></tr>
+<tr><td>ที่ดิน อาคาร อุปกรณ์</td><td class="n">29.89</td><td class="n">40%</td><td class="n">17.93</td></tr>
+<tr><td>เงินสด + เงินลงทุนระยะสั้น</td><td class="n">13.76</td><td class="n">0%</td><td class="n">13.76</td></tr>
+<tr><td>เงินลงทุนบริษัทร่วม/JV</td><td class="n">8.95</td><td class="n">25%</td><td class="n">6.71</td></tr>
+<tr><td>แบรนด์ + goodwill</td><td class="n">28.62</td><td class="n">55%</td><td class="n">12.88</td></tr>
+<tr><td>สินทรัพย์อื่น</td><td class="n">11.40</td><td class="n">50%</td><td class="n">5.70</td></tr>
+<tr style="background:var(--panel);font-weight:700"><td>รวมสินทรัพย์ปรับค่า</td><td class="n">158.33</td><td class="n"></td><td class="n">111.36</td></tr>
+<tr><td>หัก หนี้สินรวม</td><td class="n"></td><td class="n"></td><td class="n neg">−106.24</td></tr>
+<tr><td>หัก ส่วนได้เสียที่ไม่มีอำนาจควบคุม (NCI)</td><td class="n"></td><td class="n"></td><td class="n neg">−7.38</td></tr>
+<tr style="background:#fff6f5;font-weight:700"><td colspan="3">= NAV เลิกกิจการที่เป็นของผู้ถือหุ้น TU</td><td class="n neg">ติดลบ</td></tr>
+</tbody></table></div>
+<div class="card danger"><p style="margin-bottom:0"><strong>ข้อสรุปแบบ Klarman:</strong> เมื่อ downside ไม่ได้ถูกป้องกันด้วยสินทรัพย์ margin of safety ทั้งหมดต้องมาจาก <em>ราคาที่จ่าย</em> · P/B 1.15× ดูไม่แพง แต่ <strong>P/TBV 3.19×</strong> (tangible book ฿4.17/หุ้น) บอกว่าเกือบทั้งหมดของ book value คือ goodwill และแบรนด์ที่ตีค่าจากการซื้อกิจการในอดีต · <strong>รายงานฉบับก่อนที่ระบุ "ขาลงจำกัด · asset replacement value ฿22–25/หุ้น" กลับด้านกับสิ่งที่งบดุลบอก</strong></p></div>
+</div></section>
+<section id="s5"><div class="wrap">
+<div class="kicker">§5 · การประเมินมูลค่า</div>
+<h2><span class="num">5</span>Valuation — WACC · DCF · SOTP · Relative · Reverse DCF</h2>
+
+<h3>5.1 การสร้าง WACC (วินัยแบบ Damodaran)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>องค์ประกอบ</th><th class="n">ค่า</th><th>แหล่งและวันที่</th></tr></thead><tbody>
+<tr><td>Risk-free rate (THB)</td><td class="n">2.03%</td><td>พันธบัตรรัฐบาลไทย 10 ปี · 11 ส.ค. 2569</td></tr>
+<tr><td>Equity risk premium ประเทศไทย (รวม country risk)</td><td class="n">6.30%</td><td>ชุดข้อมูล Damodaran · vintage 5 ม.ค. 2569</td></tr>
+<tr><td>Unlevered beta (food processing)</td><td class="n">0.66</td><td>ชุดอุตสาหกรรม Damodaran</td></tr>
+<tr><td>Levered beta ที่ D/E ตลาด 1.47×</td><td class="n">1.43</td><td>βL = βU × [1 + (1−t)×D/E], t = 20%</td></tr>
+<tr><td>Cost of equity</td><td class="n">11.07%</td><td>2.03% + 1.43 × 6.30%</td></tr>
+<tr><td>Cost of debt ก่อนภาษี (ที่จ่ายจริง)</td><td class="n">3.31%</td><td>ต้นทุนทางการเงิน FY2568 ฿2,379m ÷ หนี้เฉลี่ย ฿71,873m</td></tr>
+<tr style="background:var(--panel)"><td><strong>WACC จากสูตร CAPM ตรงๆ</strong></td><td class="n"><strong>6.15%</strong></td><td>ที่โครงสร้างทุนตลาดปัจจุบัน (E 40.5% / D 59.5%)</td></tr>
+<tr style="background:var(--tint)"><td><strong>WACC ที่ใช้ใน Base case</strong></td><td class="n"><strong>7.00%</strong></td><td><strong>เป็นการใช้ดุลพินิจทับผลจากสูตร</strong> — ยึดกับ discount rate ที่ผู้สอบบัญชีใช้ทดสอบด้อยค่า goodwill (6.9–11.8%) เพื่อไม่ให้ WACC ต่ำเกินจริงจากดอกเบี้ยไทยที่ผิดปกติ</td></tr>
+<tr><td>ช่วง WACC ที่ใช้ในแต่ละ scenario</td><td class="n">6.5% – 8.0%</td><td>Bull 6.5% / Base 7.0% / Bear 8.0%</td></tr>
+<tr><td>Terminal growth</td><td class="n">1.5% – 3.0%</td><td>กฎ Damodaran: g ≤ risk-free (2.03%) สำหรับกรอบ THB · Base ใช้ 3.0% แบบ USD-consistent (WACC 7.56%) เพราะ ~70% ของรายได้อยู่ US/EU · ผู้สอบบัญชีใช้ 2.0%</td></tr>
+</tbody></table></div>
+<div class="card warn"><p style="margin-bottom:0"><strong>เปิดเผยอย่างตรงไปตรงมา:</strong> ที่ดอกเบี้ยไทย 2.03% สูตร CAPM ให้ WACC เพียง 6.15% ซึ่งต่ำเกินจริงสำหรับกิจการที่มีหนี้สุทธิ 5–6× EBITDA · รายงานนี้จึงใช้ 7.0% เป็นฐาน โดยยึดกับตัวเลขที่ผู้สอบบัญชีของ TU เองใช้ · <strong>WACC คือตัวแปรที่อ่อนไหวที่สุดในโมเดล</strong> ดูตาราง sensitivity ข้อ 5.7</p></div>
+
+<h3>5.2 Group FCFF DCF — 4 scenario</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>Scenario</th><th class="n">p</th><th class="n">WACC</th><th class="n">g</th><th class="n">EBITDA margin ปี 10</th><th class="n">EV (฿bn)</th><th class="n">Equity (฿bn)</th><th class="n">฿/หุ้น</th><th class="n">vs ราคา</th></tr></thead><tbody>
+<tr><td><strong>Bear</strong><br><span class="src">ภาษี US ค้าง 31.5% · ทูน่า $1,850/t กดต่อ · cost program ไม่ลง · refi แพงขึ้น</span></td><td class="n">30%</td><td class="n">8.0%</td><td class="n">1.5%</td><td class="n">7.6%</td><td class="n">48.22</td><td class="n neg">−27.01</td><td class="n neg"><strong>~฿0</strong></td><td class="n neg">−100%</td></tr>
+<tr style="background:var(--tint)"><td><strong>Base</strong><br><span class="src">ตาม guidance 2569 (ยอดขาย +4–6%, GPM 19.5–20.5%) · Cost Reset/Sonar ลงราวครึ่ง · terminal อิง USD</span></td><td class="n">45%</td><td class="n">7.0%</td><td class="n">3.0%</td><td class="n">9.2%</td><td class="n">110.90</td><td class="n">35.67</td><td class="n"><strong>฿9.25</strong></td><td class="n neg">−30%</td></tr>
+<tr><td><strong>Bull</strong><br><span class="src">Cost Reset USD118m + Sonar USD75m ลงเต็ม · ทูน่าคลี่คลาย · ทำได้ ~55% ของเป้า 2030</span></td><td class="n">20%</td><td class="n">6.5%</td><td class="n">2.5%</td><td class="n">11.2%</td><td class="n">207.20</td><td class="n">131.97</td><td class="n pos"><strong>฿34.23</strong></td><td class="n pos">+157%</td></tr>
+<tr><td><strong>เป้าผู้บริหาร 2030 เต็ม</strong><br><span class="src">ยอดขาย USD 7.0bn (฿227bn) · EBITDA USD 700–800m (฿23–26bn)</span></td><td class="n">5%</td><td class="n">7.0%</td><td class="n">2.5%</td><td class="n">15.5%</td><td class="n">353.20</td><td class="n">277.97</td><td class="n pos"><strong>฿72.10</strong></td><td class="n pos">+442%</td></tr>
+<tr style="background:var(--panel);font-weight:700"><td colspan="7">DCF ถ่วงความน่าจะเป็น (ค่าเฉลี่ยของสองแบบแผน — ดูหมายเหตุ)</td><td class="n">฿13.56</td><td class="n">+2%</td></tr>
+</tbody></table></div>
+<div class="card"><p style="margin-bottom:0"><strong>หมายเหตุวิธีการที่ต้องเปิดเผย:</strong> เมื่อ equity ใน scenario ติดลบ มีสองแบบแผนที่ยอมรับได้ — (ก) <em>ตัดที่ศูนย์ก่อนแล้วค่อยถ่วงน้ำหนัก</em> (ถูกต้องตามหลัก limited liability) ให้ ฿14.62 · (ข) <em>ถ่วงน้ำหนักค่าดิบก่อนแล้วค่อยตัดที่ศูนย์</em> ให้ ฿12.51 · ส่วนต่าง ฿2.11 เกิดจาก Jensen's inequality · <strong>รายงานนี้ใช้ค่ากลาง ฿13.56 และเปิดเผยทั้งสองค่า</strong> เพราะการเลือกข้างใดข้างหนึ่งโดยไม่บอกจะเป็นการซ่อนดุลพินิจที่มีผลถึง 19% ของ fair value</p></div>
+<div class="card danger"><p style="margin-bottom:0"><strong>⚠️ อย่าอ่าน "DCF ถ่วงน้ำหนัก ฿13.56" ว่าคือมูลค่าที่ควรจ่าย</strong> — ตัวเลขนี้ถูกดึงขึ้นโดยหางขวาที่นูนมาก (Bull +157% และเป้า 2030 +442% รวมน้ำหนัก 25%) ขณะที่ <strong>Base case ให้เพียง ฿9.25 และ Bear ให้ ~฿0 (น้ำหนัก 30%)</strong> · Klarman จะบอกว่าอย่าจ่ายเงินซื้อหางขวา ให้ยึด base แล้วเรียก margin of safety</p></div>
+
+<h3>5.3 SOTP / ITC Look-through — หัวใจของเรื่อง</h3>
+<div class="card key">
+<h4>เลขคณิตที่เปลี่ยนทุกอย่าง</h4>
+<div class="tblwrap"><table>
+<thead><tr><th>ขั้นตอน</th><th class="n">฿bn</th><th>หมายเหตุ</th></tr></thead><tbody>
+<tr><td>Market cap ของ TU ทั้งบริษัท</td><td class="n">51.27</td><td>฿13.30 × 3,855.1 ล้านหุ้น</td></tr>
+<tr><td>หัก มูลค่าหุ้น ITC ที่ TU ถือ 79.30%</td><td class="n neg">−40.68</td><td>ITC market cap ฿51.3bn × 79.30% (ราคา ITC ฿17.10, 12 ส.ค. 2569)</td></tr>
+<tr style="background:var(--tint);font-weight:700"><td>= equity ของธุรกิจอาหารทะเลหลักที่ตลาดให้</td><td class="n">10.59</td><td><strong>฿2.75/หุ้น</strong> — ITC คิดเป็น <strong>79%</strong> ของ market cap ทั้งหมด</td></tr>
+<tr><td>บวก หนี้สุทธิที่ธุรกิจหลักแบก</td><td class="n">+73.11</td><td>หนี้สุทธิกลุ่ม ฿66.67bn + เงินสดสุทธิของ ITC ฿6.44bn</td></tr>
+<tr><td>บวก NCI ของธุรกิจหลัก</td><td class="n">+2.32</td><td>NCI กลุ่ม ฿7.38bn หัก NCI ของ ITC</td></tr>
+<tr style="background:var(--panel);font-weight:700"><td>= EV ของธุรกิจหลัก</td><td class="n">86.02</td><td>บน EBITDA ธุรกิจหลัก ฿7.12bn</td></tr>
+</tbody></table></div>
+<p><strong>⇒ ตลาดตีธุรกิจอาหารทะเลหลักที่ 12.1× EBITDA ขณะที่ธุรกิจนั้นแบก net debt 10.3× EBITDA</strong></p>
+<p style="margin-bottom:0">อีกด้านหนึ่ง ITC เองเทรดที่ EV/EBITDA <strong>13.8×</strong> (EV ฿44.86bn / EBITDA ฿3.26bn) — สูงกว่าค่ากลาง staples ไทย 7.80× แต่ใกล้เคียง peer อาหารสัตว์เลี้ยงโลก 14.12× ⇒ <strong>ITC ถูกตีราคาเต็มแล้ว ไม่ใช่ของถูกที่ซ่อนอยู่</strong> ข้ออ้างในรายงานเดิมว่า "ซื้อ brand + plant + PetCare เกือบฟรี" จึงกลับด้านกับสิ่งที่ตลาดทำจริง</p>
+</div>
+<div class="tblwrap"><table>
+<thead><tr><th>SOTP: ตีธุรกิจหลักที่ multiple ต่างๆ + ITC ที่ EV ตลาดของตัวเอง (฿44.86bn)</th><th class="n">EV รวม</th><th class="n">Equity</th><th class="n">฿/หุ้น</th><th class="n">vs ราคา</th></tr></thead><tbody>
+<tr><td>core 7.80× (ค่ากลาง staples ไทย)</td><td class="n">100.40</td><td class="n">26.98</td><td class="n">฿7.00</td><td class="n neg">−47%</td></tr>
+<tr style="background:var(--tint)"><td><strong>core 8.82× (ค่ากลางอาหารทะเลแบรนด์โลก)</strong></td><td class="n">107.66</td><td class="n">34.24</td><td class="n"><strong>฿8.88</strong></td><td class="n neg">−33%</td></tr>
+<tr><td>core 10.00× (ให้ premium แบรนด์ #1)</td><td class="n">116.06</td><td class="n">42.64</td><td class="n">฿11.06</td><td class="n neg">−17%</td></tr>
+<tr><td>core 11.00× (premium สูง)</td><td class="n">123.18</td><td class="n">49.76</td><td class="n">฿12.91</td><td class="n neg">−3%</td></tr>
+</tbody></table></div>
+<p class="src">หมายเหตุจากผู้ตรวจอิสระ: core revenue ใช้ฐาน segment (฿114.84bn) ขณะที่ core EBITDA หัก EBITDA ของ ITC แบบ standalone (ฐานรายได้ ฿18.22bn ต่างกัน 1.9%) — ส่วนต่างนี้กระทบ SOTP ราว −฿0.24/หุ้น และอยู่ในระดับที่ไม่เปลี่ยนข้อสรุป</p>
+
+<h3>5.4 Relative Valuation</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>กลุ่มเทียบ</th><th class="n">EV/EBITDA (median)</th><th class="n">P/E (median)</th><th>องค์ประกอบ</th></tr></thead><tbody>
+<tr><td>Staples ไทย</td><td class="n">7.80×</td><td class="n">11.29×</td><td>CPF, ITC, AAI, TFM, TVO, OSP</td></tr>
+<tr><td>อาหารทะเลแบรนด์ระดับโลก</td><td class="n">8.82×</td><td class="n">8.96×</td><td>Nomad Foods, Maruha Nichiro, Nissui, Dongwon Industries, Dongwon F&amp;B</td></tr>
+<tr><td>อาหารสัตว์เลี้ยง</td><td class="n">14.12×</td><td class="n">17.96×</td><td>Freshpet, Central Garden &amp; Pet</td></tr>
+<tr style="background:var(--tint)"><td><strong>Multiple ที่ยุติธรรมสำหรับ TU (ถ่วงตาม mix)</strong></td><td class="n"><strong>10.46×</strong></td><td class="n">—</td><td>8.82 × 69% (อาหารทะเล) + 14.12 × 31% (pet — สัดส่วนของ EBITDA)</td></tr>
+<tr style="background:#fff6f5"><td><strong>ที่ตลาดจ่ายให้ TU จริง</strong></td><td class="n neg"><strong>11.58×</strong> TTM<br>11.29× normalised</td><td class="n">10.93×</td><td>EV ฿126.50bn = mcap 51.27 + net debt 61.40 + NCI ตีราคาตลาด 13.83</td></tr>
+<tr><td>ค่ากลาง 10 ปีของ TU เอง</td><td class="n">~10.8×</td><td class="n">—</td><td><span class="src">GuruFocus (ฐานคำนวณต่างกันเล็กน้อย — ใช้เชิงคุณภาพ)</span></td></tr>
+</tbody></table></div>
+<div class="chart"><div class="ct">EV/EBITDA — TU เทียบ peer และเทียบตัวเอง</div>
+<svg viewBox="0 0 900 200" style="width:100%;height:auto">
+<line x1="180" y1="175" x2="880" y2="175" stroke="#d8dee4"/>
+<g font-size="11" fill="#0d1b2a" text-anchor="end" font-weight="600">
+<text x="172" y="28">Staples ไทย</text><text x="172" y="58">อาหารทะเลแบรนด์โลก</text><text x="172" y="88">TU ถ่วงตาม mix (ยุติธรรม)</text>
+<text x="172" y="118">TU ที่ตลาดจ่ายจริง</text><text x="172" y="148">อาหารสัตว์เลี้ยง</text></g>
+<rect x="180" y="15"  width="278" height="20" fill="#8a9aa8"/><text x="466" y="30" font-size="11" font-weight="700">7.80×</text>
+<rect x="180" y="45"  width="314" height="20" fill="#1a5490"/><text x="502" y="60" font-size="11" font-weight="700">8.82×</text>
+<rect x="180" y="75"  width="373" height="20" fill="#0a7c8a"/><text x="561" y="90" font-size="11" font-weight="700">10.46×</text>
+<rect x="180" y="105" width="413" height="20" fill="#b3261e"/><text x="601" y="120" font-size="11" font-weight="700" fill="#b3261e">11.58×  ← แพงกว่าที่ควร 11%</text>
+<rect x="180" y="135" width="503" height="20" fill="#b8860b"/><text x="691" y="150" font-size="11" font-weight="700">14.12×</text>
+<g font-size="9.5" fill="#5a6b7b"><text x="180" y="192">0×</text><text x="430" y="192">7×</text><text x="680" y="192">14×</text></g>
+</svg></div>
+
+<h3>5.5 Reverse DCF — ราคา ฿13.30 ฝังสมมติฐานอะไรไว้แล้ว</h3>
+<div class="card key"><p style="margin-bottom:0">ที่ WACC 7.0%, g 2.0%, รายได้โต +3%/ปี ราคาปัจจุบันสอดคล้องกับ <strong>EBITDA margin ปลายทาง 10.5%</strong> เทียบกับปัจจุบัน <strong>7.82%</strong> ⇒ EBITDA ปีที่ 10 ราว <strong>฿18.7bn</strong> · เทียบเป้าผู้บริหารปี 2030 (EBITDA USD 700–800m = ฿22.8–26.0bn) แปลว่า <strong>ตลาดฝังความสำเร็จของแผนไว้แล้วประมาณ 77%</strong> — คุณไม่ได้ซื้อ optionality ฟรี คุณจ่ายเผื่อไปแล้วเกือบเต็ม</p></div>
+
+<h3>5.6 Blended Fair Value</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>วิธี</th><th class="n">฿/หุ้น</th><th class="n">น้ำหนัก</th><th>เหตุผลของน้ำหนัก</th></tr></thead><tbody>
+<tr><td>DCF ถ่วง scenario (group FCFF)</td><td class="n">13.56</td><td class="n">40%</td><td>ยึดกับกระแสเงินสดจริง แต่ไวต่อสมมติฐานสูงเพราะ leverage</td></tr>
+<tr><td>SOTP: core 8.82× + ITC ที่ EV ตลาด</td><td class="n">8.41</td><td class="n">30%</td><td>ใช้ราคาตลาดของ ITC ที่สังเกตได้จริง จึงเป็นจุดยึดที่แข็ง</td></tr>
+<tr><td>Relative: group 10.46× บน EBITDA normalised</td><td class="n">10.88</td><td class="n">30%</td><td>multiple ถ่วงตาม mix ตามข้อโต้แย้งของผู้ตรวจอิสระที่รับฟังได้</td></tr>
+<tr style="background:var(--tint);font-weight:700"><td><strong>= BLENDED FAIR VALUE</strong></td><td class="n"><strong>฿11.21</strong></td><td class="n">100%</td><td><strong>−15.7% เทียบราคา ฿13.30</strong></td></tr>
+<tr><td colspan="4" class="src">NAV เลิกกิจการ (ติดลบ) ไม่ถูกใส่ในสูตรถ่วงน้ำหนัก ใช้เป็นจุดอ้างอิงความเครียดเท่านั้น เพราะเป็นการวัดคนละคำถามกับ going concern</td></tr>
+</tbody></table></div>
+
+<h3>5.7 Sensitivity — WACC × EBITDA margin ปลายทาง (฿/หุ้น)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>WACC \ margin</th><th class="n">7.8%</th><th class="n">8.5%</th><th class="n">9.2%</th><th class="n">10.0%</th><th class="n">11.2%</th></tr></thead><tbody>
+<tr><td><strong>6.0%</strong></td><td class="n">4.11</td><td class="n">8.92</td><td class="n">13.74</td><td class="n pos">19.23</td><td class="n pos">27.48</td></tr>
+<tr><td><strong>6.5%</strong></td><td class="n neg">1.34</td><td class="n">5.58</td><td class="n">9.81</td><td class="n">14.65</td><td class="n pos">21.90</td></tr>
+<tr style="background:var(--tint)"><td><strong>7.0% (base)</strong></td><td class="n neg">0.00</td><td class="n neg">2.90</td><td class="n"><strong>6.67</strong></td><td class="n">10.98</td><td class="n">17.44</td></tr>
+<tr><td><strong>7.5%</strong></td><td class="n neg">0.00</td><td class="n neg">0.71</td><td class="n">4.10</td><td class="n">7.98</td><td class="n">13.79</td></tr>
+<tr><td><strong>8.5%</strong></td><td class="n neg">0.00</td><td class="n neg">0.00</td><td class="n neg">0.16</td><td class="n">3.37</td><td class="n">8.19</td></tr>
+</tbody></table></div>
+<div class="card danger"><p style="margin-bottom:0"><strong>สิ่งที่ตารางนี้บอกและสำคัญที่สุดในรายงานทั้งฉบับ:</strong> มูลค่าหุ้น TU ไม่ได้ค่อยๆ เปลี่ยน มันกระโดด · เพราะหนี้สุทธิ ฿61.4bn + NCI ฿13.8bn = <strong>฿75.2bn ของสิทธิเรียกร้องที่อยู่ก่อนผู้ถือหุ้น</strong> ทุกอย่างที่เหลือจึงเป็นส่วนตกค้าง · <strong>1 turn ของ EV/EBITDA = ฿2.91/หุ้น = 21.8% ของราคาหุ้น</strong> · <strong>1% ที่ core EBITDA ขยับ ≈ 1.4% ที่มูลค่าหุ้น</strong> · นี่คือเหตุผลที่ทั้ง bear ที่ ~฿0 และ bull ที่ ฿34 เป็นไปได้ทั้งคู่จากธุรกิจเดียวกัน — และเป็นเหตุผลที่ต้องเรียก MOS สูงกว่าหุ้นทั่วไป</p></div>
+</div></section>
+<section id="s6"><div class="wrap">
+<div class="kicker">§6 · ผลประกอบการ</div>
+<h2><span class="num">6</span>Q2/2569 · Tuna Lag · Q3 Preview</h2>
+
+<h3>6.1 ปริศนา Q2/2569 — Operating profit +12.6% แต่ Net profit −0.7%</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>รายการ</th><th class="n">Q2/2568 (ย้อนคำนวณ)</th><th class="n">Q2/2569 (จริง)</th><th class="n">YoY</th></tr></thead><tbody>
+<tr><td>ยอดขาย</td><td class="n">฿33.33bn</td><td class="n">฿33.8bn</td><td class="n">+1.4%</td></tr>
+<tr><td>กำไรขั้นต้น</td><td class="n">฿6.53bn</td><td class="n">฿7.2bn</td><td class="n pos">+10.2%</td></tr>
+<tr><td><strong>Gross margin</strong></td><td class="n">19.7%</td><td class="n pos"><strong>21.4% (สถิติสูงสุด)</strong></td><td class="n pos">+170bps</td></tr>
+<tr><td>SG&amp;A / ยอดขาย</td><td class="n">~14.0%</td><td class="n neg">~15.0%</td><td class="n neg">+110bps</td></tr>
+<tr><td>Operating profit</td><td class="n">฿1.87bn</td><td class="n pos">฿2.1bn</td><td class="n pos">+12.6%</td></tr>
+<tr><td><strong>กำไรสุทธิ</strong></td><td class="n">฿1.269bn</td><td class="n">฿1.26bn</td><td class="n neg"><strong>−0.7%</strong></td></tr>
+<tr><td>EPS</td><td class="n">~฿0.319</td><td class="n">฿0.33</td><td class="n pos">+3.5%</td></tr>
+</tbody></table></div>
+<h4>Bridge: กำไรหายไปไหน (฿ ล้าน)</h4>
+<div class="tblwrap"><table>
+<thead><tr><th>ขั้น</th><th class="n">ผลต่อกำไรสุทธิ</th><th>ที่มา</th></tr></thead><tbody>
+<tr><td>กำไรสุทธิ Q2/2568</td><td class="n">1,269</td><td>ย้อนจาก −0.7% YoY</td></tr>
+<tr><td>(+) Δ Operating profit</td><td class="n pos">+235</td><td>กำไรขั้นต้น +667 หัก SG&amp;A +430 — <strong>มาจาก margin ล้วน ไม่ใช่ปริมาณ</strong></td></tr>
+<tr><td>(−) Δ ผลต่างอัตราแลกเปลี่ยน</td><td class="n neg">−139</td><td>จากกำไร FX +฿68m เป็นขาดทุน FX −฿71m</td></tr>
+<tr><td>(+) Δ ต้นทุนทางการเงิน</td><td class="n pos">+14</td><td>Q2/2569 = ฿576m ลดลงเล็กน้อย <span class="src">[บางส่วนเป็นตัวปรับให้ bridge ปิด]</span></td></tr>
+<tr><td>(−) Δ ภาษีเงินได้</td><td class="n neg">−128</td><td>ค่าใช้จ่ายภาษี ฿337m <strong>+61% YoY</strong> — ผลของฐานต่ำจากอัตราภาษีที่แท้จริงติดลบในปี 2568</td></tr>
+<tr><td>(+) รายการคงเหลือ</td><td class="n">+9</td><td>NCI + ส่วนแบ่งบริษัทร่วม + อื่นๆ สุทธิ — <strong>เล็กมาก แปลว่าไม่มีรายการผิดปกติซ่อนอยู่</strong></td></tr>
+<tr style="background:var(--panel);font-weight:700"><td>= กำไรสุทธิ Q2/2569</td><td class="n">1,260</td><td>ตรงกับที่บริษัทรายงาน</td></tr>
+</tbody></table></div>
+<div class="card good"><p style="margin-bottom:0"><strong>คำตัดสิน: ไตรมาสนี้ "ดี" จริง</strong> — กำไรสุทธิที่แผ่วมาจาก<em>รายการใต้เส้น</em>ทั้งหมด (FX สวิง −139 + ภาษีฐานต่ำ −128 = −267) ไม่ใช่ปัญหาเชิงปฏิบัติการ · ทุก segment ทำ margin ดีขึ้น: Ambient GM <strong>23.8% สถิติสูงสุด</strong> (+180bps) · Frozen 13.5% (+180bps) · PetCare 29.7% · ปริมาณขายเป็นบวกทุกกลุ่ม (Ambient +4.4%, PetCare +7.8%, Value-added +7.4%)</p></div>
+<div class="card warn"><p style="margin-bottom:0"><strong>แต่มีสองเงื่อนไขที่ทำให้ margin สถิตินี้ไม่ยั่งยืน:</strong> (1) ต้นทุนทูน่าที่แฝงใน COGS ของ Q2 คือราคาเมื่อ 5 เดือนก่อน ~$1,517/t ซึ่งต่ำกว่าราคาปัจจุบันมาก · (2) Section 301 อีก 12.5% เพิ่งมีผล 24 ก.ค. 2569 จึงยังไม่กระทบ Q2 เต็มไตรมาส</p></div>
+
+<h3>6.2 Tuna-price lag — ทำไม Q2 ถึงสวย และทำไม H2 จะไม่</h3>
+<p>สินค้าคงเหลือ 161 วัน ≈ 5.3 เดือน แปลว่าต้นทุนที่บันทึกใน COGS ไตรมาสหนึ่งๆ คือราคาวัตถุดิบเมื่อ ~5 เดือนก่อน</p>
+<div class="tblwrap"><table>
+<thead><tr><th>ไตรมาสที่บันทึก COGS</th><th>เดือนอ้างอิงราคา (lag 5.3 เดือน)</th><th class="n">ต้นทุนทูน่าเฉลี่ยที่แฝงอยู่</th><th class="n">เทียบฐาน Q2</th></tr></thead><tbody>
+<tr><td><strong>Q2/2569</strong> (ที่ทำ GM 21.4%)</td><td>พ.ย.'68 $1,580 · ธ.ค.'68 $1,470 · ม.ค.'69 $1,500</td><td class="n pos">≈ $1,517/t</td><td class="n">ฐาน</td></tr>
+<tr><td><strong>Q3/2569</strong> (คาด)</td><td>ก.พ.'69 $1,580 · มี.ค.'69 $2,000 · เม.ย.'69 $1,875</td><td class="n neg">≈ $1,818/t</td><td class="n neg"><strong>+19.9%</strong></td></tr>
+<tr><td><strong>Q4/2569</strong> (คาด)</td><td>พ.ค.'69 $1,730 · มิ.ย.'69 $1,700 · ก.ค.'69 $1,850</td><td class="n neg">≈ $1,760/t</td><td class="n neg">+16.0%</td></tr>
+</tbody></table></div>
+<div class="card warn"><p style="margin-bottom:0"><strong>ประมาณการผล:</strong> Group gross margin H2/2569 น่าจะถอยจากจุดสูงสุด 21.4% ลง <strong>100–250bps</strong> · guidance ทั้งปี GPM 19.5–20.5% <em>ยังทำได้</em> (H2 ต้องทำ 19.3–21.2%) แต่ <strong>ไม่มี margin of safety มากนัก</strong> และราคาสปอตล่าสุดยังขยับขึ้นต่อ (+$50/t สัปดาห์ที่ 31, ~1 ส.ค. 2569) · ทุกๆ $100/t ที่ฐานต้นทุนเปลี่ยน ≈ GPM ทั้งปีขยับ 30–60bps ≈ <strong>฿0.10–0.20/หุ้น</strong></p></div>
+
+<h3>6.3 Q3/2569 Preview — ประกาศ 2 พ.ย. 2569 (ยืนยันแล้ว)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>ตัวชี้วัด</th><th class="n">ช่วงคาดการณ์</th><th class="n">ค่ากลาง</th><th class="n">ฐาน Q3/2568</th><th>เหตุผล</th></tr></thead><tbody>
+<tr><td>ยอดขาย</td><td class="n">฿35.0–37.5bn</td><td class="n">~36.3bn (+5.2%)</td><td class="n">฿34.50bn</td><td>สอดคล้อง guidance +4–6% และโมเมนตัม H1 (+4.3%)</td></tr>
+<tr><td>Gross margin</td><td class="n">19.5–21.0%</td><td class="n">~20.3%</td><td class="n">19.0%</td><td>รับแรงกดดัน tuna-lag หนักที่สุดของปี (ฐาน ~$1,818/t)</td></tr>
+<tr><td>Operating profit</td><td class="n">฿1.8–2.3bn</td><td class="n">~2.0bn</td><td class="n">~1.67bn</td><td>OP margin ระหว่าง Q1 (3.7%) กับ Q2 (6.2% สถิติ)</td></tr>
+<tr><td>กำไรสุทธิ</td><td class="n">฿1.1–1.8bn</td><td class="n">ช่วงกว้าง</td><td class="n">฿1.51bn</td><td>ความไม่แน่นอนอยู่ที่ FX และภาษี ไม่ใช่ operating</td></tr>
+<tr><td>EPS</td><td class="n">฿0.29–0.47</td><td class="n">—</td><td class="n">—</td><td>หารด้วย 3,855.1 ล้านหุ้น</td></tr>
+</tbody></table></div>
+<p><strong>3 สิ่งที่ต้องจับตา:</strong> (1) gross margin ยืนเหนือ 19.5% ได้หรือไม่ — พื้นของ guidance; (2) SG&amp;A/ยอดขาย ยังไต่ขึ้นหรือหยุด — Q2 ขยับขึ้น 110bps; (3) ผู้บริหารพูดถึงผล Section 301 เต็มไตรมาสแรกอย่างไร</p>
+<p><strong>Positive surprise:</strong> GM ≥ 21% พร้อมยืน guidance · <strong>Negative surprise:</strong> GM &lt; 19.5% หรือ ปรับ guidance ลง</p>
+</div></section>
+
+<section id="s7"><div class="wrap">
+<div class="kicker">§7 · Catalyst และ Headwinds</div>
+<h2><span class="num">7</span>แผนที่ Catalyst 0–18 เดือน (ทุกรายการมีวันที่)</h2>
+<div class="tblwrap"><table>
+<thead><tr><th style="width:14%">วันที่</th><th style="width:22%">เหตุการณ์</th><th>ทิศทาง</th><th style="width:22%">ขนาดผลต่อ Fair Value</th><th>สิ่งที่ต้องจับตา</th></tr></thead><tbody>
+<tr><td><strong>14 ส.ค. 2569</strong></td><td>XD ปันผลระหว่างกาล ฿0.40</td><td>Mechanical</td><td>−฿0.40 (ปรับราคา ไม่ใช่ re-rate)</td><td>จ่ายจริง 27 ส.ค. 2569</td></tr>
+<tr><td>26 ส.ค. 2569</td><td>BOT MPC 4/2569</td><td>Two-sided</td><td>เล็ก ผ่าน discount rate</td><td>คง 1.00% หรือลด</td></tr>
+<tr><td>~ก.ย.–ต.ค. 2569</td><td>TRIS ทบทวนอันดับเครดิตประจำปี</td><td>Two-sided</td><td>เล็ก ผ่านต้นทุนหนี้</td><td>คง A+/Stable หรือเปลี่ยน outlook</td></tr>
+<tr style="background:var(--tint)"><td><strong>2 พ.ย. 2569</strong></td><td><strong>ประกาศผล Q3/2569</strong></td><td>Two-sided</td><td><strong>±฿0.3–0.9/หุ้น</strong></td><td>GM ยืน 19.5% ได้ไหม · SG&amp;A · ผล Section 301</td></tr>
+<tr style="background:#fffdf5"><td><strong>6 &amp; 10 พ.ย. 2569</strong></td><td><strong>หุ้นกู้ครบกำหนด ฿6.5bn</strong> (TU26NA ฿2.0bn คูปอง 2.78% · TU26NB ฿4.5bn คูปอง 2.27%)</td><td>Two-sided (execution risk)</td><td>ต้นทุนการเงินเพิ่มถาวรถ้า refi แพงกว่าเดิมมาก</td><td>ประกาศหุ้นกู้ใหม่และอัตราดอกเบี้ยที่ได้</td></tr>
+<tr style="background:#fff6f5"><td><strong>~ธ.ค. 2569</strong></td><td><strong>คดี Fortress (USD 65m)</strong></td><td class="neg">Bearish tail</td><td class="neg"><strong>สูงสุด −฿0.56/หุ้น</strong></td><td>คำตัดสินหรือการประนีประนอม</td></tr>
+<tr><td>~ธ.ค. 2569</td><td>ประกาศทบทวน SET50/SET100</td><td>Two-sided</td><td>เล็กหากคงสถานะ</td><td>TU อยู่ SET50 มาตั้งแต่ 2565 ไม่ถูกแตะ 2 รอบล่าสุด</td></tr>
+<tr><td>23 ธ.ค. 2569</td><td>BOT MPC 6/2569</td><td>Two-sided</td><td>เล็ก</td><td>เช่นเดียวกับ 26 ส.ค.</td></tr>
+<tr style="background:#fffdf5"><td><strong>ต่อเนื่อง</strong><br>จุดถัดไป ส.ค.–ก.ย. 2569</td><td><strong>วัฏจักรราคาทูน่า Bangkok CFR</strong></td><td>Two-sided (relevance สูง)</td><td>ทุก $100/t ≈ GPM 30–60bps ≈ <strong>฿0.10–0.20/หุ้น</strong></td><td>ราคารายสัปดาห์ · ล่าสุดยังขยับขึ้น +$50/t</td></tr>
+<tr style="background:#fff6f5"><td><strong>เกิดแล้ว 24 ก.ค. 2569</strong></td><td><strong>US Section 301 12.5%</strong> (รวมกับ reciprocal 19% เป็น ~31.5%)</td><td class="neg">Bearish</td><td class="neg"><strong>−฿0.8 ถึง −฿3.3/หุ้น</strong> ถ้า 10–40% ของภาระผลักไม่ได้</td><td>กลไก exemption ของ USTR · ผลจริงใน Q3 print · ความคืบหน้าย้ายฐานผลิตไปกานา/เซเชลส์</td></tr>
+<tr><td>~ก.พ. 2570</td><td>ผล FY2026 + เสนอปันผลงวดสุดท้าย</td><td>Two-sided</td><td>±฿0.5–1.5/หุ้น</td><td>ทำได้ตาม guidance ที่ปรับขึ้นสองครั้งหรือไม่</td></tr>
+<tr><td>~เม.ย. 2570</td><td>AGM 2570 + XD ปันผลงวดสุดท้าย</td><td>Mechanical</td><td>ปรับตามปันผล</td><td>โทนการอัปเดตเป้า Strategy 2030</td></tr>
+<tr><td>ไม่มีกำหนด</td><td>การขายหุ้น ITC หรือ TFM บางส่วน</td><td>Two-sided (เก็งล้วน)</td><td>ขาย 10–20% ของสัดส่วน ITC ≈ รับเงิน ฿4.0–8.1bn + ปลดล็อก re-rating ของ core stub</td><td>ประกาศ SET เรื่อง block trade</td></tr>
+</tbody></table></div>
+
+<h3>7.1 Headwinds จัดอันดับตามอันตรายจริง</h3>
+<div class="tblwrap"><table>
+<thead><tr><th class="n">#</th><th style="width:22%">Headwind</th><th>ตัวเลขที่ทำให้อันตราย</th><th>สิ่งที่จะทำให้ความเสี่ยงหมดไป</th></tr></thead><tbody>
+<tr><td class="n">1</td><td><strong>Tuna-cost lag เข้าสู่ H2</strong></td><td>ฐานต้นทุนพุ่ง $1,517 → <strong>$1,818/t = +19.9%</strong> ในไตรมาสเดียว และสปอตยังขึ้นต่อ</td><td>ราคาสปอตกลับตัวลง (เคยเกิด: มี.ค.'68 $1,740 → ธ.ค.'68 $1,470) หรือผลักภาระได้ต่อเนื่องแบบ Q1–Q2</td></tr>
+<tr><td class="n">2</td><td><strong>ภาษีสหรัฐฯ สะสม ~31.5%</strong></td><td>สหรัฐฯ = <strong>38% ของยอดขายกลุ่ม</strong> · ยังไม่พบกลไกยกเว้นที่ชัดเจน</td><td>ย้ายฐานผลิตไปกานา/เซเชลส์ (ระบุใน 56-1) · ส่งผ่านต้นทุนต่อเนื่อง · ไทยออกกฎหมายห้ามนำเข้าสินค้าแรงงานบังคับซึ่งอาจเข้าเกณฑ์ยกเว้น</td></tr>
+<tr><td class="n">3</td><td><strong>กำแพงหุ้นกู้ พ.ย. 2569</strong></td><td>฿6.5bn ครบกำหนดใน 4 วัน หลังประกาศผล Q3 ไม่ถึง 2 สัปดาห์</td><td>interest cover 5.1× · TRIS A+/Stable · OCF H1 ฟื้นแรง ⇒ ความเสี่ยง refi ล้มต่ำ แต่ต้อง "ผ่านให้ได้"</td></tr>
+<tr><td class="n">4</td><td><strong>Goodwill กระจุกตัวโดยไม่เปิดเผย headroom</strong></td><td>CGU ยุโรป-Ambient = <strong>92.4%</strong> ของ goodwill (฿12.21bn) · ไม่มีตัวเลข sensitivity</td><td>ผลประกอบการยุโรปทรงตัว/ดีขึ้น · ทดสอบประจำปีพร้อมงบ FY (~ก.พ.)</td></tr>
+<tr><td class="n">5</td><td><strong>คดี Fortress</strong></td><td>สูงสุด <strong>฿0.56/หุ้น</strong></td><td>TU ยืนยันสัญญาค้ำประกันสิ้นผลแล้วและกำลังต่อสู้คดี · มีการเจรจาคู่ขนาน</td></tr>
+<tr><td class="n">6</td><td>เงินทุนหมุนเวียนสะสมซ้ำ</td><td>inventory 161 วัน · เคยทำให้ OCF ทรุด 68%</td><td><span class="tag ok">คลี่คลายแล้ว</span> H1/2569 OCF ฿5.01bn เกินทั้งปี 2568</td></tr>
+</tbody></table></div>
+<div class="card"><p style="margin-bottom:0"><strong>Net catalyst scorecard 12 เดือนข้างหน้า: Neutral เอียงบวกเล็กน้อยแต่เปราะบาง (weighted score +1)</strong> — catalyst เชิงปฏิบัติการเป็นบวกจริง (guidance ปรับขึ้น · margin ทำสถิติ · OCF ฟื้น) แต่ถูกหักล้างเกือบเท่าตัวด้วย tuna-lag และภาษีสหรัฐฯ ซึ่ง<em>มองเห็นล่วงหน้าได้จากข้อมูลราคาจริง</em> · และราคา ฿13.30 ก็เทรดเหนือ fair value อยู่แล้ว</p></div>
+</div></section>
+<section id="s8"><div class="wrap">
+<div class="kicker">§8 · จังหวะทางเทคนิค</div>
+<h2><span class="num">8</span>Technical Timing — และความขัดแย้งกับมูลค่า</h2>
+<p class="lede">ส่วนนี้แยกออกจากการประเมินมูลค่าโดยสิ้นเชิง กราฟบอกว่า "เมื่อไร" ไม่ได้บอกว่า "เท่าไรจึงคุ้ม"</p>
+<h3>8.1 การจำแนกสภาพกราฟ</h3>
+<div class="card"><p><strong>สภาพ: pullback ในแนวโน้มขาขึ้น — แต่ยังไม่ย่อ</strong></p>
+<p style="margin-bottom:0">โครงสร้างที่อ่านได้จากข้อมูลราคาจริง 50 แท่งรายวัน (28 พ.ค. – 11 ส.ค. 2569): ฐานสะสม → shakeout ที่ volume 3.6 เท่าของค่าเฉลี่ย → ขา breakout สองครั้งที่มี volume ยืนยัน โดยขาที่สอง<strong>ตรงกับวันประกาศผล Q2 (3 ส.ค. 2569) พอดี</strong> ⇒ การขึ้นรอบนี้มีเหตุผลพื้นฐานรองรับ ไม่ใช่ momentum เปล่า</p></div>
+<h3>8.2 Trade geometry</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>องค์ประกอบ</th><th class="n">ราคา</th><th class="n">R-multiple</th><th>เหตุผล</th></tr></thead><tbody>
+<tr><td><strong>Entry zone</strong></td><td class="n"><strong>฿12.20 – 12.55</strong></td><td class="n">—</td><td>บริเวณที่ราคา breakout ออกมา · ต้องย่อลงมาทดสอบและยืนได้ · <strong>ห้ามไล่ราคาที่ ฿13.30</strong></td></tr>
+<tr><td><strong>Stop / invalidation</strong></td><td class="n neg"><strong>฿11.85</strong></td><td class="n">1R = ฿0.70 จาก entry บน</td><td>ต่ำกว่าฐาน swing · ระยะเสี่ยง −5.6% จาก ฿12.55</td></tr>
+<tr><td>Target 1</td><td class="n">฿13.50</td><td class="n">2.1R</td><td>สูงกว่าราคาปัจจุบันเล็กน้อย</td></tr>
+<tr><td>Target 2</td><td class="n">฿14.10</td><td class="n">3.3R</td><td>จุดสูงสุด 52 สัปดาห์</td></tr>
+<tr><td>Target 3</td><td class="n">฿14.50 – 16.00</td><td class="n">4.0–6.8R</td><td>สอดคล้องกับเป้า Maybank ฿14.50 / DBS ฿15.10 / Macquarie ฿16.00</td></tr>
+<tr style="background:var(--tint)"><td><strong>Timing verdict</strong></td><td colspan="3"><strong>รอ pullback</strong> — โครงสร้างดีแต่ราคายังไม่ย่อกลับเข้ามาในโซนที่คุ้มความเสี่ยง</td></tr>
+</tbody></table></div>
+<h3>8.3 ความขัดแย้งที่ต้องพูดตรงๆ</h3>
+<div class="card danger">
+<p><strong>Fair value ฿11.21 อยู่ต่ำกว่าทั้งราคาปัจจุบัน (฿13.30) และต่ำกว่า stop ทางเทคนิค (฿11.85)</strong></p>
+<p>แปลว่าถ้าเทรดตาม setup นี้แล้วโดน stop ที่ ฿11.85 — คุณกำลังขายที่ราคาซึ่ง<em>ยังสูงกว่ามูลค่าที่ประเมินได้</em> · และถ้าราคาลงไปถึงโซนที่นักลงทุนแบบ Klarman จะสนใจ (฿7.85–8.41) นั่นคือ −41% ถึง −37% จากราคาวันนี้ ซึ่งไกลกว่า stop ทางเทคนิคมาก</p>
+<div class="tblwrap"><table>
+<thead><tr><th></th><th>นักเทรด (Track A)</th><th>นักลงทุน (Track B)</th></tr></thead><tbody>
+<tr><td>ยึดอะไร</td><td>โครงสร้างราคา + catalyst</td><td>มูลค่าและ margin of safety</td></tr>
+<tr><td>ทำอะไรตอนนี้</td><td>รอย่อมา ฿12.20–12.55 แล้วเข้าพร้อม stop</td><td>ไม่ทำอะไร รอราคา ≤ ฿8.41</td></tr>
+<tr><td>ออกเมื่อไร</td><td>ถึง T2 ขายครึ่ง · หลุด ฿11.85 ออกหมด</td><td>เมื่อ thesis breaker ทำงาน หรือราคาเกิน FV มาก</td></tr>
+<tr><td>ความเสี่ยงหลัก</td><td>ถูก stop ที่ราคาซึ่งยังแพงกว่ามูลค่า</td><td>รอแล้วไม่ได้ของ (opportunity cost)</td></tr>
+</tbody></table></div>
+<p style="margin-bottom:0"><strong>ทั้งสองอย่างถูกต้องในกรอบของตัวเอง — สิ่งที่ผิดคือการเอาไม้เทรดมาเรียกว่าไม้ลงทุนแล้วไม่ตั้ง stop</strong></p>
+</div>
+<p class="src">ข้อมูลที่ใช้จริง: OHLCV รายวัน 50 แท่ง (28 พ.ค. – 11 ส.ค. 2569) จาก stockanalysis.com ตรวจสอบซ้ำสองครั้ง · yfinance และ stooq ถูกบล็อกโดยนโยบายเครือข่าย · <strong>ไม่สามารถดึงข้อมูลรายสัปดาห์ย้อนหลัง 3–5 ปีได้</strong> จึงไม่มีการวิเคราะห์ฐานระยะยาวหรือเส้นแนวโน้มหลายปี · ตัวชี้วัดทั้งหมด (SMA5/10/20/50, ATR14, RSI14, Fibonacci) คำนวณจากชุดข้อมูลจริงนี้เท่านั้น ไม่มีการสร้างตัวเลขขึ้นเอง</p>
+</div></section>
+
+<section id="s9"><div class="wrap">
+<div class="kicker">§9 · แผนลงทุน</div>
+<h2><span class="num">9</span>แผน 2 กรอบเวลา · MOS · Thesis Breakers</h2>
+<p class="lede">ผู้อ่านรายงานนี้ระบุว่า <strong>ยังไม่ถือหุ้น</strong> และสนใจทั้ง <strong>เก็งรอบ catalyst 6–18 เดือน</strong> และ <strong>ถือยาว 3–5 ปีเน้นปันผลกับ re-rating</strong> — สองเป้าหมายนี้ต้องใช้กฎคนละชุด ปนกันไม่ได้</p>
+
+<h3>9.1 Track A — ไม้เก็งรอบ catalyst (6–18 เดือน)</h3>
+<div class="card warn"><p style="margin-bottom:0"><strong>นี่คือ trade ไม่ใช่ investment</strong> — อาศัยโมเมนตัมและ catalyst ไม่ใช่ส่วนต่างมูลค่า จึงต้องมี stop เด็ดขาดและขนาดจำกัด</p></div>
+<div class="tblwrap"><table>
+<thead><tr><th>องค์ประกอบ</th><th class="n">ค่า</th><th>เหตุผล</th></tr></thead><tbody>
+<tr><td>เงื่อนไขเข้า</td><td class="n">฿12.20–12.55 และยืนเหนือ ฿12.20</td><td>ตามโครงสร้างเทคนิค · ห้ามไล่ราคาที่ ฿13.30</td></tr>
+<tr><td>Stop</td><td class="n neg">฿11.85</td><td>ระยะเสี่ยง −5.6%</td></tr>
+<tr><td>เป้า</td><td class="n">T1 ฿13.50 · T2 ฿14.10 · T3 ฿14.50–16.00</td><td>R = 2.1 / 3.3 / 4.0–6.8</td></tr>
+<tr style="background:#fffdf5"><td><strong>ขนาดไม้</strong></td><td class="n"><strong>เพดาน 3% ของพอร์ต</strong></td><td>คณิตความเสี่ยง 0.5–1.0% ต่อไม้ / stop 5.6% จะให้ position 9–18% ซึ่ง<strong>ใหญ่เกินไปสำหรับหุ้นที่ bear tail คือ ~0 ไม่ใช่ −30%</strong> จึง cap ที่ 3%</td></tr>
+<tr><td>กฎขายบางส่วน</td><td class="n">ถึง T2 ขาย 50%</td><td>ที่เหลือเลื่อน stop ขึ้น breakeven</td></tr>
+<tr><td>Decision point</td><td class="n"><strong>2 พ.ย. 2569 (Q3)</strong></td><td>ถ้า gross margin &lt; 19.5% ⇒ ออกทั้งหมด ไม่ต้องรอ stop</td></tr>
+</tbody></table></div>
+
+<h3>9.2 Track B — ไม้ลงทุนยาว 3–5 ปี</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>MOS ที่เรียก</th><th class="n">ราคาเข้า</th><th>สถานะวันนี้ (฿13.30)</th></tr></thead><tbody>
+<tr><td>20%</td><td class="n">≤ ฿8.97</td><td class="neg">ยังไม่ถึง</td></tr>
+<tr><td>25%</td><td class="n">≤ ฿8.41</td><td class="neg">ยังไม่ถึง</td></tr>
+<tr style="background:var(--tint)"><td><strong>30% (แนะนำสำหรับ leverage ระดับนี้)</strong></td><td class="n"><strong>≤ ฿7.85</strong></td><td class="neg">ยังไม่ถึง — ต้องลงอีก 41%</td></tr>
+<tr><td>35%</td><td class="n">≤ ฿7.29</td><td class="neg">ยังไม่ถึง</td></tr>
+</tbody></table></div>
+<div class="card danger"><p><strong>คำตัดสิน Track B: ยังไม่เข้าที่ ฿13.30</strong></p>
+<p style="margin-bottom:0">เหตุผล: จ่ายแพงกว่ามูลค่าที่ประเมินได้ 19% ในหุ้นที่ <em>downside คือ 0 ไม่ใช่ −30%</em> · MOS ที่เรียก 30% ไม่ใช่ความขี้ขลาด แต่เป็นการชดเชย leverage: net debt + NCI = ฿75.2bn อยู่ก่อนผู้ถือหุ้น และ 1 turn ของ multiple = 21.8% ของราคาหุ้น</p></div>
+<p><strong>3 เงื่อนไขที่จะเปิด Track B (เกิดข้อใดข้อหนึ่งก็พอ):</strong></p>
+<ol>
+<li><strong>ราคาลงมา ฿8.5–9.5</strong> — ไม่ต้องมีอะไรเปลี่ยนในธุรกิจเลย แค่ราคาปรับ</li>
+<li><strong>core EBITDA ขึ้นจาก ฿7.12bn เป็น ~฿9.5bn</strong> (Cost Reset USD118m + Sonar USD75m ลงจริง) ⇒ FV ขยับไป ฿17+ ⇒ ที่ ฿13.30 จะมี MOS ~22% · <em>สัญญาณที่จะบอกล่วงหน้า: gross margin ยืนเหนือ 21% ได้สองไตรมาสติดทั้งที่ต้นทุนทูน่าสูง</em></li>
+<li><strong>TU ขายหุ้น ITC บางส่วนและลด net debt ต่ำกว่า ฿45bn</strong> — deleveraging ปลดล็อกมูลค่า equity โดยตรงเพราะ leverage ทำงานย้อนกลับ</li>
+</ol>
+<div class="card"><p style="margin-bottom:0"><strong>ปันผลไม่ใช่เหตุผลซื้อเดี่ยวๆ:</strong> yield 2569E ~6.02% (DPS ฿0.80) สูงกว่าพันธบัตร 2.03% จริง แต่ <strong>ต่ำกว่าค่าเฉลี่ย staples ไทย ~6.79%</strong> และปี 2568 ส่วนหนึ่งจ่ายจากเงินกู้ (FCF ฿0.81bn vs คืนผู้ถือหุ้น ฿7.10bn) · payout 58.5% ยังอยู่ใต้เพดาน covenant 60% แต่ไม่เหลือที่ให้เพิ่มมาก</p></div>
+
+<h3>9.3 แผนแบ่งไม้ (ถ้าจะเริ่มสะสมจริง)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th class="n">ไม้</th><th class="n">ราคา</th><th class="n">สัดส่วน</th><th>Track</th><th>เงื่อนไข</th></tr></thead><tbody>
+<tr><td class="n">1</td><td class="n">฿12.20–12.55</td><td class="n">25%</td><td>A (trade)</td><td>ย่อมาถึงและยืนได้ · <strong>ต้องมี stop ฿11.85</strong></td></tr>
+<tr><td class="n">2</td><td class="n">฿10.50–11.20</td><td class="n">25%</td><td>B (เริ่มมีส่วนต่าง)</td><td>ต่ำกว่า FV ฿11.21</td></tr>
+<tr><td class="n">3</td><td class="n">฿8.40–9.00</td><td class="n">25%</td><td>B (MOS 25%)</td><td>—</td></tr>
+<tr><td class="n">4</td><td class="n">≤ ฿7.85</td><td class="n">25%</td><td>B (MOS 30%)</td><td>—</td></tr>
+<tr style="background:#fffdf5"><td colspan="5"><strong>เพดานรวม TU ในพอร์ต: 3–5%</strong> — จำกัดเพราะ bear case คือขาดทุนถาวร ไม่ใช่แค่การย่อตัว</td></tr>
+</tbody></table></div>
+
+<h3>9.4 Thesis Breakers — เจอข้อใดข้อหนึ่ง ให้ออก</h3>
+<div class="tblwrap"><table>
+<thead><tr><th class="n">#</th><th>สัญญาณ</th><th>ทำไมถึงเป็นจุดจบของ thesis</th></tr></thead><tbody>
+<tr><td class="n">1</td><td><strong>Gross margin กลุ่ม &lt; 18.5% ติดกัน 2 ไตรมาส</strong></td><td>แปลว่าส่งผ่านต้นทุนทูน่าไม่ได้ — เสาหลักของ base case พังทันที</td></tr>
+<tr><td class="n">2</td><td><strong>Net debt / Equity &gt; 1.6×</strong></td><td>เข้าใกล้ covenant 2.0× ⇒ เสียอิสระในการจัดสรรเงินทุน</td></tr>
+<tr><td class="n">3</td><td><strong>TRIS ลดอันดับต่ำกว่า A</strong></td><td>ต้นทุนหนี้เพิ่มขึ้นถาวรบนหนี้ ฿75bn</td></tr>
+<tr><td class="n">4</td><td><strong>ตั้งด้อยค่า goodwill CGU ยุโรป-Ambient</strong></td><td>฿12.21bn = 92.4% ของ goodwill · ไม่เปิดเผย headroom ⇒ เป็นสัญญาณว่าธุรกิจแกนกลางแย่กว่าที่รายงาน</td></tr>
+<tr><td class="n">5</td><td><strong>คดี Fortress แพ้ ค่าเสียหาย &gt; USD 50m</strong></td><td>−฿0.43/หุ้นขึ้นไป และเปิดประตูข้อเรียกร้องอื่นจาก Red Lobster</td></tr>
+<tr><td class="n">6</td><td><strong>ลดปันผล</strong></td><td>เป็นการยอมรับว่ากระแสเงินสดไม่พอ — ผู้ถือหุ้นที่ถือเพราะ yield จะออกพร้อมกัน</td></tr>
+</tbody></table></div>
+
+<h3>9.5 Monitoring Dashboard</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>ตัวชี้วัด</th><th>ความถี่</th><th>เส้นแดง</th><th>แหล่ง</th></tr></thead><tbody>
+<tr><td>ราคาทูน่า Bangkok CFR ($/t)</td><td>รายเดือน</td><td class="neg">&gt; $2,000</td><td>investor.thaiunion.com · Undercurrent News</td></tr>
+<tr><td>Gross margin รายไตรมาส</td><td>ไตรมาส</td><td class="neg">&lt; 19.5% (พื้น guidance)</td><td>SET filing / IR</td></tr>
+<tr><td>Net debt และ ND/E</td><td>ไตรมาส</td><td class="neg">ND/E &gt; 1.6×</td><td>งบการเงินรายไตรมาส</td></tr>
+<tr><td><strong>ราคาหุ้น ITC</strong></td><td>รายสัปดาห์</td><td>ขับเคลื่อน 79% ของ market cap TU</td><td>SET</td></tr>
+<tr><td>FCF เทียบเงินปันผลจ่าย</td><td>ไตรมาส</td><td class="neg">FCF &lt; ปันผล 2 ไตรมาสติด</td><td>งบกระแสเงินสด</td></tr>
+<tr><td>ข่าวภาษีสหรัฐฯ / Section 301</td><td>ต่อเนื่อง</td><td class="neg">ภาษีรวม &gt; 35% บน ambient</td><td>USTR · ข่าวอุตสาหกรรม</td></tr>
+</tbody></table></div>
+</div></section>
+<section id="s10"><div class="wrap">
+<div class="kicker">§10 · ความเสี่ยง</div>
+<h2><span class="num">10</span>ความเสี่ยงเรียงตามผลกระทบต่อมูลค่า</h2>
+<div class="tblwrap"><table>
+<thead><tr><th class="n">อันดับ</th><th style="width:20%">ความเสี่ยง</th><th class="n">โอกาส</th><th class="n">ผลต่อมูลค่า</th><th>กลไกที่ทำให้เสียหาย</th></tr></thead><tbody>
+<tr><td class="n">1</td><td><strong>Leverage ขยายความผิดพลาด</strong></td><td class="n">เกิดอยู่แล้ว</td><td class="n neg">สูงมาก</td><td>net debt ฿61.4bn + NCI ฿13.8bn อยู่ก่อนผู้ถือหุ้น ⇒ 1 turn ของ EV/EBITDA = 21.8% ของราคาหุ้น · EBITDA พลาด 15% จาก base ⇒ equity หายเกินครึ่ง</td></tr>
+<tr><td class="n">2</td><td><strong>ภาษีสหรัฐฯ ผลักภาระไม่ได้</strong></td><td class="n">ปานกลาง-สูง</td><td class="n neg">−฿0.8 ถึง −฿3.3</td><td>US = 38% ของยอดขาย · รวม ~31.5% บนทูน่ากระป๋อง · ถ้า 10–40% ผลักไม่ได้ ⇒ EBITDA หาย ฿0.3–1.3bn/ปี</td></tr>
+<tr><td class="n">3</td><td><strong>วัฏจักรราคาทูน่า</strong></td><td class="n">สูง (เกิดแล้ว)</td><td class="n neg">−฿0.10 ถึง −0.20 ต่อ $100/t</td><td>lag 5.3 เดือน ⇒ ต้นทุน Q3 +19.9% จากฐาน Q2 · margin ที่ทำสถิติจะถอย 100–250bps</td></tr>
+<tr><td class="n">4</td><td><strong>ROIC ต่ำกว่า WACC</strong></td><td class="n">เกิดอยู่แล้ว</td><td class="n neg">โครงสร้าง</td><td>ROIC 4.3% vs WACC 6.2–7.0% ⇒ การลงทุนเพิ่มทำลายมูลค่า จนกว่า margin จะขยับจริง — capex guidance 2569 <em>สูงขึ้น</em>เป็น ฿5.0–5.5bn</td></tr>
+<tr><td class="n">5</td><td><strong>ตั้งด้อยค่า goodwill</strong></td><td class="n">ต่ำ-ปานกลาง</td><td class="n neg">สูงสุด −฿3.2/หุ้น</td><td>CGU ยุโรป-Ambient ฿12.21bn · ไม่เปิดเผย headroom · ทดสอบพร้อมงบ FY (~ก.พ. 2570)</td></tr>
+<tr><td class="n">6</td><td><strong>Refinancing ฿6.5bn พ.ย. 2569</strong></td><td class="n">ต่ำ (execution)</td><td class="n warnx">ต้นทุนการเงินเพิ่มถาวร</td><td>คูปองเดิม 2.27–2.78% · ต้นทุนใหม่จะสูงกว่า · TRIS A+ ช่วยลดความเสี่ยง</td></tr>
+<tr><td class="n">7</td><td><strong>คดี Fortress</strong></td><td class="n">ปานกลาง</td><td class="n neg">สูงสุด −฿0.56</td><td>USD 65m ไม่ได้ตั้งสำรอง · คาดจบ ธ.ค. 2569</td></tr>
+<tr><td class="n">8</td><td><strong>ผลขาดทุนภาษีสะสมหมดอายุ</strong></td><td class="n">เกิดแล้ว</td><td class="n warnx">ปานกลาง</td><td>฿30.07bn หมดอายุ 2569–2584 ⇒ บ่งชี้ผลขาดทุนที่ลึกขึ้นในต่างประเทศที่ถูกกลบอยู่</td></tr>
+<tr><td class="n">9</td><td><strong>Governance / โครงสร้างผู้ถือหุ้น</strong></td><td class="n">ต่ำ</td><td class="n warnx">ต่ำ-ปานกลาง</td><td>ตระกูล Chansiri 17.65% (CEO ถือเอง 9.56%) + Niruttinanon 7.44% + หุ้นซื้อคืน 13.47% ⇒ คุมได้จริง · TFM เป็น related party ที่กรรมการถือเอง 21.26% · Mitsubishi พยายามเพิ่มสัดส่วนแล้วไม่สำเร็จ</td></tr>
+<tr><td class="n">10</td><td>สินค้าคงเหลือสะสมซ้ำ</td><td class="n">ต่ำ (คลี่คลายแล้ว)</td><td class="n warnx">ปานกลาง</td><td>เคยทำให้ OCF ทรุด 68% ในปี 2568 · H1/2569 ฟื้นแล้ว</td></tr>
+</tbody></table></div>
+</div></section>
+
+<section id="s11"><div class="wrap">
+<div class="kicker">§11 · วิธีการและข้อจำกัด</div>
+<h2><span class="num">11</span>แหล่งข้อมูล · กระบวนการตรวจสอบ · สิ่งที่ทำไม่ได้</h2>
+
+<h3>11.1 แหล่งข้อมูลชั้นต้นที่ใช้</h3>
+<ul>
+<li><strong>งบการเงินรวมที่ตรวจสอบแล้ว FY2025</strong> (KPMG) — งบแสดงฐานะการเงิน งบกำไรขาดทุน งบกระแสเงินสด และหมายเหตุ 5, 6, 10, 12, 13, 15, 17, 18, 19, 21, 23, 24, 26, 27, 28, 32, 33, 34, 35, 36, 37, 39 · ทุกยอดรวมผ่านการ cross-foot ซ้ำ</li>
+<li><strong>56-1 One Report FY2025</strong> — Financial Highlights 6 ปี · Brand Share (Nielsen/Circana/NIQ) · โครงสร้างผู้ถือหุ้น · ปัจจัยความเสี่ยง · Strategy 2030 · covenant</li>
+<li><strong>ข่าวประชาสัมพันธ์ผลประกอบการ Q1/2569 (5 พ.ค.) และ Q2/2569 (3 ส.ค.)</strong> พร้อม guidance ที่ปรับ</li>
+<li><strong>ข้อมูลตลาด</strong> — ราคา TU และ ITC 12 ส.ค. 2569 · พันธบัตรไทย 10 ปี 11 ส.ค. 2569 · ราคาทูน่า Bangkok CFR จากหน้า IR ของ TU เอง · multiple ของ peer จาก aggregator</li>
+<li><strong>Damodaran</strong> — ชุดข้อมูล ERP และ beta อุตสาหกรรม vintage 5 ม.ค. 2569</li>
+</ul>
+
+<h3>11.2 กระบวนการตรวจสอบที่ใช้จริง</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>รอบ</th><th>ผู้ตรวจ</th><th>สิ่งที่พบ</th><th class="n">ผลต่อ FV</th></tr></thead><tbody>
+<tr><td>1</td><td>สกัดข้อมูลจากงบตรวจสอบ + 56-1 + ข้อมูลตลาดสด (3 สายขนานกัน)</td><td>สร้าง dataset ใหม่ทั้งหมด · พบ 14 จุดผิด 15 จุดขาดในรายงานเดิม</td><td class="n">24.90 → 11.17</td></tr>
+<tr><td>2</td><td><strong>Model auditor</strong> (คำนวณใหม่อิสระ ไม่เชื่อสคริปต์) — ตรวจ 33 รายการ</td><td>PASS ทุกอัตลักษณ์ทางบัญชี · <strong>ไม่พบ EBITDA definition mismatch</strong> · FAIL 3: นิยาม net debt · ลืมตีราคา TFM ตามตลาด · ใช้ข้อมูลเก่า</td><td class="n">11.17 → 9.57</td></tr>
+<tr><td>3</td><td><strong>Bear refuter</strong> (สั่งให้หักล้างข้อสรุปให้ได้)</td><td>หักล้างสำเร็จ 3 ข้อ: multiple ต้องถ่วงตาม mix · terminal growth ควรอิงสกุลเงินของรายได้ · capex guidance ถูก<em>ลด</em>ไม่ใช่เพิ่ม · หักล้างไม่สำเร็จ 3 ข้อ: net debt · ไม่มีพื้นสินทรัพย์ · EBITDA ไม่ได้อยู่จุดต่ำวัฏจักร (gross margin สูงสุดใน 6 ปี)</td><td class="n">9.57 → <strong>11.21</strong></td></tr>
+</tbody></table></div>
+
+<h3>11.3 ข้อจำกัดที่ต้องรู้ก่อนใช้ตัวเลข</h3>
+<div class="card warn"><ul style="margin-bottom:0">
+<li><strong>หนี้สุทธิ ณ 30 มิ.ย. 2569 (฿61.40bn) เป็นตัวเลขที่คำนวณย้อน</strong> จากอัตราส่วน net debt/equity 1.15× ที่บริษัทเปิดเผย ไม่ใช่ตัวเลขสัมบูรณ์ที่บริษัทประกาศ · ตรวจสอบข้ามได้สอดคล้องกับข้อมูล Q1/2569 (฿62.99bn) และ consensus FY2569E (฿60.61bn)</li>
+<li><strong>WACC ในแต่ละ scenario เป็นการใช้ดุลพินิจ</strong> ไม่ใช่ผลลัพธ์ตรงจากสูตร CAPM (ซึ่งให้ 6.15%) — ยึดกับช่วง 6.9–11.8% ที่ผู้สอบบัญชีใช้ทดสอบด้อยค่า · เปิดเผยไว้แล้วในข้อ 5.1</li>
+<li><strong>การถ่วงน้ำหนัก DCF มีสองแบบแผนที่ให้ผลต่างกัน ฿2.11/หุ้น</strong> (ตัดที่ศูนย์ก่อน = ฿14.62 · ถ่วงก่อนตัด = ฿12.51) รายงานใช้ค่ากลาง ฿13.56 และเปิดเผยทั้งคู่</li>
+<li><strong>D&amp;A ใน TTM EBITDA (฿4.25bn) เป็นสมมติฐาน</strong> เพราะข่าวรายไตรมาสไม่เปิดเผย D&amp;A · ความคลาดเคลื่อน ±฿0.1bn ≈ ±฿0.10–0.13/หุ้น</li>
+<li><strong>ไม่มีข้อมูลราคารายสัปดาห์ย้อนหลัง 3–5 ปี</strong> จึงไม่มีการวิเคราะห์ฐานระยะยาวในส่วนเทคนิค</li>
+<li><strong>core revenue ใช้ฐาน segment แต่ core EBITDA หัก ITC แบบ standalone</strong> — ฐานต่างกัน 1.9% กระทบ SOTP ราว −฿0.24/หุ้น</li>
+<li><strong>brain-mcp และ Codegraph ไม่พร้อมใช้งานใน session นี้</strong> — ใช้ไฟล์บันทึกในโปรเจคและแผนที่โครงสร้างการพึ่งพาของตัวเลขแทน</li>
+<li>ตัวเลข Q2/2569 บางรายการ (ต้นทุนทางการเงิน · รายการคงเหลือใน bridge) เป็นตัวปรับให้สมการปิด เพราะบริษัทไม่เปิดเผยแยกรายการรายไตรมาส — ระบุไว้ในตารางแล้ว</li>
+</ul></div>
+
+<div class="disc">
+<strong>คำเตือน — เอกสารนี้เป็นงานวิจัยและการศึกษา ไม่ใช่คำแนะนำการลงทุน</strong><br>
+ผู้จัดทำไม่ใช่ที่ปรึกษาการลงทุนที่ได้รับใบอนุญาต เอกสารนี้ไม่ใช่คำสั่งซื้อหรือขาย และไม่ใช่คำแนะนำเฉพาะบุคคล ตัวเลขทั้งหมดมาจากแหล่งข้อมูลสาธารณะ ณ วันที่ระบุ และอาจมีการแก้ไขในภายหลัง มูลค่ายุติธรรมที่ประเมินไว้ขึ้นกับสมมติฐานที่ระบุอย่างชัดเจนในเอกสาร หากสมมติฐานเปลี่ยน ผลลัพธ์จะเปลี่ยนอย่างมีนัยสำคัญ — โดยเฉพาะในกรณีของ TU ที่มี leverage สูง การลงทุนมีความเสี่ยง ผู้ลงทุนควรศึกษาข้อมูลด้วยตนเองและตัดสินใจบนความรับผิดชอบของตนเอง
+</div>
+</div></section>
+
+<section id="s12"><div class="wrap">
+<div class="kicker">§12 · ภาคผนวก</div>
+<h2><span class="num">12</span>ตารางการเงินฉบับเต็ม</h2>
+
+<h3>12.1 งบกำไรขาดทุนรวม (฿ พันบาท)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>รายการ</th><th class="n">FY2025</th><th class="n">FY2024</th><th class="n">YoY</th></tr></thead><tbody>
+<tr><td>รายได้จากการขายและบริการ</td><td class="n">132,718,579</td><td class="n">138,433,059</td><td class="n neg">−4.1%</td></tr>
+<tr><td>ต้นทุนขาย</td><td class="n">(107,582,217)</td><td class="n">(112,809,366)</td><td class="n">−4.6%</td></tr>
+<tr><td><strong>กำไรขั้นต้น</strong></td><td class="n"><strong>25,136,362</strong></td><td class="n"><strong>25,623,693</strong></td><td class="n neg">−1.9%</td></tr>
+<tr><td>ค่าใช้จ่ายในการขาย</td><td class="n">(9,656,650)</td><td class="n">(9,504,866)</td><td class="n">+1.6%</td></tr>
+<tr><td>ค่าใช้จ่ายในการบริหาร</td><td class="n">(9,309,322)</td><td class="n">(8,896,519)</td><td class="n">+4.6%</td></tr>
+<tr><td><strong>กำไรจากการดำเนินงาน</strong></td><td class="n"><strong>6,170,390</strong></td><td class="n"><strong>7,222,308</strong></td><td class="n neg">−14.6%</td></tr>
+<tr><td>รายได้อื่น + ดอกเบี้ยรับ + เงินปันผลรับ</td><td class="n">881,894</td><td class="n">1,137,468</td><td class="n neg">−22.5%</td></tr>
+<tr><td>กำไร(ขาดทุน)อื่นสุทธิ</td><td class="n">164,684</td><td class="n">(78,443)</td><td class="n">—</td></tr>
+<tr><td>ผลขาดทุนด้านเครดิตของสินทรัพย์ทางการเงิน</td><td class="n">(71,599)</td><td class="n">(55,659)</td><td class="n">—</td></tr>
+<tr><td>ต้นทุนทางการเงิน</td><td class="n">(2,378,569)</td><td class="n">(2,492,359)</td><td class="n">−4.6%</td></tr>
+<tr><td>ส่วนแบ่งกำไรจากบริษัทร่วม/JV</td><td class="n">861,726</td><td class="n">770,598</td><td class="n pos">+11.8%</td></tr>
+<tr><td><strong>กำไรก่อนภาษี</strong></td><td class="n"><strong>5,628,526</strong></td><td class="n"><strong>6,503,913</strong></td><td class="n neg">−13.5%</td></tr>
+<tr><td>ภาษีเงินได้ (เครดิต)</td><td class="n pos">16,506</td><td class="n">(430,022)</td><td class="n">—</td></tr>
+<tr><td><strong>กำไรสุทธิ</strong></td><td class="n"><strong>5,645,032</strong></td><td class="n"><strong>6,073,891</strong></td><td class="n neg">−7.1%</td></tr>
+<tr><td>ส่วนที่เป็นของผู้ถือหุ้นบริษัทใหญ่</td><td class="n">4,609,416</td><td class="n">4,984,894</td><td class="n neg">−7.5%</td></tr>
+<tr><td>ส่วนที่เป็นของ NCI</td><td class="n">1,035,616</td><td class="n">1,088,997</td><td class="n">−4.9%</td></tr>
+<tr><td><strong>EPS (บาท)</strong></td><td class="n"><strong>1.16</strong></td><td class="n"><strong>1.08</strong></td><td class="n pos">+7.4%</td></tr>
+<tr><td>จำนวนหุ้นถัวเฉลี่ยถ่วงน้ำหนัก (พันหุ้น)</td><td class="n">3,967,826</td><td class="n">4,320,852</td><td class="n neg">−8.2%</td></tr>
+<tr style="background:var(--panel)"><td><strong>D&amp;A (ค่าเสื่อม + ค่าตัดจำหน่าย)</strong></td><td class="n">4,209,449</td><td class="n">4,364,929</td><td class="n">−3.6%</td></tr>
+<tr style="background:var(--panel)"><td><strong>EBITDA (นิยามแคบ: OP + D&amp;A)</strong></td><td class="n"><strong>10,379,839</strong></td><td class="n"><strong>11,587,237</strong></td><td class="n neg">−10.4%</td></tr>
+<tr style="background:var(--panel)"><td>EBITDA (นิยาม TU / 56-1)</td><td class="n">12,216,544</td><td class="n">13,495,303</td><td class="n neg">−9.5%</td></tr>
+</tbody></table></div>
+<p class="src">EPS ปี 2567 คำนวณจาก (4,984,894 − 300,822 ดอกเบี้ยหุ้นบุริมสิทธิถาวร) ÷ 4,320,852 = 1.08 · หุ้นบุริมสิทธิถาวรไถ่ถอนหมดแล้ว พ.ย. 2567</p>
+
+<h3>12.2 งบแสดงฐานะการเงิน — สรุป (฿ พันบาท)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>รายการ</th><th class="n">31 ธ.ค. 2568</th><th class="n">31 ธ.ค. 2567</th></tr></thead><tbody>
+<tr><td>เงินสดและรายการเทียบเท่า</td><td class="n">8,562,954</td><td class="n">8,333,392</td></tr>
+<tr><td>เงินลงทุนระยะสั้น</td><td class="n">5,199,312</td><td class="n">7,153,989</td></tr>
+<tr><td>ลูกหนี้การค้าและลูกหนี้อื่น</td><td class="n">18,074,412</td><td class="n">16,876,191</td></tr>
+<tr><td><strong>สินค้าคงเหลือ</strong></td><td class="n"><strong>47,639,087</strong></td><td class="n">43,625,874</td></tr>
+<tr><td>รวมสินทรัพย์หมุนเวียน</td><td class="n">82,909,184</td><td class="n">79,648,683</td></tr>
+<tr><td>ที่ดิน อาคาร อุปกรณ์ สุทธิ</td><td class="n">29,886,784</td><td class="n">29,512,574</td></tr>
+<tr><td>สินทรัพย์ไม่มีตัวตน สุทธิ</td><td class="n">15,400,309</td><td class="n">15,056,455</td></tr>
+<tr><td>ค่าความนิยม สุทธิ</td><td class="n">13,215,197</td><td class="n">12,649,117</td></tr>
+<tr><td>เงินลงทุนตามวิธีส่วนได้เสีย</td><td class="n">8,953,320</td><td class="n">8,821,067</td></tr>
+<tr><td>รวมสินทรัพย์ไม่หมุนเวียน</td><td class="n">75,417,191</td><td class="n">75,263,685</td></tr>
+<tr style="background:var(--panel)"><td><strong>รวมสินทรัพย์</strong></td><td class="n"><strong>158,326,375</strong></td><td class="n"><strong>154,912,368</strong></td></tr>
+<tr><td>รวมหนี้สินหมุนเวียน</td><td class="n">48,901,336</td><td class="n">50,587,751</td></tr>
+<tr><td>รวมหนี้สินไม่หมุนเวียน</td><td class="n">57,342,024</td><td class="n">48,011,938</td></tr>
+<tr style="background:var(--panel)"><td><strong>รวมหนี้สิน</strong></td><td class="n"><strong>106,243,360</strong></td><td class="n"><strong>98,599,689</strong></td></tr>
+<tr><td>ส่วนของผู้ถือหุ้นบริษัทใหญ่</td><td class="n">44,704,099</td><td class="n">48,635,023</td></tr>
+<tr><td>ส่วนได้เสียที่ไม่มีอำนาจควบคุม</td><td class="n">7,378,916</td><td class="n">7,677,656</td></tr>
+<tr style="background:var(--panel)"><td><strong>รวมส่วนของผู้ถือหุ้น</strong></td><td class="n"><strong>52,083,015</strong></td><td class="n"><strong>56,312,679</strong></td></tr>
+<tr><td>หุ้นซื้อคืน (ต้นทุน / จำนวนหุ้น)</td><td class="n">7,292,752 / 600 ล้าน</td><td class="n">2,982,381 / 200 ล้าน</td></tr>
+<tr style="background:var(--tint)"><td><strong>หุ้นหมุนเวียน</strong></td><td class="n"><strong>3,855,132,696</strong></td><td class="n">4,255,132,696</td></tr>
+</tbody></table></div>
+<p class="src">ตรวจสอบ: สินทรัพย์ = หนี้สิน + ส่วนของผู้ถือหุ้น ⇒ 106,243,360 + 52,083,015 = 158,326,375 ✓ ทุกยอดย่อยรวมได้ตรงเป๊ะทั้งสองปี</p>
+
+<h3>12.3 งบกระแสเงินสด — สรุป (฿ พันบาท)</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>รายการ</th><th class="n">FY2025</th><th class="n">FY2024</th></tr></thead><tbody>
+<tr><td><strong>กระแสเงินสดจากการดำเนินงาน</strong></td><td class="n neg"><strong>4,592,090</strong></td><td class="n"><strong>14,525,212</strong></td></tr>
+<tr><td>ซื้อที่ดิน อาคาร อุปกรณ์ และสินทรัพย์ไม่มีตัวตน</td><td class="n">(3,780,829)</td><td class="n">(3,556,779)</td></tr>
+<tr style="background:var(--panel)"><td><strong>= Free cash flow</strong></td><td class="n neg"><strong>811,261</strong></td><td class="n"><strong>10,968,433</strong></td></tr>
+<tr><td>เงินปันผลจ่ายผู้ถือหุ้นบริษัทใหญ่</td><td class="n">(2,794,557)</td><td class="n">(2,389,496)</td></tr>
+<tr><td>เงินปันผลจ่าย NCI</td><td class="n">(1,397,330)</td><td class="n">(709,717)</td></tr>
+<tr><td>ซื้อหุ้นคืนสุทธิ</td><td class="n">(4,310,371)</td><td class="n">(2,982,381)</td></tr>
+<tr><td>ดอกเบี้ยและค่าใช้จ่ายทางการเงินจ่าย</td><td class="n">(2,177,099)</td><td class="n">(2,405,530)</td></tr>
+<tr><td>ไถ่ถอนหุ้นบุริมสิทธิถาวร</td><td class="n">—</td><td class="n">(6,000,000)</td></tr>
+<tr><td>การเปลี่ยนแปลงเงินทุนหมุนเวียน</td><td class="n neg">(6,281,055)</td><td class="n pos">4,796,948</td></tr>
+</tbody></table></div>
+
+<h3>12.4 อัตราส่วนสำคัญ</h3>
+<div class="tblwrap"><table>
+<thead><tr><th>อัตราส่วน</th><th class="n">FY2025</th><th class="n">FY2024</th><th>หมายเหตุ</th></tr></thead><tbody>
+<tr><td>Gross margin</td><td class="n">18.94%</td><td class="n">18.51%</td><td>สูงสุดใน 6 ปี</td></tr>
+<tr><td>Operating margin</td><td class="n">4.65%</td><td class="n">5.22%</td><td></td></tr>
+<tr><td>EBITDA margin (แคบ)</td><td class="n">7.82%</td><td class="n">8.37%</td><td></td></tr>
+<tr><td>ROE</td><td class="n">10.31%</td><td class="n">10.25%</td><td></td></tr>
+<tr><td>ROIC (NOPAT@20% / IC)</td><td class="n neg">4.31%</td><td class="n">5.32%</td><td><strong>ต่ำกว่า WACC</strong></td></tr>
+<tr><td>Interest coverage (EBIT)</td><td class="n">2.59×</td><td class="n">2.90×</td><td></td></tr>
+<tr><td>Interest coverage (EBITDA)</td><td class="n">4.36×</td><td class="n">4.65×</td><td>covenant ≥ 3.0×</td></tr>
+<tr><td>Net debt / EBITDA (แคบ)</td><td class="n neg">6.42×</td><td class="n">5.19×</td><td>เป้าภายใน ≤ 4.0×</td></tr>
+<tr><td>Net debt / Equity</td><td class="n">1.28×</td><td class="n">1.07×</td><td>covenant ≤ 2.0×</td></tr>
+<tr><td>OCF / Net income</td><td class="n neg">0.81×</td><td class="n">2.39×</td><td>คุณภาพกำไรแย่ลงชั่วคราว</td></tr>
+<tr><td>Inventory days</td><td class="n neg">161.6</td><td class="n">141.2</td><td></td></tr>
+<tr><td>Book value / share</td><td class="n">฿11.60</td><td class="n">฿11.43</td><td>P/B 1.15×</td></tr>
+<tr><td>Tangible book / share</td><td class="n neg">฿4.17</td><td class="n">฿4.92</td><td><strong>P/TBV 3.19×</strong></td></tr>
+<tr><td>Effective tax rate</td><td class="n">−0.29%</td><td class="n">6.61%</td><td>ผิดปกติ ห้ามใช้พยากรณ์</td></tr>
+</tbody></table></div>
+</div></section>
+
+<footer><div class="wrap">
+<p style="margin-bottom:8px"><strong>TU · Thai Union Group PCL · BF-Report V2 · 12 สิงหาคม 2026</strong></p>
+<p style="margin-bottom:8px">Fair Value ฿11.21 · ราคา ฿13.30 · MOS −19% · จัดทำจากงบการเงินตรวจสอบ FY2025, 56-1 One Report FY2025, filing Q1–Q2/2569 และข้อมูลตลาด ณ 11–12 ส.ค. 2569 · ผ่านการตรวจสอบอิสระ 2 รอบ (model audit 33 รายการ + adversarial bear refutation 7 ประเด็น)</p>
+<p style="margin-bottom:0;font-size:11.5px">เอกสารนี้เป็นงานวิจัยและการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน · ผู้จัดทำไม่ใช่ที่ปรึกษาการลงทุนที่ได้รับใบอนุญาต · การลงทุนมีความเสี่ยง ผู้ลงทุนควรศึกษาข้อมูลก่อนตัดสินใจ</p>
+</div></footer>
+<script>
+document.querySelectorAll('nav.toc a').forEach(function(a){a.addEventListener('click',function(){
+var l=document.querySelector('nav.toc .links'); if(window.innerWidth<=820&&l) l.classList.remove('open');});});
+</script>
+</body></html>
