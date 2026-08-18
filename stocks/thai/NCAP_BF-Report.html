@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เน็คซ์ แคปปิตอล (NCAP) — Equity Research</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px; --radius-row:8px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:38px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+  .toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+              background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--slate);
+              cursor:pointer;}
+  .toc-toggle .hamb{width:20px;height:14px;position:relative;flex-shrink:0;}
+  .toc-toggle .hamb span{display:block;position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                         border-radius:1px;transition:transform .25s, opacity .25s, top .25s;}
+  .toc-toggle .hamb span:nth-child(1){top:0;} .toc-toggle .hamb span:nth-child(2){top:6px;} .toc-toggle .hamb span:nth-child(3){top:12px;}
+  .toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+  .toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+  .toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+  .logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+        background:var(--white);border:var(--border);padding:4px;}
+  @media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;}}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  h3[id]{scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;}
+  .stat{min-width:0;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:38px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;margin:6px 0 0;}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+  .table-wrap table{min-width:640px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout h3{margin-top:0;}
+  .chart-frame{background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;margin:12px 0 18px;}
+  .chart-frame img{display:block;width:100%;height:auto;}
+  .chart-caption{font-family:var(--mono);font-size:11px;color:var(--gray-500);padding:10px 14px;border-top:var(--rule);}
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .explain{background:var(--gray-100);border-radius:var(--radius-row);padding:12px 16px;margin:8px 0;font-size:13.5px;}
+  .explain b{color:var(--watch);}
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+    section, h3[id]{scroll-margin-top:64px;}
+    .toc{position:fixed;top:0;left:0;right:0;z-index:100;margin:0;padding:0;
+         border-radius:0;border:none;border-bottom:var(--rule);background:var(--ivory);
+         box-shadow:0 1px 6px rgba(0,0,0,.05);}
+    .toc-toggle{display:flex;border-radius:0;border:none;border-bottom:1px solid var(--gray-100);background:var(--ivory);}
+    .toc .eyebrow{display:none;}
+    .toc ol{margin:0;padding:6px 14px 16px;max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+    .toc.collapsed ol{max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .stat .v{font-size:32px;}
+    h1{font-size:30px;}
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  }
+  @media(max-width:520px){
+    .band{grid-template-columns:1fr;}
+  }
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="toc" aria-label="สารบัญ">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">Contents</div>
+    <ol id="toc-list">
+      <li><a href="#summary">Executive Summary</a></li>
+      <li><a href="#s1">1 · ธุรกิจ &amp; เรื่องเล่า</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้</a></li>
+      <li><a class="sub" href="#s1-2">1.2 คูเมืองแข่งขัน (Moat)</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรม &amp; ตลาด</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโต &amp; การลงทุนซ้ำ</a></li>
+      <li><a class="sub" href="#s1-5">1.5 ช่วงชีวิต &amp; บททดสอบ 3P</a></li>
+      <li><a href="#s2">2 · แดชบอร์ดการเงิน</a></li>
+      <li><a href="#s3">3 · ประเมินมูลค่า</a></li>
+      <li><a href="#s4">4 · ผลประกอบการ &amp; อารมณ์ตลาด</a></li>
+      <li><a href="#s5">5 · จังหวะเข้า (Technical)</a></li>
+      <li><a href="#s6">6 · ฉากทัศน์ &amp; แผนลงทุน</a></li>
+      <li><a href="#s7">7 · ความเสี่ยงหลัก</a></li>
+      <li><a href="#s8">8 · วิเคราะห์เชิงลึก 4 หัวข้อ</a></li>
+      <li><a class="sub" href="#s8-1">8.1 กำไรของจริงไหม</a></li>
+      <li><a class="sub" href="#s8-2">8.2 อะไรทำให้กำไรขยับ</a></li>
+      <li><a class="sub" href="#s8-3">8.3 โตแบบนี้ยั่งยืนไหม</a></li>
+      <li><a class="sub" href="#s8-4">8.4 คู่แข่งกำลังทำอะไร</a></li>
+      <li><a href="#s9">9 · สรุปรวมฉบับเข้าใจง่าย</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <img class="logo" src="data:image/png;base64,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" alt="โลโก้ NCAP" width="64" height="64">
+          <h1>เน็คซ์ แคปปิตอล</h1>
+        </div>
+        <span class="pill">Equity Research · Not financial advice</span>
+      </div>
+      <div class="descriptor">ให้คนต่างจังหวัดผ่อนมอเตอร์ไซค์ใหม่ผ่านดีลเลอร์ 317 ร้านทั่วประเทศ — ธุรกิจสินเชื่อที่เพิ่งฟื้นจากบาดแผล "เพดานดอกเบี้ย 23%" ปี 2023</div>
+      <div class="meta mono">NCAP.BK · ตลาดหลักทรัพย์ฯ (SET) · สกุลเงินบาท (฿) · ข้อมูล ณ 17 สิงหาคม 2026</div>
+    </header>
+
+    <!-- ============ EXECUTIVE SUMMARY ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>Executive Summary</h2></div>
+      <hr class="div">
+      <div class="callout" style="margin-bottom:18px;">
+        <h3>Key Investment Insight — จุดน่าสนใจสำคัญที่สุด</h3>
+        <p>NCAP เพิ่งทำสิ่งที่ไม่เคยสำเร็จในรอบ 5 ปี: <strong>ผลตอบแทนต่อผู้ถือหุ้น (ROE) พลิกขึ้นเหนือ "ต้นทุนเงินทุน" (~9.25%) เป็นครั้งแรก</strong> — ปี 2025 ROE อยู่ที่ 11.2% จากเดิมที่ต่ำกว่าต้นทุนเงินทุนตลอดปี 2022-2024 แปลง่ายๆ ว่า: ก่อนหน้านี้บริษัทเอากำไรไปขยายสินเชื่อแบบ "ได้ไม่คุ้มเสีย" แต่ตอนนี้ทุกบาทที่เก็บไว้เริ่มสร้างมูลค่าเพิ่มจริง</p>
+        <div class="explain"><b>ตัวอย่างให้เห็นภาพ:</b> สมมติเราเป็นเจ้าของร้านให้ผ่อนมอเตอร์ไซค์ ถ้าเรากู้เงินมาต้นทุน 9% แล้วปล่อยกู้ได้กำไรกลับมาแค่ 4% (กรณี NCAP ปี 2022-2024) เรายิ่งขยายร้านเท่าไหร่ยิ่งขาดทุนสะสมเร็วขึ้น — แต่ถ้ากำไรกลับมา 11% ขณะที่ต้นทุน 9% (กรณีปี 2025-2026) การขยายร้านจึง "มีกำไรจริง" NCAP เพิ่งข้ามเส้นนี้เป็นครั้งแรก</div>
+        <p>แต่ราคาหุ้น 3.68 บาท (P/B 0.89 เท่า คือถูกกว่ามูลค่าบัญชีต่อหุ้น 4.12 บาท) ยังตั้งราคาเหมือนเชื่อว่า ROE ยั่งยืนแค่ 8.5-9% — <strong>ตลาดยังไม่เชื่อว่ากำไรที่กลับมา "ของจริงและอยู่ได้"</strong> ถ้าคุณภาพหนี้ยืนยันต่ำอีก 2-3 ไตรมาส มูลค่าที่เหมาะสมคือ 4.15-4.97 บาท (+13% ถึง +35%) นี่คือเดิมพันเรื่องเดียว: <em>"ความยั่งยืนของหนี้ที่ไม่เสีย"</em> ไม่ใช่เรื่องการเติบโต</p>
+      </div>
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">4.15฿</div><div class="k">มูลค่ายุติธรรม / Fair value (Base)</div>
+          <div class="d up">+13% เทียบราคาตลาด</div>
+        </div>
+        <div class="stat"><div class="v">3.68฿</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">17 ส.ค. 2026</div></div>
+        <div class="stat"><div class="v">รอ/ทยอย</div><div class="k">ท่าที (เงื่อนไข ไม่ใช่คำสั่ง)</div><div class="d flat">โซนสนใจ 3.40-3.60฿</div></div>
+        <div class="stat"><div class="v">13-18%</div><div class="k">ส่วนลดความปลอดภัยที่ควรได้</div><div class="d flat">หุ้นเล็ก ผันผวน 6%/วัน</div></div>
+      </div>
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>Thesis — สาระข้อเดิมพัน</h3>
+        <p><strong>เราจ่าย:</strong> 3.68 บาท หรือ 0.89 เท่าของมูลค่าบัญชี สำหรับ <strong>สิ่งที่ได้:</strong> ผู้ให้กู้รายกลางที่เพิ่งปลดบาดแผลเสร็จ — พันธบัตรปลดหมด กระแสเงินสดบวกครั้งแรกในประวัติศาสตร์ หนี้เสีย 1.28% ดีที่สุดในกลุ่ม กำไรทำสถิติใหม่ 6 ไตรมาสติด <strong>สิ่งที่ต้องจริง 2 ข้อ:</strong> (1) ค่าตั้งเผื่อหนี้สูญอยู่แถว 4.5-5.5% ของพอร์ต ไม่ย้อนกลับไป 7-8% แบบปี 2023-24 (2) พอร์ตโต 8-10% ต่อปีหลังระดมพันธบัตรกันยายน 2026 สำเร็จ <strong>ความอสมมาตร:</strong> ฉากแย่ 2.60 บาท (−29%) มีงบดุลสะอาดรองรับ ส่วนฉากดี 5.33 บาท (+45%) ถ้าตลาดเลิกตั้งราคาแบบ "จำอดีตที่เคยเจ็บ" — แต่นี่ไม่ใช่หุ้นถูกเหลือเชื่อ ราคาวันนี้ "ถูกพอสมควร" แล้ว ควรซื้อให้ดีกว่านี้ (หรือหลังมีหลักฐานใหม่) เพื่อความปลอดภัยจริง</p>
+        <p class="small muted">รายละเอียด: ประเมินมูลค่า <a href="#s3">§3</a> · จังหวะเข้า <a href="#s5">§5</a> · ฉากทัศน์+แผน <a href="#s6">§6</a> · ความเสี่ยง <a href="#s7">§7</a> · วิเคราะห์เชิงลึก <a href="#s8">§8</a> · สรุปง่าย <a href="#s9">§9</a></p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · BUSINESS & NARRATIVE ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจ &amp; เรื่องเล่า</h2></div>
+      <hr class="div">
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจ &amp; โครงสร้างรายได้</h3>
+      <p>NCAP คือ "ร้านให้ผ่อนมอเตอร์ไซค์รายใหญ่ระดับประเทศ" — ลูกค้าส่วนใหญ่คือคนต่างจังหวัด (เกษตรกร ค้าขาย รับจ้าง) ที่ซื้อมอเตอร์ไซค์ใหม่ที่ดีลเลอร์ 317 ร้านทั่วประเทศ แล้วผ่อนส่งคืน NCAP รายเดือนนาน 12-60 เดือน บริษัทได้กำไรจากดอกเบี้ย+ค่าธรรมเนียม (เพดานตามกฎหมายคือ 23% ต่อปีนับรวมแล้ว) บริษัทก่อตั้งปี 2004 โดย Mitsui ของญี่ปุ่นเพื่อให้ผ่อนรถ Yamaha ก่อน แล้วถูก COM7 (เชนร้าน IT ทั่วประเทศ ถือ 34.3%) และ SYNEX (ผู้จัดจำหน่าย IT ถือ 27.0%) เข้าซื้อกิจการ จดทะเบียนในตลาดหลักทรัพย์ปี 2020 ราคา IPO 2.20 บาท</p>
+      <div class="explain"><b>อ่านงบธุรกิจสินเชื่อง่ายๆ:</b> รายได้หลัก = ดอกเบี้ยที่ลูกหนี้ผ่อนเข้ามา | ต้นทุนหลักมี 2 ตัว: (1) ดอกเบี้ยเงินกู้ที่บริษัทไปกู้มา (2) "ค่าตั้งเผื่อหนี้สูญ" (ECL) คือเงินที่บัญชีต้องหักไว้ล่วงหน้าเผื่อลูกหนี้บางส่วนหยุดจ่าย — เหมือนร้านค้าที่ต้องตั้งชำร่วยไว้ก่อนว่า "ปีนี้น่าจะมีสินค้าตกรถเสียเท่าไหร่" | กำไรของธุรกิจนี้จึงขึ้นกับ "หนี้เสียน้อยแค่ไหน" มากกว่า "ขายได้เยอะแค่ไหน"</div>
+      <table>
+        <thead><tr><th>แหล่งรายได้ (ปี 2025)</th><th class="num">มูลค่า (ล้านบาท)</th><th class="num">% ของรายได้</th><th>บทอ่าน</th></tr></thead>
+        <tbody>
+          <tr><td>สินเชื่อเช่าซื้อมอเตอร์ไซค์ (ดอกเบี้ย+ค่าธรรมเนียม)</td><td class="num">1,937.4</td><td class="num">89.9%</td><td class="small muted">หัวใจของธุรกิจ — รถใหม่ 97.6% ของพอร์ต</td></tr>
+          <tr><td>สินเชื่อโดยใช้รถเป็นหลักประกัน (Next Money)</td><td class="num">7.6</td><td class="num">0.4%</td><td class="small muted">เล็กมาก แต่คือ "เครื่องยนต์เติบโต" ตัวใหม่ตามแผนบริหาร</td></tr>
+          <tr><td>รายได้อื่น (เงินทวงคืนจากหนี้ที่ตัดไปแล้ว ฯลฯ)</td><td class="num">211.2</td><td class="num">9.8%</td><td class="small muted">เงินจริงเกิดซ้ำทุกไตรมาส ~50 ล้าน แต่เป็น "บ่อน้ำมันเดิม" — ดู §8.1</td></tr>
+        </tbody>
+        <tfoot><tr><td>รวมรายได้ (งบจริง 56-1)</td><td class="num">2,156.3</td><td class="num">100%</td><td>เติบโต +7.0% จากปีก่อน</td></tr></tfoot>
+      </table>
+      <p class="small muted">ที่มา: งบ 56-1 One Report ปี 2025 [FILING] — หมายเหตุ: ฐานข้อมูลออนไลน์ (yfinance) แสดงรายได้ 1,945 ล้านเพราะคิดต่างการรวมรายการ งบจริงเป็นเจ้าภาพตัวเลข (เปิดเผยความต่างไว้ในภาคผนวก)</p>
+
+      <h3 id="s1-2">1.2 คูเมืองแข่งขัน (Moat) &amp; ตำแหน่งการแข่งขัน</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">ใบอนุญาต ธปท.</span> <span class="tag">เครือข่ายดีลเลอร์ 317 ร้าน</span> <span class="tag">ฐานข้อมูลลูกค้า 20+ ปี</span> <span class="tag">ผู้ถือหุ้นเงินทุนหนา (COM7+SYNEX 61%)</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="ความแข็งแรงคูเมือง">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">NARROW (คับแคบ)</span>
+          <span class="chip"><span class="dot good"></span>ทิศทาง: กำลังดีขึ้น (กฎรัฐกวาดคู่แข่งเล็กออก)</span>
+          <span class="mono small">ROE − ke: −5.1 → −3.2 → −3.9 → <strong>+1.9pp</strong> (2025)</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,28 30,25 60,26 90,14 120,8"/>
+          </svg>
+        </div>
+      </div>
+      <p>คูเมืองที่ "มีจริง" ของ NCAP ไม่ใช่แบรนด์หรูอะไร แต่คือ: <strong>(1) ใบอนุญาต</strong> — ตั้งแต่ธันวาคม 2025 ธุรกิจเช่าซื้อต้องขึ้นทะเบียนกับธนาคารแห่งประเทศไทย (ธปท.) ผู้ประกอบการเล็กที่ทำไม่ได้ต้องออกจากตลาด ทำให้สนามแข่งเหลือคนที่มีใบอนุญาต <strong>(2) เครือข่ายดีลเลอร์ 317 ร้าน</strong> ที่สร้างมา 20 ปี ไม่มีร้านไหนเกิน 30% ของพอร์ต (กระจายความเสี่ยง) <strong>(3) ฐานข้อมูลพฤติกรรมผ่อนจ่ายของลูกค้าต่างจังหวัด</strong> ที่ใช้คัดกรองเครดิตด้วยระบบอัตโนมัติ (AI) ได้</p>
+      <p><strong>ข้อจำกัดของคูเมือง:</strong> ลูกค้าไม่มีต้นทุนเปลี่ยนเจ้า และคู่แข่งใหญ่ MTC/SAWAD มีพอร์ตใหญ่กว่า 17-18 เท่า ต้นทุนเงินทุนถูกกว่า กดดอกเบี้ยแข่งได้ <strong>ภัยใหญ่สุดต่อคูเมือง: เพดานดอกเบี้ย 23% และกฎ ธปท. ชุดใหม่</strong> — กฎเดียวกันนี้เป็นทั้งโล่ (กันคู่แข่งใหม่) และกรง (รายได้ต่อสัญญาโตได้จำกัด)</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรม &amp; ขนาดตลาด</h3>
+      <p>ตลาดสินเชื่อมอเตอร์ไซค์ไทยเป็นสนามของบริษัท non-bank: <strong>MTC</strong> พอร์ต 188.7 พันล้านบาท (~60%+ ของกลุ่มจดทะเบียน) สาขา 8,906 แห่ง, <strong>SAWAD</strong> ~95-100 พันล้าน, <strong>NCAP</strong> 10.9 พันล้าน (ส่วนแบ่ง ~3-4%) และ <strong>TK</strong> รายเล็กที่กำลังหด ยอดขายมอเตอร์ไซค์ในประเทศ "แบนราบ" (+0.3% ต้นปี 2026) — แปลว่าธุรกิจนี้ไม่ได้โตตามตลาด แต่โตได้ทางเดียวคือ<strong>แย่งส่วนแบ่ง</strong> และจังหวะนี้มีของขวัญจากรัฐ: กฎ ธปท. บังคับจดทะเบียน (เดดไลน์ 31 มี.ค. 2026) และกฎ responsible lending (มีผล 1 มิ.ย. 2026) กำลังกวาดผู้ประกอบการนอกระบบ/รายเล็กออก ลูกค้าของคนที่หายไปจะไหลมาหาผู้มีใบอนุญาต</p>
+      <p>แรงลมหนุน: ดอกเบี้ยนโยบาย 1.00% (ต่ำสุดในรอบหลายปี) ทำให้ต้นทุนเงินทุนถูกลงต่อเนื่อง (พันธบัตรใหม่ ส.ค. 2026 คูปอง 5.10-5.35% จากเดิม 5.50-5.85%) + มาตรการกระตุ้นกำลังซื้อฐานล่าง (บัตรสวัสดิการ ไทยช่วยไทย พลัส) ตรงกลุ่มลูกค้าของ NCAP พอดี | แรงต้าน: หนี้ครัวเรือนไทย 87.5% ของ GDP คือเพดานแก้วของทั้งอุตสาหกรรม และมอเตอร์ไซค์ไฟฟ้า (1.3% ของทะเบียนใหม่) เป็นความเสี่ยงมูลค่าหลักประกันในระยะ 5-10 ปี</p>
+
+      <h3 id="s1-4">1.4 การเติบโต &amp; คุณภาพการลงทุนซ้ำ</h3>
+      <p>แหล่งโตของ NCAP: (1) ส่วนแบ่งจากคู่แข่งรายเล็กที่กฎรัฐกวาดออก (2) Next Money สินเชื่อโดยใช้รถเป็นหลักประกัน — พอร์ตยังเล็กมาก 50 ล้านบาท (เทียบพอร์ตหลัก 10,900 ล้าน) คิดเป็น "สิทธิเลือกซื้อ" ไม่ใช่เครื่องยนต์หลัก (3) ประสิทธิภาพ AI คัดกรอง+ทวงหนี้ เป้าบริหาร: สินเชื่อใหม่โตอย่างน้อย 10% ต่อปี (TRIS คาด 8-10%)</p>
+      <p><strong>คำถามสำคัญ: การเก็บกำไรไว้ขยายพอร์ตแทนที่จ่ายปันผล "คุ้มไหม"</strong> — คำตอบคือคุ้มเมื่อ ROE สูงกว่าต้นทุนเงินทุน ซึ่งเพิ่งเป็นจริงเป็นครั้งแรกปี 2025 (ROE 11.2% vs ke ~9.25%) ก่อนหน้านั้นการเก็บเงินขยายพอร์ตคือการเอาเงินไปลงทุนผลตอบแทนต่ำกว่าที่ผู้ถือหุ้นควรได้ — นี่คือเหตุผลที่ผลตอบแทนหุ้นเมื่อมองย้อนหลัง 5 ปี ยังน่าผิดหวัง และเป็นเหตุผลที่ปันผลจ่ายแค่ 10% ของกำไร (เก็บไว้ขยายระหว่างที่คุ้มแล้ว) ดู <a href="#s2">§2</a> และ <a href="#s3">§3</a></p>
+
+      <h3 id="s1-5">1.5 ช่วงชีวิตบริษัท &amp; บททดสอบ 3P</h3>
+      <p><span class="tag">TURNAROUND ระยะท้าย → GROWTH ระยะต้น</span> — ช่วงที่ "หายจากบาดแผล" เกือบเสร็จแล้วกำลังพิสูจน์ว่าโตได้ด้วยตัวเอง ตัวเลขที่ต้องเฝ้าจึงไม่ใช่ยอดขาย แต่คือตัวเลขคุณภาพหนี้ (NPL/ECL) ทุกไตรมาส (Peter Lynch จัดกล่องหุ้นนี้ว่า "Turnaround ช่วงท้าย 80% + เงา asset play" — เงินง่ายๆ ของการฟื้นตัวถูกเก็บไปครึ่งหนึ่งแล้วหลังหุ้นวิ่งจาก 2.16 มา 3.68)</p>
+      <div class="callout">
+        <h3>บททดสอบ Possible · Plausible · Probable</h3>
+        <p class="small"><strong>เป็นไปได้ (Possible):</strong> ผ่าน — ROE 11% เกิดขึ้นจริงแล้ว หนี้เสีย 1.28% ต่ำสุดกลุ่ม &nbsp;·&nbsp; <strong>มีกลไกน่าเชื่อ (Plausible):</strong> ผ่าน — กลไกชัด (กฎรัฐกวาดคู่แข่ง + ต้นทุนเงินถูกลง + งบดุลสะอาด) มีตัวเทียบ (MTC ซื้อขายที่ P/B 1.5 เท่าด้วยหนี้เสียแย่กว่า) &nbsp;·&nbsp; <strong>น่าจะเป็นจริง (Probable):</strong> ผ่านบางส่วน — กำไรระดับปัจจุบันมีของฟรีประกบ (ค่าตั้งเผื่อที่ต่ำกว่าค่ากลางของวงจร) ฐานที่เหมาะสมคือกำไร "ปีปกติ" ไม่ใช่กำไรปีที่ดีที่สุด</p>
+        <p class="small muted">ธง "ครั้งนี้ต่างจากเดิม": (1) อย่า assume ค่าตั้งเผื่อลดไปเรื่อยๆ จนเป็นศูนย์ — วงจรสินเชื่อมีรอบ ปี 2022-2024 เคยพิสูจน์ให้เห็นแล้ว (2) อย่าเอาอัตราโตของกำไรที่ฟื้นตัวมาต่อยอดเป็นอัตราโตปกติ — นักวิเคราะห์บางราย (Yuanta TP 6 บาท) ทำแบบนี้ รายงานนี้ไม่ทำตาม ดูเหตุผลใน <a href="#s8-1">§8.1</a></p>
+      </div>
+    </section>
+
+    <!-- ============ 2 · FINANCIAL DASHBOARD ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>แดชบอร์ดการเงิน</h2></div>
+      <hr class="div">
+      <p class="small muted">ตัวชี้วัดกว่า 20 ตัว เทียบ 5 ปี (2022 → H1/2026) สี = ความเห็น (ดีขึ้น/เฝ้าระวัง/แย่ลง) ไม่ใช่แค่ทิศเครื่องหมาย หน่วย: ล้านบาท ถ้าไม่ระบุอื่น</p>
+
+      <h3>ตัวชี้วัดนำ — 3 ตัวที่ตัดสินเรื่องนี้</h3>
+      <table>
+        <thead><tr><th>ตัวชี้วัดนำ</th><th class="num">ล่าสุด</th><th>แนวโน้ม 5 ปี</th><th>บทอ่าน</th><th>ความเห็น</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ROE − ต้นทุนเงินทุน (ke 9.25%)</td><td class="num">+1.9pp</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,28 30,25 60,26 90,14 120,8"/></svg></td>
+            <td class="small">พลิกเป็นบวกครั้งแรกปี 2025 — แต่ค่าเฉลี่ย 5 ปียังติดลบ: ประวัติสร้างมูลค่ายังไม่ดี แค่เพิ่งเริ่มดี</td>
+            <td><span class="chip"><span class="dot watch"></span>เฝ้าระวังแบบมีทิศทางดี</span></td>
+          </tr>
+          <tr>
+            <td>Credit cost (ค่าตั้งเผื่อ ÷ พอร์ต)</td><td class="num">~3.9% (TTM)</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,6 30,8 60,9 90,20 120,24"/></svg></td>
+            <td class="small">7.8% → 7.6% → 4.65% → ~3.9% — ดีขึ้นเร็วมาก คำถามคือ "ต่ำกว่าค่ากลางวงจร (~5%) แบบนี้อยู่ได้ไหม" คือหัวใจของทั้งรายงาน</td>
+            <td><span class="chip"><span class="dot watch"></span>เฝ้าระวัง — ตัวแปรชี้ขาด</span></td>
+          </tr>
+          <tr>
+            <td>งบดุล: D/E + พันธบัตรคงค้าง</td><td class="num">1.07x / ศูนย์</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,10 30,6 60,8 90,14 120,16"/></svg></td>
+            <td class="small">พันธบัตรปลดหมด ก.พ. 2026 D/E 1.07 เท่า กว่ากัน covenant 3.5 เยอะ — งบดุลสะอาดที่สุดตั้งแต่จดทะเบียน</td>
+            <td><span class="chip"><span class="dot good"></span>ดี</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="grid2" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>ความสามารถทำกำไร</th><th class="num">ล่าสุด</th><th>ความเห็น</th></tr></thead>
+          <tbody>
+            <tr><td>รายได้ (ปี 2025)</td><td class="num">2,156.3</td><td><span class="chip"><span class="dot good"></span>โตต่อเนื่อง +7.0%</span></td></tr>
+            <tr><td>กำไรก่อนภาษี margin</td><td class="num">32.0%</td><td><span class="chip"><span class="dot watch"></span>สูงผิดปกติ (วงจรดีสุด)</span></td></tr>
+            <tr><td>กำไรสุทธิ margin</td><td class="num">25.8%</td><td><span class="chip"><span class="dot watch"></span>ต้อง normalize ก่อนใช้ (§8.1)</span></td></tr>
+            <tr><td>NIM (ส่วนต่างดอกเบี้ยรับ-จ่าย)</td><td class="num">11.38%</td><td><span class="chip"><span class="dot good"></span>ฟื้นจากแอ่น 10.89% (2024)</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>ผลตอบแทน/ประสิทธิภาพ</th><th class="num">ล่าสุด</th><th>ความเห็น</th></tr></thead>
+          <tbody>
+            <tr><td>ROE (งบจริง)</td><td class="num">11.2% → 11.1% TTM</td><td><span class="chip"><span class="dot good"></span>จาก 3.9% ปี 2022</span></td></tr>
+            <tr><td>ROA</td><td class="num">~5.3%</td><td><span class="chip"><span class="dot good"></span>จาก 2.0% (2022)</span></td></tr>
+            <tr><td>ke (ต้นทุนเงินทุนผู้ถือหุ้น)</td><td class="num">9.25%</td><td><span class="chip"><span class="dot good"></span>ลดลงตามดอกเบี้ยไทย</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid2" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>คุณภาพสินเชื่อ (สำคัญสุดของธุรกิจนี้)</th><th class="num">ล่าสุด</th><th>ความเห็น</th></tr></thead>
+          <tbody>
+            <tr><td>พอร์ตสุทธิ (มิ.ย. 2026)</td><td class="num">10,882</td><td><span class="chip"><span class="dot good"></span>+7.3% ตั้งแต่ต้นปี</span></td></tr>
+            <tr><td>หนี้ค้างชำระ (OD%)</td><td class="num">9.02% (2025)</td><td><span class="chip"><span class="dot good"></span>จาก 14.02% (2023)</span></td></tr>
+            <tr><td>หนี้เสีย NPL (Stage 3)</td><td class="num">1.28%</td><td><span class="chip"><span class="dot good"></span>ต่ำสุดในประวัติศาสตร์ + ดีสุดกลุ่ม</span></td></tr>
+            <tr><td>เงินสำรองคุม NPL (coverage)</td><td class="num">63.7%</td><td><span class="chip"><span class="dot watch"></span>ดีขึ้น แต่ยังบาง (ทุก 1 บาทหนี้เสียมีสำรอง 0.64 บาท)</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>กระแสเงินสด / สภาพคล่อง</th><th class="num">ล่าสุด</th><th>ความเห็น</th></tr></thead>
+          <tbody>
+            <tr><td>OCF (เงินสดจากดำเนินงาน 2025)</td><td class="num">+213</td><td><span class="chip"><span class="dot good"></span>บวกครั้งแรก! (จาก −1,565 ในปี 2023)</span></td></tr>
+            <tr><td>เงินสด (สิ้นปี 2025)</td><td class="num">356.5</td><td><span class="chip"><span class="dot good"></span>ฟื้นจากจุดต่ำ 118 (2024)</span></td></tr>
+            <tr><td>หนี้กู้ ธปท. ปล่อย ก.พ. 2026</td><td class="num">346</td><td><span class="chip"><span class="dot good"></span>ปลดครบ — พันธบัตรเหลือศูนย์</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid2" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>ตัวคูณราคา (ณ 3.68฿)</th><th class="num">ล่าสุด</th><th>ความเห็น</th></tr></thead>
+          <tbody>
+            <tr><td>P/E (กำไร 12 เดือนล่าสุด)</td><td class="num">8.3x</td><td><span class="chip"><span class="dot good"></span>ถูกกว่า MTC 9.7x / SAWAD 7.3x อยู่กลางๆ</span></td></tr>
+            <tr><td>P/B (เทียบมูลค่าบัญชี)</td><td class="num">0.89x</td><td><span class="chip"><span class="dot good"></span>ต่ำสุดกลุ่ม (MTC ~1.5x SAWAD ~1.05x)</span></td></tr>
+            <tr><td>ถ้าใช้กำไร normalize 0.38 (§8.1)</td><td class="num">9.7x</td><td><span class="chip"><span class="dot watch"></span>"ถูก" ลดลงเมื่อคิดกำไรปีปกติ</span></td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>ปันผล / ผลตอบแทนผู้ถือหุ้น</th><th class="num">ล่าสุด</th><th>ความเห็น</th></tr></thead>
+          <tbody>
+            <tr><td>ปันผลต่อหุ้น (จ่าย มี.ค. 2026)</td><td class="num">0.0411฿</td><td><span class="chip"><span class="dot watch"></span>เพิ่มจาก 0.0222 ปีก่อน — เพิ่งเริ่มจ่ายเมื่อปี 2024</span></td></tr>
+            <tr><td>ผลตอบแทนปันผล (yield)</td><td class="num">1.1%</td><td><span class="chip"><span class="dot bad"></span>ต่ำ — จ่ายจริง 10% ของกำไร ทั้งที่นโยบายแถลง "ไม่ต่ำกว่า 40% ของกำไรงบแยก"</span></td></tr>
+            <tr><td>ถ้าจ่ายตามนโยบาย 40% จริง</td><td class="num">yield ~4.1%</td><td><span class="chip"><span class="dot watch"></span>ตัวเร่งราคาที่ยังไม่เกิด (ดู §8.3)</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:10px;">การจัดสรรทุนที่ควรรู้: จำนวนหุ้นเพิ่ม 50% ในปี 2022 (rights issue ที่ 4.50 บาท ระดม 2,025 ล้าน เพิ่มกำลังหลังช่วงหนี้เสียระบาด) | warrant พนักงาม (ESOP) ราคา exercise 12.28 บาท หมดอายุ มี.ค. 2027 — ราคาปัจจุบันห่างไกล ไม่มีผลเจือจางในทางปฏิบัติ | รายการระหว่างกัน: ค่าแนะนำประกันกับ iCare (ผู้ถือหุ้นร่วม) ~220 ล้าน/ปี เปิดเผยในงบ ไม่พบความผิดปกติ</p>
+    </section>
+
+    <!-- ============ 3 · VALUATION ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>ประเมินมูลค่า</h2></div>
+      <hr class="div">
+      <div class="callout accent" style="margin-bottom:14px;">
+        <h3>สรุปหลัก</h3>
+        <p><strong>มูลค่ายุติธรรม / Blended fair value (Base case) = 4.15 บาท/หุ้น</strong> เทียบราคาตลาด 3.68 บาท → ต่ำกว่ามูลค่าอยู่ 13% | ฉากดีสุด 5.33 บาท (+45%) | ฉากแย่สุด 2.60 บาท (−29%) | ถ่วงน้ำหนักความน่าจะเป็นแล้วผลตอบแทนคาดหวัง ~4.05 บาท (+10%) — <em>"ถูกพอสมควร แต่ไม่ใช่ถูกเหลือเชื่อ"</em> ต้องมีส่วนลดความปลอดภัยก่อนลงมือ</p>
+      </div>
+      <div class="explain"><b>ทำไมไม่ใช้ DCF ปกติ?</b> วิธีคิดมูลค่ากระแสเงินสดอิสระ (FCFF DCF) เหมาะกับโรงงาน/บริษัททั่วไป แต่ "ธนาคาร/ผู้ให้กู้" อย่าง NCAP เอาเงินของผู้ฝาก/เจ้าหนี้มาปล่อยกู้ — หนี้สินคือ "วัตถุดิบ" ไม่ใช่ภาระ วิธ์ที่ถูกต้องคือประเมิน <strong>มูลค่าหุ้นโดยตรง</strong>: (1) Residual Income — วัดว่ากำไรที่ทำได้ "เกิน" ต้นทุนเงินทุนเท่าไหร่ แล้วบวกเข้ามูลค่าบัญชี (2) Justified P/B — ราคาต่อมูลค่าบัญชีที่สมเหตุสมผล เมื่อรู้ ROE กับต้นทุนเงินทุน (สูตร (ROE−g)÷(ke−g)) (3) เทียบกับหุ้นเพื่อนบ้าน</div>
+
+      <table>
+        <thead><tr><th>วิธี</th><th class="num">ราคาโดยนัย</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>Residual Income (กำไรส่วนเกินบนมูลค่าบัญชี)</td><td class="num">4.11฿</td><td class="num">70%</td><td class="small muted">วิธีหลักของสินเชื่อ — สะท้อนทั้ง BV 4.12 และกำไรส่วนเกิน</td></tr>
+          <tr><td>Justified P/B (ROE normalize 9.25%, ke 9.0-9.25%)</td><td class="num">4.12-4.26฿</td><td class="num">30%</td><td class="small muted">ตัวตรวจสอบ — สองวิธีเข้าใกล้กัน (สัญญาณดีของโมเดล)</td></tr>
+          <tr><td>Relative เทียบ MTC/SAWAD</td><td class="num">3.74฿</td><td class="num">0% (ใช้ถอยกลับ)</td><td class="small muted">ตัดออกจากการเฉลี่ย: ค่าที่ได้ตีความจาก 3 จุดที่รวม NCAP เอง = วนกลม ใช้แค่ตรวจว่า "วันนี้ราคาแพง-ถูกพอดี"</td></tr>
+        </tbody>
+        <tfoot><tr><td>มูลค่ารวม (Blended)</td><td class="num">4.15฿</td><td class="num">100%</td><td>+13% เทียบราคาตลาด 3.68฿</td></tr></tfoot>
+      </table>
+
+      <h3>สมมติฐานหลัก</h3>
+      <table>
+        <thead><tr><th>ตัวป้อน</th><th class="num">ค่า</th><th>ที่มา/เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>อัตราผลตอบแทนพันธบัตรรัฐไทย 10 ปี (risk-free)</td><td class="num">2.05%</td><td class="small muted">ข้อมูลสด 14 ส.ค. 2026 (ควร cross-check กับ ThaiBMA)</td></tr>
+          <tr><td>ค่าชดเชยความเสี่ยงหุ้น (ERP ไทย)</td><td class="num">6.3-6.4%</td><td class="small muted">ERP ตลาดพัฒนาแล้ว + ค่าชดเชยความเสี่ยงประเทศไทย</td></tr>
+          <tr><td>Beta</td><td class="num">1.0</td><td class="small muted">ค่าเฉลี่ยกลุ่มสินเชื่อ (beta ฐานข้อมูล 0.34 ไม่น่าเชื่อถือ — หุ้นเทรดบาง)</td></tr>
+          <tr><td><strong>ต้นทุนเงินทุนผู้ถือหุ้น (ke)</strong></td><td class="num"><strong>9.25%</strong></td><td class="small muted">ช่วงทดสอบ 8.5-11% (รวมค่าชดเชยหุ้นเล็กเนื้อบาง)</td></tr>
+          <tr><td>ROE ฉากฐาน (normalize)</td><td class="num">9.0-9.5%</td><td class="small muted">ตามกำไร normalize (§8.1) — ไม่ใช่ 11% ของปีที่วงจรดีสุด</td></tr>
+          <tr><td>การเติบโตถาวร (g)</td><td class="num">1.75%</td><td class="small muted">ไม่เกินดอกเบี้ยรัฐบาลไทย (กติกาอนุรักษ์นิยม)</td></tr>
+          <tr><td>มูลค่าบัญชีต่อหุ้น (มิ.ย. 2026)</td><td class="num">4.12฿</td><td class="small muted">งบ Q2/2026 [FILING]</td></tr>
+        </tbody>
+      </table>
+
+      <h3>ตารางความไว — ราคา (฿) ตาม ROE ยั่งยืน × ต้นทุนเงินทุน</h3>
+      <p class="small muted">สำหรับผู้ให้กู้ "ตัวขับมูลค่า" ไม่ใช่อัตราเติบโตถาวร แต่คือส่วนต่าง ROE − ke ตารางนี้จึงแทน WACC×g ของ DCF ปกติ (กรอบหนา = ฐาน)</p>
+      <table class="heat">
+        <thead><tr><th>ROE ＼ ke</th><th>8.5%</th><th>9.0%</th><th>9.25%</th><th>9.5%</th><th>10.0%</th><th>11.0%</th></tr></thead>
+        <tbody>
+          <tr><th>8.5%</th><td>4.12</td><td>3.83</td><td>3.71</td><td>3.59</td><td>3.37</td><td>3.00</td></tr>
+          <tr><th>9.25%</th><td>4.58</td><td>4.26</td><td class="base">4.12</td><td>3.99</td><td>3.74</td><td>3.34</td></tr>
+          <tr><th>10.0%</th><td>5.03</td><td>4.69</td><td>4.53</td><td>4.38</td><td>4.12</td><td>3.67</td></tr>
+          <tr><th>11.0%</th><td>5.64</td><td>5.25</td><td>5.08</td><td>4.91</td><td>4.62</td><td>4.12</td></tr>
+          <tr><th>12.0%</th><td>6.25</td><td>5.82</td><td>5.63</td><td>5.45</td><td>5.12</td><td>4.56</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted"><strong>อ่านตารางแบบนักลงทุน:</strong> ราคาวันนี้ 3.68 บาท เทียบแถว/คอลัมน์แล้ว = ตลาดกำลังตั้งราคาเหมือนเชื่อว่า NCAP จะทำ ROE ยั่งยืนได้แค่ ~8.5-9% ที่ต้นทุนเงินทุน 9.25% — ต่ำกว่าที่บริษัททำได้จริงตอนนี้ (11.1%) แต่ใกล้ค่ากลางวงจรที่เราประเมินไว้ กล่าวคือตลาดไม่ได้มองข้ามหุ้นนี้ แค่ "ยังไม่ให้เครดิต" ความยั่งยืน — ถ้า ROE ยืน 10.5-11% จริง มูลค่าเด้งไป 4.6-5.1 ทันที</p>
+
+      <h3>เทียบหุ้นกลุ่มเดียวกัน (ณ 17 ส.ค. 2026)</h3>
+      <table>
+        <thead><tr><th>บริษัท</th><th class="num">มูลค่าตลาด</th><th class="num">P/E</th><th class="num">P/B</th><th class="num">ROE โดยนัย*</th><th class="num">NPL</th><th class="num">Yield</th></tr></thead>
+        <tbody>
+          <tr><td>MTC เมืองไทยแคปปิตอล</td><td class="num">69,964 ลบ.</td><td class="num">9.7x</td><td class="num">~1.5x</td><td class="num">15.5%</td><td class="num">2.61%</td><td class="num">0.9%</td></tr>
+          <tr><td>SAWAD ศรีสวัสดิ์</td><td class="num">39,205 ลบ.</td><td class="num">7.3x</td><td class="num">~1.05x</td><td class="num">14.4%</td><td class="num">3.93%</td><td class="num">3.0%</td></tr>
+          <tr><td><strong>NCAP เน็คซ์ แคปปิตอล</strong></td><td class="num"><strong>4,968 ลบ.</strong></td><td class="num"><strong>8.3x</strong></td><td class="num"><strong>0.89x</strong></td><td class="num"><strong>10.7%</strong></td><td class="num"><strong>1.28%</strong></td><td class="num"><strong>1.1%</strong></td></tr>
+          <tr><td>TK ธิติกร</td><td class="num">2,198 ลบ.</td><td class="num">35.2x</td><td class="num">n/a</td><td class="num">ต่ำ</td><td class="num">สูง</td><td class="num">4.6%</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">*ROE โดยนัยคำนวณจาก P/B ÷ P/E (เอกลักษณ์ทางคณิต) | บทอ่าน: NCAP คุณภาพหนี้ดีที่สุด (NPL 1.28% vs SAWAD 3.93%) แต่ถูกตีราคาต่ำสุดในกลุ่ม P/B — ทว่าเมื่อคิดเทียบกับ ROE ที่ทำได้ ราคา "fair พอดี" ไม่ใช่ถูกโดยไม่มีเงื่อนไข: ส่วนลดกับ MTC อธิบายได้ด้วยขนาดที่เล็กกว่า 17 เท่า + ROE ที่ยังต่ำกว่า + สภาพคล่องหุ้นบาง | ข้อมูลกลุ่มจากแหล่งรวบรวมสื่อ [MEDIA] ควรตรวจกับงบจริงก่อนใช้ตัดสินใจ</p>
+
+      <h3>สแกนจุดผิดปกติ (Candidate Hooks)</h3>
+      <table>
+        <thead><tr><th>จุดน่าสนใจ</th><th>ตัวเลข</th><th>แปลเป็นภาษาคน</th><th>สถานะ</th></tr></thead>
+        <tbody>
+          <tr><td>ROE พลิกเหนือ ke ครั้งแรก + P/B ต่ำกว่า 1</td><td>ROE 11.1% vs ke 9.25%, P/B 0.89x</td><td class="small muted">ถ้า ROE ยืน 11% มูลค่า P/B ที่สมควรคือ ~1.2x = 4.97฿ (+35%)</td><td><span class="chip"><span class="dot good"></span>หลัก</span></td></tr>
+          <tr><td>ราคาวันนี้ ≈ ระดับเกือบถึงฉากแย่</td><td>ราคา 3.68 อยู่ไป 80% ของทางจากฉากแย่ (2.60) สู่ฉากฐาน (4.15)</td><td class="small muted">downside ถูกจำกัดโดยสัมพัทธ์ แต่ไม่ใช่ "ปลอดภัยสุดๆ"</td><td><span class="chip"><span class="dot watch"></span>รอง</span></td></tr>
+          <tr><td>ถ้าจ่ายปันผลตามนโยบาย 40% จริง</td><td>กำไร normalize ~510 ลบ. × 40% ÷ 1,350 ล้านหุ้น</td><td class="small muted">DPS ~0.15 = yield 4.1% ที่ราคานี้ — ตัวเร่ง re-rate ที่ยังไม่เกิด</td><td><span class="chip"><span class="dot watch"></span>รอง</span></td></tr>
+          <tr><td>NPL ดีที่สุดกลุ่ม</td><td>1.28% vs MTC 2.61% / SAWAD 3.93%</td><td class="small muted">ระวัง: NPL จัดการได้ด้วยการตัดหนี้ออกจากงบ ตัวที่โกหกไม่ได้คือ credit cost เฉลี่ย 5 ปี (~5.9%) กับ coverage 64%</td><td><span class="chip"><span class="dot watch"></span>รอง (อ่อน)</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============ 4 · EARNINGS & SENTIMENT ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>ผลประกอบการ &amp; อารมณ์ตลาด</h2></div>
+      <hr class="div">
+      <h3>ไตรมาสล่าสุด Q2/2026 (ประกาศ 4 ส.ค. 2026)</h3>
+      <table>
+        <thead><tr><th>ตัวชี้วัด</th><th class="num">Q2/2026</th><th class="num">Q2/2025</th><th class="num">เปลี่ยนแปลง</th></tr></thead>
+        <tbody>
+          <tr><td>รายได้</td><td class="num">589.2 ลบ.</td><td class="num">536.9 ลบ.</td><td class="num">+9.7%</td></tr>
+          <tr><td>ค่าตั้งเผื่อหนี้สูญ (ECL)</td><td class="num">102.8 ลบ.</td><td class="num">117.6 ลบ.</td><td class="num">−12.6%</td></tr>
+          <tr><td><strong>กำไรสุทธิ</strong></td><td class="num"><strong>196.6 ลบ.</strong></td><td class="num">146.6 ลบ.</td><td class="num"><strong>+34.1%</strong></td></tr>
+          <tr><td>หุ้นละกำไร (EPS)</td><td class="num">0.146</td><td class="num">0.109</td><td class="num">+34%</td></tr>
+        </tbody>
+      </table>
+      <p><strong>ปฏิกิริยาหุ้น (บทเรียนสำคัญของไตรมาสนี้):</strong> กำไรทำสถิติใหม่แต่หุ้น "ขายข่าว" — ราคาวิ่งขึ้นก่อนงบ 2 สัปดาห์จาก 3.02 (23 ก.ค.) ถึง 3.82 (31 ก.ค.) ปิดสูงสุด <strong>4.08 บาทในวันประกาศผลเอง (4 ส.ค.) ด้วยวอลุ่ม 95 ล้านหุ้น = 7 เท่าของปกติ</strong> แล้วค่อยๆ หลุดลงมาเป็น 3.64-3.68 ในสองสัปดาห์ถัดมา (−11%) แปลว่าตลาดราคาที่ดีล่วงหน้าไว้แล้ว (ช่วงนั้นมีข่าวดีซ้อนกัน: อันดับเครดิต TRIS เปลี่ยนเป็น Positive 15-17 ก.ค. + Yuanta เริ่มครอบคลุมหุ้น 31 ก.ค. + ประกาศออกพันธบัตร)</p>
+      <div class="explain"><b>"ขายข่าว" (sell the news) คืออะไร:</b> เหมือนคนที่ซื้อตั๋วคอนเสิร์ตเก็บเผื่อไว้ พอวันคอนเสิร์ตมาถึงจริง คนที่อยากไปก็มีตั๋วแล้ว ราคาตั๋วจึงลดลง — กำไรดีที่ "ถูกคาดไว้แล้ว" ไม่ทำให้หุ้นขึ้นต่อ ต้องมีข่าวดี "ที่ยังไม่ถูกคาด" เท่านั้น</div>
+
+      <h3>สถิติเทียบประมาณการ &amp; ไตรมาสหน้า</h3>
+      <table>
+        <thead><tr><th>ไตรมาส</th><th class="num">EPS คาด</th><th class="num">EPS จริง</th><th class="num">เซอร์ไพรส์</th><th>ผล</th></tr></thead>
+        <tbody>
+          <tr><td>Q2/2026 (ส.ค. 2026)</td><td class="num">0.15</td><td class="num">0.15</td><td class="num">0%</td><td><span class="chip"><span class="dot good"></span>ตรงคาด</span></td></tr>
+          <tr><td>ยุค 2021-2022 (ข้อมูลเก่าที่มี)</td><td class="num">0.07-0.09</td><td class="num">0.05-0.06</td><td class="num">−9% ถึง −44%</td><td><span class="chip"><span class="dot bad"></span>ต่ำกว่าคาดหนัก</span></td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">บริษัทเพิ่งมีนักวิเคราะห์ครอบคลุมจริงจังเป็นครั้งแรก (Yuanta เริ่ม ก.ค. 2026 — มีบริษัทเดียว TP 6.00 บาท) ประวัติเทียบประมาณการจึงบางมาก</p>
+      <p><strong>ไตรมาสหน้า Q3/2026 (คาดประกาศต้น พ.ย. 2026):</strong> Yuanta คาดกำไรครึ่งปีหลัง 436 ลบ. (โดยนัย Q3 ~205-220 ลบ. +44-54% YoY) — คาดหวังสูงมากสำหรับฐานเทียบที่เริ่มสูงแล้ว (Q3/25 ทำ 142.7 ลบ.) โมเดลของเราคิดกลางๆ กว่า: ~190-200 ลบ. | <strong>ตัวชี้วัดที่ต้องผ่านเพื่อยืนยันเรื่องเล่า:</strong> ECL ≤ 105 ลบ. / พอร์ตโต YoY ≥ 10% / NPL ≤ 1.5% / รายได้ทวงหนี้ ≥ 45 ลบ.</p>
+      <div class="callout accent" style="margin-top:16px;">
+        <h3>อารมณ์ตลาดตอนนี้</h3>
+        <p>ตลาดตั้งราคา NCAP แบบ "ครึ่งศรัทธา" — เชื่อพอที่จะให้ราคาแตะ 4.36 แล้วถอย แต่ยังไม่เชื่อพอจะยืนเหนือ 4.00 (และยังตั้งราคาเทียบ ROE ~8.5-9% ต่ำกว่าที่บริษัททำได้) ความเสี่ยงเชิงจังหวะจึงอยู่ตรงที่ถ้า Q3 มา "แค่ดี" ไม่ "ดีเกินคาด" หุ้นอาจเบาตัวต่อ — เหมาะกับการรอซื้อในโซนที่มีส่วนลด มากกว่าไล่ราคา</p>
+      </div>
+    </section>
+
+    <!-- ============ 5 · TECHNICAL TIMING ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>จังหวะเข้า (Technical Timing)</h2></div>
+      <hr class="div">
+      <div class="chart-frame">
+        <img src="data:image/png;base64,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yNkW5j5aJMVit2v+N7f3oc6WTuddUL9hffWF59X/d03Hc86REtC9f5crf5B76KF77yzWy3Hkot5e//prskW+nNpR5Pbqldv3yLzPFhy8mH9I7qd7stKX4fIxZoLjWWedJd/nz58fv+ekSZNUc+V/bPfu3XPnzr3gggsefPBB2V5bW3vdddcNHTr03HPPPfPMM4888shly5Y5Ozs3d+82ZMiQ4cOHSx2W7CFiLt52220FBQVywy984Qv9+/dftGiR+1bSzyrdinqHs88+e+DAgdL/6txWOlydn/q+++5z33DVqlXOKLmzT/wzF/KI55xzjvxoX/7yl8ePHy8P8bOf/UweV66SH0Tv/8wzzzj7y69AthQVFbnvQe8m+ysAmfa71192fykASI+UhlIs7vv7/zV93OnW6aKLc3r2rHsusqQk8j2vvVP8aVL/NX7wQd3z/5J2Y/WHeccNSXH/UjvmdOmSN3SoitapUndKBama91RVRv3qV79q167dc889l5ubK1XOjTfeWFFR8dprr8XsVlhY6KxN8eOiiy7697//LY1TTz1VRXs0pdvPuVa66KSyjL9VzG5St51//vkqPXPmzHHaUrx+61vfkieg/4ssVakMN7/99tvODvv375dn6L755Zdffuedd0pj27Zt0inrDN//5S9/0Y3UyUybNs3ppHT87ne/k4QXLlz4ta99TapbFZ1CIOFL47333pPCVEUXADmDEeXl5fqGsr8CPm34EUem2LLnwAEFZCuWTPlX0Ouwru3bu7fEvye4y5emTw+yBSqnuf1kLYiMKUtnoRR2zhbpL8z59G8khow+5w0+Vm4iFaS7Fsw78aT8R5+IGe+We2v6aJfsJnWq/B4btr6X076DtPVYtidplY/x48XJFkcfccQRJSUl7i2/+MUv4nfTi2ZkeHfBggUqiVtuuUWZSOkmz2TAgAEyaH7zzTc7ReEZZ5xxyimnvP766/Eru9PcLZnu3btfddVV8ojSy/jOO+/IljvuuOPee++VhpRuTu148skny53LPf/rX/9y37xfv35f/epX//73v6voAhpdPsoY92OPPaZ3+H//7/8le2gpCnXt2LNnzxtuuGHQoEGVlZXXXnvtRx99JI8iV02YMEGXj//4xz90es5aHL3x29/+tnLNT5X9VXZjhpl/KTKU/zj985//LFLDkwAAEABJREFUfPfd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" alt="กราฟรายวัน NCAP จาก TradingView">
+        <div class="chart-caption">TradingView · SET:NCAP · กราฟรายวัน (D) · จับภาพ 17 ส.ค. 2026</div>
+      </div>
+      <div class="grid2">
+        <div class="callout accent">
+          <h3>สภาพกราฟ — ถอยหลังในขาขึ้นระยะต้น</h3>
+          <p class="small">ภาพใหญ่ (รายสัปดาห์): หุ้นเคยร่วงจาก 10.45 (ก.ย. 2021) ถึง 1.18 (ม.ค. 2025) = −89% แล้วฟื้นขึ้นมา +270% — ตอนนี้เป็น "ขาขึ้นระยะต้น" (Stage 2 ตอนต้น) ราคาอยู่เหนือค่าเฉลี่ย 30/40 สัปดาห์ | ผ่านเกณฑ์ Minervini Trend Template 6/8 ข้อ (ตกที่เส้น 150 วันยังต่ำกว่า 200 วัน — กำลังจะไขว้ขึ้น)</p>
+          <p class="small">ล่าสุด (รายวัน): พุ่งถึง 4.36 วันงบ (4 ส.ค.) แล้วถอยมา 5 ทอดที่ ~3.64-3.68 วอลุ่มเบาลง (11 ลบ./วัน ต่ำกว่าค่าเฉลี่ย 14 ลบ. = สัญญาณเงียบแบบดี ไม่ใช่การขายออก) กำลังนั่งบนจุดถ่วง Fibonacci 50% ของรอบล่าสุด (3.69) พอดี</p>
+        </div>
+        <div class="callout">
+          <h3>เรขาคณิตความเสี่ยง (ตามหลัก Minervini)</h3>
+          <p class="small"><strong>เส้นทาง A (ซื้อตอนถอย):</strong> รอราคานิ่ง 5+ วันในโซน 3.40-3.60 วอลุ่มแห้ง แล้วซื้อวันเด้งกลับ ~3.50-3.58 | จุดตัดขาดทุน 3.25-3.28 | เสี่ยง ~8% เป้า T1 4.36 = กำไร 3 เท่าของความเสี่ยง (3R)</p>
+          <p class="small"><strong>เส้นทาง B (ซื้อตอนบุก):</strong> รอฐาน 3-5 สัปดาห์ แล้วซื้อ breakout เหนือ 4.10-4.36 ด้วยวอลุ่ม ≥ 1.5 เท่า (~20 ลบ.+) | จุดตัดใต้ฐานสุดท้าย ~3.85-3.90</p>
+          <p class="small"><strong>ปุ่มดับเครื่อง:</strong> ปิดต่ำกว่า 3.00 พร้อมวอลุ่ม = เลิกไอเดียนี้ | ทะลุ 3.45 แล้วไม่ฟื้น = เตือนภัยจริง</p>
+        </div>
+      </div>
+      <div class="explain"><b>อ่านค่า R-multiple ง่ายๆ:</b> R = จำนวนเท่าของ "เงินที่ยอมเสีย" เช่น ซื้อ 3.50 ตั้งจุดตัด 3.26 (ยอมเสีย 0.24) ถ้าขายที่ 4.36 ได้กำไร 0.86 = 3.6R — เท่ากับเสียได้ 3 ครั้งก่อนจะเจ๊ง 1 ครั้งของการถูก</div>
+      <p><strong>คำตัดสินเรื่องจังหวะ: "รอ — ไม่ไล่ราคา 3.68 กลางทางถอยหลัง"</strong> (ความเห็นร่วมของการวิเคราะห์แบบ chartist ปกติ + ตรวจทานด้วยกรอบ SEPA/VCP ของ Mark Minervini) จับคู่กับมูลค่าพื้นฐาน 4.15 บาท: โซน 3.40-3.60 ที่เทคนิคชอบ ตรงกับโซนส่วนลดความปลอดภัยที่พื้นฐานต้องการพอดี — จุดรอยต่อสองฝั่งคือจุดที่น่าลงมือที่สุด | ข้อควรจำ: มี "กำแพงคนติดหุ้น" ช่วง 4.08-4.36 (คนซื้อวันงบ 95 ล้านหุ้นยังขาดทุน) การทะลุ 4.10 จึงต้องมีข่าวใหม่จริงๆ</p>
+    </section>
+
+    <!-- ============ 6 · SCENARIOS & PLAN ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>ฉากทัศน์ &amp; แผนลงทุน</h2></div>
+      <hr class="div">
+      <table>
+        <thead><tr><th>ฉากทัศน์</th><th>เงื่อนไขที่ต้องเกิด</th><th class="num">~12 ด.</th><th class="num">~24 ด.</th><th class="num">~36 ด.</th><th class="num">ความน่าจะเป็น</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="chip"><span class="dot good"></span><strong>ดี (Bull)</strong></span></td>
+            <td class="small muted">ค่าตั้งเผื่อยืน ≤4.2% ติดกัน 4+ ไตรมาส, พอร์ตโต 12%+, เริ่มจ่ายปันผล 30-40% ของกำไร, ตลาดให้ P/B 1.1-1.2 เท่า</td>
+            <td class="num">5.00 (+36%)</td><td class="num">5.33 (+45%)</td><td class="num">5.70 (+55%)</td><td class="num">25%</td>
+          </tr>
+          <tr>
+            <td><strong>กลาง (Base)</strong></td>
+            <td class="small muted">ค่าตั้งเผื่อ ~5% (ค่ากลางวงจร), พอร์ตโต 9-10%, ROE 9-9.5%, P/B คืนสู่ 1.0 เท่าตามมูลค่าบัญชีที่ทบต้น</td>
+            <td class="num">4.15 (+13%)</td><td class="num">4.40 (+20%)</td><td class="num">4.65 (+26%)</td><td class="num">50%</td>
+          </tr>
+          <tr>
+            <td><span class="chip"><span class="dot bad"></span><strong>แย่ (Bear)</strong></span></td>
+            <td class="small muted">ค่าตั้งเผื่อย้อนกลับ 6-6.5% (รายได้เกษตร/หนี้ครัวเรือนสั่น), ROE หดเหลือ 5.5-7%, ตลาดตี P/B 0.5-0.7 เท่าเหมือนปี 2022-24</td>
+            <td class="num">3.00 (−19%)</td><td class="num">2.70 (−27%)</td><td class="num">2.90 (−21%)</td><td class="num">25%</td>
+          </tr>
+        </tbody>
+        <tfoot><tr><td colspan="5">ผลตอบแทนคาดหวังถ่วงน้ำหนักความน่าจะเป็น</td><td class="num">+10.7% / +14.4% / +21.6%</td><td class="num">100%</td></tr></tfoot>
+      </table>
+      <p class="small muted">โครงสร้างความเสี่ยง-ผลตอบแทน: ที่ 36 เดือน upside +55% ชน้ downside −21% (อัตราส่วน ~2.6:1) — เอียงไปทางบวกแต่ไม่ชันมาก ต้องใช้วินัยราคาเข้าชดเชย | ทุกเป้าหมายยึดกับมูลค่าใน <a href="#s3">§3</a> ทั้งหมด ไม่มีราคาที่คิดขึ้นเองนอกโมเดล</p>
+
+      <div class="callout" style="margin-top:18px;">
+        <h3>แผนลงทุน <span class="small muted">— แบบมีเงื่อนไข ไม่ใช่คำสั่งซื้อ-ขาย</span></h3>
+        <p class="small"><strong>ประเภทเดิมพัน:</strong> Turnaround ช่วงท้าย → GARP (โตในราคาสมเหตุผล) — แผนจึงเน้น "รอราคาดีกว่านี้ หรือหลักฐานแน่นกว่านี้" ไม่ใช่เข้าทันที</p>
+        <p class="small"><strong>จุดเข้า &amp; ส่วนลด:</strong> ราคา 3.68 = ส่วนลดแค่ 11% จากมูลค่ากลาง 4.15 — น้อยเกินไปสำหรับหุ้นเล็กที่วันเดียวแกว่ง 6% และมีธงบริหารค้าง (CEO รักษาการ 1.5+ ปี) | <strong>โซนที่น่าสนใจ 3.40-3.60</strong> (ส่วนลด 13-18% และตรงโซนเทคนิค §5) หรือยอมซื้อแพงขึ้นบน breakout เหนือ 4.10 พร้อมวอลุ่ม ถ้าอยากได้ความแน่นมากแลกกับราคา</p>
+        <p class="small"><strong>ขนาด &amp; การทยอย:</strong> เริ่ม 1/3 ของตำแหน่งที่วางไว้ (เส้นทาง A ใน §5) → เพิ่มเมื่อ Q3/2026 ยืนยัน ECL ≤ 105 ลบ. → เต็มตำแหน่งเมื่อ payout ขยับหรือ P/B แตะ 1.0 พร้อมพื้นฐาน | <strong>ความเสี่ยงต่อไม้ ≤ 1% ของพอร์ต</strong> (หุ้นผันผวน 6%/วัน วันเดียวทะลุจุดตัดได้)</p>
+        <p class="small"><strong>แผนตามระดับความเสี่ยงของคุณ (เพราะคุณบอกว่ายังไม่แน่ใจ):</strong><br>
+          · <em>รับเสี่ยงน้อย:</em> ไม่ต้องรีบ — รองบ Q3 (ต้น พ.ย.) ยืนยันก่อน แล้วค่อยซื้อชุดเดียวที่ 3.40-3.50 จุดตัด 3.25<br>
+          · <em>รับเสี่ยงกลาง:</em> ตามแผนหลักด้านบน (ทยอย 3.40-3.58 หลังราคานิ่ง + เพิ่มหลัง Q3) ขนาด 2-4% ของพอร์ต<br>
+          · <em>รับเสี่ยงสูง (เข้าใจวงจรสินเชื่อ):</em> ได้ทั้งเส้นทาง A + ถือข้ามความผันผวนแบบเจ้าของธุรกิจ เป้า 24-36 เดือนที่ 5.33+ ขนาด 5-8%</p>
+        <p class="small"><strong>ตัวสร้างความเชื่อมั่น (เฝ้าทุกไตรมาส):</strong> (1) ECL ≤ 105 ลบ./ไตรมาส ติดกัน 2 ไตรมาส (2) พอร์ตโต YoY ≥ 10% (3) NPL ≤ 1.5% + coverage ≥ 60% (4) รายได้ทวงหนี้ไม่หดต่ำกว่า 45 ลบ./ไตรมาส (5) ปันผลปี 2027 เกิน 0.06 บาท/หุ้น (6) ได้ CEO ประจำ</p>
+        <p class="small"><strong>ตัวทำลายเรื่องเล่า — ฉบับทดสอบได้จริง (แก้หลังรอบโจมตี):</strong> (ก) credit cost (ECL ต่อรายได้ รายไตรมาส เทียบเป็นรายปี) <strong>เกิน 6.0% ติดกัน 2 ไตรมาส</strong> (ข) รายได้ทวงหนี้ <strong>ต่ำกว่า 30 ลบ./ไตรมาส</strong> (ค) ไม่มี CEO ประจำ <strong>ภายในงบ Q1/2027 (พ.ค. 2027)</strong> หรือเรื่อง SEC ลามเกิน 1 กรรมการ (ง) MTC/ผู้ให้กู้รายใหญ่ <strong>ลดดอกเบี้ยสัญญาใหม่เกิน 1pp ต่อเนื่อง 2 ไตรมาส</strong> (จ) พันธบัตรก.ย. 2026 <strong>ระดมสำเร็จไม่ถึง 70% ของแผน</strong> — เกิดข้อใดข้อหนึ่ง = ออกโดยไม่ต่อรอง</p>
+        <p class="small"><strong>แยกให้ชัด — 2 ชนิดของเส้นตาย:</strong> "stop ทางเทคนิค 3.00-3.25" (§5) คือการตัดขาดทุนเมื่อราคาพังก่อนงบ — ส่วน "thesis-kill" ด้านบนคือการตัดเรื่องเล่าเมื่อ<em>ตัวเลขธุรกิจ</em>พัง สองอย่างนี้ทำงานแยกกัน อย่าให้ stop ทำหน้าที่แทนการอ่านงบ</p>
+        <p class="small"><strong>เพดานราคาเพิ่มไม้:</strong> ห้ามเพิ่มตำแหน่งที่ราคาเหนือมูลค่ายุติธรรม 4.15 บาท — ยอมพลาดไม่ขยายชดเชยความล่าช้าด้วยราคาที่แพงขึ้น (กัน "รอจนแพงแล้วไล่ซื้อ") | <strong>ทางเลือกสาย deep-value (ตามตำรา margin of safety 33%):</strong> นักลงทุนที่ต้องการความปลอดภัยแบบเข้มงวดควรรอ <strong>≤ 2.75 บาท</strong> (ใกล้ฉากแย่) — แลกกับโอกาสที่อาจไม่มาถึง</p>
+        <p class="small"><strong>กรอบเวลา:</strong> 12-36 เดือน (ธรรมชาติของวงจรสินเชื่อ + การ re-rate ราคาหุ้น)</p>
+      </div>
+    </section>
+
+    <!-- ============ 7 · KEY RISKS ============ -->
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>ความเสี่ยงหลัก</h2></div>
+      <hr class="div">
+      <p>ห้าข้อนี้คือสมมติฐานที่ขยับ "มูลค่า" ได้มากที่สุด (ไม่ใช่รายการความเสี่ยงสำเร็จรูปจากเอกสารจัดสรรทุน) — เรียงตามแรงกระทบต่อมูลค่ายุติธรรม พร้อมบอกว่าถ้าเกิดขึ้นจริง ราคาเป้าหมายเลื่อนไปแค่ไหน ทุกข้อผูกกับตัวทำลายเรื่องเล่าใน §6 และแกนไวใน §3</p>
+      <table>
+        <thead><tr><th>ความเสี่ยง (เรียงตามแรงกระทบ)</th><th>กลไก</th><th class="num">มูลค่าที่เสี่ยง</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. ค่าตั้งเผื่อหนี้สูญย้อนกลับขึ้น</strong> (credit cost mean-reversion)</td><td class="small muted">รายได้เกษตรผันผวน ภัยแล้ง/น้ำท่วม หนี้ครัวเรือน 87.5% GDP — ทุก 0.5pp ของพอร์ต = กำไรแกว่ง ±9% ถ้าย้อนกลับ 6-6.5% คือกลับไปสภาพ 2022-2024</td><td class="num">พา base 4.15 → ~2.60-3.00</td></tr>
+          <tr><td><strong>2. กฎระเบียบกดรายได้</strong></td><td class="small muted">เพดาน 23% + กฎ responsible lending ของ ธปท. มีผลเต็ม 1 มิ.ย. 2026 — NIM 11-12% บนลูกค้ารายได้น้อยคือเขตที่นโยบายกดได้ต่อ (ยืนยันจากปี 2023 ที่เพิ่งโดนกดมาแล้วรอบหนึ่ง)</td><td class="num">NIM −1pp = −18% กำไร</td></tr>
+          <tr><td><strong>3. ประเมินต้นทุนเงินทุนต่ำเกิน</strong></td><td class="small muted">ถ้าตลาดตีความเสี่ยงหุ้นเล็กเนื้อบางที่ ke 11% (จาก 9.25%) มูลค่ากลางลดเหลือ ~3.5-3.7</td><td class="num">−11% จาก base</td></tr>
+          <tr><td><strong>4. รายได้ทวงหนี้ (~200 ลบ./ปี) หด</strong></td><td class="small muted">เป็น annuity จากสต็อกหนี้เสียเก่าที่ตัดไปแล้ว — สต็อกใหม่เล็กลง (ตัดหนี้ 224 ลบ. ในปี 2025 จากเคย 412 ลบ.) บ่อนี้มีวันแห้ง ทุก −25% = กำไร −8%</td><td class="num">−8% กำไร</td></tr>
+          <tr><td><strong>5. ธงบริหาร &amp; การกำกับ</strong></td><td class="small muted">CEO รักษาการ 1.5+ ปี (ผิดปกติสำหรับธุรกิจที่ความเชี่ยวชาญเครดิตคือหัวใจ) | รายการบังคับใช้กฎหลักทรัพย์ต่อกรรมการ 1 ราย (พ.ค. 2026, รายละเอียดไม่เพียงพอ — ระบุด้วยความระมัดระวัง) | ผู้ถือหุ้นใหญ่เป็นบริษัท IT คุม 61% | เนื้อหุ้นบาง นักลงทุนต่างชาติถือแค่ 0.04% | จุดเฝ้าจากรอบโจมตี: ผู้ถือหุ้นใหญ่ที่เห็นข้อมูลก่อนตลาด "เงียบ" ทั้งที่บริษัทบอกว่าหุ้นถูก — ไม่มีการซื้อคืนหุ้น และจ่ายปันผลจริง 10% กับนโยบายที่แถลงไว้ 40% (ช่องว่างนี้คือ datapoint ความน่าเชื่อถือของฝ่ายบริหาร ไม่ใช่เชิงอรรถ)</td><td class="num">กดตัวคูณราคา (P/B ต่ำกว่าที่ควร)</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">แผนที่ความเสี่ยง: ข้อ 1-2 = ตัวทำลายเรื่องเล่าใน <a href="#s6">§6</a> | ข้อ 3 = แกนตารางความไวใน <a href="#s3">§3</a> | ข้อ 5 = เหตุผลที่แผนกันเงื่อนไขเข้า (ข้อ 1 ตามสัญญาณ NPL ทะลุ 2% / หุ้นต่ำกว่า 3.00)</p>
+    </section>
+
+    <!-- ============ 8 · DEEP DIVES ============ -->
+    <section id="s8">
+      <div class="sec-h"><span class="sec-no">8</span><h2>วิเคราะห์เชิงลึก 4 หัวข้อ</h2></div>
+      <hr class="div">
+      <p class="small muted">สี่คำถามที่นักลงทุนทั่วไปควรถามก่อนเอาเงินลง — เรียงตามลำดับความสำคัญของหุ้นตัวนี้</p>
+
+      <h3 id="s8-1">8.1 Earnings Quality — "กำไรนี้ของจริงไหม" แยกของจริงออกจากรายการครั้งเดียว</h3>
+      <p><strong>คำตอบสั้น: กำไร "ของจริง" (เป็นเงินจริง ผ่านการตรวจสอบ) แต่ "ระดับปัจจุบัน" มีส่วนของโชควงจร</strong> — ตรวจทั้งงบ 56-1 ปี 2025 แล้วไม่พบรายการครั้งเดียว (one-off) ใหญ่ๆ ที่ต้องตัดออก: ไม่มีกำไรขายสินทรัพย์ก้อนโต ไม่มีการขายหนี้เสียก้อนใหญ่ ไม่มีกำไรจากอัตราแลกเปลี่ยน ไม่มีคดีความ ผู้สอบบัญชี PwC ให้ความเห็นแบบไม่มีเงื่อนไข</p>
+      <div class="explain"><b>ว่าด้วย "รายได้อื่น" ที่คนมักเข้าใจผิด (~50 ล้านบาท/ไตรมาส):</b> นี่คือเงินที่บริษัททวงคืนได้จาก "หนี้ที่เคยประกาศว่าสูญแล้ว" (หนี้สูญได้รับคืน) เหมือนร้านค้าที่ตั้งชำร่วยว่าลูกหนี้รายนี้หนีเราไปแล้ว แต่อีกสองปีต่อมาเขากลับมาจ่ายจริง — เงินนี้ "ของจริง" และเกิดซ้ำทุกไตรมาสมา 3 ปี (49-56 ลบ. สม่ำเสมอ) จึง "คงไว้ในฐานกำไร" แต่ต้องเข้าใจว่ามันคือผลพลอยได้จากการทวงหนี้หนักขึ้น ไม่ใช่ margin หลักของการปล่อยกู้ และมีวันเหือดถ้าคิดการตัดหนี้ใหม่น้อยลง (ปี 2025 ตัดแค่ 224 ลบ. จากเคย 412 ลบ. ในปี 2023 — บ่อที่ผลิต "ของขวัญ" ชิ้นนี้กำลังเล็กลง)</div>
+      <p><strong>สิ่งที่ "ดูเหมือนกำไรปกติ" แต่คือวงจร:</strong> กำไรปี 2025 เด้ง +132% มาจากค่าตั้งเผื่อหนี้สูญที่ลดลง 263 ลบ. (จาก 751 → 489 ลบ. ของรายได้ 37.3% → 22.7%) ระหว่างที่รายได้โตแค่ 7% — การเลิกเจ็บครั้งนี้เกิด "ครั้งเดียว" พอดี (บัญชีที่สะอาดขึ้นแล้วจะสะอาดกว่านี้ได้อีกไม่กี่ไตรมาส)</p>
+      <h4>การ Normalize กำไร (วิธีของ Damodaran: เฉลี่ย "อัตรากำไร" ตลอดวงจร ไม่ใช่เฉลี่ยกำไร)</h4>
+      <table>
+        <thead><tr><th>ชั้นความเชื่อ</th><th class="num">EPS (บาท)</th><th>สมมติฐานที่ซ่อนอยู่</th></tr></thead>
+        <tbody>
+          <tr><td>เหวี่ยงสุด (ปีที่วงจรดีที่สุด = TTM ปัจจุบัน)</td><td class="num">0.44</td><td class="small muted">ค่าตั้งเผื่อ ~3.9% ของพอร์ต — ต่ำสุดในรอบ 5 ปี อยู่ต่อไปเรื่อยๆ</td></tr>
+          <tr><td><strong>กลาง (Base ของรายงานนี้)</strong></td><td class="num"><strong>0.38</strong></td><td class="small muted">ค่าตั้งเผื่อ ~5.5% = ค่ากลางวงจร — กำไร "ปีปกติ" ที่ใช้ประเมินมูลค่า</td></tr>
+          <tr><td>อนุรักษ์นิยมสุด (เฉลี่ย 4 ปีเต็ม)</td><td class="num">0.24</td><td class="small muted">ถ่วงน้ำหนักปีแยก 2022-2024 เต็มๆ = ระดับที่แทบไม่ต้องเชื่ออะไรเพิ่ม</td></tr>
+          <tr><td>ฝั่งหวัง (ครึ่งทาง Yuanta)</td><td class="num">0.55</td><td class="small muted">ค่าตั้งเผื่อ ~4.2% ยืนถาวร — ใช้เป็น Bull เท่านั้น</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">กติกาสำคัญที่ได้จากการทดสอบ: ประตู "เติบโต" เปิดไม่เต็ม (ผ่าน 2/3 เกณฑ์ — กำไรปี 2024 ยังต่ำกว่า 2023 อยู่) → <strong>ห้ามเอาอัตราโต +47%/+22% ของนักวิเคราะห์ (ที่ส่วนใหญ่มาจากการฟื้นตัวของค่าตั้งเผื่อ) มาต่อยอดบนกำไรที่ normalize แล้ว</strong> — การทำแบบนั้นคือนับการฟื้นตัวซ้ำสองรอบ และเป็นสาเหตุที่ TP 6.00 ของ Yuanta ถูกจัดเป็น "ฝั่งหวัง" ไม่ใช่ฐาน ในรายงานนี้</p>
+      <p class="small"><strong>สรุปคุณภาพกำไร:</strong> เงินจริง ✓ | ผ่านการสอบบัญชี ✓ | ไม่มีตัวเลขประดับ ✓ | แต่ใช้ EPS 0.38 ในการประเมินมูลค่า ไม่ใช่ 0.44 — เพราะปีที่ดีที่สุดของธุรกิจสินเชื่อไม่ใช่ปีที่ควรเป็นฐานถาวร</p>
+      <div class="explain"><b>ข้อจำกัดที่เรารู้ว่าเราไม่รู้ (หลังถูกโจมตีโดยสาย deep-value):</b> (1) <strong>ฤดูกาลของสัญญา (seasoning):</strong> สัญญาผ่อนมอเตอร์ไซค์มักขาดทุนสูงสุดช่วงเดือนที่ 9-18 — พอร์ตที่โตเร็วจะมีสัญญาใหม่เยอะ (ยังไม่ถึงช่วงอันตราย) ทำให้ credit cost "ดู" ดีกว่าความจริงชั่วคราว บริษัทไม่เปิดเผยข้อมูลแยกรุ่นสัญญา (vintage) เราจึงถ่วงด้วยการตั้ง base ที่ credit cost 5-5.5% (สูงกว่าตัวเลขปัจจุบัน 3.9% อยู่แล้ว 1.5-1.6 จุด) (2) <strong>สต็อกหนี้ที่ตัดไปแล้ว:</strong> ประมาณการหยาบจากงบ — ตัดหนี้สะสม 3 ปี ~987 ลบ. ลบการได้คืน ~200 ลบ./ปี → สต็อกคงเหลือราว 1.0-1.3 พันล้าน ที่อัตราได้คืน ~15-20%/ปี → รายได้ทวงหนี่น่าจะลดลงถึง ~135-150 ลบ./ปี ในระยะกลาง (−25% จากปัจจุบัน = กำไรลด ~8%) — สอดคล้องสมมติฐาน base (3) <strong>ใครเป็นผู้ขาย −11% หลังงบ Q2:</strong> ข้อมูลสาธารณะไม่มีคำตอบ (รู้แค่กรรมการ 1 รายขาย 50,000 หุ้น @4.00 ขนาดเล็กมาก) — จดไว้เป็นคำถามค้าง ไม่สมมติว่ารู้คำตอบ (4) <strong>Mitsui:</strong> ออกจากผู้ถือหุ้นไปตั้งแต่เปลี่ยนชื่อบริษัท (~2014) ไม่เกี่ยวข้องปัจจุบัน</div>
+
+      <h3 id="s8-2">8.2 Business Drivers — "อะไรทำให้หุ้นนี้ขยับ" (ได้มาจากโครงสร้างงบ ไม่ใช่เดา)</h3>
+      <p>สำหรับโรงงาน ต้นทุนวัตถุดิบคือตัวขยับกำไร แต่สำหรับผู้ให้กู้อย่าง NCAP "วัตถุดิบ" คือความเสี่ยงลูกหนี้ผิดนัด — ตัวเลขทั้งหมดข้างล่างคำนวณจากงบจริง (พอร์ต 10,882 ลบ. กำไร TTM 600 ลบ.)</p>
+      <table>
+        <thead><tr><th>#</th><th>ตัวขับ (เรียงตามแรง)</th><th class="num">การขยับ</th><th class="num">ผลต่อกำไรก่อนภาษี/ปี</th><th>= เท่าไหร่ของกำไร</th><th>ดีเลย์ก่อนถึงงบ</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>ค่าตั้งเผื่อหนี้สูญ (ECL) ⭐</strong></td><td class="num">±0.5pp ของพอร์ต</td><td class="num">±54 ลบ.</td><td class="num">±9%</td><td>ลูกหนี้เริ่มค้าง 1-2 ไตรมาสก่อนเข้างบ</td></tr>
+          <tr><td>2</td><td><strong>ส่วนต่างดอกเบี้ย (NIM) ⭐</strong></td><td class="num">±0.5pp</td><td class="num">±54 ลบ.</td><td class="num">±9%</td><td>ทันที (ฝั่งต้นทุนเงิน: 1-2 ไตรมาส)</td></tr>
+          <tr><td>3</td><td>ต้นทุนเงินกู้ (58.9% เป็นวงเงินหมุนเวียน)</td><td class="num">±0.50%</td><td class="num">±27 ลบ.</td><td class="num">±4%</td><td>1-2 ไตรมาส</td></tr>
+          <tr><td>4</td><td>รายได้ทวงหนี้</td><td class="num">±25%</td><td class="num">±50 ลบ.</td><td class="num">±8%</td><td>ทันที</td></tr>
+          <tr><td>5</td><td>SG&A (ต้นทุนดำเนินงาน)</td><td class="num">±1pp ของรายได้</td><td class="num">±22 ลบ.</td><td class="num">±4%</td><td>ทันที</td></tr>
+          <tr><td>6</td><td>การโตของพอร์ต</td><td class="num">±5pp</td><td class="num">~±8 ลบ. ปีแรก (ทบต้นปีถัดไป)</td><td class="num">±1%</td><td>รายได้ตามหลังพอร์ต 2-3 ไตรมาส</td></tr>
+          <tr><td>7</td><td>ราคารถมือสอง (ขายทรัพย์ยึด)</td><td class="num">ผันผวน</td><td class="num">±5-15 ลบ.</td><td class="num">±2%</td><td>ทันทีตอนขาย</td></tr>
+        </tbody>
+      </table>
+      <div class="explain"><b>แปลตารางเป็นเรื่องเล่า:</b> สมมติภัยแล้งทำรายได้เกษตรกร (ลูกค้าหลัก) แย่ลง คนผ่อนเริ่มค้าง 1 ไตรมาส → งบไตรมาสถัดไปค่าตั้งเผื่อขยับขึ้น 0.5% ของพอร์ต = กำไรหาย 9% ทันที ถ้าแย่ถึงระดับปี 2022-2024 (ค่าตั้งเผื่อ 7.6-7.8%) กำไรหายเกินครึ่ง — นี่คือเหตุผลที่ "ค่าตั้งเผื่อ" คือตัวแปรชี้ขาดและเป็น thesis-breaker อันดับ 1 ของรายงานนี้</div>
+      <p class="small">ตัวขับแบบมาโครที่ไหลเข้าตัวเลขข้างบน: ดอกเบี้ยนโยบาย 1.00% → ต้นทุนเงินทุนลด (แถว 3) | มาตรการกระตุ้นฐานล่าง/รายได้เกษตร → หนี้ค้าง → ECL (แถว 1) | กฎ ธปท. → ทั้ง yield และส่วนแบ่งตลาด (แถว 2 กับ 6)</p>
+
+      <h3 id="s8-3">8.3 Growth Outlook — "โตแบบนี้ยั่งยืนไหม มีตัวเร่งอะไรกำลังมา"</h3>
+      <p>แยกส่วนการเติบโตออกเป็นชิ้นๆ แล้วตัดสินทีละชิ้นว่า "ทำซ้ำได้จริงไหม":</p>
+      <table>
+        <thead><tr><th>แหล่งการเติบโต</th><th>ปี 2025 → H1/2026</th><th>ยั่งยืนไหม</th></tr></thead>
+        <tbody>
+          <tr><td>ปริมาณ (พอร์ตโต)</td><td class="num">+4.5% → +7%</td><td><span class="chip"><span class="dot good"></span>ยั่งยืนบางส่วน — ตลาดรวมแบน โตได้จากส่วนแบ่งที่ไหลมาจากรายเล็กที่กฎ ธปท. กวาดออก + เงินทุนพันธบัตรใหม่</span></td></tr>
+          <tr><td>ราคา/ผลตอบแทน (yield)</td><td class="num">+0.2pp → NIM 11.5→12.2%</td><td><span class="chip"><span class="dot watch"></span>ครึ่งเดียว — ต้นทุนเงินถูกลงของจริง แต่ yield โดนเพดาน 23% กด + กฎค่าธรรมเนียม มิ.ย. 2026</span></td></tr>
+          <tr><td>Margin เชิงเครดิต (ECL ลด)</td><td class="num">กำไรเด้งหลัก</td><td><span class="chip"><span class="dot bad"></span>ไม่นับซ้ำ — เป็นการฟื้นตัวครั้งเดียว (เหตุผลเต็มใน §8.1)</span></td></tr>
+          <tr><td>M&amp;A / แลกเปลี่ยนเงินตรา</td><td class="num">0</td><td class="small muted">ไม่มี — การเติบโตอธิบายครบด้วยปริมาณ+margin ไม่มีส่วน "อธิบายไม่ได้" ✓</td></tr>
+        </tbody>
+      </table>
+      <p><strong>คำตอบ: อัตรากำไรที่เห็นโต +34% ไม่ยั่งยืนเต็ม แต่การเติบโตของ "ตัวธุรกิจ" 8-10%/ปี ยั่งยืนได้ระยะกลาง</strong> (เงื่อนไขสามด้าน: เงินทุน-ส่วนแบ่ง-เศรษฐกิจฐานล่าง) — ที่สำคัญไม่พบร่องรอย "โตแบบปลอม" (ราคาขึ้นแต่ปริมาณลง)</p>
+      <h4>ตารางตัวเร่ง — ทุกแถวมีวันที่และวิธีตรวจว่าเกิดจริง</h4>
+      <table>
+        <thead><tr><th>เหตุการณ์</th><th>วันที่</th><th>ทิศทาง</th><th>วิธีตรวจสอบ</th></tr></thead>
+        <tbody>
+          <tr><td>พันธบัตรใหม่ 2 ทรานช์ (2.5ปี @5.10-5.20% / 3ปี @5.25-5.35%) เปิดสมัคร</td><td><strong>7-9 ก.ย. 2026</strong></td><td>บวก (กระสุนขยายพอร์ต) — ถ้าไม่ครบ = สัญญาณเตือน</td><td class="small muted">แจ้งผลต่อ SET + ใบแสดงรายการ</td></tr>
+          <tr><td>งบ Q3/2026 (ตัวยืนยัน: ECL ≤105 ลบ., พอร์ต ≥10%, NPL ≤1.5%)</td><td><strong>~ต้น พ.ย. 2026</strong></td><td>สองทาง — ตลาดต้องการหลักฐานใหม่หลังขายข่าว</td><td class="small muted">งบ SET + งานนักลงทุนสัมพันธ์</td></tr>
+          <tr><td>กฎ ธปท. มีผลบังคับเต็ม (ค่าธรรมเนียม/การทวงหนี้/responsible lending)</td><td><strong>1 มิ.ย. 2026 ออกฤทธิ์ — ผลโผล่งบ Q3-Q4</strong></td><td>สองทาง (กด yield ใหม่ vs กวาดคู่แข่ง)</td><td class="small muted">ประกาศ ธปท. + yield สัญญาใหม่รายไตรมาส</td></tr>
+          <tr><td>การแต่งตั้ง CEO ประจำ (ว่างตั้งแต่ ม.ค. 2025)</td><td>ไม่มีกำหนด</td><td>บวกเชิงจิตวิทยา</td><td class="small muted">แจ้งการแต่งตั้งต่อ SET</td></tr>
+          <tr><td>งบ MTC/SAWAD (อุณหภูมิสงครามราคา + NPL อุตสาหกรรม)</td><td>รายไตรมาส</td><td>อ้อม</td><td class="small muted">งบสาธารณะ</td></tr>
+          <tr><td>ประกาศปันผลประจำปี 2026 (ถ้า payout ขยับเข้าใกล้นโยบาย 40% = yield 3-4%)</td><td>~ก.พ.-มี.ค. 2027</td><td>บวก (ตัวเร่งที่ยังไม่ถูกตีราคา)</td><td class="small muted">มติบอร์ด + วัน XD</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="s8-4">8.4 Peer Impact — "คู่แข่งกำลังทำอะไร" และกระทบเรากี่เปอร์เซ็นต์</h3>
+      <p>คำถามนี้ต่างจาก "หุ้นตัวไหนเทียบกันได้" (§3) — คำถามคือ "การตัดสินใจของใคร เปลี่ยนกำไรเราได้จริง" โดยไม่จำกัดประเทศ จากนั้นกรองด้วย 3 ช่องทาง: แย่งลูกค้าเดียวกัน / แย่งเงินทุนเดียวกัน / ใหญ่พอกำหนดราคาตลาด</p>
+      <table>
+        <thead><tr><th>อันดับ</th><th>คู่แข่ง</th><th>ช่องทางที่กระทบ</th><th>ผลกระทบเชิงตัวเลข</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>MTC</strong> (พอร์ตใหญ่กว่า 17 เท่า, 8,906 สาขา)</td><td>กำหนดราคาตลาด + แย่งลูกค้า + แย่งเงินทุน/ดีลเลอร์</td><td class="small muted">ถ้า MTC กดดอกเบี้ยสัญญาใหม่ 1pp → NCAP ตามบางส่วน → NIM −0.5pp = กำไร −9% | ต้นทุนเงินทุน: ถ้า MTC/SAWAD ออกหนี้ก้อนใหญ่บีบตลาด ต้นทุน NCAP +1% = กำไร −9%</td></tr>
+          <tr><td>2</td><td><strong>SAWAD</strong> (หนี้เสียตัวเอง 3.93%)</td><td>แย่งลูกค้า + เงินทุน</td><td class="small muted">ถ้า SAWAD กลับไปปล่อยง่ายเพื่อแย่งส่วนแบ่ง → กด yield ทั้งตลาด + ปนเปื้อนลูกค้าคุณภาพต่ำให้ไหลมาหาเรา</td></tr>
+          <tr><td>3</td><td><strong>คู่แข่งนอกระบบที่กำลังถูกกวาดออก</strong> (กฎ ธปท.)</td><td>ลูกค้าไหล — <span style="color:var(--good)">ทางบวก</span></td><td class="small muted">ถ้า NCAP รับส่วนแบ่งได้ +2pp การเติบโต = รายได้ +90 ลบ./ปีแรก และทบต้นต่อเนื่อง — นี่คือแรงหนุนหลักของฝั่ง bull</td></tr>
+          <tr><td>4</td><td><strong>ธนาคาร</strong> (เช่น Krungsri ปล่อยกู้โดยใช้มอเตอร์ไซค์เป็นหลักประกัน)</td><td>แย่งลูกค้า</td><td class="small muted">ธนาคารต้นทุนเงินถูกกว่า (เงินฝาก) — ถ้าบุกตลาดนี้จริงจังจะกดหัว "เครื่องยนต์ใหม่" Next Money ของ NCAP (ตอนนี้ยังเน้นลูกค้าคุณภาพดีกว่า)</td></tr>
+          <tr><td>5</td><td>TK / รายเล็ก</td><td>แย่งลูกค้า (อ่อน)</td><td class="small muted">กำลังหดตัวเอง — คือผู้สูญเสียส่วนแบ่ง ไม่ใช่ภัย</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted"><strong>ตัวที่ "หน้าตาเหมือน" แต่ตัดออก (สำคัญพอกับที่เก็บ):</strong> Shriram Finance (อินเดีย — ใหญ่สุดในเอเชียใต้เรื่องสินเชื่อมอเตอร์ไซค์) และ BFI/Adira (อินโดนีเซีย) — ธุรกิจเหมือนมากแต่ "ไม่มีช่องทางใดไปถึงกำไรเรา" คนไทยกู้เงินอินเดียไม่ได้ เงินทุนไทยไม่ถูกแย่ง — ความเหมือนทางหน้าตาไม่ใช่ความเสี่ยงทางกำไร (เก็บไว้เป็นบทเรียนเรื่องวงจรธุรกิจเท่านั้น)</p>
+    </section>
+
+    <!-- ============ 9 · EASY SUMMARY ============ -->
+    <section id="s9">
+      <div class="sec-h"><span class="sec-no">9</span><h2>สรุปรวมฉบับเข้าใจง่าย</h2></div>
+      <hr class="div">
+      <p>รวมทุกส่วนข้างบน (รวมวิเคราะห์เชิงลึก §8) เล่าใหม่เป็นภาษาคนทั่วไป — ถ้าจำอะไรไม่ได้เลย จำส่วนนี้พอ</p>
+
+      <div class="callout">
+        <h3>เรื่อง NCAP ใน 5 ข้อ</h3>
+        <p><strong>1. ธุรกิจน่าเบื่อแต่จริง:</strong> ให้คนต่างจังหวัดผ่อนมอเตอร์ไซค์ใหม่ 317 ดีลเลอร์ทั่วประเทศ มีประวัติตั้งแต่สมัยเป็นบริษัทลูกของ Mitsui (ญี่ปุ่น) ปี 2004 — ไม่ใช่ธุรกิจไฮเปอร์โลว แต่มีลูกค้าจริง เงินจริง ผ่านการสอบบัญชีโดย PwC</p>
+        <p><strong>2. เคยเจ็บหนักมาแล้วรอบหนึ่ง:</strong> ปี 2023 รัฐคุมเพดานดอกเบี้ย 23% + หนี้เสียระบาด ทำกำไรยุบเหลือ 240-260 ล้าน หุ้นร่วงจาก 10.45 (2021) เหลือ 1.18 (ม.ค. 2025) — คนที่ซื้อยุคนั้นยังไม่ได้ต้นคืน ตลาดจึงยัง "จำอดีตที่เจ็บ" และตั้งราคา NCAP อย่างระแวง</p>
+        <p><strong>3. ตอนนี้หายดีแล้ว — แต่ต้องเข้าใจว่า "หาย" ไม่เท่ากับ "โต":</strong> กำไรปี 2025 เด้ง 2 เท่ามาจากค่าตั้งเผื่อหนี้สูญที่ลดลง (การเลิกเจ็บ) ไม่ใช่ยอดขายที่พุ่ง — กำไร "ปีปกติ" ที่ควรใช้คิดมูลค่าคือ EPS ~0.38 บาท ไม่ใช่ 0.44 ที่เห็น (§8.1) ส่วนการโตของตัวธุรกิจ 8-10%/ปี ยั่งยืนได้ (§8.3)</p>
+        <p><strong>4. คู่แข่งเป็นทั้งภัยและของขวัญ:</strong> ภัย = MTC/SAWAD ใหญ่กว่า 17 เท่า ถ้าเปิดสงครามดอกเบี้ย NCAP ตามไม่ได้ (§8.4) | ของขวัญ = กฎ ธปท. ปี 2026 กำลังกวาดเจ้าเล็กนอกระบบออกจากตลาด ลูกค้าไหลมาหาผู้มีใบอนุญาตอย่าง NCAP — และ NCAP ดูแลหนี้ดีที่สุดกลุ่ม (หนี้เสีย 1.28% ชนะ MTC 2.61% และ SAWAD 3.93%)</p>
+        <p><strong>5. ตัวเลขตัดสิน:</strong> มูลค่ายุติธรรม 4.15 บาท (กลาง) / 5.33 (ดี) / 2.60 (แย่) เทียบราคาวันนี้ 3.68 — <strong>ถูกกว่ามูลค่าอยู่ ~13% แต่ไม่ใช่ "ถูกเหลือเชื่อ"</strong> ทางที่ปลอดภัยกว่าคือรอซื้อในโซน 3.40-3.60 (ส่วนลด 13-18%) หรือรองบ Q3 ต้นเดือนพฤศจิกายน ยืนยันว่าหนี้ยังไม่เน่า</p>
+      </div>
+
+      <h3>คำตอบของ 4 คำถามหลัก (สรุปจาก §8)</h3>
+      <table>
+        <thead><tr><th>คำถาม</th><th>คำตอบสั้น</th><th>เหตุผลสำคัญสุด</th></tr></thead>
+        <tbody>
+          <tr><td><strong>กำไรของจริงไหม?</strong></td><td>ของจริง แต่ใช้เลข "ปีปกติ" ก่อน</td><td class="small muted">ไม่มี one-off ในงบ — แต่กำไรปี 2025-26 อาศัยค่าตั้งเผื่อต่ำผิดวงจร ใช้ EPS 0.38 (ไม่ใช่ 0.44) ในการคิดมูลค่า</td></tr>
+          <tr><td><strong>อะไรทำให้กำไรขยับ?</strong></td><td>หนี้เสียเป็นอันดับหนึ่ง</td><td class="small muted">ค่าตั้งเผื่อทุก 0.5% ของพอร์ต = กำไร ±9% | รองลงมา: ส่วนต่างดอกเบี้ย ±9% ต่อ 0.5pp, รายได้ทวงหนี้ ±8%</td></tr>
+          <tr><td><strong>โตยั่งยืนไหม?</strong></td><td>ตัวธุรกิจโตยั่งยืน 8-10% อัตรากำไรไม่</td><td class="small muted">ปริมาณยั่งยืน (ส่วนแบ่งจากรายเล็ก) แต่ margin ฟื้นเต็มที่แล้ว — ห้ามนับซ้ำ | ตัวเร่งถัดไปมีวันที่: พันธบัตร 7-9 ก.ย., งบ Q3 ต้น พ.ย.</td></tr>
+          <tr><td><strong>คู่แข่งกระทบแค่ไหน?</strong></td><td>MTC คือตัวแปร — ทั้งภัยและเกณฑ์เทียบ</td><td class="small muted">MTC กดราคาได้ −9% กำไร/รอบ | กฎ ธปท. กวาดรายเล็ก = แรงหนุน +2pp การเติบโต | คู่แข่งต่างชาติหน้าตาเหมือนแต่ไม่กระทบจริง</td></tr>
+        </tbody>
+      </table>
+
+      <h3>ตารางตัดสินใจ — ถ้าคุณคือนักลงทุนแบบไหน</h3>
+      <table>
+        <thead><tr><th>สไตล์คุณ</th><th>ทางเลือกที่เหมาะ</th><th>สิ่งที่ต้องยอมรับ</th></tr></thead>
+        <tbody>
+          <tr><td>รับเสี่ยงน้อย / อยากเข้าใจก่อน (คุณตอนนี้)</td><td>ยังไม่ต้องซื้อ — รองบ Q3 (ต้น พ.ย.) ผ่านเกณฑ์ ECL ≤105 ลบ. ก่อน แล้วพิจารณาชุดเดียวที่ 3.40-3.50 | หรือเก็บข้อมูลต่อไปโดยไม่ถือ</td><td class="small muted">อาจพลาดถ้าหุ้นวิ่งก่อนงบ — แลกกับความผิดพลาดที่ต่ำกว่ามาก</td></tr>
+          <tr><td>รับเสี่ยงกลาง</td><td>ทยอย 1/3 ตำแหน่งในโซน 3.40-3.58 หลังราคานิ่ง 5+ วัน → เพิ่มหลัง Q3 ยืนยัน → เต็มตำแหน่งเมื่อ payout ขยับ | ขนาดรวม 2-4% ของพอร์ต</td><td class="small muted">ความผันผวนระหว่างทาง (วันละ 6% เป็นเรื่องปกติของหุ้นนี้)</td></tr>
+          <tr><td>รับเสี่ยงสูง / มองธุรกิจระยะยาว</td><td>ทั้งเส้นทาง A และถือข้ามความผันผวนแบบเจ้าของธุรกิจ เป้า 5.33+ ใน 24-36 เดือน | ขนาด 5-8% ของพอร์ต</td><td class="small muted">ต้องอ่านงบทุกไตรมาสเอง และยอมขายทันทีเมื่อ NPL ทะลุ 2% หรือหุ้นปิดต่ำกว่า 3.00</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">ทุกแบบมีกติกาเดียวกัน: ห้ามซื้อเกินขนาดที่ตั้งไว้ และเมื่อ "ตัวทำลายเรื่องเล่า" (§6) เกิดข้อใดข้อหนึ่ง ให้ออกโดยไม่ต่อรองกับตัวเอง</p>
+
+      <h3>5 สิ่งที่ต้องเฝ้าจากวันนี้ (เช็กลิสต์)</h3>
+      <p class="small">① พันธบัตร 7-9 ก.ย. 2026 ออกครบไหม ② งบ Q3 (~ต้น พ.ย.): ค่าตั้งเผื่อ ≤105 ลบ., พอร์ตโต ≥10%, NPL ≤1.5% ③ เส้น 150 วันของหุ้นไขว้ขึ้นเหนือ 200 วันหรือยัง (สัญญาณขาขึ้นเต็มรูปแบบ) ④ ประกาศปันผล ก.พ.-มี.ค. 2027 — payout ขยับเข้าใกล้ 40% ไหม ⑤ CEO ประจำได้แล้วหรือยัง + MTC ทำอะไรกับอัตราดอกเบี้ย</p>
+      <h3>สัญญาณมหภาคนำ (บอกก่อนงบว่าวงจรกำลังเลว — เพิ่มหลังรอบโจมตีแบบ top-down)</h3>
+      <p class="small">① <strong>ยอดสินเชื่อเช่าซื้อมอเตอร์ไซค์รวมระบบ</strong> (ข้อมูล ธปท. รายไตรมาส): หดตัว 2 ไตรมาสติด = ตลาดรวมเลวกว่าที่ส่วนแบ่งชดเชยไหว ② <strong>NPL ของ MTC และ SAWAD</strong>: ถ้าขึ้นพร้อมกัน >0.5 จุด ในไตรมาสเดียว = วงจรเครดิตกลับตัว (NCAP จะตามด้วย lag 1-2 ไตรมาส) ③ <strong>คูปองพันธบัตร NCAP รอบถัดไป</strong>: เกิน 6.5% (จาก 5.10-5.35% รอบนี้) = ตลาดเงินเริ่มตีความเสี่ยงบริษัทสูงขึ้น — สัญญาณ ke เด้งก่อนงบจะเห็น</p>
+      <div class="explain"><b>คำเตือนต่อตัวเราเอง (จากมุมมองวงจรจิตวิทยาตลาด):</b> หุ้นนี้ +270% ใน 19 เดือน วอลุ่มวันงบ 95 ล้านหุ้น และมีนักวิเคราะห์เปิด coverage TP +63% — ลายเซ็นเหล่านี้เป็นของ "หุ้นที่กำลังเป็นข่าว" ไม่ใช่ "หุ้นที่ไม่มีใครสน" แล้ว คนถือต้องระวังตัวเองกลายเป็นส่วนหนึ่งของฝูงที่ซื้อเพราะราคาขึ้น — วินัย "รอโซน 3.40-3.60 + ห้ามเพิ่มเหนือ 4.15" ใน §6 ออกแบบมาเพื่อเรื่องนี้โดยเฉพาะ</div>
+    </section>
+
+    <!-- ============ APPENDIX ============ -->
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+      <h3>สมมติฐานการประเมินมูลค่าทั้งหมด</h3>
+      <table>
+        <thead><tr><th>ตัวป้อน</th><th class="num">ค่า</th><th>ที่มา / เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>Risk-free rate</td><td class="num">2.05%</td><td class="small muted">พันธบัตรรัฐบาลไทย 10 ปี ข้อมูลสด 14 ส.ค. 2026 (TradingEconomics — ควรตรวจซ้ำกับ ThaiBMA ก่อนใช้ตัดสินใจ)</td></tr>
+          <tr><td>ERP ตลาดพัฒนาแล้ว + CRP ไทย</td><td class="num">5.5% + 0.9% ≈ 6.4%</td><td class="small muted">ตาราง markets.md (อิงกรอบ Damodaran) — นักวิเคราะห์อาจใช้ 6.3% (ERP 4.2-4.5% + CRP 2.07% แบบ Baa1) ผลรวมใกล้เคียงกัน</td></tr>
+          <tr><td>Beta</td><td class="num">1.0</td><td class="small muted">bottom-up กลุ่มสินเชื่อ (0.6-1.0) + ส่วนเผื่อหุ้นเล็กเนื้อบาง — ค่า beta ฐานข้อมูล (0.34) ไม่น่าเชื่อถือเพราะสภาพคล่องต่ำ</td></tr>
+          <tr><td>ke (ต้นทุนเงินทุนผู้ถือหุ้น)</td><td class="num">9.25% (ฐาน)</td><td class="small muted">ช่วงทดสอบ 8.5-11% | ตรวจย้อน: TP 6.00 ของ Yuanta โดยนัย ke ≈ 8.7%</td></tr>
+          <tr><td>อัตราเติบโตถาวร g</td><td class="num">1.75%</td><td class="small muted">ต่ำกว่า risk-free (กติกา) และต่ำกว่า GDP นามไทยระยะยาว</td></tr>
+          <tr><td>ROE ตามฉากทัศน์</td><td class="num">แย่ 5.5-7% / กลาง 9.0-9.5% / ดี 10.5-11.5%</td><td class="small muted">ผูกกับกำไร normalize ใน §8.1 (ตรวจแล้วไม่ใช่ ROE ของปีที่วงจรดีสุด — แก้ไขหลังถูกรีวิวโดยกรอบ Damodaran)</td></tr>
+          <tr><td>Persistence ของกำไรส่วนเกิน (ω)</td><td class="num">0.6-0.7</td><td class="small muted">อนุรักษ์นิยมสำหรับผู้ให้กู้ที่ผ่านวงจรหนี้เสียรุนแรง</td></tr>
+          <tr><td>อัตราภาษี</td><td class="num">~20%</td><td class="small muted">จากงบจริง (134.6/689.8 ปี 2025)</td></tr>
+          <tr><td>จำนวนหุ้น / มูลค่าบัญชี</td><td class="num">1,350 ล้านหุ้น / BV 4.12฿</td><td class="small muted">งบ Q2/2026 [FILING]</td></tr>
+        </tbody>
+      </table>
+
+      <h3>บันทึกความถูกต้องของข้อมูล (ที่ต้องเปิดเผย)</h3>
+      <p class="small">① <strong>ความต่างของฐานข้อมูล:</strong> รายได้ปี 2025 ตามงบจริง 2,156.3 ลบ. แต่ yfinance แสดง 1,945 ลบ. (คิดต่างการรวมรายการ) — รายงานนี้ใช้งบจริงเป็นเจ้าภาพทุกจุด | ROE ปี 2025: งบจริง 11.18% (เฉลี่ยทุน) vs ฐานข้อมูล 12.4% (ทุนสิ้นปี) ② <strong>ปี 2022:</strong> รายได้เป็นค่าประมาณ (ปรับ scale จากฐาน yfinance) [ความเชื่อมั่นต่ำ] ③ <strong>P/B ของ MTC/SAWAD:</strong> จากสื่อการเงิน [MEDIA] ยังไม่ได้ตรวจกับงบจริงรายตัว ④ <strong>รายละเอียดบังคับใช้กฎหมายต่อกรรมการรายหนึ่ง (พ.ค. 2026):</strong> ข้อมูลไม่เพียงพอ ระบุเพื่อความระมัดระวังเท่านั้น ไม่ใช้สรุปเชิงลบ ⑤ งบ Q2/2026 ผ่านการตรวจสอบแบบทบทวน (reviewed) ไม่ใช่ตรวจสอบเต็ม (audited)</p>
+
+      <h3>แหล่งข้อมูลหลัก</h3>
+      <p class="small muted">
+      • แบบ 56-1 One Report ประจำปี 2025 (284 หน้า) — งบจริง โครงสร้างผู้ถือหุ้น คุณภาพพอร์ต กลยุทธ์ [FILING, ณ 31 ธ.ค. 2025]<br>
+      • งบการเงินรายไตรมาส Q2/2026 (ตรวจทานแล้ว) ยื่น ส.ค. 2026 — NPL 1.28% พอร์ต 10,882 ลบ. [FILING, ณ 30 มิ.ย. 2026]<br>
+      • ประกาศธนาคารแห่งประเทศไทย (ธ.ค. 2025) — การรับ HP/leasing เข้ากำกับ + กฎ responsible lending [FILING]<br>
+      • ราชกิจจานุเบกษา (ต.ค. 2022) — เพดานดอกเบี้ยเช่าซื้อมอเตอร์ไซค์ 23% [FILING]<br>
+      • TRIS Rating (ก.ค. 2026): ยืนยัน BBB- ปรับ outlook เป็น Positive [MEDIA]<br>
+      • Yuanta Thailand (31 ก.ค. 2026): เริ่มครอบคลุม BUY TP 6.00 [BROKER]<br>
+      • ข้อมูลราคา/วอลุ่ม: yfinance + TradingView (ไม่เป็นทางการ อาจล่าช้า) | ดอกเบี้ยรัฐบาล: TradingEconomics (14 ส.ค. 2026)<br>
+      • สื่อการเงินไทย: Kaohoon, MGR Online, Naewna, Share2trade, Hoonvision (ไทม์ไลน์ข่าว)</p>
+
+      <h3>บันทึกวิธีวิทยา (Methodology)</h3>
+      <p class="small muted">รายงานนี้ทำตามขั้นตอน both-stock-analysis 10 ขั้น (data snapshot ครั้งเดียว → business narrative → business drivers → earnings quality → financial dashboard → valuation → peer impact → earnings recap/preview + growth outlook → technical timing → synthesis → report) และผ่านการรีวิวโดยกรอบคิด 4 สำนัก: Peter Lynch (จัดประเภทธุรกิจ), Aswath Damodaran (ประเมินมูลค่า — รอบแรก base 4.40 ถูกแก้เป็น 4.15 หลังตรวจพบว่าใช้ ROE ของปีที่วงจรดีสุดและวิธีเทียบที่วนกลม), Mark Minervini (SEPA/VCP — แก้ระยะจุดตัดขาดทุนจาก 3.00 เป็น 3.25-3.28 ตามกฎความเสี่ยง 8%), และรอบโจมตีรายงาน (stock-grill) ก่อนส่งมอบ: R0 ตรวจความสอดคล้องเชิงกลไก (ผ่าน 0 high) → R1-R5 โจมตีโดยกรอบ Seth Klarman (ให้คะแนน thesis อยู่รอด 4/10 — จุดอ่อนหลัก: การ normalize พึ่งสต็อกหนี้เก่า + ขนาดส่วนลดบาง + ความเงียบของผู้ถือหุ้นใหญ่) และกรอบ Jeremy Grantham แบบ top-down (จิตวิทยาตลาดช่วง enthusiasm ปลาย + สัญญาณนำมหภาค 3 ตัวที่เพิ่มเข้า §9) — ผลการโจมตีนำไปสู่การแก้ 5 จุด: breaker ฉบับทดสอบได้, กล่อง "รู้ว่าไม่รู้" ใน §8.1, เพดานราคาเพิ่มไม้, ทางเลือกสาย deep-value ≤2.75, และตัวชี้วัดมหภาคนำ | ตัวเลขทั้งหมดคำนวณจากงบจริงเป็นหลัก ตัวเลขจากสื่อระบุที่มากำกับทุกจุด</p>
+      <p class="small muted">หมายเหตุความโปร่งใสของกระบวนการ: การโจมตีสาย Grantham ดำเนินการโดย orchestrator โดยตรง (เอเจนต์เฉพาะถูกจำกัดโควตาใช้งาน ณ ช่วงเวลานั้น) — ระบุไว้เพื่อความถูกต้องของบันทึก</p>
+
+      <h3>คำเตือน</h3>
+      <p class="small"><strong>เอกสารนี้เป็นผลงานวิจัยและการศึกษาเท่านั้น ไม่ใช่คำแนะนำการลงทุน (Not financial advice)</strong> ไม่ใช่คำแนะนำให้ซื้อหรือขายหลักทรัพย์ใด และไม่ได้จัดทำขึ้นเพื่อบุคคลใดโดยเฉพาะ ข้อมูลอ้างอิงเชื่อถอได้เท่าที่ตรวจสอบได้ ณ วันที่ระบุ แต่ไม่รับประกันความถูกต้องครบถ้วน การลงทุนมีความเสี่ยง ผู้ลงทุนควรศึกษาข้อมูลด้วยตนเองและปรึกษาผู้แนะนำการลงทุนที่มีใบอนุญาตก่อนตัดสินใจ</p>
+    </section>
+
+    <footer>
+      เน็คซ์ แคปปิตอล · NCAP.BK · Equity research · จัดทำ 17 ส.ค. 2026 · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  function initReportInteractivity() {
+    try {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              links.forEach(function(a){a.classList.remove('active');});
+              var a = map[e.target.id]; if(a) a.classList.add('active');
+            }
+          });
+        }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+        document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+      }
+    } catch(err) { }
+
+    try {
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if(!toc || !btn) return;
+      function isMobile(){ return window.matchMedia('(max-width:900px)').matches; }
+      if(isMobile()) toc.classList.add('collapsed');
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var collapsed = toc.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+      toc.addEventListener('click', function(e){
+        if(e.target.tagName === 'A' && isMobile()) toc.classList.add('collapsed');
+      });
+      window.addEventListener('resize', function(){
+        if(!isMobile()){ toc.classList.remove('collapsed'); btn.setAttribute('aria-expanded','true'); }
+        else { toc.classList.add('collapsed'); btn.setAttribute('aria-expanded','false'); }
+      });
+    } catch(err) { console.error('BF-Report TOC init failed:', err); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReportInteractivity);
+  } else {
+    initReportInteractivity();
+  }
+</script>
+</body>
+</html>
