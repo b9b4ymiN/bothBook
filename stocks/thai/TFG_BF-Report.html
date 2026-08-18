@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ไทยฟู้ดส์ กรุ๊ป (TFG) — บทวิเคราะห์หุ้นฉบับเต็ม</title>
+<style>
+  :root{
+    --ivory:#FAF9F5; --white:#FFFFFF; --slate:#141413;
+    --gray-100:#F0EEE6; --gray-300:#D1CFC5; --gray-500:#87867F; --gray-700:#3D3D3A;
+    --oat:#E3DACC;
+    --good:#788C5D; --watch:#D97757; --bad:#B04A3F;
+    --serif:ui-serif,Georgia,'Times New Roman',serif;
+    --sans:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    --radius-panel:12px;
+    --border:1.5px solid var(--gray-300); --rule:1px solid var(--gray-300);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ivory);color:var(--slate);font-family:var(--sans);
+       font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+  h1{font-family:var(--serif);font-weight:500;font-size:36px;letter-spacing:-.01em;margin:0;}
+  h2{font-family:var(--serif);font-weight:500;font-size:25px;letter-spacing:-.01em;margin:0;}
+  h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:30px 0 8px;}
+  p{margin:0 0 14px;} a{color:var(--watch);}
+  .eyebrow,.label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);}
+  .mono{font-family:var(--mono);} code{font-family:var(--mono);font-size:13px;}
+  .muted{color:var(--gray-500);} .small{font-size:13px;}
+  .shell{max-width:1140px;margin:0 auto;padding:48px 24px 120px;display:grid;
+         grid-template-columns:232px 1fr;gap:56px;}
+  .toc{position:sticky;top:32px;align-self:start;font-size:13.5px;}
+  .toc .eyebrow{margin-bottom:12px;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc a{display:block;padding:5px 0 5px 12px;color:var(--gray-700);text-decoration:none;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--slate);}
+  .toc a.active{color:var(--slate);border-left-color:var(--watch);font-weight:600;}
+  .toc .sub{padding-left:26px;font-size:12.5px;color:var(--gray-500);}
+  .doc{max-width:820px;min-width:0;}
+  .toc-toggle{display:none;align-items:center;gap:10px;width:100%;justify-content:space-between;
+              background:var(--white);border:var(--border);border-radius:var(--radius-panel);
+              padding:12px 16px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--slate);
+              cursor:pointer;}
+  .toc-toggle .hamb{width:20px;height:14px;position:relative;flex-shrink:0;}
+  .toc-toggle .hamb span{display:block;position:absolute;left:0;width:100%;height:2px;background:var(--slate);
+                         border-radius:1px;transition:transform .25s, opacity .25s, top .25s;}
+  .toc-toggle .hamb span:nth-child(1){top:0;} .toc-toggle .hamb span:nth-child(2){top:6px;} .toc-toggle .hamb span:nth-child(3){top:12px;}
+  .toc:not(.collapsed) .hamb span:nth-child(1){top:6px;transform:rotate(45deg);}
+  .toc:not(.collapsed) .hamb span:nth-child(2){opacity:0;}
+  .toc:not(.collapsed) .hamb span:nth-child(3){top:6px;transform:rotate(-45deg);}
+  .rep-head{margin-bottom:40px;}
+  .head-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+  .head-title{display:flex;align-items:center;gap:18px;min-width:0;}
+  .logo{width:64px;height:64px;flex-shrink:0;border-radius:10px;object-fit:contain;
+        background:var(--white);border:var(--border);padding:4px;}
+  @media(max-width:520px){.logo{width:52px;height:52px;}.head-title{gap:12px;}}
+  .pill{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+        color:var(--gray-500);background:var(--gray-100);border:var(--border);border-radius:999px;padding:5px 11px;white-space:nowrap;}
+  .descriptor{color:var(--gray-700);font-size:16px;margin-top:6px;}
+  .meta{color:var(--gray-500);font-size:13px;margin-top:8px;}
+  section{margin-bottom:56px;scroll-margin-top:24px;}
+  h3[id]{scroll-margin-top:24px;}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px;}
+  .sec-no{font-family:var(--mono);font-size:13px;color:var(--watch);}
+  hr.div{border:none;border-top:var(--rule);margin:0 0 22px;}
+  .band{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+  .stat{background:var(--white);border:var(--border);border-radius:var(--radius-panel);padding:20px 22px;min-width:0;}
+  .stat.warn{border-left:4px solid var(--watch);}
+  .stat .v{font-family:var(--serif);font-size:34px;font-weight:500;line-height:1;margin-bottom:8px;}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500);}
+  .stat .d{font-family:var(--mono);font-size:11px;margin-top:6px;}
+  .stat .d.up{color:var(--good);} .stat .d.down{color:var(--bad);} .stat .d.flat{color:var(--gray-500);}
+  table{width:100%;border-collapse:separate;border-spacing:0;background:var(--white);
+        border:var(--border);border-radius:var(--radius-panel);overflow:hidden;font-size:14px;margin:6px 0 0;}
+  .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-panel);}
+  .table-wrap table{min-width:640px;}
+  thead th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--gray-500);background:var(--gray-100);padding:12px 16px;border-bottom:var(--rule);}
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--gray-100);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--ivory);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tfoot td{padding:12px 16px;font-weight:600;background:var(--gray-100);}
+  .chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--gray-700);}
+  .dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .dot.good{background:var(--good);} .dot.watch{background:var(--watch);} .dot.bad{background:var(--bad);}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;
+       padding:3px 8px;border-radius:4px;background:var(--gray-100);color:var(--gray-700);display:inline-block;}
+  .callout{background:var(--oat);border-radius:var(--radius-panel);padding:22px 24px;}
+  .callout.accent{background:var(--white);border-left:4px solid var(--watch);}
+  .callout.explain{background:var(--white);border:1.5px dashed var(--gray-300);}
+  .callout h3{margin-top:0;}
+  .chart-frame{background:var(--white);border:var(--border);border-radius:var(--radius-panel);overflow:hidden;margin:12px 0 18px;}
+  .chart-frame img{display:block;width:100%;height:auto;}
+  .chart-caption{font-family:var(--mono);font-size:11px;color:var(--gray-500);padding:10px 14px;border-top:var(--rule);}
+  .spark{width:120px;height:30px;display:block;}
+  .moat-scale{display:flex;gap:5px;max-width:320px;}
+  .moat-scale .seg{height:12px;flex:1;border-radius:3px;background:var(--gray-300);}
+  .moat-scale .seg.on{background:var(--good);}
+  .moat-meta{display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;}
+  table.heat td{text-align:center;font-variant-numeric:tabular-nums;border:1px solid var(--white);}
+  table.heat td.base{outline:2px solid var(--slate);outline-offset:-2px;font-weight:700;}
+  table.heat th{text-align:center;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  footer{margin-top:64px;padding-top:20px;border-top:var(--rule);font-family:var(--mono);font-size:12px;color:var(--gray-500);}
+  @media(max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:64px 16px 80px;}
+    section, h3[id]{scroll-margin-top:64px;}
+    .toc{position:fixed;top:0;left:0;right:0;z-index:100;margin:0;padding:0;
+         border-radius:0;border:none;border-bottom:var(--rule);background:var(--ivory);
+         box-shadow:0 1px 6px rgba(0,0,0,.05);}
+    .toc-toggle{display:flex;border-radius:0;border:none;border-bottom:1px solid var(--gray-100);background:var(--ivory);}
+    .toc .eyebrow{display:none;}
+    .toc ol{margin:0;padding:6px 14px 16px;max-height:70vh;overflow-y:auto;transition:max-height .3s ease;}
+    .toc.collapsed ol{max-height:0;padding-top:0;padding-bottom:0;overflow:hidden;}
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:720px){
+    .stat .v{font-size:30px;}
+    h1{font-size:28px;}
+    table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  }
+  @media(max-width:520px){
+    .band{grid-template-columns:1fr;}
+  }
+  @media print{
+    body{background:#fff;}
+    .shell{display:block;max-width:none;padding:0;}
+    .toc{display:none;} .doc{max-width:none;}
+    section{break-inside:avoid;} h2{break-after:avoid;}
+    a{color:var(--slate);text-decoration:none;}
+    .stat,table,.callout{box-shadow:none;}
+  }
+  @page{margin:18mm;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="toc" aria-label="สารบัญ">
+    <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span>สารบัญ</span>
+      <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="eyebrow">สารบัญ</div>
+    <ol id="toc-list">
+      <li><a href="#summary">บทสรุปผู้บริหาร</a></li>
+      <li><a href="#s1">1 · ธุรกิจและเรื่องราว</a></li>
+      <li><a class="sub" href="#s1-1">1.1 โมเดลธุรกิจ เงินมาจากไหน</a></li>
+      <li><a class="sub" href="#s1-2">1.2 คูเมือง (Moat)</a></li>
+      <li><a class="sub" href="#s1-3">1.3 อุตสาหกรรมและตลาด</a></li>
+      <li><a class="sub" href="#s1-4">1.4 การเติบโตและการลงทุน</a></li>
+      <li><a class="sub" href="#s1-5">1.5 ช่วงชีวิตธุรกิจ</a></li>
+      <li><a class="sub" href="#s1-6">1.6 อะไรทำให้หุ้นนี้ขยับ</a></li>
+      <li><a href="#s2">2 · สุขภาพการเงิน</a></li>
+      <li><a class="sub" href="#s2-5">2.5 กำไรนี้ของจริงไหม</a></li>
+      <li><a href="#s3">3 · ประเมินมูลค่า (Valuation)</a></li>
+      <li><a href="#s4">4 · งบการเงินและอารมณ์ตลาด</a></li>
+      <li><a class="sub" href="#s4-3">4.3 โตแบบนี้ยั่งยืนไหม + ตัวเร่ง</a></li>
+      <li><a href="#s5">5 · กราฟและจังหวะ</a></li>
+      <li><a href="#s6">6 · สถานการณ์และแผน</a></li>
+      <li><a href="#s7">7 · ความเสี่ยงและคู่แข่ง</a></li>
+      <li><a href="#glossary">พจนานุกรมนักลงทุนทั่วไป</a></li>
+      <li><a href="#appendix">ภาคผนวก</a></li>
+    </ol>
+  </nav>
+
+  <main class="doc">
+
+    <header class="rep-head">
+      <div class="head-top">
+        <div class="head-title">
+          <img class="logo" src="data:image/png;base64,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" alt="โลโก้ TFG" width="64" height="64">
+          <h1>ไทยฟู้ดส์ กรุ๊ป</h1>
+        </div>
+        <span class="pill">บทวิเคราะห์เพื่อการศึกษา · ไม่ใช่คำแนะนำการลงทุน</span>
+      </div>
+      <div class="descriptor">ผู้ผลิตอาหารโปรตีนครบวงจรของไทย — ไก่ · หมู · อาหารสัตว์ · ร้านเนื้อสด "ไทย ฟู้ดส์ เฟรซ มาร์เก็ต" 748 สาขา</div>
+      <div class="meta mono">TFG.BK · ตลาดหลักทรัพย์แห่งประเทศไทย (SET) · สกุลเงินบาท · ข้อมูล ณ 18 สิงหาคม 2569</div>
+    </header>
+
+    <!-- ============ EXECUTIVE SUMMARY ============ -->
+    <section id="summary">
+      <div class="sec-h"><h2>บทสรุปผู้บริหาร</h2></div>
+      <hr class="div">
+      <div class="callout" style="margin-bottom:18px;">
+        <h3>ประเด็นลงทุนหลัก (Key Investment Insight)</h3>
+        <p><strong>"บริษัทขายหมู-ไก่แบบสินค้าโภคภัณฑ์ กำลังกลายเป็นเจ้าของร้านค้าปลีก — แต่ที่ราคา 9.95 บาท ตลาดยังไม่เชิญให้ใครซื้อส่วนต่างนั้น"</strong></p>
+        <p>ธุรกิจร้านเนื้อสดโตจากรายได้ 1.5 พันล้านบาท เป็น 31.3 พันล้านบาทใน 4 ปีครึ่ง (43% ของรายได้รวมทั้งบริษัท) และยังโต 29% ต่อปี — ถ้าพิสูจน์ได้ว่าร้านแต่ละสาขาทำกำไรจริง ส่วนนี้ควรได้ราคาแบบธุรกิจค้าปลีก ไม่ใช่ราคาแบบฟาร์ม ซึ่งหมายถึงมูลค่าเพิ่มอีก <strong>1.0-2.2 บาทต่อหุ้น</strong> แต่งบแยกกำไรของร้านยังไม่เปิดเผย หลักฐานยังไม่พอ และเมื่อราคายุติธรรมรวมอยู่ที่ ~10.9 บาท (ใกล้ราคาตลาด) ข้อสรุปคือ <strong>เรื่องนี้เป็นของ "นักรอที่มีราคา" ไม่ใช่ของ "นักซื้อวันนี้"</strong></p>
+      </div>
+      <div class="band">
+        <div class="stat warn">
+          <div class="v">10.88 ฿</div><div class="k">ราคายุติธรรม / Blended fair value (ผสม 3 วิธี)</div>
+          <div class="d up">+9% เทียบราคาตลาด</div>
+        </div>
+        <div class="stat"><div class="v">9.95 ฿</div><div class="k">ราคาปัจจุบัน</div><div class="d flat">18 ส.ค. 2569</div></div>
+        <div class="stat"><div class="v">10.0-10.4</div><div class="k">ราคายุติธรรมหลังหัก warrant</div><div class="d down">อัพไซด์แทบหาย</div></div>
+        <div class="stat"><div class="v">7.25-7.73</div><div class="k">โซนที่น่าสนใจ (watchlist)</div><div class="d flat">ส่วนลด 29-33%</div></div>
+      </div>
+      <div class="callout accent" style="margin-top:18px;">
+        <h3>สรุปวิจารณญาณ (Thesis)</h3>
+        <p>ที่ 9.95 บาท คุณจ่าย "ราคายุติธรรมเป๊ะ" เพื่อแลกกับธุรกิจที่<strong>กำไรกำลังผ่านจุดสูงสุดของวงจรราคาหมู</strong> (กำไรครึ่งปีแรกปี 2569 ลดลง 23% จากปีก่อน, มาร์จิ้นถอยจาก 13.0% เหลือ 10.7% ขณะที่ "ปีปกติ" คือแค่ 7.4%) ในขณะที่ตลาดยังให้คะแนน Strong Buy 10 เสียง และปันผล 7.0% ที่ดูหวานแต่จริงๆ คือการจ่าย 119% ของกำไรปกติ (ยั่งยืนจริงราว 3.8%) — เพื่อให้ได้ผลตอบแทน ต้องมีสองอย่างจริง: (1) ราคาหมูไต่ต่อไปจนถึงกลางปี 2570 โดยไม่มี "ทุกฟาร์มขยายพร้อมกัน" ชนก่อนกำหนด และ (2) ร้านค้าปลีกพิสูจน์กำไรต่อสาขา ด้านลงไม่มีเกราะ: ปีตกแบบปี 2566 เคยเกิดจริง (กำไรติดลบ ปันผลเหลือ 0.03 บาท หุ้นหายครึ่ง) และก้นบึ้งสถานการณ์เลวร้ายประเมินที่ 4.5-5.5 บาท — <strong>การเดิมพันนี้ไม่เหมาะกับราคาปัจจุบัน แต่เหมาะมากกับการวาง watchlist รอ</strong></p>
+        <p class="small muted">รายละเอียดการประเมินมูลค่าใน <a href="#s3">§3</a> · กราฟและจังหวะใน <a href="#s5">§5</a> · สถานการณ์และแผนใน <a href="#s6">§6</a> · ความเสี่ยงใน <a href="#s7">§7</a></p>
+      </div>
+    </section>
+
+    <!-- ============ 1 · BUSINESS ============ -->
+    <section id="s1">
+      <div class="sec-h"><span class="sec-no">1</span><h2>ธุรกิจและเรื่องราว</h2></div>
+      <hr class="div">
+
+      <h3 id="s1-1">1.1 โมเดลธุรกิจ — เงินมาจากไหน</h3>
+      <p>บริษัท ไทยฟู้ดส์ กรุ๊ป จำกัด (มหาชน) ก่อตั้งปี 2530 โดยคุณวินัย เตียวสมบูรณ์กิจ เริ่มจากฟาร์มไก่ในลพบุรี ปัจจุบันเป็น<strong>ผู้เล่นอันดับ 3</strong> ของอุตสาหกรรมไก่-หมูไทย (รองจาก CP และเบทาโกร) ธุรกิจครบวงจรตั้งแต่ต้นน้ำถึงปลายน้ำ: โรงงานอาหารสัตว์ → ฟาร์มไก่เนื้อ/สุกร → โรงงานแปรรูปและส่งออก (ญี่ปุ่น อียู จีน + ตลาดใหม่ เกาหลีใต้/ตะวันออกกลาง) → <strong>ร้านเนื้อสด "ไทย ฟู้ดส์ เฟรซ มาร์เก็ต" ของตัวเอง 748 สาขา</strong> โครงสร้างผู้ถือหุ้น: กลุ่มผู้ก่อตั้ง (นิวสตาร์ วิคเตอร์ 31.7% + คุณวินัย 17.9%) คุมราวครึ่งหนึ่ง · กองทุนต่างชาติผ่าน nominee ราว 28% (สะท้อนการถือหลังเพิ่งติดดัชนี MSCI และเข้า SET50) · ผู้ถือรายย่อย 22%</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ส่วนธุรกิจ</th><th class="num">รายได้ TTM (ล้านบ.)</th><th class="num">% ของรวม*</th><th>เมื่อ 5 ปีก่อน (2564)</th><th>แนวโน้ม</th></tr></thead>
+        <tbody>
+          <tr><td>ไก่ (Poultry)</td><td class="num">43,155</td><td class="num">32%</td><td>30,361</td><td>แบนราบ โตตามราคา ส่งออกไฮซีซัน Q3</td></tr>
+          <tr><td>ร้านค้าปลีก (Retail)</td><td class="num">31,288</td><td class="num">24%</td><td>1,460</td><td><span class="chip"><span class="dot good"></span>โต 21 เท่าใน 4 ปีครึ่ง</span></td></tr>
+          <tr><td>อาหารสัตว์ (Feed)</td><td class="num">29,387</td><td class="num">22%</td><td>20,993</td><td>โตตามขนาดฟาร์มในเครือ</td></tr>
+          <tr><td>สุกร (Swine)</td><td class="num">27,866</td><td class="num">21%</td><td>12,232</td><td>วนตามรอบราคาหมู ขณะนี้ขาขึ้น</td></tr>
+          <tr><td>อื่นๆ</td><td class="num">1,486</td><td class="num">1%</td><td>611</td><td>เล็กมาก</td></tr>
+          <tr><td>ตัดรายการขายภายใน</td><td class="num">-60,935</td><td class="num">—</td><td>-30,834</td><td>การบูรณาการลึกขึ้นเรื่อยๆ</td></tr>
+        </tbody>
+        <tfoot><tr><td>รวมบริษัท</td><td class="num">72,247</td><td class="num">100%</td><td>34,823</td><td>โต 2 เท่าใน 5 ปี</td></tr></tfoot>
+      </table></div>
+      <p class="small muted">* คิดจากรายได้ส่วนธุรกิจรวมก่อนตัดรายการภายใน · ที่มา: S&amp;P Global ผ่าน stockanalysis (ไม่ทางการ — ควรเทียบงบ 56-1 One Report) · TTM = รอบ 12 เดือนถึง มิ.ย. 2569</p>
+      <div class="callout explain">
+        <p class="small"><strong>อ่านง่ายๆ — ตัวเลข "ตัดรายการภายใน" คืออะไร?</strong> ลองนึกภาพบริษัทที่มี 3 หน่วยงาน: โรงงานอาหารสัตว์ขายอาหารให้ฟาร์มหมูของบริษัทเอง แล้วฟาร์มหมูขายหมูให้ร้านค้าปลีกของบริษัทเองอีกที — การซื้อขาย "ของในบ้านเดียวกัน" ต้องตัดทิ้งตอนรวมงบ ไม่งั้นรายได้ถูกนับซ้ำสองรอบ ตัวเลขนี้ใหญ่ถึง -60.9 พันล้าน (84% ของรายได้ส่วนธุรกิจรวม) หมายความว่า TFG บูรณาการสูงมาก: <strong>กำไรจริงของบริษัทเกิดจาก "ราคาขายเนื้อถึงมือผู้บริโภค ลบด้วยต้นทุนวัตถุดิบเกษตร"</strong> ไม่ใช่จากการขายกันเองในเครือ</p>
+      </div>
+
+      <h3 id="s1-2">1.2 คูเมืองธุรกิจ (Moat) — อะไรปกป้องกำไรจากคู่แข่ง</h3>
+      <p style="margin-bottom:10px;">
+        <span class="tag">ใบอนุญาตส่งออก</span> <span class="tag">เครือข่ายร้านค้า</span> <span class="tag">ต้นทุนจากการบูรณาการ</span>
+      </p>
+      <div class="callout" style="margin-bottom:14px;">
+        <div class="moat-scale" aria-label="ความแข็งแรงคูเมือง">
+          <span class="seg on"></span><span class="seg on"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span>
+        </div>
+        <div class="moat-meta">
+          <span class="tag">แคบ (Narrow)</span>
+          <span class="chip"><span class="dot watch"></span>ความคงทน: กำลังถูกทดสอบสองด้าน</span>
+          <span class="mono small">ROIC−WACC (ปกติ): +4.1 จุด</span>
+          <svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none" aria-hidden="true">
+            <polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,20 30,8 60,26 90,14 120,6"/>
+          </svg>
+        </div>
+      </div>
+      <p><strong>คูเมือง 3 ชั้นของ TFG:</strong> (1) <strong>ใบอนุญาตส่งออกญี่ปุ่น/อียู</strong> — ใบรับรองโรงงานสร้างยาก ใช้เวลาเป็นปี ทำหน้าที่ "ตั๋วเข้าเกม" กันผู้เล่นนอกวงการ แต่ไม่กันเพื่อนร่วมวงอย่าง CP/เบทาโกรที่มีอยู่แล้ว (2) <strong>เครือข่ายร้านค้า 748 สาขา</strong> — คู่แข่งทำซ้ำได้แต่ต้องใช้ทั้งเงินและเวลาหลายปี (3) <strong>ต้นทุนต่ำจากอาหารสัตว์ในเครือ</strong> — แต่ CP ก็บูรณาการเหมือนกันและทุนถูกกว่า นี่จึงเป็นการ "เสมอกัน" มากกว่า "ได้เปรียบ"</p>
+      <p><strong>ภัยที่ใหญ่ที่สุดต่อคูเมือง: สงครามสองด้านของระบบนิเวศ CP</strong> — CPF บีบหน้าฟาร์ม (เป็นผู้กำหนดราคาหมู/ไก่ในประเทศ และมีงบดุลทนสงครามราคาได้นานกว่า) ขณะที่ CP Fresh Mart หลายพันสาขาบีบหน้าร้าน (และ retail คือ 43% ของรายได้ TFG) — คูเมืองของ TFG "ทนการกัดได้ ทนการล้อมไม่ได้"</p>
+
+      <h3 id="s1-3">1.3 อุตสาหกรรมและขนาดตลาด</h3>
+      <p><strong>ไก่:</strong> ไทยเป็นผู้ส่งออกไก่แปรรูปรายใหญ่ที่สุดของโลก (~27% ของมูลค่าการค้าโลก — Krungsri Industry Outlook ต.ค. 2568) ตลาดหลักญี่ปุ่น/อียู/จีน และ TFG กำลังเปิดตลาดใหม่เกาหลีใต้และตะวันออกกลาง Q3 ของทุกปีคือไฮซีซันส่งออก <strong>· ⚠️ ลมต้านปี 2569 (อัพเดตหลังตรวจสอบโดย adversarial review): ศูนย์วิจัยกสิกรไทยคาดการส่งออกไก่สดแช่เย็น-แช่แข็งของไทยปี 2569 "หดตัวเป็นครั้งแรกในรอบ 20 ปี" และไก่แปรรูปโตเพียง 3.2% (ชะลอจาก 5.0% ของปีก่อน)</strong> — แปลว่าขาไก่ของ Bull case ต้องพิงตลาดใหม่และการแปรรูปมูลค่าสูง ไม่ใช่ปริมาณเดิมที่โตเอง · <strong>หมู:</strong> วงจรราคาสุกรไทยเพิ่งผ่านวิกฤต oversupply ปี 2566-67 (จากโรค ASF บวกทุกฟาร์มขยายพร้อมกัน) รัฐเข้ามาช่วยด้วยโครงการตัดวงจรสุกรและกองทุนพัฒนาสุกร ราคาฟื้นตั้งแต่ปี 2568 · <strong>อาหารสัตว์:</strong> ต้นทุนหลักคือข้าวโพดและกากถั่วเหลือง — ข้าวโพดราคาลดลงในปี 2569 = ลมหนุนต้นทุน · <strong>ค้าปลีกเนื้อสด:</strong> ผู้บริโภคค่อยๆ ย้ายจากตลาดสด/แผงลอยมาซื้อในร้านมาตรฐานที่ควบคุมคุณภาพและราคาได้ — แผนบริษัท: 875 สาขาสิ้นปี 2569 · <strong>เวียดนาม:</strong> เครื่องยนต์เติบโตใหม่ — โรงงานอาหารสัตว์+ฟาร์มไก่/สุกร เสร็จปลายปี 2569 เริ่มหนุนผลประกอบการปี 2570 (แต่จะเจอ CP Vietnam ที่ตั้งหลักอยู่ก่อนและใหญ่กว่า)</p>
+
+      <h3 id="s1-4">1.4 การเติบโตและคุณภาพการลงทุนใหม่</h3>
+      <p>แหล่งการเติบโตที่เหลือ: (1) ร้านค้าปลีก +~17% สาขาต่อปี (2) เวียดนามจากศูนย์ (3) ไก่ส่งออกไฮซีซัน (4) ราคาหมูขาขึ้น — เป้าบริหารปี 2569: รายได้โต 10-15% ทำสถิติสูงสุดใหม่ · คำถามสำคัญ: "การลงทุนใหม่สร้างผลตอบแทนเกินต้นทุนทุนหรือไม่" — คำตอบคือ <strong>ใช่ ในระดับกลางรอบ</strong> (ROIC ปกติ 12.1% vs ต้นทุนทุน 8.0% = เหนือกว่า 4.1 จุด — ทุก 100 บาทที่ลงทุนสร้างมูลค่าเพิ่มราว 4 บาทต่อปีเหนือต้นทุนที่ต้องจ่าย) แต่ในปีพีค ROIC ขึ้นไป 23.7% และในปีตกเคยติดลบ — ลักษณะปกติของธุรกิจวัฏจักร · CapEx ปีนี้พุ่ง 4.6 พันล้าน (6.4% ของรายได้ สูงกว่าปกติ ~5%) เพราะเวียดนาม+อีสาน+ร้านค้า และยังเหลือเงินสดอิสระ (FCF) 5.3 พันล้าน — ลงทุนใหม่ยังไม่กัดกระแสเงินสดจนติดลบ</p>
+
+      <h3 id="s1-5">1.5 ช่วงชีวิตธุรกิจและการทดสอบเรื่องราว</h3>
+      <p><span class="tag">Cyclical + Fast Grower ซ่อนอยู่</span> — ธุรกิจเดิม (ไก่/หมู/อาหารสัตว์) เป็นธุรกิจวัฏจักรเต็มตัว กำไรสวิง 562 → 4,722 → <strong>-813 (ขาดทุน)</strong> → 3,144 → 7,441 ล้านบาทใน 5 ปี · ส่วนร้านค้าปลีกคือ "ต้นไม้เติบโต" ที่ยังรอหลักฐานกำไร · เวียดนามคือ option ไม่ใช่หลัก · ตัวคุมมูลค่าจริงคือ <strong>มาร์จิ้นระดับปกติ ไม่ใช่อัตราเติบโต</strong></p>
+      <div class="callout">
+        <h3>ทดสอบ 3 ระดับ (เป็นไปได้ · น่าเชื่อ · น่าจะเป็น)</h3>
+        <p class="small"><strong>เป็นไปได้:</strong> ใช่ — ทุกอย่างเกิดขึ้นบางส่วนแล้ว · <strong>น่าเชื่อ:</strong> ใช่ — กลไกชัด: ร้านค้าโต 29% จริงใน Q2/69, ราคาหมูขึ้นจริง +6 บาท/กก. ในหนึ่งเดือน, เวียดนามมีเงินลงทุนจริง · <strong>น่าจะเป็น:</strong> เพียงบางส่วน — ความเสี่ยงหลักคือ (1) ทุกฟาร์มขยายตามราคาหมูแล้วราคากลับลงเหมือนปี 2566 (2) มาร์จิ้นปัจจุบันกำลังถอยจากพีคจริง (3) หุ้นวิ่งมาก่อนหน้านี้แล้ว ราคาอาจซึมความดีๆ ไว้แล้ว</p>
+        <p class="small muted"><strong>ธงเตือน "ครั้งนี้ต่างจากเดิม":</strong> อย่าเชื่อว่ามาร์จิ้นพีค 20.9% (ปี 2568) เป็นระดับใหม่ปกติ — ค่าเฉลี่ย 5 ปีคือ 7.4% และอาร์กิวเมนต์ "พื้นมาร์จิ้นสูงขึ้นหลัง ASF" เป็นสมมติฐานที่ยังไม่พิสูจน์</p>
+      </div>
+
+      <h3 id="s1-6">1.6 อะไรทำให้หุ้นนี้ขยับ — ตัวขับเคลื่อนกำไร (Business Drivers)</h3>
+      <p>ก่อนดูตัวเลข ต้องเข้าใจโครงสร้างต้นทุน: ธุรกิจนี้<strong>ต้นทุนวัตถุดิบอาหารสัตว์ (ข้าวโพด+กากถั่วเหลือง) คิดเป็น ~50% ของรายได้</strong> เพราะแทรกอยู่ในทุกส่วนธุรกิจ — ตารางนี้บอกว่าถ้าปัจจัยแต่ละตัวขยับ 10% กำไรจะเปลี่ยนเท่าไร และต้องรอกี่เดือนถึงเห็นในงบ:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวขับเคลื่อน</th><th>ทำไมสำคัญ</th><th>ผลต่อมาร์จิ้น (ต่อการขยับ ±10%)</th><th>เห็นในงบหลังจาก</th></tr></thead>
+        <tbody>
+          <tr><td><strong>วัตถุดิบอาหารสัตว์</strong> (ข้าวโพด+ถั่วเหลือง)</td><td>~50% ของรายได้คือต้นทุนกลุ่มนี้</td><td><strong>∓2.5 จุด</strong> (ถ้าส่งต่อราคาได้ 55%) · ถ้าส่งต่อไม่ได้เลย ต้นทุนขึ้น 21% เท่านั้นกำไรขั้นดำเนินการหายหมด</td><td>~4 เดือน (มีสต็อกกันชั่วคราว)</td></tr>
+          <tr><td><strong>ราคาหมูหน้าฟาร์ม</strong></td><td>หมู+เนื้อหมูของร้านค้า ≈ 30-35% ของรายได้</td><td><strong>+2.1 ถึง +3.5 จุด</strong> (= กำไรเพิ่ม 1.5-2.5 พันล้านบาท/ปี)</td><td>2-6 เดือน (รอบขุนหมู)</td></tr>
+          <tr><td><strong>ราคาไก่ส่งออก</strong></td><td>ไก่ใหญ่สุด 32% ของรายได้ส่วนธุรกิจ</td><td>+1.5 ถึง +2.0 จุด</td><td>1-3 เดือน</td></tr>
+          <tr><td><strong>ลูกไก่ (DOC)</strong></td><td>~8% ของรายได้</td><td>∓0.5 จุด</td><td>~2 เดือน</td></tr>
+          <tr><td><strong>ค่าเงินบาท</strong></td><td>ซื้อวัตถุดิบนำเข้า · ขายส่งออกรับเงินต่างประเทศ</td><td>บาทแข็ง 10% ≈ -1.0 ถึง -2.0 จุด</td><td>1-2 ไตรมาส</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout explain">
+        <p class="small"><strong>อ่านง่ายๆ — "จุด" ในตารางหมายถึงอะไร?</strong> มาร์จิ้นปัจจุบัน 10.7% แปลว่าทุก 100 บาทของรายได้ เหลือกำไรขั้นดำเนินการ 10.7 บาท — ถ้าต้นทุนวัตถุดิบขึ้น 10% และส่งต่อราคาได้แค่ครึ่งหนึ่ง มาร์จิ้นจะเหลือ 8.2% เท่ากับกำไรหายไป 1,795 ล้านบาท/ปี นี่คือเหตุผลที่ราคาข้าวโพดกับราคาหมูสำคัญกว่าข่าวอื่นทั้งหมดรวมกัน</p>
+      </div>
+      <p class="small muted"><strong>สภาพปัจจุบัน (ส.ค. 2569 — อัพเดตหลังถูกโจมตีตรวจสอบ):</strong> ราคาหมูหน้าฟาร์มอยู่ราว 68 บ./กก. ตามข้อมูล สศก. (17 ส.ค.) และ 72-76 บ./กก. ตามราคาอ้างอิงสมาคมผู้เลี้ยงสุกร (13 ส.ค. — สองชุดข้อมูลคนละวิธีเก็บ แนวโน้มเดียวกันคือขึ้น) จากจุดต่ำสุด ~62 บ. กลางเดือน ก.ค. · <strong>ข้อเท็จจริงสำคัญ: ราคาเพิ่งกลับเข้าใกล้ต้นทุนการผลิต</strong> (คำยืนยันนายกสมาคมผู้เลี้ยงสุกรแห่งชาติ) — ในรอบก่อนราคาเคยไปถึง 80-95 บ. (ปี 2565) จึงมีที่ว่างขึ้นต่อได้จริง แต่ในทางกลับกัน <strong>ราคาทะลุต้นทุน = สัญญาณเริ่มต้นของการขยายฝูงพันธุ์ทุกฟาร์ม ซึ่งเนื้อจะถึงตลาดในอีก 10-12 เดือน (ครึ่งปีหลังปี 2570) — นาฬิกาจับเวลาของความเสี่ยงเริ่มเดินแล้วตั้งแต่ตอนนี้</strong> · ฝั่งไก่: ข้าวโพดราคาลดลง = ลมหนุนต้นทุน แต่ดูคำเตือนส่งออกไก่ใน §1.3 และ §4.3</p>
+    </section>
+
+    <!-- ============ 2 · FINANCIAL DASHBOARD ============ -->
+    <section id="s2">
+      <div class="sec-h"><span class="sec-no">2</span><h2>สุขภาพการเงิน</h2></div>
+      <hr class="div">
+      <p class="small muted">ตัวชี้วัดราว 20 ตัว พร้อมแนวโน้ม 5 ปี และคำอ่านสั้นๆ ทุกบรรทัด · สี = ความเห็น (ดีขึ้น / ต้องเฝ้า / แย่ลง) ไม่ใช่แค่บวกลบ · หน่วย: ล้านบาท ยกเว้นระบุอื่น · ปีบัญชี ม.ค.-ธ.ค.</p>
+
+      <h3>ตัวชี้วัดนำ — สามตัวที่ชี้นำทิศทางวิจารณญาณ</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวชี้วัดนำ</th><th class="num">ล่าสุด</th><th>แนวโน้ม 5 ปี</th><th>คำอ่าน</th><th>ความเห็น</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>ROIC − WACC<br><span class="small muted">ผลตอบแทนลงทุนส่วนเกินต้นทุนทุน</span></td><td class="num">+4.1 จุด (ปกติ)<br>+15.7 (พีค)</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--watch)" stroke-width="2" points="0,20 30,8 60,26 90,14 120,6"/></svg></td>
+            <td class="small">สร้างมูลค่าจริงแม้ปีปกติ — แต่วนแรงตามรอบหมู</td>
+            <td><span class="chip"><span class="dot good"></span>แข็งแรงระดับกลาง</span></td>
+          </tr>
+          <tr>
+            <td>CapEx เทียบ FCF<br><span class="small muted">ลงทุนใหม่ vs เงินสดอิสระ</span></td><td class="num">4.6 vs 5.3 พันล้าน</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,26 30,24 60,18 90,6 120,10"/></svg></td>
+            <td class="small">ปี 67-68 ลงทุนแล้วเงินสดยังไหลเข้า · ปีนี้ capex พุ่ง (เวียดนาม) FCF ลดครึ่ง — ดูว่ากลับมาเมื่อโครงการเสร็จปลายปี</td>
+            <td><span class="chip"><span class="dot watch"></span>เฝ้าระวัง</span></td>
+          </tr>
+          <tr>
+            <td>หนี้สินสุทธิ/EBITDA<br><span class="small muted">ภาระหนี้เทียบกำไรก่อนหนี้-ภาษี-ค่าเสื่อม</span></td><td class="num">1.21 เท่า</td>
+            <td><svg class="spark" viewBox="0 0 120 30" preserveAspectRatio="none"><polyline fill="none" stroke="var(--good)" stroke-width="2" points="0,10 30,7 60,4 90,14 120,16"/></svg></td>
+            <td class="small">ลดภาระหนี้ต่อเนื่องจากวิกฤตปี 2566 — ปลอดภัยระดับดี</td>
+            <td><span class="chip"><span class="dot good"></span>ดีขึ้น</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <h3>ครอบครัวตัวชี้วัด — ภาพรวม 5 ปี</h3>
+      <div class="grid2" style="margin-top:14px;">
+        <div class="table-wrap"><table>
+          <thead><tr><th>ความงามในเชิงกำไร</th><th class="num">2568</th><th class="num">TTM</th><th>คำอ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>กำไรขั้นต้น (Gross margin)</td><td class="num">20.9%</td><td class="num">19.7%</td><td><span class="chip"><span class="dot watch"></span>โซนพีค กำลังถอย</span></td></tr>
+            <tr><td>กำไรขั้นดำเนินการ</td><td class="num">13.0%</td><td class="num">10.7%</td><td><span class="chip"><span class="dot watch"></span>ผ่านพีคแล้ว</span></td></tr>
+            <tr><td>กำไรสุทธิ</td><td class="num">10.2%</td><td class="num">8.8%</td><td><span class="chip"><span class="dot watch"></span>ตามรอบ</span></td></tr>
+            <tr><td>EBITDA margin</td><td class="num">20.0%</td><td class="num">18.0%</td><td><span class="chip"><span class="dot watch"></span>สูงกว่าปกติมาก</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ผลตอบแทน/ประสิทธิภาพ</th><th class="num">2568</th><th class="num">TTM</th><th>คำอ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>ROE (ต่อส่วนของผู้ถือหุ้น)</td><td class="num">37.1%</td><td class="num">30.2%</td><td><span class="chip"><span class="dot watch"></span>ระดับพีคของรอบ</span></td></tr>
+            <tr><td>ROA (ต่อสินทรัพย์รวม)</td><td class="num">15.6%</td><td class="num">—</td><td><span class="chip"><span class="dot good"></span>แข็งแรง</span></td></tr>
+            <tr><td>ROIC (ปกติ / พีค)</td><td class="num">23.7%</td><td class="num">12.1% (ปกติ)</td><td><span class="chip"><span class="dot good"></span>เหนือ WACC 8.0%</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>กระแสเงินสด (พันล้าน)</th><th>ซีรีส์ 5 ปี</th><th class="num">TTM</th><th>คำอ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>เงินสดจากการดำเนินงาน</td><td>-1.9 → 4.4 → 3.2 → 10.5 → 13.3</td><td class="num">9.9</td><td><span class="chip"><span class="dot good"></span>มากกว่ากำไรสุทธิ = กำไรมีเงินจริง</span></td></tr>
+            <tr><td>ลงทุนสินทรัพย์ (CapEx)</td><td>3.2 → 4.2 → 2.4 → 1.3 → 3.0</td><td class="num">4.6</td><td><span class="chip"><span class="dot watch"></span>พุ่งเพราะเวียดนาม</span></td></tr>
+            <tr><td>เงินสดอิสระ (FCF)</td><td>-5.1 → 0.2 → 0.8 → 9.2 → 10.3</td><td class="num">5.3</td><td><span class="chip"><span class="dot watch"></span>ลดลงครึ่ง ตาม capex</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>หนี้สิน/สภาพคล่อง</th><th>ซีรีส์ 5 ปี</th><th class="num">TTM</th><th>คำอ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>หนี้สินสุทธิ (พันล้าน)</td><td>18.2 → 22.4 → 24.4 → 17.4 → 14.1</td><td class="num">15.8</td><td><span class="chip"><span class="dot good"></span>ลดลงต่อเนื่อง</span></td></tr>
+            <tr><td>อัตราหนี้สิน/ส่วนของผู้ถือหุ้น</td><td>1.73 → 1.56 → 1.91 → 1.41 → 1.00</td><td class="num">0.99</td><td><span class="chip"><span class="dot good"></span>ดีขึ้นชัดเจน</span></td></tr>
+            <tr><td>อัตราส่วนหมุนเวียน / ดอกเบี้ยคุ้ม</td><td>—</td><td class="num">1.14 / 10.3 เท่า</td><td><span class="chip"><span class="dot good"></span>ปลอดภัย</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>มัลติเปิลราคาหุ้น</th><th class="num">ค่าปัจจุบัน</th><th class="num">บนกำไรปกติ</th><th>คำอ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>P/E (ต่อกำไร)</td><td class="num">9.4 เท่า</td><td class="num">16.9 เท่า</td><td><span class="chip"><span class="dot watch"></span>ดูถูกเพราะกำไรพีค</span></td></tr>
+            <tr><td>P/B (ต่อมูลค่าบัญชี)</td><td class="num">2.67 เท่า</td><td class="num">—</td><td><span class="chip"><span class="dot good"></span>สมเหตุผลกับ ROE 30%</span></td></tr>
+            <tr><td>EV/EBITDA</td><td class="num">5.75 เท่า</td><td class="num">7.1 เท่า</td><td><span class="chip"><span class="dot watch"></span>กลางๆ เทียบ peer</span></td></tr>
+            <tr><td>P/FCF</td><td class="num">11.2 เท่า</td><td class="num">—</td><td><span class="chip"><span class="dot watch"></span>ปกติ</span></td></tr>
+          </tbody>
+        </table></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ปันผล / สุขภาพองค์กร</th><th>ค่า</th><th>คำอ่าน</th></tr></thead>
+          <tbody>
+            <tr><td>ปันผลต่อหุ้น 5 ปี</td><td>0.09 → 0.40 → <strong>0.03</strong> → 0.30 → 0.70 บ.</td><td><span class="chip"><span class="dot bad"></span>ตัดปันผลเกือบหมดในปีตก 2566 — หลักฐานเชิงประจักษ์</span></td></tr>
+            <tr><td>ผลตอบแทนปันผล</td><td>7.0% ปัจจุบัน / ยั่งยืนจริง ~3.8%</td><td><span class="chip"><span class="dot watch"></span>ปันเกินกำไรปกติ (119%)</span></td></tr>
+            <tr><td>Altman Z-Score</td><td>3.84 (โซนปลอดภัย &gt;2.99)</td><td><span class="chip"><span class="dot good"></span>ไม่มีสัญญาณล้มละลาย</span></td></tr>
+            <tr><td>Piotroski F-Score</td><td>8/9 (ปี 2568)</td><td><span class="chip"><span class="dot good"></span>พื้นฐานดีขึ้นรอบด้าน</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="callout explain">
+        <p class="small"><strong>อ่านง่ายๆ — ROIC, WACC และ FCF คืออะไร?</strong> <strong>ROIC</strong> = ผลตอบแทนที่บริษัททำได้จากเงินลงทุนทั้งหมดที่จมอยู่ในธุรกิจ (ที่ดิน โรงงาน ฟาร์ม ร้าน) — เปรียบเหมือน "ดอกเบี้ยที่เงินของเราได้รับ" · <strong>WACC</strong> = ต้นทุนของเงินก้อนนั้น (ดอกเบี้ย+ผลตอบแทนที่นักลงทุนควรได้เสี่ยงขนาดนี้ ~8%) — ถ้า ROIC &gt; WACC แปลว่าบริษัทสร้างมูลค่าเพิ่มจริง ไม่ใช่แค่เติบโตบนกระดาษ · <strong>FCF</strong> = เงินสดที่เหลือจริงๆ หลังจ่ายค่าลงทุนอุปกรณ์ — เงินก้อนที่ใช้จ่ายปันผลได้</p>
+      </div>
+
+      <h3 id="s2-5">2.5 กำไรนี้ของจริงไหม — คุณภาพกำไร (Earnings Quality)</h3>
+      <p><strong>คำตอบสั้น: กำไรมีจริง (เงินสดไหลตามมาจริง) แต่ระดับกำไรปัจจุบันสูงกว่า "ปีปกติ" อย่างมีนัยสำคัญ</strong> — ใครเอากำไรปี 2568 ไปฉายเป็นกำไรถาวรจะผิดพลาดราว 40% เพราะบริษัทกำลังยืนอยู่บนยอดของวงจรราคาหมู-ไก่</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ปี</th><th class="num">รายได้ (ล้านบ.)</th><th class="num">มาร์จิ้นดำเนินการ</th><th class="num">มาร์จิ้นสุทธิ</th></tr></thead>
+        <tbody>
+          <tr><td>2564</td><td class="num">34,948</td><td class="num">3.86%</td><td class="num">1.61%</td></tr>
+          <tr><td>2565</td><td class="num">52,542</td><td class="num">13.11%</td><td class="num">8.99%</td></tr>
+          <tr><td>2566</td><td class="num">56,149</td><td class="num">0.69%</td><td class="num"><strong>-1.45% (ขาดทุน)</strong></td></tr>
+          <tr><td>2567</td><td class="num">65,813</td><td class="num">6.48%</td><td class="num">4.78%</td></tr>
+          <tr><td>2568</td><td class="num">73,059</td><td class="num">13.04%</td><td class="num">10.18%</td></tr>
+          <tr><td><strong>เฉลี่ย 5 ปี</strong></td><td>—</td><td class="num"><strong>7.44%</strong></td><td class="num">4.82%</td></tr>
+          <tr><td>TTM (มิ.ย. 69)</td><td class="num">72,495</td><td class="num">10.69%</td><td class="num">8.79%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">กำไรดำเนินการ "ปกติ" = 7.44% × รายได้วันนี้ = <strong>5,391 ล้านบาท</strong> → TTM ที่ 7,751 สูงกว่าปกติ 44% · ปี 2568 ที่ 9,523 สูงกว่าปกติ 77%</td></tr></tfoot>
+      </table></div>
+      <p><strong>วิธีคำนวณ (สำคัญกว่าตัวเลข):</strong> เราใช้วิธี "เฉลี่ยมาร์จิ้น 5 ปี คูณรายได้วันนี้" ไม่ใช่ "เฉลี่ยกำไร 5 ปี" เพราะบริษัทโตขยายสเกลมาก (รายได้ +109% ในหน้าต่าง) — การเฉลี่ยกำไรสัมบูรณ์จะตอบตัวเลขบริษัทขนาดเก่า · ข้อดีอีกอย่าง: รายการพิเศษ (กำไรขายทรัพย์ ผลกระทบจากมูลค่าสัตว์มีชีวิตในงบ อัตราแลกเปลี่ยน) <strong>ไม่เคยเข้าสู่การคำนวณเลย</strong> เพราะมันถูกดูดซับไปในค่าเฉลี่ยของทั้งรอบแล้ว</p>
+      <p><strong>ความไวของหน้าต่างเวลา (พูดให้ชัดเพื่อความซื่อสัตย์):</strong> หน้าต่าง 2564-2568 มีทั้งปีพีค 2 ปีและปีตก 1 ปี (ไม่สมมาตร) — ถ้าหยิบปีพีคออกหนึ่งปี ค่าเฉลี่ยจะเหลือ ~6.0% ถ้าหยิบปีตกออกจะขึ้น ~9.1% ค่า 7.44% จึงขยับได้ ±1.5 จุดจากการเลือกช่วงเวลาเพียงอย่างเดียว — ความไม่แน่นอนนี้ถูกส่งต่อไปกว้างขึ้นในช่วงสถานการณ์ §6 แทนจะแกล้งทำเป็นแม่น</p>
+      <p><strong>การ์ดกันกับดักปันผล (value-trap test):</strong> ปันผล 0.70 บาท ÷ กำไรปกติต่อหุ้น ~0.59 บาท = <strong>จ่ายเกินกำไรปกติ (119%)</strong> — ถ้าคุมอัตราจ่าย 65% ของกำไรปกติ ปันผลยั่งยืนคือ ~0.38 บาท = <strong>ผลตอบแทนจริงระยะยาว ~3.8%</strong> ไม่ใช่ 7.0% และในปีตกแบบ 2566 ปันผลจริงคือ 0.03 บาท — นี่คือเหตุผลที่ P/E 9 เท่า + ปันผล 7% ของหุ้นวัฏจักรใกล้พีคต้องอ่านว่า "ตลาดบอกกำไรจะถอย" ไม่ใช่ "หุ้นถูก"</p>
+    </section>
+
+    <!-- ============ 3 · VALUATION ============ -->
+    <section id="s3">
+      <div class="sec-h"><span class="sec-no">3</span><h2>ประเมินมูลค่า (Valuation)</h2></div>
+      <hr class="div">
+      <p><strong>สรุปหัวเรื่อง: ราคายุติธรรมแบบผสม ≈ 10.88 บาท</strong> เทียบราคาตลาด 9.95 = บวก 9% — ใกล้เคียงราคายุติธรรม ไม่มีส่วนลดรักษาความปลอดภัย (margin of safety) ที่มีนัยสำคัญ · วิธีที่ให้ค่าสูงสุดคือ DCF (12.41 — ได้เครดิตการเติบโตเชิงโครงสร้าง) ต่ำสุดคือ SOTP (7.62 — ยังไม่ให้เครดิตกำไรร้านค้าโดยเจตนา) · พารามิเตอร์ไทยทั้งหมด: อัตราผลตอบแทนพันธบัตรไทย 10 ปี 2.06% (ยืนยัน 4 แหล่ง ส.ค. 69) + ความพรีเมียมความเสี่ยงหุ้น 6.4% (รวมความเสี่ยงประเทศไทย 0.9%)</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>วิธี</th><th class="num">ราคาที่สื่อถึง</th><th class="num">น้ำหนัก</th><th>เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>DCF — คิดกระแสเงินสดล่วงหน้า 5 ปี</td><td class="num">12.41</td><td class="num">45%</td><td class="small muted">จับกลไกธุรกิจเต็มที่สุด แต่อ่อนไหวต่อสมมติฐาน</td></tr>
+          <tr><td>เทียบเพื่อนบ้าน (EV/EBITDA บนกำไรปกติ)</td><td class="num">8.65-12.89 (กลาง 10.77)</td><td class="num">35%</td><td class="small muted">anchor ด้วยเบทาโกร 6.4 เท่า ปิดด้วยค่ากลางอุตสาหกรรม 8.8 เท่า</td></tr>
+          <tr><td>SOTP — ประเมินรายส่วนธุรกิจ</td><td class="num">6.25-8.98 (กลาง 7.62)</td><td class="num">20%</td><td class="small muted">ไม่ให้เครดิตกำไรร้านค้า (ยังไม่มีงบแยก) = ค่าต่ำโดยเจตนา</td></tr>
+        </tbody>
+        <tfoot><tr><td>ราคายุติธรรมแบบผสม</td><td class="num">10.88 ฿</td><td class="num">100%</td><td>+9% เทียบราคาปัจจุบัน 9.95 บาท</td></tr></tfoot>
+      </table></div>
+      <div class="callout explain">
+        <p class="small"><strong>อ่านง่ายๆ — สามวิธีนี้ต่างกันยังไง?</strong> <strong>DCF</strong> = ประมาณเงินสดที่บริษัทจะสร้างได้ทุกปีในอนาคต แล้วลดราคากลับมาเป็นมูลค่าวันนี้ (เหมือนคิดว่า "ที่ดินแปลงนี้ให้ผลผลิตปีละเท่าไร ตลอดกาล") · <strong>เทียบเพื่อนบ้าน</strong> = ดูว่าตลาดจ่ายค่าคูณให้ธุรกิจลักษณะเดียวกันกี่เท่า แล้วเทียบกับของเรา · <strong>SOTP</strong> = แยกประเมินทีละส่วนธุรกิจแล้วรวมกัน — ใช้เมื่อแต่ละส่วนมีนิสัยทำเงินต่างกันชัดเจน (ฟาร์ม vs ร้านค้า)</p>
+      </div>
+
+      <h3>สมมติฐานหลักของ DCF</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวป้อน</th><th class="num">ค่า</th><th>ที่มา/เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>การเติบโตรายได้ ปี 69-73</td><td class="num">+8.8 → +4.0%</td><td class="small muted">เป้าบริหาร 10-15% ปี 69 (ใช้กลางๆ) · เวียดนามหนุนปี 70 · ลดเร็วเพราะธุรกิจวัฏจักร</td></tr>
+          <tr><td>มาร์จิ้นดำเนินการ</td><td class="num">10.5% → 8.0%</td><td class="small muted">ปี 69 สูงเพราะ timing ของรอบ (หมูผ่านก้น พ.ค. + ไฮซีซัน H2) · ค่อยๆ ถอยตาม "ทุกฟาร์มขยายตามราคา" 18-30 เดือน · ระยะยาว 8.0% = ค่าปกติ 7.44% + เครดิตบางส่วนจากสัดส่วนร้านค้า ⚠️ path นี้ไม่มีปีตกของรอบถัดไปใน 5 ปี = สมมติฐานที่ต้องเฝ้า</td></tr>
+          <tr><td>ต้นทุนทุน (WACC)</td><td class="num">8.0%</td><td class="small muted">สร้างแบบตรวจสอบได้: อัตราปลอดความเสี่ยง 2.06% + เบต้า 1.1 × ความพรีเมียมความเสี่ยง 6.4% + ส่วนเพิ่มสภาพคล่องหุ้นเล็กไทย 0.6% = ต้นทุนทุนผู้ถือหุ้น 9.7% · หนี้ 4.0% น้ำหนัก 27%</td></tr>
+          <tr><td>การเติบโตระยะยาว (terminal)</td><td class="num">1.75%</td><td class="small muted">ไม่เกินอัตราดอกเบี้ยพันธบัตร 2.06% และไม่เกิน GDP ไทยระยะยาว (กฎสากล — บริษัทไม่ควรโตเร็วกว่าเศรษฐกิจได้ตลอดกาล)</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small">ผลลัพธ์: กระแสเงินสดอิสระปี 69-73 = 7.7 / 7.6 / 8.0 / 8.3 / 7.7 พันล้าน → มูลค่ากิจการ 88.2 พันล้าน → หักหนี้สุทธิ 15.8 → ส่วนของผู้ถือหุ้น 72.4 พันล้าน → <strong>12.41 บาท/หุ้น</strong></p>
+
+      <h3>ตารางไว (Sensitivity) — ถ้าสมมติฐานคลาดเคลื่อน</h3>
+      <div class="table-wrap"><table class="heat">
+        <thead><tr><th>WACC ＼ การเติบโตระยะยาว</th><th>1.0%</th><th>1.5%</th><th>1.75%</th><th>2.0%</th><th>2.5%</th></tr></thead>
+        <tbody>
+          <tr><th>7.0%</th><td style="background:rgba(120,140,93,.35)">13.76</td><td style="background:rgba(120,140,93,.45)">14.14</td><td style="background:rgba(120,140,93,.52)">14.36</td><td style="background:rgba(120,140,93,.60)">14.61</td><td style="background:rgba(120,140,93,.72)">15.17</td></tr>
+          <tr><th>7.5%</th><td style="background:rgba(120,140,93,.20)">12.94</td><td style="background:rgba(120,140,93,.30)">13.25</td><td style="background:rgba(120,140,93,.38)">13.42</td><td style="background:rgba(120,140,93,.45)">13.61</td><td style="background:rgba(120,140,93,.58)">14.04</td></tr>
+          <tr><th>8.0% (ฐาน)</th><td style="background:rgba(120,140,93,.08)">12.23</td><td style="background:rgba(120,140,93,.18)">12.47</td><td class="base" style="background:var(--white)">12.41</td><td style="background:rgba(120,140,93,.22)">12.76</td><td style="background:rgba(120,140,93,.38)">13.09</td></tr>
+          <tr><th>8.5%</th><td style="background:rgba(215,119,87,.10)">11.59</td><td style="background:rgba(215,119,87,.06)">11.79</td><td style="background:rgba(120,140,93,.08)">11.90</td><td style="background:rgba(120,140,93,.15)">12.02</td><td style="background:rgba(120,140,93,.28)">12.28</td></tr>
+          <tr><th>9.0%</th><td style="background:rgba(176,74,63,.18)">11.02</td><td style="background:rgba(176,74,63,.12)">11.18</td><td style="background:rgba(176,74,63,.08)">11.27</td><td style="background:rgba(176,74,63,.05)">11.37</td><td style="background:rgba(215,119,87,.08)">11.57</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">ช่วงราคาจากตาราง: 11.0-15.2 บาท · <strong>แกนที่สำคัญกว่า (จาก §1.6): มาร์จิ้น ±1 จุด = ราคา ±1.5 บาท (10.89 / 12.41 / 13.93)</strong> — ยืนยันว่าราคาหมูและต้นทุนวัตถุดิบคือตัวเดินเรื่องจริงของมูลค่าหุ้นนี้ ไม่ใช่ตัวเลขประมาณการอื่น</p>
+
+      <h3>เทียบเพื่อนบ้าน (มัลติเปิลจริง ณ 18 ส.ค. 69 — แหล่ง yfinance ไม่ทางการ)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>บริษัท</th><th class="num">P/E ล่วงหน้า</th><th class="num">EV/EBITDA</th><th class="num">EV/รายได้</th><th>หมายเหตุ</th></tr></thead>
+        <tbody>
+          <tr><td>CPF (ไทย)</td><td class="num">8.5</td><td class="num">11.2</td><td class="num">1.25</td><td class="small muted">ยักษ์ใหญ่โปรตีนรวม — มีพรีเมียมขนาด</td></tr>
+          <tr><td>เบทาโกร BTG (ไทย)</td><td class="num">6.9</td><td class="num">6.4</td><td class="num">0.52</td><td class="small muted"><strong>คู่เทียบแท้ที่สุด</strong> (ไก่+หมู+อาหารสัตว์)</td></tr>
+          <tr><td>GFPT (ไทย)</td><td class="num">5.6</td><td class="num">3.4</td><td class="num">0.67</td><td class="small muted">ไก่บูรณาการ — ตลาดตีราคาต่ำ</td></tr>
+          <tr><td>Thai Union TU (ไทย)</td><td class="num">10.2</td><td class="num">11.8</td><td class="num">0.88</td><td class="small muted">อาหารทะเล (คนละสาย ใช้เทียบแบบมีเงื่อนไข)</td></tr>
+          <tr><td><strong>ค่ากลาง (median)</strong></td><td class="num"><strong>7.7</strong></td><td class="num"><strong>8.8</strong></td><td class="num"><strong>0.78</strong></td><td class="small muted">กระจายกว้าง 3.4-11.8 — ความเชื่อมั่นวิธีนี้ต่ำ</td></tr>
+          <tr><td><strong>TFG</strong></td><td class="num"><strong>7.6-7.8</strong></td><td class="num"><strong>5.75</strong></td><td class="num"><strong>0.82</strong></td><td class="small muted">อยู่กลางแถว — ไม่ถูกไม่แพงเมื่อเทียบกลุ่ม</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted"><strong>วิธีอ่านให้ถูก:</strong> ต้องคูณมัลติเปิลกับ "กำไรปกติ" ไม่ใช่กำไรพีค — EV/EBITDA 8.8 เท่า × EBITDA ปกติ 10.5 พันล้าน = ราคาที่สื่อถึง 8.65-12.89 บาท (ผู้เช็คตัวเลขอิสระในกระบวนการนี้ตัด "P/E บนกำไรพีค" ออกเป็นลายลักษณ์อักษรเพราะเป็นการคูณตัวคูณระดับกลางรอบกับกำไรระดับพีค — กับดักคลาสสิกของหุ้นวัฏจักร)</p>
+
+      <h3>SOTP — ประเมินรายส่วน (แบบประมาณ เพราะไม่มีงบแยกกำไรร้านค้า)</h3>
+      <p class="small">ธุรกิจโปรตีนแกนกลาง (~80% ของ EBITDA ปกติ = 8.4 พันล้าน) × EV/EBITDA 5.0-6.0 เท่า = 42-50 พันล้าน + ธุรกิจร้านค้า (รายได้ 31.3 พันล้าน) × EV/รายได้ 0.35-0.60 เท่า = 11-19 พันล้าน − หนี้สุทธิ 15.8 → <strong>6.25-8.98 บาท (กลาง 7.62)</strong> — อนุรักษนิยมโดยเจตนา: ถ้าวันหนึ่งร้านค้าพิสูจน์กำไรแล้วได้มัลติเปิลแบบค้าปลีกจริง (EV/รายได้ 0.8-1.0 เท่า) ค่า SOTP จะขยับขึ้น +1.0-2.2 บาท/หุ้นทันที — นี่คือ "option" ที่พูดถึงในบทสรุป</p>
+
+      <h3>สิ่งที่ต้องหักออก: warrant TFG-W4 (ตรวจสอบจากเอกสารจริงแล้ว)</h3>
+      <p class="small">W4 ออกให้ผู้ถือหุ้นเดิมอัตรา 10:1 · <strong>ราคาใช้สิทธิ 3.80 บาท/หุ้น</strong> · หมดอายุ 15 พ.ค. 2570 (เหลือหน้าต่างใช้สิทธิอีก ~2 ครั้ง) · ราคา warrant ซื้อขาย 5.30-5.40 บาท = มีกำไรในตัวลึก (ซื้อหุ้นได้ 3.80 ทั้งที่ราคาตลาด 9.95) → ผู้ถือแทบจะใช้สิทธิแน่ บริษัทจะออกหุ้นใหม่ได้อีกสูงสุดราว 455-812 ล้านหุ้น (รับเงินเข้า 1.7-3.1 พันล้าน) → <strong>ราคายุติธรรมหลังหักการละลายส่วนแบ่ง = 10.0-10.4 บาท</strong> — อัพไซด์ +9% หายเกือบหมด นี่คือตัวเลขที่ "ผู้ซื้อวันนี้" ต้องรู้ก่อนตัดสินใจ</p>
+    </section>
+
+    <!-- ============ 4 · EARNINGS & SENTIMENT ============ -->
+    <section id="s4">
+      <div class="sec-h"><span class="sec-no">4</span><h2>งบการเงินและอารมณ์ตลาด</h2></div>
+      <hr class="div">
+      <h3>งบล่าสุด Q2/69 (เม.ย.-มิ.ย. 2569, ประกาศ 10 ส.ค. 69)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th class="num">Q1/69</th><th class="num">Q2/69</th><th class="num">ครึ่งปีแรก 69</th></tr></thead>
+        <tbody>
+          <tr><td>รายได้รวม (ล้านบ.)</td><td class="num">17,877.88</td><td class="num">18,601.84</td><td class="num">36,479.72</td></tr>
+          <tr><td>กำไรสุทธิ (ล้านบ.)</td><td class="num">2,047.09</td><td class="num">1,474.46</td><td class="num">3,521.55</td></tr>
+          <tr><td>กำไรขั้นต้น (GM)</td><td class="num">~20%</td><td class="num">18.45%</td><td class="num">—</td></tr>
+          <tr><td>รายได้ร้านค้าปลีก (ล้านบ.)</td><td class="num">—</td><td class="num">8,756.07 (+29.45% YoY)</td><td class="num">—</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>อ่านงบ:</strong> กำไย Q2 ลดจาก Q1 28% — เป็นฤดูกาลปกติ (Q2 คือไตรมาสต่ำสุดของปี) และราคาหมู/ไก่เพิ่งผ่านจุดต่ำสุดเดือน พ.ค. ตอนท้ายไตรมาส · <strong>เทียบปีก่อน (คำนวณจากงบที่มี): กำไรครึ่งปีแรกปี 2569 ลดลง 23% จากปีก่อน</strong> — พีคปี 2568 กำลังผ่านไปจริง · จุดสว่างคือร้านค้าปลีกยังโต 29% ต่อปี (สาขา 615 → 748 + รายได้ต่อสาขาเพิ่มตามคำบริหาร) · บอร์ดคงจังหวะจ่ายปันผลระหว่างกาล 0.225 บาท (XD 24 ส.ค. 69 จ่าย 10 ก.ย.)</p>
+      <p><strong>ปฏิกิริยาตลาด:</strong> วันถัดจากประกาศ หุ้นปิด +3.1% (9.60 → 9.90) ด้วยวอลุ่มพุ่ง 3.5 เท่า (37 ล้านหุ้น) — ตลาดโล่ใจที่ปันผลคงเดิมและครึ่งปีหลังมีแนวโน้มดี แต่ไม่ถึงขั้นตื่นเต้น จากนั้นไซ้กลับมาอยู่แถว 9.70-10.00 · ไม่มีตัวเลขประมาณการฉันทามติรายไตรมาสเปิดเผยสาธารณะในข้อมูลที่ใช้ (จุดอ่อนข้อมูล — ระบุไว้ตรงๆ)</p>
+
+      <h3>งบหน้า Q3/69 — ประกาศ 12 พ.ย. 69</h3>
+      <p><strong>ฉันทามติ: 10 นักวิเคราะห์ = Strong Buy · เป้าหมายเฉลี่ย 11.29 บาท (+13%)</strong> · P/E ล่วงหน้า 7.6-7.8 แปลว่าตลาดคาดกำไรทั้งปี 2569 ≈ ปี 2568 (EPS ~1.28 เทียบ 1.26) — "ตั้งรับกำไรทรงตัว ไม่ใช่โต" · ลมหนุนของ Q3: ไฮซีซันส่งออกไก่ (ญี่ปุ่น/อียู + เปิดเกาหลีใต้) + ราคาหมูไต่จาก 62 → 68 บ./กก. + ข้าวโพดถูกลง + เป้า 875 สาขา · <strong>ความเสี่ยงด้านความคาดหวัง:</strong> Q3 ควรดีอยู่แล้ว — ถ้ากำไรขั้นต้นไม่กลับเหนือ 19-20% หรือกำไรไม่แตะราว 2.2-2.5 พันล้าน ตลาดอาจผิดหวังเทียบกับคะแนน Strong Buy ที่ตั้งไว้ · สถิติเดิม: งบ Q1 ออกแล้วหุ้นทำสถิติสูงสุด (พ.ค. 69) งบ Q2 +3.1% — การลงมือของบริหารได้รางวัลจากตลาดมาตลอดปี</p>
+      <div class="callout accent">
+        <h3>อารมณ์ตลาด (Sentiment read)</h3>
+        <p class="small">หุ้นวิ่งมาก่อนหน้านี้แล้ว (ต่ำสุด 3.96 พ.ย. 68 → สูงสุด 11.50 พ.ค. 69) เพิ่งติดดัชนี MSCI และเข้า SET50 — เงินไหลเข้าจากกองทุนติดดัชนีเกิดจริง · ตอนนี้ราคา 9.95 สะท้อนความคาดหวังระดับ "ดีแต่ไม่เหลือเชื่อ" — <strong>ไม่ใช่หุ้นที่ตลาดตั้งรับความพ่ายแพ้ (priced for pessimism) และไม่ใช่จุดที่ความดีถูกมองข้าม — เป็นจุดที่ความดีถูกจ่ายไปแล้วเกือบหมด</strong></p>
+      </div>
+
+      <h3 id="s4-3">4.3 โตแบบนี้ยั่งยืนไหม + ตัวเร่งที่มีวันที่ (Growth Outlook)</h3>
+      <p><strong>รายได้ปี 2568 โต 11% มาจากไหน (แยกส่วน):</strong> ปริมาณ/สาขาใหม่ ~5% (45% — ส่วนที่ยั่งยืนที่สุด) · ราคาสินค้า ~4% (36% — เป็นวงจรหมู ไม่ยั่งยืน) · ค่าเงิน ~0.8% (ไม่ใช่ผลงาน) · อธิบายไม่ครบ 0.9% · <strong>สรุป: ส่วนที่ยั่งยืนจริง ≈ 45% ของการเติบโต</strong> — ส่วนราคาหมูจะหมุนกลับมาเป็นลบในรอบถัดไปแน่นอนตามธรรมชาติของวงจร (บริษัทไม่เปิดแยกปริมาณ/ราคาต่อส่วนธุรกิจ — ตัวเลขนี้เป็นการประมาณจากข้อมูลร้านค้าและราคาสินค้า ไม่ใช่งบแยกจริง ระบุไว้ตามความจริง)</p>
+      <p><strong>แรงหนุนเชิงโครงสร้าง (ไม่กลับตัวในรอบถัดไป):</strong> (1) การย้ายซื้อเนื้อสดจากตลาดสด → ร้านมาตรฐาน — สัญญาณหยุด: รายได้ต่อสาขาลด 2 ไตรมาสติด (2) ไทยเป็นครัวแปรรูปไก่ของโลก — สัญญาณหยุด: ส่วนแบ่งส่งออกไทยหายให้บราซิล (3) เวียดนามบริโภคโปรตีนต่อหัวต่ำกว่าไทยและโตเร็ว — สัญญาณหยุด: โครงการเลื่อนหรือขาดทุน 2 ปีแรก</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวเร่ง (catalyst)</th><th>วันที่/หน้าต่าง</th><th>ทิศทาง</th><th>ขนาด (จาก §1.6)</th><th>รู้ได้ไงว่าเกิดจริง</th></tr></thead>
+        <tbody>
+          <tr><td>XD ปันผล 0.225 บ.</td><td class="num">24 ส.ค. 69</td><td>เหตุการณ์</td><td>ราคาปรับลงเชิงกลไก ~2.3% — ไม่ใช่สัญญาณอะไร</td><td class="small muted">ปฏิทิน SET</td></tr>
+          <tr><td><strong>งบ Q3/69</strong> (ไฮซีซัน+หมูไต่)</td><td class="num">12 พ.ย. 69</td><td>+ ถ้าเกินคาด</td><td>GM ≥19-20% = มาร์จิ้นไม่ถอยเร็ว = สนับสนุน Base/Bull</td><td class="small muted">งบ F45 + กำไรขั้นต้น</td></tr>
+          <tr><td>โรงงานอาหารสัตว์เวียดนามเดินเครื่อง</td><td class="num">ปลายปี 69</td><td>+ (เริ่มจริงปี 70)</td><td>หนุนต้นทุน+รายได้ปี 70 · capex จะลดลง</td><td class="small muted">ประกาศบริษัท + capex ในงบกระแสเงินสด</td></tr>
+          <tr><td>ร้านค้าปลีกถึงเป้า 875 สาขา</td><td class="num">สิ้นปี 69</td><td>+</td><td>+17% จำนวนสาขาจาก 748</td><td class="small muted">นับสาขาได้ตรงๆ จากประกาศบริษัท</td></tr>
+          <tr><td><strong>"ทุกฟาร์มขยายตามราคาหมู" (supply response)</strong></td><td class="num">กลางปี 70 ขึ้นไป</td><td><strong>−</strong></td><td>อุปทาน +10% ≈ ราคาหมู -15~20% ≈ มาร์จิ้น -3~6 จุด = <strong>ตัวทำลายสถานการณ์แบริช</strong></td><td class="small muted">ราคาหมูหน้าฟาร์มรายสัปดาห์ (สศก./สมาคมผู้เลี้ยงสุกร)</td></tr>
+          <tr><td>วัตถุดิบข้าวโพด/ถั่วเหลือง</td><td class="num">ต่อเนื่อง เห็นงบ Q4</td><td>±</td><td>∓2.5 จุด ต่อ ±10%</td><td class="small muted">สรุปภาวะเกษตร สศก. + ต้นทุนในงบ</td></tr>
+          <tr><td>W4 หน้าต่างใช้สิทธิถัดไป</td><td class="num">~พ.ย. 69</td><td>ละลายหุ้น</td><td>ออกหุ้นใหม่เพิ่มได้ถึง ~13.7%</td><td class="small muted">ใบแจ้งใช้สิทธิบนเว็บ TFG IR</td></tr>
+          <tr><td>ออเดอร์ไก่เกาหลีใต้/ตะวันออกกลาง</td><td class="num">Q3-Q4/69</td><td>+ (มีเงื่อนไข)</td><td>+1.5-2 จุดมาร์จิ้น ต่อราคาส่งออก +10% · ⚠️ ลมต้าน: K-Research คาดส่งออกไก่สดไทยปี 69 หดตัวครั้งแรกในรอบ 20 ปี — ตัวเร่งนี้ต้องพิงตลาดใหม่ + สินค้าแปรรูป</td><td class="small muted">มูลค่าส่งออกไก่ไทยรายเดือน</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">กติกาของตารางนี้: ทุกแถวต้องมีวันที่ + วิธีตรวจว่าเกิดจริง — "ตัวเร่งที่ไม่มีกำหนด" คือความหวังลอยๆ ไม่ใช่ตัวเร่ง</p>
+    </section>
+
+    <!-- ============ 5 · TECHNICAL ============ -->
+    <section id="s5">
+      <div class="sec-h"><span class="sec-no">5</span><h2>กราฟและจังหวะ (Technical Timing)</h2></div>
+      <hr class="div">
+      <div class="chart-frame">
+        <img src="data:image/png;base64,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+EoaANA+iSrXmMEZjCI4CSW4fFy5cmXwTelclK8HDx584oknQtbs3Lnz5ZdfLo232ztybW1Arbt2ytdxxw346GDd8B69+hd008sjziOUrTCzqCjnlNMyevSQJV854cTwZz733HOl2pP+wnPOOefLX/6yLBnff5D8s1bIveDCIy9d9VHTm+XW8qyBA7MGnZDZu7e0vzGsNORpr7vuuhtvvFEFCuvbb7+9b9++RZ27VB86eFIP//pLlhz59ejSpYv0UxYUFJx33nkvvfSS9Np+9rOf9b/W7l0q318W5335K1I+Bj9z+Hf61SEn/af6w8nHDw1e5y/vbzr/2AFSrYYE2LJlc9Prr6lkxcwn58jQDc5TpUSwg63XK8x9NCNFc05w+ZibmyvFYsjCP//5z4cOHQpZ+NWvflXqJGnoLrpgwWPTwWPKKgrpC5Svp/Tsc0pgQmF1dbV013Xr1u20004LXzln1BlZg4dYq5144onHHHNM+GpPPvlktJeTvskPPvhAdmclJSWZxcd2Cry6yB5+cnbpKSqws9u4caN8d7JB5OXlWQ+Usem5c+fW1dVJWzplb7rpplN79a0+9EFJYOLjo48+qleTqlofHvWPf/wj+HWzjinKOeNMfys3V/J86623WlpaSktLu3fvHv4mj8nvfGqv0B3uab36WrVjsJag3tYkxCeHc2ToBlK1j2uLpyJqRzNSNOcEl4/SVWYNXosLLrhAvj700EPha1511VWqvayasrKy8o9//OPzzz//la985Wtf+1p9ff28efMWLFig75UOTun1/MIXvqBv6gJUaseQ1YYNG/arX/0q2kvoR1k358yZI4/V7a5duy5cuHDSpEnSzhl5RtaQIVI6y1PJMx8+7K+JO3XqJB2Nuv9SP5V817/5zW+k/eCDD0r5OKyw54cHa/Oyst944w0ZJQ9JJuQ95Jx9jnxdvny5vMRrr33aaXHDDTf88Ic/lGp19OjR+kn+8pe/XHTRRcd38z9cfgTy5NKNumLFiiHde+hnkKz0N75u3TrV2Ni682MF19DD5AZONgQAHkpw+fjzn/88KytL6rnMzEypYG677bby8nLpJwtZbcSIEaeeempDc3NedvbVJ53WObudb2PKlCn//ve/pXHGGWeoQI+mjPZa90oX3aWXXhr+qJDVpOSS6lPZY9WOora2VuoweQPyp4PUjlKVynDz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" alt="กราฟราคา TFG รายวันจาก TradingView">
+        <div class="chart-caption">TradingView · SET:TFG · กรอบวัน (D) · บันทึก 18 ส.ค. 2569 · ราคาล่าสุด 9.95 บาท</div>
+      </div>
+      <div class="grid2">
+        <div class="callout accent">
+          <h3>สภาพกราฟ — อ่านจากใหญ่ไปเล็ก</h3>
+          <p class="small"><strong>รายสัปดาห์ (ภาพใหญ่):</strong> ขาขึ้นเต็มรูปแบบ — ราคาอยู่เหนือค่าเฉลี่ย 30 สัปดาห์ (8.60) และ 40 สัปดาห์ (7.57) ทั้งคู่ชี้ขึ้น · ผลตอบแทน 1 ปี +86% เทียบ SET +30% = <strong>แรงกว่าตลาด 2.8 เท่า (RS กลุ่มบนสุด)</strong> · <strong>รายวัน (ภาพละเอียด):</strong> หลังจากพุ่งจาก 3.96 (พ.ย. 68) ขึ้นสูงสุด 11.50 (7 พ.ค. 69) แล้วย่อลงมาแตะ 8.75 (-24%) และขดตัวในกรอบ <strong>9.00-10.50</strong> มา 3 เดือน ใต้เส้นต้านลาดลงระยะสั้น — สภาพคือ <strong>"กลาง-ปลายขาขึ้น ที่กำลังสร้างฐานย่อยแรกหลังพุ่งแรง"</strong> (ไม่ใช่ขาลง — แต่ก็ไม่ใช่จุดเริ่มต้นขาขึ้น)</p>
+        </div>
+        <div class="callout">
+          <h3>เช็คลิสต์ฐานย่อย (ยังไม่ผ่าน = ยังไม่มีสัญญาณเข้า)</h3>
+          <p class="small mono">การย่อตัวครั้งที่ 1: 11.50 → 8.75 = -24% ✓ เกิดแล้ว<br>การย่อตัวครั้งที่ 2: 10.50 → 9.30 ≈ -11% ✓ เกิดแล้ว (หดแคบลง = ทิศที่ถูก)<br>การย่อตัวครั้งที่ 3: ยังไม่เกิด — ต้องหดแน่น ≤5-6% นาน 5-10 วัน + วอลุ่มรายวันจางกว่าครึ่งของปกติ<br>จุด breakout = <strong>10.50</strong> (จุดเดียว ไม่ใช่ช่วง) · ต้องทะลุพร้อมวอลุ่ม ≥25 ล้านหุ้น/วัน (1.5 เท่าของค่าเฉลี่ย)<br>เส้นตายของขาขึ้น: ปิดต่ำกว่า 8.60-8.75 ด้วยวอลุ่มหนัก = ตั้งคำถามขาขึ้นทันที</p>
+        </div>
+      </div>
+      <h3>เรขาคณิตความเสี่ยง — ทางเลือกเข้าซื้อ (โซน ไม่ใช่จุด)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>สถานการณ์เข้า</th><th class="num">โซนเข้า</th><th class="num">ตัดขาดทุน</th><th class="num">เป้าหมาย</th><th class="num">อัตราตอบแทนต่อความเสี่ยง (R)</th></tr></thead>
+        <tbody>
+          <tr><td>ซื้อตอนนี้ (9.95)</td><td class="num">กลางกรอบ ใต้เส้นต้าน</td><td class="num">8.55</td><td class="num">11.50</td><td class="num"><strong>1.1 เท่า — ไม่คุ้ม</strong></td></tr>
+          <tr><td>รอย่อในกรอบ</td><td class="num"><strong>9.20-9.30</strong></td><td class="num">8.55</td><td class="num">11.50 / 12.41</td><td class="num"><strong>2.6-4.2 เท่า</strong> ✓</td></tr>
+          <tr><td>บุกทะลุฐาน (ยืนยันวอลุ่ม)</td><td class="num">ปิด &gt; 10.50 + วอลุ่ม ≥25 ล้าน</td><td class="num">ปิดกลับ &lt;10.20</td><td class="num">11.50 → 12.41</td><td class="num">1.0-2.0 — ต้องยอมรับเฉพาะเป้า FV ขึ้นไป ⚠️</td></tr>
+          <tr><td>โซนราคาถูก (ถ้ารอบหมูหัก)</td><td class="num"><strong>7.25-7.73</strong></td><td class="num">6.80</td><td class="num">11.50 / 12.41</td><td class="num"><strong>~5.5-6.8 เท่า</strong> ✓✓</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small">ทำไม 7.25-7.73 พิเศษ: มันคือจุดที่ตัวเลขจาก 3 วิธีอิสระมาซ้อนกัน — (1) ส่วนลด 29-33% จากราคายุติธรรม 10.88 (2) ระดับ Fibonacci 50% ของการพุ่งทั้งวง (7.73) (3) ค่าเฉลี่ยเคลื่อนที่ 200 วัน (7.34) · <strong>คำเตือน:</strong> ถ้าราคาลงมาถึงจริง แปลว่าบางอย่างเปลี่ยน (รอบหมูหักก่อนกำหนด) — ต้องรันการวิเคราะห์ใหม่ก่อนซื้ออัตโนมัติ แผนที่วาดไว้วันนี้หมดอายุเมื่อถึงวันนั้น</p>
+      <div class="callout accent">
+        <h3>คำตัดสินเรื่องจังหวะ</h3>
+        <p class="small"><strong>รอ (WAIT) — อย่าเข้าตอนนี้ จัดทริกเกอร์ไว้ 3 แบบ:</strong> (1) ซื้อย่อ 9.20-9.30 ถ้ากำไรขั้นต้น Q3 ≥19-20% (2) ซื้อบุกทะลุปิดเหนือ 10.50 ด้วยวอลุ่มจริง (3) โซนของขวัญ 7.3-7.7 ถ้าตลาดตกใจ · จับคู่กับ §3: หุ้นราคายุติธรรมในกราฟกลางกรอบ = ไม่มีทั้งส่วนลดป้องกันและไม่มีทริกเกอร์ — <strong>ความอดทนคือ edge เดียวที่เหลืออยู่</strong> · ผู้ที่สนใยเป็นเพราะปันผล ต้องเข้าใจว่า 7.0% คือตัวเลขของปีพีค ไม่ใช่ตัวเลขที่จะได้ทุกปี · อย่าตกใจกับ gap ลง ~2.3% วันที่ 24 ส.ค. — นั่นคือราคาปรับตามปันผล ไม่ใช่การขายออกของใคร</p>
+      </div>
+    </section>
+
+    <!-- ============ 6 · SCENARIOS & PLAN ============ -->
+    <section id="s6">
+      <div class="sec-h"><span class="sec-no">6</span><h2>สถานการณ์และแผนการลงทุน</h2></div>
+      <hr class="div">
+      <div class="table-wrap"><table>
+        <thead><tr><th>สถานการณ์</th><th>เงื่อนไขที่ต้องเกิดจริง</th><th class="num">~12 ด.</th><th class="num">~24 ด.</th><th class="num">~36 ด.</th><th class="num">ผลตอบแทน 12 ด.</th><th class="num">ความน่าจะเป็น</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip"><span class="dot good"></span><strong>Bull</strong> (DCF 18.98)</td><td class="small muted">กำไรต่อสาขาพิสูจน์ + เวียดนามแรงกว่าแผน + ไก่ไฮซีซันยาว + ไม่มี supply response จนถึงปี 71</td><td class="num">12.5</td><td class="num">15.0</td><td class="num">16.5</td><td class="num">+26%</td><td class="num">20%</td></tr>
+          <tr><td><strong>Base</strong> (DCF 12.41)</td><td class="small muted">ราคาหมูพีคแล้วราบ · ร้านค้าโตตามแผน 875 สาขา · เวียดนามออนไลน์ปี 70 · มาร์จิ้นลงเหลือ 8%</td><td class="num">10.8</td><td class="num">12.4</td><td class="num">13.0</td><td class="num">+8%</td><td class="num">50%</td></tr>
+          <tr><td><span class="chip"><span class="dot bad"></span><strong>Bear</strong> (DCF 6.16)</td><td class="small muted">"ทุกฟาร์มขยายตามราคาหมู" เกิดตามนัดกลางปี 70 · มาร์จิ้นลง 5.5% · กำไรถอย</td><td class="num">8.2</td><td class="num">6.5 → แตะระดับก้น ~5.5 ช่วง 24-30 ด.</td><td class="num">8.0 (ขาฟื้นรอบใหม่)</td><td class="num">-18%</td><td class="num">30%</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="6">ค่าคาดหวังถ่วงน้ำหนัก 12 เดือน</td><td class="num">+3.8%/ปี</td><td class="num">รวม 100%</td></tr></tfoot>
+      </table></div>
+      <p class="small muted"><strong>ความซื่อสัตย์ของตาราง:</strong> ทุกเป้าหมายผูกกับ DCF ใน §3 (18.98 / 12.41 / 6.16) ไม่มีราคาที่คิดขึ้นใหม่ · ระดับก้น ~5.5 บาทในสถานการณ์แบริชคือ "เสียงสะท้อนระดับราคา" ของปี 2566 ซ้ำรอย (มูลค่าต่อบัญชี 1.2-1.5 เท่า) — ไม่ได้อาศัยสมมติฐานว่าพื้นมาร์จิ้นหลัง ASF จะสูงขึ้น: มาร์จิ้นแบริชที่ 5.5% ยังสูงกว่าปี 2566 จริง (0.69%) — ถ้าประวัติศาสตร์ซ้ำเต็มๆ เส้นนี้ยังลึกกว่าที่เขียน</p>
+      <p class="small"><strong>ค่าคาดหวังบอกอะไร:</strong> ที่ 9.95 บาท ผลตอบแทนที่คาดหวังได้ ~3.8%/ปี — ต่ำกว่าความเสี่ยงที่แบก (โอกาส 30% ที่เสียหนัก) · <strong>แต่ที่ราคา 7.50 บาท ค่าคาดหวังเปลี่ยนเป็น ~+49% ใน 24 เดือน</strong> — ตัวเลขคู่นี้คือหัวใจของรายงานทั้งฉบับ: ธุรกิจเดิม เงื่อนไขเดิม แต่ "ราคาที่ซื้อ" เปลี่ยนคณิตของการลงทุนทั้งหมด — นี่คือราคาของความอดทน</p>
+      <p class="small"><strong>ใครผิดอย่างไร (ตรวจสอบแบบย้อนกลับ):</strong> ตลาดให้ Strong Buy TP 11.29 — ต่างจากมุมมองเรา (10.88) แค่ 4% — ความต่างจริงไม่ใช่ตัวเลขมูลค่า แต่คือ<strong>วินัยจังหวะ</strong>: ตลาดซื้อ momentum ขาขึ้นของราคาหมู เราเลือกรอส่วนลด · ถ้ากำไรต่อสาขาเปิดเผยและดีจริง <strong>ตลาดถูก เราผิด</strong> (Bull 18.98) — และการ์ดกันพลาดของเราคือ conviction-builders ที่มีวันที่ตรวจชัดเจน: ถ้า Q3 (12 พ.ย. 69) GM ≥19-20% + สาขาถึงเป้า + เวียดนามตามกำหนด มุมมอง "รอ" ต้องถูกทบทวนด้วยหลักฐาน ไม่ใช่ความระวังตามธรรมชาติของหุ้นวัฏจักร</p>
+      <div class="callout">
+        <h3>แผนการลงทุน <span class="small muted">— เชิงเงื่อนไข ไม่ใช่คำสั่งซื้อ-ขาย</span></h3>
+        <p class="small"><strong>ประเภทของเกม:</strong> หุ้นวัฏจักรกลาง-ปลายขาขึ้น + ขาเติบโตที่ยังไม่พิสูจน์ — กติกาประจำประเภท: ซื้อความกลัว ไม่ซื้อความตื่นเต้น ตอนนี้คือช่วงตื่นเต้นหลังหุ้นพุ่งและเพิ่งติดดัชนี — หน้าที่ของเราคือเตรียมกระสุน ไม่ใช่ไล่ราคา</p>
+        <p class="small"><strong>จุดเข้า & ส่วนลดที่ต้องการ:</strong> 29-33% จากราคายุติธรรม (เพราะวัฏจักรใกล้พีค + กำไรร้านค้ายังไม่พิสูจน์ + มีหางเสี่ยงปีตก 4.5-5.5) → <strong>โซน 7.25-7.73</strong> · ทางเลือกจังหวะสั้น: ย่อ 9.20-9.30 หรือ บุกทะลุ 10.50 (รายละเอียด §5)</p>
+        <p class="small"><strong>ขนาด position & การแบ่งทุก:</strong> เริ่มไม่เกิน 1/3 ของ position ที่ทริกเกอร์ · สูตรขนาด: จำนวนหุ้น = (มูลค่าพอร์ต × 1% ความเสี่ยงยอมรับต่อไม้) ÷ (ราคาเข้า − ราคาตัดขาดทุน) — ตัวอย่าง: พอร์ต 100,000 บ. เสี่ยง 1,000 บ. เข้า 9.25 ตัด 8.55 (ต่าง 0.70) = ~1,430 หุ้น (เป็นสูตรคำนวณ ไม่ใช่คำแนะนำ)</p>
+        <p class="small"><strong>สิ่งที่เพิ่มความเชื่อมั่น (เช็กทุกไตรมาส):</strong> กำไรขั้นต้น ≥19-20% ต่อเนื่อง · สาขาถึง 875 ตามแผน + รายได้/สาขาไม่ถูกเจือจาง · เวียดนามเดินเครื่องตามกำหนดปลายปี 69 · ราคาหมูรายสัปดาห์ยัง ≥68 บ. · เงินสดอิสระกลับมา &gt;5 พันล้านเมื่อ capex ลด · จำนวนสาขา CP Fresh Mart และฝูงแม่พันธุ์สุกรของ CPF (เฝ้าสงครามสองด้าน)</p>
+        <p class="small"><strong>ตัวทำลายวิจารณญาณ (ต้องออกถ้าเกิด):</strong> กำไรขั้นต้น &lt;19% สองไตรมาสติด (มาร์จิ้นถอยจริง) · ราคาหมูลง 10% จากจุดสูงสุด · รายได้ต่อสาขาลด 2 ไตรมาสติด · อัตราหนี้/ส่วนของผู้ถือหุ้นกลับสูงกว่า 1.2 · จ่ายปันผลเกิน 80% ของกำไรขณะที่มาร์จิ้นกำลังถอย (สัญญาณปันเพื่อรักษาภาพลักษณ์)</p>
+        <p class="small"><strong>กรอบเวลา:</strong> หน้าต่าง 12-36 เดือนตามรอบหมู · จุดทบทวนสำคัญ: <strong>งบ Q3 วันที่ 12 พ.ย. 69</strong> และ <strong>กลางปี 70 — วันที่นัดพบของ supply response</strong></p>
+      </div>
+      <div class="callout accent" style="margin-top:14px;">
+        <h3>คุณภาพการจัดสรรเงินของผู้บริหาร — เกรด C+</h3>
+        <p class="small"><strong>ที่ดี:</strong> ลดภาระหนี้ต่อเนื่อง (D/E 1.73 → 1.00) · โตแบบสร้างเอง ไม่มีการซื้อกิจการฟูม่าย (ค่าความนิยมในงบ 0.1% ของสินทรัพย์) · คะแนนสุขภาพ Altman Z 3.84 · เงินสดจากธุรกิจมากกว่ากำไรบัญชี 2 ปีซ้อน = กำไรไม่ใช่ของตกแต่ง<br><strong>ที่ต้องจับตา — ทั้งหมดเกิด "ตอนยอดของรอบ" พร้อมกัน:</strong> (1) จ่ายปันผลเกินกำไรปกติ (119%) ในจังหวะกำไรพีค (2) ออก warrant ริดส่วนแบ่งผู้ถือหุ้นเพิ่มถึง ~13.7% โดยเงื่อนไขเอื้อมือที่ถือคอนโทรล (ครอบครัวผู้ก่อตั้ง ~50%) (3) เร่งลงทุนเวียดนาม+ขยายสาขาที่ราคาวัตถุดิบดีที่สุด — เงินออกทางหนึ่ง เงินเข้าจากการริดผู้ถือหุ้นรายย่อยอีกทางหนึ่ง ในจังหวะเดียวกัน</p>
+      </div>
+    </section>
+
+    <!-- ============ 7 · KEY RISKS & PEERS ============ -->
+    <section id="s7">
+      <div class="sec-h"><span class="sec-no">7</span><h2>ความเสี่ยงหลักและคู่แข่งที่ต้องเฝ้า</h2></div>
+      <hr class="div">
+      <h3>7.1 ความเสี่ยงเรียงตามแรงกระทบต่อมูลค่าหุ้น</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ความเสี่ยง</th><th>กลไก</th><th class="num">มูลค่าที่เดิมพัน</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1. supply response หมูรอบใหม่</strong> (กลางปี 70)</td><td class="small muted">ราคา 68 บ. ที่ไต่ +2/สัปดาห์ = เพลงเรียกให้ทุกฟาร์มขยายฝูงแม่พันธุ์ เนื้อถึงตลาดใน 10-12 เดือน → อุปทาน +10% ≈ มาร์จิ้น -3~6 จุด — เหมือนเหตุการณ์ปี 2565→2566 ที่ทำให้ขาดทุน</td><td class="num">ราคายุติธรรมหลุดไปโซน 6-8 บ. · ปีตกจริงเคยพาหุ้นหายครึ่ง (ก้นประเมิน 4.5-5.5)</td></tr>
+          <tr><td><strong>2. กำไรร้านค้าปลีกไม่เป็นจริง</strong></td><td class="small muted">เรื่องหลักของ Bull case ยังไม่มีงบแยกรองรับ — ถ้าร้านแต่ละสาขาไม่ทำกำไร ส่วนต่างมัลติเปิลค้าปลีกทั้งหมดหายไป</td><td class="num">ราคายุติธรรมกลับสู่โซน SOTP 7.6-8.5</td></tr>
+          <tr><td><strong>3. การละลายส่วนแบ่ง warrant W4</strong></td><td class="small muted">ออกหุ้นใหม่ได้อีกสูงสุด ~13.7% ก่อนพ.ค. 70</td><td class="num">ราคายุติธรรมหาย 0.5-0.9 บ./หุ้น</td></tr>
+          <tr><td><strong>4. สงครามสองด้านของระบบนิเวศ CP</strong></td><td class="small muted">CPF หน้าฟาร์ม (ทุนทนสงครามราคาได้นานกว่า) + CP Fresh Mart หน้าร้าน (retail = 43% รายได้ TFG)</td><td class="num">บีบทั้งมาร์จิ้นและการเติบโตของขาหลัก</td></tr>
+          <tr><td><strong>5. วัตถุดิบพุ่ง</strong></td><td class="small muted">ข้าวโพด/ถั่วเหลือง +10% = มาร์จิ้น -2.5 จุด ภายใน ~4 เดือน</td><td class="num">±1.5 บ. ต่อมาร์จิ้น ±1 จุด</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">แผนที่นี้เชื่อมกับตัวทำลายวิจารณญาณใน §6 · เส้นตายขาขึ้นใน §5 · ตัวไวที่สุดในตารางไวของ §3</p>
+
+      <h3>7.2 คู่แข่งที่การตัดสินใจของเขาขยับกำไรเราไหว (Peer Impact)</h3>
+      <p class="small">คำถามนี้ต่างจาก "ใครเทียบราคาหุ้นได้" (§3) — คำถามคือ <strong>"การตัดสินใจของใครเปลี่ยนกำไรของ TFG ได้จริง"</strong> ค้นหาทั่วโลกโดยไม่จำกัดประเทศ แล้วคัดด้วยช่องทางกระทบ 3 แบบ (แย่งวัตถุดิบเดียวกัน / ขายให้ลูกค้าเดียวกัน / ใหญ่พอกำหนดราคาตลาด):</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>อันดับ</th><th>คู่แข่ง</th><th>ประเทศ</th><th>ช่องทางกระทบ</th><th class="num">รายได้เราที่โดน</th><th>คะแนน</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><strong>ระบบนิเวศ CP (CPF + CP Fresh Mart)</strong></td><td>ไทย</td><td>ทั้งสามช่องทาง — โจมตีสองแนวรบพร้อมกัน</td><td class="num">~99% + 24%</td><td class="num"><strong>1.54</strong></td></tr>
+          <tr><td class="num">2</td><td><strong>เบทาโกร (BTG)</strong></td><td>ไทย</td><td>ทั้งสามช่องทาง</td><td class="num">~75%</td><td class="num"><strong>1.17</strong></td></tr>
+          <tr><td class="num">3</td><td>GFPT</td><td>ไทย</td><td>วัตถุดิบเดียวกัน + ลูกค้าเดียวกัน</td><td class="num">~54%</td><td class="num">0.71</td></tr>
+          <tr><td class="num">4</td><td>Japfa</td><td>อินโด/สิงคโปร์</td><td>วัตถุดิบ + กำหนดราคาภูมิภาค</td><td class="num">~54%</td><td class="num">0.67</td></tr>
+          <tr><td class="num">5</td><td>BRF / JBS</td><td>บราซิล</td><td>ลูกค้าส่งออกเดียวกัน + กำหนดราคาไก่โลก</td><td class="num">~32%</td><td class="num">0.33</td></tr>
+          <tr><td class="num">6</td><td>Dabaco / CP Vietnam / CJ Vina</td><td>เวียดนาม</td><td>สมรภูมิแห่งอนาคต (เมื่อ TFG เวียดนามเริ่มปี 70)</td><td class="num">~0% วันนี้</td><td class="num">0.00</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small"><strong>อ่านง่ายๆ:</strong> คู่แข่งที่อันตรายที่สุดไม่ใช่ใครไกลๆ แต่คือ <strong>CP ที่โจมตี TFG สองด้านพร้อมกัน</strong> — หน้าฟาร์ม (CPF เป็นผู้กำหนดราคาหมู/ไก่ในประเทศ ซื้อวัตถุดิบเดียวกัน และมีงบดุลที่ทนขาดทุนในสงครามราคาได้นานกว่า) และหน้าร้าน (CP Fresh Mart หลายพันสาขา เทียบ TFG 748 สาขา ในสนามเดียวกัน) · สิ่งที่ต้องเฝ้าระวังรายไตรมาส: <strong>จำนวนสาขา CP Fresh Mart</strong> และ <strong>ขนาดฝูงแม่พันธุ์สุกรของ CPF</strong> (อ่านได้จากงบ 56-1 ของ CPF เอง)</p>
+      <p class="small muted"><strong>ที่พิจารณาแล้วตัดทิ้ง (บันทึกไว้ตามกติกา):</strong> Thai Union (อาหารทะเล — คนละวัตถุดิบ คนละลูกค้า ไม่มีช่องทางกระทบกำไร) · SLC (ผู้เล่นหมูรายเล็กของไทย — ไม่มีข้อมูลจากผู้ให้บริการข้อมูล น่าจะไม่มีนัยสำคัญ แต่ยังตรวจไม่ได้)</p>
+    </section>
+
+    <!-- ============ GLOSSARY ============ -->
+    <section id="glossary">
+      <div class="sec-h"><h2>พจนานุกรมสำหรับนักลงทุนทั่วไป</h2></div>
+      <hr class="div">
+      <p class="small muted">รายงานนี้ใช้ศัพท์การลงทุนหลายคำ — นี่คือคำอธิบายแบบไม่ต้องมีพื้นฐาน พร้อมตัวอย่างสั้นๆ ใช้เลขของ TFG จริงประกอบ</p>
+
+      <h3>คำวัดความถูกและแพงของหุ้น</h3>
+      <p><strong>P/E (ราคาต่อกำไร)</strong> — จ่ายกี่บาทเพื่อแลกกำไร 1 บาทต่อปี · <em>ตัวอย่าง:</em> TFG ราคา 9.95 กำไรต่อหุ้น 1.06 บาท = P/E 9.4 เท่า เหมือนบอกว่า "จ่าย 9.4 ปีของกำไรปัจจุบันเพื่อซื้อธุรกิจนี้" · <strong>ระวังกับดัก:</strong> ถ้ากำไรอยู่ในช่วงพีคของวงจร P/E จะดูต่ำผิดๆ — คิดบนกำไรปกติ 0.59 บาทแล้ว P/E จริงคือ 16.9 เท่า</p>
+      <p><strong>P/B (ราคาต่อมูลค่าบัญชี)</strong> — ราคาหุ้นเทียบ "ทุนที่จมอยู่ในธุรกิจตามบัญชี" (ที่ดิน โรงงาน ฟาร์ม ร้าน หักหนี้) · <em>ตัวอย่าง:</em> TFG มูลค่าบัญชีต่อหุ้น 3.73 บาท ราคาตลาด 9.95 = P/B 2.67 เท่า — ตลาดจ่ายเกินมูลค่าทรัพย์สินเพราะคาดหวังกำไรในอนาคต · ในปีตกซัด 2566 หุ้นกลุ่มนี้เคยถูกตีที่ 1.2-1.5 เท่าของมูลค่าบัญชี</p>
+      <p><strong>EV/EBITDA</strong> — มูลค่าธุรกิจทั้งก้อน (ราคาหุ้นทั้งบริษัท + หนี้ − เงินสด) เทียบกำไรก่อนหักดอกเบี้ย ภาษี ค่าเสื่อม — ใช้เทียบบริษัทที่มีหนี้ต่างกันได้ยุติธรรมกว่า P/E · <em>ตัวอย่าง:</em> TFG อยู่ที่ 5.75 เท่า เทียบค่ากลางเพื่อนบ้าน 8.8 เท่า = กลางแถว</p>
+      <p><strong>Fair Value และ Margin of Safety</strong> — ราคายุติธรรม = ประมาณค่าว่าธุรกิจ "ควรมีราคา" เท่าไรจากเงินที่จะสร้างได้ในอนาคต (ของ TFG ใช้ 3 วิธีถ่วงเฉลี่ยได้ 10.88 บาท) · ส่วนลดรักษาความปลอดภัย = ส่วนห่างระหว่างราคาที่ซื้อกับราคายุติธรรม เหมือนซื้อของมูลค่า 100 บาทในราคา 70 — ถ้าประเมินผิดไป 20-30% ก็ยังไม่ขาดทุน · รายงานนี้เห็นว่า TFG ต้องมีส่วนลด 29-33% (เพราะเป็นหุ้นวัฏจักรใกล้พีค) = โซน 7.25-7.73 บาท</p>
+
+      <h3>คำวัดคุณภาพธุรกิจ</h3>
+      <p><strong>ROIC และ WACC</strong> — ROIC คือผลตอบแทนที่เงินลงทุนในธุรกิจทำได้ WACC คือต้นทุนของเงินก้อนนั้น · <em>ตัวอย่าง:</em> TFG ปกติ ROIC 12.1% ต้นทุนทุน 8.0% = บวก 4.1 จุด — เหมือนกู้เงินดอกเบี้ย 8% มาลงทุนได้ผลตอบแทน 12% ส่วนต่างคือมูลค่าที่สร้างเพิ่มจริง · ถ้าติดลบต่อเนื่อง แปลว่าบริษัทโตแบบทำลายมูลค่า</p>
+      <p><strong>FCF (เงินสดอิสระ)</strong> — เงินสดที่เหลือจริงๆ หลังจ่ายค่าดำเนินงานและค่าลงทุนอุปกรณ์/ฟาร์ม — เงินก้อนเดียวที่ใช้จ่ายปันผลได้ · <em>ตัวอย่าง:</em> TFG TTM เหลือ 5.3 พันล้านบาท ลดลงครึ่งจากปีก่อนเพราะกำลังเร่งสร้างโรงงานเวียดนาม</p>
+      <p><strong>กำไรปกติ (Normalized earnings)</strong> — กำไรที่ธุรกิจทำได้ใน "ปีธรรมดา" ไม่ใช่ปีดวงดีหรือปีวิกฤต · <em>วิธีของเรา:</em> เฉลี่ยมาร์จิ้น 5 ปี (7.44%) คูณรายได้วันนี้ = กำไรปกติ 5.4 พันล้าน เทียบ 7.8 พันล้านที่ทำจริงตอนนี้ (สูงกว่าปกติ 44%) — คนที่ใช้กำไรพีควางแผน 10 ปีคือคนที่จะผิดหวังหนักที่สุดในปีตกของรอบถัดไป</p>
+
+      <h3>คำเฉพาะที่เจอในรายงานนี้</h3>
+      <p><strong>หุ้นวัฏจักร (Cyclical)</strong> — ธุรกิจที่กำไรขึ้นลงเป็นวงตามราคาสินค้าโภคภัณฑ์ · <em>ตัวอย่าง TFG:</em> กำไร 562 ล้าน → 4,722 ล้าน → ขาดทุน 813 ล้าน → 3,144 ล้าน → 7,441 ล้าน ใน 5 ปี — วงเดียวกันนี้คือเหตุผลที่กฎเหล็กของหุ้นกลุ่มนี้คือ "ซื้อตอนข่าวร้าย ระวังตอนข่าวดีที่สุด" ตรงข้ามกับหุ้นเติบโต</p>
+      <p><strong>Supply Response (ปฏิกิริยาฝั่งอุปทาน)</strong> — เมื่อราคาสินค้าเกษตรสูง ทุกฟาร์มจะขยายการผลิตพร้อมกัน เมื่อผลผลิตออกมาใน 10-12 เดือน ราคาจะตกเพราะของล้นตลาด · <em>นี่คือความเสี่ยงอันดับ 1 ของรายงานนี้:</em> ราคาหมู 68 บาทที่ไต่ขึ้นทุกสัปดาห์ตอนนี้ คือเพลงเรียกให้ประวัติศาสตร์ปี 2566 ซ้ำรอบในปี 2570</p>
+      <p><strong>Warrant (ใบสำคัญแสดงสิทธิ)</strong> — ตั๋วสิทธิซื้อหุ้นใหม่ในราคาที่ตกลงไว้ล่วงหน้า · <em>ตัวอย่าง TFG-W4:</em> ถือ warrant 1 ใบ = สิทธิซื้อหุ้นใหม่ที่ 3.80 บาท ทั้งที่ราคาตลาด 9.95 — ใครถือก็ควรใช้สิทธิ ผลคือบริษัทต้องออกหุ้นใหม่ เหมือนหั่นเค้กเพิ่มชิ้น — ส่วนแบ่งผู้ถือหุ้นเดิมถูกเจือจาง (หุ้นเพิ่มได้อีกสูงสุด ~13.7% ก่อน พ.ค. 70)</p>
+      <p><strong>XD (Ex-Dividend)</strong> — วันที่หุ้น "แยกตัวจากสิทธิรับปันผล" ใครซื้อวันนั้นหรือหลังจากนั้นไม่ได้ปันผลงวดนี้ ราคาจะปรับลงเท่ากับปันผลโดยกลไก · <em>ของ TFG:</em> XD 24 ส.ค. 69 ปันผล 0.225 บาท = ราคาเปิดวันนั้นต่ำลงราว 2.3% อัตโนมัติ — ไม่ใช่การขายออกของใคร อย่าตกใจผิด</p>
+      <p><strong>ค่าเฉลี่ยเคลื่อนที่ · Fibonacci · Breakout · VCP</strong> — เครื่องมืออ่านกราฟ · MA = เส้นราคาเฉลี่ยย้อนหลัง ใช้ดูทิศทาง · Fibonacci = วัดว่าราคาย่อลงถึง "ระดับที่นักลงทุนเคยซื้อ" ตามสัดส่วนของคลื่นขึ้นก่อนหน้า · Breakout = ราคาทะลุเพดานเดิมพร้อมวอลุ่มซื้อผิดปกติ = สัญญาณขาขึ้นใหม่ · VCP = ฐานย่อที่ "หดถี่ขึ้นเรื่อยๆ เงียบลงเรื่อยๆ" ก่อนพุ่ง — ของ TFG ย่อแล้ว 2 รอบ (-24%, -11%) ยังรอรอบที่สามที่แน่นสุด</p>
+      <p><strong>สถานการณ์ Bull/Base/Bear และค่าคาดหวังถ่วงน้ำหนัก</strong> — แต่งเรื่องล่วงหน้า 3 แบบ: ดีมาก / ปกติ / แย่ พร้อมโอกาสเกิด แล้วรวมผลตอบแทน×โอกาส · <em>ของ TFG ที่ 9.95:</em> (26%×20%) + (8%×50%) + (-18%×30%) = +3.8% ต่อปี — ต่ำกว่าความเสี่ยงที่แบก · <strong>ที่ราคา 7.50 ค่าคาดหวังเด้งเป็น ~+49%</strong> — ตัวเลขคู่นี้คือสรุปทั้งรายงานในสองบรรทัด</p>
+    </section>
+
+    <!-- ============ APPENDIX ============ -->
+    <section id="appendix">
+      <div class="sec-h"><h2>ภาคผนวก</h2></div>
+      <hr class="div">
+      <h3>สมมติฐานสำคัญทั้งหมด</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ตัวป้อน</th><th class="num">ค่า</th><th>ที่มา/เหตุผล</th></tr></thead>
+        <tbody>
+          <tr><td>อัตราปลอดความเสี่ยง (risk-free)</td><td class="num">2.06%</td><td class="small muted">พันธบัตรรัฐบาลไทย 10 ปี ณ ส.ค. 69 — ยืนยัน 4 แหล่ง (TradingEconomics ~2.05%, ThaiBMA 2.08%, TradingView 2.05%, MacroMicro 2.08%)</td></tr>
+          <tr><td>ความพรีเมียมความเสี่ยงหุ้น (ERP)</td><td class="num">6.4%</td><td class="small muted">ERP ตลาดสากล 5.5% + ความพรีเมียมความเสี่ยงประเทศไทย ~0.9% (แนวทาง Damodaran)</td></tr>
+          <tr><td>เบต้า (β)</td><td class="num">1.1</td><td class="small muted">ปรับตามอุตสาหกรรม — เบต้าจาก yfinance (0.09) ใช้ไม่ได้เพราะสภาพคล่องหุ้นต่ำบิดเบือนค่า</td></tr>
+          <tr><td>ส่วนเพิ่มสภาพคล่องหุ้นเล็ก</td><td class="num">+0.6%</td><td class="small muted">เพิ่มในต้นทุนทุนผู้ถือหุ้น — แยกออกมาให้ตรวจสอบได้ ไม่รวมเป็นก้อนลับ</td></tr>
+          <tr><td>อัตราภาษี</td><td class="num">15%</td><td class="small muted">ภาษีจ่ายจริง ~10% (มีสิทธิส่งเสริม BOI) — ใช้ 15% เพื่อความอนุรักษนิยม</td></tr>
+          <tr><td>การเติบโตระยะยาว (terminal g)</td><td class="num">1.75%</td><td class="small muted">ไม่เกินอัตราปลอดความเสี่ยง 2.06% และไม่เกิน GDP ไทยระยะยาว 3.0-3.5%</td></tr>
+          <tr><td>W4 warrant</td><td class="num">3.80 บ./จำนวน 10:1</td><td class="small muted">เอกสารบริษัท + SET — หมดอายุ 15 พ.ค. 70 · ใช้สิทธิไปแล้ว 4 หน้าต่าง</td></tr>
+        </tbody>
+      </table></div>
+      <h3>ข้อมูลที่ใช้และวันที่ / Data sources &amp; dates</h3>
+      <p class="small muted">ชุดข้อมูลหลัก: snapshot แบบมีที่มา 18 ส.ค. 69 (S&amp;P Global ผ่าน stockanalysis = ชั้นหลัก · yfinance = ชั้นสำรอง 7 รายการ: ราคา/มูลค่าตลาด/จำนวนหุ้น/เบต้า ฯลฯ — ระบุกำกับทุกจุดที่ใช้) · งบและข่าวบริษัท: ผลงาน Q2/69 (10-11 ส.ค. 69), โครงสร้างผู้ถือหุ้น 26 พ.ค. 69, เอกสาร warrant บนเว็บ TFG IR · ราคาสุกร: สศก. 68 บ./กก. (17 ส.ค. 69 ผ่าน rakakaset) + สมาคมผู้เลี้ยงสุกรแห่งชาติ 72-76 บ./กก. (สัปดาห์ 33/2569 ผ่าน Agriplusnews) + แถลงการณ์นายกสมาคม re: ต้นทุนการผลิต (Realnews Thailand) · อุตสาหกรรมไก่ส่งออก: ศูนย์วิจัยกสิกรไทย (ธ.ค. 68 + รายงานผ่าน Avinews) · พันธบัตร 10 ปี (ส.ค. 69) · มัลติเปิลคู่แข่ง (yfinance 18 ส.ค. 69) · กราฟ TradingView (18 ส.ค. 69) · <strong>ตรวจสอบโดยผู้รีวิวอิสระ 6 สาย (Lynch / Grantham / Damodaran / Klarman / Minervini / Buffett-Munger) + รอบโจมตีตรวจสอบ adversarial 5 รอบ (stock-grill R0-R5) ก่อนและหลังอัพเดต — ผลการโจมตีและคำตอบที่อัพเดตกลับเข้ารายงาน: (1) ข้อมูลราคาหมูสองแหล่ง + ต้นทุน (2) ลมต้านส่งออกไก่สดปี 69 (3) ช่วงจำนวน W4 คงเหลือ (4) ข้อจำกัด share count คงที่ใน DCF (5) การวิเคราะห์ย้อน "ใครผิดอย่างไร" — โครงสร้างมูลค่า/สถานการณ์/แผนยังยืน</strong></p>
+      <p class="small muted"><strong>ข้อจำกัดที่ระบุไว้ตรงๆ:</strong> งบแยกกำไรรายส่วนธุรกิจไม่มีในข้อมูลผู้ให้บริการ → ตัวเลข segment ยังไม่ได้เทียบกับงบ 56-1 One Report ฉบับจริง (ผู้อ่านควรตรวจก่อนใช้ตัดสินใจระดับสูง) · ปริมาณสุกร/ไก่รายปีของบริษัทไม่มีเผยแพร่ → ความไวราคาหมูเป็นการประมาณ · รายการที่ตัดออกจากกำไรปกติ (มูลค่าสัตว์มีชีวิต อัตราแลกเปลี่ยน) ถูกดูดซับในค่าเฉลี่ยมาร์จิ้น ไม่ได้แยกเป็นบาท</p>
+      <p class="small muted"><strong>ข้อปฏิเสธความรับผิดชอบ:</strong> เอกสารนี้จัดทำเพื่อการวิจัยและการศึกษาเท่านั้น <strong>ไม่ใช่คำแนะนำการลงทุน</strong> ไม่ใช่คำเชิญชวนซื้อหรือขายหลักทรัพย์ และไม่ได้ปรับให้เหมาะกับสภาพะของบุคคลใด ข้อมูลจากผู้ให้บริการข้อมูลบุคคลที่สามเป็นข้อมูลไม่ทางการ อาจล่าช้าหรือคลาดเคลื่อน — ผู้อ่านควรตรวจสอบตัวเลขสำคัญกับเอกสารงบการเงินหลักของบริษัทก่อนตัดสินใจ การลงทุนมีความเสี่ยง ผู้ลงทุนอาจสูญเสียเงินต้น</p>
+    </section>
+
+    <footer>
+      ไทยฟู้ดส์ กรุ๊ป · TFG.BK · บทวิเคราะห์เพื่อการศึกษา · จัดทำ 18 ส.ค. 2569 · ไม่ใช่คำแนะนำการลงทุน
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  function initReportInteractivity() {
+    try {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+      var map = {};
+      links.forEach(function(a){ var id=a.getAttribute('href').slice(1); if(id) map[id]=a; });
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){
+              links.forEach(function(a){a.classList.remove('active');});
+              var a = map[e.target.id]; if(a) a.classList.add('active');
+            }
+          });
+        }, {rootMargin:'-20% 0px -70% 0px', threshold:0});
+        document.querySelectorAll('section[id], h3[id]').forEach(function(s){ obs.observe(s); });
+      }
+    } catch(err) { /* scrollspy non-critical */ }
+
+    try {
+      var toc = document.querySelector('.toc');
+      var btn = document.querySelector('.toc-toggle');
+      if(!toc || !btn) return;
+      function isMobile(){ return window.matchMedia('(max-width:900px)').matches; }
+      if(isMobile()) toc.classList.add('collapsed');
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var collapsed = toc.classList.toggle('collapsed');
+        btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      });
+      toc.addEventListener('click', function(e){
+        if(e.target.tagName === 'A' && isMobile()) toc.classList.add('collapsed');
+      });
+      window.addEventListener('resize', function(){
+        if(!isMobile()){ toc.classList.remove('collapsed'); btn.setAttribute('aria-expanded','true'); }
+      });
+    } catch(err) { console.error('BF-Report TOC init failed:', err); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReportInteractivity);
+  } else {
+    initReportInteractivity();
+  }
+</script>
+</body>
+</html>
