@@ -1,0 +1,2992 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Option Flow — คู่มือช่างฉบับใช้งานจริง</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f4f1e8;
+        --paper-mid: #ece7d8;
+        --paper-deep: #ded7c2;
+        --paper-shadow: #c6bc9e;
+        --ink: #12100b;
+        --ink-soft: #24211a;
+        --ink-mid: #403a2c;
+        --ink-muted: #736a54;
+        --ink-faint: #a69c82;
+        /* midnight + gold */
+        --accent: #1b2a4a;
+        --accent-deep: #0f1b33;
+        --accent-light: #2e4675;
+        --gold: #b08d2e;
+        --gold-deep: #8a6d1e;
+        --gold-light: #cba84a;
+        --accent-rule: rgba(27, 42, 74, 0.28);
+        --accent-bg: rgba(27, 42, 74, 0.06);
+        --gold-bg: rgba(176, 141, 46, 0.1);
+        --red: #8a2318;
+        --red-bg: #faf2ef;
+        --green: #2f5233;
+        --green-bg: #f0f4ed;
+        --book-width: 780px;
+        --page-pad-h: 76px;
+        --page-pad-v: 84px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: #0c0a07;
+        padding: 40px 16px;
+        margin: 0;
+        font-family: "Noto Serif Thai", serif;
+        color: var(--ink);
+        line-height: 1.75;
+      }
+      .book {
+        max-width: var(--book-width);
+        margin: 0 auto;
+        background: var(--paper);
+        box-shadow:
+          0 0 0 1px rgba(0, 0, 0, 0.1),
+          0 4px 40px rgba(0, 0, 0, 0.45),
+          0 0 120px rgba(0, 0, 0, 0.3);
+      }
+      .page {
+        padding: var(--page-pad-v) var(--page-pad-h);
+        position: relative;
+      }
+      .chapter-open {
+        padding: var(--page-pad-v) var(--page-pad-h);
+        background: var(--paper-mid);
+        border-top: 1px solid var(--paper-shadow);
+        border-bottom: 1px solid var(--paper-shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ---------- COVER ---------- */
+      .cover {
+        background: linear-gradient(
+          160deg,
+          #0f1b33 0%,
+          #1b2a4a 55%,
+          #24325a 100%
+        );
+        color: var(--paper);
+        padding: 76px var(--page-pad-h) 68px;
+        position: relative;
+        overflow: hidden;
+      }
+      .cover::before {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border: 1px solid rgba(203, 168, 74, 0.35);
+        pointer-events: none;
+      }
+      .cover-corner {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        border: 2px solid var(--gold-light);
+      }
+      .cc-tl {
+        top: 30px;
+        left: 30px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .cc-tr {
+        top: 30px;
+        right: 30px;
+        border-left: none;
+        border-bottom: none;
+      }
+      .cc-bl {
+        bottom: 30px;
+        left: 30px;
+        border-right: none;
+        border-top: none;
+      }
+      .cc-br {
+        bottom: 30px;
+        right: 30px;
+        border-left: none;
+        border-top: none;
+      }
+      .cover-kicker {
+        font-family: "Sarabun", sans-serif;
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 36px;
+        position: relative;
+      }
+      .cover-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 58px;
+        line-height: 1.04;
+        letter-spacing: -0.01em;
+        margin: 0 0 8px;
+        position: relative;
+      }
+      .cover-title .th {
+        font-family: "Noto Serif Thai", serif;
+        font-weight: 600;
+        display: block;
+        font-size: 34px;
+        margin-top: 14px;
+        color: #eee7d2;
+        letter-spacing: 0;
+      }
+      .cover-sub {
+        font-family: "Noto Serif", serif;
+        font-style: italic;
+        font-size: 18px;
+        color: #c8cedc;
+        margin: 26px 0 0;
+        position: relative;
+        max-width: 80%;
+      }
+      .cover-rule {
+        width: 60px;
+        height: 2px;
+        background: var(--gold-light);
+        margin: 34px 0;
+        position: relative;
+      }
+      .cover-foot {
+        font-family: "Sarabun", sans-serif;
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: #aeb6c8;
+        position: relative;
+        line-height: 1.9;
+      }
+      .cover-badge {
+        position: relative;
+        display: inline-block;
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        border: 1px solid rgba(203, 168, 74, 0.5);
+        padding: 6px 14px;
+        margin-top: 30px;
+      }
+
+      /* ---------- TYPOGRAPHY ---------- */
+      h1,
+      h2,
+      h3 {
+        font-family: "Noto Serif Thai", serif;
+        color: var(--ink);
+      }
+      .eyebrow {
+        font-family: "Sarabun", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold-deep);
+        margin-bottom: 14px;
+      }
+      .page h1 {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 0 0 22px;
+        letter-spacing: -0.005em;
+      }
+      .page h2 {
+        font-size: 21px;
+        font-weight: 600;
+        margin: 40px 0 12px;
+        color: var(--accent);
+      }
+      .page h3 {
+        font-size: 17px;
+        font-weight: 600;
+        margin: 28px 0 8px;
+        color: var(--ink-soft);
+      }
+      .page p {
+        font-size: 16px;
+        line-height: 1.85;
+        
+        margin: 0 0 16px;
+      }
+      .page .lead {
+        font-size: 18px;
+        line-height: 1.85;
+        color: var(--ink);
+      }
+      strong {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      em {
+        font-style: italic;
+      }
+      .dropcap::first-letter {
+        font-family: "Playfair Display", serif;
+        font-size: 62px;
+        float: left;
+        line-height: 0.82;
+        padding: 6px 12px 0 0;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ---------- CHAPTER OPEN ---------- */
+      .ch-num-big {
+        position: absolute;
+        top: 40px;
+        right: 56px;
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 150px;
+        color: rgba(27, 42, 74, 0.09);
+        line-height: 1;
+        font-weight: 700;
+      }
+      .ch-label {
+        font-family: "Sarabun", sans-serif;
+        font-size: 12px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold-deep);
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+      .ch-title {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.28;
+        margin: 0 0 8px;
+        max-width: 88%;
+      }
+      .ch-title .en {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 20px;
+        color: var(--accent-light);
+        display: block;
+        margin-bottom: 12px;
+      }
+      .ch-essence {
+        font-family: "Noto Serif", serif;
+        font-style: italic;
+        font-size: 17px;
+        color: var(--ink-muted);
+        line-height: 1.7;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid var(--paper-shadow);
+        max-width: 82%;
+      }
+
+      /* ---------- TOC ---------- */
+      .toc-title {
+        font-family: "Playfair Display", serif;
+        font-size: 15px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+      .ch-card {
+        display: flex;
+        gap: 20px;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--paper-shadow);
+        align-items: flex-start;
+      }
+      .ch-card:last-child {
+        border-bottom: none;
+      }
+      .ch-card-num {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 34px;
+        color: var(--gold);
+        font-weight: 400;
+        line-height: 1;
+        min-width: 50px;
+        padding-top: 2px;
+      }
+      .ch-card-title {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 3px;
+      }
+      .ch-card-one {
+        font-family: "Noto Serif", serif;
+        font-size: 13.5px;
+        color: var(--ink-muted);
+        font-style: italic;
+        line-height: 1.55;
+      }
+
+      /* ---------- COMPONENTS ---------- */
+      .insight-box {
+        background: var(--accent-bg);
+        border-left: 3px solid var(--accent);
+        padding: 20px 24px;
+        margin: 26px 0;
+      }
+      .insight-box .ib-label {
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .insight-box p {
+        font-size: 15.5px;
+        line-height: 1.75;
+        color: var(--ink-soft);
+        margin: 0;
+      }
+
+      .author-box {
+        display: flex;
+        gap: 18px;
+        padding: 22px 26px;
+        background: var(--paper-mid);
+        border-left: 3px solid var(--gold);
+        margin: 28px 0;
+      }
+      .author-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--accent-deep);
+        color: var(--gold-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Playfair Display", serif;
+        font-size: 17px;
+        font-style: italic;
+        flex-shrink: 0;
+      }
+      .author-meta {
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold-deep);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .author-text {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 15.5px;
+        line-height: 1.8;
+        color: var(--ink-soft);
+        font-style: italic;
+        margin: 0;
+      }
+
+      .ladder {
+        margin: 30px 0;
+      }
+      .ladder-step {
+        padding: 16px 22px;
+      }
+      .ladder-step.wrong {
+        background: var(--red-bg);
+        border-left: 3px solid var(--red);
+      }
+      .ladder-step.truth {
+        background: var(--accent-bg);
+        border-left: 3px solid var(--accent);
+      }
+      .ladder-step.action {
+        background: var(--green-bg);
+        border-left: 3px solid var(--green);
+      }
+      .ladder-tag {
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .ladder-step.wrong .ladder-tag {
+        color: var(--red);
+      }
+      .ladder-step.truth .ladder-tag {
+        color: var(--accent);
+      }
+      .ladder-step.action .ladder-tag {
+        color: var(--green);
+      }
+      .ladder-text {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--ink-soft);
+      }
+      .ladder-arrow {
+        text-align: center;
+        padding: 5px;
+        color: var(--gold);
+        font-size: 18px;
+      }
+
+      .blockquote-full {
+        background: linear-gradient(150deg, #0f1b33, #1b2a4a);
+        color: var(--paper);
+        padding: 48px 44px;
+        margin: 38px calc(-1 * var(--page-pad-h)) 38px;
+        position: relative;
+      }
+      .blockquote-full::before {
+        content: "\201C";
+        font-family: "Playfair Display", serif;
+        font-size: 100px;
+        color: rgba(203, 168, 74, 0.35);
+        position: absolute;
+        top: 14px;
+        left: 30px;
+        line-height: 1;
+      }
+      .bq-text {
+        font-family: "Noto Serif", serif;
+        font-style: italic;
+        font-size: 22px;
+        line-height: 1.55;
+        margin: 0 0 14px;
+        position: relative;
+        padding-left: 20px;
+      }
+      .bq-text-th {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 16px;
+        line-height: 1.75;
+        color: #d6dae4;
+        position: relative;
+        padding-left: 20px;
+        font-style: normal;
+      }
+      .bq-cite {
+        font-family: "Sarabun", sans-serif;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        position: relative;
+        padding-left: 20px;
+        margin-top: 16px;
+      }
+
+      .signal-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 28px 0;
+      }
+      .signal-col {
+        padding: 20px 22px;
+      }
+      .signal-col.do {
+        background: var(--green-bg);
+        border-top: 2px solid var(--green);
+      }
+      .signal-col.dont {
+        background: var(--red-bg);
+        border-top: 2px solid var(--red);
+      }
+      .signal-head {
+        font-family: "Sarabun", sans-serif;
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+      .signal-col.do .signal-head {
+        color: var(--green);
+      }
+      .signal-col.dont .signal-head {
+        color: var(--red);
+      }
+      .signal-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .signal-list li {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        padding-left: 20px;
+        position: relative;
+        margin-bottom: 10px;
+      }
+      .signal-col.do .signal-list li::before {
+        content: "\2713";
+        position: absolute;
+        left: 0;
+        color: var(--green);
+        font-weight: 700;
+      }
+      .signal-col.dont .signal-list li::before {
+        content: "\2717";
+        position: absolute;
+        left: 0;
+        color: var(--red);
+        font-weight: 700;
+      }
+
+      .formula-block {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 26px 30px;
+        margin: 26px 0;
+        font-family: "SF Mono", ui-monospace, Menlo, monospace;
+        border-left: 3px solid var(--gold);
+      }
+      .formula-block .fb-label {
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+      .formula-block .fb-eq {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #e8e4d8;
+      }
+      .formula-block .fb-note {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 13px;
+        color: #aea890;
+        margin-top: 12px;
+        line-height: 1.6;
+      }
+
+      .datatable {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 24px 0;
+        font-family: "Sarabun", sans-serif;
+        font-size: 13.5px;
+        background: var(--paper);
+      }
+      .datatable th {
+        background: var(--accent);
+        color: var(--paper);
+        text-align: left;
+        padding: 11px 14px;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .datatable td {
+        padding: 11px 14px;
+        border-bottom: 1px solid var(--paper-deep);
+        color: var(--ink-soft);
+        vertical-align: top;
+      }
+      .datatable tr:last-child td {
+        border-bottom: none;
+      }
+      .datatable tr:nth-child(even) td {
+        background: var(--paper-mid);
+      }
+      .datatable .num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 12.5px;
+      }
+      .datatable .hl {
+        color: var(--gold-deep);
+        font-weight: 700;
+      }
+
+      .fig {
+        margin: 30px 0;
+        background: var(--paper);
+        border: 1px solid var(--paper-shadow);
+        padding: 22px 20px 16px;
+      }
+      .fig svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .fig-cap {
+        font-family: "Sarabun", sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-muted);
+        line-height: 1.6;
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid var(--paper-deep);
+      }
+      .fig-label {
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold-deep);
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .reflect {
+        background: var(--gold-bg);
+        border: 1px solid rgba(176, 141, 46, 0.3);
+        padding: 24px 28px;
+        margin: 34px 0;
+      }
+      .reflect-head {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 19px;
+        color: var(--gold-deep);
+        margin-bottom: 16px;
+      }
+      .reflect ol {
+        margin: 0;
+        padding-left: 20px;
+      }
+      .reflect li {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--ink-soft);
+        margin-bottom: 11px;
+      }
+
+      .readmore {
+        font-family: "Sarabun", sans-serif;
+        font-size: 12.5px;
+        color: var(--ink-muted);
+        background: var(--paper-mid);
+        padding: 14px 20px;
+        margin: 24px 0 0;
+        border-left: 2px solid var(--ink-faint);
+        line-height: 1.65;
+      }
+      .readmore .rm-label {
+        font-weight: 700;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 10px;
+        margin-right: 8px;
+      }
+
+      .tag-chip {
+        display: inline-block;
+        font-family: "Sarabun", sans-serif;
+        font-size: 10px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        font-weight: 700;
+        border-radius: 3px;
+        vertical-align: middle;
+      }
+      .tag-fact {
+        background: var(--green-bg);
+        color: var(--green);
+      }
+      .tag-assume {
+        background: var(--gold-bg);
+        color: var(--gold-deep);
+      }
+      .tag-risk {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+
+      .callout-warn {
+        background: var(--red-bg);
+        border-left: 3px solid var(--red);
+        padding: 20px 24px;
+        margin: 26px 0;
+      }
+      .callout-warn .cw-head {
+        font-family: "Sarabun", sans-serif;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--red);
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .callout-warn p {
+        font-size: 15px;
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .checklist {
+        margin: 24px 0;
+      }
+      .check-item {
+        display: flex;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--paper-deep);
+        align-items: flex-start;
+      }
+      .check-box {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--accent);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .check-text {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+      .check-text strong {
+        color: var(--accent);
+      }
+
+      /* ---------- FOOTER ---------- */
+      .book-footer {
+        background: var(--ink);
+        padding: 56px var(--page-pad-h);
+        text-align: center;
+      }
+      .book-footer-mark {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 34px;
+        color: var(--gold);
+        margin-bottom: 16px;
+      }
+      .book-footer-text {
+        font-family: "Noto Serif Thai", serif;
+        font-size: 14px;
+        color: var(--paper-deep);
+        font-style: italic;
+        line-height: 1.7;
+        max-width: 500px;
+        margin: 0 auto 20px;
+      }
+      .book-footer-author {
+        font-family: "Sarabun", sans-serif;
+        font-size: 11px;
+        color: var(--gold-light);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      @media (max-width: 780px) {
+        :root {
+          --page-pad-h: 26px;
+          --page-pad-v: 52px;
+        }
+        body {
+          padding: 14px 6px;
+        }
+        .cover-title {
+          font-size: 40px;
+        }
+        .cover-title .th {
+          font-size: 26px;
+        }
+        .ch-num-big {
+          font-size: 100px;
+          right: 20px;
+        }
+        .ch-title {
+          font-size: 25px;
+          max-width: 100%;
+        }
+        .blockquote-full {
+          margin-left: calc(-1 * var(--page-pad-h));
+          margin-right: calc(-1 * var(--page-pad-h));
+          padding: 36px 26px;
+        }
+        .bq-text {
+          font-size: 18px;
+        }
+        .signal-box {
+          grid-template-columns: 1fr;
+        }
+        .datatable {
+          font-size: 12px;
+        }
+        .datatable th,
+        .datatable td {
+          padding: 8px 9px;
+        }
+        .page h1 {
+          font-size: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="book">
+      <!-- ============ COVER ============ -->
+      <div class="cover">
+        <span class="cover-corner cc-tl"></span
+        ><span class="cover-corner cc-tr"></span>
+        <span class="cover-corner cc-bl"></span
+        ><span class="cover-corner cc-br"></span>
+        <div class="cover-kicker">Practitioner's Manual · ฉบับใช้งานจริง</div>
+        <h1 class="cover-title">
+          Option Flow<span class="th">อ่านแรงเงียบที่ขับเคลื่อนราคา</span>
+        </h1>
+        <div class="cover-rule"></div>
+        <p class="cover-sub">
+          สิ่งที่ dealer ถูกบังคับให้ทำ ทิ้งรอยไว้บนกระดานออปชัน —
+          เรียนรู้ที่จะเห็นมัน และรู้ว่ามันโกหกตรงไหน
+        </p>
+        <div class="cover-badge">อ้างอิงงานวิจัยจริง · เคส VLO คำนวณเอง</div>
+        <p class="cover-foot" style="margin-top: 40px">
+          เรียบเรียงจากมุมมองนักเทรดที่ใช้ option flow ·
+          ตัวเลขทุกตัวตรวจสอบได้<br />ข้อมูล VLO ณ 18 ส.ค. 2026 · เพื่อการศึกษา
+          ไม่ใช่คำแนะนำการลงทุน
+        </p>
+      </div>
+
+      <!-- ============ TOC ============ -->
+      <div class="page">
+        <div class="toc-title">สารบัญ · Contents</div>
+        <div
+          class="cover-rule"
+          style="background: var(--gold); margin: 16px 0 30px"
+        ></div>
+
+        <div class="ch-card">
+          <div class="ch-card-num">01</div>
+          <div>
+            <div class="ch-card-title">
+              ตลาดเคลื่อนเพราะการบังคับ ไม่ใช่ความเห็น
+            </div>
+            <div class="ch-card-one">
+              ทำไม 90% ของราคาถูกขับด้วยกลไก ไม่ใช่มุมมอง
+            </div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">02</div>
+          <div>
+            <div class="ch-card-title">หนี้ที่ต้องปิดทุกวัน</div>
+            <div class="ch-card-one">
+              delta — "ตอนนี้ต้องถือหุ้นกี่หุ้นถึงจะนอนหลับ"
+            </div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">03</div>
+          <div>
+            <div class="ch-card-title">ความเร็วสำคัญกว่าทิศทาง</div>
+            <div class="ch-card-one">gamma — ความไวของพวงมาลัย</div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">04</div>
+          <div>
+            <div class="ch-card-title">สองระบอบของตลาด</div>
+            <div class="ch-card-one">
+              ดูดกลับ vs ขยายแรง — และหลักฐานย้อนถึงปี 2004
+            </div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">05</div>
+          <div>
+            <div class="ch-card-title">อ่านแผนที่แรงกำแพง</div>
+            <div class="ch-card-one">wall · flip · pin จากเชน VLO จริง</div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">06</div>
+          <div>
+            <div class="ch-card-title">
+              เครื่องหมายคือสมมติฐาน ไม่ใช่ข้อเท็จจริง
+            </div>
+            <div class="ch-card-one">บทเรียนที่แพงที่สุด — put-call parity</div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">07</div>
+          <div>
+            <div class="ch-card-title">เวลาคือตัวแปรที่ซ่อนอยู่</div>
+            <div class="ch-card-one">charm · วงจร OPEX · หน้าผาวันศุกร์</div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">08</div>
+          <div>
+            <div class="ch-card-title">ราคาของประกัน</div>
+            <div class="ch-card-one">IV กับ VRP — ทำไมการขายมักชนะ</div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">09</div>
+          <div>
+            <div class="ch-card-title">
+              เอดจ์ที่ไม่มีจริง + วัดยังไงไม่หลอกตัวเอง
+            </div>
+            <div class="ch-card-one">
+              สิ่งที่งานวิจัยล้มแล้ว และวิธีทดสอบที่ถูกต้อง
+            </div>
+          </div>
+        </div>
+        <div class="ch-card">
+          <div class="ch-card-num">∞</div>
+          <div>
+            <div class="ch-card-title">พิธีกรรมก่อนเข้าเทรด</div>
+            <div class="ch-card-one">
+              เช็กลิสต์ 7 ข้อ + ประโยคเดียวที่ต้องจำ
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ FOREWORD ============ -->
+      <div class="page">
+        <div class="eyebrow">คำนำจากผู้เรียบเรียง</div>
+        <h1>ก่อนเริ่ม — เอกสารนี้ต่างจากคอร์สที่คุณเคยเห็น</h1>
+        <p class="lead dropcap">
+          มีคนขายความรู้เรื่อง "option flow" เต็มอินเทอร์เน็ต
+          ส่วนใหญ่ขายภาพของการ "ตามรอยเงินใหญ่" ที่ฟังดูเซ็กซี่
+          แต่งานวิจัยพิสูจน์แล้วว่าใช้ไม่ได้ เอกสารนี้ทำตรงกันข้าม —
+          มันจะสอนกลไกที่มีจริง และชี้ให้เห็นตรงๆ ว่ากลไกนั้นบอกอะไรไม่ได้บ้าง
+        </p>
+        <p>
+          ทุกแนวคิดในเล่มนี้ผูกกับตัวเลขจริงของหุ้นตัวเดียว — VLO (Valero
+          Energy) ที่เราดึงเชนออปชันมาคำนวณเองทั้งหมด ไม่มีตัวอย่างลอยๆ ไม่มี
+          "สมมติว่าหุ้น A ราคา 100" และทุกครั้งที่อ้างงานวิจัย
+          จะมีชื่อผู้เขียนกำกับให้ไปตรวจสอบได้
+        </p>
+        <p>
+          สมมติฐานตลอดเล่ม: คุณถือ VLO อยู่ 2 หุ้น ซื้อที่ราคา $320 ตอนหุ้นเบรก
+          คิดเป็น 10% ของพอร์ต — เราจะใช้สถานการณ์จริงนี้เป็นแว่นมองทุกแนวคิด
+        </p>
+        <div class="author-box">
+          <div class="author-avatar">SM</div>
+          <div class="author-content">
+            <div class="author-meta">SqueezeMetrics · ต้นตำรับ GEX (2016)</div>
+            <p class="author-text">
+              "พลังในการทำนายของ GEX
+              มาจากความจำเป็นที่ผู้สร้างตลาดต้องปรับการป้องกันความเสี่ยงใหม่ตลอดเวลา
+              เพื่อจำกัดความเสี่ยงและทำกำไร เขาต้องจำกัด exposure ต่อ delta
+              ของตัวเอง"
+            </p>
+          </div>
+        </div>
+        <p style="font-size: 14px; color: var(--ink-muted); font-style: italic">
+          — เรียบเรียงจากเปเปอร์ Gamma Exposure ของ SqueezeMetrics
+          ซึ่งเป็นเอกสารต้นตำรับที่นิยาม GEX เป็นครั้งแรก
+        </p>
+      </div>
+
+      <!-- ============ CH 1 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">1</div>
+        <div class="ch-label">บทที่ ๑ / Chapter One</div>
+        <h2 class="ch-title">
+          <span class="en">Price Moves by Obligation</span
+          >ตลาดเคลื่อนเพราะการบังคับ ไม่ใช่ความเห็น
+        </h2>
+        <p class="ch-essence">
+          ก่อนจะอ่าน flow ได้
+          ต้องเข้าใจก่อนว่ามีคนกลุ่มหนึ่งที่ซื้อขายหุ้นโดยไม่สนใจว่าหุ้นดีหรือแย่
+          — และแรงซื้อขายของเขาใหญ่พอจะขยับราคาได้
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>คนที่ขยับราคา บางทีก็ไม่มีความเห็นเรื่องราคาเลย</h1>
+        <p class="lead dropcap">
+          เวลาเราคิดว่าราคาหุ้นขึ้นหรือลง เรามักคิดว่ามีคน "ตัดสินใจ"
+          ว่าหุ้นน่าซื้อหรือน่าขาย
+          แต่ความจริงส่วนใหญ่ของการเคลื่อนไหวระยะสั้นไม่ได้มาจากการตัดสินใจแบบนั้น
+          มันมาจากคนที่<strong>ถูกบังคับ</strong>ให้ซื้อขาย
+          โดยไม่มีความเห็นเรื่องทิศทางเลยแม้แต่น้อย
+        </p>
+        <p>
+          ลองนึกถึงร้านแลกเงินหน้าปากซอย ลูกค้าเดินเข้ามาขายดอลลาร์ 10,000
+          เหรียญ เจ้าของร้านรับซื้อไว้ —
+          แต่เขาไม่ได้อยากเก็บดอลลาร์ไว้เดาว่าค่าเงินจะขึ้นหรือลง
+          เขาแค่อยากกินส่วนต่างราคาซื้อ-ราคาขาย ทันทีที่รับซื้อมา
+          เขาจะรีบโทรขายต่อให้ธนาคารเพื่อกลับมาเป็นกลาง
+        </p>
+        <p>
+          ในตลาดออปชัน คนกลุ่มนี้คือ
+          <strong>market maker</strong> หรือผู้สร้างตลาด เวลาเราซื้อออปชัน
+          คนที่ขายให้เราส่วนใหญ่คือเขา และเขาก็เหมือนเจ้าของร้านแลกเงิน —
+          ไม่อยากเดาทิศทาง อยากกินแค่ส่วนต่าง
+        </p>
+
+        <div class="insight-box">
+          <div class="ib-label">แก่นของทั้งเล่ม</div>
+          <p>
+            ราคาส่วนใหญ่ไม่ได้ขยับเพราะใครคิดว่าหุ้นดี แต่ขยับเพราะ market maker
+            ถูกบังคับให้ปรับการป้องกันความเสี่ยงของตัวเองตามราคาที่เปลี่ยนไป —
+            แรงบังคับก้อนนี้แหละที่เราจะเรียนรู้ที่จะเห็น
+          </p>
+        </div>
+
+        <h2>ทำไมแรงก้อนนี้ถึงใหญ่พอจะสำคัญ</h2>
+        <p>
+          คำถามที่สมเหตุสมผลคือ — market maker เป็นแค่คนกลาง
+          ทำไมการป้องกันความเสี่ยงของเขาถึงขยับราคาได้? คำตอบอยู่ที่ขนาด
+          งานวิจัยประเมินว่า<strong
+            >ราว 90% ของธุรกรรมออปชันมี dealer เป็นผู้อำนวยความสะดวก
+            และเขาใช้หุ้นตัวจริงเป็นเครื่องมือหลักในการป้องกันความเสี่ยง</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span>
+          เมื่อบัญชีออปชันของทั้งตลาดใหญ่พอ การป้องกันของ dealer
+          จึงกลายเป็นแรงซื้อขายหุ้นที่ใหญ่มาก
+        </p>
+        <p>
+          คนที่สร้างเปเปอร์ GEX ต้นตำรับพูดถึงเรื่องนี้ตรงๆ ว่าการที่ dealer
+          ต้องปรับ hedge ตลอดเวลาคือที่มาของพลังทั้งหมด —
+          ไม่ใช่เพราะเขาฉลาดกว่าตลาด แต่เพราะเขา<strong>ไม่มีทางเลือก</strong>
+        </p>
+
+        <div class="blockquote-full">
+          <p class="bq-text">
+            A billion-dollar options book doesn't nudge the market. It shoves
+            it.
+          </p>
+          <p class="bq-text-th">
+            บัญชีออปชันขนาดพันล้านดอลลาร์ไม่ได้แค่ดันตลาดเบาๆ มันผลักอย่างแรง —
+            โดยเฉพาะเมื่อกระจุกตัวอยู่รอบ strike แคบๆ ที่ใกล้หมดอายุ
+          </p>
+          <p class="bq-cite">
+            เรียบเรียงจากงานอธิบายกลไก dealer hedging · MenthorQ
+          </p>
+        </div>
+
+        <h2>ต่างจาก "การวิเคราะห์ทางเทคนิค" อย่างไร</h2>
+        <p>
+          ผู้โพสต์ในภาพที่จุดประกายเอกสารนี้เขียนว่า "ไม่ใช้ TA เลย ใช้ option
+          flow แทน" — นั่นเป็นจุดที่ถูกต้องในเชิงแนวคิด
+          แนวรับแนวต้านในกราฟเกิดจากความทรงจำของคน ("ตรงนี้เคยเด้ง
+          เดี๋ยวซื้อดีกว่า") ส่วนแรงจาก dealer hedging เกิดจากสมการ
+          ไม่เกี่ยวกับว่าใครจำอะไรได้ มันคือคำสั่งซื้อขายที่เกิดขึ้นอัตโนมัติ
+        </p>
+
+        <div class="ladder">
+          <div class="ladder-step wrong">
+            <div class="ladder-tag">ความเชื่อเดิม</div>
+            <div class="ladder-text">
+              ราคาขึ้นเพราะคนเชื่อว่าหุ้นดี ราคาลงเพราะคนเชื่อว่าหุ้นแย่
+            </div>
+          </div>
+          <div class="ladder-arrow">↓</div>
+          <div class="ladder-step truth">
+            <div class="ladder-tag">ความจริง</div>
+            <div class="ladder-text">
+              การเคลื่อนไหวระยะสั้นส่วนใหญ่มาจาก dealer ที่ถูกบังคับให้ปรับ
+              hedge ไม่ใช่จากความเห็นเรื่องมูลค่า
+            </div>
+          </div>
+          <div class="ladder-arrow">↓</div>
+          <div class="ladder-step action">
+            <div class="ladder-tag">ลงมือทำ</div>
+            <div class="ladder-text">
+              มองราคาเป็น 2 ชั้น — ชั้นมูลค่า (ช้า) กับชั้นกลไก (เร็ว) · option
+              flow อ่านชั้นที่สอง
+            </div>
+          </div>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ครั้งล่าสุดที่หุ้นของคุณขยับแรงโดย "ไม่มีข่าว" —
+              เป็นไปได้ไหมว่ามันคือแรงกลไก ไม่ใช่ข้อมูลใหม่?
+            </li>
+            <li>
+              ถ้าราคาส่วนหนึ่งขับด้วยแรงบังคับ
+              การอ่านมันออกควรเปลี่ยน<em>จังหวะ</em>เข้าออก
+              มากกว่าเปลี่ยนว่าจะเลือกหุ้นตัวไหน — คุณเห็นด้วยไหม?
+            </li>
+            <li>
+              คุณเคยขาดทุนเพราะเข้าใจผิดว่าแรงกลไกชั่วคราวเป็นสัญญาณระยะยาวหรือเปล่า?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>SqueezeMetrics, "Gamma Exposure"
+          whitepaper (2016, ปรับปรุง 2017) — เปิดอ่านฟรี เป็นเอกสารต้นตำรับ ·
+          สำหรับกลไกภาพรวม ดู SpotGamma GEX education
+        </div>
+      </div>
+
+      <!-- ============ CH 2 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">2</div>
+        <div class="ch-label">บทที่ ๒ / Chapter Two</div>
+        <h2 class="ch-title">
+          <span class="en">The Debt Repaid Daily</span>หนี้ที่ต้องปิดทุกวัน
+        </h2>
+        <p class="ch-essence">
+          delta คือจำนวนหุ้นที่ dealer ต้องถือเพื่อกลบความเสี่ยง —
+          และมันเปลี่ยนตลอดเวลา ทำให้เขาต้องซื้อขายหุ้นไม่หยุด
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>เดลต้า คือ "ตอนนี้ต้องถือหุ้นกี่หุ้นถึงจะนอนหลับ"</h1>
+        <p class="lead dropcap">
+          เมื่อ market maker ขายออปชันให้เรา เขารับความเสี่ยงมา
+          ถ้าราคาหุ้นวิ่งผิดทาง เขาขาดทุน
+          เขาป้องกันด้วยการถือหุ้นตัวจริงจำนวนหนึ่งไว้กลบความเสี่ยงนั้น
+          จำนวนหุ้นที่ต้องถือ ณ ขณะใดขณะหนึ่ง เรียกว่า
+          <strong>เดลต้า (delta)</strong>
+        </p>
+        <p>
+          ไม่ต้องจำนิยามคณิตศาสตร์ จำแค่ว่ามันคือคำตอบของคำถาม
+          <em
+            >"ณ ราคานี้
+            ผมต้องถือหุ้นกี่หุ้นถึงจะไม่ต้องกังวลว่าตลาดจะวิ่งไปทางไหน"</em
+          >
+        </p>
+
+        <div class="formula-block">
+          <div class="fb-label">กฎเหล็กจากเปเปอร์ต้นตำรับ</div>
+          <div class="fb-eq">
+            market maker ขาย put 20-delta 1 สัญญา<br />→ ต้อง short หุ้นตัวจริง
+            ประมาณ 20 หุ้น เพื่อกลบความเสี่ยงชั่วคราว
+          </div>
+          <div class="fb-note">
+            ตัวเลข "20-delta" หมายถึงออปชันตัวนั้นมีค่า delta = 0.20 · คูณด้วย
+            100 หุ้นต่อสัญญา = 20 หุ้น · นี่คือหัวใจว่าทำไม dealer
+            ต้องแตะตลาดหุ้นตลอดเวลา
+          </div>
+        </div>
+
+        <p>
+          สังเกตว่า delta ไม่คงที่ — มันขึ้นกับ<strong
+            >โอกาสที่ออปชันตัวนั้นจะได้ใช้จริง</strong
+          >
+          ยิ่งราคาหุ้นเข้าใกล้ราคาใช้สิทธิ์ โอกาสยิ่งก้ำกึ่ง delta ยิ่งเปลี่ยนไว
+          มาดูจากเคส VLO จริง
+        </p>
+
+        <div class="fig">
+          <div class="fig-label">
+            ภาพที่ 1 · เดลต้าของคอล VLO strike $350 เปลี่ยนตามราคา
+          </div>
+          <svg
+            viewBox="0 0 700 250"
+            role="img"
+            aria-label="กราฟเดลต้าของคอล VLO"
+          >
+            <line
+              x1="55"
+              y1="200"
+              x2="670"
+              y2="200"
+              stroke="#403A2C"
+              stroke-width="1.5"
+            />
+            <line
+              x1="55"
+              y1="40"
+              x2="55"
+              y2="200"
+              stroke="#403A2C"
+              stroke-width="1.5"
+            />
+            <text
+              x="48"
+              y="46"
+              text-anchor="end"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#736A54"
+            >
+              100
+            </text>
+            <text
+              x="48"
+              y="124"
+              text-anchor="end"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#736A54"
+            >
+              50
+            </text>
+            <text
+              x="48"
+              y="204"
+              text-anchor="end"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#736A54"
+            >
+              0
+            </text>
+            <text
+              x="30"
+              y="120"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#736A54"
+              transform="rotate(-90 30 120)"
+            >
+              หุ้นที่ต้องถือ
+            </text>
+            <path
+              d="M 90,199 Q 260,197 340,150 Q 400,112 440,70 Q 500,48 640,44"
+              fill="none"
+              stroke="#1B2A4A"
+              stroke-width="2.5"
+            />
+            <circle cx="90" cy="199" r="4" fill="#736A54" />
+            <text
+              x="90"
+              y="220"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#736A54"
+            >
+              $250
+            </text>
+            <circle cx="235" cy="188" r="4" fill="#736A54" />
+            <text
+              x="235"
+              y="220"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#736A54"
+            >
+              $320
+            </text>
+            <circle cx="392" cy="122" r="6" fill="#B08D2E" />
+            <text
+              x="392"
+              y="220"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#8A6D1E"
+              font-weight="700"
+            >
+              $348 ตอนนี้
+            </text>
+            <text
+              x="392"
+              y="108"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#8A6D1E"
+            >
+              ~50 หุ้น (ก้ำกึ่ง)
+            </text>
+            <circle cx="490" cy="60" r="4" fill="#736A54" />
+            <text
+              x="490"
+              y="220"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#736A54"
+            >
+              $380
+            </text>
+            <circle cx="640" cy="44" r="4" fill="#736A54" />
+            <text
+              x="640"
+              y="220"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#736A54"
+            >
+              $450
+            </text>
+            <line
+              x1="392"
+              y1="40"
+              x2="392"
+              y2="200"
+              stroke="#B08D2E"
+              stroke-width="1"
+              stroke-dasharray="3 3"
+            />
+            <text
+              x="200"
+              y="70"
+              font-family="Sarabun,sans-serif"
+              font-size="11"
+              fill="#736A54"
+            >
+              ยิ่งชันตรงกลาง = ยิ่งไว
+            </text>
+          </svg>
+          <div class="fig-cap">
+            เส้นชันที่สุดตรงบริเวณราคาปัจจุบัน ($348) — ตรงนี้แหละที่ delta
+            เปลี่ยนเร็วที่สุด เมื่อราคาขยับนิดเดียว dealer ต้องซื้อขายหุ้นเยอะ
+            ตัวเลขในภาพเป็นการยกตัวอย่างให้เห็นรูปแบบ
+          </div>
+        </div>
+
+        <table class="datatable">
+          <thead>
+            <tr>
+              <th>ราคา VLO</th>
+              <th>โอกาสคอล $350 ได้ใช้</th>
+              <th class="num">หุ้นที่ต้องถือ/สัญญา</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$250 — ไกลมาก</td>
+              <td>แทบเป็นศูนย์</td>
+              <td class="num">~0</td>
+            </tr>
+            <tr>
+              <td>$320 — ยังไกล</td>
+              <td>น้อย</td>
+              <td class="num">~15</td>
+            </tr>
+            <tr>
+              <td class="hl">$348 — ใกล้มาก</td>
+              <td class="hl">ก้ำกึ่ง 50/50</td>
+              <td class="num hl">~50</td>
+            </tr>
+            <tr>
+              <td>$380 — เลยไปแล้ว</td>
+              <td>เกือบแน่นอน</td>
+              <td class="num">~90</td>
+            </tr>
+            <tr>
+              <td>$450 — เลยไปไกล</td>
+              <td>แน่นอน</td>
+              <td class="num">100</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="insight-box">
+          <div class="ib-label">จุดที่ทุกอย่างเริ่มน่าสนใจ</div>
+          <p>
+            เมื่อ VLO วิ่งจาก $320 → $348 dealer ต้องเพิ่มหุ้นที่ถือจาก ~15 เป็น
+            ~50 =
+            <strong>ออกไปซื้อหุ้นเพิ่ม ~35 หุ้นต่อสัญญาในตลาด</strong>
+            ไม่ใช่เพราะเชียร์ VLO แต่เพราะสมการบังคับ และถ้าราคาตกกลับ
+            เขาต้องขายทิ้งเท่าเดิม
+            การซื้อขายที่ถูกบังคับก้อนนี้คือสิ่งที่เราจะวัดในบทถัดไป
+          </p>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ถ้า dealer ถูกบังคับให้ "ซื้อตอนขึ้น" ในบางสถานการณ์
+              นั่นช่วยเร่งการวิ่งของราคาใช่หรือไม่?
+            </li>
+            <li>
+              แล้วถ้าในอีกสถานการณ์เขาถูกบังคับให้ "ขายตอนขึ้น" ล่ะ —
+              ผลจะตรงข้ามกันไหม?
+            </li>
+            <li>
+              อะไรเป็นตัวกำหนดว่า dealer จะอยู่ในสถานการณ์ไหน? (บทที่ 4 ตอบ)
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Sheldon Natenberg,
+          <em>Option Volatility and Pricing</em> — บทเรื่อง delta และ dynamic
+          hedging เป็นมาตรฐานคลาสสิก · SqueezeMetrics whitepaper สำหรับตัวอย่าง
+          20-delta put
+        </div>
+      </div>
+
+      <!-- ============ CH 3 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">3</div>
+        <div class="ch-label">บทที่ ๓ / Chapter Three</div>
+        <h2 class="ch-title">
+          <span class="en">Speed Beats Direction</span>ความเร็วสำคัญกว่าทิศทาง
+        </h2>
+        <p class="ch-essence">
+          gamma คือความไวของ delta — บอกว่า dealer ต้องปรับ hedge เร็วแค่ไหน
+          และแรงบีบจะหนักที่สุดตรงไหน
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>แกมมา — ความไวของพวงมาลัย</h1>
+        <p class="lead dropcap">
+          บทที่แล้วเราเห็นว่า delta เปลี่ยนตามราคา คำถามต่อไปคือ
+          มันเปลี่ยน<em>เร็ว</em>แค่ไหน? ความเร็วนั้นเรียกว่า
+          <strong>แกมมา (gamma)</strong> และมันคือหัวใจของ option flow ทั้งหมด
+        </p>
+        <p>
+          เปรียบเทียบง่ายๆ: ขับรถบนทางตรงยาว
+          หมุนพวงมาลัยนิดหน่อยรถแทบไม่เปลี่ยนทิศ — แกมมาต่ำ แต่ตอนเข้าโค้งแคบ
+          ขยับพวงมาลัยนิดเดียวรถเบี่ยงเยอะ — <strong>แกมมาสูง</strong> ในออปชัน
+          "โค้ง" นั้นคือบริเวณราคาใช้สิทธิ์
+        </p>
+
+        <div class="fig">
+          <div class="fig-label">
+            ภาพที่ 2 · แกมมาของ VLO — สูงตรงราคาปัจจุบัน เตี้ยที่ปลายทั้งสอง
+          </div>
+          <svg
+            viewBox="0 0 700 230"
+            role="img"
+            aria-label="เส้นโค้งแกมมาของ VLO"
+          >
+            <line
+              x1="55"
+              y1="185"
+              x2="670"
+              y2="185"
+              stroke="#403A2C"
+              stroke-width="1.5"
+            />
+            <path
+              d="M 90,182 Q 250,178 340,120 Q 385,70 392,58 Q 400,70 445,120 Q 530,178 640,182"
+              fill="rgba(27,42,74,.08)"
+              stroke="#1B2A4A"
+              stroke-width="2.5"
+            />
+            <line
+              x1="392"
+              y1="50"
+              x2="392"
+              y2="185"
+              stroke="#B08D2E"
+              stroke-width="1.5"
+              stroke-dasharray="3 3"
+            />
+            <circle cx="392" cy="58" r="6" fill="#B08D2E" />
+            <text
+              x="392"
+              y="205"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#8A6D1E"
+              font-weight="700"
+            >
+              $348 · แกมมาพีค
+            </text>
+            <text
+              x="150"
+              y="205"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#736A54"
+            >
+              $185 (ต่ำ)
+            </text>
+            <text
+              x="620"
+              y="205"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#736A54"
+            >
+              $450 (ต่ำ)
+            </text>
+            <text
+              x="150"
+              y="150"
+              font-family="Sarabun,sans-serif"
+              font-size="11"
+              fill="#736A54"
+            >
+              ไกลราคา = hedge ไม่ต้องปรับ
+            </text>
+          </svg>
+          <div class="fig-cap">
+            ที่ราคาปัจจุบัน dealer ต้องปรับ hedge บ่อยและแรงที่สุด ·
+            ที่ราคาไกลออกไปทั้งสองข้าง (เช่น strike $185 ที่มี OI เยอะแต่ไกลมาก)
+            แกมมาเกือบเป็นศูนย์ — dealer แทบไม่ต้องทำอะไร
+          </div>
+        </div>
+
+        <h2>ทำไม strike $185 ของ VLO ถึงไม่สำคัญ ทั้งที่มี OI 436</h2>
+        <p>
+          ในเชน VLO จริง มีคอลที่ strike $185 ค้างอยู่ 436 สัญญา ฟังดูเยอะ
+          แต่ราคาปัจจุบันอยู่ที่ $348 — คอล $185 นั้น "ได้ใช้แน่นอน" ไปแล้ว
+          มันมี delta ≈ 100 (เต็ม) และ<strong>แกมมา ≈ 0</strong>
+          เพราะราคาต่อให้ขยับ delta ก็ไม่เปลี่ยนแล้ว dealer ที่ hedge
+          คอลนี้ถือหุ้นเต็มจำนวนไว้เฉยๆ ไม่ต้องปรับอะไร
+        </p>
+        <p>
+          นี่คือบทเรียนสำคัญ:
+          <strong>OI เยอะไม่ได้แปลว่าสำคัญ</strong> แรงกำแพงที่แท้จริงต้องมาจาก
+          strike ที่ทั้งใกล้ราคา (แกมมาสูง) และมี OI เยอะ พร้อมกัน
+        </p>
+
+        <div class="blockquote-full">
+          <p class="bq-text">
+            Gamma is highest when an option is at or near the money, and
+            diminishes as the strike moves further from the current price.
+          </p>
+          <p class="bq-text-th">
+            แกมมาสูงสุดเมื่อออปชันอยู่ใกล้ราคาปัจจุบัน
+            และลดลงเมื่อราคาใช้สิทธิ์ห่างออกไป —
+            นี่คือคุณสมบัติที่ทำให้บริเวณใกล้ราคากลายเป็นจุดที่แรง hedging
+            กระจุกตัว
+          </p>
+          <p class="bq-cite">เรียบเรียงจาก moomoo GEX education</p>
+        </div>
+
+        <div class="insight-box">
+          <div class="ib-label">สองปัจจัยต้องมาพร้อมกัน</div>
+          <p>
+            แรงกำแพงที่ strike ใดๆ =
+            <strong>ความไว (แกมมา) × ปริมาณ (OI)</strong> · strike
+            ใกล้ราคาแต่ไม่มีใครถือ = ไม่เป็นกำแพง · strike มีคนถือเยอะแต่ไกลลิบ
+            = ไม่เป็นกำแพง · ต้องครบทั้งสองอย่าง
+          </p>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ถ้าคุณเห็นข่าวว่า "strike นี้มี OI มหาศาล" คุณจะถามต่อว่าอะไร
+              ก่อนเชื่อว่ามันสำคัญ?
+            </li>
+            <li>
+              เมื่อราคาวิ่งเข้าใกล้ strike ที่มีแกมมาสูง แรง hedging
+              จะเพิ่มหรือลด?
+            </li>
+            <li>
+              0DTE (ออปชันหมดอายุวันเดียวกัน) มีแกมมาสูงมาก — ทำไมมันถึงอันตราย?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Euan Sinclair,
+          <em>Positional Option Trading</em> — เรื่อง Greeks ในบริบทการเทรดจริง
+          · moomoo / SpotGamma สำหรับคุณสมบัติแกมมาที่ ATM
+        </div>
+      </div>
+
+      <!-- ============ CH 4 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">4</div>
+        <div class="ch-label">บทที่ ๔ / Chapter Four</div>
+        <h2 class="ch-title">
+          <span class="en">Two Regimes</span>สองระบอบของตลาด
+        </h2>
+        <p class="ch-essence">
+          dealer อาจอยู่สองสถานะที่ทำให้เขาทำตรงข้ามกัน — และมีหลักฐานย้อนถึงปี
+          2004 ว่ามันส่งผลจริง
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>ดูดกลับ หรือ ขยายแรง — จุดสำคัญที่สุดของทั้งเล่ม</h1>
+        <p class="lead dropcap">
+          market maker อาจอยู่ในสถานะได้สองแบบ
+          และทั้งสองแบบทำให้เขาต้องทำ<strong>ตรงกันข้ามกันสิ้นเชิง</strong>
+          การรู้ว่าตอนนี้ตลาดอยู่ระบอบไหน คือสิ่งที่มีค่าที่สุดที่ option flow
+          ให้เราได้
+        </p>
+
+        <div class="fig">
+          <div class="fig-label">ภาพที่ 3 · ลูกบอลในชาม vs ลูกบอลบนเนิน</div>
+          <svg
+            viewBox="0 0 700 240"
+            role="img"
+            aria-label="สองระบอบ ดูดกลับกับขยายแรง"
+          >
+            <rect
+              x="8"
+              y="8"
+              width="334"
+              height="224"
+              rx="8"
+              fill="#F4F1E8"
+              stroke="#C6BC9E"
+            />
+            <rect
+              x="358"
+              y="8"
+              width="334"
+              height="224"
+              rx="8"
+              fill="#F4F1E8"
+              stroke="#C6BC9E"
+            />
+            <text
+              x="175"
+              y="34"
+              text-anchor="middle"
+              font-family="Noto Serif Thai,serif"
+              font-size="16"
+              fill="#12100B"
+              font-weight="600"
+            >
+              โหมดดูดกลับ
+            </text>
+            <text
+              x="175"
+              y="52"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#2F5233"
+            >
+              GEX เป็นบวก · VLO อยู่โหมดนี้
+            </text>
+            <text
+              x="525"
+              y="34"
+              text-anchor="middle"
+              font-family="Noto Serif Thai,serif"
+              font-size="16"
+              fill="#12100B"
+              font-weight="600"
+            >
+              โหมดขยายแรง
+            </text>
+            <text
+              x="525"
+              y="52"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#8A2318"
+            >
+              GEX เป็นลบ
+            </text>
+            <path
+              d="M 60,90 Q 175,205 290,90"
+              fill="none"
+              stroke="#403A2C"
+              stroke-width="2.5"
+            />
+            <circle cx="175" cy="140" r="9" fill="#2F5233" />
+            <path
+              d="M 108,116 L 145,138"
+              stroke="#2F5233"
+              stroke-width="2"
+              marker-end="url(#g)"
+            />
+            <path
+              d="M 242,116 L 205,138"
+              stroke="#2F5233"
+              stroke-width="2"
+              marker-end="url(#g)"
+            />
+            <text
+              x="175"
+              y="188"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="11.5"
+              fill="#403A2C"
+            >
+              ผลักไปทางไหน ก็กลิ้งกลับ
+            </text>
+            <text
+              x="175"
+              y="212"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10.5"
+              fill="#736A54"
+            >
+              ราคาขึ้น→dealer ขาย · ลง→ซื้อ
+            </text>
+            <path
+              d="M 410,200 Q 525,70 640,200"
+              fill="none"
+              stroke="#403A2C"
+              stroke-width="2.5"
+            />
+            <circle cx="525" cy="112" r="9" fill="#8A2318" />
+            <path
+              d="M 492,134 L 455,168"
+              stroke="#8A2318"
+              stroke-width="2"
+              marker-end="url(#r)"
+            />
+            <path
+              d="M 558,134 L 595,168"
+              stroke="#8A2318"
+              stroke-width="2"
+              marker-end="url(#r)"
+            />
+            <text
+              x="525"
+              y="222"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="11.5"
+              fill="#403A2C"
+            >
+              ผลักนิดเดียว ก็กลิ้งไปไกล
+            </text>
+            <defs>
+              <marker
+                id="g"
+                markerWidth="7"
+                markerHeight="7"
+                refX="5.5"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L6,3 L0,6 z" fill="#2F5233" />
+              </marker>
+              <marker
+                id="r"
+                markerWidth="7"
+                markerHeight="7"
+                refX="5.5"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L6,3 L0,6 z" fill="#8A2318" />
+              </marker>
+            </defs>
+          </svg>
+          <div class="fig-cap">
+            ซ้าย: dealer ป้องกันแบบสวนทางราคา กลายเป็นเบรกให้ตลาด (ราคานิ่ง
+            แกว่งแคบ) · ขวา: dealer ป้องกันแบบตามราคา กลายเป็นคันเร่ง
+            (ราคาวิ่งแรง)
+          </div>
+        </div>
+
+        <table class="datatable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>โหมดดูดกลับ (GEX+)</th>
+              <th>โหมดขยายแรง (GEX−)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ราคาขึ้น dealer ทำ</td>
+              <td>ขายหุ้น → กดลง</td>
+              <td>ซื้อหุ้น → ดันขึ้นอีก</td>
+            </tr>
+            <tr>
+              <td>ราคาลง dealer ทำ</td>
+              <td>ซื้อหุ้น → พยุง</td>
+              <td>ขายหุ้น → กดลงอีก</td>
+            </tr>
+            <tr>
+              <td>ตลาดรู้สึก</td>
+              <td>หนืด แกว่งแคบ</td>
+              <td>ลื่น วิ่งแรง</td>
+            </tr>
+            <tr>
+              <td class="hl">เบรกเอาต์</td>
+              <td class="hl">มีโอกาสถูกดูดกลับ</td>
+              <td class="hl">มีโอกาสวิ่งต่อ</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>หลักฐาน — ไม่ใช่แค่ทฤษฎีสวยๆ</h2>
+        <p>
+          เรื่องนี้ถูกทดสอบด้วยข้อมูลจริง งานวิจัยของ Baltussen, Da, Lammers และ
+          Martens ตีพิมพ์ใน <em>Journal of Financial Economics</em> พบว่า<strong
+            >แรงส่งภายในวัน (intraday momentum) ปรากฏทั่วทุกสินทรัพย์
+            และเชื่อมโยงกับการ hedge ของ market maker</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span> จุดชี้ขาดคือ ในวันที่ net
+          gamma เป็นบวก แรงส่งนั้น<strong>หายไป</strong>
+        </p>
+        <p>
+          มีการทดสอบอิสระที่ใช้ข้อมูล SqueezeMetrics ย้อนถึงปี 2004
+          ซึ่งยาวกว่าข้อมูลของเจ้าอื่นมาก ผลตรงกัน:
+          <strong
+            >ความผันผวนถูกกดอย่างหนักเมื่อ gamma เป็นบวกสุดขั้ว
+            และการเคลื่อนไหวรายวันที่ใหญ่ที่สุดเกิดตอน gamma เป็นลบ</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span>
+        </p>
+
+        <div class="insight-box">
+          <div class="ib-label">VLO ตอนนี้</div>
+          <p>
+            เราคำนวณ net GEX ของ VLO ได้
+            <strong>+$7.05 ล้านต่อการขยับ 1%</strong> = อยู่โหมดดูดกลับชัดเจน
+            แปลว่าสัปดาห์นี้การวิ่งต่อของ VLO มีโอกาสถูกดูดกลับสูงกว่าปกติ
+            ไม่ใช่ว่าจะลง แต่ว่า<em>หนืด</em> — ต้องใช้แรงมากกว่าปกติจะทะลุไปได้
+          </p>
+        </div>
+
+        <div class="signal-box">
+          <div class="signal-col do">
+            <div class="signal-head">โหมดดูดกลับ (GEX+) เหมาะกับ</div>
+            <ul class="signal-list">
+              <li>รอราคาย่อเข้าหาโซนแล้วค่อยเข้า</li>
+              <li>คาดหวังการแกว่งในกรอบ</li>
+              <li>ระวังเบรกเอาต์ปลอม</li>
+            </ul>
+          </div>
+          <div class="signal-col dont">
+            <div class="signal-head">โหมดขยายแรง (GEX−) ระวัง</div>
+            <ul class="signal-list">
+              <li>การวิ่งอาจแรงและเร็วกว่าคาด</li>
+              <li>เบรกเอาต์มีโอกาสวิ่งต่อจริง</li>
+              <li>stop อาจโดนวิ่งผ่านเร็ว</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              VCP breakout ต้องการ follow-through (การวิ่งต่อ) —
+              มันควรเกิดในโหมดไหนถึงจะมีโอกาสสำเร็จสูง?
+            </li>
+            <li>
+              ถ้าเบรกในวันที่ตลาดอยู่โหมดดูดกลับ
+              ความน่าจะเป็นที่จะถูกดึงกลับสูงขึ้น — คุณจะปรับ position sizing
+              อย่างไร?
+            </li>
+            <li>
+              ระบอบนี้เป็นของ<em>ตลาดรวม</em> (SPY/QQQ) หรือของ<em
+                >หุ้นรายตัว</em
+              >
+              — อันไหนมีหลักฐานแข็งกว่า?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Baltussen, Da, Lammers & Martens,
+          "Hedging Demand and Market Intraday Momentum,"
+          <em>Journal of Financial Economics</em> · การทดสอบ backtest ที่
+          goodcoderbadtrader.com/gex (ข้อมูลถึง 2004)
+        </div>
+      </div>
+
+      <!-- ============ CH 5 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">5</div>
+        <div class="ch-label">บทที่ ๕ / Chapter Five</div>
+        <h2 class="ch-title">
+          <span class="en">Reading the Map</span>อ่านแผนที่แรงกำแพง
+        </h2>
+        <p class="ch-essence">
+          รวมแรงบีบทุก strike เข้าด้วยกัน ได้เป็นแผนที่ — กำแพงคอล กำแพงพุต
+          และจุดพลิกระบอบ
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>แผนที่ GEX ของ VLO — อ่านทีละจุด</h1>
+        <p class="lead dropcap">
+          เมื่อเรารวมแรงบีบจากทุก strike เข้าด้วยกัน จะได้ "แผนที่" ที่บอกว่า
+          dealer ถูกกดดันหนักที่สุดตรงราคาไหน จุดสำคัญมีสามอย่าง — กำแพงคอล
+          กำแพงพุต และจุดพลิกระบอบ
+        </p>
+
+        <div class="formula-block">
+          <div class="fb-label">สูตรมาตรฐาน (SqueezeMetrics convention)</div>
+          <div class="fb-eq">
+            แรงกำแพงที่ strike = แกมมา × OI × 100 × ราคา² × 1%<br /><br />คอล →
+            เครื่องหมายบวก<br />พุต → เครื่องหมายลบ
+          </div>
+          <div class="fb-note">
+            รวมทุก strike ทุกงวด = net GEX · จุดที่แรงบวกสูงสุด = กำแพงคอล ·
+            จุดที่แรงลบสูงสุด = กำแพงพุต · (เครื่องหมายบวก/ลบนี้เป็นประเด็นสำคัญ
+            — บทที่ 6 จะเจาะลึก)
+          </div>
+        </div>
+
+        <div class="fig">
+          <div class="fig-label">
+            ภาพที่ 4 · แรงกำแพง VLO ทุก strike — งวด 21 ส.ค. 2026 (คำนวณจริง)
+          </div>
+          <svg
+            viewBox="0 0 700 300"
+            role="img"
+            aria-label="กราฟแท่งแรงกำแพง VLO"
+          >
+            <line
+              x1="48"
+              y1="230"
+              x2="680"
+              y2="230"
+              stroke="#403A2C"
+              stroke-width="1.5"
+            />
+            <line x1="48" y1="55" x2="680" y2="55" stroke="#DED7C2" />
+            <line x1="48" y1="142" x2="680" y2="142" stroke="#DED7C2" />
+            <text
+              x="42"
+              y="59"
+              text-anchor="end"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              1.4M
+            </text>
+            <text
+              x="42"
+              y="146"
+              text-anchor="end"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              0.7M
+            </text>
+            <text
+              x="42"
+              y="234"
+              text-anchor="end"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              0
+            </text>
+            <!-- put side (small/neg) -->
+            <rect x="100" y="230" width="12" height="9" fill="#8A2318" />
+            <rect x="128" y="222" width="12" height="8" fill="#C6BC9E" />
+            <rect x="156" y="230" width="12" height="9" fill="#8A2318" />
+            <rect x="184" y="212" width="12" height="18" fill="#C6BC9E" />
+            <!-- $320 grey -->
+            <rect x="206" y="72" width="12" height="158" fill="#A69C82" />
+            <rect x="234" y="200" width="12" height="30" fill="#C6BC9E" />
+            <rect x="262" y="218" width="12" height="12" fill="#C6BC9E" />
+            <rect x="290" y="207" width="12" height="23" fill="#C6BC9E" />
+            <rect x="332" y="221" width="12" height="9" fill="#C6BC9E" />
+            <!-- wall cluster gold -->
+            <rect x="374" y="230" width="12" height="8" fill="#8A2318" />
+            <rect x="402" y="112" width="12" height="118" fill="#B08D2E" />
+            <rect x="430" y="55" width="12" height="175" fill="#B08D2E" />
+            <rect x="458" y="114" width="12" height="116" fill="#B08D2E" />
+            <rect x="486" y="92" width="12" height="138" fill="#B08D2E" />
+            <rect x="514" y="196" width="12" height="34" fill="#B08D2E" />
+            <rect x="542" y="184" width="12" height="46" fill="#B08D2E" />
+            <rect x="598" y="215" width="12" height="15" fill="#C6BC9E" />
+            <!-- spot line -->
+            <line
+              x1="418"
+              y1="40"
+              x2="418"
+              y2="248"
+              stroke="#12100B"
+              stroke-width="1.5"
+              stroke-dasharray="5 3"
+            />
+            <text
+              x="418"
+              y="34"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="10"
+              fill="#12100B"
+            >
+              ราคา $347.95
+            </text>
+            <line
+              x1="212"
+              y1="65"
+              x2="212"
+              y2="248"
+              stroke="#2F5233"
+              stroke-width="1.2"
+              stroke-dasharray="3 3"
+            />
+            <text
+              x="212"
+              y="262"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#2F5233"
+            >
+              ต้นทุน $320
+            </text>
+            <text
+              x="436"
+              y="50"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9.5"
+              fill="#8A6D1E"
+              font-weight="700"
+            >
+              กำแพง $350
+            </text>
+            <text
+              x="330"
+              y="285"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#736A54"
+            >
+              ราคาใช้สิทธิ์ (strike)
+            </text>
+            <rect x="440" y="272" width="10" height="10" fill="#B08D2E" />
+            <text
+              x="455"
+              y="281"
+              font-family="Sarabun,sans-serif"
+              font-size="9.5"
+              fill="#403A2C"
+            >
+              กำแพงจริง
+            </text>
+            <rect x="540" y="272" width="10" height="10" fill="#A69C82" />
+            <text
+              x="555"
+              y="281"
+              font-family="Sarabun,sans-serif"
+              font-size="9.5"
+              fill="#403A2C"
+            >
+              ค่าเชื่อมั่นต่ำ (บทที่ 6)
+            </text>
+          </svg>
+          <div class="fig-cap">
+            กำแพงหนาสุดที่ $350 (+$1.42M) สูงกว่าราคาแค่ $2 · มีบันไดกำแพง
+            345–350–355–360 รวม $4.4M · ฝั่งซ้ายเกือบเรียบ — ต่ำกว่า $340
+            ไม่มีอะไรรองรับ · แท่งเทาที่ $320 คือค่าที่เราไม่มั่นใจ
+          </div>
+        </div>
+
+        <table class="datatable">
+          <thead>
+            <tr>
+              <th>จุดบนแผนที่</th>
+              <th class="num">ค่าจริง</th>
+              <th>อ่านว่า</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hl">กำแพงคอล</td>
+              <td class="num hl">$350 · +1,424,433</td>
+              <td>เพดานหนาสุด ห่างราคาแค่ +0.6%</td>
+            </tr>
+            <tr>
+              <td>บันไดถัดไป</td>
+              <td class="num">$360 · +1,118,764</td>
+              <td>เพดานชั้นสอง</td>
+            </tr>
+            <tr>
+              <td>net GEX รวม</td>
+              <td class="num">+7,054,414</td>
+              <td>โหมดดูดกลับ</td>
+            </tr>
+            <tr>
+              <td>กำแพงพุต</td>
+              <td class="num">$315 · −77,847</td>
+              <td>เล็กมาก = ไม่มีพื้นรองรับ</td>
+            </tr>
+            <tr>
+              <td>จุด pin ที่เป็นไปได้</td>
+              <td class="num">$350</td>
+              <td>ราคาอาจถูกดูดเข้าหาตอนใกล้หมดอายุ</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="insight-box">
+          <div class="ib-label">ความไม่สมมาตร — สำคัญกว่าตัวเลขไหน</div>
+          <p>
+            VLO มี<strong>เพดานหนามากข้างบน แต่ไม่มีพื้นรองข้างล่าง</strong>
+            ไม่ใช่ว่าจะลง แต่ถ้าลง จะไม่มีแรงซื้ออัตโนมัติจาก dealer มาช่วยรับ
+            ต่างจากขาขึ้นที่มีแรงขายอัตโนมัติรออยู่ 4 ชั้น
+          </p>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ถ้าจะเติมหุ้นที่ราคาปัจจุบัน
+              คุณกำลังซื้อเข้าไปหาเพดานหนาที่ห่างแค่ $2 — นั่นคือ risk/reward
+              ที่ดีหรือแย่?
+            </li>
+            <li>ราคาถูก "pin" ที่ $350 หมายความว่าอย่างไร และมันเกิดตอนไหน?</li>
+            <li>
+              เครื่องหมายบวก/ลบในแผนที่นี้มาจากสมมติฐานอะไร —
+              ถ้าสมมติฐานผิดจะเกิดอะไรขึ้น?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>SqueezeMetrics whitepaper
+          สำหรับสูตรรวม · MenthorQ / SpotGamma สำหรับนิยาม call wall, put wall,
+          gamma flip
+        </div>
+      </div>
+
+      <!-- ============ CH 6 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">6</div>
+        <div class="ch-label">บทที่ ๖ / Chapter Six</div>
+        <h2 class="ch-title">
+          <span class="en">The Sign Is an Assumption</span
+          >เครื่องหมายคือสมมติฐาน ไม่ใช่ข้อเท็จจริง
+        </h2>
+        <p class="ch-essence">
+          บทเรียนที่แพงที่สุด —
+          เครื่องหมายบวก/ลบทั้งหมดตั้งอยู่บนสมมติฐานที่ข้อมูลสาธารณะพิสูจน์ไม่ได้
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>บทที่แพงที่สุด — ถ้าใส่เครื่องหมายผิดตัวเดียว ทุกอย่างกลับด้าน</h1>
+        <p class="lead dropcap">
+          ถ้าคุณจำได้แค่บทเดียวจากเล่มนี้ ขอให้เป็นบทนี้
+          เพราะมันคือความแตกต่างระหว่างการใช้ GEX อย่างมีวินัย
+          กับการหลอกตัวเองด้วยตัวเลขที่ดูน่าเชื่อถือ
+        </p>
+        <p>
+          มีเปเปอร์ที่เพิ่งตีพิมพ์เมื่อเดือนมิถุนายน 2026 โดย Aren Chilingarian
+          ชื่อ "The Sign of Dealer Gamma"
+          ที่ชี้ประเด็นนี้อย่างเป็นระบบเป็นครั้งแรก
+          และมันตรงกับสิ่งที่เราติดป้าย
+          <span class="tag-chip tag-assume">ASSUME</span> ไว้ตลอดเล่ม
+        </p>
+
+        <div class="blockquote-full">
+          <p class="bq-text">
+            The call-versus-put sign in any GEX aggregate is not a property of
+            the option Greek; it is an inventory assumption.
+          </p>
+          <p class="bq-text-th">
+            เครื่องหมายบวกของคอลและลบของพุตในการคำนวณ GEX ไม่ใช่คุณสมบัติของค่า
+            Greek แต่เป็น "สมมติฐานเรื่องใครถือของ" ที่เราใส่เข้าไปเอง
+          </p>
+          <p class="bq-cite">
+            Chilingarian, "The Sign of Dealer Gamma," SSRN มิ.ย. 2026
+          </p>
+        </div>
+
+        <h2>ทำไมถึงเป็นแบบนั้น</h2>
+        <p>
+          เรื่องนี้มาจากคณิตศาสตร์พื้นฐานของออปชันที่เรียกว่า put-call parity:
+          <strong
+            >ค่าแกมมาของคอลกับพุตที่ราคาใช้สิทธิ์เดียวกัน มีค่าเท่ากันเป๊ะ
+            และเป็นบวกทั้งคู่</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span>
+          เพราะฉะนั้นเครื่องหมายที่เราใส่ (คอลบวก พุตลบ) ไม่ได้มาจากตัวเลข
+          แต่มาจากสมมติฐานว่า "dealer ถือคอล และขายพุต"
+        </p>
+        <p>
+          เปเปอร์นี้พิสูจน์บนเชน SPX จริงขนาด 10,223 สัญญาว่า
+          เมื่อสลับสมมติฐานเครื่องหมาย
+          <strong
+            >net GEX กลับเครื่องหมายพอดี แต่ค่า vanna, charm และจุด flip
+            ไม่เปลี่ยน</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span> —
+          แปลว่าเครื่องหมายเป็นตัวเลือกการออกแบบเพียงตัวเดียวที่ทำให้ทั้งภาพกลับด้าน
+          โดยที่<strong>ขนาดทุกตัวยังดูถูกต้อง</strong>
+        </p>
+
+        <div class="callout-warn">
+          <div class="cw-head">อันตรายที่ซ่อนอยู่</div>
+          <p>
+            ถ้าโค้ดของคุณใส่เครื่องหมายผิด ระบอบ "ดูดกลับ" กับ "ขยายแรง"
+            จะสลับที่กัน — แต่ทุกตัวเลขจะดูสมเหตุสมผล ไม่มีสัญญาณเตือน
+            คุณจะอ่านโหมดตลาดกลับด้าน 100% โดยไม่รู้ตัว เปเปอร์เรียกจุดนี้ว่า
+            "masking test failure"
+          </p>
+        </div>
+
+        <h2>แล้วสมมติฐานนี้ถูกไหม สำหรับ VLO</h2>
+        <p>
+          สมมติฐานมาตรฐาน (dealer ถือคอล/ขายพุต) มาจากพฤติกรรมทั่วไป —
+          นักลงทุนมักขายคอลทับพอร์ต (covered call) และซื้อพุตประกัน ทำให้ dealer
+          อยู่ฝั่งตรงข้าม แต่<strong
+            >ข้อมูลสาธารณะไม่เคยยืนยันว่าจริงสำหรับหุ้นตัวใดตัวหนึ่ง</strong
+          >
+        </p>
+        <p>
+          สำหรับ VLO ที่เราวิเคราะห์ ถ้าสมมติฐานนี้ผิด — เช่นมีกองทุนที่ขายคอล
+          $350 จำนวนมากในฐานะการเก็งกำไรขาลง แทนที่จะเป็น covered call —
+          เครื่องหมายที่ $350 อาจกลับ และ "กำแพง" ที่เราเห็นอาจไม่ใช่กำแพงจริง
+        </p>
+
+        <div class="ladder">
+          <div class="ladder-step wrong">
+            <div class="ladder-tag">ความเชื่อเดิม</div>
+            <div class="ladder-text">
+              GEX เป็นบวก = ข้อเท็จจริงที่วัดได้ = ตลาดอยู่โหมดดูดกลับแน่นอน
+            </div>
+          </div>
+          <div class="ladder-arrow">↓</div>
+          <div class="ladder-step truth">
+            <div class="ladder-tag">ความจริง</div>
+            <div class="ladder-text">
+              GEX เป็นบวก = ผลจากสมมติฐานว่าใครถือของ
+              ซึ่งข้อมูลสาธารณะพิสูจน์ไม่ได้ ถ้าสมมติฐานผิด ทั้งภาพกลับด้าน
+            </div>
+          </div>
+          <div class="ladder-arrow">↓</div>
+          <div class="ladder-step action">
+            <div class="ladder-tag">ลงมือทำ</div>
+            <div class="ladder-text">
+              ใช้ GEX เป็น "สมมติฐานที่ต้องตรวจสอบ" ไม่ใช่ "ข้อเท็จจริง" ·
+              ให้น้ำหนักในการตัดสินใจต่ำ · ยืนยันด้วยพฤติกรรมราคาจริง
+            </div>
+          </div>
+        </div>
+
+        <div class="author-box">
+          <div class="author-avatar">SM</div>
+          <div class="author-content">
+            <div class="author-meta">
+              SqueezeMetrics · "An Important Update" มี.ค. 2020
+            </div>
+            <p class="author-text">
+              "เมื่อ dealer อยู่ฝั่ง short gamma การ hedge ของเขาเป็นตัวคูณของ
+              volume ไม่ใช่ตัวจุดชนวน...
+              ในแง่หนึ่งเราต้องยกมือยอมรับความไม่แน่นอน" —
+              แม้แต่คนสร้างเครื่องมือเองยังยอมรับข้อจำกัด
+            </p>
+          </div>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ถ้าตัวเลขทุกตัว "ดูถูกต้อง" แต่เครื่องหมายผิด คุณจะจับได้อย่างไร?
+              (คำตอบ: ตรวจสอบกับพฤติกรรมราคาจริง ไม่ใช่เชื่อตัวเลขอย่างเดียว)
+            </li>
+            <li>
+              ทำไมการรู้ "ขีดจำกัด" ของเครื่องมือ ถึงมีค่าพอๆ กับการรู้วิธีใช้?
+            </li>
+            <li>
+              สำหรับหุ้นที่คุณถือ มีเหตุผลอะไรที่สมมติฐาน dealer-ถือ-คอล
+              อาจไม่จริง?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Chilingarian, "The Sign of Dealer
+          Gamma," SSRN 2026 (เปิดอ่านฟรี — เป็นมาตรฐานการวัด ไม่ใช่สัญญาณเทรด) ·
+          SqueezeMetrics "An Important Update" (2020)
+          สำหรับข้อจำกัดที่ผู้สร้างยอมรับเอง
+        </div>
+      </div>
+
+      <!-- ============ CH 7 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">7</div>
+        <div class="ch-label">บทที่ ๗ / Chapter Seven</div>
+        <h2 class="ch-title">
+          <span class="en">Time Is the Hidden Variable</span
+          >เวลาคือตัวแปรที่ซ่อนอยู่
+        </h2>
+        <p class="ch-essence">
+          แรงกำแพงไม่คงที่ — มันพุ่งสูงตอนใกล้หมดอายุ แล้วหายไปทั้งหมดในคืนเดียว
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>กำแพงมีวันหมดอายุ — และนี่คือเรื่องที่คนพลาดมากที่สุด</h1>
+        <p class="lead dropcap">
+          คนเริ่มต้นมักคิดว่ากำแพงคอลเป็นแนวต้านถาวรเหมือนเส้นในกราฟ
+          แต่มันไม่ใช่ กำแพงคือแรงเชิงกลไกที่ผูกกับงวดหมดอายุงวดหนึ่ง
+          และมันจะหายไปทั้งหมดเมื่องวดนั้นหมดอายุ
+        </p>
+        <p>
+          จำเรื่องพวงมาลัยกับโค้งได้ไหม — ยิ่งใกล้ strike ยิ่งไว
+          ทีนี้มีอีกปัจจัย:
+          <strong>ยิ่งใกล้วันหมดอายุ ยิ่งไวขึ้นอีก</strong>
+          เพราะเมื่อเหลือเวลาน้อย
+          ความไม่แน่นอนว่าออปชันจะได้ใช้หรือไม่ยิ่งบีบแคบ delta ยิ่งเปลี่ยนไว
+        </p>
+
+        <div class="fig">
+          <div class="fig-label">
+            ภาพที่ 5 · แรงกำแพงเทียบเวลาที่เหลือ — VLO เหลือ 3 วัน
+          </div>
+          <svg
+            viewBox="0 0 700 220"
+            role="img"
+            aria-label="กราฟแรงกำแพงพุ่งตอนใกล้หมดอายุ"
+          >
+            <line
+              x1="55"
+              y1="175"
+              x2="670"
+              y2="175"
+              stroke="#403A2C"
+              stroke-width="1.5"
+            />
+            <line
+              x1="55"
+              y1="35"
+              x2="55"
+              y2="175"
+              stroke="#403A2C"
+              stroke-width="1.5"
+            />
+            <polyline
+              fill="none"
+              stroke="#1B2A4A"
+              stroke-width="2.5"
+              points="55,150 175,147 240,145 375,138 445,130 515,120 560,105 590,82 615,52 632,38"
+            />
+            <line
+              x1="632"
+              y1="38"
+              x2="650"
+              y2="175"
+              stroke="#8A2318"
+              stroke-width="2.5"
+              stroke-dasharray="4 3"
+            />
+            <circle cx="590" cy="82" r="6" fill="#B08D2E" />
+            <text
+              x="590"
+              y="70"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="11"
+              fill="#8A6D1E"
+              font-weight="700"
+            >
+              VLO วันนี้
+            </text>
+            <circle cx="650" cy="175" r="5" fill="#8A2318" />
+            <text
+              x="668"
+              y="163"
+              text-anchor="middle"
+              font-family="Sarabun,sans-serif"
+              font-size="10"
+              fill="#8A2318"
+            >
+              ศุกร์
+            </text>
+            <text
+              x="55"
+              y="195"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              30 วัน
+            </text>
+            <text
+              x="240"
+              y="195"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              21 วัน
+            </text>
+            <text
+              x="375"
+              y="195"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              14 วัน
+            </text>
+            <text
+              x="515"
+              y="195"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              7 วัน
+            </text>
+            <text
+              x="590"
+              y="212"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#8A6D1E"
+              font-weight="700"
+            >
+              3 วัน
+            </text>
+            <text
+              x="650"
+              y="195"
+              text-anchor="middle"
+              font-family="ui-monospace,monospace"
+              font-size="9"
+              fill="#736A54"
+            >
+              0
+            </text>
+            <text
+              x="450"
+              y="55"
+              font-family="Sarabun,sans-serif"
+              font-size="11"
+              fill="#8A6D1E"
+              font-weight="600"
+            >
+              พุ่งตอนท้าย
+            </text>
+          </svg>
+          <div class="fig-cap">
+            เส้นประคือหน้าผา — เมื่อตลาดปิดวันศุกร์ ออปชันงวดนี้หมดอายุ dealer
+            ไม่ต้องป้องกันอะไรอีก กำแพงหายทั้งหมดในคืนเดียว · VLO เหลือ 3 วัน =
+            อยู่ตรงจุดที่แรงกำลังพุ่ง
+          </div>
+        </div>
+
+        <h2>0DTE — ทำไมมันเปลี่ยนเกม</h2>
+        <p>
+          ออปชันที่หมดอายุวันเดียวกัน (0DTE)
+          มีแกมมาสูงมหาศาลเพราะเหลือเวลาเป็นศูนย์ ปัจจุบัน<strong
+            >0DTE คิดเป็น 59% ของวอลุ่ม SPX ในปี 2025</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span>
+          นี่สร้างปัญหาสำหรับการวิเคราะห์ด้วยข้อมูลฟรี เพราะ OI อัปเดตวันละครั้ง
+          — 0DTE ที่เกิดและตายภายในวันเดียวจึง<strong
+            >ไม่โผล่ใน OI จนกว่าจะจบวัน</strong
+          >
+          แปลว่าภาพ GEX จากข้อมูลฟรีเป็นภาพ EOD เสมอ ไม่ใช่ real-time
+        </p>
+
+        <div class="insight-box">
+          <div class="ib-label">การทดลองฟรีที่มีค่าที่สุดของสัปดาห์</div>
+          <p>
+            ดู VLO วันจันทร์ · ถ้ากำแพงหมดอายุแล้วราคายัง<strong
+              >ยืนเหนือ $350 ได้</strong
+            >
+            = เพดานเป็นเรื่องกลไกล้วนๆ ไม่ใช่แรงขายจริง (สัญญาณดี) ·
+            แต่ถ้า<strong>หลุดกลับหลังศุกร์</strong> =
+            ยืนอยู่ได้เพราะโดนตรึงเฉยๆ ไม่มีแรงซื้อจริงหนุน (ระวัง)
+          </p>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ถ้ากำแพงหายทุกวันศุกร์ การตัดสินใจโดยดูกำแพงงวดที่เหลือ 1 วัน
+              ต่างจากดูงวดที่เหลือ 30 วันอย่างไร?
+            </li>
+            <li>
+              ทำไมข้อมูล OI ที่เป็น T-1 ถึงทำให้ GEX
+              รายหุ้นจากข้อมูลฟรีเชื่อถือได้จำกัด?
+            </li>
+            <li>
+              "pin" ที่ราคาถูกดูดเข้าหา strike ใหญ่ตอนใกล้หมดอายุ —
+              คุณจะใช้ประโยชน์หรือหลบมันอย่างไร?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Cboe สำหรับสถิติ 0DTE = 59%
+          ของวอลุ่ม SPX 2025 · SpotGamma เรื่อง charm และ OPEX dynamics ·
+          MenthorQ "Understanding 0DTE Gamma Exposure"
+        </div>
+      </div>
+
+      <!-- ============ CH 8 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">8</div>
+        <div class="ch-label">บทที่ ๘ / Chapter Eight</div>
+        <h2 class="ch-title">
+          <span class="en">The Price of Insurance</span>ราคาของประกัน
+        </h2>
+        <p class="ch-essence">
+          IV คือเบี้ยประกันราคาหุ้น — และส่วนต่างระหว่างเบี้ยกับความเสี่ยงจริง
+          คือเอดจ์ที่ยังยืนอยู่
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>±4.58% แปลว่าอะไร — และทำไมการขายประกันมักชนะ</h1>
+        <p class="lead dropcap">
+          ราคาออปชันคือเบี้ยประกันราคาหุ้น เหมือนเบี้ยประกันอัคคีภัย
+          ถ้าเบี้ยย่านหนึ่งแพงกว่าอีกย่าน 3 เท่า
+          เราอ่านได้ว่าบริษัทประกันมองว่าเสี่ยงกว่า ความแกว่งที่ตลาดคาดไว้
+          อ่านออกจากราคาเบี้ยได้ เรียกว่า implied volatility (IV)
+        </p>
+        <p>
+          VLO ตอนนี้ IV อ่านออกมาได้ <strong>50.5% ต่อปี</strong> แปลงเหลือ 3
+          วันถึงศุกร์ = <strong>±$15.92 หรือ ±4.58%</strong> → กรอบ $332 ถึง
+          $364
+        </p>
+
+        <div class="insight-box">
+          <div class="ib-label">"2 ใน 3 ของกรณี" อ่านแบบนี้</div>
+          <p>
+            เหมือนพยากรณ์ฝน 70% — ไม่ได้แปลว่าฝนตกแน่ แต่ถ้าเจอวันแบบนี้ 100
+            ครั้ง ราคาจะจบในกรอบ $332–$364 ประมาณ
+            <strong>68 ครั้ง</strong> และหลุดออกนอกกรอบ ~32 ครั้ง (ขึ้น 16 ลง
+            16) · <strong>1 ใน 3 ของเวลาราคาออกนอกกรอบ ถือว่าปกติ</strong>
+          </p>
+        </div>
+
+        <h2>VRP — เอดจ์ที่ยังยืนอยู่</h2>
+        <p>
+          มีปรากฏการณ์หนึ่งที่ผ่านการตรวจสอบมายาวนาน:
+          <strong
+            >โดยเฉลี่ย ตลาดคิดเบี้ยประกัน (IV) แพงกว่าความผันผวนที่เกิดขึ้นจริง
+            (realized volatility)</strong
+          >
+          ส่วนต่างนี้เรียก variance risk premium (VRP)
+          เหมือนบริษัทประกันที่โดยเฉลี่ยเก็บเบี้ยได้มากกว่าที่ต้องจ่ายชดเชย
+        </p>
+        <p>
+          งานวิจัยของ Hu, Kirilova, Park และ Ryu ใน
+          <em>Management Science</em> (2024) พบว่า<strong
+            >สำหรับทั้งนักลงทุนรายย่อยและสถาบัน การขาย volatility
+            เป็นกลยุทธ์ที่ประสบความสำเร็จที่สุด</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span> — แต่ระวัง
+          มันเหมือนเก็บเหรียญหน้ารถบดถนน กำไรทีละนิดสม่ำเสมอ
+          แล้วขาดทุนหนักเป็นครั้งคราวตอนตลาดพัง
+        </p>
+
+        <div class="callout-warn">
+          <div class="cw-head">ข้อควรระวังเรื่อง VLO IV</div>
+          <p>
+            IV 50.5% สูงผิดปกติสำหรับหุ้นโรงกลั่น
+            อาจสะท้อนความกังวลน้ำมัน/ภูมิรัฐศาสตร์จริง
+            หรืออาจเป็นเพราะราคาออปชันที่เราใช้เป็นราคาปิดเมื่อวาน
+            ขณะที่ราคาหุ้นเป็นราคาสด — <strong>ควรเช็กซ้ำก่อนใช้</strong>
+            <span class="tag-chip tag-assume">ASSUME</span>
+          </p>
+        </div>
+
+        <div class="signal-box">
+          <div class="signal-col do">
+            <div class="signal-head">IV ใช้ทำอะไรได้</div>
+            <ul class="signal-list">
+              <li>วัดว่ากรอบความแกว่งปกติกว้างแค่ไหน</li>
+              <li>ตั้ง stop ให้พ้นโซน noise</li>
+              <li>เทียบ IV กับ realized เพื่อดู VRP</li>
+            </ul>
+          </div>
+          <div class="signal-col dont">
+            <div class="signal-head">IV บอกไม่ได้</div>
+            <ul class="signal-list">
+              <li>ทิศทางว่าจะขึ้นหรือลง</li>
+              <li>ว่าจะเกิดเหตุการณ์อะไร</li>
+              <li>ความแม่นจาก snapshot เดียว (ต้องมี history)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทถัดไป — ลองคิด</div>
+          <ol>
+            <li>
+              ถ้ากรอบปกติของ VLO คือ ±4.58% ต่อสัปดาห์ จุด stop 3%
+              ของคุณอยู่ในหรือนอกโซน noise?
+            </li>
+            <li>
+              ทำไมการขาย volatility ถึงกำไรบ่อยแต่ก็อันตราย —
+              และเกี่ยวอะไรกับขนาดพอร์ต?
+            </li>
+            <li>
+              คุณจะรู้ได้อย่างไรว่า IV ที่สูงมาจากความเสี่ยงจริง
+              หรือมาจากความคลาดเคลื่อนของข้อมูล?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Hu, Kirilova, Park & Ryu,
+          <em>Management Science</em> (2024) เรื่อง vol selling · Euan Sinclair,
+          <em>Volatility Trading</em> — การวัดและพยากรณ์ volatility
+          (อ่านเหมือนตำราเรียน เน้นคณิตศาสตร์)
+        </div>
+      </div>
+
+      <!-- ============ CH 9 ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">9</div>
+        <div class="ch-label">บทที่ ๙ / Chapter Nine</div>
+        <h2 class="ch-title">
+          <span class="en">False Edges &amp; Honest Testing</span
+          >เอดจ์ที่ไม่มีจริง + วัดยังไงไม่หลอกตัวเอง
+        </h2>
+        <p class="ch-essence">
+          สิ่งที่งานวิจัยล้มไปแล้ว และวิธีทดสอบสมมติฐานที่ป้องกันการหลอกตัวเอง
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">แก่นสาร · The Core Idea</div>
+        <h1>ของที่ตายแล้ว และวิธีพิสูจน์ที่ไม่โกหกตัวเอง</h1>
+        <p class="lead dropcap">
+          มีคนขายความรู้ option flow เยอะมาก
+          ส่วนใหญ่ขายของที่งานวิจัยพิสูจน์แล้วว่าใช้ไม่ได้
+          บทนี้แยกของจริงออกจากของปลอม
+          แล้วสอนวิธีทดสอบสมมติฐานที่ป้องกันไม่ให้เราหลอกตัวเอง
+        </p>
+
+        <h2>สามอย่างที่ตายแล้ว — อย่าเสียเวลา</h2>
+        <table class="datatable">
+          <thead>
+            <tr>
+              <th>สิ่งที่เขาขาย</th>
+              <th>ความจริง</th>
+              <th>ที่มา</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="hl">"ตามรอยเงินใหญ่"<br />unusual options activity</td>
+              <td>
+                รายย่อยในตลาดออปชันขาดทุนเฉลี่ย 5–9%
+                และหนักกว่านั้นรอบเหตุการณ์ผันผวน สเปรดเฉลี่ยที่จ่าย 12.6% —
+                "เงินใหญ่" ที่เห็นได้ ส่วนมากคือคนกำลังจะขาดทุน
+              </td>
+              <td>de Silva, So & Smith · Bryzgalova et al.</td>
+            </tr>
+            <tr>
+              <td class="hl">สัญญาณจาก IV skew / spread</td>
+              <td>
+                เคยเชื่อว่าทำนายราคาได้ · ปี 2025 พบว่ามันคือค่ายืมหุ้นแฝง
+                ไม่ใช่ข้อมูลลับ ตัดหุ้นยืมแพงออก พลังทำนายหายอย่างน้อย 2 ใน 3
+              </td>
+              <td>Muravyev, Pearson & Pollet, <em>JFE</em> 2025</td>
+            </tr>
+            <tr>
+              <td class="hl">Max pain</td>
+              <td>
+                สำหรับ VLO ตอนนี้ max pain ทุกงวดอยู่ต่ำกว่าราคาปัจจุบัน −11.6%
+                ถึง −78% เพราะ OI ถูกสร้างตอนราคาต่ำกว่านี้มาก แล้ววิ่งหนีไป —
+                ฟอสซิล ไม่ใช่แม่เหล็ก
+              </td>
+              <td>คำนวณจากข้อมูล VLO เอง</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="author-box">
+          <div class="author-avatar">MP</div>
+          <div class="author-content">
+            <div class="author-meta">Muravyev, Pearson & Pollet · JFE 2025</div>
+            <p class="author-text">
+              "พลังทำนายจากข้อมูลสาธารณะในตลาดออปชัน
+              ส่วนใหญ่เป็นภาพลวงตาที่นำไปใช้จริงไม่ได้เมื่อควบคุมค่ายืมหุ้น" —
+              นี่คือเหตุผลที่เราไม่ไล่ตามสัญญาณ skew
+            </p>
+          </div>
+        </div>
+
+        <h2>วิธีทดสอบที่ไม่หลอกตัวเอง</h2>
+        <p>
+          ถ้าจะเอา GEX มาใช้กับระบบ VCP จริง ต้องพิสูจน์ก่อนว่ามันช่วยได้
+          และการพิสูจน์ต้องออกแบบให้จับการหลอกตัวเองได้ นี่คือสามเครื่องมือสำคัญ
+        </p>
+
+        <h3>๑ · คำนวณ sample size ก่อน ไม่ใช่หลัง</h3>
+        <p>
+          ถ้าจะทดสอบว่า "GEX บวกทำให้เบรกเอาต์ล้มบ่อยขึ้น"
+          ต้องมีจำนวนเหตุการณ์มากพอถึงจะเชื่อผลได้ คำนวณล่วงหน้าว่าต้องการ
+          breakout อย่างน้อย
+          <strong>~170 ครั้งต่อระบอบ (รวม ~340)</strong> ถึงจะตรวจจับความต่าง 15
+          จุดเปอร์เซ็นต์ได้อย่างมีนัยสำคัญ · ถ้ามีน้อยกว่านี้ อย่ารันการทดสอบ
+          เพราะจะได้ตัวเลขที่ตีความไม่ได้
+        </p>
+
+        <h3>๒ · negative control — ตัวจับบั๊กที่ถูกที่สุด</h3>
+        <p>
+          ใส่สัญญาณที่<em>รู้อยู่แล้วว่าตายแล้ว</em> เข้าไปในการทดสอบด้วย — เช่น
+          IV skew ถ้า backtest ของเราดันเจอเอดจ์จาก skew
+          (ที่งานวิจัยพิสูจน์แล้วว่าไม่มี) แปลว่า<strong
+            >pipeline เรามีบั๊ก ไม่ใช่เราเจอเงิน</strong
+          >
+          นี่คือวิธีจับ look-ahead bias ที่ถูกที่สุด
+        </p>
+
+        <h3>๓ · kill gate — ตัดสินก่อนดูผล</h3>
+        <p>
+          เขียนเกณฑ์ผ่าน/ไม่ผ่านเป็นลายลักษณ์อักษร<strong>ก่อน</strong>รันการทดสอบ
+          ถ้าไม่ผ่าน = ปิดโปรเจกต์ ห้าม "ลองปรับพารามิเตอร์ดูอีกที"
+          เพราะการปรับไปเรื่อยๆ จนกว่าจะเจอผลที่ชอบ
+          คือการหลอกตัวเองที่พบบ่อยที่สุด
+        </p>
+
+        <div class="insight-box">
+          <div class="ib-label">น้ำหนักที่ควรให้ GEX</div>
+          <p>
+            แม้ผ่านการทดสอบแล้ว GEX ควรมีน้ำหนักไม่เกิน
+            <strong>10 จาก 100 คะแนน</strong> ในการตัดสินใจ — มันเป็นตัวกรอง<em
+              >จังหวะ</em
+            >
+            ไม่ใช่ตัว<em>เลือกหุ้น</em> ถ้าให้มากกว่านี้ จะเริ่มปัด setup ดีๆ
+            ทิ้งด้วยเหตุผลเชิงกลไก
+          </p>
+        </div>
+
+        <div class="reflect">
+          <div class="reflect-head">ก่อนไปบทสรุป — ลองคิด</div>
+          <ol>
+            <li>
+              ทำไมการ "ปรับพารามิเตอร์จนกว่าจะได้ผลดี" ถึงเป็นการหลอกตัวเอง
+              ไม่ใช่การพัฒนา?
+            </li>
+            <li>
+              ถ้า negative control ของคุณแสดงเอดจ์ คุณควรดีใจหรือกังวล?
+              เพราะอะไร?
+            </li>
+            <li>
+              คุณเคยเชื่อผลการทดสอบที่มีตัวอย่างน้อยเกินไป
+              แล้วเสียเงินจริงหรือไม่?
+            </li>
+          </ol>
+        </div>
+        <div class="readmore">
+          <span class="rm-label">อ่านต่อ</span>Muravyev, Pearson & Pollet,
+          <em>JFE</em> 2025 · de Silva, So & Smith,
+          <em>Review of Finance</em> 2025 · Euan Sinclair,
+          <em>Positional Option Trading</em> —
+          บทเรื่องประเมินผลเทรดและการแยกโชคออกจากเอดจ์
+        </div>
+      </div>
+
+      <!-- ============ SYNTHESIS ============ -->
+      <div class="chapter-open">
+        <div class="ch-num-big">∞</div>
+        <div class="ch-label">บทสรุป / Synthesis</div>
+        <h2 class="ch-title">
+          <span class="en">The Pre-Trade Ritual</span>พิธีกรรมก่อนเข้าเทรด
+        </h2>
+        <p class="ch-essence">
+          ทั้งเล่มย่อเหลือเช็กลิสต์เดียวที่ใช้ได้ทันที และประโยคเดียวที่ต้องจำ
+        </p>
+      </div>
+      <div class="page">
+        <div class="eyebrow">ประโยคเดียวที่ต้องจำ</div>
+
+        <div class="blockquote-full">
+          <p class="bq-text">
+            Option flow tells you whether the market is sticky or slippery —
+            never whether it goes up or down.
+          </p>
+          <p class="bq-text-th">
+            option flow บอกว่าตลาด "หนืดหรือลื่น" ไม่เคยบอกว่า "ขึ้นหรือลง" —
+            มันคือตัวช่วยจับจังหวะ ไม่ใช่ตัวเลือกหุ้น
+          </p>
+          <p class="bq-cite">แก่นของทั้งเล่ม</p>
+        </div>
+
+        <p class="lead">
+          ถ้าจำได้แค่ประโยคเดียว ขอให้เป็นประโยคนี้
+          มันเปลี่ยนวิธีที่คุณใช้เครื่องมือทั้งหมด — จากการพยายามทำนายทิศทาง
+          (ซึ่งงานวิจัยบอกว่าทำไม่ได้จากข้อมูลสาธารณะ)
+          ไปเป็นการอ่านสภาพแวดล้อมเพื่อปรับจังหวะและขนาด
+        </p>
+
+        <h2>ทั้งเล่มย่อเหลือ 5 บรรทัด</h2>
+        <table class="datatable">
+          <tbody>
+            <tr>
+              <td class="num hl">1</td>
+              <td>
+                คนที่ขายออปชันให้เราไม่อยากเดาทิศทาง
+                เขาจึงต้องซื้อขายหุ้นตามราคาไปเรื่อยๆ
+              </td>
+            </tr>
+            <tr>
+              <td class="num hl">2</td>
+              <td>
+                แรงซื้อขายที่ถูกบังคับนั้นหนักที่สุดตรง strike ที่มีคนถือเยอะ =
+                กำแพง
+              </td>
+            </tr>
+            <tr>
+              <td class="num hl">3</td>
+              <td>
+                ถ้าทั้งกระดานเป็นบวก ตลาดอยู่โหมดดูดกลับ —
+                เบรกเอาต์เหนื่อยกว่าปกติ
+              </td>
+            </tr>
+            <tr>
+              <td class="num hl">4</td>
+              <td>
+                กำแพงหมดอายุพร้อมออปชัน ไม่ใช่แนวต้านถาวร —
+                ดูว่าเกิดอะไรหลังหมดอายุ
+              </td>
+            </tr>
+            <tr>
+              <td class="num hl">5</td>
+              <td>
+                เครื่องหมายบวก/ลบเป็นสมมติฐาน ไม่ใช่ข้อเท็จจริง — ให้น้ำหนักต่ำ
+                ตรวจสอบเสมอ
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>พิธีกรรมก่อนเข้าเทรด — เช็กลิสต์ 7 ข้อ</h2>
+        <p>ทำก่อนใช้ option flow ตัดสินใจทุกครั้ง สำหรับหุ้นตัวใดก็ตาม</p>
+
+        <div class="checklist">
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>ด่านที่ 1 — เชนหนาพอไหม</strong> นับ OI ในช่วง ±10%
+              ของราคา ถ้าต่ำกว่า 2,000 สัญญา หรือมีน้อยกว่า 8 strike → หยุด
+              อย่าคำนวณต่อ ผลจะเป็น noise (นี่คือจุดที่จอ SKHY พลาด — ออก trade
+              plan บนเชน 1,332 สัญญา)
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>ระบอบไหน</strong> net GEX บวกหรือลบ = ดูดกลับหรือขยายแรง
+              เบรกเอาต์ที่กำลังถือควรเกิดในโหมดขยายแรงถึงจะมีโอกาสวิ่งต่อ
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>กำแพงชั้นแรกห่างกี่ %</strong> ถ้าใกล้มาก (เช่น VLO ห่าง
+              0.6%) การเติมตรงนี้คือซื้อเข้าหาแรงขาย — รอผ่านไปก่อน
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>ฝั่งล่างมีพื้นรองไหม</strong> ถ้าไม่มี (เช่น VLO ต่ำกว่า
+              $340) เผื่อใจว่าถ้าลง จะลงโดยไม่มีตัวช่วยพยุง
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>stop พ้นโซน noise ไหม</strong> เทียบกับกรอบ ±1σ (VLO =
+              ±4.58%) stop ที่แคบกว่านี้จะโดนเขี่ยด้วยความแกว่งปกติ
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>เหลือกี่วันถึงหมดอายุ</strong> ถ้าเหลือน้อย
+              กำแพงกำลังแรงสุดและกำลังจะหาย — วางแผนดูพฤติกรรมหลังหมดอายุ
+            </div>
+          </div>
+          <div class="check-item">
+            <div class="check-box"></div>
+            <div class="check-text">
+              <strong>ให้น้ำหนักไม่เกิน 10/100</strong> option flow
+              เป็นตัวกรองจังหวะ ไม่ใช่เหตุผลเข้าออก ถ้ามีข่าวจริง
+              กำแพงทะลุได้เสมอ
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-warn">
+          <div class="cw-head">เรื่องขนาดโพซิชัน — พูดตรงๆ</div>
+          <p>
+            สำหรับพอร์ตที่ถือ VLO 2 หุ้น ($640) การทำ option overlay (covered
+            call, protective put, collar) <strong>ทำไม่ได้ทางกลไก</strong> เพราะ
+            1 สัญญา = 100 หุ้น = ~$34,800 · overlay เริ่มทำได้จริงที่ ~100 หุ้น
+            ซึ่งถ้าถือ 10% ของพอร์ต แปลว่าพอร์ต ~$348,000 · จนกว่าจะถึงจุดนั้น
+            ใช้ option flow เป็น<strong
+              >ข้อมูลประกอบการตัดสินใจกับตัวหุ้น</strong
+            >
+            เท่านั้น
+          </p>
+        </div>
+
+        <h2>สถานะความรู้ ณ วันนี้ — พูดตรงๆ</h2>
+        <p>
+          งานวิจัยยืนยันว่า<strong
+            >โหมดดูดกลับ/ขยายแรงมีอยู่จริงในระดับดัชนีตลาด</strong
+          >
+          <span class="tag-chip tag-fact">FACT</span>
+          แต่การใช้กับ<em>หุ้นรายตัว</em>เพื่อทำนายว่าเบรกเอาต์ตัวไหนจะสำเร็จ
+          <strong>ยังไม่มีใครพิสูจน์</strong>
+          <span class="tag-chip tag-assume">HYPOTHESIS</span>
+        </p>
+        <p>
+          เพราะฉะนั้นตอนนี้ให้ถือว่ามันคือ<strong>เครื่องมือช่วยมองเห็น</strong>
+          ไม่ใช่เครื่องมือช่วยตัดสิน — มันทำให้เห็นแรงเชิงกลไกที่กราฟเปล่าๆ
+          ไม่บอก แต่ว่าเห็นแล้วผลตอบแทนดีขึ้นจริงหรือไม่
+          ต้องทดสอบด้วยวินัยในบทที่ 9 ก่อนจะเชื่อ
+        </p>
+
+        <div class="reflect">
+          <div class="reflect-head">คำถามสุดท้าย — ก่อนลงมือจริง</div>
+          <ol>
+            <li>
+              คุณจะใช้ option flow เพื่อ<em>ปรับจังหวะและขนาด</em>
+              หรือกำลังหวังให้มันบอก<em>ทิศทาง</em>? (อย่างหลังคือกับดัก)
+            </li>
+            <li>
+              ก่อนเชื่อตัวเลข GEX ตัวไหน คุณตรวจ 3 อย่างแล้วหรือยัง — เชนหนาพอ,
+              เครื่องหมายสมเหตุสมผล, สอดคล้องกับพฤติกรรมราคาจริง?
+            </li>
+            <li>
+              ถ้าจะเอาไปใส่ VCP คุณมีแผนทดสอบที่มี negative control และ kill
+              gate แล้วหรือยัง?
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ============ FOOTER ============ -->
+      <div class="book-footer">
+        <div class="book-footer-mark">◆</div>
+        <div class="book-footer-text">
+          "เครื่องมือที่ดีที่สุด คือเครื่องมือที่คุณรู้ว่ามันโกหกตรงไหน · option
+          flow ให้แผนที่แรงกลไก แต่ไม่เคยให้ทิศทาง — และการรู้ความต่างนี้
+          คือเอดจ์ที่แท้จริง"
+        </div>
+        <div class="book-footer-author">
+          Option Flow · Practitioner's Manual · Personal Edition
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>100 Baggers — The Mayer Field Manual</title>
+<style>
+:root{
+  --paper:#f4efe3; --paper2:#fbf8f0; --ink:#183126; --ink2:#273c32;
+  --gold:#b48a3c; --gold2:#d8bd79; --muted:#6b746d; --line:#d8cfbd;
+  --red:#8f3a32; --green:#2f6a4f; --shadow:rgba(28,40,34,.12);
+}
+*{box-sizing:border-box}
+body{margin:0;background:#e7e1d5;color:#25322c;font-family:"Noto Serif Thai","Th Sarabun New",Georgia,serif;line-height:1.85}
+.book{max-width:940px;margin:28px auto;background:var(--paper2);box-shadow:0 20px 60px var(--shadow)}
+.cover{min-height:980px;background:var(--ink);color:#f7f0df;padding:90px 76px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.cover:before,.cover:after{content:"";position:absolute;border:1px solid rgba(216,189,121,.35);width:240px;height:240px;transform:rotate(45deg)}
+.cover:before{right:-130px;top:-130px}.cover:after{left:-150px;bottom:-150px}
+.kicker{letter-spacing:4px;text-transform:uppercase;font:600 12px Arial,sans-serif;color:var(--gold2)}
+.cover h1{font-size:72px;line-height:1.02;margin:28px 0 18px;font-family:Georgia,"Noto Serif Thai",serif;font-weight:600;letter-spacing:-2px}
+.cover h1 em{color:var(--gold2);font-weight:400}
+.cover .sub{font-size:22px;max-width:650px;color:#e8dec8}
+.cover .rule{width:90px;height:2px;background:var(--gold);margin:32px 0}
+.cover .meta{font:600 12px Arial,sans-serif;letter-spacing:2px;color:#cdbf9f}
+.page{padding:72px 76px;border-bottom:1px solid var(--line)}
+.page h1,.page h2,.page h3{color:var(--ink);line-height:1.25}
+.page h1{font-size:38px;margin:0 0 24px}.page h2{font-size:28px;margin-top:42px}.page h3{font-size:21px;margin-top:28px}
+.eyebrow{font:700 12px Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.lead{font-size:19px;color:#33473e}
+.note,.callout,.warning,.framework{padding:22px 26px;margin:28px 0;border-left:4px solid var(--gold);background:#f0eadc}
+.warning{border-color:var(--red);background:#f4e7e4}.framework{border-color:var(--green);background:#e9f0eb}
+.quote{font-size:25px;line-height:1.6;color:var(--ink);border-top:1px solid var(--gold2);border-bottom:1px solid var(--gold2);padding:30px 10px;margin:38px 0;text-align:center;font-style:italic}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:26px 0}.card{background:#fffdf8;border:1px solid var(--line);padding:22px;border-radius:2px}.card h3{margin:0 0 10px;font-size:18px}.num{font-size:38px;color:var(--gold);font-weight:700;line-height:1}
+table{width:100%;border-collapse:collapse;margin:24px 0;background:#fffdf8;font-size:15px}th,td{padding:13px 14px;border:1px solid var(--line);vertical-align:top}th{background:#e8e1d1;color:var(--ink);text-align:left}
+ul,ol{padding-left:24px}li{margin:7px 0}.tag{display:inline-block;padding:3px 9px;border:1px solid var(--line);font:700 11px Arial,sans-serif;letter-spacing:.6px;text-transform:uppercase;margin-right:6px;background:#fffdf8;color:var(--ink)}
+.score{font-family:Arial,sans-serif;font-size:13px;background:var(--ink);color:white;padding:4px 8px;border-radius:10px}
+.hr{height:1px;background:var(--line);margin:38px 0}.small{font-size:13px;color:var(--muted)}
+.toc a{color:var(--ink);text-decoration:none}.toc li{margin:10px 0;border-bottom:1px dotted #b9b09d;padding-bottom:7px}
+.check li{list-style:none;margin-left:-20px;padding-left:28px;position:relative}.check li:before{content:"□";position:absolute;left:0;color:var(--gold);font-weight:bold}
+.footer{background:var(--ink);color:#d9cfba;padding:60px 76px;text-align:center}.footer strong{color:var(--gold2)}
+a{color:#2f5a47}
+@media(max-width:760px){.book{margin:0}.cover,.page{padding:48px 28px}.cover{min-height:820px}.cover h1{font-size:48px}.grid{grid-template-columns:1fr}.page h1{font-size:31px}.page h2{font-size:24px}table{font-size:13px;display:block;overflow-x:auto}}
+@media print{body{background:white}.book{box-shadow:none;margin:0}.page{page-break-before:auto}.cover{page-break-after:always}}
+</style>
+</head>
+<body><main class="book">
+<section class="cover">
+  <div>
+    <div class="kicker">Investment Field Manual · Thai Edition</div>
+    <h1>100 <em>Baggers</em></h1>
+    <div class="rule"></div>
+    <div class="sub">คู่มือคิดแบบ Christopher W. Mayer — จาก “การหาหุ้นร้อยเด้ง” สู่การมองหาเครื่องจักรทบต้นที่มีคุณภาพสูง ลงทุนซ้ำได้ยาว และเรากล้าถือผ่านความผันผวน</div>
+  </div>
+  <div>
+    <div class="meta">CRYSTALLIZED FROM CHRISTOPHER W. MAYER'S 100 BAGGERS + LATER INTERVIEWS</div>
+    <div class="small" style="color:#c9bea7;margin-top:12px">เอกสารนี้เป็นการสังเคราะห์เชิงการศึกษา ไม่ได้เขียนโดย Christopher W. Mayer และไม่ใช่คำแนะนำซื้อขายหลักทรัพย์</div>
+  </div>
+</section>
+
+<section class="page" id="how-to-use">
+<div class="eyebrow">How to use this document</div>
+<h1>วิธีอ่านเอกสารฉบับนี้</h1>
+<p class="lead">เป้าหมายไม่ใช่ให้เราจำชื่อหุ้นในอดีต แต่ให้เราเปลี่ยน “หน่วยคิด” ของการลงทุนจากไตรมาสหน้า ไปเป็นความสามารถของธุรกิจในการทบต้นเงินทุนเป็นสิบปี</p>
+<div class="note"><strong>สามชั้นของเนื้อหา</strong><br>
+<span class="tag">Mayer</span> สิ่งที่เป็นแก่นจากหนังสือหรือมุมมองที่ Mayer ย้ำในบทสัมภาษณ์<br>
+<span class="tag">Synthesis</span> การตกผลึกเชื่อมหลายบทให้เป็น mental model เดียว<br>
+<span class="tag">Application</span> เครื่องมือเชิงปฏิบัติที่สร้างขึ้นเพื่อให้เรานำหลักคิดไปใช้กับหุ้นจริง</div>
+<p>เอกสารนี้จงใจไม่เขียนแทนหนังสือแบบหน้า-ต่อ-หน้า และไม่คัดลอกข้อความยาวจากต้นฉบับ แต่แปลงแก่นของหนังสือให้เป็น “ระบบตัดสินใจ” สำหรับนักลงทุนระยะยาว</p>
+</section>
+
+<section class="page toc">
+<div class="eyebrow">Table of contents</div><h1>สารบัญ</h1>
+<ol>
+<li><a href="#exec">Executive Summary — หนังสือนี้เปลี่ยนวิธีคิดอะไร</a></li>
+<li><a href="#math">คณิตศาสตร์ของ 100x — เวลาเป็นตัวคูณที่คนมองข้าม</a></li>
+<li><a href="#twin">Twin Engines — กำไรโต × Multiple</a></li>
+<li><a href="#sqglp">SQGLP — แผนที่หา candidate</a></li>
+<li><a href="#reinvest">Reinvestment — หัวใจที่ลึกกว่าคำว่า “หุ้นคุณภาพ”</a></li>
+<li><a href="#people">Owner-Operators, Culture & Capital Allocation</a></li>
+<li><a href="#moat">Moat, Runway, Size & Optionality</a></li>
+<li><a href="#valuation">ราคา — สำคัญ แต่ไม่ใช่การหา P/E ต่ำสุด</a></li>
+<li><a href="#coffee">Coffee-Can — ทำอย่างไรไม่ให้ตัวเราเองฆ่า compounding</a></li>
+<li><a href="#portfolio">Portfolio, Kelly & Concentration</a></li>
+<li><a href="#buyback">Buybacks & Share Count</a></li>
+<li><a href="#crisis">Crash, Drawdown & Survival</a></li>
+<li><a href="#chapters">แผนที่ 15 บทของหนังสือ</a></li>
+<li><a href="#os">Mayer Operating System — Workflow ใช้กับหุ้นจริง</a></li>
+<li><a href="#scorecard">100-Bagger Scorecard 100 คะแนน</a></li>
+<li><a href="#monitor">Holding Dashboard & Sell Rules</a></li>
+<li><a href="#example">ตัวอย่างการวิเคราะห์บริษัทสมมติ</a></li>
+<li><a href="#limits">ข้อจำกัดของแนวคิด 100 Baggers</a></li>
+<li><a href="#plan">แผนฝึก 30 วัน</a></li>
+<li><a href="#sources">แหล่งอ้างอิงและอ่านต่อ</a></li>
+</ol>
+</section>
+
+<section class="page" id="exec">
+<div class="eyebrow">Part 1 · Executive Summary</div><h1>หนังสือนี้ไม่ได้สอน “วิธีหาเด้ง” แต่สอนให้เราถือเครื่องจักรทบต้น</h1>
+<p class="lead">ถ้าต้องย่อ 100 Baggers ให้เหลือประโยคเดียว: <strong>ผลตอบแทนที่เปลี่ยนชีวิตมักเกิดจากธุรกิจที่สามารถเพิ่มกำไรและนำเงินกลับไปลงทุนด้วยผลตอบแทนสูงได้ยาวมาก — และนักลงทุนต้องไม่ขายมันเสียก่อน</strong></p>
+<p>Mayer ศึกษาหุ้น 100-baggers ในสหรัฐฯ จำนวน 365 ตัวช่วงปี 1962–2014 และพบความหลากหลายสูง จึงไม่ได้สรุปว่า “ต้องเป็นอุตสาหกรรม X” หรือ “ต้องมี P/E เท่านี้” สิ่งที่เหมือนกันมากกว่าคือการเติบโตยาว, คุณภาพธุรกิจและคน, การเริ่มจากฐานที่ไม่ใหญ่เกินไป, runway ที่ยังเหลือ และราคาที่ไม่ทำลายผลตอบแทนตั้งแต่วันแรก</p>
+<p>ข้อมูลที่ทำให้แนวคิดนี้ต่างจากการเก็งหุ้นโตคือ <strong>เวลา</strong>: หุ้น 100x ในชุดศึกษามีเวลาเฉลี่ยและค่ากึ่งกลางราว 26 ปี การจะได้ 100 เท่าไม่จำเป็นต้องเจอบริษัทที่โต 100% ต่อปี แต่ต้องเจอบริษัทที่ทบต้นประมาณ 20% ต่อปีได้นานมากกว่าที่ตลาดและนักลงทุนทั่วไปอดทนรอได้</p>
+<p>สิ่งที่ Mayer เน้นมากขึ้นในบทสัมภาษณ์ภายหลังคือ <strong>reinvestment</strong>: บริษัทคุณภาพสูงแต่แจกเงินออกมาหมด อาจไม่ใช่ 100-bagger ที่ดีเท่าบริษัทซึ่งนำเงินทุก 1 บาทกลับไปสร้างมูลค่าเพิ่มได้อีกหลายบาทในอนาคต เราจึงต้องถามเสมอว่า “เงินที่บริษัทเก็บไว้ จะถูกนำไปทำอะไร และ incremental return ของเงินก้อนถัดไปเป็นเท่าไร?”</p>
+<p>อีกครึ่งหนึ่งของเกมเป็นเรื่องคน: owner-operator หรือผู้บริหารที่มี skin in the game มีแนวโน้มคิดแบบเจ้าของมากกว่าผู้จัดการที่ไล่เป้ารายไตรมาส แต่คำว่า founder-led ไม่ใช่ตราประทับคุณภาพ เราต้องดู capital allocation, วัฒนธรรมองค์กร, incentive และวิธีที่คนเหล่านี้ปฏิบัติต่อผู้ถือหุ้นส่วนน้อยจริง ๆ</p>
+<p>ในมุม portfolio หนังสือไม่ได้บอกให้เราถือทุกอย่างตลอดไปโดยไม่คิด แต่ผลักเราไปสู่ความเป็น <strong>reluctant seller</strong>: ก่อนขายผู้ชนะเพราะ “แพงแล้ว” ต้องตระหนักว่าเรากำลังตัดสินใจถูกสองครั้ง — ขายให้ถูก และหาของใหม่ที่ดีกว่าให้ถูก — พร้อมต้นทุนภาษีและโอกาสที่ compounding ถูกตัดกลางทาง</p>
+<p>ดังนั้นการคิดแบบ Mayer คือการเปลี่ยนคำถามจาก “ปีนี้กำไรโตเท่าไร?” เป็น “บริษัทนี้มีโครงสร้างที่อนุญาตให้กำไรต่อหุ้นโต 15–25% ต่อปีไปอีก 10–20 ปีหรือไม่?” และเปลี่ยนจาก “ราคาเป้าหมาย 12 เดือนเท่าไร?” เป็น “อะไรทำให้เครื่องจักรทบต้นนี้หยุด?”</p>
+<div class="quote">หุ้น 100x ไม่ได้ต้องการการทำนายที่แม่นที่สุด — แต่มักต้องการ <strong>วิสัยทัศน์ที่จะเห็น, ความกล้าที่จะซื้อ, และความอดทนที่จะถือ</strong></div>
+</section>
+
+<section class="page" id="math">
+<div class="eyebrow">Part 2 · The mathematics</div><h1>คณิตศาสตร์ของ 100x: เวลาแทนที่ความหวือหวา</h1>
+<p>100x ฟังดูเหมือนต้องได้ jackpot แต่คณิตศาสตร์บอกอีกแบบ หาก compounding ต่อเนื่อง:</p>
+<table><thead><tr><th>เวลาถึง 100x</th><th>CAGR โดยประมาณ</th><th>ความหมาย</th></tr></thead><tbody>
+<tr><td>10 ปี</td><td>58.5%</td><td>แทบเป็นกรณีพิเศษ ต้องโตและ execute ระดับสุดยอด</td></tr>
+<tr><td>15 ปี</td><td>35.9%</td><td>ยังสูงมากและยากจะรักษา</td></tr>
+<tr><td>20 ปี</td><td>25.9%</td><td>เริ่มอยู่ในเขตของ exceptional compounder</td></tr>
+<tr><td>25 ปี</td><td>20.2%</td><td>ใกล้ “แกน” ที่ Mayer ใช้อธิบายพลังของเวลา</td></tr>
+<tr><td>26 ปี</td><td>19.4%</td><td>ใกล้เวลาเฉลี่ย/มัธยฐานของชุดศึกษา</td></tr>
+<tr><td>30 ปี</td><td>16.6%</td><td>ไม่หวือหวา แต่เปลี่ยนชีวิตได้ถ้าทำได้นาน</td></tr>
+</tbody></table>
+<div class="framework"><strong>Mental Model: Duration beats intensity</strong><br>นักลงทุนมักถาม “บริษัทโตเร็วแค่ไหน?” แต่ Mayer บังคับให้เราถาม “บริษัทโตได้นานแค่ไหน?” เพราะ growth 40% ที่หมดใน 3 ปีอาจด้อยกว่า growth 18% ที่ยืนได้ 20 ปี</div>
+<h2>จุดที่คนมักพลาด</h2>
+<ul>
+<li><strong>ขายเร็วเพราะกำไรเยอะแล้ว:</strong> compounding ช่วงท้ายสร้างมูลค่ามหาศาลกว่าช่วงต้น เพราะฐานใหญ่ขึ้น</li>
+<li><strong>หมกมุ่นกับ 12 เดือน:</strong> ถ้า thesis ต้องอาศัย 15 ปี การเปลี่ยน P/E ใน 6 เดือนแทบไม่ใช่สาระหลัก</li>
+<li><strong>คาดหวังเส้นตรง:</strong> ธุรกิจจริงเจอ recession, capex cycle, product failure และ drawdown; เส้นทางที่ดีไม่จำเป็นต้องเรียบ</li>
+</ul>
+</section>
+
+<section class="page" id="twin">
+<div class="eyebrow">Part 3 · Twin Engines</div><h1>เครื่องยนต์คู่: Earnings Growth × Multiple</h1>
+<p>Mayer ใช้คำว่า <strong>twin engines</strong> เพื่ออธิบายว่าหุ้นที่ขึ้นมหาศาลมักได้แรงจากสองด้านพร้อมกัน: ธุรกิจสร้างกำไรต่อหุ้นมากขึ้น และตลาดยอมให้ multiple สูงขึ้นเมื่อคุณภาพ/ความแน่นอนถูกพิสูจน์</p>
+<div class="grid">
+<div class="card"><div class="num">40×</div><h3>Engine 1 — EPS</h3><p>ถ้า EPS โต 40 เท่าในระยะยาว บริษัทสร้างเครื่องยนต์เชิงธุรกิจได้จริง</p></div>
+<div class="card"><div class="num">2.5×</div><h3>Engine 2 — Multiple</h3><p>ถ้า P/E ขยายจาก 12x → 30x จะเพิ่มอีก 2.5 เท่า รวมเป็น 100x</p></div>
+</div>
+<p>แต่เราควบคุม multiple ไม่ได้ ดังนั้น <strong>อย่าสร้าง thesis โดยหวัง re-rating เป็นหลัก</strong> งานของเราคือซื้อธุรกิจที่สามารถโตมูลค่าภายในได้มากพอ โดยให้ valuation เป็น “ลมส่ง” ไม่ใช่เครื่องยนต์หลัก</p>
+<div class="warning"><strong>กับดัก:</strong> หุ้นโตไม่ใช่ 100-bagger โดยอัตโนมัติ หากซื้อแพงเกินไป การหดตัวของ multiple สามารถกินผลจากกำไรโตหลายปีได้</div>
+</section>
+
+<section class="page" id="sqglp">
+<div class="eyebrow">Part 4 · SQGLP</div><h1>SQGLP: แผนที่หา candidate ไม่ใช่สูตรสำเร็จ</h1>
+<table><thead><tr><th>ตัวอักษร</th><th>ความหมาย</th><th>คำถามที่เราต้องตอบ</th></tr></thead><tbody>
+<tr><td><strong>S — Size</strong></td><td>ขนาดเริ่มต้นไม่ใหญ่เกินไป</td><td>บริษัทสามารถโต 5–10 เท่าแล้วยังไม่ชนเพดานตลาดหรือไม่?</td></tr>
+<tr><td><strong>Q — Quality</strong></td><td>คุณภาพธุรกิจ + คุณภาพผู้บริหาร</td><td>ROIC/ROCE สูงจริงหรือเพราะ cycle? ลูกค้ารักหรือแค่ถูก?</td></tr>
+<tr><td><strong>G — Growth</strong></td><td>กำไร/FCF/เศรษฐศาสตร์หน่วยธุรกิจเติบโต</td><td>Growth มาจาก volume, price, margin, M&A หรือ leverage?</td></tr>
+<tr><td><strong>L — Longevity</strong></td><td>คุณภาพและ growth อยู่ได้นาน</td><td>Runway 10 ปีมีหลักฐานอะไร? TAM ใหญ่พอหรือไม่?</td></tr>
+<tr><td><strong>P — Price</strong></td><td>ราคาที่เปิดโอกาสให้ผลตอบแทนดี</td><td>ถ้า multiple ไม่ขยายเลย เรายังได้ผลตอบแทนที่ดีไหม?</td></tr>
+</tbody></table>
+<p><strong>ประเด็นที่สำคัญที่สุดคือ L</strong> เพราะบริษัทจำนวนมากมี Q และ G ชั่วคราว แต่ 100x ต้องการ Q และ G ที่มีอายุยืน ความได้เปรียบที่ decay ช้าจึงมีค่ามากกว่าการเติบโตที่ดังแต่สั้น</p>
+</section>
+
+<section class="page" id="reinvest">
+<div class="eyebrow">Part 5 · Reinvestment</div><h1>Reinvestment: หัวใจที่ลึกกว่าคำว่า “บริษัทดี”</h1>
+<p>มุมมองของ Mayer ในบทสัมภาษณ์ภายหลังชัดมากว่า นักลงทุนจำนวนมากเข้าใจ “quality” แต่ยังประเมิน <strong>reinvestment opportunity</strong> ต่ำเกินไป บริษัท A และ B อาจมี ROIC 25% เท่ากัน แต่ถ้า A ลงทุนซ้ำได้เพียง 20% ของกำไร ส่วน B ลงทุนซ้ำได้ 80% ด้วย incremental ROIC ใกล้เคียงเดิม B มีเครื่องจักร compounding ที่ทรงพลังกว่ามาก</p>
+<div class="framework"><strong>Core Equation (ฉบับใช้งาน)</strong><br>
+ประมาณการ growth ทางเศรษฐศาสตร์ ≈ <strong>Reinvestment Rate × Incremental Return on Capital</strong><br>
+ไม่ใช่สูตรทำนายราคาหุ้น แต่เป็นเลนส์ตรวจว่า “เงินก้อนถัดไป” สร้างการเติบโตได้จริงหรือไม่</div>
+<h2>เราต้องตามอะไร</h2>
+<ul class="check">
+<li>Incremental ROIC ของเงินลงทุนใหม่ ไม่ใช่ ROIC เฉลี่ยย้อนหลังอย่างเดียว</li>
+<li>จำนวนสาขา/ลูกค้า/หน่วยธุรกิจที่ยังเปิดเพิ่มได้โดย unit economics ไม่ลดลง</li>
+<li>โอกาส M&A ที่มีวินัยและ repeatable ไม่ใช่ซื้อเพื่อโตยอดขาย</li>
+<li>การลดทุนหมุนเวียนหรือเพิ่ม asset turns ที่ทำให้โตโดยใช้ทุนต่ำลง</li>
+<li>การใช้ FCF: reinvest, acquire, buyback, dividend — ลำดับความสำคัญสมเหตุสมผลหรือไม่</li>
+</ul>
+<h2>Capital Allocation Ladder</h2>
+<ol>
+<li><strong>Reinvest ใน core business</strong> ถ้า incremental return สูงและ runway ยาว</li>
+<li><strong>ซื้อกิจการ</strong> ถ้ามี edge ในการซื้อ/บูรณาการ และ return หลังดีลสูงกว่าต้นทุนทุน</li>
+<li><strong>Buyback</strong> เมื่อหุ้นต่ำกว่ามูลค่าที่สมเหตุสมผล และลด share count จริง</li>
+<li><strong>Dividend</strong> เมื่อไม่มีโครงการที่ให้ผลตอบแทนดีพอ — ไม่ใช่ความล้มเหลว แต่แปลว่า compounding runway สั้นลง</li>
+</ol>
+</section>
+
+<section class="page" id="people">
+<div class="eyebrow">Part 6 · People</div><h1>Owner-Operators, Culture & Capital Allocation</h1>
+<p>Mayer ให้ความสำคัญกับ owner-operator เพราะคนที่มีเงินและชื่อเสียงผูกกับกิจการมี incentive คิดข้ามไตรมาสได้ง่ายกว่า แต่เราควรใช้เป็น <strong>starting hypothesis</strong> ไม่ใช่ automatic buy signal</p>
+<div class="grid">
+<div class="card"><h3>สิ่งที่อยากเห็น</h3><ul><li>ถือหุ้นจำนวนมีนัยสำคัญและสร้าง wealth จากหุ้น ไม่ใช่เงินเดือน</li><li>สื่อสารตรง ไม่แต่ง narrative ทุกไตรมาส</li><li>ยอมเสียกำไรระยะสั้นเพื่อเพิ่ม moat ระยะยาว</li><li>มีประวัติ allocate capital อย่างมีวินัย</li><li>วัฒนธรรมองค์กรกระจายการตัดสินใจได้โดยไม่สูญเสีย control</li></ul></div>
+<div class="card"><h3>สิ่งที่ต้องระวัง</h3><ul><li>Founder entrenchment / related-party transactions</li><li>ซื้อกิจการเพื่อ empire building</li><li>ใช้ stock compensation สูงแต่พูดเรื่อง ownership</li><li>เปลี่ยน KPI เพื่อซ่อน deterioration</li><li>ควบคุมบริษัทโดยไม่เคารพ minority shareholders</li></ul></div>
+</div>
+<h2>คำถามที่ควรถามผู้บริหาร</h2>
+<p>แทนที่จะถาม “ปีนี้ guidance เท่าไร?” ให้ถามคำถามระดับโครงสร้าง เช่น <strong>“อะไรคือสิ่งที่คู่แข่งทำได้ยากที่สุดในการเลียนแบบเรา?”</strong>, “เงิน 100 บาทถัดไปจะถูกลงทุนตรงไหน?”, “ถ้าห้ามทำ acquisition 5 ปี เรายังโตได้อย่างไร?”, “สิ่งใดในธุรกิจที่วันนี้ดูดี แต่ถ้าขยาย 5 เท่าจะพัง?”</p>
+</section>
+
+<section class="page" id="moat">
+<div class="eyebrow">Part 7 · Moat & Runway</div><h1>Moat ไม่พอ — ต้องมี Runway</h1>
+<p>บริษัทที่มี moat แต่ตลาดอิ่มตัวอาจสร้างผลตอบแทนดีแต่ไม่ถึง 100x ในทางกลับกัน ตลาดใหญ่แต่ไม่มี moat มักดึงคู่แข่งเข้ามาแล้วผลตอบแทนบนทุนลดลง ดังนั้นต้องมีทั้ง <strong>defensibility + reinvestment runway</strong></p>
+<table><thead><tr><th>Moat</th><th>หลักฐานที่ควรหา</th><th>คำถามเรื่อง Runway</th></tr></thead><tbody>
+<tr><td>Network effects</td><td>Retention, density, liquidity, take rate</td><td>ตลาดใหม่ยังสร้าง network ซ้ำได้หรือไม่?</td></tr>
+<tr><td>Switching costs</td><td>Churn ต่ำ, integration ลึก, mission-critical</td><td>ลูกค้าเพิ่ม wallet share ได้อีกเท่าไร?</td></tr>
+<tr><td>Scale economics</td><td>ต้นทุน/หน่วยลดลง, procurement edge</td><td>เมื่อใหญ่ขึ้น diseconomies เริ่มตรงไหน?</td></tr>
+<tr><td>Brand / mindshare</td><td>Pricing power, organic traffic, repeat rate</td><td>แบรนด์เดินทางข้าม category/geography ได้ไหม?</td></tr>
+<tr><td>Process / culture</td><td>ROIC ซ้ำได้ข้ามทีม/ภูมิภาค</td><td>ระบบขยายโดยไม่ต้องพึ่ง founder ทุกดีลหรือไม่?</td></tr>
+</tbody></table>
+<div class="framework"><strong>Runway Test:</strong> ถ้าบริษัทโตยอดขาย 5 เท่าใน 10 ปี บริษัทจะกินส่วนแบ่งตลาดเท่าไร? ถ้าคำตอบต้องครอง 80–90% ของตลาดปัจจุบัน thesis อาจต้องพึ่ง TAM expansion ที่เรายังไม่ได้พิสูจน์</div>
+</section>
+
+<section class="page" id="valuation">
+<div class="eyebrow">Part 8 · Price</div><h1>ราคาสำคัญ — แต่ 100-bagger ไม่ได้แปลว่า “ซื้อ P/E ต่ำ”</h1>
+<p>ข้อมูลย้อนหลังของ Mayer เตือนว่า candidate ที่ยอดเยี่ยมจำนวนมากไม่ได้ดู “ถูก” จากสถิติอดีต จุดสำคัญคือราคาต้อง <strong>favorable relative to future economics</strong> ไม่ใช่ต่ำเมื่อเทียบกับค่าเฉลี่ยตลาดอย่างเดียว</p>
+<h2>สามวิธีคิดราคาแบบ Mayer Lens</h2>
+<ol>
+<li><strong>No multiple expansion case:</strong> ถ้า P/E อีก 10 ปีเท่าเดิม ผลตอบแทนจาก EPS growth เพียงพอไหม?</li>
+<li><strong>Expectation test:</strong> ราคาวันนี้กำลังสมมติ growth/margin/runway เท่าไร? เรามีเหตุผลจะคิดต่างตรงไหน?</li>
+<li><strong>Downside of disappointment:</strong> ถ้า growth ช้ากว่าคาด 30% และ multiple ลด 30% เรารับได้ไหม?</li>
+</ol>
+<div class="warning"><strong>อย่าตกหลุม “quality at any price”.</strong> บริษัทดีมากสามารถเป็นการลงทุนแย่มากหากราคาเริ่มต้นฝังอนาคตที่สมบูรณ์แบบเกินไป</div>
+</section>
+
+<section class="page" id="coffee">
+<div class="eyebrow">Part 9 · Behavior</div><h1>Coffee-Can Portfolio: เครื่องมือป้องกันเราเอง</h1>
+<p>แนวคิด Coffee Can ที่ Mayer นำมาใช้ไม่ได้หมายถึง “ซื้อแล้วห้ามดูงบ” แต่หมายถึงการสร้างโครงสร้างที่ลดพฤติกรรมทำลาย compounding: ขายเพราะข่าว, rebalance ผู้ชนะลงตลอด, หรือหมุนไปหุ้นใหม่เพียงเพราะรู้สึกว่าตัวเดิมแพง</p>
+<div class="grid">
+<div class="card"><h3>สิ่งที่ Coffee Can ช่วย</h3><ul><li>ลด decision frequency</li><li>ให้ winner โตจนมีผลต่อพอร์ตจริง</li><li>ลดภาษี/ต้นทุนการซื้อขายในระบบที่เกี่ยวข้อง</li><li>บังคับ horizon ให้ตรงกับธุรกิจ</li></ul></div>
+<div class="card"><h3>สิ่งที่ Coffee Can ไม่ได้อนุญาต</h3><ul><li>ละเลย fraud หรือ governance</li><li>เมิน structural disruption</li><li>ใช้ “long term” เป็นข้ออ้างไม่ยอมรับ thesis ผิด</li><li>เฉลี่ยขาลงโดยไม่ตรวจ economics</li></ul></div>
+</div>
+<h2>Behavioral Contract ก่อนซื้อ</h2>
+<ul class="check"><li>ฉันยอมรับ drawdown 30–50% ได้หรือไม่ ถ้า operating thesis ยังอยู่?</li><li>ฉันรู้ metric 3–5 ตัวที่จะบอกว่า thesis “พังจริง” หรือยัง?</li><li>ฉันจะไม่ขายเพราะ P/E ขยับเพียงอย่างเดียวโดยไม่มี deterioration หรือไม่?</li><li>ฉันเข้าใจว่าการถือ 15 ปีมีข่าวร้ายหลายรอบเป็นเรื่องปกติหรือไม่?</li></ul>
+</section>
+
+<section class="page" id="portfolio">
+<div class="eyebrow">Part 10 · Portfolio Construction</div><h1>Concentration, Kelly & Conviction</h1>
+<p>ถ้าเราพบหุ้นที่มี upside asymmetry สูง แต่ใส่เพียง 0.5% พอร์ต ต่อให้มันขึ้น 100x ผลต่อพอร์ตอาจไม่เปลี่ยนชีวิต หนังสือจึงพาไปแตะเรื่อง Kelly และการลงเงินให้มีนัยสำคัญ ขณะเดียวกัน full Kelly ในโลกที่ probability estimate ผิดง่ายนั้นอันตราย</p>
+<div class="framework"><strong>Application Rule:</strong> ใช้ “fractional Kelly mindset” มากกว่าสูตรเป๊ะ — ขนาด position เพิ่มตาม (1) คุณภาพ economics (2) ความยาว runway (3) ความสามารถประเมิน downside (4) ความน่าเชื่อถือ management และลดลงตาม uncertainty, leverage, cyclicality และ governance risk</div>
+<p>ในการบริหารเงินจริง Mayer ปัจจุบันใช้พอร์ตเข้มข้นมาก (มีการกล่าวถึงราว 11 holdings ในบทสัมภาษณ์) แต่นี่เป็นบริบทของกองทุนและฐานความรู้ของเขา ไม่ใช่จำนวนหุ้นสากลที่ทุกคนควรลอก</p>
+<h2>ตำแหน่งใหญ่ต้องมีเหตุผลใหญ่</h2>
+<ul><li>เราเข้าใจธุรกิจมากกว่าข้อมูล surface จริงหรือไม่?</li><li>หากหุ้นลง 50% เราจะรู้ไหมว่า “ถูกลง” หรือ “thesis พัง”?</li><li>มี debt/refinancing risk ที่สามารถบังคับให้ขายในเวลาผิดหรือไม่?</li><li>ความเสียหายถาวร (permanent loss) มีรูปแบบใดบ้าง?</li></ul>
+</section>
+
+<section class="page" id="buyback">
+<div class="eyebrow">Part 11 · Share Count</div><h1>Buybacks: เครื่องเร่ง EPS ที่ดีเฉพาะเมื่อทำถูก</h1>
+<p>Buyback มีพลังเมื่อบริษัทซื้อหุ้นต่ำกว่ามูลค่าและ <strong>จำนวนหุ้นสุทธิลดจริง</strong> การประกาศวงเงินซื้อคืนไม่พอ หาก stock-based compensation ออกหุ้นใหม่เท่ากัน ผู้ถือหุ้นแทบไม่ได้อะไร</p>
+<table><thead><tr><th>Buyback ที่สร้างมูลค่า</th><th>Buyback ที่น่าสงสัย</th></tr></thead><tbody>
+<tr><td>ซื้อเมื่อ valuation ต่ำ/สมเหตุสมผล</td><td>ซื้อแพงเพื่อดัน EPS ระยะสั้น</td></tr>
+<tr><td>ใช้ FCF หลังลงทุนโครงการที่ ROIC สูงแล้ว</td><td>กู้หนี้มากเพื่อซื้อหุ้น</td></tr>
+<tr><td>share count ลดอย่างต่อเนื่อง</td><td>offset dilution เท่านั้น</td></tr>
+<tr><td>ผู้บริหารอธิบาย capital allocation logic ชัด</td><td>เปลี่ยน policy ตามราคาหุ้น/แรงกดดันตลาด</td></tr>
+</tbody></table>
+</section>
+
+<section class="page" id="crisis">
+<div class="eyebrow">Part 12 · Crisis</div><h1>วิกฤตไม่ได้ยกเลิก 100-bagger thesis — แต่มันตรวจคุณภาพ</h1>
+<p>เส้นทางหลายสิบปีหลีกเลี่ยง recession, crash และความกลัวไม่ได้ บทเรียนสำคัญจึงไม่ใช่ทำนายทุกวิกฤต แต่เลือกธุรกิจและ balance sheet ที่สามารถผ่านวิกฤตโดยไม่ต้องเพิ่มทุนในราคาถูกหรือเสีย moat</p>
+<h2>Survival Checklist</h2>
+<ul class="check"><li>Net debt / FCF อยู่ระดับใด?</li><li>หนี้ครบกำหนดกระจุกตัวเมื่อไร?</li><li>ถ้ารายได้ลด 30% ยัง covenant-safe หรือไม่?</li><li>gross margin / contribution margin ให้ buffer แค่ไหน?</li><li>ธุรกิจจำเป็นต่อ customer workflow หรือเป็น discretionary spend?</li><li>วิกฤตทำให้คู่แข่งอ่อนแอลงจนเรา gain share ได้หรือไม่?</li></ul>
+<div class="quote">ในเกม 100-bagger “อยู่รอด” ไม่ใช่เป้าหมายต่ำ — มันคือเงื่อนไขก่อนที่ compounding จะมีเวลาได้ทำงาน</div>
+</section>
+
+<section class="page" id="chapters">
+<div class="eyebrow">Part 13 · Chapter Map</div><h1>ตกผลึก 15 บทของหนังสือ</h1>
+<table><thead><tr><th>บท</th><th>แก่นที่หนังสือต้องการส่ง</th><th>แปลเป็นการใช้งาน</th></tr></thead><tbody>
+<tr><td>1 — Introducing 100-Baggers</td><td>100x ไม่ใช่เรื่องจินตนาการ มีรูปแบบที่ศึกษาได้</td><td>เริ่มจากเชื่อว่าผลตอบแทนยาวมี distribution แบบ power law; winner ไม่กี่ตัวสำคัญมาก</td></tr>
+<tr><td>2 — Anybody Can Do This</td><td>ความได้เปรียบไม่ได้มาจาก degree แต่จาก patience และ discipline</td><td>ลด complexity; อ่านธุรกิจให้ขาดแทนการทำนาย macro ทุกสัปดาห์</td></tr>
+<tr><td>3 — Coffee-Can Portfolio</td><td>การ “ไม่ทำ” สามารถเป็น edge</td><td>สร้าง hold rules ก่อน buy rules</td></tr>
+<tr><td>4 — Studies of 100-Baggers</td><td>หลายการศึกษาชี้ไปทาง growth + quality + longevity + price</td><td>ใช้ SQGLP เป็น search map</td></tr>
+<tr><td>5 — 100-Baggers of the Last 50 Years</td><td>ผู้ชนะมีหลายอุตสาหกรรม; ขนาดเริ่มต้นมักไม่ใหญ่</td><td>อย่าจำกัด screen ด้วย sector stereotype</td></tr>
+<tr><td>6 — The Key to 100-Baggers</td><td>Growth ต้องใหญ่และอยู่นาน</td><td>วิเคราะห์ growth architecture ไม่ใช่แค่ CAGR ย้อนหลัง</td></tr>
+<tr><td>7 — Owner-Operators</td><td>Skin in the game เปลี่ยน time horizon</td><td>ทำ incentive map ของผู้บริหาร</td></tr>
+<tr><td>8 — The Best CEOs</td><td>คนและ capital allocation สามารถเป็น moat</td><td>ศึกษาประวัติการใช้เงิน 5–10 ปี</td></tr>
+<tr><td>9 — Secrets of an 18,000-Bagger</td><td>สุดยอดผลตอบแทนเกิดจาก compounding ที่ยาวมาก</td><td>คิด decade-scale และอย่าตัด winner เร็ว</td></tr>
+<tr><td>10 — Kelly’s Heroes</td><td>ไอเดียดีต้องมีขนาดในพอร์ต</td><td>ใช้ conviction ที่มี evidence ไม่ใช่ความมั่นใจส่วนตัว</td></tr>
+<tr><td>11 — Stock Buybacks</td><td>share count มีผลต่อ per-share compounding</td><td>ติดตาม diluted shares ไม่ใช่แค่ headline buyback</td></tr>
+<tr><td>12 — Keep Competitors Out</td><td>Moat ทำให้ return on capital ยืนได้นาน</td><td>หาหลักฐานเชิงพฤติกรรมของลูกค้า/คู่แข่ง</td></tr>
+<tr><td>13 — Miscellaneous Mentation</td><td>ไม่มีสูตรเดียว; ต้องใช้ judgment และกรอง noise</td><td>สร้าง checklist แต่ไม่ให้ checklist แทนการคิด</td></tr>
+<tr><td>14 — Next Great Depression</td><td>โอกาสยังมีแม้ในวิกฤต; survival สำคัญ</td><td>stress test balance sheet ก่อนคิด upside</td></tr>
+<tr><td>15 — Essential Principles</td><td>ย่อทั้งหมดเป็น growth, quality, time, price, patience</td><td>ทำ process ที่ทำซ้ำได้และเป็น reluctant seller</td></tr>
+</tbody></table>
+</section>
+
+<section class="page" id="os">
+<div class="eyebrow">Part 14 · Application</div><h1>Mayer Operating System — Workflow ใช้กับหุ้นจริง</h1>
+<p class="lead">ส่วนนี้เป็น <strong>Synthesis/Application</strong> ที่สร้างขึ้นจากแก่นของ Mayer เพื่อให้เรามีขั้นตอนตั้งแต่เจอไอเดียจนถึงถือยาว</p>
+<h2>Stage 1 — Hunt: หาในที่ที่มีโอกาสเกิด compounding</h2>
+<ul><li>ธุรกิจที่ยังมีตลาดแตกกระจายและบริษัทมี share ต่ำ</li><li>ธุรกิจ recurring / repeat purchase / mission-critical</li><li>founder/family/owner-operator ที่มี track record</li><li>serial acquirer ที่มี acquisition discipline พิสูจน์แล้ว</li><li>บริษัทที่ ROIC สูง + reinvestment rate สูง</li><li>บริษัทที่รายได้โตจาก unit economics ที่ดีขึ้น ไม่ใช่ leverage อย่างเดียว</li></ul>
+<h2>Stage 2 — Kill Fast: ตัดสิ่งที่ไม่มีทางเป็น 100-bagger</h2>
+<ul><li>ตลาดปลายทางแทบไม่โตและบริษัทใหญ่จนไม่มี runway</li><li>capital intensity สูงแต่ incremental return ต่ำ</li><li>balance sheet สามารถฆ่าบริษัทได้ก่อน thesis มีเวลา</li><li>management ไม่ไว้ใจได้ / related party สูง</li><li>growth พึ่ง dilution หรือ M&A ที่ไม่มี discipline</li></ul>
+<h2>Stage 3 — Map the Compounding Engine</h2>
+<p>เขียน chain ให้ได้ในหนึ่งบรรทัด:</p>
+<div class="framework"><strong>ลูกค้าเพิ่ม/ใช้มากขึ้น → Revenue ↑ → Operating leverage/Unit economics ↑ → FCF ↑ → Reinvest ที่ IRR สูง → Capacity/TAM/Products ↑ → EPS/share ↑ → ทำซ้ำ</strong></div>
+<h2>Stage 4 — Quantify the Runway</h2>
+<ul><li>5-year revenue capacity</li><li>Incremental margin</li><li>Incremental ROIC</li><li>Reinvestment rate</li><li>Market share implied at year 5 / 10</li><li>Share count trend</li></ul>
+<h2>Stage 5 — Underwrite the People</h2>
+<ul><li>ownership % และ wealth concentration</li><li>ประวัติ M&A / buyback / dividend / debt</li><li>คำพูดเทียบกับการกระทำ</li><li>การจัดการวิกฤตที่ผ่านมา</li><li>วัฒนธรรม: centralization vs decentralization</li></ul>
+<h2>Stage 6 — Price & Position</h2>
+<ul><li>Base case แบบ multiple คงที่</li><li>Bear case แบบ growth และ margin ช้าลง</li><li>Position size ตาม quality × evidence × downside</li></ul>
+<h2>Stage 7 — Hold by Thesis, Not by Price</h2>
+<p>ตรวจ quarterly เฉพาะตัวแปรธุรกิจที่สำคัญ แต่ให้ decision horizon ยาวกว่ารอบรายงาน</p>
+</section>
+
+<section class="page" id="scorecard">
+<div class="eyebrow">Part 15 · Scorecard</div><h1>100-Bagger Scorecard — 100 คะแนน</h1>
+<div class="warning"><strong>นี่ไม่ใช่ scorecard ที่ Mayer ตีพิมพ์</strong> แต่เป็นเครื่องมือสังเคราะห์เพื่อบังคับให้เราตรวจแก่นของแนวคิดอย่างครบถ้วน</div>
+<table><thead><tr><th>หมวด</th><th>น้ำหนัก</th><th>เกณฑ์</th></tr></thead><tbody>
+<tr><td>Reinvestment Runway</td><td><span class="score">20</span></td><td>ลงทุนซ้ำได้มากและนาน; incremental return สูง</td></tr>
+<tr><td>Business Quality / ROIC</td><td><span class="score">15</span></td><td>return สูงเพราะ economics จริง ไม่ใช่ leverage/cycle</td></tr>
+<tr><td>Growth Architecture</td><td><span class="score">15</span></td><td>หลาย growth vectors, unit economics ไม่เสื่อม</td></tr>
+<tr><td>Capital Allocation</td><td><span class="score">10</span></td><td>ประวัติใช้เงินสร้างมูลค่า</td></tr>
+<tr><td>Owner / Management</td><td><span class="score">10</span></td><td>skin in game + integrity + long-term mindset</td></tr>
+<tr><td>Moat / Culture</td><td><span class="score">10</span></td><td>ข้อได้เปรียบยืดอายุ ROIC</td></tr>
+<tr><td>Market Runway / Size</td><td><span class="score">8</span></td><td>ขนาดยังเล็กเมื่อเทียบกับ opportunity</td></tr>
+<tr><td>Valuation</td><td><span class="score">7</span></td><td>ไม่ต้องพึ่ง multiple expansion เพื่อได้ return ดี</td></tr>
+<tr><td>Balance Sheet / Survival</td><td><span class="score">3</span></td><td>ไม่มี forced-financing risk</td></tr>
+<tr><td>Per-share Discipline</td><td><span class="score">2</span></td><td>dilution ต่ำ / buyback มีเหตุผล</td></tr>
+</tbody></table>
+<h2>Interpretation</h2>
+<ul><li><strong>85–100:</strong> Exceptional candidate — ควรทำ deep research และ valuation</li><li><strong>70–84:</strong> Compounder candidate — ยังมีหนึ่งหรือสองจุดต้องพิสูจน์</li><li><strong>55–69:</strong> Good company ≠ great 100-bagger candidate</li><li><strong>&lt;55:</strong> thesis ต้องพึ่ง luck, multiple หรือ cycle มากเกินไป</li></ul>
+</section>
+
+<section class="page" id="monitor">
+<div class="eyebrow">Part 16 · Holding</div><h1>Holding Dashboard: เราจะรู้ได้อย่างไรว่า “ยังควรถือต่อ”</h1>
+<table><thead><tr><th>ติดตามทุกไตรมาส/ครึ่งปี</th><th>สัญญาณดี</th><th>สัญญาณพัง</th></tr></thead><tbody>
+<tr><td>Revenue engine</td><td>ลูกค้า/volume/price mix เดินตาม thesis</td><td>ต้องใช้ promotion มากขึ้นเพื่อรักษา growth</td></tr>
+<tr><td>Incremental margin</td><td>scale ทำให้ economics ดีขึ้น</td><td>โตแต่ margin หดถาวร</td></tr>
+<tr><td>ROIC / reinvestment</td><td>เงินก้อนใหม่ให้ return สูง</td><td>โตด้วย capex/M&A ที่ return ลดลง</td></tr>
+<tr><td>Market share / runway</td><td>share เพิ่มโดย TAM ยังใหญ่</td><td>เริ่มชน saturation</td></tr>
+<tr><td>Management behavior</td><td>allocate capital ตามหลักเดิม</td><td>empire building / dilution / leverage</td></tr>
+<tr><td>Moat</td><td>retention/pricing power ยืน</td><td>churn, CAC, competition deteriorate</td></tr>
+</tbody></table>
+<h2>Sell Rules — เป็น reluctant seller แต่ไม่ใช่ blind holder</h2>
+<ol>
+<li><strong>Thesis break:</strong> สิ่งที่ทำให้ incremental return สูงหายไปอย่างถาวร</li>
+<li><strong>Allocator break:</strong> management เปลี่ยนจากสร้างมูลค่าเป็นทำลายมูลค่า</li>
+<li><strong>Governance break:</strong> ความเชื่อถือทางบัญชี/ผู้ถือหุ้นส่วนน้อยเสีย</li>
+<li><strong>Runway collapse:</strong> ตลาดอิ่มตัวเร็วกว่าที่ underwrite และไม่มี growth vector ใหม่</li>
+<li><strong>Balance-sheet risk:</strong> leverage ทำให้ compounding ถูกบังคับหยุด</li>
+<li><strong>Valuation extreme:</strong> ใช้เป็นเหตุขายเมื่อราคาฝังอนาคตแทบเป็นไปไม่ได้ และมีทางเลือกที่ดีกว่าหลังคิด tax/transaction cost — ไม่ใช่เพราะ “P/E สูงกว่าค่าเฉลี่ย” อย่างเดียว</li>
+</ol>
+</section>
+
+<section class="page" id="example">
+<div class="eyebrow">Part 17 · Worked Example</div><h1>ตัวอย่างบริษัทสมมติ: จาก “หุ้นโต” สู่ “100-bagger candidate”</h1>
+<p><strong>บริษัท AlphaServe</strong> ทำซอฟต์แวร์เฉพาะทางให้ SME มี recurring revenue 90%, gross margin 75%, ROIC 28%, revenue โต 22%, founder ถือ 18%, TAM ปัจจุบัน 20 เท่าของรายได้บริษัท และมีโอกาส cross-sell product ใหม่</p>
+<h2>วิเคราะห์แบบทั่วไป</h2><p>“รายได้โตดี margin สูง P/E 35x แพงไป รอ 25x”</p>
+<h2>วิเคราะห์แบบ Mayer Lens</h2>
+<ol>
+<li><strong>Reinvestment:</strong> R&D และ sales reinvestment ให้ incremental ROIC เท่าไร?</li>
+<li><strong>Longevity:</strong> ถ้าโต 20% 10 ปี รายได้ ~6.2x; ตอนนั้น market share เท่าไร? ยัง realistic ไหม?</li>
+<li><strong>People:</strong> founder เคย allocate cash อย่างไร? dilution สูงหรือไม่?</li>
+<li><strong>Moat:</strong> churn ต่ำเพราะ switching cost หรือเพราะคู่แข่งยังไม่มา?</li>
+<li><strong>Price:</strong> ถ้า P/E ปีที่ 10 ลดจาก 35x เหลือ 25x แต่ EPS โต 20% ต่อปี ผลตอบแทนยังน่าสนใจไหม?</li>
+<li><strong>Hold rule:</strong> metric ไหนบอกว่า reinvestment engine พัง? เช่น CAC payback แย่ลงต่อเนื่อง, NRR ต่ำกว่าเกณฑ์, founder เริ่มซื้อกิจการนอกแกน</li>
+</ol>
+<div class="framework"><strong>ความต่าง:</strong> Mayer Lens ไม่ได้บอกให้ซื้อ AlphaServe เพราะเป็น growth stock แต่บังคับให้เราพิสูจน์ว่า growth มี “duration + economics + allocator” ที่พร้อมทบต้น</div>
+</section>
+
+<section class="page" id="limits">
+<div class="eyebrow">Part 18 · Limits</div><h1>ข้อจำกัด: อย่าเปลี่ยน 100 Baggers ให้เป็นศาสนา</h1>
+<h2>1) Hindsight / Selection Bias</h2><p>การศึกษาเริ่มจากบริษัทที่ “สำเร็จแล้ว” จึงเก่งในการบอกลักษณะของผู้ชนะในอดีต แต่ไม่ได้แปลว่าบริษัทที่มีลักษณะเดียวกันวันนี้จะเป็นผู้ชนะทุกตัว</p>
+<h2>2) Multiple Expansion ไม่ใช่สิ่งที่ underwrite ได้</h2><p>twin engines อธิบายอดีตได้ดี แต่การหวัง multiple ขยายในอนาคตทำให้ thesis เปราะ ควรให้ business compounding แบกผลตอบแทนหลัก</p>
+<h2>3) Founder-led ไม่เท่ากับ Governance ดี</h2><p>ตลาดเอเชียมีตัวอย่างครอบครัวควบคุมบริษัทจำนวนมากที่สร้างทั้งคุณค่าและความเสียหาย ต้องเพิ่ม minority-shareholder lens</p>
+<h2>4) Small Cap มี Illiquidity และ Information Risk</h2><p>ขนาดเล็กสร้าง runway แต่เพิ่ม risk เรื่องสภาพคล่อง disclosure, key-person dependence และ financing</p>
+<h2>5) “Hold forever” สามารถกลายเป็น Confirmation Bias</h2><p>เราต้องแยก price volatility ออกจาก business deterioration; อดทนกับอย่างแรก แต่ไม่ควรยึดติดกับอย่างหลัง</p>
+<h2>6) ประเทศและภาษีต่างกัน</h2><p>ประโยชน์จาก tax deferral ที่หนังสือกล่าวถึงขึ้นกับระบบภาษีของนักลงทุนแต่ละประเทศ จึงไม่ควร copy ตัวเลขจากสหรัฐฯ ตรง ๆ</p>
+</section>
+
+<section class="page" id="plan">
+<div class="eyebrow">Part 19 · Practical Applications</div><h1>แผนฝึกคิดแบบ Mayer 30 วัน</h1>
+<h2>✅ Easy Wins — เริ่มวันนี้</h2>
+<ul class="check"><li>เลือกหุ้นที่ถืออยู่ 3 ตัว แล้วเขียน “เงิน 1 บาทที่บริษัทเก็บไว้ถูกนำไปสร้างอะไร?”</li><li>คำนวณ market share implied ถ้ารายได้โต 5 เท่า</li><li>ดู diluted shares outstanding ย้อนหลัง 5 ปี</li><li>เขียน metric 3 ตัวที่ถ้าแย่ลงจะทำให้ thesis พัง</li><li>หยุดดูราคา 1 สัปดาห์ แต่ตาม operating metrics แทน</li></ul>
+<h2>สัปดาห์ 1 — Reinvestment</h2><p>สร้างตาราง 5 ปี: EBIT/FCF, invested capital, capex, acquisitions, buybacks, dividends, share count แล้วหา “return ของเงินก้อนใหม่”</p>
+<h2>สัปดาห์ 2 — People</h2><p>อ่าน annual letter / earnings call 5 ปี แล้วจดทุก capital allocation decision เทียบสิ่งที่ผู้บริหารพูดกับผลจริง</p>
+<h2>สัปดาห์ 3 — Runway</h2><p>ทำ TAM tree: geography × product × customer segment × wallet share หลีกเลี่ยง TAM slide ของบริษัทที่รวมทุกอย่างจนไม่มีความหมาย</p>
+<h2>สัปดาห์ 4 — Hold</h2><p>สร้าง one-page “Coffee Can Contract”: เหตุผลซื้อ, 5 ตัวแปรที่ต้องไม่พัง, สิ่งที่ไม่ใช่เหตุขาย, และเงื่อนไขที่ยอมรับว่าผิด</p>
+<h2>Reflection Questions</h2>
+<ol><li>หุ้นที่ดีที่สุดที่เราเคยขายไป เพราะ “แพง” วันนี้เป็นอย่างไร?</li><li>เราวิเคราะห์ราคามากกว่าความสามารถ reinvest ของบริษัทหรือไม่?</li><li>บริษัทที่เราชอบมี runway จริง หรือเราแค่ extrapolate growth 3 ปีล่าสุด?</li><li>ถ้าไม่มีราคาหุ้นให้ดู 5 ปี เราจะติดตามอะไรเพื่อรู้ว่าธุรกิจดีขึ้นหรือแย่ลง?</li><li>อะไรคือเหตุผลที่ถูกต้องที่สุดในการขายหุ้นผู้ชนะของเรา?</li></ol>
+</section>
+
+<section class="page">
+<div class="eyebrow">Synthesis</div><h1>โมเดลสุดท้าย: 100-Bagger Flywheel</h1>
+<div class="framework" style="font-size:18px;text-align:center;line-height:2.1">
+<strong>Owner-Operator / Culture</strong><br>↓<br>
+<strong>High Return on Capital</strong><br>↓<br>
+<strong>Reinvestment Opportunities</strong><br>↓<br>
+<strong>Growth in Earnings / FCF per Share</strong><br>↓<br>
+<strong>Moat + Runway ยืด Duration</strong><br>↓<br>
+<strong>Time</strong><br>↓<br>
+<strong>Compounding</strong><br>↓<br>
+<strong>Investor ไม่ขายเร็วเกินไป</strong>
+</div>
+<p class="lead">ถ้าต้องจำเพียงหนึ่งคำถามหลังอ่านเอกสารนี้: <strong>“บริษัทนี้เอาเงินที่สร้างได้กลับไปลงทุนด้วยผลตอบแทนสูงได้นานแค่ไหน — และเรามีเหตุผลพอจะถือมันนานเท่านั้นหรือไม่?”</strong></p>
+</section>
+
+<section class="page" id="sources">
+<div class="eyebrow">Sources & Further Reading</div><h1>แหล่งอ้างอิงและอ่านต่อ</h1>
+<ol>
+<li><strong>Christopher W. Mayer — 100 Baggers: Stocks That Return 100-to-1 and How to Find Them</strong> (2015). แหล่งหลักของแนวคิดและข้อมูลชุด 1962–2014.</li>
+<li><a href="https://www.amazon.com/100-Baggers-Stocks-100-1/dp/1621291650">Amazon book description — 100 Baggers</a></li>
+<li><a href="https://www.latticework.com/p/chris-mayer-on-stocks-that-return">Latticework / MOI Global — Chris Mayer on Stocks that Return 100-to-1 (2025)</a></li>
+<li><a href="https://quartr.com/insights/edge/what-investors-get-wrong-chris-mayer-on-dividends-noise-and-the-power-of-reinvestment">Quartr — What Investors Get Wrong: Dividends, Noise, and Reinvestment</a></li>
+<li><a href="https://mebfaber.com/2019/07/17/episode-165-chris-mayer-i-do-think-the-biggest-challengeis-keeping-it-holding-on-to-it/">The Meb Faber Show — Chris Mayer (2019)</a></li>
+<li><a href="https://behindthebalancesheet.com/podcasts-singles/35-the-100-bagger-hunter/">Behind the Balance Sheet — The 100 Bagger Hunter</a></li>
+<li><a href="https://podcasts.apple.com/us/podcast/13-chris-mayer-100-baggers/id1577368197?i=1000547546172">Investing by the Books #13 — Chris Mayer: 100-Baggers</a></li>
+<li><a href="https://www.talkingbillions.co/episodes/episode-20-christopher-mayer">Talking Billions — Christopher W. Mayer (2026)</a></li>
+<li><strong>Thomas Phelps — 100 to 1 in the Stock Market</strong>. งานต้นทางที่เป็นแรงบันดาลใจสำคัญให้ Mayer.</li>
+<li><strong>Motilal Oswal — Wealth Creation Study / 100x framework</strong>. แหล่งของกรอบ SQGLP ที่ Mayer นำมาพูดถึงและเชื่อมกับงานของตน.</li>
+</ol>
+<p class="small">หมายเหตุ: ตัวเลขทางประวัติศาสตร์ใช้เพื่ออธิบายกรอบคิด ไม่ควรตีความเป็นอัตราผลตอบแทนคาดหวังของหุ้นใดหุ้นหนึ่งในอนาคต</p>
+</section>
+
+<footer class="footer"><strong>100 BAGGERS · THE MAYER FIELD MANUAL</strong><br><br>ลงทุนให้เหมือนเจ้าของธุรกิจ · วัด reinvestment · ให้เวลา compounding · และอย่าขายผู้ชนะเพียงเพราะตลาดทำให้เรารู้สึกไม่สบายใจ</footer>
+</main></body></html>
