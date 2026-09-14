@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ปิดคลังให้ครบ — 97 กลยุทธ์ × ตลาดหุ้นไทย: รายงานฉบับสมบูรณ์</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#8A9D7E; --accent-deep:#5F7351; --accent-light:#B5C4A9; --accent-rule:rgba(138,157,126,.30); --accent-bg:rgba(138,157,126,.08);
+  --paper:#F2EFE4; --paper-mid:#EAE5D2; --paper-deep:#DDD7BD; --paper-shadow:#C8C0A0;
+  --ink:#14110B; --ink-soft:#2A261C; --ink-mid:#46402F; --ink-muted:#7C7460; --ink-faint:#ABA48C;
+  --red:#7A1A1A; --red-bg:#FBF3F0; --green:#355E40; --green-bg:#F1F6EE;
+  --book-width:760px; --page-pad-h:76px; --page-pad-v:84px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1A1610;padding:40px 16px;font-family:'Sarabun',sans-serif;color:var(--ink)}
+.book{max-width:var(--book-width);margin:0 auto;background:var(--paper);box-shadow:0 0 0 1px rgba(0,0,0,.10),0 4px 40px rgba(0,0,0,.40),0 0 120px rgba(0,0,0,.25)}
+.page{padding:var(--page-pad-v) var(--page-pad-h);position:relative}
+.eyebrow{font-family:'Sarabun',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-deep);font-weight:700;margin-bottom:12px}
+h1{font-family:'Noto Serif Thai',serif;font-size:30px;font-weight:600;color:var(--ink);line-height:1.35;margin-bottom:18px}
+h2{font-family:'Noto Serif Thai',serif;font-size:20px;font-weight:600;color:var(--ink);line-height:1.4;margin:34px 0 14px}
+h3{font-family:'Noto Serif Thai',serif;font-size:16px;font-weight:600;color:var(--ink-soft);margin:22px 0 10px}
+p{font-family:'Noto Serif Thai',serif;font-size:15.5px;line-height:1.85;color:var(--ink-soft);margin-bottom:14px}
+em{font-style:italic}
+.small{font-size:13px;color:var(--ink-muted)}
+.cover{min-height:88vh;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 48px;background:linear-gradient(175deg,var(--paper) 55%,var(--paper-mid) 100%)}
+.cover-corner{position:absolute;width:56px;height:56px;border-color:var(--accent);border-style:solid;opacity:.7}
+.cc-tl{top:24px;left:24px;border-width:1px 0 0 1px}
+.cc-tr{top:24px;right:24px;border-width:1px 1px 0 0}
+.cc-bl{bottom:24px;left:24px;border-width:0 0 1px 1px}
+.cc-br{bottom:24px;right:24px;border-width:0 1px 1px 0}
+.cover-series{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--accent-deep);font-weight:700;margin-bottom:26px}
+.cover-title{font-family:'Noto Serif Thai',serif;font-size:46px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:10px}
+.cover-title-en{font-family:'Playfair Display',serif;font-style:italic;font-size:21px;color:var(--accent-deep);margin-bottom:30px}
+.cover-rule{width:70px;height:2px;background:var(--accent);margin:0 auto 28px}
+.cover-sub{font-family:'Noto Serif Thai',serif;font-size:15.5px;line-height:1.9;color:var(--ink-mid);max-width:520px;margin-bottom:36px}
+.cover-meta{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-muted);font-weight:600}
+.chapter-open{background:var(--paper-mid);padding:64px var(--page-pad-h);position:relative;overflow:hidden}
+.ch-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent-deep);font-weight:700;margin-bottom:14px}
+.ch-title{font-family:'Noto Serif Thai',serif;font-size:32px;font-weight:700;color:var(--ink);line-height:1.3;max-width:80%}
+.ch-title em{display:block;font-size:17px;font-weight:400;color:var(--ink-muted);margin-top:10px;font-style:italic}
+.ch-essence{margin-top:26px;font-family:'Noto Serif Thai',serif;font-style:italic;font-size:16px;line-height:1.8;color:var(--ink-mid);border-left:3px solid var(--accent);padding-left:18px;max-width:78%}
+.ch-num{position:absolute;right:28px;bottom:-28px;font-family:'Playfair Display',serif;font-style:italic;font-size:150px;color:var(--accent-rule);font-weight:400;line-height:1}
+.insight-box{background:var(--accent-bg);border-left:3px solid var(--accent-deep);padding:20px 24px;margin:26px 0}
+.insight-box .tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--accent-deep);margin-bottom:8px}
+.insight-box p{margin:0;font-size:15px;line-height:1.75}
+.blockquote-full{background:var(--ink);padding:44px 40px;margin:34px -22px;position:relative}
+.blockquote-full p{font-family:'Noto Serif Thai',serif;font-size:18px;line-height:1.9;color:var(--paper);font-style:italic;text-align:center}
+.blockquote-full .en{font-family:'Playfair Display',serif;font-size:14px;color:var(--accent-light);margin-top:14px;text-align:center;font-style:italic}
+.formula-block{background:var(--paper-mid);border:1px solid var(--paper-shadow);border-radius:4px;padding:22px 26px;margin:24px 0;text-align:center}
+.formula-block .fx{font-family:'Noto Serif Thai',serif;font-size:19px;font-weight:600;color:var(--ink)}
+.formula-block .fx-sub{font-size:13.5px;color:var(--ink-muted);margin-top:10px;line-height:1.7}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.stat-cell{background:var(--paper-mid);border-top:2px solid var(--accent);padding:18px 14px;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--accent-deep)}
+.stat-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ink-muted);margin-top:8px;font-weight:600;line-height:1.5}
+.ladder{margin:32px 0}
+.ladder-step{padding:18px 24px}
+.ladder-step.wrong{background:var(--red-bg);border-left:3px solid var(--red)}
+.ladder-step.truth{background:var(--accent-bg);border-left:3px solid var(--accent-deep)}
+.ladder-step.action{background:var(--green-bg);border-left:3px solid var(--green)}
+.ladder-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.ladder-step.wrong .ladder-tag{color:var(--red)} .ladder-step.truth .ladder-tag{color:var(--accent-deep)} .ladder-step.action .ladder-tag{color:var(--green)}
+.ladder-text{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.75;color:var(--ink-soft)}
+.ladder-arrow{text-align:center;padding:6px;color:var(--ink-faint);font-size:20px}
+.ch-card{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--paper-shadow);align-items:flex-start}
+.ch-card-num{font-family:'Playfair Display',serif;font-style:italic;font-size:36px;color:var(--accent);line-height:1;min-width:52px;padding-top:4px}
+.ch-card-title{font-family:'Noto Serif Thai',serif;font-size:16.5px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.ch-card-one-liner{font-family:'Noto Serif Thai',serif;font-size:14px;color:var(--ink-muted);font-style:italic;line-height:1.65}
+.ch-tag{display:inline-block;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:var(--accent-bg);color:var(--accent-deep);padding:3px 8px;margin-right:6px;font-weight:600}
+.chart-block{margin:30px 0;background:#fff;border:1px solid var(--paper-shadow);border-radius:4px;padding:18px 14px 12px}
+.chart-block svg{width:100%;height:auto;display:block}
+.chart-note{font-size:12px;color:var(--ink-muted);line-height:1.6;padding:8px 6px 2px;border-top:1px dashed var(--paper-shadow);margin-top:10px}
+.cmp-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.cmp-table th{font-family:'Sarabun',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:10px 12px;text-align:left;font-weight:600}
+.cmp-table td{padding:11px 12px;border-bottom:1px solid var(--paper-shadow);vertical-align:top;line-height:1.6;font-family:'Noto Serif Thai',serif;color:var(--ink-soft)}
+.cmp-table tr td:first-child{font-weight:600;color:var(--ink)}
+.checklist{margin:24px 0}
+.check-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--paper-shadow);align-items:flex-start}
+.check-box{width:20px;height:20px;border:2px solid var(--accent-deep);flex-shrink:0;margin-top:3px;position:relative}
+.check-text{font-family:'Noto Serif Thai',serif;font-size:15px;line-height:1.7;color:var(--ink-soft)}
+.check-text strong{color:var(--ink)}
+.reflection{background:var(--paper-mid);padding:24px 28px;margin:30px 0}
+.reflection .tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--accent-deep);margin-bottom:12px}
+.reflection p{font-size:14.5px;line-height:1.85;margin-bottom:8px;font-style:italic}
+.signal-box{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0}
+.signal-cell{padding:18px 20px;border-radius:4px}
+.signal-cell.do{background:var(--green-bg);border-left:3px solid var(--green)}
+.signal-cell.dont{background:var(--red-bg);border-left:3px solid var(--red)}
+.signal-head{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.signal-cell.do .signal-head{color:var(--green)} .signal-cell.dont .signal-head{color:var(--red)}
+.signal-cell p{font-size:13.5px;line-height:1.7;margin-bottom:6px}
+.book-footer{background:var(--ink);padding:56px var(--page-pad-h);text-align:center}
+.book-footer-mark{font-family:'Playfair Display',serif;font-style:italic;font-size:32px;color:var(--accent);margin-bottom:16px}
+.book-footer-text{font-family:'Noto Serif Thai',serif;font-size:14px;color:var(--paper-deep);font-style:italic;line-height:1.7;max-width:480px;margin:0 auto 20px}
+.book-footer-author{font-size:11px;color:var(--accent-light);letter-spacing:3px;text-transform:uppercase;font-weight:600}
+.toc-note{font-size:13px;color:var(--ink-muted);font-style:italic;margin-top:20px;line-height:1.7}
+@media(max-width:780px){:root{--page-pad-h:28px;--page-pad-v:56px}body{padding:16px 8px}.ch-num{font-size:96px;right:16px}.stat-row{grid-template-columns:1fr 1fr}.signal-box{grid-template-columns:1fr}.blockquote-full{padding:40px 24px;margin-left:-14px;margin-right:-14px}.cover-title{font-size:34px}.ch-title{font-size:26px;max-width:100%}.ch-essence{max-width:100%}}
+</style>
+</head>
+<body>
+<div class="book">
+
+<div class="cover">
+  <div class="cover-corner cc-tl"></div><div class="cover-corner cc-tr"></div><div class="cover-corner cc-bl"></div><div class="cover-corner cc-br"></div>
+  <div class="cover-series">SET-Quant Research · Batches 3-4 · ฉบับสมบูรณ์</div>
+  <div class="cover-title">ปิดคลังให้ครบ</div>
+  <div class="cover-title-en">97 Strategies × Thai Market: The Final Answer</div>
+  <div class="cover-rule"></div>
+  <div class="cover-sub">เราเอาคลังกลยุทธ์ระดับโลก 97 ตัว มาทดสอบบนตลาดหุ้นไทยอย่างซื่อสัตย์ที่สุด — 400 การทดลอง กติกาเขียนไว้ก่อนเห็นผล และให้ทีมทรมานตรวจทุกด่าน — หนังสือเล่มนี้คือคำตอบฉบับเต็ม: อะไรรอด อะไรตาย ตายเพราะอะไร และแผนเวลาข้างหน้า</div>
+  <div class="cover-meta">Batch 3 · Batch 4 · Track B · 14 กันยายน 2569</div>
+</div>
+
+<div class="page">
+  <div class="eyebrow">Contents · สารบัญ</div>
+  <h1>หนังสือเล่มนี้เล่าอะไร</h1>
+  <div class="ch-card"><div class="ch-card-num">01</div><div class="ch-card-body"><div class="ch-card-title">ล่าความได้เปรียบในตลาดหุ้นไทย</div><div class="ch-card-one-liner">เกมที่เล่นจบแล้ว: 97 กลยุทธ์โลก 400 การทดลอง — เหลือรอดแค่กี่ตัว</div><div style="margin-top:8px"><span class="ch-tag">ภาพใหญ่</span><span class="ch-tag">ตัวเลขจำ</span></div></div></div>
+  <div class="ch-card"><div class="ch-card-num">02</div><div class="ch-card-body"><div class="ch-card-title">ทำไมต้องโหดกับตัวเอง</div><div class="ch-card-one-liner">กติกา 4 ชั้นก่อนเชื่อตัวเลข — และเคสที่มันกันเราหลอกตัวเองได้จริง</div><div style="margin-top:8px"><span class="ch-tag">วิธีพิสูจน์</span><span class="ch-tag">DSR</span></div></div></div>
+  <div class="ch-card"><div class="ch-card-num">03</div><div class="ch-card-body"><div class="ch-card-title">มหกรรมฝังศพ 34 ตัว</div><div class="ch-card-one-liner">เรื่องเล่าจากห้องทดสอบ Batch 4 — แรงแต่โดนกลืน ของเดิมสวมชื่อ และใกล้รอดที่สุด</div><div style="margin-top:8px"><span class="ch-tag">ผลทดลอง</span><span class="ch-tag">กราฟ</span></div></div></div>
+  <div class="ch-card"><div class="ch-card-num">04</div><div class="ch-card-body"><div class="ch-card-title">แปดชีวิตที่เหลือรอด</div><div class="ch-card-one-liner">กลยุทธ์ที่ใช้ได้จริงในไทยทั้งหมด — ตัวเลข เงื่อนไข และสิ่งที่ห้ามลืม</div><div style="margin-top:8px"><span class="ch-tag">กลยุทธ์จริง</span><span class="ch-tag">C2b</span></div></div></div>
+  <div class="ch-card"><div class="ch-card-num">05</div><div class="ch-card-body"><div class="ch-card-title">แผนเวลา 24 เดือน</div><div class="ch-card-one-liner">ข้อมูลใหม่ 2 ชุดที่เริ่มเก็บแล้ววันนี้ — จะปลดล็อคอะไรเมื่อไหร่</div><div style="margin-top:8px"><span class="ch-tag">Time Plan</span><span class="ch-tag">Track B</span></div></div></div>
+  <div class="ch-card"><div class="ch-card-num">06</div><div class="ch-card-body"><div class="ch-card-title">สิ่งที่จำต้องได้</div><div class="ch-card-one-liner">เลข กฎ และเช็คลิสต์ 7 ข้อ ก่อนเชื่อกลยุทธ์ใด ๆ</div><div style="margin-top:8px"><span class="ch-tag">สรุป</span><span class="ch-tag">Checklist</span></div></div></div>
+  <div class="toc-note">ทุกตัวเลขในเล่มนี้มาจาก ledger การทดลองจริง (research/experiments.csv · 400 trials) และไฟล์ผลทุกด่าน — ตรวจย้อนได้ทุกจุด · ข้อมูล 859 หุ้นรวมหุ้นที่พ้นไปแล้ว · ช่วง 2019-2026 · กันมองอนาคตทุกขั้น</div>
+</div>
+
+<div class="chapter-open"><div class="ch-label">บทที่ 01 · Chapter One</div><div class="ch-title">ล่าความได้เปรียบในตลาดหุ้นไทย<em>The Hunt for an Edge — เกมที่เล่นจบแล้ว</em></div><div class="ch-essence">งานวิจัยทั่วโลกอ้างว่ามีกลยุทธ์หุ้นที่ทำเงินได้เกือบร้อยแบบ เราเอามาทดสอบครบทุกตัวบนหุ้นไทยจริง แล้วนับศพ — คำตอบคือ 8 ตัวที่มีชีวิต และไม่มีใครเพิ่มเข้ามาอีกเลยจนคลังปิดครบ</div><div class="ch-num">1</div></div>
+<div class="page">
+  <div class="eyebrow">The Hunt · ความได้เปรียบคืออะไร</div>
+  <h1>ก่อนล่า ต้องรู้ว่ากำลังล่าอะไร</h1>
+  <p>คำที่สำคัญที่สุดของเล่มนี้มีแค่คำเดียว: <strong>edge</strong> หรือ "ความได้เปรียบ" คือสิ่งที่ทำให้คุณชนะคู่แข่งซ้ำ ๆ ได้ด้วยเหตุผลเดิม ไม่ใช่โชคครั้งเดียว ลองนึกถึงร้านผักข้างตลาดที่ของสดกว่าเพื่อน เพราะตื่นตีสามไปรับจากแปลงเอง — เจ้าของ "รู้อะไรก่อนคนอื่น" หรือร้านขายของชำที่ไม่เคยของเน่า เพราะจดยอดขายรายวันแล้วนับสต๊อกจากตัวเลขจริง ไม่ใช่ความรู้สึก — เจ้าของ "รู้วิธีนับเลขที่คนอื่นนับผิด" นี่คือ edge สองแบบทั้งหมดที่โลกนี้มี และตลาดหุ้นก็ไม่ได้มีมากกว่านี้</p>
+  <p>คำถามเดียวที่เราอยากตอบให้จบคือ: edge แบบไหน "มีอยู่จริง" ในตลาดหุ้นไทย — และเราตอบด้วยวิธีเดียวที่ไม่ต้องใช้ความเชื่อ คือเอากลยุทธ์ที่งานวิจัยทั่วโลกทดสอบมาแล้ว มาลองซ้ำกับข้อมูลไทยจริงด้วย backtest (การจำลองซื้อขายย้อนอดีต เพื่อดูว่าถ้าทำจริงจะได้ผลเท่าไร) แบบ point-in-time (ใช้เฉพาะข้อมูลที่บริษัทเปิดเผยต่อสาธารณะแล้ว ณ วันนั้นเท่านั้น กันการแอบดูอนาคต) ตลอดปี 2019–2026 ครอบคลุมหุ้น 859 ตัว รวมตัวที่ถอดออกจากตลาดไปแล้วด้วย — จุดนี้สำคัญ เพราะถ้านับเฉพาะหุ้นที่ยังอยู่ถึงวันนี้ ผลจะสวยเกินจริง เหมือนสำรวจแต่ร้านที่ยังเปิด แล้วสรุปว่าไม่มีครัวไหนพัง ทั้งหมดรวมกันเป็น 66,619 stock-months (stock-month = หุ้นหนึ่งตัว ในหนึ่งเดือน — หน่วยนับพื้นฐานของการทดสอบ)</p>
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-num">97</div><div class="stat-label">กลยุทธ์ในคลังระดับโลก<br>ที่ถูกพิสูจน์ครบทุกตัว</div></div>
+    <div class="stat-cell"><div class="stat-num">859</div><div class="stat-label">หุ้นไทยในการทดสอบ<br>รวมตัวที่ถอดจากตลาดแล้ว</div></div>
+    <div class="stat-cell"><div class="stat-num">66,619</div><div class="stat-label">stock-months<br>หุ้น 1 ตัว × 1 เดือน</div></div>
+  </div>
+  <p>เราไม่ได้เดาเองว่าควรทดสอบอะไร เรารวบรวมงานวิจัยการเงินจากทั่วโลก — หนังสือ งานวิจัยสากล งานเอเชีย งานไทย — แล้วตัดตัวที่เป็น "ของเดียวกันชื่อต่างกัน" ออก เหลือเป็นคลังกลยุทธ์ 97 ตัว ทุกตัวถูกจดสถานะชัดเจนว่าอยู่ช่องไหน: มีชีวิต ตาย หรือติดกำแพง ภาพด้านล่างคือสถานะของคลังทั้งคลังวันนี้</p>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" font-family='Noto Serif Thai',serif><rect width="720" height="260" fill="#FFFFFF"/><text x="360" y="30" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">คลังกลยุทธ์โลก 97 ตัว × ตลาดไทย — สถานะสุดท้าย (ปิดครบทุกแถว)</text><rect x="210" y="58" width="36.28865979381443" height="42" fill="#355E40" rx="3" opacity="0.9"/><text x="256.2886597938144" y="84.0" font-family='Noto Serif Thai',serif font-size="16" fill="#355E40" text-anchor="start" font-weight="600">8</text><text x="198" y="75" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">มีชีวิต</text><text x="198" y="90" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">— ใช้งานได้จริง (มีเงื่อนไข)</text><rect x="210" y="116" width="281.2371134020618" height="42" fill="#7A1A1A" rx="3" opacity="0.9"/><text x="501.2371134020618" y="142.0" font-family='Noto Serif Thai',serif font-size="16" fill="#7A1A1A" text-anchor="start" font-weight="600">62</text><text x="198" y="133" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">ตาย</text><text x="198" y="148" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">— ทดสอบแล้วไม่มีเนื้อในไทย</text><rect x="210" y="174" width="122.47422680412372" height="42" fill="#C9A227" rx="3" opacity="0.9"/><text x="342.4742268041237" y="200.0" font-family='Noto Serif Thai',serif font-size="16" fill="#C9A227" text-anchor="start" font-weight="600">27</text><text x="198" y="191" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">กำแพงข้อมูล/โครงสร้าง</text><text x="198" y="206" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">— ยังทดสอบไม่ได้</text><text x="360" y="236" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">27 ตัวที่ยังไม่ทดสอบ = 15 ข้อมูลไทยไม่มี · 9 โครงสร้างไม่เข้ารายเดือน · 3 กำลังปลดล็อกด้วยข้อมูลใหม่ (Track B)</text><text x="360" y="252" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">สถานะจดครบทุกแถวใน catalog_master.csv — ไม่มีคำว่า “ยังไม่ได้ทดสอบ”ค้างอีกต่อไป</text></svg><div class="chart-note">สถานะจดครบทุกแถวใน research/strategy_catalog/catalog_master.csv (97 แถว)</div></div>
+</div>
+<div class="page">
+  <div class="eyebrow">The Hunt · เกม 400 การทดลอง</div>
+  <h1>นับศพ แล้วจึงเชื่อ</h1>
+  <p>ตลอดโปรแกรมนี้ เราสะสมไว้แล้ว 400 การทดลอง (trial = การทดสอบที่จดบันทึกเป็นหลักฐานทุกครั้ง ผลสวยก็จด ผลน่าอายก็จด — ไม่มีการลบผลที่ไม่ชอบ) ภาพใหญ่ของเกมทั้งเกมเหมือนการล่าที่กรงไล่ลงจากป่ากว้างสู่หุบเขาสู่กับดักเดียว: ผู้สมัครร้อยกว่าตัวถูกคัดออกเป็นชั้น ๆ แผนภาพด้านล่างคือทางเดินชีวิตของผู้สมัครทุกตัว — เข้ามาเท่าไร ตายตรงไหน เหลือเท่าไร</p>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family='Noto Serif Thai',serif><rect width="720" height="300" fill="#FFFFFF"/><text x="360" y="30" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">ทางเดินของ 34 สมมติฐาน — ตายทุกด่านจนเหลือศูนย์</text><rect x="80" y="62" width="560.0" height="44" fill="#5F7351" rx="3"/><text x="652.0" y="89.0" font-family='Noto Serif Thai',serif font-size="17" fill="#5F7351" text-anchor="start" font-weight="600">34</text><text x="70" y="79" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">34 สมมติฐาน</text><text x="70" y="94" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">pre-register</text><rect x="80" y="120" width="428.235294117647" height="44" fill="#8A9D7E" rx="3"/><text x="520.2352941176471" y="147.0" font-family='Noto Serif Thai',serif font-size="17" fill="#8A9D7E" text-anchor="start" font-weight="600">26</text><text x="70" y="137" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">26 ผ่าน Gate 0</text><text x="70" y="152" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">(ตัดชื่อซ้ำ 8)</text><rect x="80" y="178" width="49.411764705882355" height="44" fill="#C9A227" rx="3"/><text x="141.41176470588235" y="205.0" font-family='Noto Serif Thai',serif font-size="17" fill="#C9A227" text-anchor="start" font-weight="600">3</text><text x="70" y="195" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">3 รอด BEM</text><text x="70" y="210" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">(BEM ตัด 22 + overlay 1)</text><rect x="80" y="236" width="26" height="44" fill="#7A1A1A" rx="3"/><text x="118" y="263.0" font-family='Noto Serif Thai',serif font-size="17" fill="#7A1A1A" text-anchor="start" font-weight="600">0</text><text x="70" y="253" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">0 รอด Red team</text><text x="70" y="268" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="end">(ตัดทั้งหมด)</text><text x="360" y="282" font-family='Noto Serif Thai',serif font-size="12" fill="#7C7460" text-anchor="middle" font-style="italic">34 เข้า → 0 รอด: ทุกตัวมีเหตุผลตายที่อ่านย้อนได้ (EXP-850..1105, ledger 400 trials)</text></svg><div class="chart-note">ทุกด่านตัดสินด้วยกติกาที่เขียนไว้ก่อนเห็นผล — ตัวเลขดิบทุกการตัดสินอยู่ใน ledger 400 trials</div></div>
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-num">8</div><div class="stat-label">กลยุทธ์ที่มีชีวิต<br>ในตลาดหุ้นไทย</div></div>
+    <div class="stat-cell"><div class="stat-num">62</div><div class="stat-label">ที่ถูกพิสูจน์ว่าตาย<br>พร้อมหลักฐานเต็มระบบ</div></div>
+    <div class="stat-cell"><div class="stat-num">27</div><div class="stat-label">ติดกำแพง — ยังพิสูจน์ไม่ได้<br>ไม่ได้แปลว่าไม่ดี</div></div>
+  </div>
+  <p>กลุ่มที่ติดกำแพง 27 ตัวมีที่มาชัดหมด: 15 ตัวต้องใช้ข้อมูลที่ไทยไม่มีให้ใช้จริง 9 ตัวไม่เข้ากับการปรับพอร์ตรายเดือน (เช่นต้องกระทำรายวัน) และอีก 3 ตัวรอข้อมูลใหม่ที่เราเพิ่งเริ่มเก็บจริงสัปดาห์นี้ — เราจดไว้ครบ เพราะ "ยังทดสอบไม่ได้" กับ "ไม่มีอยู่จริง" เป็นคนละคำพูด</p>
+  <p>เรื่องที่แสดงวิธีคิดนี้ชัดที่สุดคือ batch ที่สาม (13 กันยายน) เราหยิบ 20 ผู้สมัครที่หลักฐานโลกแข็งแรงที่สุดมาแข่ง จบด้วย 19 ตาย 1 รอด — ผู้รอดคือ CFO-to-Price กลยุทธ์ซื้อหุ้นที่สร้างเงินสดจริงเยอะแต่ราคายังถูก (เงินสดคือของในลิ้นชัก กำไรงบคือของบนกระดาษ) ผลกระดาษแรงมาก: ถือซื้ออย่างเดียวได้เหนือตลาด +9.97% ต่อปี ด้วย t-stat 6.59 (t-stat = ตัวเลขวัดความมั่นใจทางสถิติว่าผลนี้ไม่ใช่ความบังเอิญ ยิ่งมากยิ่งเชื่อได้) และ spread +1.96% ต่อเดือน (spread = ส่วนต่างผลตอบแทนระหว่างกลุ่มที่สัญญาณบอกให้ซื้อกับกลุ่มที่บอกให้เลี่ยง) ผ่านการหัก "ดวง" ด้วย DSR 0.996 (DSR = คะแนนตัดโอกาส "โชคดีจากการลองหลายร้อยครั้ง" ออกไป; 0.996 = เกือบ 100% มั่นใจว่าไม่ใช่ดวง)</p>
+  <p>แต่อ่านต่ออีกบรรทัด ความสวยก็มีข้อแม้: 89% ของกำไรกระดาษมาจากขา short (การขายหุ้นที่ตัวเองไม่ได้ถือ เพื่อหวังซื้อคืนตอนราคาถูกลง — ในไทยทำได้ยากและแพง) ที่เราเก็บไม่ได้จริง มันจึงรอดในฐานะองค์ประกอบซื้ออย่างเดียว พร้อมเงื่อนไขผูกตัว 4 ข้อ หนึ่งในนั้นคือช่วงตลาดกระทิงกำไรจะบางลงเหลือราว 1.09% ต่อเดือน เทียบช่วงตลาดหมีที่หนาถึง 2.88% ต่อเดือน — และวันนี้ (14 กันยายน) เราปิดเกมด้วย batch สุดท้าย: ผู้สมัครที่เหลือทดสอบได้ 32 ตัว บวกไอเดียตามงานอีก 2 ตัว รวม 34 สมมติฐาน (สมมติฐาน = ข้อเสนอที่ยังไม่พิสูจน์) — จบแบบไม่มีใครรอดเลยแม้แต่ตัวเดียว</p>
+  <div class="insight-box"><div class="tag">แก่นเรื่อง</div><p>ผล "ไม่มีอะไรรอด" คือข่าวใหญ่ที่สุดของโปรแกรม เพราะมันแปลว่า edge ในตลาดหุ้นไทยที่ทดสอบได้จริง มีแค่ 8 ตัวเดิมเท่านั้น — ไม่มีหน้าต่างลับหลังบ้าน เกมนี้จบไม่ใช่เพราะเราเบื่อ แต่เพราะคลัง 97 ตัวถูกพิสูจน์ครบทุกตัวที่ข้อมูลเอื้อมถึง และรายชื่อศพ 62 ตัวมีมูลค่าเท่ารายชื่อผู้รอด: มันกันคุณไม่ให้เสียเวลาเสียเงินกับสิ่งที่ไม่มีอยู่จริง</p></div>
+  <div class="blockquote-full"><p>ความได้เปรียบที่แท้จริงของเรา ไม่ใช่การรู้กลยุทธ์ลับ แต่คือการรู้ว่ากลยุทธ์ไหนเป็นแค่เงาหลอกตา</p><div class="en">Our real edge is not a secret strategy — it is knowing which strategies are mirages.</div></div>
+  <div class="reflection"><div class="tag">คิดก่อนไปต่อ</div><p>ถ้ามีคนขายคอร์ส "กลยุทธ์กวาดกำไรทุกเดือน" แต่ไม่ยอมแสดงรายชื่อกลยุทธ์ที่เขาลองแล้วตาย คุณจะเชื่อมั้ย?</p>
+  <p>คุณเคยปนคำว่า "ยังไม่รู้" กับ "ไม่มีจริง" ในการตัดสินใจลงทุนบ้างไหม — เหมือนที่ 27 ตัวในคลังยังติดกำแพงข้อมูล?</p>
+  <p>ถ้า edge ทั้งหมดในตลาดไทยมีแค่ 8 ตัว และเป็นเรื่องเดิม ๆ (หุ้นถูกแบบมีคุณภาพ แนวโน้มราคา ข่าวกำไร) คุณจะประหยัดเวลาได้เท่าไร จากการไม่ตามหา "ความลับ" ที่ถูกพิสูจน์แล้วว่าไม่มี?</p></div>
+</div>
+<div class="chapter-open"><div class="ch-label">บทที่ 02 · Chapter Two</div><div class="ch-title">ทำไมต้องโหดกับตัวเอง<em>The Method — กติกา 4 ชั้นก่อนเชื่อตัวเลข</em></div><div class="ch-essence">ตัวเลขสวยพิสูจน์อะไรไม่ได้ ถ้าคนที่อยากเชื่อเป็นคนตัดสิน เราจึงเขียนกติกาตายตัวก่อนดูผล และตั้งทีมขึ้นมาเพื่อฆ่างานของตัวเอง</div><div class="ch-num">2</div></div>
+<div class="page">
+  <div class="eyebrow">The Method · เขียนเป้าก่อนยิง</div>
+  <h1>สมมติฐานที่เขียนหลังเห็นผล ไม่ใช่สมมติฐาน</h1>
+  <p>ชั้นแรกชื่อ pre-registration หรือ "จดกติกาตายตัวก่อนดูผล" — เหมือนเพื่อนเดิมพันผลบอล ถ้ารอยิงประตูแล้วค่อยบอกว่า "ฉันตั้งใจทำสกอร์นี้" ก็ตัดสินอะไรไม่ได้ วิธีเดียวที่ตัดสินได้คือเขียนเงื่อนไขแพ้ชนะลงกระดาษ ฝากคนกลางเก็บ แล้วค่อยเปิดผล — ทั้ง 34 สมมติฐานของ batch นี้ถูกจดแบบนี้หมด รวมถึงเกณฑ์ผ่าน/ตาย ก่อนแตะข้อมูลแม้บรรทัดเดียว</p>
+  <p>แต่กระดาษอาจเขียนกว้างเกินไป เราจึงให้ AI อีกตัวเป็นกรรมการแบบ adversarial (หน้าที่เดียวคือหาช่องโหว่ ไม่ใช่เชียร์) มันจับได้ 19 จุด หนักสุด 2 จุด เช่น เกณฑ์ที่เขียนว่า "ต้องเหลือกำไรเหนือตลาด" แต่ไม่บอกว่าเท่าไรถึงนับว่าเหลือ — ถ้าไม่แก้ เราจะตีความหลังเห็นผลได้ตามใจ เท่ากับไม่มีกติกา ทุกจุดถูกแก้ครบก่อนทดสอบตัวแรกเริ่ม</p>
+  <p>ชั้นที่สามคือด่านตรวจชื่อซ้ำ (Gate 0) — เหมือนเปิดร้านกาแฟ "แบรนด์ใหม่" แต่ชงสูตรเดียวกับร้านข้าง ๆ — มันคือร้านข้าง ๆ สวมป้ายใหม่ เราจึงวัดค่าสหสัมพันธ์ (correlation = ตัวเลขบอกว่าสองสิ่งขยับไปทางเดียวกันแค่ไหน ถึง 1 คือเหมือนกันเป๊ะ) ใครเกิน 0.8 ตายทันที — ฆ่าไป 8 ตัว เช่น salience กลยุทธ์ "เกาะหุ้นที่เป็นข่าวดัง" แท้จริงคือการวัดผลตอบแทนเดือนล่าสุดอีกชื่อ (ซ้ำ 0.975) และ OP ตัววัดคุณภาพซ้ำกับ ROIC (กำไรเทียบเงินลงทุน) ถึง 0.944 — ในตลาดไทย "ผู้สมัครเกือบทุกคน" คือใครสักคนที่เรารู้จักอยู่แล้ว</p>
+  <p>ผู้ที่ชื่อไม่ซ้ำเข้าบันไดพิสูจน์ 7 ขั้น (BEM) — เหมือนนักสืบที่ไม่ฟังคำให้การ แต่จัดหลักฐานเป็นหมวดเอง: แบ่งหุ้น 5 กลุ่มตามสัญญาณ ถ้าสัญญาณมีตัวตน กลุ่ม "ดี" ต้องทำเงินกว่ากลุ่ม "แย่" อย่างเป็นระบบ แล้วค่อยตัดตัวแปรกวน (ขนาดบริษัท อุตสาหกรรม) ออกทีละชั้น บันไดนี้ฆ่าไป 22 จาก 25 ตัว เด่นสุดคือ FCF/P (ราคาหุ้นเทียบเงินสดฟรีหลังลงทุนและจ่ายหนี้) เทียบตลาดตรง ๆ แรงมาก t 6.03 แต่พอคุมด้วย CFO/P และ E/P (กำไรต่อราคา) พร้อมกัน เหลือ t 0.09 — ของเดิมสวมชื่อใหม่ทั้งตัว แม้แต่ Size ที่โลกเชื่อว่า "หุ้นเล็กชนะหุ้นใหญ่" ในไทยกลับทิศ: หุ้นเล็กแพ้หุ้นใหญ่ 1.02% ต่อเดือน (t 3.09) ความเชื่อที่ค่าตัวแพงที่สุดในโลก กลับไม่มีตัวตนในบ้านเรา</p>
+</div>
+<div class="page">
+  <div class="eyebrow">The Method · ห้องทรมาน และการหักดวง</div>
+  <h1>ทีมที่ถูกจ้างให้ฆ่างานตัวเอง</h1>
+  <p>ผู้รอดบันไดเข้าชั้นสุดท้าย: red team หรือ "ห้องทรมาน" — ทีมที่หน้าที่เดียวคือหาทางฆ่าผลงานตัวเอง ศพที่สอนใจที่สุดเกิดใน batch ก่อนกับ Piotroski F-Score (เช็คลิสต์ตรวจสุขภาพงบ 9 ข้อที่นักลงทุนทั่วโลกใช้กัน) มันผ่านบันไดพิสูจน์สวยที่สุดตัวหนึ่ง ความมั่นใจ t 8.06 แต่ red team ถามคำเดียว: "กำไรทั้งก้อนมาจากไม้ไหนบ้าง" คำตอบคือ 43.3% ของกำไรมาจาก stock-months แค่ 10 ก้อน — เหมือนร้านอาหารที่ยอดทั้งปีมาจากคืนเดียวตอนจัดโปรโมชัน สถิติสวยจริง แต่ธุรกิจที่ซื้อได้ทุกวันไม่มีจริง มันตาย</p>
+  <p>วันนี้ห้องทรมานรับผู้รอด 3 คน ฆ่าครบ — nti12 ความมั่นใจ t 4.19 แต่กำไรกระจุก 69.1% ตาย / d_amihud12 ผ่านหลายด่านแต่กระจุก 52.2% แถมทิศกำไร 3 ช่วงเวลาไม่ตรงกัน ตาย / และ qroa (กำไรจากงบไตรมาสสด) ตัวแข็งสุด: กำไรกระจายดี 28.8% ตัดสิบไม้ใหญ่สุดออกยังยืน (t 3.03) ฝั่งซื้ออย่างเดียวก็ยืน (t 4.51) มีข้อมูลที่กลยุทธ์เดิมไม่มีจริง (t 3.73) — ตายเพียงเพราะเหตุผลเดียว: การหักดวง</p>
+  <p>DSR (Deflated Sharpe Ratio) คือคะแนนตัด "ดวง" ออกจากการลองหลายร้อยครั้ง เหมือนคาสิโน: เดาผลโยนเหรียญเป็นร้อยครั้ง ยังไงก็มีช่วงเดาถูกติดกันหลายครั้งจนดูเหมือนมีพลังวิเศษ — คนที่เห็นแต่ช่วงนั้นจะเชื่อว่าคุณเก่ง ทั้งที่คุณแค่ลองบ่อยพอ ตลาดก็เช่นกัน เราลองมาแล้ว 394 การทดลอง ทุกผลสวยต้องถูก "คูณโอกาสโกง" ก่อน — qroa หักดวงแล้วเหลือ 0.708 ต่ำกว่าเส้นผ่าน 0.95 เพราะข้อมูลมีแค่ 57 เดือน — เราจึงไม่มีสิทธิ์เชื่อ</p>
+  <p>ส่วนไอเดียที่ 34 (ตัดหุ้นที่ออกหุ้นใหม่หนักออกจากพอร์ต) ช่วยพอร์ต passive (ถือตามดัชนี) +1.13pp ต่อปี แต่ช่วยพอร์ตหลักแค่ +0.17pp ต่ำกว่าเกณฑ์ 0.3pp จึงตายตามเพื่อน</p>
+  <div class="formula-block"><div class="fx">t-stat ≥ 2</div><div class="fx-sub">t-stat = ตัวเลขวัดความมั่นใจว่าผลนี้ไม่ใช่ความบังเอิญ ยิ่งมากยิ่งเชื่อได้ — ต่ำกว่า 2 ยังเรียกว่า "เสียงรบกวน" ได้</div></div>
+  <div class="formula-block"><div class="fx">winner-concentration &lt; 40%</div><div class="fx-sub">กำไรต้องไม่มาจากไม้เดียว — สิบไม้แรกกินกำไรเกิน 40% = สัญญาณนั้นเก็บไม่ได้จริงในโลกที่ถือพอร์ตทุกเดือน</div></div>
+  <div class="formula-block"><div class="fx">DSR ≥ 0.95</div><div class="fx-sub">DSR = คะแนนตัด "ดวง" จากการลองหลายร้อยครั้ง — สะสม 394 การทดลอง เฉพาะผลที่แข็งพิเศษจริงจึงยังรอดเส้นนี้</div></div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">"เจองานวิจัยบอกว่า t-stat ผ่าน (เกิน 2) = กลยุทธ์นี้ใช้ได้ หยิบไปลงทุนได้เลย ตัวเลขไม่โกงหรอก"</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">t-stat เป็นแค่ประตูแรก — ต้องผ่านอีกสามประตู: ไม่ใช่ของเดิมสวมชื่อ (ซ้ำเกิน 0.8 = ตาย, ฆ่าไป 8 ตัว) กำไรไม่กระจุกไม้เดียว (nti12 69.1%, d_amihud12 52.2%, เคย F-Score 43.3%) และหักดวงจาก 394 การลองแล้วยังผ่าน (DSR ≥ 0.95) — จาก 34 ผู้สมัครวันนี้ ผ่านครบ 0 คน</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือ</div><div class="ladder-text">ก่อนเชื่อตัวเลข backtest ใด ๆ (รวมถึงของเรา) ถามสี่คำถาม: เขียนเกณฑ์ก่อนดูผลหรือเปล่า / ต่างจากของที่มีจริงหรือชื่อใหม่ / กำไรมาจากไม้เดียวหรือเปล่า / หักดวงแล้วยังผ่านไหม — ตอบไม่ครบ = ยังไม่ให้เงินคุณทำงานกับมัน</div></div>
+  </div>
+  <div class="blockquote-full"><p>กลยุทธ์ที่ดีที่สุดไม่ใช่ตัวที่มีตัวเลขสวยที่สุด แต่คือตัวที่ยังยืนอยู่ หลังเราพยายามฆ่ามันอย่างเต็มฝีมือ</p><div class="en">The best strategy is not the one with the prettiest numbers, but the one that survives our full effort to kill it.</div></div>
+  <div class="reflection"><div class="tag">คิดก่อนไปต่อ</div><p>ถ้าคุณเคย "ปรับเป้าหลังยิง" — ซื้อเพื่อเก็งกำไรสั้น แล้วค่อยบอกว่าตั้งใจถือยาว — ครั้งนั้นคุณตัดสินด้วยหลักฐาน หรือด้วยความจำที่เลือกได้?</p>
+  <p>qroa ผ่านทุกด่านที่จับตัวเลขได้ ตายเพียงเพราะข้อมูลยังสั้น — ปฏิเสธผลดีเพราะรู้ว่าตัวเองยังไม่มีสิทธิ์เชื่อ ยากกว่าปฏิเสธผลแย่แค่ไหน?</p>
+  <p>จากสี่ประตู (เขียนเกณฑ์ก่อนดูผล, ชื่อไม่ซ้ำ, กำไรไม่กระจุก, หักดวงแล้วผ่าน) — คุณจะเอาประตูไหนไปใช้กับการลงทุนของตัวเองก่อน?</p></div>
+</div>
+
+
+<!-- ═══════════ บทที่ 3 ═══════════ -->
+<div class="chapter-open"><div class="ch-label">บทที่ 03 · Chapter Three</div><div class="ch-title">มหกรรมฝังศพ 34 ตัว<em>The Graveyard of Batch Four</em></div><div class="ch-essence">34 สมมติฐานเข้าห้องทดสอบด้วยกติกาที่เขียนไว้ก่อนรู้ผล — ไม่มีใครรอด แต่วิธีที่ตายเล่าเรื่องเดียวกัน: ตลาดไทยเก่งกว่าที่ตำราโลกคิด และแกนความจริงของเขาคือที่เราถืออยู่</div><div class="ch-num">3</div></div>
+<div class="page">
+  <div class="eyebrow">Batch 4 · 34 Hypotheses → 0 Survivors</div>
+  <h1>ศพ 34 ศพ คือหลักฐานที่ดีที่สุด</h1>
+  <p>รอบก่อน (Batch 3) กลยุทธ์ชั้นนำของโลก 20 ตัวเข้าห้องทดสอบหุ้นไทย รอดตัวเดียวคือ <strong>CFO-to-Price</strong> — ซื้อหุ้นถูกเทียบเงินสดจริงของธุรกิจ — กำไรเกินตลาด +9.97% ต่อปี (t-stat 6.59 = ไม่ใช่ความบังเอิญ · DSR 0.996 = หักโชคจากการลองหลายรอบแล้วก็ยืน) และ 89% ของกำไรกระดาษอยู่ฝั่งเก็งราคาลงที่ไทยเทรดไม่ได้</p>
+  <p>รอบนี้ (Batch 4) เราปิดไฟล์ที่เหลือ <strong>34 สมมติฐาน</strong> คำตัดสินคือศูนย์รอด แต่วิธีที่แต่ละตัวตาย บอกว่าตลาดไทยเก่งตรงไหน ชัดกว่าวิธีที่ใครรอดเสียอีก</p>
+  <h2>เรื่องที่ 1 — ประตูแรก: ของเดิมสวมชื่อใหม่</h2>
+  <p>ด่านแรกคือ <strong>Gate 0</strong> — ตรวจว่าไอเดียใหม่เป็นของเดิมเปลี่ยนชื่อหรือเปล่า ด้วยค่าสหสัมพันธ์ (correlation: ตัวเลข −1 ถึง +1 วัดว่าสองสัญญาณเดินคู่กันแค่ไหน เกิน 0.8 นับเป็นสิ่งเดียวกัน) ประตูนี้ฆ่า 8 ตัว ตระกูลคุณภาพบริษัทโดน <strong>ROIC</strong> (ผลตอบแทนที่บริษัททำได้จากเงินทุนที่ลงไป) กลืนเป็น<strong>ครั้งที่สาม</strong>: กำไรจากการดำเนินงานเทียบสินทรัพย์สหสัมพันธ์กับ ROIC ถึง 0.944 · ROE (กำไรเทียบเงินทุนผู้ถือหุ้น) 0.808 · กำไรขั้นต้นเทียบสินทรัพย์ที่เคยให้โอกาสรอบก่อน 0.73 — ในไทย "คุณภาพ" มีมิติเดียวคือ ROIC ส่วนเครื่องมือเทคนิคที่รายย่อยดูทุกวันก็เป็นของเดิมแปลงร่าง: RSI (ตัวชี้ว่าหุ้นร้อนเกินหรือเย็นเกิน) สัมพันธ์กับผลตอบแทนเดือนล่าสุด 0.907 · salience (ความเด่นของหุ้นที่เคลื่อนแรงจนดึงสายตา) 0.975 · entropy กับ IVOL (ความผันผวนเฉพาะตัว) สัมพันธ์กับความผันผวน 0.812 กับ 0.820</p>
+  <div class="insight-box"><div class="tag">แล้วไง? — ประตูแรกไม่ได้ตัดของแย่ มันตัดของ "ซ้ำ"</div><p>"กลยุทธ์ใหม่" ส่วนใหญ่ของโลก คือมุมกล้องใหม่ของสัญญาณเดิม — ในไทยก็ไม่เว้น</p></div>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family='Noto Serif Thai',serif><rect width="720" height="330" fill="#FFFFFF"/><text x="360" y="28" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">Gate 0 — 8 ตัวที่ตายเพราะ“ของเดิมสวมชื่อ” (สัมพันธ์ &gt; 0.8)</text><line x1="140" y1="240" x2="710" y2="240" stroke="#DDD7BD"/><line x1="140" y1="-30160.0" x2="710" y2="80" stroke="#7A1A1A" stroke-dasharray="5,4" opacity="0"/><line x1="140" y1="88.0" x2="710" y2="88.0" stroke="#7A1A1A" stroke-dasharray="5,4"/><text x="716" y="92.0" font-family='Noto Serif Thai',serif font-size="11" fill="#7A1A1A" text-anchor="start">เส้นตาย 0.80</text><rect x="150" y="81.464" width="56" height="158.536" fill="#8A9D7E" rx="2"/><text x="178.0" y="75.464" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.834</text><text x="178.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">npy</text><text x="178.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-404</text><rect x="220" y="54.12300000000002" width="56" height="185.87699999999998" fill="#8A9D7E" rx="2"/><text x="248.0" y="48.12300000000002" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.978</text><text x="248.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">ind_mom</text><text x="248.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-406</text><rect x="290" y="67.727" width="56" height="172.273" fill="#8A9D7E" rx="2"/><text x="318.0" y="61.727000000000004" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.907</text><text x="318.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">rsi14</text><text x="318.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-407</text><rect x="360" y="85.79599999999999" width="56" height="154.204" fill="#8A9D7E" rx="2"/><text x="388.0" y="79.79599999999999" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.812</text><text x="388.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">rent21</text><text x="388.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-409</text><rect x="430" y="60.583" width="56" height="179.417" fill="#8A9D7E" rx="2"/><text x="458.0" y="54.583" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.944</text><text x="458.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">op_ta</text><text x="458.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-417</text><rect x="500" y="86.404" width="56" height="153.596" fill="#8A9D7E" rx="2"/><text x="528.0" y="80.404" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.808</text><text x="528.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">roe_v</text><text x="528.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-419</text><rect x="570" y="84.238" width="56" height="155.762" fill="#8A9D7E" rx="2"/><text x="598.0" y="78.238" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.820</text><text x="598.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">ivol252</text><text x="598.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-424</text><rect x="640" y="54.82599999999999" width="56" height="185.174" fill="#8A9D7E" rx="2"/><text x="668.0" y="48.82599999999999" font-family='Noto Serif Thai',serif font-size="11.5" fill="#5F7351" text-anchor="middle" font-weight="600">0.975</text><text x="668.0" y="256" font-family='Noto Serif Thai',serif font-size="10.5" fill="#14110B" text-anchor="middle" font-weight="600">sal21</text><text x="668.0" y="270" font-family='Noto Serif Thai',serif font-size="9.5" fill="#7C7460" text-anchor="middle">HYP-432</text><text x="360" y="318" font-family='Noto Serif Thai',serif font-size="12" fill="#7C7460" text-anchor="middle" font-style="italic">Pearson หรือ Spearman (ค่าที่สูงกว่า) — ทุกแท่งทะลุเส้น 0.80 = ตายทันทีโดยไม่ต้องทดสอบต่อ</text></svg><div class="chart-note">ค่าสัมพันธ์จริงจาก out/batch4_gate0_results.json — รวมทั้ง Pearson และ Spearman ใช้ค่าที่สูงกว่า</div></div>
+  <h2>เรื่องที่ 2 — แรงมาก... แต่เป็นของเดิม</h2>
+  <p>หลายตัวที่ผ่านประตู ตายด้วย <strong>Fama-MacBeth</strong> (วิธีสถิติที่ถามว่า สัญญาณนี้ยังเหลือคำอธิบายไหม หลังจ่ายเครดิตให้สัญญาณเดิมทุกตัวพร้อมกัน) เจ็บสุดคือ <strong>FCF/P</strong> (กำไรส่วนที่เป็นเงินสดเหลือฟรี เทียบราคา): ดิบที่ t 6.03 พอคุม CFO/P กับ E/P พร้อมกัน เหลือ t 0.09 ตัวอื่นก็เช่นกัน: โมเมนตัม 12-7 เดือน ดิบ 2.4 เหลือ −0.36 · ออกหุ้นใหม่รวมหนี้ 2.22 เหลือ −1.31 · กำไรคุณภาพแบบเงินสด 2.71 เหลือ 0.72 — สี่ศพ คือตัวเดิมใส่วิกผม</p>
+  <div class="insight-box"><div class="tag">แล้วไง? — ตัวเลขดิบที่สวยไม่ใช่หลักฐาน</div><p>เลขดิบไม่เคยบอกว่า "เทียบกับอะไร" ถามเสมอว่าหักสัญญาณเดิมแล้วเหลือกี่ — 0.09 คือไม่เหลือเลย</p></div>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family='Noto Serif Thai',serif><rect width="720" height="330" fill="#FFFFFF"/><text x="360" y="28" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">“ดิบแรง” vs “คุมสัญญาณเดิมแล้ว” — กำแพงกลืนกินของตลาดไทย (NW-t)</text><line x1="140" y1="137.0" x2="510" y2="137.0" stroke="#46402F" stroke-width="1"/><text x="136" y="131.0" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="end">ดิบ</text><rect x="150" y="63.778571428571425" width="21.84" height="73.22142857142858" fill="#5F7351" rx="2"/><text x="160.92" y="57.778571428571425" font-family='Noto Serif Thai',serif font-size="11" fill="#5F7351" text-anchor="middle" font-weight="600">6.03</text><rect x="176.0" y="135.90714285714284" width="21.84" height="1.0928571428571427" fill="#B5C4A9" rx="2"/><text x="186.92000000000002" y="129.90714285714284" font-family='Noto Serif Thai',serif font-size="11" fill="#8A7B3A" text-anchor="middle" font-weight="600">+0.09</text><text x="176.0" y="240" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="middle" font-weight="600">fcfp</text><rect x="222" y="107.85714285714286" width="21.84" height="29.14285714285714" fill="#5F7351" rx="2"/><text x="232.92" y="101.85714285714286" font-family='Noto Serif Thai',serif font-size="11" fill="#5F7351" text-anchor="middle" font-weight="600">2.40</text><rect x="248.0" y="137.0" width="21.84" height="4.371428571428571" fill="#B5C4A9" rx="2"/><text x="258.92" y="154.37142857142857" font-family='Noto Serif Thai',serif font-size="11" fill="#8A7B3A" text-anchor="middle" font-weight="600">-0.36</text><text x="248.0" y="240" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="middle" font-weight="600">mom_12_7</text><rect x="294" y="110.04285714285714" width="21.84" height="26.95714285714286" fill="#5F7351" rx="2"/><text x="304.92" y="104.04285714285714" font-family='Noto Serif Thai',serif font-size="11" fill="#5F7351" text-anchor="middle" font-weight="600">2.22</text><rect x="320.0" y="137.0" width="21.84" height="15.907142857142857" fill="#B5C4A9" rx="2"/><text x="330.92" y="165.90714285714284" font-family='Noto Serif Thai',serif font-size="11" fill="#8A7B3A" text-anchor="middle" font-weight="600">-1.31</text><text x="320.0" y="240" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="middle" font-weight="600">cei24</text><rect x="366" y="104.09285714285714" width="21.84" height="32.90714285714286" fill="#5F7351" rx="2"/><text x="376.92" y="98.09285714285714" font-family='Noto Serif Thai',serif font-size="11" fill="#5F7351" text-anchor="middle" font-weight="600">2.71</text><rect x="392.0" y="128.25714285714287" width="21.84" height="8.742857142857142" fill="#B5C4A9" rx="2"/><text x="402.92" y="122.25714285714287" font-family='Noto Serif Thai',serif font-size="11" fill="#8A7B3A" text-anchor="middle" font-weight="600">+0.72</text><text x="392.0" y="240" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="middle" font-weight="600">cbop</text><rect x="438" y="86.12142857142857" width="21.84" height="50.87857142857143" fill="#5F7351" rx="2"/><text x="448.92" y="80.12142857142857" font-family='Noto Serif Thai',serif font-size="11" fill="#5F7351" text-anchor="middle" font-weight="600">4.19</text><rect x="464.0" y="137.0" width="21.84" height="25.014285714285712" fill="#B5C4A9" rx="2"/><text x="474.92" y="175.0142857142857" font-family='Noto Serif Thai',serif font-size="11" fill="#8A7B3A" text-anchor="middle" font-weight="600">-2.06</text><text x="464.0" y="240" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="middle" font-weight="600">nti12</text><rect x="150" y="296" width="12" height="12" fill="#5F7351"/><text x="168" y="306" font-family='Noto Serif Thai',serif font-size="11" fill="#7C7460" text-anchor="start">ดิบ (spread เดือน, NW-t)</text><rect x="380" y="296" width="12" height="12" fill="#B5C4A9"/><text x="398" y="306" font-family='Noto Serif Thai',serif font-size="11" fill="#7C7460" text-anchor="start">หลัง FM คุมสัญญาณเดิม (เข้มขัด t≥2 = ผ่าน)</text><text x="360" y="322" font-family='Noto Serif Thai',serif font-size="12" fill="#7C7460" text-anchor="middle" font-style="italic">fcfp ดิบแรงสุด t 6.03 → คุมด้วย CFO/P + E/P เหลือ 0.09 = “ของเดิมสวมชื่อ”</text></svg><div class="chart-note">NW-t = ตัวเลขวัดความมั่นใจ; เข้มขัดคือ ≥ 2 — จาก out/batch4_bem_wave_*.json</div></div>
+  <h2>เรื่องที่ 3 — กฎของโลกที่กลับทิศในไทย</h2>
+  <p>ตำราบอกหุ้นเล็กควรได้พรีเมียม (small-cap premium) แต่ในกลุ่มหุ้นไทยที่ซื้อขายได้จริง หุ้นเล็กกลับ<strong>แพ้</strong>หุ้นใหญ่ 1.02% ต่อเดือน (t 3.09) หนี้ต่อราคา (t 1.64) กับตระกูล EV (t 1.63) ก็ไม่แรงพอ อีกสองเรื่องที่กลับทิศ: กฎของ Sloan ว่ากำไรที่มาจากลูกหนี้-สต๊อกที่พุ่งมักปลอม — ในไทยทิศนี้ไม่เดิน เพราะธุรกิจโครงการพอง working capital ตามการโตปกติ ไม่ใช่ปั่นบัญชี และ O-score (คะแนนเช็คใกล้ล้มละลาย) กลับทิศเหมือน Altman-Z — บทสรุปเดียว: ตลาดไทยไม่จ่ายค่าเสี่ยงล้มละลาย</p>
+  <div class="insight-box"><div class="tag">แล้วไง? — "กฎสากล" ไม่เท่ากับ "กฎทุกตลาด"</div><p>ก็อปกฎฝรั่งมาใช้โดยไม่พิสูจน์บนข้อมูลไทย คือซื้อของที่ตำราบอกว่าดี แต่ตลาดจริงขายทิ้ง</p></div>
+</div>
+<div class="page">
+  <h2>เรื่องที่ 4 — ตัวที่แข็งที่สุด และด่านเดียวที่เขาตาย</h2>
+  <p>ถ้ามีชื่อเดียวใน 34 ตัวที่ควรจำ คือ <strong>qroa</strong> — Quarterly ROA: กำไรไตรมาสล่าสุดหารสินทรัพย์ จับ "งบสด" เร็วกว่าวิธีรวมย้อน 12 เดือน เพราะกำไรที่เพิ่งเปลี่ยนทิศ ราคาอาจยังตั้งไม่ทัน</p>
+  <p>ผลดีที่สุดของรอบ: แบ่งหุ้น 5 กลุ่ม (quintile) ตามสัญญาณ กลุ่มแย่สุด −0.95% ต่อเดือน กลุ่มดีสุด +0.27% เรียงเนียนทีละขั้น ส่วนต่าง +1.218% ต่อเดือน (t 3.19) · 10 ไม้สูงสุดรวมแค่ 28.8% ของกำไร (เส้นตาย 40%) · ตัด 10 หุ้นใหญ่สุดยัง t 3.03 · ขาซื้อเกินตลาด +8.62% ต่อปี (t 4.51) · คุม ROIC กับ EPS_ACCEL (กำไรเร่งตัว) พร้อมกันยังเหลือ t 3.73 — มันรู้บางอย่างที่ของเดิมไม่รู้</p>
+  <div class="stat-row" style="grid-template-columns:repeat(2,1fr)">
+    <div class="stat-cell"><div class="stat-num">28.8%</div><div class="stat-label">กำไรกระจุก 10 ไม้บน<br>(เกณฑ์ตายคือเกิน 40%)</div></div>
+    <div class="stat-cell"><div class="stat-num">t 3.03</div><div class="stat-label">ตัด 10 หุ้นใหญ่สุด<br>ยังแรงเกินบังเอิญ</div></div>
+    <div class="stat-cell"><div class="stat-num">t 4.51</div><div class="stat-label">ขาซื้อเกินตลาด +8.62%/ปี<br>เก็บได้จริง ไม่ต้องเก็ง</div></div>
+    <div class="stat-cell"><div class="stat-num">0.708</div><div class="stat-label">DSR — ต่ำกว่าเกณฑ์ 0.95<br>ด่านเดียวที่เขาตาย</div></div>
+  </div>
+  <p>แล้วทำไมตาย? ด่านเดียว: ข้อมูลมีแค่ 57 เดือน ทั้งที่สะสมการทดลองมาแล้ว 394 ครั้ง ตัวเก่งสุดของการลอง 394 ครั้งย่อมมีส่วนของดวง เกณฑ์รอดคือ DSR 0.95 เขาได้ 0.708 — ต้องตัดดวงออกก่อน จึงจดไว้ทดสอบใหม่เมื่อข้อมูลยาวขึ้น</p>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family='Noto Serif Thai',serif><rect width="720" height="300" fill="#FFFFFF"/><text x="360" y="28" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">HYP-420 qroa — โปรไฟล์เดือนถัดไปตามกลุ่มกำไรไตรมาส (EW %/เดือน)</text><line x1="112" y1="216" x2="590" y2="216" stroke="#DDD7BD"/><rect x="120" y="186.0" width="84" height="30.0" fill="#8A9D7E" rx="2"/><text x="162.0" y="179.0" font-family='Noto Serif Thai',serif font-size="12.5" fill="#5F7351" text-anchor="middle" font-weight="600">-0.950</text><text x="162.0" y="233" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">Q1</text><rect x="214" y="169.77668308702792" width="84" height="46.22331691297208" fill="#B5C4A9" rx="2"/><text x="256.0" y="162.77668308702792" font-family='Noto Serif Thai',serif font-size="12.5" fill="#5F7351" text-anchor="middle" font-weight="600">-0.798</text><text x="256.0" y="233" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">Q2</text><rect x="308" y="151.0985221674877" width="84" height="64.90147783251231" fill="#B5C4A9" rx="2"/><text x="350.0" y="144.0985221674877" font-family='Noto Serif Thai',serif font-size="12.5" fill="#5F7351" text-anchor="middle" font-weight="600">-0.623</text><text x="350.0" y="233" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">Q3</text><rect x="402" y="100.50738916256158" width="84" height="115.49261083743842" fill="#B5C4A9" rx="2"/><text x="444.0" y="93.50738916256158" font-family='Noto Serif Thai',serif font-size="12.5" fill="#5F7351" text-anchor="middle" font-weight="600">-0.149</text><text x="444.0" y="233" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">Q4</text><rect x="496" y="56.0" width="84" height="160.0" fill="#5F7351" rx="2"/><text x="538.0" y="49.0" font-family='Noto Serif Thai',serif font-size="12.5" fill="#5F7351" text-anchor="middle" font-weight="600">+0.268</text><text x="538.0" y="233" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">Q5</text><text x="162.0" y="249" font-family='Noto Serif Thai',serif font-size="10.5" fill="#355E40" text-anchor="middle" font-weight="600">ต่ำสุด — long leg</text><text x="538.0" y="249" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="middle">สูงสุด</text><text x="360" y="274" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">ช่วงตลาดหมี ทุกกลุ่มผลติดลบ — แต่กลุ่มกำไรแย่สุด (Q1) ลบน้อยกว่าตลาดมากที่สุด = “เกินตลาด”บวก</text><text x="360" y="290" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">แต่กำไรกระจายดี (top-10 คิดเป็น 28.8%) และรอดทุกด่าน ยกเว้น DSR 0.708 &lt; 0.95</text></svg><div class="chart-note">ผลตอบแทน EW ต่อเดือนจริงของแต่ละกลุ่ม — จาก out/batch4_bem_wave_E.json (57 เดือน 2022-2026)</div></div>
+  <div class="blockquote-full">
+    <p>"ตัวที่แข็งที่สุดของรอบนี้ ไม่ได้ตายเพราะสัญญาณปลอม — แต่เพราะหน้าต่างข้อมูลสั้นกว่าที่สัญญาณจะพิสูจน์ตัวเอง"</p>
+    <div class="en">The strongest candidate didn't die for being fake — the data window is simply shorter than the signal needs to prove itself.</div>
+  </div>
+  <h2>เรื่องที่ 5 — สัญญาณจริง แต่กำไรมาจากไม้เดียว</h2>
+  <p>อีกสองศพตายในห้อง red team — ห้องที่อัยการพยายามฆ่าผลที่ผ่านด่านมาแล้ว <strong>nti12</strong> (สัญญาณ "เลี่ยงบริษัทที่เรี่ยราดระดมทุน") ผ่านด่านสถิติมาสวยงาม (t 4.19 คุมสัญญาณเดิมแล้วยังผ่าน) แต่พอดูรายไม้: 69.1% ของกำไรมาจากเทรดแค่ 10 อันดับแรก และ DSR เหลือ 0.169 ส่วน <strong>d_amihud12</strong> (หุ้นที่สภาพคล่องกำลังดีขึ้น) t 3.05 แต่กำไรกระจุก 52.2% ทิศไม่คงที่ 3 ช่วงเวลา และ DSR แค่ 0.136 เหมือนเพื่อนอวดว่ากลยุทธ์กำไร 20% ต่อปี แต่ดูรายไม้แล้วเกือบทั้งหมดมาจากไม้เดียวที่ขึ้นสามเท่าจากข่าว — นั่นคือแทงถูกหวย ไม่ใช่กลยุทธ์</p>
+  <div class="insight-box"><div class="tag">แล้วไง? — คำถามที่ตัดสินจริง: กำไรมาจากไหน</div><p>สัญญาณไทยที่ดูแรงจำนวนมาก คือเหตุการณ์ไม่กี่เดือนของหุ้นไม่กี่ตัว — บทเรียนที่ยืนยันมาแล้วรอบที่ 4-5</p></div>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" font-family='Noto Serif Thai',serif><rect width="720" height="330" fill="#FFFFFF"/><text x="360" y="28" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">Red team — 3 ตัวที่ผ่าน BEM: กำไรกระจุก + ตัดดวง (DSR)</text><line x1="140" y1="130.0" x2="570" y2="130.0" stroke="#7A1A1A" stroke-dasharray="5,4"/><text x="574" y="126.0" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7A1A1A" text-anchor="start">เพดาน 40%</text><rect x="150" y="92.17" width="120" height="89.83" fill="#7A1A1A" rx="2" opacity="0.85"/><text x="210.0" y="86.17" font-family='Noto Serif Thai',serif font-size="13" fill="#7A1A1A" text-anchor="middle" font-weight="600">69.1%</text><text x="210.0" y="199" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">nti12</text><text x="210.0" y="215" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.169  ✗</text><rect x="290" y="144.56" width="120" height="37.44" fill="#355E40" rx="2" opacity="0.85"/><text x="350.0" y="138.56" font-family='Noto Serif Thai',serif font-size="13" fill="#355E40" text-anchor="middle" font-weight="600">28.8%</text><text x="350.0" y="199" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">qroa</text><text x="350.0" y="215" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.708  ✗</text><rect x="430" y="114.14" width="120" height="67.86" fill="#7A1A1A" rx="2" opacity="0.85"/><text x="490.0" y="108.14" font-family='Noto Serif Thai',serif font-size="13" fill="#7A1A1A" text-anchor="middle" font-weight="600">52.2%</text><text x="490.0" y="199" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">d_amihud12</text><text x="490.0" y="215" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.136  ✗</text><text x="360" y="290" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">ความสูงแท่ง = สัดส่วนกำไรที่มาจาก 10 stock-months สูงสุด (ยิ่งสูงยิ่งเสี่ยงดวง)</text><text x="360" y="308" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">DSR = คะแนนหัก“ดวง”จาก 394 การทดลองสะสม — ต้อง ≥ 0.95 จึงผ่าน · ตายทั้งสาม: 69.1%/0.169 · 28.8%/0.708 · 52.2%/0.136</text></svg><div class="chart-note">จาก out/batch4_redteam.json — DSR คำนวณด้วย m=394 การทดลองสะสม (เกณฑ์ผ่าน ≥ 0.95)</div></div>
+  <h2>เรื่องสุดท้าย — ไอเดียที่ 34: ดี แต่ไม่ใช่กลยุทธ์</h2>
+  <p>ตัวสุดท้ายคือ <strong>NSI screen</strong> — ไม่ใช่เครื่องทำกำไร แต่เป็นตัวกรอง: ตัดหุ้นที่บริษัทออกหุ้นใหม่หนัก ๆ (สัญญาณร้ายที่ตำรายืนยันมานาน) ทิ้งจากพอร์ต ผล: ช่วยพอร์ตถือทั้งตลาด +1.13pp (pp = จุดฐานร้อย) ต่อปีฟรี ๆ แต่เสียบเข้ากลยุทธ์หลักช่วยแค่ +0.17pp (ต่ำกว่าเกณฑ์ 0.3pp) และทำ CFO/P แย่ลง −0.41pp — จึงจบในบทบาท hygiene: กฎสุขอนามัยพอร์ต ไม่ใช่ขาทำกำไร</p>
+  <div class="insight-box"><div class="tag">แล้วไง? — บางความรู้คือกฎความปลอดภัย ไม่ใช่เครื่องทำกำไร</div><p>จัดประเภทให้ถูกชั้น สับสนกันเมื่อไหร่ พอร์ตเสียทั้งสองทาง</p></div>
+  <div class="reflection"><div class="tag">คำถามท้ายบท — คิดก่อนไปต่อ</div><p>๑. 34 ไอเดียระดับโลกตายหมดในไทย — ความเชื่อข้อไหนของคุณยังไม่เคยถูกพิสูจน์บนข้อมูลไทย?</p><p>๒. ครั้งล่าสุดที่เชื่อตัวเลข t สวย ๆ ตัวเดียว โดยไม่ถามว่า "คุมของเดิมแล้วเหลือเท่าไหร่" คือเมื่อไหร่?</p><p>๓. ถ้ากำไร 69% ของพอร์ตมาจาก 10 ไม้ — คุณกำลังใช้กลยุทธ์ หรือกำลังแทงหวย?</p></div>
+</div>
+
+<!-- ═══════════ บทที่ 4 ═══════════ -->
+<div class="chapter-open"><div class="ch-label">บทที่ 04 · Chapter Four</div><div class="ch-title">แปดชีวิตที่เหลือรอด<em>Eight Strategies That Survived the Gauntlet</em></div><div class="ch-essence">ฝังศพ 34 ตัวเสร็จ สนามที่เหลือคือ 8 กลยุทธ์ที่ผ่านการทรมานครบทุกด่าน — ทั้งแปดเดินทางเดียวกัน: ซื้อของถูกที่มีคุณภาพ ตามแนวโน้ม และฟังข่าวกำไร — และทั้งแปดยังไม่เคยสอบตลาดกระทิงสักตัว</div><div class="ch-num">4</div></div>
+<div class="page">
+  <div class="eyebrow">The Final Lineup · 2019-2026</div>
+  <h1>ทีมที่ยืนอยู่จริง มีแปดคน</h1>
+  <p>รวมสองรอบนี้ คลังกลยุทธ์ระดับโลก 97 ตัวถูกทดสอบบนข้อมูลหุ้นไทยแบบ point-in-time (ใช้เฉพาะงบและราคาที่ "เผยแพร่แล้ว" ณ วันตัดสินใจ ไม่แอบดูอนาคต) ครบทุกตัวที่ข้อมูลเอื้อมถึง เหลือมีชีวิต 8 ตัว — ไม่ใช่ของใหม่ที่เพิ่งค้นพบ แต่คือสิ่งที่รอดจริง ผ่านทั้งด่านชื่อซ้ำ บันไดพิสูจน์ และห้อง red team ทีละคน</p>
+  <p><strong>E/P</strong> (กำไรต่อหุ้นหารราคาหุ้น — ก็คือ P/E กลับด้าน) — ความถูกแบบที่คนรู้จักดีอยู่แล้ว แต่ตลาดไทยยังตั้งราคาพลาดเรื่อย ๆ เป็นแกนความถูกของพอร์ตรวม</p>
+  <p><strong>CFO/P</strong> — แชมป์ของรอบก่อน: ความถูกที่วัดด้วยเงินสดจริง ไม่ใช่กำไรบัญชี ทำ +9.97% ต่อปีเกินตลาด (t 6.59) ด้วย DSR 0.996 แต่พกเงื่อนไข 4 ข้อติดตัวเสมอ: ให้น้ำหนักทุกหุ้นเท่ากัน (EW) เฉพาะหุ้นที่ซื้อขายง่าย (liquid) · ประกาศสภาพตลาดขึ้น/ลงทุกครั้ง · ห้ามเป็นขาที่ห้าของพอร์ตรวม · วางแผนด้วยเลขฝั่งซื้อเท่านั้น</p>
+  <p><strong>EV/EBITDA</strong> — ความถูกอีกแบบ: เทียบ "มูลค่ากิจการรวมหนี้" กับกำไรก่อนดอกเบี้ย ภาษี ค่าเสื่อม ไม่โดนโครงสร้างหนี้บิดเบือน จึงเห็นราคาจริงของธุรกิจ เงื่อนไข: EW กับหุ้น liquid เท่านั้น และห้ามยัดเป็นขาเพิ่มของพอร์ตรวม</p>
+  <p><strong>DY|ROIC</strong> — เก็บเงินปันผล (DY: เงินปันผลหารราคา) เฉพาะบริษัทที่ ROIC อยู่ครึ่งบนของตลาดเท่านั้น หุ้นปันผลสูงที่ธุรกิจไม่เก่ง ไม่เอา — ทดลองแบบไร้เงื่อนไขแล้วตาย</p>
+  <p><strong>MOM12-1</strong> — แนวโน้มราคา 12 เดือน ตัดเดือนล่าสุดทิ้ง: หุ้นที่ชนะต่อเนื่องมาก่อน มีแนวโน้มชนะต่ออีกช่วง หนึ่งในสัญญาณไม่กี่ตัวที่มีชีวิตแทบทุกตลาด รวมถึงไทย</p>
+  <p><strong>SUE/PEAD</strong> — ข่าวกำไรเซอร์ไพรส์: กำไรออกมาเกินคาด (SUE) แล้วราคา "ไหลตามช้า ๆ" อีกหลายสัปดาห์ (PEAD) เพราะคนเท้าความช้ากว่าที่คิด กติกาสำคัญ: เข้าไม้หลังงบเผยแพร่ตามวันที่รู้จริงเท่านั้น — และเขายังถูกพิสูจน์ในเดือนตลาดหมีล้วน ๆ</p>
+  <p><strong>EPS_ACCEL</strong> — กำไรเร่งตัว: บริษัทที่อัตราการโตของกำไร "เร่งขึ้น" เรื่อย ๆ ไม่ใช่แค่โต แต่โตเร็วขึ้นกว่าเมื่อก่อน ตลาดมักตั้งราคาช้ากว่าความเร่งนั้น</p>
+  <p><strong>ROIC</strong> — ผลตอบแทนทุน: บริษัทเก่งจริงที่ทำกำไรจากเงินทุนได้สูง จากบทที่ 3 เรารู้แล้วว่านี่คือแกนคุณภาพมิติเดียวของไทย — อะไรที่อ้างว่าคุณภาพแบบอื่น สุดท้ายกลายเป็น ROIC ทั้งหมด</p>
+  <h2>รวมแปดเป็นหนึ่ง: C2b</h2>
+  <p>แปดชีวิตนี้ยุบรวมเป็นพอร์ตหลักที่ชื่อ <strong>C2b</strong> — ผสม 4 ขาที่จับคนละเรื่องแล้วถ่วงกันเอง: E/P (ถูก) + ROIC (เก่ง) + MOM12-1 (แนวโน้ม) + EPS_ACCEL (กำไรเร่ง) ส่วน CFO/P, EV/EBITDA, DY|ROIC และ SUE/PEAD ใช้เป็นกลยุทธ์แยกข้างเคียง ไม่ใช่ขาที่ห้า — เพราะทดลองแล้วหลายรอบว่ายัดเพิ่มไม่ช่วยคุณภาพปรับความเสี่ยง</p>
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-num">+10.83%</div><div class="stat-label">ต่อปี เหนือตลาด<br>พอร์ตรวม C2b (4 ขา)</div></div>
+    <div class="stat-cell"><div class="stat-num">t 3.25</div><div class="stat-label">คะแนนความมั่นใจ<br>เกินเกณฑ์แข็งแรง 3</div></div>
+    <div class="stat-cell"><div class="stat-num">8 / 97</div><div class="stat-label">กลยุทธ์ที่รอด จากคลังโลก<br>ที่ทดสอบครบทุกตัว</div></div>
+  </div>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" font-family='Noto Serif Thai',serif><rect width="720" height="300" fill="#FFFFFF"/><text x="360" y="28" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">ผลตอบแทนเกินตลาด (ต่อปี) ของกลยุทธ์ที่มีชีวิต — ตัวเลขหลัก</text><line x1="112" y1="210" x2="585" y2="210" stroke="#DDD7BD"/><rect x="120" y="74.625" width="130" height="135.375" fill="#5F7351" rx="2"/><text x="185.0" y="66.625" font-family='Noto Serif Thai',serif font-size="15" fill="#5F7351" text-anchor="middle" font-weight="600">+10.83%</text><text x="185.0" y="227" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">C2b composite</text><text x="185.0" y="243" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="middle">4 ขารวม</text><text x="185.0" y="257" font-family='Noto Serif Thai',serif font-size="10" fill="#7C7460" text-anchor="middle">t 3.25 · 86 เดือน</text><rect x="275" y="85.37499999999999" width="130" height="124.62500000000001" fill="#8A9D7E" rx="2"/><text x="340.0" y="77.37499999999999" font-family='Noto Serif Thai',serif font-size="15" fill="#5F7351" text-anchor="middle" font-weight="600">+9.97%</text><text x="340.0" y="227" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">CFO-to-Price</text><text x="340.0" y="243" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="middle">(Batch 3)</text><text x="340.0" y="257" font-family='Noto Serif Thai',serif font-size="10" fill="#7C7460" text-anchor="middle">t 6.59 · DSR 0.996</text><rect x="430" y="92.87500000000001" width="130" height="117.12499999999999" fill="#8A9D7E" rx="2"/><text x="495.0" y="84.87500000000001" font-family='Noto Serif Thai',serif font-size="15" fill="#5F7351" text-anchor="middle" font-weight="600">+9.37%</text><text x="495.0" y="227" font-family='Noto Serif Thai',serif font-size="12" fill="#14110B" text-anchor="middle" font-weight="600">E/P ตัวเดี่ยว</text><text x="495.0" y="243" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="middle">(gross)</text><text x="495.0" y="257" font-family='Noto Serif Thai',serif font-size="10" fill="#7C7460" text-anchor="middle">t 8.14 · ขาหลัก C2b</text><text x="360" y="274" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">อีก 5 ตัวมีชีวิตแบบมีเงื่อนไข: EV/EBITDA · DY|ROIC · SUE/PEAD · MOM12-1 · EPS_ACCEL (รวมอยู่ใน C2b แล้ว)</text><text x="360" y="291" font-family='Noto Serif Thai',serif font-size="11.5" fill="#8A6D1A" text-anchor="middle" font-weight="600">⚠️ ทุกตัวพิสูจน์ในช่วงตลาดหมีเป็นหลัก (2019-2026) — ยังไม่เคยผ่านกระทิงเต็มตัว</text></svg><div class="chart-note">ตัวเลขจาก ledger: C2b (t13, 86 เดือน) · CFO/P (B3 red team) · E/P ตัวเดี่ยว (gross)</div></div>
+  <table class="cmp-table">
+    <tr><th>กลยุทธ์</th><th>จับอะไร (ภาษาคน)</th><th>เงื่อนไขที่ต้องจำ</th></tr>
+    <tr><td>E/P</td><td>หุ้นถูกเทียบกำไรบัญชี</td><td>แกนความถูกของ C2b</td></tr>
+    <tr><td>CFO/P</td><td>หุ้นถูกเทียบเงินสดจริง</td><td>+9.97%/ปี (t 6.59) · DSR 0.996 · เงื่อนไข 4 ข้อ</td></tr>
+    <tr><td>EV/EBITDA</td><td>ถูกเทียบมูลค่ากิจการรวมหนี้</td><td>EW + liquid เท่านั้น · ห้ามเป็นขา 5</td></tr>
+    <tr><td>DY|ROIC</td><td>ปันผลสูงเฉพาะบริษัทเก่ง</td><td>ROIC ต้องอยู่ครึ่งบนของตลาด</td></tr>
+    <tr><td>MOM12-1</td><td>แนวโน้ม 12 เดือน (ตัดเดือนล่าสุด)</td><td>ขาแนวโน้มของ C2b</td></tr>
+    <tr><td>SUE/PEAD</td><td>ข่าวกำไรเกินคาด ราคาไหลตามช้า</td><td>EW + liquid · เข้าไม้หลังงบเผยแพร่จริง</td></tr>
+    <tr><td>EPS_ACCEL</td><td>กำไรเร่งตัวขึ้นเรื่อย ๆ</td><td>ขาการเติบโตของ C2b</td></tr>
+    <tr><td>ROIC</td><td>ผลตอบแทนทุน — บริษัทเก่งจริง</td><td>แกนคุณภาพมิติเดียวของไทย</td></tr>
+  </table>
+</div>
+<div class="page">
+  <div class="eyebrow">Real Picks · ตัวอย่างจากการจัดพอร์ตจริง</div>
+  <h1>ถ้าระบบเดินวันนี้ จะเลือกหุ้นไหน</h1>
+  <p>คำอธิบายแบบเปล่า ๆ อาจยังมองไม่เห็นภาพ ตารางชุดนี้คือคำตอบ: เราเอาสูตรของทั้งแปดกลยุทธ์ (ตามเงื่อนไขเดิมเป๊ะ ไม่มีการจูนใด ๆ) ไปรันบนข้อมูลวันจัดพอร์ตล่าสุดที่มีจริง — <strong>31 กรกฎาคม 2569</strong> — แล้วดึงหุ้นที่จะถูกเลือกออกมาให้ดู <em>เป็นตัวอย่างเชิงอธิบายเพื่อให้เห็นหน้าตาของกลยุทธ์ ไม่ใช่คำแนะนำซื้อขาย</em></p>
+
+  <h3>๑ · E/P — ซื้อกำไรที่ถูกที่สุด</h3>
+  <p><strong>รูปแบบ: นักลงทุนสายคุ้มค่า (Value)</strong> — ซื้อเหมือนเดินห้างช่วงลดราคา: ของชิ้นเดิม แต่ตลาดเบื่อจนเทราคาถูกกว่าที่ควร กำไรของสายนี้ไม่ได้มาจากการเดาราคาสั้น ๆ แต่มาจากวันที่ตลาด "กลับมาเห็นคุณค่า" จึงเหมาะกับคนใจเย็นถือข้ามหลายเดือน จุดที่ต้องระวังคือกับดักของถูก — หุ้นถูกเพราะธุรกิจกำลังซวยจริง ๆ (และเป็นเหตุผลที่ใน C2b สายนี้ต้องจับมือกับตัววัดคุณภาพอย่าง ROIC เสมอ)</p>
+  <p>ตัวเลข = กำไรงบทั้งปีคิดเป็นกี่ % ของราคาหุ้น (ยิ่งสูงยิ่งถูก)</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>กำไรต่อราคา</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>UNIQ</td><td>ยูนิค เอ็นจิเนียริ่ง แอนด์ คอนสตรัคชั่น</td><td>32.0%</td><td>3,070</td></tr>
+    <tr><td>KCC</td><td>ไนท์คลับแคปปิตอล</td><td>28.0%</td><td>1,768</td></tr>
+    <tr><td>RCL</td><td>อาร์ ซี แอล</td><td>26.9%</td><td>29,006</td></tr>
+    <tr><td>SRICHA</td><td>ศรีราชาคอนสตรัคชั่น</td><td>24.4%</td><td>5,516</td></tr>
+    <tr><td>NOBLE</td><td>โนเบิล ดีเวลลอปเมนท์</td><td>22.2%</td><td>2,533</td></tr>
+  </table>
+
+  <h3>๒ · CFO/P — ซื้อเงินสดจริง (แชมป์ Batch 3)</h3>
+  <p><strong>รูปแบบ: สายคุ้มค่าที่ไม่เชื่อกำไรบัญชี</strong> — ปรัชญาเดียวกับข้อ ๑ แต่เปลี่ยนไม้วัด: กำไรบัญชีแต่งได้หลายทาง (รับรู้รายได้ก่อนเวลา, กำไรส่วนแบ่งบริษัทลูก) แต่เงินสดที่ไหลเข้าบัญชีจริงโกหกยากกว่า กลยุทธ์นี้จึงทำหน้าที่เป็น "เครื่องตรวจ" จับหุ้นที่กำไรดูธรรมดาแต่ธุรกิจสร้างเงินสดแรงจนน่าตกใจ — ส่วนที่ตลาดรายย่อยไทยซึ่งนับกันแต่กำไรสุทธิมักมองข้าม</p>
+  <p>ตัวเลข = เงินสดจากธุรกิจ 1 ปี คิดเป็นกี่ % ของมูลค่าหุ้น — CAZ สร้างเงินสด 153% ของราคาหุ้นตัวเองในปีเดียว</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>เงินสดต่อราคา</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>CAZ</td><td>ซี เอ แซด (ประเทศไทย)</td><td>152.8%</td><td>702</td></tr>
+    <tr><td>TPCH</td><td>ทีพีซี เพาเวอร์โฮลดิ้ง</td><td>127.1%</td><td>562</td></tr>
+    <tr><td>TRUBB</td><td>ไทยรับเบอร์ลาเท็คซ์กรุ๊ป</td><td>86.7%</td><td>874</td></tr>
+    <tr><td>AGE</td><td>เอเชีย กรีน เอนเนอจี</td><td>84.7%</td><td>1,592</td></tr>
+    <tr><td>IRPC</td><td>ไออาร์พีซี</td><td>74.3%</td><td>44,904</td></tr>
+  </table>
+
+  <h3>๓ · EV/EBITDA — ซื้อกิจการราคาส่ง</h3>
+  <p><strong>รูปแบบ: สายคิดแบบผู้ซื้อกิจการทั้งกิจการ</strong> — ถามคำถามเดียว: ถ้ามีเงินกู้ซื้อบริษัททั้งใบ (รวมหนี้ที่ต้องรับมาด้วย) กำไรก่อนดอกเบี้ย-ภาษี-ค่าเสื่อมจะคืนทุนให้ในกี่ปี มุมนี้ตัดเวทมนตร์โครงสร้างทุนออกหมด — ธุรกิจหนี้เยอะกับหนี้น้อยถูกวัดด้วยไม้เดียวกัน จึงเห็น "ราคาของธุรกิจ" ไม่ใช่ราคาของกระดานหุ้น</p>
+  <p>ตัวเลข = มูลค่ากิจการรวมหนี้ ÷ กำไรก่อนดอกเบี้ย-ภาษี-ค่าเสื่อม (ยิ่งต่ำยิ่งถูก; กรองบริษัทขาดทุนทิ้ง — EBITDA ติดลบไม่ใช่ "ถูก")</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>EV/EBITDA (เท่า)</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>CAZ</td><td>ซี เอ แซด (ประเทศไทย)</td><td>0.08</td><td>702</td></tr>
+    <tr><td>SYNTEC</td><td>ซินเท็ค คอนสตรัคชั่น</td><td>0.17</td><td>3,036</td></tr>
+    <tr><td>SAFE</td><td>เซฟ เฟอร์ทิลิตี้ กรุ๊ป</td><td>0.20</td><td>1,641</td></tr>
+    <tr><td>BEC</td><td>บีอีซี เวิลด์</td><td>1.39</td><td>4,200</td></tr>
+    <tr><td>METCO</td><td>มูราโมโต้ อีเล็คตรอน</td><td>1.39</td><td>6,333</td></tr>
+  </table>
+
+  <h3>๔ · ROIC — ซื้อบริษัทเก่งจริง</h3>
+  <p><strong>รูปแบบ: สายคุณภาพ (Quality)</strong> — ไม่ถามว่าถูกไหม แต่ถามว่าธุรกิจนี้เอาเงินทุนไปหมุนแล้ว "เก่งแค่ไหน" บริษัท ROIC สูงคือบริษัทที่ทำกำไรได้ทุกฤดูกาล ทนวิกฤต และขยายธุรกิจได้โดยไม่ต้องกู้เพิ่มบ่อย ๆ จากบทที่ 3 เรายืนยันมาแล้วสามรอบว่าในไทย "คุณภาพ" มีมิติเดียวจริง ๆ คือตัวนี้ — ใครอ้างคุณภาพแบบอื่น สุดท้ายก็ลงเอยเป็น ROIC ทั้งนั้น</p>
+  <p>ตัวเลข = เงินทุน 100 บาท สร้างกำไรก่อนดอกเบี้ย-ภาษีได้กี่บาทต่อปี</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>ผลตอบแทนทุน</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>NETBAY</td><td>เน็ตเบย์</td><td>164%</td><td>2,700</td></tr>
+    <tr><td>PT</td><td>พรีเมียร์ เทคโนโลยี</td><td>153%</td><td>3,265</td></tr>
+    <tr><td>SRICHA</td><td>ศรีราชาคอนสตรัคชั่น</td><td>148%</td><td>5,516</td></tr>
+    <tr><td>TACC</td><td>ที.เอ.ซี. คอนซูเมอร์</td><td>104%</td><td>3,870</td></tr>
+    <tr><td>SAV</td><td>สามารถ เอวิเอชั่น โซลูชั่นส์</td><td>94%</td><td>7,214</td></tr>
+  </table>
+
+  <h3>๕ · MOM12-1 — ซื้อแนวโน้มที่ยังวิ่ง</h3>
+  <p><strong>รูปแบบ: สายตามแนวโน้ม (Momentum)</strong> — คนละจักรวาลกับสายคุ้มค่า: ไม่ไล่ของถูก แต่ไปอยู่กับฝูงชนะ เพราะหลักจิตวิทยาบอกว่าข่าวดีกระจายช้ากว่าที่คิด ราคาที่วิ่งขึ้นมาแล้วมักวิ่งต่ออีกช่วง ข้อแลกเปลี่ยนคือต้องทน "ถูกหวดตอนตลาดกลับตัวแรง ๆ" และมีวินัยออกจากไม้ที่แนวโน้มตาย — ถือระยะกลางเป็นเดือนถึงไตรมาส ไม่ใช่เก็บไว้ตลอดกาล</p>
+  <p>ตัวเลข = ราคาขึ้นมาแค่ไหนใน 11 เดือนก่อนหน้า (ตัดเดือนล่าสุดทิ้งตามสูตร)</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>แนวโน้ม 11 เดือน</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>TRT</td><td>ถิรไทย</td><td>+309%</td><td>4,251</td></tr>
+    <tr><td>STEC</td><td>ซิโน-ไทย เอ็นจิเนียริ่ง</td><td>+224%</td><td>27,336</td></tr>
+    <tr><td>GUNKUL</td><td>กันกุลเอ็นจิเนียริ่ง</td><td>+180%</td><td>43,440</td></tr>
+    <tr><td>KGEN</td><td>คิง เจน</td><td>+164%</td><td>3,698</td></tr>
+    <tr><td>MGC</td><td>มิลเลนเนียม กรุ๊ป</td><td>+148%</td><td>11,808</td></tr>
+  </table>
+
+  <h3>๖ · EPS_ACCEL — ซื้อกำไรที่เร่งเครื่อง</h3>
+  <p><strong>รูปแบบ: สายเติบโตที่ต้องการหลักฐาน (Growth with receipts)</strong> — ไม่ซื้อ "เรื่องเล่า" ว่าบริษัทจะโต แต่ซื้อตอนที่ตัวเลขพิสูจน์แล้วว่ากำไรกำลังเร่งจริง เพราะตลาดมักตั้งราคาตามความเร่งช้ากว่าความจริงหนึ่งจังหวะ จุดเสี่ยงของสายนี้คือจังหวะที่การเร่ง "หมดแรง" — ราคามักถูกปรับลดแรงตามไปด้วย</p>
+  <p>ตัวเลข = ส่วนต่างกำไรที่ "เร่งขึ้น" เทียบราคา — CAZ กำไรที่เร่งขึ้นมามูลค่าเท่ากับ 31% ของราคาหุ้น</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>กำไรเร่งต่อราคา</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>CAZ</td><td>ซี เอ แซด (ประเทศไทย)</td><td>31.0%</td><td>702</td></tr>
+    <tr><td>TPCH</td><td>ทีพีซี เพาเวอร์โฮลดิ้ง</td><td>24.3%</td><td>562</td></tr>
+    <tr><td>AAV</td><td>เอเชีย เอวิเอชั่น</td><td>11.8%</td><td>13,621</td></tr>
+    <tr><td>IRPC</td><td>ไออาร์พีซี</td><td>10.0%</td><td>44,904</td></tr>
+    <tr><td>SGP</td><td>ศรีไทยซุปเปอร์แวร์</td><td>8.3%</td><td>1,097</td></tr>
+  </table>
+
+  <h3>๗ · DY|ROIC — เก็บปันผลจากบริษัทเก่งเท่านั้น</h3>
+  <p><strong>รูปแบบ: สายรายได้ (Income) แบบกันกับดัก</strong> — ปันผลคือกำไรที่จับต้องได้จริง โอนเข้าบัญชีสม่ำเสมอ เหมาะกับคนที่อยากได้กระแสเงินสดระหว่างถือ แต่หุ้นปันผลสูงมีกับดักคลาสสิก: ปันผลดีเพราะราคาถูกเพราะธุรกิจกำลังตาย กลยุทธ์นี้จึงใส่เงื่อนไข ROIC ครึ่งบนเอาไว้คัดก่อน — เอาปันผลเฉพาะจากบริษัทที่ยังเก่งอยู่ (และเคยทดสอบแล้วว่าแบบไร้เงื่อนไขตายจริง)</p>
+  <p>ตัวเลข = ปันผลรวม 12 เดือนล่าสุด ÷ ราคา — เฉพาะบริษัทที่ ROIC อยู่ครึ่งบนของตลาด (ปันผลดีเพราะธุรกิจดี ไม่ใช่เพราะกำลังจะตาย)</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>อัตราปันผล</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>NYT</td><td>นามยง เทอร์มินัล</td><td>12.3%</td><td>5,059</td></tr>
+    <tr><td>MCS</td><td>เอ็ม.ซี.เอส. สตีล</td><td>12.0%</td><td>3,792</td></tr>
+    <tr><td>SRICHA</td><td>ศรีราชาคอนสตรัคชั่น</td><td>11.2%</td><td>5,516</td></tr>
+    <tr><td>STANLY</td><td>ไทยสแตนเลย์ การไฟฟ้า</td><td>10.6%</td><td>18,085</td></tr>
+    <tr><td>METCO</td><td>มูราโมโต้ อีเล็คตรอน</td><td>9.9%</td><td>6,333</td></tr>
+  </table>
+
+  <h3>๘ · SUE/PEAD — ตามข่าวกำไรเซอร์ไพรส์</h3>
+  <p><strong>รูปแบบ: สายล่าเหตุการณ์ (Event-driven)</strong> — ทำงานตามปฏิทินงบ ไม่ใช่ปฏิทินอารมณ์: งบออก กำไรเกินคาด เข้าไม้ แล้วเก็บส่วนที่ราคา "ไหลช้า" ตามมาเป็นสัปดาห์ ถือสั้น เฉพาะหน้าต่างหลังงบเผยแพร่ และต้องเข้าตามวันที่รู้จริงเท่านั้น — มันคือกลยุทธ์ของคนที่พร้อมลุกมาทำงานทุกครั้งที่มีงบออก ไม่ใช่พอร์ตแช่เฉย ๆ</p>
+  <p>ตัวเลข = กำไรเกินคาดกี่ "สิกมา" (สิกมา = หน่วยวัดว่าเกินคาดมากน้อยแค่ไหนเทียบปกติ; 2 สิกมาขึ้นไป = เซอร์ไพรส์ใหญ่) — ตัวอย่างจากรอบจัด 30 มิถุนายน 2569 ช่วงที่งบไตรมาสเพิ่งออก มี 626 ตัวเข้าเงื่อนไข (กลยุทธ์นี้จับคู่กับวันงบ ไม่ใช่มีไม้ทุกเดือน)</p>
+  <table class="cmp-table">
+    <tr><th>หุ้น</th><th>บริษัท</th><th>เซอร์ไพรส์ (สิกมา)</th><th>มูลค่า (ลบ.)</th></tr>
+    <tr><td>KLINIQ</td><td>เดอะคลีนิกค์ คลินิกเวชกรรม</td><td>+3.28</td><td>5,885</td></tr>
+    <tr><td>IT</td><td>ไอที ซิตี้</td><td>+3.15</td><td>2,125</td></tr>
+    <tr><td>CENTEL</td><td>โรงแรมเซ็นทรัลพลาซา</td><td>+2.91</td><td>49,950</td></tr>
+    <tr><td>CPALL</td><td>ซีพี ออลล์</td><td>+2.72</td><td>416,589</td></tr>
+    <tr><td>ADVICE</td><td>แอดไวซ์</td><td>+2.58</td><td>10,150</td></tr>
+  </table>
+
+  <h2>พอร์ตหลัก C2b — สิบไม้แรกที่ได้</h2>
+  <p>C2b ให้คะแนนทุกหุ้น 0-4 คะแนน (สี่มิติรวมกัน) แล้วเลือก 20% บนสุด — รอบจัดล่าสุดได้ 80 ตัว นี่คือสิบอันดับแรก พร้อมคะแนนแยกแต่ละมิติ (99 = อยู่ 1% บนสุดของตลาดในมิตินั้น)</p>
+  <table class="cmp-table">
+    <tr><th>อันดับ</th><th>หุ้น</th><th>คะแนนรวม</th><th>ถูก</th><th>เก่ง</th><th>แนวโน้ม</th><th>เร่ง</th></tr>
+    <tr><td>1</td><td>SRICHA ศรีราชาคอนสตรัคชั่น</td><td>3.93</td><td>99</td><td>99</td><td>98</td><td>97</td></tr>
+    <tr><td>2</td><td>KCC ไนท์คลับแคปปิตอล</td><td>3.84</td><td>98</td><td>97</td><td>96</td><td>93</td></tr>
+    <tr><td>3</td><td>METCO มูราโมโต้ อีเล็คตรอน</td><td>3.65</td><td>95</td><td>94</td><td>92</td><td>84</td></tr>
+    <tr><td>4</td><td>SPRC สตาร์ ปิโตรเลียม</td><td>3.54</td><td>93</td><td>91</td><td>90</td><td>80</td></tr>
+    <tr><td>5</td><td>SEAFCO ซีฟโก้</td><td>3.47</td><td>92</td><td>89</td><td>88</td><td>78</td></tr>
+    <tr><td>6</td><td>SANKO ซังโกะ ไดคาซติ้ง</td><td>3.42</td><td>91</td><td>88</td><td>85</td><td>78</td></tr>
+    <tr><td>7</td><td>SPVI เอส พี วี ไอ</td><td>3.41</td><td>90</td><td>87</td><td>84</td><td>80</td></tr>
+    <tr><td>8</td><td>TOP ไทยออยล์</td><td>3.39</td><td>89</td><td>86</td><td>83</td><td>81</td></tr>
+    <tr><td>9</td><td>VCOM วินท์คอม</td><td>3.36</td><td>88</td><td>85</td><td>82</td><td>81</td></tr>
+    <tr><td>10</td><td>MGC มิลเลนเนียม กรุ๊ป</td><td>3.36</td><td>88</td><td>84</td><td>81</td><td>83</td></tr>
+  </table>
+  <div class="insight-box"><div class="tag">อ่านตารางนี้อย่างไร — สามข้อที่ต้องสังเกต</div><p>หนึ่ง อันดับ 1 ศรีราชาฯ แทบสมบูรณ์แบบ: ติด 1% บนสุดพร้อมกันทั้งสี่มิติ — ถูก เก่ง แนวโน้มดี และกำไรเร่ง พร้อมกันหมด นี่คือหน้าตาของ "ไม้ A+ ของระบบ" สอง หลายชื่อเป็นหุ้นเล็กที่คุณอาจไม่เคยได้ยิน — นี่แหละคือเหตุผลที่ทุกกลยุทธ์ผูก "หุ้นต้องซื้อขายง่าย" และเช็คความกระจุกของกำไรทุกไตรมาสไว้แน่น ๆ สาม บางตัวซ้ำข้ามกลยุทธ์ (SRICHA ติดทั้ง E/P, ROIC, DY และอันดับ 1 ของ C2b) — สัญญาณมุมมองเดียวกันยืนยันกันเอง ไม่ใช่ความบังเอิญ</p></div>
+  <p class="small">ทั้งหมดคำนวณจากข้อมูล ณ วันจัดพอร์ต 31 ก.ค. 2569 (SUE ณ 30 มิ.ย. 2569) · สูตรและเงื่อนไขเดิมทุกข้อ ไม่มีการจูนหลังเห็นชื่อ · โค้ด: src/batch4_picks_example.py · ข้อมูลดิบ: out/batch4_report/picks.json</p>
+</div>
+<div class="page">
+  <div class="eyebrow">Batch 5 · ฉบับพกพา</div>
+  <h1>"ถือแค่ 10 ตัวได้ไหม" — เราเอาคำถามนี้ไปทดลองจริงแล้ว</h1>
+  <p>คำถามที่ทุกคนถามต่อจากตารางข้างบนคือ "งานวิจัยให้ถือ 60-80 ตัว แต่คนธรรมดาจะไหวได้ไง" — เราไม่ตอบด้วยความเห็น แต่เอาไปทดลองแบบเต็มขั้นตอน (Batch 5): บีบทั้ง 8 กลยุทธ์บวก C2b ให้ถือ <strong>10 อันดับบนสุดเท่านั้น น้ำหนักเท่ากัน</strong> ภายใต้เงื่อนไขคนธรรมดาจริง ๆ — แตะพอร์ตเดือนละครั้ง กติกาชัดไร้ดุลยพินิจ และนับ <strong>กำไรสุทธิหลังหักค่าธรรมเนียม+ส่วนต่างราคาจริง</strong> (0.25% ต่อข้าง คูณการหมุนพอร์ตที่เกิดจริง) เกณฑ์ตัดสิน 5 ข้อถูกผูกเอาไว้ก่อนเห็นผลแล้ว: ต้องได้เทียบเทียบฉบับกว้าง · t ≥ 2 · ครึ่งแรกครึ่งหลังทิศตรง · DSR ≥ 0.95 · และตัด 10 ไม้ที่กำไรโดดที่สุดออกแล้วยังต้องยืน</p>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family='Noto Serif Thai',serif><rect width="720" height="360" fill="#FFFFFF"/><text x="360" y="28" font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">กำไรสุทธิ/ปี (หลังต้นทุนจริง): ถือ 10 ตัว vs ฉบับกว้าง 20% บน</text><line x1="140" y1="187.25" x2="798" y2="187.25" stroke="#46402F"/><text x="136" y="191.25" font-size="10" fill="#7C7460" text-anchor="end">0</text><rect x="150" y="65.88750000000002" width="17.6" height="121.36249999999998" fill="#5F7351" rx="2"/><text x="158.8" y="59.88750000000002" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+27.7</text><rect x="170.0" y="141.26875" width="17.6" height="45.98124999999999" fill="#B5C4A9" rx="2"/><text x="178.8" y="135.26875" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+10.5</text><text x="170.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">C2b</text><text x="170.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.82✗</text><rect x="222" y="115.4125" width="17.6" height="71.8375" fill="#5F7351" rx="2"/><text x="230.8" y="109.4125" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+16.4</text><rect x="242.0" y="158.55" width="17.6" height="28.69999999999999" fill="#B5C4A9" rx="2"/><text x="250.8" y="152.55" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+6.6</text><text x="242.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">MOM12-1</text><text x="242.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.17✗</text><rect x="294" y="148.61875" width="17.6" height="38.631249999999994" fill="#5F7351" rx="2"/><text x="302.8" y="142.61875" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+8.8</text><rect x="314.0" y="166.25" width="17.6" height="21.0" fill="#B5C4A9" rx="2"/><text x="322.8" y="160.25" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+4.8</text><text x="314.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">CFO/P</text><text x="314.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.38✗</text><rect x="366" y="155.575" width="17.6" height="31.67500000000001" fill="#5F7351" rx="2"/><text x="374.8" y="149.575" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+7.2</text><rect x="386.0" y="173.95" width="17.6" height="13.300000000000011" fill="#B5C4A9" rx="2"/><text x="394.8" y="167.95" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+3.0</text><text x="386.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">E/P</text><text x="386.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.29✗</text><rect x="438" y="154.48125" width="17.6" height="32.76875000000001" fill="#5F7351" rx="2"/><text x="446.8" y="148.48125" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+7.5</text><rect x="458.0" y="172.4625" width="17.6" height="14.787499999999994" fill="#B5C4A9" rx="2"/><text x="466.8" y="166.4625" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+3.4</text><text x="458.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">EV/EBITDA</text><text x="458.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.20✗</text><rect x="510" y="163.40625" width="17.6" height="23.84375" fill="#5F7351" rx="2"/><text x="518.8" y="157.40625" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+5.5</text><rect x="530.0" y="165.46249999999998" width="17.6" height="21.787500000000023" fill="#B5C4A9" rx="2"/><text x="538.8" y="159.46249999999998" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+5.0</text><text x="530.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">DY|ROIC</text><text x="530.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.18✗</text><rect x="582" y="178.19375" width="17.6" height="9.056250000000006" fill="#5F7351" rx="2"/><text x="590.8" y="172.19375" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+2.1</text><rect x="602.0" y="177.8875" width="17.6" height="9.362500000000011" fill="#B5C4A9" rx="2"/><text x="610.8" y="171.8875" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+2.1</text><text x="602.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">SUE/PEAD</text><text x="602.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.02✗</text><rect x="654" y="174.3875" width="17.6" height="12.862500000000011" fill="#5F7351" rx="2"/><text x="662.8" y="168.3875" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">+2.9</text><rect x="674.0" y="168.48125" width="17.6" height="18.76875000000001" fill="#B5C4A9" rx="2"/><text x="682.8" y="162.48125" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+4.3</text><text x="674.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">EPS_ACCEL</text><text x="674.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.01✗</text><rect x="726" y="187.25" width="17.6" height="2.5374999999999943" fill="#5F7351" rx="2"/><text x="734.8" y="202.7875" font-size="10.5" fill="#5F7351" text-anchor="middle" font-weight="600">-0.6</text><rect x="746.0" y="182.04375" width="17.6" height="5.206250000000011" fill="#B5C4A9" rx="2"/><text x="754.8" y="176.04375" font-size="10.5" fill="#8A7B3A" text-anchor="middle" font-weight="600">+1.2</text><text x="746.0" y="283" font-size="11" fill="#14110B" text-anchor="middle" font-weight="600">ROIC</text><text x="746.0" y="297" font-size="9.5" fill="#7A1A1A" text-anchor="middle" font-weight="600">DSR 0.00✗</text><rect x="150" y="330" width="11" height="11" fill="#5F7351"/><text x="167" y="339" font-size="11" fill="#7C7460">ถือ 10 ตัวบนสุด</text><rect x="270" y="330" width="11" height="11" fill="#B5C4A9"/><text x="287" y="339" font-size="11" fill="#7C7460">ฉบับกว้าง (20% บน)</text><text x="360" y="354" font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">DSR ≥ 0.95 = ผ่านการหักดวงจาก 409 การทดลอง — ไม่มีแขนงไหนผ่าน · C2b-10 ใกล้สุด (0.82)</text></svg><div class="chart-note">จาก out/batch5_top10_results.json (EXP-1200..1208) — NET หลังต้นทุน 0.25%/ข้าง × turnover จริง · DSR ที่ m=409</div></div>
+  <table class="cmp-table">
+    <tr><th>แขนง (ถือ 10 ตัว)</th><th>NET %/ปี</th><th>t</th><th>ฉบับกว้าง NET</th><th>DSR</th><th>ผลตัดสิน</th></tr>
+    <tr><td>C2b (4 ขา)</td><td>+27.7</td><td>3.27</td><td>+10.5</td><td>0.82</td><td>ตาย — DSR · drop10 (t 1.34)</td></tr>
+    <tr><td>MOM12-1</td><td>+16.4</td><td>2.18</td><td>+6.6</td><td>0.17</td><td>ตาย — DSR · drop10</td></tr>
+    <tr><td>CFO/P</td><td>+8.8</td><td>2.48</td><td>+4.8</td><td>0.38</td><td>ตาย — DSR · drop10</td></tr>
+    <tr><td>E/P</td><td>+7.2</td><td>2.46</td><td>+3.0</td><td>0.29</td><td>ตาย — ครึ่งสวน · DSR · drop10</td></tr>
+    <tr><td>EV/EBITDA</td><td>+7.5</td><td>2.12</td><td>+3.4</td><td>0.20</td><td>ตาย — ครึ่งสวน · DSR · drop10</td></tr>
+    <tr><td>DY|ROIC</td><td>+5.5</td><td>1.74</td><td>+5.0</td><td>0.18</td><td>ตาย — t · ครึ่งสวน · DSR</td></tr>
+    <tr><td>SUE/PEAD</td><td>+2.1</td><td>1.18</td><td>+2.1</td><td>0.02</td><td>ตาย — t · DSR</td></tr>
+    <tr><td>EPS_ACCEL</td><td>+2.9</td><td>0.92</td><td>+4.3</td><td>0.01</td><td>ตาย — ทุกด่านเกือบครบ</td></tr>
+    <tr><td>ROIC</td><td>−0.6</td><td>−0.30</td><td>+1.2</td><td>0.001</td><td>ตาย — ตัวเดียวที่ติดลบ</td></tr>
+  </table>
+  <div class="insight-box"><div class="tag">อ่านผลนี้ให้ขาด — เลขสวยไม่ใช่หลักฐาน</div><p>C2b ถือ 10 ตัวทำกำไรสุทธิ +27.7% ต่อปี — สวยเกือบสามเท่าฉบับ 80 ตัว แต่ก็ยังตาย เพราะสองด่านเดิมที่เราเจอมาเจ็ดครั้งแล้ว: กำไรพึ่งไม้ไม่กี่ตัว (ตัด 10 ไม้ที่โดดที่สุดออก ความมั่นใจร่วงจาก 3.27 เหลือ 1.34) และไม่ผ่านการหักดวงจาก 409 การทดลองสะสม (DSR 0.82 ต่ำกว่าเส้น 0.95) นี่คือกฎเหล็กของพอร์ตเล็ก: ยิ่งเกลือก ยิ่งพึ่งดวง — ตัวเลขจะดูดีขึ้นเอง แต่ความเป็น "ของจริง" ลดลงเองด้วย</p></div>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความเชื่อเดิม</div><div class="ladder-text">"ถือน้อย ๆ สิ สิบตัวพอ — เงินทุนน้อยก็ทำได้ และเลขยิ่งดูดีกว่าเดิม"</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริงจากการทดลอง</div><div class="ladder-text">ฉบับ 10 ตัว = การเดิมพันนอกขอบเขตหลักฐาน — กำไรอาจมาถึงจริง แต่ไม่มีสิทธิ์เรียกว่า "พิสูจน์แล้ว" อีกต่อไป</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">ลงมือทำ (ถ้าเลือกทางนี้)</div><div class="ladder-text">ใช้ C2b-10 (ไม้ A+ ของระบบ) + ยอมรับเงื่อนไข: รู้ตัวว่ายังไม่ผ่านการพิสูจน์ · ทบทวนผลจริงทุกไตรมาส · ห้ามเลือกหรือเปลี่ยนไม้เองนอกคะแนนระบบ — นั่นคือเพิ่มดวงซ้อนดวง</div></div>
+  </div>
+  <p class="small">Batch 5 · registry + เกณฑ์ 5 ข้อผูกก่อนเห็นผล (research/hypotheses_batch5.md + Amendment #1) · ผลดิบ out/batch5_top10_results.json · บันทึก EXP-1200..1208 · ทุกตัวเลขเป็นกำไรสุทธิหลังต้นทุนจริง ไม่ใช่กระดาษ</p>
+</div>
+<div class="page">
+  <div class="eyebrow">The Fine Print · ประโยคที่ต้องพิมพ์ใหญ่ที่สุด</div>
+  <h2 style="margin-top:0">ทั้งแปดยังไม่เคยสอบตลาดกระทิง — และเรายอมรับมันตรง ๆ</h2>
+  <p>ทั้งแปดถูกพิสูจน์เป็นหลักในช่วง<strong>ตลาดหมี</strong> (2019-2026 เป็นขาลงยาวของตลาดไทย) — ยังไม่มีตัวไหนผ่านตลาดกระทิงเต็มตัวเลยสักตัว เลขเดือนขาขึ้นที่มีอยู่บอกว่าส่วนต่างบางลงเหลือครึ่งเดียว (แต่ยังบวก) เราจึงประกาศตรง ๆ: เวลากระทิงมาจริง จะเป็นการสอบครั้งใหญ่ของทุกตัว และเป็นงานอันดับหนึ่งของระบบวิจัยเรา — นี่ไม่ใช่คำเตือนขาย ๆ แต่เป็นขอบเขตความรู้ที่เราวัดได้ ณ วันนี้</p>
+  <div class="signal-box">
+    <div class="signal-cell do"><div class="signal-head">✔ ทำแบบนี้</div><p>· ถือแบบให้น้ำหนักเท่ากัน เอาเฉพาะหุ้นซื้อขายง่าย (EW + liquid)</p><p>· ยึดเงื่อนไขผูกติดของแต่ละตัวให้ครบ: DY เฉพาะ ROIC ครึ่งบน · CFO/P ครบ 4 ข้อ · SUE เข้าหลังงบเผยแพร่จริง</p><p>· วางแผนด้วยเลขฝั่งซื้อ (long-only) เสมอ</p></div>
+    <div class="signal-cell dont"><div class="signal-head">✘ ห้ามทำ</div><p>· ยัดกลยุทธ์ใหม่เป็น "ขาที่ห้า" ของ C2b — ทดลองแล้วหลายรอบ ไม่เคยช่วย</p><p>· เชื่อเลขกระดาษฝั่ง "เก็งราคาลง" — ขาที่ไทยเทรดไม่ได้ คือความรู้ ไม่ใช่เงิน</p><p>· ลืมว่าทั้งแปดยังไม่เคยเจอตลาดกระทิงเต็มตัว</p></div>
+  </div>
+  <div class="insight-box"><div class="tag">Batch 3 + 4 ไม่ได้เปลี่ยนกลยุทธ์เลย — และนั่นคือข่าวดี</div><p>34 ตัวใหม่ฆ่าตัวเก่าไม่ได้สักตัว แปลว่ากลยุทธ์ที่ถืออยู่แข็งแรงพอจะไม่ถูกแทนที่ การลงทุนที่ดีไม่ต้องมี "ของใหม่" ทุกปี — ต้องมีแค่ "ของจริง" ที่ตรวจแล้วไม่พัง และยอมรับขีดจำกัดที่ยังไม่ได้ทดสอบ</p></div>
+  <div class="reflection"><div class="tag">คำถามท้ายบท — คิดก่อนไปต่อ</div><p>๑. ถ้ากลยุทธ์ทั้งแปดคือ "ของเดิม" ความได้เปรียบของคุณอยู่ตรงไหน — ที่สัญญาณ หรือที่วินัยทำตามเงื่อนไข?</p><p>๒. ทุกตัวเกิดในช่วงหมี — คุณพร้อมเป็นเจ้าของกลยุทธ์ที่ยังไม่มีใครยืนยันในกระทิง หรือจะรอตลาดยืนยันก่อน (แล้วยอมเสียส่วนต่างช่วงแรก)?</p><p>๓. ถ้ากระทิงมาจริงและส่วนต่างบางลงเหลือครึ่งเดียว — คุณจะถือต่อด้วยเหตุผล หรือโทษว่ากลยุทธ์พัง?</p></div>
+</div>
+
+
+<div class="chapter-open"><div class="ch-label">บทที่ 05 · Chapter Five</div><div class="ch-title">แผนเวลา: เกมยาว 24 เดือนข้างหน้า<em>ข้อมูลที่เก็บวันนี้ คือกระสุนที่ปีหน้าเท่านั้นยิงได้</em></div><div class="ch-essence">คลังกลยุทธ์ 97 ตัวปิดครบแล้ว — 8 มีชีวิต 62 ตาย อีก 27 ติดกำแพงข้อมูล ในจำนวนนั้น 3 ตัวเพิ่งมีกุญแจ เมื่อเราเริ่มเก็บข้อมูลใหม่สองชุดอัตโนมัติในวันที่ 14 กันยายน 2569 — บทนี้เล่าว่าเก็บอะไร ทำไมต้องเก็บเองวันละวัน และเดินเกมต่ออย่างไรอีกสองปี</div><div class="ch-num">5</div></div>
+<div class="page">
+  <div class="eyebrow">Track B · ข้อมูลใหม่ที่เริ่มสะสมแล้ว</div>
+  <h2>ประตูที่ยังปิด 27 บาน — และ 3 บานที่เพิ่งมีกุญแจ</h2>
+  <p>สถานะคลังกลยุทธ์ (catalog — รายการกลยุทธ์ระดับโลกที่เราไล่ทดสอบบนหุ้นไทย): ทดสอบครบ 97 จาก 97 — <strong>8 มีชีวิต · 62 ตาย</strong> · อีก 27 ตัวยังไม่ถูกทดสอบ: 15 ตัวติดกำแพงข้อมูลเพราะไทยไม่มีข้อมูลชนิดนั้น เช่น ราคาละเอียดภายในวัน (intraday) หรือสัญญาออปชัน · 9 ตัวต้องการจังหวะรายวันหรือการพยากรณ์ จึงไม่เข้ากับระบบรายเดือน · และ 3 ตัวที่ปลดล็อกได้ ด้วยข้อมูลที่เราเพิ่งเริ่มเก็บสัปดาห์นี้</p>
+  <p>เราเรียกงานนี้ว่า <strong>Track B</strong> — ตัวเก็บข้อมูลอัตโนมัติสองตัวเริ่มทำงานเมื่อ 14 กันยายน 2569 และจะทำงานต่อทุกวัน ไม่ว่าเราจะมาดูหรือไม่</p>
+  <h2>ตัวเก็บที่ 1 — ใครกำลังเทเงินเข้า หรือดึงออกจากตลาดไทย</h2>
+  <p>ตลาดไทยเป็นหนึ่งในไม่กี่ตลาดที่เปิดเผย "ซื้อขายสุทธิ" (มูลค่าซื้อลบมูลค่าขาย — ติดลบคือขายมากกว่าซื้อ) แยกนักลงทุน 4 กลุ่ม ทุกวัน แบบฟรี: ต่างชาติ · สถาบันในประเทศ (กองทุน ประกัน) · บริษัทหลักทรัพย์ที่เทรดในนามตัวเอง · รายย่อย ครบทั้ง SET และ MAI (ตลาดหุ้นเล็ก) ตาราง <strong>set_flows_daily</strong> เก็บทุกค่านี้ หน่วยล้านบาท ทุกวัน 18:35 โดยตัวตั้งเวลา (cron — ตัวปลุกให้เครื่องรันงานเอง) จุดให้เอง</p>
+  <p>สแนปชอตแรก (ข้อมูลชุดแรก) คือ 5 วันทำการ 40 แถว — ตรวจด้วยกฎเดียว: ยอดซื้อรวมต้องเท่ายอดขายรวมเป๊ะ เพราะทุกไม้ซื้อต้องมีคนขายตรงข้าม ผล: ผ่านทุกวัน</p>
+  <p>ตัวอย่างจากวันจริง 11 กันยายน 2569 (ตลาด SET, ล้านบาท): ต่างชาติ<strong>ขายสุทธิ −3,137.5</strong> · รายย่อย<strong>ซื้อสุทธิ +3,035.9</strong> · สถาบัน +594.2 · โบรกเกอร์ −492.6 — อ่านได้ทันที: เงินต่างชาติไหลออกเกือบสามพันล้าน กระเป๋ารายย่อยรับของต่อเกือบทั้งก้อน</p>
+  <p>ข้อจำกัดพูดตรง ๆ: SET ไม่เปิดประวัติย้อนหลังฟรี มีให้แค่ "วันล่าสุด" — ทางเดียวคือสะสมเองวันละวันตั้งแต่วันนี้ ตัวนี้ปลดล็อก CAT-080 (กลยุทธ์ใช้ flow — เลข CAT- คือรหัสประจำตัวในคลัง 97 ตัว)</p>
+  <h2>ตัวเก็บที่ 2 — ความเห็นเฉลี่ยของนักวิเคราะห์ วันต่อวัน</h2>
+  <p>ตาราง <strong>analyst_forecasts_pit</strong> เก็บฉันทามตินักวิเคราะห์ (ความเห็นเฉลี่ยของนักวิเคราะห์หลายคนต่อหุ้นหนึ่งตัว) ทุกวัน 08:05 ผ่าน Windows Task Scheduler (ตัวตั้งเวลาของวินโดวส์) — ต่อหุ้นมี: ราคาเป้าหมาย (ราคาที่คิดว่าหุ้นควรไปถึงใน 12 เดือน ต่ำ–กลาง–สูง) คำแนะนำ กำไรกับยอดขายปีหน้าที่คาด และจำนวนนักวิเคราะห์</p>
+  <p>วันแรกได้ 161 จาก 865 หุ้น (19%) — ประมาณหนึ่งในห้าของตลาดมีนักวิเคราะห์ดูแลจริง ธนาคารครอบคลุมสูงสุด 45% ตัวอย่างจริง: PTT เป้าหมาย ฿41.99 (15 คน, Strong Buy) · KBANK ฿262.11 (16 คน, Buy) · CPALL ฿62.07 (15 คน, Strong Buy)</p>
+  <p>ตัวนี้คือกุญแจลูกใหญ่: ปลดล็อก CAT-079 (revisions — การที่นักวิเคราะห์ปรับตัวเลขขึ้น/ลงเทียบเมื่อก่อน) · CAT-078 (dispersion — ความเห็นแตกต่างกันมากแค่ไหน) · CAT-012 (การเติบโตระยะยาว) และ 010/011 หลักฐานจากเอเชียบอกว่ากลุ่ม revision แรงที่สุดกลุ่มหนึ่งที่เคยวัดได้ (t≈3.10 — เกณฑ์น่าเชื่อคือเกิน 2) และบริษัทจัดการกองทุนรายใหญ่ระดับโลกอย่าง Eastspring ใช้จริง แต่ไทยไม่เคยถูกทดสอบจริงจัง เพราะไม่มีข้อมูล</p>
+  <h2>ทำไมต้องเก็บเองวันละวัน — บทเรียนที่แพงที่สุดของโปรเจกต์</h2>
+  <div class="ladder">
+    <div class="ladder-step wrong"><div class="ladder-tag">ความคิดที่ใกล้ผิด</div><div class="ladder-text">"ข้อมูลปัจจุบันก็พอ — เดี๋ยวอยากทดสอบย้อนหลังเมื่อไหร่ ค่อยดึงประวัติมาทีเดียวจบ"</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step truth"><div class="ladder-tag">ความจริง</div><div class="ladder-text">ข้อมูลฉันทามติและ flow แหล่งฟรีให้แค่ "จุดเดียวของวันนี้" ย้อนหลังไม่ได้เลย — บทเรียนจริง: ตัวแปร beta (ความไหวตามตลาด) และ Piotroski ที่มีแค่ snapshot ปี 2026 ถูกห้ามทดสอบย้อน 7 ปีทันที เพราะไม่รู้ว่า "ตอนนั้นโลกรู้อะไร" นี่คือหลัก point-in-time (PIT): ใช้เฉพาะข้อมูลที่โลกรู้จริง ณ วันนั้น</div></div>
+    <div class="ladder-arrow">↓</div>
+    <div class="ladder-step action"><div class="ladder-tag">สิ่งที่เราทำ</div><div class="ladder-text">เก็บวันละวันตั้งแต่วันนี้ — ปีหน้าเราจะมี "ประวัติที่รู้แล้ว ณ วันนั้น" จริง ๆ สำหรับทดสอบ อย่างที่วันนี้ไม่มีใครมี</div></div>
+  </div>
+</div>
+<div class="page">
+  <div class="eyebrow">Roadmap · เดินเกมสองปีข้างหน้า</div>
+  <h2>แผนเวลาทั้งเกมในหน้าเดียว</h2>
+  <p>แผนนี้ไม่ซับซ้อน แต่อดทนยาก — ศัตรูตัวจริงคืออยากรู้ผลก่อนข้อมูลจะยาวพอ เส้นทางทั้งหมด:</p>
+  <div class="chart-block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" font-family='Noto Serif Thai',serif><rect width="720" height="340" fill="#FFFFFF"/><text x="360" y="28" font-family='Noto Serif Thai',serif font-size="15" fill="#14110B" text-anchor="middle" font-weight="600">Time Plan — เส้นทาง 24 เดือนข้างหน้า (ก.ย. 2026 → ก.ย. 2028)</text><line x1="265.3333333333333" y1="46" x2="265.3333333333333" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="265.3333333333333" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">ต.ค.26</text><line x1="330.66666666666663" y1="46" x2="330.66666666666663" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="330.66666666666663" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">ม.ค.27</text><line x1="396.0" y1="46" x2="396.0" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="396.0" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">เม.ย.27</text><line x1="461.3333333333333" y1="46" x2="461.3333333333333" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="461.3333333333333" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">ก.ค.27</text><line x1="526.6666666666667" y1="46" x2="526.6666666666667" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="526.6666666666667" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">ต.ค.27</text><line x1="592.0" y1="46" x2="592.0" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="592.0" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">ม.ค.28</text><line x1="657.3333333333333" y1="46" x2="657.3333333333333" y2="280" stroke="#EAE5D2" stroke-width="1"/><text x="657.3333333333333" y="294" font-family='Sarabun',sans-serif font-size="10" fill="#7C7460" text-anchor="middle" font-weight="600">เม.ย.28</text><rect x="200.0" y="56" width="303.8" height="20" fill="#8A9D7E" rx="3" opacity="0.9"/><text x="188" y="71" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="end" font-weight="600">เก็บ SET flows (4 กลุ่มนักลงทุน)</text><text x="511.8" y="71" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="start">18:35 ทุกวัน · เริ่มแล้ว</text><rect x="200.0" y="92" width="303.8" height="20" fill="#5F7351" rx="3" opacity="0.9"/><text x="188" y="107" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="end" font-weight="600">เก็บ analyst forecasts (PIT)</text><text x="511.8" y="107" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="start">08:05 ทุกวัน · 161 หุ้นแล้ว</text><rect x="249.0" y="128" width="303.8" height="20" fill="#B5C4A9" rx="3" opacity="0.9"/><text x="188" y="143" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="end" font-weight="600">ตรวจความครบข้อมูลรายไตรมาส</text><text x="560.8" y="143" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="start">สคริปต์ monitor มีแล้ว</text><rect x="486.65" y="164" width="78.4" height="20" fill="#C9A227" rx="3" opacity="0.9"/><text x="188" y="179" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="end" font-weight="600">ปลดล็อคทดสอบ analyst + flows</text><text x="573.05" y="179" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="start">ก.ย. 2027 · ปลดล็อค 6 CAT</text><rect x="486.65" y="200" width="78.4" height="20" fill="#8A6D1A" rx="3" opacity="0.9"/><text x="188" y="215" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="end" font-weight="600">qroa retest (ข้อมูลยาวขึ้น)</text><text x="573.05" y="215" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="start">ผู้สมัครอันดับ 1</text><rect x="298.0" y="236" width="392.0" height="20" fill="#355E40" rx="3" opacity="0.9"/><text x="188" y="251" font-family='Noto Serif Thai',serif font-size="11.5" fill="#14110B" text-anchor="end" font-weight="600">Retest ทุก edge เมื่อกระทิงมา</text><text x="698.0" y="251" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7C7460" text-anchor="start">รอตลาดขาขึ้นจริง</text><line x1="486.65" y1="50" x2="486.65" y2="264" stroke="#7A1A1A" stroke-dasharray="4,4"/><text x="490.65" y="46" font-family='Noto Serif Thai',serif font-size="10.5" fill="#7A1A1A" text-anchor="start" font-weight="600">ก.ย. 2027 — จุดปลดล็อคใหญ่</text><text x="360" y="322" font-family='Noto Serif Thai',serif font-size="11.5" fill="#7C7460" text-anchor="middle" font-style="italic">ระหว่างรอ: ledger นับต่อที่ 400 trials · DSR รอบหน้าใช้ m=400 · ไม่มีการ revive ตัวที่ตายโดยไม่มีมุมใหม่จริง</text></svg><div class="chart-note">Track B ทั้งสองตัวเก็บเริ่ม 14 ก.ย. 2569 — ดู research/DATA_COLLECTION_*.md</div></div>
+  <table class="cmp-table">
+    <tr><th>ช่วงเวลา</th><th>ทำอะไร</th><th>ได้อะไร</th></tr>
+    <tr><td>ต.ค.–ธ.ค. 2026</td><td>ตัวเก็บทั้งสองทำงานต่อเนื่องอัตโนมัติ — ไม่แตะ ไม่เร่ง</td><td>ประวัติชุดแรก ~3 เดือนเริ่มก่อตัว</td></tr>
+    <tr><td>ไตรมาส 1–2 ปี 2027</td><td>สะสมต่อ + รันสคริปต์ monitor (เครื่องตรวจว่าข้อมูลมาครบทุกวันหรือมีรู) ทุกไตรมาส</td><td>เจอรูข้อมูลได้เร็ว ก่อนสายเกินแก้</td></tr>
+    <tr><td>~ก.ย. 2027</td><td>ปลดล็อค+ทดสอบกลุ่ม analyst revisions (CAT-079/078/012/010/011) และ flows (CAT-080) · พร้อมกันนี้ พา qroa กลับมาสอบใหม่</td><td>คำตอบว่าความเห็นนักวิเคราะห์กับ flow ใช้ได้จริงในไทย หรือแค่เรื่องเล่าในตำรา</td></tr>
+    <tr><td>เมื่อกระทิงมาจริง</td><td>ทดสอบซ้ำทุก edge (ความได้เปรียบที่ชนะตลาดได้ต่อเนื่อง) ที่ยังมีชีวิตทั้ง 8 ตัว</td><td>ยืนยันว่าเก่งจริง หรือเก่งเฉพาะตลาดหมี — ข้อจำกัดใหญ่สุดของงานทั้งหมด ณ วันนี้</td></tr>
+    <tr><td>ตลอดทาง</td><td>บันทึกการทดลองสะสม (ledger) นับต่อจาก 400 รายการ ใช้คำนวณ DSR ที่ m=400</td><td>ทุกผลใหม่ถูกหักดวงด้วยจำนวนครั้งที่เราลองมาทั้งหมด อย่างซื่อสัตย์</td></tr>
+  </table>
+  <h3>qroa — ผู้สมัครอันดับ 1 ที่จดไว้ในคิว</h3>
+  <p>qroa (กำไรต่อสินทรัพย์จากงบไตรมาสล่าสุด — กำไร "สด" ของบริษัท) ตัวแข็งที่สุดของ batch นี้ ตายเพียงเพราะข้อมูลสั้น 57 เดือน: กำไรกระจายดีไม่พึ่งไม้เดียว (28.8%) · ทนตัดหุ้นใหญ่ 10 ตัวออก (t 3.03) · ฝั่งซื้อจริง t 4.51 · ยังมีข้อมูลเหนือ ROIC กับ EPS_ACCEL รวมกัน (t 3.73) — ตายที่ข้อเดียว: คะแนนหักดวง DSR 0.708 ไม่ถึงเกณฑ์ 0.95 เมื่อข้อมูลยาวขึ้นอีก 12 เดือน เราจะพามันกลับมาสอบใหม่เป็นลำดับแรก</p>
+  <div class="insight-box"><div class="tag">ธรรมชาติของเกมยาว</div><p>ข้อมูลที่เก็บวันนี้ = กำไรความรู้ของปีหน้า — วันที่ตัวเก็บล่มโดยไม่มีใครสังเกต คือวันที่หายถาวรจากประวัติ ซื้อคืนไม่ได้ ทางเดียวคือกันไว้ตั้งแต่ต้นด้วยการตรวจรายไตรมาส</p></div>
+  <div class="reflection"><div class="tag">คำถามท้ายบท</div><p>๑. ถ้าการเก็บข้อมูลหนึ่งชุดต้องรอ 1 ปีจึงใช้ได้ — ข้อมูลชนิดไหนที่ "ควรเริ่มเก็บวันนี้" เพื่อตัวคุณเองในปี 2027?</p><p>๒. แถวไหนในตารางแผนเวลาที่คุณคิดว่าเสี่ยงล้มที่สุด — และถ้ามันล้ม ทางรอบของเราควรเป็นอะไร?</p><p>๓. ทุกอย่างพิสูจน์ในตลาดหมีเป็นหลัก — ถ้ากระทิงมาจริง คุณจะกล้าใช้ของที่ยังไม่ผ่านการสอบ หรือยอมรอ retest ก่อน?</p></div>
+</div>
+
+<!-- ═══════════ บทที่ 6 · SYNTHESIS ═══════════ -->
+<div class="chapter-open"><div class="ch-label">บทที่ 06 · Synthesis — บทสรุปของโปรแกรม</div><div class="ch-title">สิ่งที่จำต้องได้<em>เลขกับกฎที่ต้องพกติดตัว</em></div><div class="ch-essence">หลัง 400 การทดลอง คำตอบของตลาดหุ้นไทยไม่ได้ยาวสักหน้ากระดาษ — มันสั้นพอจะพกในกระเป๋า: ตัวเก่งกลืนของใหม่ทั้งหมด สัญญาณที่ดูแรงมักกระจุกอยู่ไม้เดียว และของที่รอดจริงมีแค่สี่เรื่อง</div><div class="ch-num">6</div></div>
+<div class="page">
+  <div class="blockquote-full">
+    <p>"ในตลาดไทย สิ่งที่รอดคือของถูกที่มีคุณภาพ แนวโน้ม และข่าวกำไร — ที่เหลือคือของเดิมใส่ชุดใหม่"</p>
+    <div class="en">In Thailand, the only edges that survive are value-with-quality, momentum, and earnings surprises — everything else is the same thing wearing a new name.</div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-cell"><div class="stat-num">400</div><div class="stat-label">การทดลองที่บันทึกสะสม<br>(ledger ทั้งโปรเจกต์)</div></div>
+    <div class="stat-cell"><div class="stat-num">8</div><div class="stat-label">กลยุทธ์ที่ยังมีชีวิต<br>จากคลัง 97 ตัว</div></div>
+    <div class="stat-cell"><div class="stat-num">+10.83%</div><div class="stat-label">ต่อปี พอร์ตรวม C2b<br>(ยังไม่พิสูจน์ในกระทิง)</div></div>
+  </div>
+  <p>อธิบายเลขทั้งสามก่อนจำ: <strong>400</strong> คือจำนวนครั้งที่เราทดลองมาทั้งหมด — ยิ่งลองเยอะ ยิ่งมีโอกาสเจอผลสวยโดยบังเอิญ เลขนี้จึงใช้ "หักดวง" ทุกผลใหม่ · <strong>8</strong> คือกลยุทธ์ที่รอดจากห้องทดสอบทุกด่าน · <strong>+10.83% ต่อปี</strong> คือผลของกลยุทธ์รวม C2b ที่ผสมทั้งสี่เรื่องเข้าพอร์ตเดียว</p>
+  <p>batch สุดท้ายปิดโปรแกรมด้วยการส่ง 34 สมมติฐานเข้าห้องทดสอบ — รอด 0 ตัว: ด่านเช็คของเดิมสวมชื่อใหม่ (Gate 0) ตัด 8 · ด่านตรวจเจ็ดขั้น (BEM) ตัด 22 · ห้องพยายามฆ่า (red team) ตัด 3 · การเอาไปเสริมพอร์ตเดิม (overlay) ตัดอีก 1 ฟังเหมือนล้มเหลว แต่จริง ๆ คือความครบ: ตอนนี้เรารู้แล้วว่าตลาดไทย "ไม่มี" อะไร — และสามบทเรียนต่อไปนี้คือของที่ต้องพกกลับไป</p>
+  <h2>บทเรียนที่ 1 — ตัวเก่ง 5 ตัวดูดซับของใหม่เกือบทั้งหมด</h2>
+  <p>ศัพท์ที่ต้องรู้: <strong>corr</strong> (ค่าความคล้าย) วัด 0 ถึง 1 — 1 คือเหมือนกันเป๊ะ เกณฑ์ตายของเราคือ 0.8 ผลรวมของ batch นี้พบว่าตัวแปรที่มีอยู่เดิม 5 ตัวของตลาดไทยดูดกลืนตัวแปรใหม่เกือบทุกตัว:</p>
+  <table class="cmp-table">
+    <tr><th>แกน (ตัวตั้งต้น)</th><th>ดูดกลืนอะไร</th><th>ค่าความคล้าย</th></tr>
+    <tr><td>ROIC — คุณภาพกำไร</td><td>ตระกูล quality ทั้งก้อน: OP (0.944) · ROE (0.808) · GPA (0.73) — ยืนยันรอบที่ 3</td><td>0.73–0.944</td></tr>
+    <tr><td>vol60 — ความผันผวน 60 วัน</td><td>ความเสี่ยงทุกชนิด: IVOL (0.820) · entropy (0.812)</td><td>0.81–0.82</td></tr>
+    <tr><td>ret_1m — ผลตอบแทนเดือนล่าสุด</td><td>ทุก indicator ที่รายย่อยชอบ: RSI (0.907) · salience (0.975)</td><td>0.91–0.98</td></tr>
+    <tr><td>MOM12-1 — แนวโน้ม 12 เดือน</td><td>momentum สายพันธุ์อื่น เช่น 12-7 (ถูกกลืนหมด)</td><td>—</td></tr>
+    <tr><td>nsi12 — การออกหุ้นใหม่สุทธิ</td><td>issuance/payout: net payout (0.834)</td><td>0.834</td></tr>
+  </table>
+  <p>ตัวอย่างที่เจ็บที่สุด: fcfp (ราคาเทียบเงินสดอิสระ) ดิบแรงถึง t 6.03 (ค่าความมั่นใจ — เกิน 2 คือน่าเชื่อ) แต่พอคุมด้วยตัวแปรเดิม เหลือ 0.09 = ไม่มีเนื้อใหม่เหลือเลย</p>
+  <div class="insight-box"><div class="tag">กฎประหยัดชีวิต</div><p>ก่อนสร้างตัวแปรใหม่ เช็ค 5 แกนนี้ก่อนเสมอ — ถ้าคล้ายแกนใดเกิน 0.8 ไม่ต้องเสียเวลาทดสอบ วิธีนี้ประหยัดเวลาได้ราว 40%</p></div>
+  <h2>บทเรียนที่ 2 — โรคกระจุก: แรง ไม่ได้แปลว่าเก็บได้</h2>
+  <p>สัญญาณไทยที่ดูแรงมากหลายตัว กำไรจริงนั่งอยู่บนหุ้นไม่กี่ตัว (เราเรียกตัวเลขนี้ว่า winner-concentration — สัดส่วนกำไรที่มาจากไม้ไม่กี่ตัว) ผลสะสม: F-Score 43.3% · atm-fin 51.5% · d_amihud 52.2% · nti12 ถึง 69.1% — เกณฑ์ตายของเราคือเกิน 40% ตัว nti12 ผ่านทุกด่านความแรง (t 4.19) แต่ 69% ของกำไรมาจากไม้ไม่กี่ตัว เหมือนร้านที่รายได้ทั้งปีมาจากลูกค้าคนเดียว — เจ้าของกิจการแท้จริงคือลูกค้า ไม่ใช่ร้าน</p>
+  <div class="insight-box"><div class="tag">จำไว้</div><p>กำไรที่พึ่งไม้เดียวไม่ใช่ระบบ — คือลอตเตอรีที่จดผลไว้แล้ว ก่อนเชื่อสัญญาณแรง ๆ ถามเสมอว่ากำไรกระจายอยู่บนกี่ไม้</p></div>
+  <h2>บทเรียนที่ 3 — คำตอบสุดท้าย: มีแค่ 4 เรื่องจริง</h2>
+  <p>ในตลาดหุ้นไทยกลุ่ม liquid (หุ้นที่ซื้อขายง่าย มีปริมาณพอ) มี edge จริงแค่ 4 เรื่อง: <strong>ความถูก</strong> · <strong>คุณภาพ</strong> · <strong>แนวโน้ม</strong> · <strong>ข่าวกำไร</strong> — 8 กลยุทธ์ที่ยังมีชีวิตทั้งหมดอยู่ในสี่เรื่องนี้: E/P, CFO/P, EV/EBITDA, DY|ROIC (ปันผลสูงเฉพาะหุ้นคุณภาพดี), ROIC · MOM12-1 · SUE (กำไรจริงเบิกเกินที่ตลาดคิด) และ EPS_ACCEL (กำไรที่เร่งตัว) — ไม่มีตัวที่ห้า พอร์ตรวม C2b ทำ +10.83% ต่อปี แต่ยังไม่พิสูจน์ในกระทิง</p>
+  <p>พร้อมสองความจริงที่กลับตำราเฉพาะไทย: หุ้นเล็กแพ้หุ้นใหญ่ 1.02% ต่อเดือน (t 3.09 — ตรงข้ามตำราโลก) และตัวกรองหลีกเลี่ยงหุ้นออกใหม่เยอะ (NSI) ช่วยพอร์ตถือตลาดทั้งก้อน +1.13 จุดเปอร์เซ็นต์ต่อปี แต่ไม่ช่วยกลยุทธ์ที่มีอยู่แล้วแม้แต่ตัวเดียว</p>
+  <div class="insight-box"><div class="tag">กฎการค้นหาต่อ</div><p>ของใหม่จะมีค่าก็ต่อเมื่อพิสูจน์ได้ว่า "ไม่ใช่สี่เรื่องนี้ใส่ชุดใหม่" — ถ้าพิสูจน์ไม่ได้ อย่าเสียเวลา และอย่าเสียเงิน</p></div>
+  <h2>เช็คลิสต์ 7 ข้อ ก่อนเชื่อกลยุทธ์ใด ๆ</h2>
+  <div class="checklist">
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>ความแรงผ่านไหม</strong> — ค่าความมั่นใจ t ต้อง ≥2 แบบ "คุมตัวแปรเดิมแล้ว" ไม่ใช่ตัวเลขดิบสวย ๆ (fcfp ดิบ 6.03 คุมแล้ว 0.09)</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>เป็นของเดิมใส่ชุดใหม่ไหม</strong> — corr กับ 5 แกนหลักต้อง <0.8</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>กำไรกระจุกไหม</strong> — winner-concentration ต้อง <40% ไม่งั้นคือลอตเตอรี (nti12 ตายที่ 69.1%)</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>โชคหรือฝีมือ</strong> — DSR ≥0.95 (หักดวงจากการลองรวม 400 ครั้งแล้วยังยืน)</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>ฝั่งซื้อเท่านั้นจริงไหม</strong> — ไทยขายช็อต (เดิมพันราคาลง) ได้ยาก กำไรฝั่งขายคือความรู้ ไม่ใช่เงิน</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>ผ่านกระทิงหรือยัง</strong> — ณ วันนี้ทุกตัวพิสูจน์ในตลาดหมีเป็นหลัก ยังไม่จบการสอบ</div></div>
+    <div class="check-item"><div class="check-box"></div><div class="check-text"><strong>หักต้นทุนเทรดแล้วเหลือไหม</strong> — ผลก่อนค่าธรรมเนียมกับผลในบัญชีจริงคนละเรื่อง ต้องคิดให้จบ</div></div>
+  </div>
+  <h2>ใช้ 8 กลยุทธ์ที่มีชีวิตอย่างไร</h2>
+  <div class="signal-box">
+    <div class="signal-cell do"><div class="signal-head">✔ ทำ</div><p>· ถือพอร์ตรวม C2b (+10.83%/ปี) หรือเลือกใช้รายตัวจาก 8 กลยุทธ์</p><p>· ฝั่งซื้ออย่างเดียว ปรับรายเดือน ตามที่ทดสอบจริง</p><p>· ใช้เช็คลิสต์ 7 ข้อกับของใหม่ทุกชิ้น และรอผล retest ปี 2027 กับตลาดกระทิง</p></div>
+    <div class="signal-cell dont"><div class="signal-head">✘ อย่า</div><p>· อย่าเชื่อตัวแปรใหม่ที่ corr กับ 5 แกนเกิน 0.8 — ของเดิมใส่ชุดใหม่</p><p>· อย่าเก็บสัญญาณที่กำไรกระจุกเกิน 40% และอย่าคาดหวังผลเดิมในกระทิงโดยยังไม่ retest</p><p>· อย่าย่ำตระกูลที่ปิดประตูแล้ว: technical รายย่อย ฤดูกาล คะแนนล้มละลาย low-risk</p></div>
+  </div>
+  <div class="reflection"><div class="tag">คำถามปิดเล่ม</div><p>๑. ถ้าของที่รอดมีแค่ 4 เรื่อง คุณจะใช้เวลาที่เหลือ "ค้นหาของที่ห้า" หรือ "ทำ 4 เรื่องนี้ให้ดีกว่าคนส่วนใหญ่"?</p><p>๒. ของใหม่ที่น่าตื่นเต้นที่สุดที่คุณเคยเชื่อ — ถ้าเอามาเดินเช็คลิสต์ 7 ข้อ มันจะรอดถึงข้อไหน?</p><p>๓. เกมยาว 24 เดือนเริ่มแล้ว — คำตอบของ qroa และ revision จะมาถึงปลายปี 2027 คุณยังอยากอยู่ในเกมนี้จนถึงวันนั้นไหม?</p></div>
+</div>
+
+
+<div class="book-footer">
+  <div class="book-footer-mark">฿</div>
+  <div class="book-footer-text">"ตลาดไทยไม่ได้ไม่มีของดี — ของดีมันมีแค่ไม่กี่อย่าง และเราผ่านทรมานมันครบทุกอย่างแล้ว"</div>
+  <div class="book-footer-author">SET-QUANT · BATCHES 3-4 · PERSONAL EDITION</div>
+</div>
+
+</div>
+</body>
+</html>
