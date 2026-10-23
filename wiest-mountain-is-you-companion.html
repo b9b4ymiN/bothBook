@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mountain Is You — Digital Companion (TH)</title>
+<style>
+:root{
+  --bg:#0E0E0D; --bg-2:#161614; --bg-3:#1E1D1A; --line:#2E2C27;
+  --ink:#ECE6D8; --ink-soft:#D6CFBF; --ink-mid:#A9A291; --ink-faint:#77715F;
+  --gold:#C69C6D; --gold-deep:#A57A4C; --gold-soft:rgba(198,156,109,.14); --gold-rule:rgba(198,156,109,.35);
+  --stone:#B9AE97;
+  --a:#C69C6D; --b:#8FA6A0; --c:#B49AB8;
+  --warn:#C98A6E; --warn-bg:rgba(201,138,110,.10);
+  --ok:#9DB08A; --ok-bg:rgba(157,176,138,.10);
+  --serif:"Noto Serif Thai","Thonburi","Leelawadee UI","Tahoma",Georgia,serif;
+  --sans:"Sarabun","Noto Sans Thai","Leelawadee UI","Thonburi","Tahoma",system-ui,sans-serif;
+  --latin:"Didot","Bodoni MT","Georgia",serif;
+  --w:720px;
+}
+:root[data-theme="paper"]{
+  --bg:#F3EEE3; --bg-2:#EAE3D3; --bg-3:#E0D8C5; --line:#CFC5AE;
+  --ink:#1B1915; --ink-soft:#2C2922; --ink-mid:#5A5444; --ink-faint:#8A836F;
+  --gold:#8A6236; --gold-deep:#6E4B26; --gold-soft:rgba(138,98,54,.10); --gold-rule:rgba(138,98,54,.35);
+  --stone:#6F6550; --a:#8A6236; --b:#3F6660; --c:#6E4F73;
+  --warn:#8E4A2F; --warn-bg:rgba(142,74,47,.08); --ok:#4A6338; --ok-bg:rgba(74,99,56,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink-soft);font-family:var(--sans);font-size:17.5px;line-height:1.95;transition:background .3s,color .3s}
+::selection{background:var(--gold-soft);color:var(--ink)}
+a{color:var(--gold)}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+p{margin:0 0 1.15em}
+strong{color:var(--ink);font-weight:600}
+em{color:var(--ink)}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);line-height:1.45;font-weight:600}
+h2{font-size:1.45em;margin:2.2em 0 .7em}
+h3{font-size:1.15em;margin:1.8em 0 .5em;color:var(--gold)}
+.en{font-family:var(--latin);letter-spacing:.02em}
+small,.muted{color:var(--ink-faint)}
+
+/* progress + controls */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--gold);z-index:50}
+.controls{position:fixed;top:14px;right:14px;display:flex;gap:8px;z-index:60}
+.btn{background:var(--bg-2);color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:500 13px var(--sans);cursor:pointer}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+#climb{position:fixed;right:16px;bottom:16px;width:120px;height:56px;z-index:40;opacity:.9;pointer-events:none}
+#drawer{position:fixed;inset:0 auto 0 0;width:min(340px,88vw);background:var(--bg-2);border-right:1px solid var(--line);transform:translateX(-102%);transition:transform .3s;z-index:70;overflow:auto;padding:64px 24px 32px}
+#drawer.open{transform:none}
+#drawer a{display:block;color:var(--ink-mid);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.5}
+#drawer a.active,#drawer a:hover{color:var(--gold)}
+#drawer .dn{font-family:var(--latin);color:var(--gold);margin-right:8px}
+#scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:.3s;z-index:65}
+#scrim.on{opacity:1;pointer-events:auto}
+
+/* cover */
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 20px 60px;background:radial-gradient(ellipse at 50% 35%,#1d1b18 0%,var(--bg) 70%)}
+:root[data-theme="paper"] .cover{background:radial-gradient(ellipse at 50% 35%,#fbf8f1 0%,var(--bg) 70%)}
+.cover .blurb{font-family:var(--latin);font-style:italic;color:var(--ink-mid);font-size:14px;max-width:440px;margin-bottom:56px}
+.cover .t{font-family:var(--sans);letter-spacing:.42em;color:var(--ink);font-weight:400;font-size:clamp(22px,4.6vw,34px);margin:.25em 0 .25em .42em}
+.cover .t.big{font-size:clamp(30px,7vw,52px);letter-spacing:.24em;margin-left:.24em}
+.cover svg{width:min(300px,70vw);height:auto;margin:6px 0}
+.cover .sub{letter-spacing:.28em;font-size:13px;color:var(--ink-mid);margin-top:38px;line-height:2}
+.cover .author{letter-spacing:.34em;color:var(--ink);font-size:15px;margin-top:22px}
+.cover .edition{margin-top:46px;color:var(--gold);font-size:13.5px;letter-spacing:.08em}
+.cover .th{font-family:var(--serif);color:var(--ink-soft);font-size:16px;margin-top:10px}
+
+/* sections */
+section.chapter{padding:40px 0 30px}
+.ch-open{padding:96px 0 40px;text-align:center;border-top:1px solid var(--line);position:relative}
+.ch-open svg.ridge{width:100%;max-width:520px;height:60px;display:block;margin:0 auto 22px}
+.ch-label{font-size:12px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase}
+.ch-title{font-family:var(--serif);font-size:clamp(26px,5vw,36px);color:var(--ink);margin:.35em 0 .2em;line-height:1.35}
+.ch-en{font-family:var(--latin);font-style:italic;color:var(--ink-mid);font-size:16px}
+.ch-essence{font-family:var(--serif);font-size:18px;color:var(--ink-soft);max-width:540px;margin:22px auto 0;line-height:1.8}
+.map-tag{display:inline-block;margin-top:18px;font-size:12px;color:var(--ink-faint);border:1px solid var(--line);border-radius:999px;padding:3px 12px}
+
+/* source badges */
+.src{display:inline-block;font:600 11px var(--sans);letter-spacing:.06em;border-radius:4px;padding:1px 7px;margin-right:6px;vertical-align:2px;border:1px solid}
+.src.a{color:var(--a);border-color:var(--a)}
+.src.b{color:var(--b);border-color:var(--b)}
+.src.c{color:var(--c);border-color:var(--c)}
+.legend{display:grid;gap:10px;margin:22px 0}
+.legend div{background:var(--bg-2);border:1px solid var(--line);padding:12px 16px;border-radius:6px;font-size:15px;line-height:1.7}
+
+/* boxes */
+.insight{border-left:2px solid var(--gold);background:var(--gold-soft);padding:18px 22px;margin:28px 0;border-radius:0 6px 6px 0}
+.insight .k{font-size:11.5px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:4px}
+.insight p:last-child{margin:0}
+.limit{border:1px dashed var(--warn);background:var(--warn-bg);padding:16px 20px;margin:26px 0;border-radius:6px;font-size:16px}
+.limit .k{color:var(--warn);font-weight:600;font-size:13px;letter-spacing:.06em;display:block;margin-bottom:4px}
+.limit p:last-child{margin:0}
+.quote{margin:36px 0;padding:30px 26px;background:var(--bg-3);text-align:center;border-radius:4px;position:relative}
+.quote .q{font-family:var(--latin);font-style:italic;font-size:19px;color:var(--ink);line-height:1.6}
+.quote .th{font-family:var(--serif);font-size:16px;color:var(--ink-mid);margin-top:10px}
+.quote .who{font-size:12px;letter-spacing:.2em;color:var(--gold);margin-top:12px;text-transform:uppercase}
+.contrast{width:100%;border-collapse:collapse;margin:26px 0;font-size:15.5px;line-height:1.7}
+.contrast th{text-align:left;font-weight:600;color:var(--ink);padding:10px 12px;border-bottom:1px solid var(--gold-rule);font-size:14px}
+.contrast td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.contrast td:first-child{color:var(--ink-mid)}
+.ladder{margin:28px 0}
+.ladder div{padding:14px 20px;border-left:2px solid;font-size:16px}
+.ladder .w{border-color:var(--warn);background:var(--warn-bg)}
+.ladder .t{border-color:var(--gold);background:var(--gold-soft)}
+.ladder .d{border-color:var(--ok);background:var(--ok-bg)}
+.ladder b{display:block;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:2px}
+.ladder .w b{color:var(--warn)}.ladder .t b{color:var(--gold)}.ladder .d b{color:var(--ok)}
+.ladder .arr{border:0;background:none;text-align:center;color:var(--ink-faint);padding:2px}
+.story{background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:6px 0;margin:28px 0}
+.story .h{padding:10px 20px;font-size:13px;color:var(--gold);letter-spacing:.08em;border-bottom:1px solid var(--line)}
+.story ol{list-style:none;margin:0;padding:6px 20px 10px;counter-reset:s}
+.story li{padding:9px 0 9px 116px;position:relative;border-bottom:1px dotted var(--line);font-size:15.5px;line-height:1.75}
+.story li:last-child{border:0}
+.story li span{position:absolute;left:0;top:9px;width:104px;font-size:12.5px;color:var(--ink-faint);letter-spacing:.03em}
+.diagram{margin:30px 0;background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:18px 12px}
+.diagram svg{width:100%;height:auto;display:block}
+.diagram .cap{font-size:13px;color:var(--ink-faint);text-align:center;margin-top:8px;line-height:1.6}
+.reflect{margin:40px 0 22px;padding:26px 24px;border:1px solid var(--gold-rule);border-radius:8px}
+.reflect .k{font-family:var(--serif);color:var(--gold);font-size:17px;margin-bottom:10px}
+.reflect ol{margin:0;padding-left:22px}
+.reflect li{margin:8px 0;font-size:16.5px}
+.exp{margin:22px 0 40px;background:var(--bg-3);border-radius:8px;overflow:hidden}
+.exp .h{padding:14px 22px;background:var(--gold-soft);color:var(--ink);font-weight:600;font-size:15.5px}
+.exp .h small{display:block;color:var(--gold);font-weight:500;letter-spacing:.2em;font-size:11px}
+.exp dl{margin:0;padding:8px 22px 16px;display:grid;grid-template-columns:110px 1fr;gap:6px 14px;font-size:15.5px;line-height:1.75}
+.exp dt{color:var(--gold);font-weight:600;font-size:13.5px;padding-top:2px}
+.exp dd{margin:0}
+.toc-list{margin:30px 0}
+.toc-item{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.toc-item:hover .tt{color:var(--gold)}
+.toc-item .n{font-family:var(--latin);font-style:italic;font-size:28px;color:var(--gold);min-width:44px;line-height:1.2}
+.toc-item .tt{font-family:var(--serif);color:var(--ink);font-size:16.5px;line-height:1.5}
+.toc-item .ol{font-size:14.5px;color:var(--ink-mid);line-height:1.6;margin-top:3px}
+.journey{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin:24px 0;font-size:13.5px}
+.journey span{background:var(--bg-2);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.journey i{color:var(--gold);font-style:normal}
+.principle{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.principle .n{font-family:var(--latin);font-size:30px;color:var(--gold);min-width:40px;line-height:1.1}
+.principle h4{margin:0 0 4px;font-family:var(--serif);color:var(--ink);font-size:17px;font-weight:600}
+.principle p{margin:0;font-size:16px}
+.step{border:1px solid var(--line);border-radius:8px;margin:14px 0;padding:16px 20px;background:var(--bg-2)}
+.step .s{font-size:11.5px;letter-spacing:.24em;color:var(--gold);text-transform:uppercase}
+.step h4{margin:2px 0 6px;font-family:var(--serif);color:var(--ink);font-size:17px;font-weight:600}
+.step p{margin:0 0 .4em;font-size:16px}
+.step .q{color:var(--ink-mid);font-size:15px}
+.final{padding:100px 20px;text-align:center;background:var(--bg-2);border-top:1px solid var(--line)}
+.final .q{font-family:var(--serif);font-size:clamp(20px,3.6vw,26px);color:var(--ink);max-width:640px;margin:20px auto;line-height:1.75}
+.refs{font-size:14.5px;line-height:1.75}
+.refs li{margin:6px 0}
+footer{text-align:center;padding:40px 20px 90px;color:var(--ink-faint);font-size:13px}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .story li{padding-left:0;padding-top:28px}
+  .story li span{top:8px}
+  .exp dl{grid-template-columns:1fr}
+  .exp dt{padding-top:6px}
+  .contrast{font-size:14.5px}
+  .contrast th,.contrast td{padding:9px 6px}
+  #climb{width:90px;height:42px}
+  .ch-open{padding-top:72px}
+}
+@media print{.controls,#climb,#progress,#drawer,#scrim{display:none}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="controls">
+  <button class="btn" id="tocBtn" aria-label="เปิดสารบัญ">☰ สารบัญ</button>
+  <button class="btn" id="themeBtn" aria-label="สลับโหมดการอ่าน">◐ โหมดกระดาษ</button>
+</div>
+<div id="scrim"></div>
+<nav id="drawer" aria-label="สารบัญ"></nav>
+<svg id="climb" viewBox="0 0 120 56" aria-hidden="true">
+  <path id="climbPath" d="M4 52 L30 34 L42 40 L66 12 L80 24 L92 18 L116 52" fill="none" stroke="var(--gold-rule)" stroke-width="1.6"/>
+  <path id="climbDone" d="M4 52 L30 34 L42 40 L66 12 L80 24 L92 18 L116 52" fill="none" stroke="var(--gold)" stroke-width="1.8"/>
+  <circle id="climber" r="3.2" fill="var(--gold)"/>
+</svg>
+
+<header class="cover" id="top">
+  <div class="blurb">A digital companion for slow reading, honest reflection,<br>and one small step at a time.</div>
+  <div class="t">THE</div>
+  <div class="t big">MOUNTAIN</div>
+  <svg viewBox="0 0 300 70" aria-hidden="true"><path d="M8 66 L70 52 L104 34 L122 40 L150 4 L170 26 L186 22 L214 44 L246 50 L292 66" fill="none" stroke="var(--gold)" stroke-width="2.2" stroke-linejoin="round"/><path d="M150 4 L158 30 L148 44" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".55"/></svg>
+  <div class="t">IS</div>
+  <div class="t">YOU</div>
+  <div class="sub">TRANSFORMING SELF-SABOTAGE<br>INTO SELF-MASTERY</div>
+  <div class="author">BRIANNA WIEST</div>
+  <div class="edition">Premium Digital Companion · ฉบับอ่านเชิงลึกภาษาไทย</div>
+  <div class="th">เข้าใจกลไกที่ดึงเราไว้ แล้วเลือกก้าวต่อไปอย่างมีสติ</div>
+</header>
+
+<main class="wrap">
+
+<section class="chapter" id="toc">
+  <h2 style="text-align:center;margin-top:60px">เส้นทางของเล่มนี้</h2>
+  <div class="journey">
+    <span>เห็นภูเขา</span><i>→</i><span>เข้าใจกลไกปกป้อง</span><i>→</i><span>อ่านสัญญาณอารมณ์</span><i>→</i><span>ปล่อยอดีตและตัวตนเก่า</span><i>→</i><span>สร้างอนาคตด้วยก้าวเล็ก ๆ</span><i>→</i><span>Self-Mastery</span>
+  </div>
+  <p class="muted" style="text-align:center;font-size:14px">เส้นทางนี้เป็นการสังเคราะห์โครงเรื่องเพื่อช่วยจัดระบบความเข้าใจ ไม่ใช่แผนภาพต้นฉบับของผู้เขียน</p>
+  <div class="toc-list">
+    <a class="toc-item" href="#ch0"><div class="n">00</div><div><div class="tt">ก่อนออกเดิน</div><div class="ol">วิธีอ่านเล่มนี้ ป้ายแยกที่มา และข้อจำกัดของแหล่งข้อมูล</div></div></a>
+    <a class="toc-item" href="#ch1"><div class="n">01</div><div><div class="tt">ภูเขาคือเรา</div><div class="ol">อุปสรรคจริงกับวิธีที่เราตอบสนองต่ออุปสรรค เป็นคนละเรื่องกัน</div></div></a>
+    <a class="toc-item" href="#ch2"><div class="n">02</div><div><div class="tt">ไม่มีสิ่งที่เรียกว่า Self-Sabotage</div><div class="ol">พฤติกรรมที่ดูเหมือนทำร้ายตัวเอง มักกำลังพยายามปกป้องบางอย่าง</div></div></a>
+    <a class="toc-item" href="#ch3"><div class="n">03</div><div><div class="tt">เมื่อความขยันกลายเป็นที่หลบ</div><div class="ol">การค้นคว้า การวางแผน และมาตรฐานสูง อาจเป็นการเตรียมตัว หรือการหลีกเลี่ยงก็ได้</div></div></a>
+    <a class="toc-item" href="#ch4"><div class="n">04</div><div><div class="tt">Trigger คือผู้นำทาง</div><div class="ol">อารมณ์คือข้อมูลที่ต้องอ่าน ไม่ใช่คำตัดสินที่ต้องเชื่อทันที</div></div></a>
+    <a class="toc-item" href="#ch5"><div class="n">05</div><div><div class="tt">ความฉลาดทางอารมณ์</div><div class="ol">ระยะห่างเล็ก ๆ ระหว่างความรู้สึกกับการกระทำ คือพื้นที่ของอิสรภาพ</div></div></a>
+    <a class="toc-item" href="#ch6"><div class="n">06</div><div><div class="tt">ปล่อยอดีต และตัวตนเก่า</div><div class="ol">จดจำได้ โดยไม่ต้องกลับไปใช้ชีวิตอยู่ในนั้นซ้ำ</div></div></a>
+    <a class="toc-item" href="#ch7"><div class="n">07</div><div><div class="tt">สร้างอนาคตใหม่</div><div class="ol">Microshifts และการลงมือในฐานะคนที่เราอยากเป็น</div></div></a>
+    <a class="toc-item" href="#ch8"><div class="n">08</div><div><div class="tt">จาก Sabotage สู่ Mastery</div><div class="ol">Mastery ไม่ใช่การไม่เคยพลาด แต่คือความสามารถในการกลับมา</div></div></a>
+    <a class="toc-item" href="#ch9"><div class="n">09</div><div><div class="tt">อ่านอย่างวิพากษ์</div><div class="ol">หนังสือพูดถูกตรงไหน ต้องขยายความตรงไหน และใช้ไม่ได้ตรงไหน</div></div></a>
+    <a class="toc-item" href="#ch10"><div class="n">10</div><div><div class="tt">ภูเขาที่ผมต้องก้าวข้าม</div><div class="ol">บทสังเคราะห์ + The Mountain Mapping Framework</div></div></a>
+  </div>
+</section>
+
+<!-- ===================== CH0 ===================== -->
+<div class="ch-open" id="ch0">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L140 50 L200 40 L260 22 L320 40 L380 50 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/></svg>
+  <div class="ch-label">Prologue · บทนำ</div>
+  <h2 class="ch-title">ก่อนออกเดิน</h2>
+  <div class="ch-en">How to read this companion</div>
+  <p class="ch-essence">หนังสือเล่มนี้ไม่ได้ถามว่า "ทำไมเราถึงอ่อนแอ" แต่ถามว่า "ส่วนไหนในตัวเรากำลังพยายามปกป้องอะไรอยู่"</p>
+</div>
+<section class="chapter">
+<p>ลองนึกถึงเป้าหมายสักอย่างที่เราพูดกับตัวเองมาหลายเดือน หรืออาจเป็นปี ว่า "จะเริ่มแล้ว" เราเข้าใจว่ามันสำคัญ มีเหตุผลครบ บางครั้งวางแผนไว้ละเอียดด้วยซ้ำ แต่เมื่อถึงเวลาลงมือจริง กลับมีบางอย่างดึงเราไว้ทุกครั้ง เช่น เปิดงานแล้วปิด อ่านเพิ่มอีกนิด รอให้พร้อมกว่านี้ หรือหันไปทำเรื่องอื่นที่ "ก็สำคัญเหมือนกัน"</p>
+<p>คำอธิบายที่เราคุ้นเคยที่สุดคือ "เราไม่มีวินัยพอ" Brianna Wiest เสนอคำอธิบายอีกแบบที่ทั้งอ่อนโยนกว่าและท้าทายกว่า เธอมองว่าพฤติกรรมที่ดูเหมือนขัดขวางตัวเอง มักเกิดจาก<strong>ความต้องการสองอย่างที่อยู่ร่วมกันแต่ขัดแย้งกัน</strong> ส่วนหนึ่งในตัวเราอยากก้าวไปข้างหน้า อีกส่วนอยากรักษาสิ่งที่ปลอดภัยและคุ้นเคยไว้ เมื่อเราไม่รู้ตัวว่ามีส่วนที่สองอยู่ ส่วนนั้นก็มักชนะ</p>
+<p>เอกสารฉบับนี้ไม่ใช่บทสรุปแบบย่อหน้าละบท แต่เป็น <strong>Companion</strong> หรือคู่มือที่อ่านควบคู่ไปกับความคิดของผู้เขียน เป้าหมายคือพาเราเห็นกลไกที่ซ่อนอยู่หลังพฤติกรรม ไม่ใช่แค่จำคำคมที่ฟังแล้วดีชั่วครู่</p>
+
+<h3>ป้ายแยกที่มา: อะไรเป็นของผู้เขียน อะไรเป็นของเรา</h3>
+<p>หนังสือแนวพัฒนาตัวเองมักผสมประสบการณ์ ความเชื่อ และวิทยาศาสตร์ไว้ด้วยกันจนแยกไม่ออก เพื่อให้เราอ่านได้อย่างมีวิจารณญาณ ทุกจุดสำคัญในเล่มนี้จะติดป้ายบอกที่มาไว้</p>
+<div class="legend">
+  <div><span class="src a">A · ผู้เขียน</span> สิ่งที่ Wiest เขียนหรือเสนอไว้ ซึ่งในเล่มนี้เราถอดความมาใหม่ด้วยถ้อยคำของเราเอง</div>
+  <div><span class="src b">B · หลักฐาน</span> แนวคิดหรืองานวิจัยทางจิตวิทยาภายนอกที่ช่วยสนับสนุน ตรวจสอบ หรือท้าทายข้อเสนอของผู้เขียน</div>
+  <div><span class="src c">C · ตีความ</span> การสังเคราะห์ ตัวอย่างสมมติ และกรอบคิดที่เราสร้างขึ้นเพื่อให้เข้าใจและนำไปใช้ได้ ไม่ใช่สิ่งที่ผู้เขียนพูดเอง</div>
+</div>
+
+<div class="limit"><span class="k">ข้อจำกัดของแหล่งข้อมูล</span>
+<p>เอกสารฉบับนี้สร้างขึ้นโดยไม่มีต้นฉบับเต็มของหนังสืออยู่ในมือ เนื้อหาในส่วน <span class="src a">A</span> อ้างอิงจากคำอธิบายของสำนักพิมพ์ บทวิจารณ์และบทสรุปจากแหล่งที่น่าเชื่อถือ และโครงสร้างบทที่รู้จักกันทั่วไป จึง<strong>ไม่มีการอ้างเลขหน้า</strong> และใช้คำพูดตรงเฉพาะประโยคสั้นที่ปรากฏในคำอธิบายหนังสืออย่างเป็นทางการเท่านั้น ถ้าเราจะอ้างอิงต่อในงานที่ต้องการความแม่นยำสูง ควรเทียบกับต้นฉบับอีกครั้ง</p></div>
+
+<h3>หนังสือเล่มนี้มีลักษณะอย่างไร</h3>
+<p>The Mountain Is You ไม่ได้เขียนเป็นตำราที่ไล่จากทฤษฎีไปสู่การทดลอง แต่เขียนเป็น<strong>ชุดบทสะท้อนสั้น ๆ</strong> ที่วนกลับมาที่แก่นเดิมหลายครั้งจากหลายมุม บางคนอ่านแล้วรู้สึกว่าซ้ำ แต่การวนซ้ำนี้ก็เป็นส่วนหนึ่งของวิธีการ เพราะแนวคิดที่ขัดกับความเคยชินของเรามักต้องได้ยินหลายครั้งก่อนจะเริ่มมองเห็นมันในชีวิตจริง <span class="src a">A</span></p>
+<p>Companion เล่มนี้จึงจัดระบบใหม่ให้เป็น<strong>เส้นทาง</strong> เริ่มจากการเห็นภูเขาให้ชัด เข้าใจว่าทำไมเราสร้างมันขึ้นมา อ่านสัญญาณจากอารมณ์ ปล่อยวางสิ่งที่เคยปกป้องเราแต่วันนี้รั้งเราไว้ แล้วค่อยสร้างตัวตนใหม่ด้วยการกระทำเล็ก ๆ ที่ทำซ้ำได้</p>
+
+<div class="limit"><span class="k">สิ่งที่เอกสารนี้ไม่ใช่</span>
+<p>เอกสารนี้ใช้เพื่อการเรียนรู้และสะท้อนตัวเอง <strong>ไม่ใช่การวินิจฉัยหรือการบำบัดทางจิตวิทยา</strong> คำถามสะท้อนตัวเองทั้งหมดไม่ใช่แบบทดสอบ และไม่มีคำตอบที่ "ถูก" ถ้าเรื่องที่กำลังเผชิญเกี่ยวข้องกับบาดแผลทางใจ ภาวะซึมเศร้า ความวิตกกังวลรุนแรง หรือความคิดทำร้ายตัวเอง การคุยกับผู้เชี่ยวชาญด้านสุขภาพจิตจะช่วยได้มากกว่าหนังสือเล่มใด ๆ</p></div>
+</section>
+
+<!-- ===================== CH1 ===================== -->
+<div class="ch-open" id="ch1">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="120" cy="52" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 01</div>
+  <h2 class="ch-title">ภูเขาคือเรา</h2>
+  <div class="ch-en">The Mountain Is You</div>
+  <p class="ch-essence">ภูเขาที่ยากที่สุด มักไม่ใช่สถานการณ์ข้างหน้า แต่คือวิธีที่เราตอบสนองต่อสถานการณ์นั้นซ้ำแล้วซ้ำเล่า</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 1 · Theme 1</span>
+</div>
+<section class="chapter">
+<h3>ภูเขาในฐานะคำเปรียบ</h3>
+<p>ภูเขาถูกใช้เป็นคำเปรียบของความท้าทายใหญ่ในชีวิตมานานหลายศตวรรษ Wiest หยิบคำเปรียบนี้มาใช้ แล้วพลิกความหมายเพียงจุดเดียว ภูเขาที่เราต้องปีนไม่ได้ตั้งอยู่ข้างนอกเสมอไป บ่อยครั้งมันคือ<strong>ความขัดแย้งภายในระหว่างส่วนที่รู้ว่าอยากได้อะไร กับส่วนที่ยังไม่รู้ว่าทำไมตัวเองถึงยังรั้งไว้</strong> <span class="src a">A</span></p>
+<div class="quote">
+  <div class="q">"In the end, it is not the mountain we master, but ourselves."</div>
+  <div class="th">"ท้ายที่สุด สิ่งที่เราต้องเอาชนะไม่ใช่ภูเขา แต่คือตัวเราเอง"</div>
+  <div class="who">คำอธิบายหนังสืออย่างเป็นทางการ</div>
+</div>
+<p>ประโยคนี้ฟังง่าย แต่ความหมายลึก ถ้าภูเขาเป็นอุปสรรคภายนอกล้วน ๆ ทางแก้ก็คือเปลี่ยนงาน เปลี่ยนเมือง เปลี่ยนคนรอบตัว หรือหาเครื่องมือที่ดีกว่า แต่ถ้าส่วนหนึ่งของภูเขาคือ<strong>รูปแบบการตอบสนองที่เราพกติดตัวไปทุกที่</strong> การเปลี่ยนสภาพแวดล้อมอย่างเดียวจะทำให้เราเจอภูเขาลูกเดิมในสถานที่ใหม่</p>
+
+<h3>ทำไมเปลี่ยนข้างนอกแล้ว รูปแบบเดิมยังตามมา</h3>
+<p>สมมติว่าเราลาออกจากงานเพราะรู้สึกว่าหัวหน้าไม่เห็นคุณค่า ผ่านไปปีเดียว ที่งานใหม่เราเริ่มรู้สึกแบบเดียวกันอีก มีความเป็นไปได้สองแบบ แบบแรก เราโชคร้ายเจอหัวหน้าแบบเดิมสองครั้ง ซึ่งเกิดขึ้นได้จริง แบบที่สอง มีบางอย่างในวิธีที่เราตีความคำวิจารณ์ วิธีที่เราขอสิ่งที่ต้องการ หรือวิธีที่เราวัดคุณค่าตัวเองจากความเห็นของคนอื่น ที่ติดตัวมาด้วย</p>
+<p>Wiest ไม่ได้บอกให้เราเลือกคำอธิบายแบบที่สองเสมอ แต่ชวนให้<strong>ตรวจดูแบบที่สองก่อนจะสรุปว่าปัญหาอยู่ที่ข้างนอกทั้งหมด</strong> เพราะถ้ามีรูปแบบภายในที่เกี่ยวข้องอยู่จริง ส่วนนั้นคือส่วนเดียวที่เราเปลี่ยนได้ด้วยตัวเอง <span class="src c">C</span></p>
+<p>ในบทแรก Wiest ยังชี้สัญญาณที่บอกว่าเราอาจกำลังอยู่ในวงจรของการขัดขวางตัวเอง เช่น การต่อต้านสิ่งที่เราบอกว่าต้องการ การยึดติดกับสิ่งที่คุ้นเคยแม้มันไม่ดีกับเรา การตั้งมาตรฐานความสมบูรณ์แบบจนไม่ได้เริ่ม เสียงวิจารณ์ภายในที่แรงจนหมดแรง และการคิดวนกับความผิดพลาดในอดีตจนตัดสินใจไม่ได้ <span class="src a">A</span> จุดสำคัญคือ สัญญาณเหล่านี้<strong>ไม่ได้บอกว่าเรามีอะไรผิดปกติโดยพื้นฐาน</strong> แต่บอกว่ามีบางอย่างที่ยังไม่ได้รับการฟัง</p>
+
+<h3>อุปสรรคจริง vs. การตอบสนองของเรา</h3>
+<p>ส่วนที่ทรงพลังที่สุดของคำเปรียบนี้ก็เป็นส่วนที่อันตรายที่สุดด้วย ถ้าอ่านแบบตรงตัวว่า "ปัญหาทุกอย่างคือตัวเรา" เราอาจเริ่มโทษตัวเองกับเรื่องที่ไม่ได้อยู่ในการควบคุม เช่น สภาพเศรษฐกิจ ความเจ็บป่วย การถูกเลือกปฏิบัติ หรือภาระครอบครัว ซึ่งเป็นข้อจำกัดจริง และไม่ได้หายไปเพราะเราเปลี่ยนความคิด</p>
+<table class="contrast">
+  <tr><th>อุปสรรคภายนอก (ต้องแก้ที่สิ่งแวดล้อม)</th><th>รูปแบบภายใน (เปลี่ยนได้ที่ตัวเรา)</th></tr>
+  <tr><td>งานเกินกำลังเพราะทีมขาดคน</td><td>ไม่กล้าบอกว่างานเกินกำลัง เพราะกลัวดูไม่เก่ง</td></tr>
+  <tr><td>เงินทุนไม่พอเริ่มโปรเจกต์</td><td>มีทุนพอสำหรับก้าวแรก แต่รอให้ "พร้อมทุกด้าน" ก่อน</td></tr>
+  <tr><td>ร่างกายเหนื่อยล้าจากการนอนไม่พอ</td><td>ใช้งานล้นมือเป็นเหตุผลที่ไม่ต้องหยุดมองชีวิตตัวเอง</td></tr>
+  <tr><td>ตลาดผันผวนจนแผนลงทุนเสียหาย</td><td>ไม่ยอมตัดขาดทุนตามแผน เพราะการยอมรับว่าผิดเจ็บเกินไป</td></tr>
+</table>
+<p>สองคอลัมน์นี้ไม่ได้แยกขาดจากกันเสมอ สถานการณ์จริงส่วนใหญ่มีทั้งสองอย่างปนกัน หน้าที่ของเราคือแยกให้ออกว่า<strong>ส่วนไหนต้องเปลี่ยนสิ่งแวดล้อม ขอความช่วยเหลือ หรือยอมรับข้อจำกัด และส่วนไหนเป็นวิธีตอบสนองของเราเองที่ปรับได้</strong> <span class="src c">C</span></p>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>"ภูเขาคือเรา" ไม่ได้หมายความว่า <em>ทุกปัญหาเกิดจากเรา</em> แต่หมายความว่า <em>ทุกปัญหามีส่วนที่เป็นการตอบสนองของเรา</em> และส่วนนั้นคือจุดที่เรามีพลังเปลี่ยนแปลงมากที่สุด</p></div>
+
+<h3>การเติบโตคือการเปลี่ยนความสัมพันธ์กับตัวเอง</h3>
+<p>อีกนัยหนึ่งของคำเปรียบนี้คือ การปีนภูเขาไม่ได้มีเป้าหมายแค่ไปถึงยอด กระบวนการปีนเองกำลังเปลี่ยนตัวคนปีน เราต้องแข็งแรงขึ้น อดทนกับความไม่สบายได้นานขึ้น และฟังสัญญาณจากร่างกายได้ดีขึ้น Wiest มองว่าการเผชิญภูเขาภายในก็ทำงานแบบเดียวกัน <span class="src a">A</span> คนที่ผ่านมันมาได้ไม่ใช่คนเดิมที่ได้ของรางวัลเพิ่ม แต่เป็นคนที่<strong>มีความสัมพันธ์กับความกลัว ความรู้สึก และความไม่แน่นอนเปลี่ยนไปแล้ว</strong></p>
+<p>มุมนี้ช่วยถอดแรงกดดันได้มาก ถ้ายอดเขาคือเป้าหมายเดียว ทุกวันที่ยังไม่ถึงคือความล้มเหลว แต่ถ้าการปีนเองคือการเติบโต ทุกก้าวที่เราตอบสนองต่างไปจากเดิมก็มีความหมายแล้ว แม้ผลลัพธ์ภายนอกจะยังไม่เปลี่ยนก็ตาม</p>
+
+<div class="ladder">
+  <div class="w"><b>ความเชื่อเดิม</b>ถ้าชีวิตยังไม่ไปไหน แปลว่าเราขี้เกียจหรือไม่เก่งพอ</div>
+  <div class="arr">↓</div>
+  <div class="t"><b>มุมมองใหม่</b>อาจมีส่วนหนึ่งในตัวเราที่ได้ประโยชน์จากการยังไม่ไปไหน และเรายังไม่ได้ฟังส่วนนั้น</div>
+  <div class="arr">↓</div>
+  <div class="d"><b>ลงมือ</b>แยกอุปสรรคจริงออกจากการตอบสนองของเรา แล้วเลือกแก้ทีละส่วนให้ถูกที่</div>
+</div>
+
+<div class="limit"><span class="k">ข้อจำกัดของกรอบคิดนี้</span>
+<p>ถ้าใช้คำเปรียบนี้กับคนที่อยู่ในสภาพแวดล้อมที่เป็นอันตราย เช่น ความสัมพันธ์ที่มีการทำร้าย หรือที่ทำงานที่กดขี่อย่างเป็นระบบ การบอกว่า "ภูเขาคือคุณ" อาจกลายเป็นการโยนภาระผิดที่ ในกรณีแบบนี้ สิ่งที่ต้องทำก่อนคือความปลอดภัยและการเปลี่ยนสิ่งแวดล้อม ไม่ใช่การสำรวจใจตัวเอง <span class="src c">C</span></p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>มีปัญหาอะไรที่ผมเจอซ้ำในหลายสถานที่ หลายช่วงเวลา หรือกับหลายคน จนอาจไม่ใช่เรื่องบังเอิญ?</li>
+<li>ในปัญหาที่หนักใจที่สุดตอนนี้ ส่วนไหนเป็นข้อจำกัดจริงที่ผมควบคุมไม่ได้ และส่วนไหนเป็นวิธีที่ผมเลือกตอบสนอง?</li>
+<li>ถ้าการปีนภูเขาลูกนี้กำลังสอนอะไรผมสักอย่าง สิ่งนั้นน่าจะเป็นอะไร?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>แผนที่สองคอลัมน์</div>
+  <dl>
+    <dt>Objective</dt><dd>แยกให้เห็นว่าปัญหาหนึ่งเรื่องมีส่วนภายนอกและส่วนภายในอย่างละเท่าไร</dd>
+    <dt>Action</dt><dd>เลือกปัญหาที่ค้างคามาเกิน 3 เดือน ขีดเส้นแบ่งกระดาษเป็นสองฝั่ง ฝั่งซ้ายเขียนข้อจำกัดภายนอก ฝั่งขวาเขียนสิ่งที่เราทำหรือไม่ทำซ้ำ ๆ ในเรื่องนี้ ใช้เวลาไม่เกิน 15 นาที</dd>
+    <dt>Observation</dt><dd>สังเกตว่าฝั่งไหนเขียนง่ายกว่า และมีข้อไหนที่ลังเลว่าควรอยู่ฝั่งไหน</dd>
+    <dt>Reflection</dt><dd>ข้อที่ลังเลมักเป็นจุดที่น่าสนใจที่สุด เพราะเป็นที่ที่ภายนอกกับภายในพันกันอยู่ เลือกมาหนึ่งข้อเพื่อสำรวจต่อในบทถัดไป</dd>
+    <dt>Limitation</dt><dd>การทำครั้งเดียวสะท้อนแค่มุมมองของเราในวันนั้น ถ้าเป็นไปได้ ลองให้คนที่ไว้ใจช่วยดูด้วย เพราะเรามักมองไม่เห็นบางส่วนของตัวเอง</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH2 ===================== -->
+<div class="ch-open" id="ch2">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="180" cy="44" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 02</div>
+  <h2 class="ch-title">ไม่มีสิ่งที่เรียกว่า Self-Sabotage</h2>
+  <div class="ch-en">There's No Such Thing as Self-Sabotage</div>
+  <p class="ch-essence">พฤติกรรมที่ดูเหมือนทำลายตัวเอง มักเป็นวิธีที่ใจพยายามปกป้องเรา ด้วยกลยุทธ์ที่ล้าสมัยไปแล้ว</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 2 · Theme 2, 6</span>
+</div>
+<section class="chapter">
+<h3>ชื่อบทที่ฟังดูขัดแย้ง</h3>
+<p>หนังสือทั้งเล่มพูดถึง Self-Sabotage แต่บทที่สองกลับบอกว่า "มันไม่มีอยู่จริง" ความขัดแย้งนี้ตั้งใจ Wiest ต้องการเปลี่ยนวิธีมองพฤติกรรมเหล่านี้ จาก<strong>การทำร้ายตัวเอง</strong> เป็น<strong>การพยายามปกป้องตัวเอง</strong> <span class="src a">A</span></p>
+<div class="quote">
+  <div class="q">"Coexisting but conflicting needs create self-sabotaging behaviors."</div>
+  <div class="th">"ความต้องการที่อยู่ร่วมกันแต่ขัดแย้งกัน คือสิ่งที่ทำให้เกิดพฤติกรรมขัดขวางตัวเอง"</div>
+  <div class="who">คำอธิบายหนังสืออย่างเป็นทางการ</div>
+</div>
+<p>ถ้าเรามองพฤติกรรมเดียวกันผ่านสองเลนส์นี้ เราจะได้คำถามต่างกันมาก เลนส์แรกถามว่า "ทำไมเราห่วยแบบนี้" ซึ่งนำไปสู่ความละอาย และความละอายมักทำให้เราหลบหนักขึ้น เลนส์ที่สองถามว่า "พฤติกรรมนี้ช่วยอะไรเราอยู่" ซึ่งเปิดทางให้สำรวจ และการสำรวจคือจุดเริ่มต้นของการเปลี่ยนแปลง</p>
+
+<h3>กลไก: เป้าหมายที่รู้ตัว กับความต้องการที่ไม่รู้ตัว</h3>
+<p>Wiest อธิบายว่าเรามีสิ่งที่ต้องการอย่างรู้ตัว เช่น อยากสำเร็จ อยากมีความรัก อยากมีสุขภาพดี และมีความต้องการลึกกว่านั้นที่เรามักไม่รู้ตัว เช่น ความปลอดภัย ความคุ้นเคย การได้รับการยอมรับ หรือการไม่ต้องเจ็บซ้ำ เมื่อสองอย่างนี้ขัดกัน <strong>ฝั่งที่เราไม่ได้ฟังมักเป็นฝั่งที่ชนะ</strong> เพราะมันทำงานอยู่เบื้องหลังโดยที่เราไม่ได้ต่อรองกับมันเลย <span class="src a">A</span></p>
+<p>เธอยังเสนอว่าการขัดขวางตัวเองมักเกิดเมื่อเรา<strong>ไม่ยอมตอบสนองความต้องการบางอย่างอย่างตรงไปตรงมา</strong> บ่อยครั้งเพราะไม่เชื่อว่าตัวเองรับมือกับมันได้ <span class="src a">A</span> เช่น ต้องการพักแต่ไม่กล้ายอมรับว่าเหนื่อย ร่างกายจึงหาทางพักเองผ่านการผัดวันประกันพรุ่ง ต้องการความใกล้ชิดแต่กลัวการถูกปฏิเสธ จึงผลักคนออกไปก่อนที่เขาจะได้จากเราไป</p>
+<p>มีอีกประโยคหนึ่งของเธอที่ถูกยกมาบ่อย เธอบอกว่าแม้เราจะคิดว่ากำลังตามหาความสุข แต่จริง ๆ แล้วเรามักกำลังตามหา<strong>สิ่งที่เราคุ้นเคยที่สุด</strong> <span class="src a">A</span> ประโยคนี้อธิบายได้ว่าทำไมคนที่โตมากับความวุ่นวายบางคนรู้สึกอึดอัดกับความสงบ เพราะความสงบไม่คุ้นเคย และสิ่งที่ไม่คุ้นเคยถูกตีความว่าอันตราย</p>
+
+<div class="diagram">
+<svg viewBox="0 0 640 420" role="img" aria-label="วงจรรูปแบบปกป้องตัวเอง">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="var(--gold)"/></marker></defs>
+  <g font-family="Sarabun,Tahoma,sans-serif" font-size="14" text-anchor="middle">
+    <rect x="220" y="10" width="200" height="46" rx="8" fill="var(--bg-3)" stroke="var(--gold)"/>
+    <text x="320" y="31" fill="var(--ink)" font-weight="600">1 · เป้าหมายที่รู้ตัว</text><text x="320" y="48" fill="var(--ink-mid)" font-size="12">"อยากปล่อยผลงานออกไป"</text>
+    <rect x="430" y="90" width="200" height="46" rx="8" fill="var(--bg-3)" stroke="var(--line)"/>
+    <text x="530" y="111" fill="var(--ink)" font-weight="600">2 · ภัยที่รับรู้ / ความขัดแย้ง</text><text x="530" y="128" fill="var(--ink-mid)" font-size="12">"ถ้าคนวิจารณ์ล่ะ?"</text>
+    <rect x="430" y="186" width="200" height="46" rx="8" fill="var(--bg-3)" stroke="var(--line)"/>
+    <text x="530" y="207" fill="var(--ink)" font-weight="600">3 · ความไม่สบายใจ</text><text x="530" y="224" fill="var(--ink-mid)" font-size="12">กังวล แน่นอก อยากหนี</text>
+    <rect x="320" y="282" width="200" height="46" rx="8" fill="var(--bg-3)" stroke="var(--warn)"/>
+    <text x="420" y="303" fill="var(--ink)" font-weight="600">4 · พฤติกรรมปกป้อง</text><text x="420" y="320" fill="var(--ink-mid)" font-size="12">แก้งานอีกรอบ ไม่ส่ง</text>
+    <rect x="120" y="282" width="180" height="46" rx="8" fill="var(--bg-3)" stroke="var(--ok)"/>
+    <text x="210" y="303" fill="var(--ink)" font-weight="600">5 · โล่งใจระยะสั้น</text><text x="210" y="320" fill="var(--ink-mid)" font-size="12">ความกังวลลดลงทันที</text>
+    <rect x="10" y="186" width="200" height="46" rx="8" fill="var(--bg-3)" stroke="var(--warn)"/>
+    <text x="110" y="207" fill="var(--ink)" font-weight="600">6 · ต้นทุนระยะยาว</text><text x="110" y="224" fill="var(--ink-mid)" font-size="12">งานไม่เคยออก ความมั่นใจลด</text>
+    <rect x="10" y="90" width="200" height="46" rx="8" fill="var(--bg-3)" stroke="var(--gold)"/>
+    <text x="110" y="111" fill="var(--ink)" font-weight="600">7 · รูปแบบถูกเสริมแรง</text><text x="110" y="128" fill="var(--ink-mid)" font-size="12">สมองจำว่า "หลบแล้วรอด"</text>
+  </g>
+  <g stroke="var(--gold)" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+    <path d="M420 40 Q500 50 520 86"/><path d="M530 138 L530 182"/><path d="M520 234 Q500 270 470 280"/>
+    <path d="M318 305 L304 305"/><path d="M160 280 Q120 260 112 236"/><path d="M110 184 L110 140"/><path d="M130 88 Q160 40 216 34"/>
+  </g>
+</svg>
+<div class="cap">The Protective Pattern Loop · กรอบวิเคราะห์ที่สร้างขึ้นเพื่ออธิบาย <span class="src c">C</span> ไม่ใช่แผนภาพต้นฉบับ และไม่ใช่แบบจำลองทางคลินิกที่ได้รับการยืนยัน</div>
+</div>
+
+<p>หัวใจของวงจรนี้อยู่ที่ขั้น 5 กับ 7 ทันทีที่เราหลบ ความไม่สบายใจลดลง สมองจึงเรียนรู้ว่า "หลบแล้วรู้สึกดีขึ้น" งานวิจัยด้านพฤติกรรมเรียกกลไกนี้ว่า<strong>การเสริมแรงทางลบ</strong> (negative reinforcement) คือพฤติกรรมใดที่ทำให้สิ่งไม่พึงประสงค์หายไป พฤติกรรมนั้นมีแนวโน้มจะเกิดซ้ำ <span class="src b">B</span> ส่วนต้นทุนระยะยาวมาช้าเกินกว่าที่สมองจะเชื่อมโยงกลับไปที่การหลบ</p>
+<p>งานวิจัยของ Fuschia Sirois และ Timothy Pychyl สนับสนุนมุมนี้ในเรื่องการผัดวันประกันพรุ่ง พวกเขาเสนอว่าการผัดวันมักไม่ใช่ปัญหาการจัดการเวลา แต่เป็น<strong>การจัดการอารมณ์ระยะสั้น</strong> เราเลื่อนงานเพื่อหนีความรู้สึกไม่สบายที่งานนั้นกระตุ้น และแลกมันกับต้นทุนในอนาคต <span class="src b">B</span> ซึ่งสอดคล้องกับข้อเสนอของ Wiest ที่ว่าพฤติกรรมเหล่านี้กำลังตอบสนองบางอย่างอยู่</p>
+
+<h3>ตัวอย่างเต็มวงจร: ผลงานที่ไม่เคยถูกปล่อย</h3>
+<div class="story"><div class="h">กรณีศึกษาสมมติ <span class="src c">C</span></div><ol>
+<li><span>สถานการณ์</span>นักพัฒนาคนหนึ่งสร้างเครื่องมือเล็ก ๆ ที่มีประโยชน์จริง เพื่อนหลายคนบอกให้เปิดให้คนอื่นใช้</li>
+<li><span>ความคิด</span>"ยังมีบั๊กที่ยังไม่เจอแน่ ๆ ถ้าคนเก่ง ๆ มาเห็นโค้ดนี้ เขาจะคิดว่าเราไม่เก่งจริง"</li>
+<li><span>อารมณ์</span>กังวล ละอายล่วงหน้า อยากรอให้ดีกว่านี้</li>
+<li><span>พฤติกรรม</span>refactor ใหม่ทั้งหมด เพิ่มฟีเจอร์ที่ไม่มีใครขอ เขียนเอกสารใหม่อีกรอบ</li>
+<li><span>ผลระยะสั้น</span>รู้สึกว่ากำลังทำงาน และไม่ต้องเจอคำวิจารณ์</li>
+<li><span>ผลระยะยาว</span>หกเดือนผ่านไป ไม่มีผู้ใช้ ไม่มีฟีดแบ็ก และเริ่มเชื่อมากขึ้นว่าตัวเอง "ยังไม่พร้อม"</li>
+<li><span>ทางเลือกใหม่</span>ยอมรับว่ากลัวคำวิจารณ์ แล้วตอบสนองความต้องการความปลอดภัยด้วยวิธีอื่น เช่น ปล่อยให้คนกลุ่มเล็กที่ไว้ใจใช้ก่อน ติดป้ายว่าเป็นเวอร์ชันทดลอง แล้วกำหนดวันปล่อยจริงไว้ล่วงหน้า</li>
+</ol></div>
+<p>สังเกตว่าทางเลือกใหม่<strong>ไม่ได้ละเลยความต้องการความปลอดภัย</strong> มันยอมรับว่าความต้องการนั้นมีเหตุผล แต่หาวิธีตอบสนองที่ไม่ต้องแลกด้วยการไม่ปล่อยงานเลย นี่คือแก่นของบทนี้ เราไม่ได้ต้องการกำจัดส่วนที่ปกป้องเรา แต่ต้องการ<strong>ต่อรองกับมันอย่างรู้ตัว</strong></p>
+
+<h3>ความกลัวสามแบบ: ล้มเหลว สำเร็จ และเปลี่ยนแปลง</h3>
+<p>Wiest ชี้ว่ารูปแบบที่พบบ่อยได้แก่ การต่อต้านการเปลี่ยนแปลง การยึดติดกับสิ่งที่คุ้นเคย ความกลัวความสำเร็จ และพฤติกรรมปลอบใจตัวเองที่เราไม่รู้ตัว <span class="src a">A</span> สามอย่างแรกต่างกันมากกว่าที่คิด</p>
+<table class="contrast">
+  <tr><th>ความกลัว</th><th>สิ่งที่อาจกำลังปกป้อง</th><th>หน้าตาในชีวิตจริง</th></tr>
+  <tr><td><strong>กลัวล้มเหลว</strong></td><td>ภาพลักษณ์ว่าเราเก่ง</td><td>ไม่เริ่ม เพราะถ้าไม่เริ่มก็ไม่มีวันพิสูจน์ได้ว่าทำไม่ได้</td></tr>
+  <tr><td><strong>กลัวสำเร็จ</strong></td><td>ความสัมพันธ์เดิม ความคาดหวังที่จะตามมา</td><td>เกือบถึงเส้นชัยแล้วทำบางอย่างพัง หรือเปลี่ยนเป้าหมายกะทันหัน</td></tr>
+  <tr><td><strong>กลัวเปลี่ยนแปลง</strong></td><td>ตัวตนที่คุ้นเคย</td><td>รู้ว่าควรย้าย ควรเลิก หรือควรเริ่ม แต่หาเหตุผลใหม่มาอยู่ที่เดิมได้เรื่อย ๆ</td></tr>
+</table>
+<p>ความกลัวความสำเร็จฟังดูแปลกที่สุด แต่ลองคิดดูว่าความสำเร็จมาพร้อมอะไรบ้าง มันมาพร้อมการถูกมองเห็นมากขึ้น ความรับผิดชอบมากขึ้น ความคาดหวังที่สูงขึ้น และบางครั้งก็ทำให้ระยะห่างกับคนที่เคยอยู่ระดับเดียวกันเปลี่ยนไป ถ้าส่วนลึกของเราเชื่อว่า "ถ้าโดดเด่นจะถูกอิจฉาหรือถูกทิ้ง" การหยุดตัวเองไว้ก่อนถึงยอดก็เป็นกลยุทธ์ที่เข้าใจได้ <span class="src c">C</span></p>
+
+<h3>Upper Limit: เพดานของความสุขที่เรายอมให้ตัวเองมี</h3>
+<p>Wiest หยิบแนวคิด <strong>Upper Limit Problem</strong> ของนักจิตวิทยา Gay Hendricks มาใช้ แนวคิดนี้เสนอว่าแต่ละคนมี "เพดาน" ของความสุข ความรัก หรือความสำเร็จที่รู้สึกว่าตัวเองสมควรได้ เมื่อชีวิตดีเกินเพดานนั้น เรามักทำบางอย่างเพื่อดึงตัวเองกลับลงมาสู่ระดับที่คุ้นเคย เช่น ทะเลาะกับคนรักหลังได้ข่าวดี ป่วยทันทีที่ได้พัก หรือกังวลเรื่องที่ยังไม่เกิดขึ้น <span class="src a">A</span></p>
+<p>แนวคิดนี้มีประโยชน์ในฐานะ<strong>เลนส์สำหรับสังเกตตัวเอง</strong> เพราะช่วยให้เราสังเกตจังหวะที่ชีวิตกำลังดีแล้วเรากลับรู้สึกไม่สงบ แต่ควรรู้ด้วยว่ามันเป็นกรอบคิดจากงานเขียนเชิงพัฒนาตัวเอง</p>
+<div class="limit"><span class="k">ระดับหลักฐาน</span>
+<p>Upper Limit Problem <strong>ยังไม่มีงานวิจัยเชิงทดลองที่ยืนยันโดยตรง</strong> <span class="src b">B</span> มีแนวคิดใกล้เคียงในงานวิจัย เช่น Self-Verification Theory ของ William Swann ที่พบว่าคนมักแสวงหาข้อมูลที่ยืนยันภาพตัวเองเดิม แม้ภาพนั้นจะเป็นลบก็ตาม แต่นั่นไม่ได้พิสูจน์ว่ามี "เพดานความสุข" อยู่จริงตามที่ Hendricks อธิบาย ให้ใช้แนวคิดนี้เป็นคำถาม ไม่ใช่คำวินิจฉัย</p></div>
+
+<h3>สิ่งที่คนมักเข้าใจผิด</h3>
+<p><strong>ไม่ใช่ทุกพฤติกรรมจะมี "ความต้องการลึก" ซ่อนอยู่</strong> บางครั้งเราไม่ทำงานเพราะเหนื่อยจริง เพราะงานไม่ชัด หรือเพราะเป้าหมายนั้นไม่ใช่สิ่งที่เราต้องการตั้งแต่ต้น การตั้งสมมติฐานว่ามีปมซ่อนอยู่เสมออาจทำให้เราขุดหาสาเหตุที่ไม่มีอยู่จริง แล้วมองข้ามทางแก้ง่าย ๆ เช่น นอนให้พอ หรือแบ่งงานให้เล็กลง <span class="src c">C</span></p>
+<p>อีกความเข้าใจผิดคือ การเข้าใจว่าพฤติกรรมมีหน้าที่ปกป้อง <strong>ไม่ได้แปลว่าเราต้องปล่อยให้มันดำเนินต่อ</strong> ความเข้าใจคือเครื่องมือสำหรับการเปลี่ยน ไม่ใช่ใบอนุญาตให้คงอยู่ที่เดิม</p>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>คำถามที่เปลี่ยนเกมไม่ใช่ "จะหยุดพฤติกรรมนี้อย่างไร" แต่คือ <strong>"พฤติกรรมนี้กำลังให้อะไรเรา และมีวิธีอื่นที่ให้สิ่งนั้นได้โดยไม่ต้องจ่ายราคาแพงขนาดนี้ไหม"</strong></p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>มีเป้าหมายอะไรที่ผมพูดว่าอยากทำ แต่พฤติกรรมจริงของผมไม่สอดคล้องกับคำพูดนั้นเลย?</li>
+<li>ถ้าผมทำสิ่งนั้นสำเร็จ ผมจะต้องเผชิญความเปลี่ยนแปลง ความคาดหวัง หรือความรับผิดชอบอะไรที่ยังไม่อยากเจอ?</li>
+<li>รูปแบบพฤติกรรมที่ผมไม่ชอบ กำลังให้ประโยชน์ระยะสั้นอะไรกับผม เช่น ความสบายใจ ความปลอดภัย หรือการไม่ต้องตัดสินใจ?</li>
+<li>มีช่วงไหนบ้างไหมที่ชีวิตกำลังดี แล้วผมเริ่มหาเรื่องกังวลหรือทำบางอย่างพัง?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>สัมภาษณ์พฤติกรรมที่ไม่ชอบ</div>
+  <dl>
+    <dt>Objective</dt><dd>หาความต้องการที่อาจซ่อนอยู่หลังพฤติกรรมที่ทำซ้ำ</dd>
+    <dt>Action</dt><dd>เลือกพฤติกรรมหนึ่งอย่าง แล้วเขียนคำตอบสามข้อ (1) ทันทีหลังทำ ผมรู้สึกดีขึ้นอย่างไร (2) ถ้าผมไม่ทำ ผมจะต้องเจอความรู้สึกหรือสถานการณ์อะไร (3) ความต้องการที่อยู่หลังข้อ 2 น่าจะเป็นอะไร เช่น ปลอดภัย ได้รับการยอมรับ หรือได้พัก</dd>
+    <dt>Observation</dt><dd>สังเกตว่าคำตอบข้อ 2 ทำให้รู้สึกอึดอัดแค่ไหน ความอึดอัดมักบอกว่าเรากำลังเข้าใกล้อะไรบางอย่างที่สำคัญ</dd>
+    <dt>Reflection</dt><dd>ลองคิดวิธีตอบสนองความต้องการในข้อ 3 อีกหนึ่งวิธีที่มีต้นทุนระยะยาวน้อยกว่า แล้วทดลองใช้หนึ่งครั้ง</dd>
+    <dt>Limitation</dt><dd>คำตอบที่ได้เป็นเพียง<em>สมมติฐาน</em> ไม่ใช่ความจริงเกี่ยวกับตัวเรา บางพฤติกรรมอาจไม่มีความต้องการลึกซ่อนอยู่เลย และอาจเกิดจากความเหนื่อยหรือสภาพแวดล้อมล้วน ๆ</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH3 ===================== -->
+<div class="ch-open" id="ch3">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="230" cy="30" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 03 · Applied</div>
+  <h2 class="ch-title">เมื่อความขยันกลายเป็นที่หลบ</h2>
+  <div class="ch-en">When Self-Sabotage Looks Like Productivity</div>
+  <p class="ch-essence">การหลบที่แนบเนียนที่สุดคือการหลบที่ดูเหมือนการทำงานหนัก</p>
+  <span class="map-tag">บทประยุกต์ <span class="src c">C</span> · Theme 3 · High-Achiever Context</span>
+</div>
+<section class="chapter">
+<p>บทนี้เป็นการนำแนวคิดของ Wiest มาใช้กับรูปแบบที่ผู้เขียนไม่ได้ลงรายละเอียดโดยตรงทั้งหมด <span class="src c">C</span> คือการขัดขวางตัวเองในคนที่ดูภายนอกเหมือน "ไม่ได้ขัดขวางอะไรเลย" คนกลุ่มนี้ขยัน เรียนรู้เร็ว วางแผนเก่ง และมักได้รับคำชม ปัญหาของพวกเขาไม่ใช่การนอนดูซีรีส์ทั้งวัน แต่คือ<strong>การทำงานหนักกับทุกอย่าง ยกเว้นสิ่งที่น่ากลัวที่สุด</strong></p>
+<p>เหตุผลที่รูปแบบนี้มองเห็นยากคือ มันได้รางวัลจากสังคม การค้นคว้าเพิ่มดูรอบคอบ การปรับระบบดูเป็นมืออาชีพ การเรียนคอร์สใหม่ดูใฝ่รู้ ไม่มีใครตำหนิเรา รวมถึงตัวเราเองด้วย ถ้านำวงจรจากบทที่ 2 มาจับ เราจะเห็นว่าพฤติกรรมเหล่านี้สามารถทำหน้าที่เดียวกับการผัดวันได้ทุกประการ คือ<strong>ลดความไม่สบายใจตอนนี้ แลกกับความก้าวหน้าที่หายไป</strong></p>
+
+<h3>หน้าตาของการหลบที่ดูเหมือนความก้าวหน้า</h3>
+<table class="contrast">
+  <tr><th>สิ่งที่เราทำ</th><th>สิ่งที่อาจกำลังหลีกเลี่ยง</th></tr>
+  <tr><td>ค้นคว้าต่อเนื่องแต่ไม่เริ่มลงมือ</td><td>ความไม่แน่นอนของการลงมือจริง และโอกาสที่จะทำผิด</td></tr>
+  <tr><td>ออกแบบระบบใหม่เรื่อย ๆ แต่ไม่เปิดใช้งานจริง</td><td>วันที่ระบบต้องเจอผู้ใช้และถูกตัดสิน</td></tr>
+  <tr><td>เปลี่ยนเครื่องมือเพราะต้องหาตัวที่ดีที่สุดก่อน</td><td>การยอมรับว่าปัญหาไม่ได้อยู่ที่เครื่องมือ</td></tr>
+  <tr><td>เพิ่มรายละเอียดในแผน แทนการรับความเสี่ยง</td><td>ความรู้สึกว่าควบคุมผลลัพธ์ไม่ได้</td></tr>
+  <tr><td>เรียนเพิ่มเรื่อย ๆ แต่ไม่เผยแพร่ผลงาน</td><td>การถูกมองเห็นในฐานะมือใหม่</td></tr>
+  <tr><td>ตั้งมาตรฐานสูงจนไม่ได้เริ่ม</td><td>ช่องว่างระหว่างรสนิยมกับฝีมือในตอนนี้</td></tr>
+  <tr><td>ไล่เป้าหมายถัดไปทันทีที่ถึงเป้าเดิม</td><td>ความว่างเปล่า หรือคำถามว่า "แล้วไงต่อ"</td></tr>
+</table>
+<p>ทุกแถวในตารางนี้<strong>อาจเป็นสิ่งที่ดีจริงก็ได้</strong> การค้นคว้าก่อนลงทุนเป็นความรับผิดชอบ การเลือกเครื่องมือที่เหมาะสมช่วยประหยัดเวลาได้หลายเดือน สิ่งที่แยกการเตรียมตัวออกจากการหลบไม่ได้อยู่ที่ตัวพฤติกรรม แต่อยู่ที่<strong>หน้าที่ของพฤติกรรมนั้นในตอนนี้</strong></p>
+
+<h3>Progress-or-Protection Test</h3>
+<p>เพื่อให้แยกสองอย่างนี้ได้ในชีวิตจริง เราสร้างชุดคำถามสั้น ๆ ไว้ใช้ตรวจตัวเอง <span class="src c">C</span> ไม่มีข้อไหนตัดสินได้ด้วยตัวเอง แต่ถ้าหลายข้อชี้ไปทางเดียวกัน ก็เป็นสัญญาณที่ควรฟัง</p>
+<table class="contrast">
+  <tr><th>คำถาม</th><th>สัญญาณการเตรียมตัวจริง</th><th>สัญญาณการหลบ</th></tr>
+  <tr><td>ข้อมูลใหม่เปลี่ยนการตัดสินใจไหม?</td><td>เปลี่ยน หรือช่วยลดความเสี่ยงสำคัญ</td><td>ไม่เปลี่ยน แค่ทำให้รู้สึกมั่นใจขึ้นชั่วคราว</td></tr>
+  <tr><td>มีจุดสิ้นสุดที่ชัดไหม?</td><td>รู้ว่าข้อมูลแค่ไหนถึงจะพอ</td><td>"พอ" ถูกเลื่อนออกไปทุกครั้งที่ใกล้ถึง</td></tr>
+  <tr><td>รู้สึกอย่างไรเมื่อนึกถึงการลงมือ?</td><td>ตื่นเต้นปนกังวลตามปกติ</td><td>โล่งใจทันทีเมื่อมีเหตุผลให้เลื่อน</td></tr>
+  <tr><td>ถ้าเพื่อนทำแบบนี้ เราจะว่าอย่างไร?</td><td>"รอบคอบดี"</td><td>"เมื่อไหร่จะเริ่มสักที"</td></tr>
+  <tr><td>รูปแบบนี้เกิดซ้ำไหม?</td><td>เกิดเฉพาะกับเรื่องที่เสี่ยงสูงจริง</td><td>เกิดกับทุกเรื่องที่ต้องให้คนอื่นเห็น</td></tr>
+</table>
+<p>คำถามที่ตรงที่สุดอาจเป็นข้อนี้: <strong>เรากำลังทำสิ่งนี้เพื่อสร้างความก้าวหน้า หรือเพื่อหลีกเลี่ยงความรู้สึกที่มาพร้อมกับความก้าวหน้า?</strong></p>
+
+<h3>มาตรฐานสูง vs. Perfectionism</h3>
+<p>Wiest ระบุว่าการไล่ตามความสมบูรณ์แบบเป็นหนึ่งในรูปแบบของการขัดขวางตัวเอง <span class="src a">A</span> แต่สิ่งนี้ไม่ได้แปลว่ามาตรฐานสูงเป็นปัญหา งานวิจัยด้านจิตวิทยาแยก perfectionism ออกเป็นสองมิติ มิติแรกคือ<strong>การมุ่งมั่นเพื่อความเป็นเลิศ</strong> ซึ่งมักสัมพันธ์กับผลงานที่ดีและแรงจูงใจ อีกมิติคือ<strong>ความกังวลต่อความผิดพลาดและการถูกประเมิน</strong> ซึ่งมักสัมพันธ์กับความเครียด การผัดวัน และภาวะหมดไฟ <span class="src b">B</span> (ดูงานของ Stoeber & Otto และ Curran & Hill ในส่วนแหล่งอ้างอิง)</p>
+<p>เส้นแบ่งที่ใช้ได้จริงคือ มาตรฐานสูงถามว่า "<em>งานนี้ดีพอสำหรับคนที่จะใช้มันหรือยัง</em>" ส่วน perfectionism ถามว่า "<em>งานนี้จะปกป้องเราจากคำวิจารณ์ได้หมดหรือยัง</em>" คำถามแรกมีคำตอบ ส่วนคำถามหลังไม่มีวันมีคำตอบ เพราะไม่มีงานไหนปลอดคำวิจารณ์ได้ 100%</p>
+
+<h3>ความทะเยอทะยาน vs. การพิสูจน์คุณค่า</h3>
+<p>อีกคู่ที่ละเอียดอ่อนคือแรงผลักดันที่มาจากความสนใจจริง กับแรงผลักดันที่มาจากความรู้สึกว่าตัวเองยังดีไม่พอ ภายนอกทั้งสองแบบดูเหมือนกัน คือขยัน มีวินัย ทำงานดึก แต่ข้างในต่างกันมาก แบบแรก เมื่อสำเร็จจะรู้สึกอิ่ม แบบหลัง เมื่อสำเร็จจะรู้สึกโล่งใจแค่ชั่วครู่ แล้วต้องหาเป้าหมายใหม่มาพิสูจน์ตัวเองต่อ</p>
+<p>สัญญาณง่าย ๆ คือสังเกตว่า<strong>เกิดอะไรขึ้นเมื่อเราหยุดพัก</strong> ถ้าการพักทำให้รู้สึกผิด กระวนกระวาย หรือรู้สึกว่าตัวเองไม่มีค่า วินัยที่เรามีอาจกำลังทำหน้าที่สองอย่าง คือสร้างผลงาน และกันไม่ให้เราต้องเจอความรู้สึกนั้น <span class="src c">C</span></p>
+
+<h3>ตัวอย่าง: ระบบเทรดที่ไม่เคยถูกใช้จริง</h3>
+<div class="story"><div class="h">กรณีศึกษาสมมติ <span class="src c">C</span></div><ol>
+<li><span>สถานการณ์</span>นักลงทุนคนหนึ่งพัฒนาระบบคัดหุ้นมาแปดเดือน ผล back-test ดี และผ่านการทดสอบนอกช่วงข้อมูลที่ใช้สร้างระบบมาแล้ว</li>
+<li><span>ความคิด</span>"ยังต้องทดสอบอีกสองช่วงตลาด เผื่อมีอะไรที่ยังไม่เห็น"</li>
+<li><span>อารมณ์</span>กลัวว่าเงินจริงจะขาดทุน และกลัวว่าระบบที่ทุ่มเทมาจะใช้ไม่ได้</li>
+<li><span>พฤติกรรม</span>เพิ่มตัวกรองใหม่ ทดสอบใหม่ แล้วเพิ่มตัวกรองอีก วนแบบนี้ไปเรื่อย ๆ</li>
+<li><span>ผลระยะสั้น</span>ได้ทำงานที่ถนัดและรู้สึกว่าควบคุมได้ โดยไม่ต้องเสี่ยงเงินจริงเลย</li>
+<li><span>ผลระยะยาว</span>เกิดความเสี่ยงที่ระบบปรับเข้ากับข้อมูลอดีตมากเกินไป (overfitting) และยังไม่มีข้อมูลจากการใช้งานจริงเลยแม้แต่ชิ้นเดียว</li>
+<li><span>ทางเลือกใหม่</span>กำหนดเกณฑ์ "พอ" ไว้ล่วงหน้า แล้วเริ่มใช้ด้วยเงินจำนวนเล็กที่เสียได้ หรือเริ่มเทรดกระดาษก่อน พร้อมกำหนดวันทบทวนผลไว้ชัดเจน</li>
+</ol></div>
+<p>ตัวอย่างนี้ไม่ได้บอกว่าการทดสอบเพิ่มผิด ในโลกการลงทุน การรีบใช้ระบบที่ยังไม่ผ่านการทดสอบพออาจแพงกว่ามาก จุดสำคัญคือ<strong>การตั้งเกณฑ์ "พอ" ไว้ก่อนที่อารมณ์จะเข้ามาเลื่อนมันออกไป</strong> เกณฑ์ที่ตั้งไว้ตอนใจเย็นมักเชื่อถือได้มากกว่าการตัดสินตอนกำลังกลัว</p>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>Insight ที่ไม่นำไปสู่การกระทำ อาจกลายเป็นการหลบที่ซับซ้อนที่สุด เพราะมันทำให้เรารู้สึกว่ากำลังเติบโต ทั้งที่พฤติกรรมยังเหมือนเดิมทุกอย่าง</p></div>
+
+<div class="limit"><span class="k">ข้อควรระวัง</span>
+<p>อย่าใช้บทนี้เป็นเหตุผลให้ตัดสินความรอบคอบของตัวเองว่าเป็นการหลบไปทั้งหมด หลายงาน โดยเฉพาะงานที่ความผิดพลาดย้อนกลับไม่ได้ ต้องการการเตรียมตัวมากจริง ๆ เป้าหมายคือ<strong>รู้ตัว</strong>ว่าการเตรียมตัวกำลังทำหน้าที่อะไรอยู่ ไม่ใช่การตำหนิตัวเองที่เตรียมตัว</p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>สิ่งที่ผมเรียกว่าความรอบคอบในโปรเจกต์ที่ค้างอยู่ตอนนี้ มีส่วนไหนที่เป็นความกลัวบ้างหรือไม่?</li>
+<li>ผมกำลังหลีกเลี่ยงงานนั้นจริง ๆ หรือกำลังหลีกเลี่ยงความรู้สึกที่มาพร้อมกับงานนั้น?</li>
+<li>ถ้าผมไม่ต้องพิสูจน์คุณค่าตัวเองกับใครเลย ผมจะยังเลือกเป้าหมายเดิมอยู่หรือเปล่า?</li>
+<li>ถ้าผมยอมให้ตัวเองเป็นมือใหม่ ทำพลาด และถูกวิจารณ์ได้ ผมจะกล้าทำอะไรภายในสัปดาห์นี้?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>ส่งงานที่ "ดีพอ" หนึ่งชิ้น</div>
+  <dl>
+    <dt>Objective</dt><dd>ทดสอบว่าความกลัวต่อผลของการปล่อยงาน แม่นยำแค่ไหนเมื่อเทียบกับสิ่งที่เกิดขึ้นจริง</dd>
+    <dt>Action</dt><dd>เลือกงานหนึ่งชิ้นที่แก้มานาน ก่อนส่ง เขียนคำทำนายสั้น ๆ ว่า "ถ้าส่งไป จะเกิดอะไรขึ้น และเราจะรู้สึกอย่างไร" แล้วกำหนดเวลาแก้ครั้งสุดท้าย 30 นาที และส่งงานออกไป</dd>
+    <dt>Observation</dt><dd>หลังจาก 3–7 วัน เทียบสิ่งที่เกิดขึ้นจริงกับคำทำนาย ทั้งปฏิกิริยาของคนอื่นและความรู้สึกของเราเอง</dd>
+    <dt>Reflection</dt><dd>ความกลัวทำนายได้แม่นแค่ไหน มีอะไรที่ได้จากการส่งงาน ซึ่งการแก้ต่ออีกเดือนจะไม่มีวันให้ เช่น ฟีดแบ็กจริง</dd>
+    <dt>Limitation</dt><dd>ผลครั้งเดียวอาจดีหรือแย่เพราะโชค ถ้าคำวิจารณ์รุนแรง ไม่ได้แปลว่าการส่งงานเป็นความผิดพลาด แต่เป็นข้อมูลที่เราไม่มีทางได้ ถ้าไม่ส่งงานเลย</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH4 ===================== -->
+<div class="ch-open" id="ch4">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="260" cy="36" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 04</div>
+  <h2 class="ch-title">Trigger คือผู้นำทาง</h2>
+  <div class="ch-en">Your Triggers Are the Guides to Your Freedom</div>
+  <p class="ch-essence">ความรู้สึกที่รบกวนใจเรามากที่สุด อาจกำลังชี้ไปยังสิ่งที่เราต้องการมากที่สุด</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 3 · Theme 4</span>
+</div>
+<section class="chapter">
+<h3>อารมณ์ในฐานะผู้ส่งสาร</h3>
+<p>เมื่อมีอะไรกระตุ้นอารมณ์รุนแรง เช่น ความโกรธที่มากเกินสถานการณ์ ความอิจฉาที่ทำให้นอนไม่หลับ หรือความกังวลที่ไม่ยอมหายไป ปฏิกิริยาแรกของเรามักมีสองแบบ คือกดมันไว้ หรือปล่อยให้มันพาไป Wiest เสนอทางที่สาม คือ<strong>มองอารมณ์เหล่านี้เป็นผู้นำทางที่ชี้ว่าการขัดขวางตัวเองกำลังทำงานอยู่ตรงไหน</strong> เราไม่จำเป็นต้องกำจัดมัน แต่ควรฟังว่ามันกำลังบอกอะไร <span class="src a">A</span></p>
+<p>เธอยังชี้ว่าความกังวลรอบเรื่องที่เรากำลังขัดขวางตัวเอง มักสะท้อน<strong>ความเชื่อที่จำกัดตัวเรา</strong> และเสนอให้ป้อนข้อมูลใหม่ให้ใจ แทนการต่อสู้กับความรู้สึกโดยตรง <span class="src a">A</span></p>
+
+<h3>อ่านอารมณ์แต่ละแบบ</h3>
+<p>ในบทนี้ Wiest พาไล่ทีละอารมณ์ว่าแต่ละอย่างอาจกำลังบอกอะไร ตารางด้านล่างสรุปแนวทางการตีความ โดยผสมมุมมองของเธอกับการสังเคราะห์ของเรา <span class="src a">A</span><span class="src c">C</span></p>
+<table class="contrast">
+  <tr><th>อารมณ์</th><th>อาจกำลังบอกว่า</th><th>คำถามที่ควรถาม</th></tr>
+  <tr><td><strong>โกรธ</strong></td><td>มีขอบเขตถูกละเมิด หรือมีบางอย่างที่เราให้คุณค่าถูกคุกคาม</td><td>อะไรสำคัญกับเราจนรู้สึกต้องปกป้อง?</td></tr>
+  <tr><td><strong>อิจฉา</strong></td><td>เราเห็นในคนอื่นสิ่งที่เราอยากได้ แต่ยังไม่อนุญาตให้ตัวเองไล่ตาม</td><td>ส่วนไหนในชีวิตเขาที่เราอยากมีจริง ๆ?</td></tr>
+  <tr><td><strong>ขุ่นเคือง</strong></td><td>เราเคยยอมในสิ่งที่ไม่อยากยอม และยังไม่ได้พูดออกไป</td><td>เราตกลงกับอะไรไว้ ทั้งที่ใจไม่ได้ตกลง?</td></tr>
+  <tr><td><strong>ละอาย</strong></td><td>มีช่องว่างระหว่างภาพที่อยากเป็นกับสิ่งที่เราเห็นในตัวเอง</td><td>มาตรฐานนี้เป็นของเรา หรือของใคร?</td></tr>
+  <tr><td><strong>เสียใจ / เศร้า</strong></td><td>มีบางอย่างที่สำคัญต่อเราซึ่งสูญเสียไปแล้ว</td><td>เรากำลังไว้อาลัยให้อะไร?</td></tr>
+  <tr><td><strong>กังวลเรื้อรัง</strong></td><td>มีบางอย่างที่เราต้องเผชิญหรือตัดสินใจ แต่กำลังเลื่อนไป</td><td>เรากำลังหลีกเลี่ยงการตัดสินใจอะไรอยู่?</td></tr>
+  <tr><td><strong>ไม่มั่นคง</strong></td><td>คุณค่าในตัวเราขึ้นอยู่กับปัจจัยภายนอกมากเกินไป</td><td>ถ้าไม่มีใครชม เราจะยังรู้สึกว่าตัวเองมีค่าแค่ไหน?</td></tr>
+</table>
+<p>ความอิจฉาเป็นตัวอย่างที่ชัดที่สุด เรามักมองว่ามันเป็นอารมณ์ด้านมืดที่ต้องซ่อน แต่ถ้ามองแบบ Wiest ความอิจฉาคือแผนที่ เรามักไม่อิจฉาคนที่มีสิ่งที่เราไม่สนใจ เราอิจฉาคนที่มีสิ่งที่ลึก ๆ เราอยากได้ แต่ยังไม่กล้ายอมรับว่าอยากได้ หรือยังไม่เชื่อว่าตัวเองจะมีได้ <span class="src a">A</span></p>
+
+<h3>กลไก: ความรู้สึกไม่ใช่ข้อเท็จจริง</h3>
+<p>ถ้าอารมณ์คือผู้ส่งสาร ก็ต้องถามต่อว่าสารที่ส่งมาแม่นยำแค่ไหน ตรงนี้คือจุดที่ต้องเติมความละเอียดให้แนวคิดของหนังสือ จิตวิทยาแนว CBT (Cognitive Behavioral Therapy หรือการบำบัดที่เน้นความคิดและพฤติกรรม) เสนอว่าอารมณ์มักเกิดจาก<strong>การตีความ</strong>สถานการณ์ ไม่ใช่จากสถานการณ์โดยตรง <span class="src b">B</span> คนสองคนเจอเหตุการณ์เดียวกันจึงรู้สึกต่างกันได้</p>
+<div class="diagram">
+<svg viewBox="0 0 640 140" role="img" aria-label="ความรู้สึก การตีความ หลักฐาน การตอบสนอง">
+  <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="var(--gold)"/></marker></defs>
+  <g font-family="Sarabun,Tahoma,sans-serif" text-anchor="middle">
+    <rect x="6" y="30" width="140" height="70" rx="8" fill="var(--bg-3)" stroke="var(--line)"/><text x="76" y="58" fill="var(--ink)" font-size="15" font-weight="600">Feeling</text><text x="76" y="80" fill="var(--ink-mid)" font-size="12.5">หัวหน้าไม่ตอบ → แน่นอก</text>
+    <rect x="168" y="30" width="140" height="70" rx="8" fill="var(--bg-3)" stroke="var(--line)"/><text x="238" y="58" fill="var(--ink)" font-size="15" font-weight="600">Interpretation</text><text x="238" y="80" fill="var(--ink-mid)" font-size="12.5">"เขาไม่พอใจงานเรา"</text>
+    <rect x="330" y="30" width="140" height="70" rx="8" fill="var(--bg-3)" stroke="var(--gold)"/><text x="400" y="58" fill="var(--ink)" font-size="15" font-weight="600">Evidence</text><text x="400" y="80" fill="var(--ink-mid)" font-size="12.5">เขาประชุมทั้งวัน</text>
+    <rect x="492" y="30" width="140" height="70" rx="8" fill="var(--bg-3)" stroke="var(--ok)"/><text x="562" y="58" fill="var(--ink)" font-size="15" font-weight="600">Response</text><text x="562" y="80" fill="var(--ink-mid)" font-size="12.5">ถามตรง ๆ พรุ่งนี้</text>
+  </g>
+  <g stroke="var(--gold)" stroke-width="1.5" marker-end="url(#ar2)"><path d="M148 65 L164 65"/><path d="M310 65 L326 65"/><path d="M472 65 L488 65"/></g>
+</svg>
+<div class="cap">กรอบแยกความรู้สึกออกจากข้อเท็จจริง <span class="src c">C</span> ดัดแปลงจากแนวคิดพื้นฐานของ CBT <span class="src b">B</span></div>
+</div>
+<p>ความรู้สึกเป็น<strong>ข้อมูลจริง</strong>ว่าเรากำลังรู้สึกอะไร แต่ไม่จำเป็นต้องเป็น<strong>คำอธิบายที่จริง</strong>ว่าโลกเป็นอย่างไร ความกลัวว่าหัวหน้าไม่พอใจบอกเราได้แน่ ๆ ว่าเราให้ค่ากับการยอมรับจากหัวหน้า แต่ไม่ได้บอกว่าหัวหน้าไม่พอใจจริง</p>
+
+<h3>กับดักสองฝั่ง</h3>
+<table class="contrast">
+  <tr><th>กดอารมณ์ทั้งหมด</th><th>เชื่ออารมณ์ทั้งหมด</th></tr>
+  <tr><td>"ไม่ควรรู้สึกแบบนี้" → อารมณ์ไม่หายไป แต่ไปโผล่ในรูปอื่น เช่น หงุดหงิดกับคนที่ไม่เกี่ยว นอนไม่หลับ หรือหลบงาน</td><td>"รู้สึกแบบนี้ แปลว่ามันจริง" → ตัดสินใจจากความกลัวชั่วคราว แล้วอาจเสียโอกาสหรือความสัมพันธ์</td></tr>
+  <tr><td>พลาดข้อมูลสำคัญเกี่ยวกับความต้องการของตัวเอง</td><td>เข้าใจผิดว่าความรู้สึกคือคำพยากรณ์</td></tr>
+</table>
+<p>งานวิจัยของ James Gross เรื่องการกำกับอารมณ์พบว่า<strong>การกดการแสดงออกทางอารมณ์</strong> (expressive suppression) มักไม่ได้ลดความรู้สึกข้างใน และยังสัมพันธ์กับผลเสียด้านความจำและความสัมพันธ์ ส่วน<strong>การตีความสถานการณ์ใหม่</strong> (cognitive reappraisal) มักให้ผลดีกว่าในหลายบริบท <span class="src b">B</span> ข้อค้นพบนี้สอดคล้องกับข้อเสนอของ Wiest ที่ให้ฟังอารมณ์แทนการกดไว้</p>
+
+<div class="ladder">
+  <div class="w"><b>ความเชื่อเดิม</b>คนที่จิตใจแข็งแรงต้องไม่หวั่นไหวกับอารมณ์</div>
+  <div class="arr">↓</div>
+  <div class="t"><b>มุมมองใหม่</b>คนที่จิตใจแข็งแรงรู้สึกเต็มที่ แต่ตรวจสอบสิ่งที่อารมณ์บอกก่อนจะทำตาม</div>
+  <div class="arr">↓</div>
+  <div class="d"><b>ลงมือ</b>ตั้งชื่ออารมณ์ แยกการตีความออกมา หาหลักฐาน แล้วค่อยเลือกการตอบสนอง</div>
+</div>
+
+<div class="limit"><span class="k">ข้อจำกัด</span>
+<p>ไม่ใช่ทุกอารมณ์จะมีบทเรียนลึกซ่อนอยู่ บางครั้งความหงุดหงิดมาจากความหิว อดนอน หรือฮอร์โมน การตีความอารมณ์ทุกครั้งว่าเป็น "สัญญาณจากบาดแผลภายใน" อาจทำให้เราวิเคราะห์ตัวเองมากเกินไปจนเหนื่อย และในภาวะอย่างโรควิตกกังวลหรือซึมเศร้า อารมณ์อาจไม่ได้สะท้อนสถานการณ์เลย การได้รับความช่วยเหลือจากผู้เชี่ยวชาญจึงสำคัญกว่าการพยายามอ่านมันเอง <span class="src c">C</span></p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>ครั้งล่าสุดที่ผมรู้สึกอิจฉาใครจริงจัง สิ่งที่ผมอิจฉาคืออะไร และมันบอกอะไรเกี่ยวกับสิ่งที่ผมอยากได้แต่ยังไม่ยอมไล่ตาม?</li>
+<li>มีอารมณ์ไหนที่ผมมักรีบกดไว้ก่อนจะรู้ด้วยซ้ำว่ามันกำลังบอกอะไร?</li>
+<li>มีความกังวลเรื่องไหนที่ผมเชื่อมาตลอด โดยไม่เคยตรวจสอบหลักฐานเลย?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>บันทึก Trigger 4 ช่อง</div>
+  <dl>
+    <dt>Objective</dt><dd>ฝึกแยกความรู้สึก การตีความ และข้อเท็จจริงออกจากกัน</dd>
+    <dt>Action</dt><dd>ตลอด 7 วัน เมื่อมีอารมณ์รุนแรงเกิน 6/10 ให้จดสั้น ๆ 4 ช่อง: เกิดอะไรขึ้น · รู้สึกอะไร (ตั้งชื่อให้ชัด) · เราตีความว่าอย่างไร · มีหลักฐานอะไรสนับสนุนหรือขัดแย้ง</dd>
+    <dt>Observation</dt><dd>หาแบบแผนที่ซ้ำ เช่น การตีความแบบเดิม ๆ อย่าง "เขาไม่เห็นค่าเรา" ที่โผล่ในหลายสถานการณ์</dd>
+    <dt>Reflection</dt><dd>การตีความที่ซ้ำบ่อยที่สุด อาจเป็นความเชื่อเดิมที่ติดตัวเรามา ไม่ใช่สิ่งที่สถานการณ์บอก</dd>
+    <dt>Limitation</dt><dd>การจดบันทึกเปลี่ยนวิธีที่เรารับรู้อารมณ์ไปบ้างแล้ว และช่วงเวลา 7 วันอาจไม่ครอบคลุมสถานการณ์สำคัญ ถ้าการจดทำให้รู้สึกแย่ลงอย่างมาก ให้หยุดและหาคนคุยด้วย</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH5 ===================== -->
+<div class="ch-open" id="ch5">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="280" cy="27" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 05</div>
+  <h2 class="ch-title">ความฉลาดทางอารมณ์</h2>
+  <div class="ch-en">Building Emotional Intelligence</div>
+  <p class="ch-essence">Self-Mastery ไม่ใช่การไม่มีอารมณ์ แต่คือการมีพื้นที่ระหว่างอารมณ์กับการกระทำ</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 4 · Theme 5</span>
+</div>
+<section class="chapter">
+<h3>ทำไมคนฉลาดก็ยังติด</h3>
+<p>หนึ่งในเรื่องที่น่าหงุดหงิดที่สุดสำหรับคนที่คิดเก่ง คือการที่เข้าใจปัญหาครบทุกมุม แต่ก็ยังทำแบบเดิม เหตุผลคือ<strong>ความสามารถในการวิเคราะห์กับความสามารถในการอยู่กับความรู้สึกเป็นทักษะคนละชุดกัน</strong> คนที่เก่งเรื่องแก้ปัญหามักใช้การคิดเป็นวิธีจัดการความไม่สบายใจ เมื่อเจออารมณ์ยาก ๆ ก็จะเริ่มวิเคราะห์ ซึ่งบางครั้งช่วยได้ แต่บางครั้งก็เป็นการหนีอารมณ์ด้วยการทำให้มันกลายเป็นโจทย์ <span class="src c">C</span></p>
+<p>Wiest มองว่าการพัฒนาความฉลาดทางอารมณ์คือหัวใจของ Self-Mastery <span class="src a">A</span> ในบทนี้เธออธิบายว่าสมองและร่างกายมีแนวโน้มต่อต้านการเปลี่ยนแปลง แม้การเปลี่ยนนั้นจะดีกับเราก็ตาม เพราะระบบของเราถูกออกแบบให้รักษาสิ่งที่คุ้นเคยไว้ก่อน <span class="src a">A</span> ดังนั้นความรู้สึกไม่สบายเมื่อเริ่มสิ่งใหม่จึงเป็นเรื่องปกติ ไม่ได้แปลว่าเรากำลังเดินผิดทาง</p>
+
+<h3>Reacting vs. Responding</h3>
+<p>หัวใจของความฉลาดทางอารมณ์อยู่ที่ช่วงเวลาสั้น ๆ ระหว่าง "รู้สึก" กับ "ทำ" ถ้าไม่มีช่วงเวลานี้ เราจะ<strong>ตอบโต้ตามปฏิกิริยา</strong> (react) คืออารมณ์ขับการกระทำโดยตรง ถ้ามีช่วงนี้ เราจะ<strong>ตอบสนองอย่างเลือกได้</strong> (respond) คือรับรู้อารมณ์ แล้วเลือกการกระทำที่สอดคล้องกับเป้าหมาย</p>
+<table class="contrast">
+  <tr><th>Reacting · ตอบโต้ตามปฏิกิริยา</th><th>Responding · ตอบสนองอย่างเลือกได้</th></tr>
+  <tr><td>อีเมลวิจารณ์เข้ามา → ตอบกลับทันทีด้วยน้ำเสียงป้องกันตัว</td><td>อ่านแล้วรอสักพัก แยกว่าส่วนไหนเป็นข้อมูลที่มีประโยชน์ แล้วค่อยตอบ</td></tr>
+  <tr><td>หุ้นร่วง 8% → ขายทันทีเพราะกลัว</td><td>เปิดแผนที่เขียนไว้ตอนใจเย็น แล้วทำตามเงื่อนไขที่ตั้งไว้</td></tr>
+  <tr><td>รู้สึกไม่พร้อม → ไม่ไปงานที่อาจเปิดโอกาสใหม่</td><td>รับรู้ว่ากังวล แล้วไปพร้อมความกังวลนั้น</td></tr>
+</table>
+<p>ประโยคสุดท้ายในตารางสำคัญมาก การตอบสนองอย่างเลือกได้<strong>ไม่ได้ต้องรอให้ความกังวลหายไปก่อน</strong> เราทำสิ่งที่สำคัญได้ ทั้งที่ยังรู้สึกไม่พร้อม</p>
+
+<h3>Psychological Flexibility: ถือความรู้สึกไว้ แล้วเดินต่อ</h3>
+<p>แนวคิดนี้สอดคล้องกับ ACT (Acceptance and Commitment Therapy หรือการบำบัดที่เน้นการยอมรับและพันธะต่อคุณค่า) ซึ่งพัฒนาโดย Steven Hayes และคณะ ACT เสนอว่าความทุกข์จำนวนมากไม่ได้มาจากความรู้สึกเจ็บปวดโดยตรง แต่มาจาก<strong>ความพยายามหลีกเลี่ยงความรู้สึกนั้น</strong> (experiential avoidance) และสิ่งที่ช่วยได้คือ<strong>ความยืดหยุ่นทางจิตใจ</strong> (psychological flexibility) คือความสามารถในการอยู่กับความคิดและความรู้สึกไม่สบาย โดยยังทำสิ่งที่สอดคล้องกับคุณค่าของเราได้ <span class="src b">B</span> งานวิจัยจำนวนมากพบว่าความยืดหยุ่นทางจิตใจสัมพันธ์กับสุขภาวะที่ดีกว่า แม้ระดับหลักฐานจะต่างกันไปตามกลุ่มประชากรและปัญหาที่ศึกษา</p>
+<p>ภาพที่ช่วยให้เห็นคือ<strong>คนขับรถบัสกับผู้โดยสารเสียงดัง</strong> ความกลัว ความละอาย และความสงสัยในตัวเองเป็นผู้โดยสารที่ตะโกนบอกทาง เราไม่ต้องไล่พวกเขาลงจากรถ และไม่ต้องเลี้ยวตามที่พวกเขาสั่ง เราแค่ขับต่อไปยังจุดหมายที่เลือกไว้ โดยยอมให้พวกเขานั่งอยู่บนรถด้วย คำเปรียบนี้มาจากแนวทาง ACT <span class="src b">B</span></p>
+
+<h3>สัญชาตญาณ vs. ความกลัว</h3>
+<p>Wiest ยังแยกระหว่างเสียงสัญชาตญาณกับเสียงความกลัว ซึ่งมักสับสนกันได้ง่าย เพราะทั้งสองอย่างบอกให้เราหยุด <span class="src a">A</span> แนวทางที่สังเคราะห์ได้จากมุมมองของเธอคือ <span class="src c">C</span></p>
+<table class="contrast">
+  <tr><th>สัญชาตญาณมักจะ…</th><th>ความกลัวมักจะ…</th></tr>
+  <tr><td>สงบ ชัด และพูดครั้งเดียว</td><td>เร่งเร้า วนซ้ำ และเสียงดังขึ้นเรื่อย ๆ</td></tr>
+  <tr><td>ชี้ไปที่ข้อมูลเฉพาะ เช่น "ตัวเลขในสัญญานี้ไม่ตรงกัน"</td><td>พูดแบบเหมารวมและพาไปสู่หายนะ เช่น "ทุกอย่างจะพังแน่"</td></tr>
+  <tr><td>บางครั้งชวนให้เดินเข้าหาสิ่งที่ยาก</td><td>เกือบทุกครั้งชวนให้ถอยออกจากสิ่งที่ไม่คุ้นเคย</td></tr>
+</table>
+<div class="limit"><span class="k">ข้อจำกัด</span>
+<p>การแยกนี้เป็นแนวทางเชิงประสบการณ์ ไม่ใช่เครื่องมือวัดที่แม่นยำ งานวิจัยเรื่องการตัดสินใจ (เช่นงานของ Kahneman และ Klein) ชี้ว่า "สัญชาตญาณ" จะเชื่อถือได้เมื่อเรามีประสบการณ์มากพอในสภาพแวดล้อมที่ให้ฟีดแบ็กสม่ำเสมอ ในเรื่องที่เราไม่เคยทำ สัญชาตญาณกับความกลัวอาจแยกกันไม่ออกเลย <span class="src b">B</span></p></div>
+
+<h3>Regulation ไม่ใช่ Suppression</h3>
+<p>อีกความเข้าใจผิดที่พบบ่อย คือคิดว่าความฉลาดทางอารมณ์คือการควบคุมอารมณ์ให้นิ่ง ความจริงคือ<strong>การกำกับอารมณ์ (regulation)</strong> หมายถึงการรู้ว่าตอนนี้กำลังรู้สึกอะไร รับมันไว้ และเลือกวิธีตอบสนองที่เหมาะสม ซึ่งบางครั้งก็คือการร้องไห้ การพูดความรู้สึกตรง ๆ หรือการพัก ส่วน<strong>การกดอารมณ์ (suppression)</strong> คือการทำเหมือนว่ามันไม่มีอยู่</p>
+<p>Wiest ยังพูดถึงความเจ็บปวดทางใจที่เราหลีกเลี่ยงมานาน ว่าทางออกไม่ใช่การหนีไปเรื่อย ๆ แต่คือการปล่อยให้ตัวเองรู้สึกมันอย่างเต็มที่ในพื้นที่ที่ปลอดภัย <span class="src a">A</span> อารมณ์ที่ได้รับอนุญาตให้ผ่านไป มักผ่านไปได้เร็วกว่าอารมณ์ที่ถูกขังไว้</p>
+<p>เทคนิคง่าย ๆ ที่มีงานวิจัยรองรับคือ<strong>การตั้งชื่ออารมณ์</strong> (affect labeling) งานของ Matthew Lieberman พบว่าการบอกตัวเองสั้น ๆ ว่า "ตอนนี้เรากำลังโกรธ" สัมพันธ์กับการลดลงของปฏิกิริยาในสมองส่วนที่ตอบสนองต่อภัย <span class="src b">B</span> การตั้งชื่อยังไม่ได้แก้ปัญหา แต่ช่วยสร้างระยะห่างพอให้เราเลือกได้</p>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>อิสรภาพไม่ได้อยู่ที่การไม่มีความกลัว แต่อยู่ที่การไม่ต้องให้ความกลัวเป็นคนตัดสินใจแทนเรา</p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>ผมใช้การคิดวิเคราะห์เป็นวิธีหลบความรู้สึกบ้างไหม และเรื่องไหนที่ผม "เข้าใจ" มานาน แต่ไม่เคย "รู้สึก" มันจริง ๆ?</li>
+<li>ในสัปดาห์ที่ผ่านมา มีครั้งไหนที่ผมตอบโต้ตามปฏิกิริยา แล้วอยากย้อนกลับไปตอบสนองใหม่?</li>
+<li>ถ้าผมยอมให้ความกังวลนั่งอยู่บนรถไปด้วย มีที่ไหนบ้างที่ผมจะยังขับไปได้?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>ช่องว่าง 90 วินาที</div>
+  <dl>
+    <dt>Objective</dt><dd>สร้างพื้นที่ระหว่างอารมณ์กับการกระทำ แล้วดูว่ามันเปลี่ยนการตัดสินใจไหม</dd>
+    <dt>Action</dt><dd>เมื่อรู้สึกอยากตอบโต้ทันที เช่น ตอบข้อความ ขายหุ้น หรือปฏิเสธโอกาส ให้หยุด 90 วินาที ตั้งชื่ออารมณ์ หายใจช้า ๆ แล้วถามว่า "ถ้าวันพรุ่งนี้ฉันใจเย็นแล้ว ฉันอยากให้ตัวเองทำอะไรตอนนี้"</dd>
+    <dt>Observation</dt><dd>นับว่าในหนึ่งสัปดาห์ การตัดสินใจเปลี่ยนไปกี่ครั้งหลังจากหยุด และกี่ครั้งที่ยังเหมือนเดิม</dd>
+    <dt>Reflection</dt><dd>ถ้าการตัดสินใจไม่เปลี่ยน ก็ไม่เป็นไร เราได้รู้ว่ามันมาจากการเลือก ไม่ใช่ปฏิกิริยา และนั่นคือความต่างที่สำคัญ</dd>
+    <dt>Limitation</dt><dd>ในสถานการณ์ฉุกเฉินที่ต้องตัดสินใจเร็วจริง ไม่ควรใช้วิธีนี้ และ 90 วินาทีเป็นตัวเลขเพื่อการฝึกเท่านั้น ไม่ใช่ตัวเลขทางวิทยาศาสตร์</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH6 ===================== -->
+<div class="ch-open" id="ch6">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="292" cy="22" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 06</div>
+  <h2 class="ch-title">ปล่อยอดีต และตัวตนเก่า</h2>
+  <div class="ch-en">Releasing the Past</div>
+  <p class="ch-essence">บางครั้งสิ่งที่เรากลัวที่สุดไม่ใช่ความล้มเหลว แต่คือการต้องกลายเป็นคนที่เรายังไม่รู้จัก</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 5 · Theme 7, 8</span>
+</div>
+<section class="chapter">
+<h3>ทำไมอดีตยังมีเสียงในวันนี้</h3>
+<p>รูปแบบหลายอย่างที่ขัดขวางเราในวันนี้ เคย<strong>มีประโยชน์จริง</strong>ในบางช่วงของชีวิต เด็กที่โตมาในบ้านที่อารมณ์ผู้ใหญ่ไม่แน่นอน อาจเรียนรู้ที่จะอ่านสีหน้าคนอื่นตลอดเวลาและไม่ขออะไรเลย นั่นคือกลยุทธ์ที่ช่วยให้อยู่รอดในตอนนั้น ปัญหาคือเมื่อโตขึ้นและสภาพแวดล้อมเปลี่ยนไปแล้ว กลยุทธ์เดิมยังทำงานต่อเหมือนโปรแกรมที่ไม่เคยถูกอัปเดต</p>
+<p>Wiest มองว่าการขัดขวางตัวเองจำนวนมากเชื่อมโยงกับประสบการณ์ที่ยังไม่ได้รับการจัดการ และเสนอว่าการก้าวต่อไปต้องอาศัย<strong>การปล่อยวางอดีต</strong> ไม่ใช่การพยายามลืม แต่คือการยอมให้อารมณ์ที่ค้างอยู่ได้รับการรู้สึกจนจบกระบวนการของมัน <span class="src a">A</span></p>
+
+<div class="limit"><span class="k">ข้อควรระวังเรื่องคำอธิบายทางร่างกาย</span>
+<p>คำอธิบายหนังสือของสำนักพิมพ์พูดถึงการปล่อยประสบการณ์ในอดีต "ในระดับเซลล์" และบทวิจารณ์บางแห่งพูดถึงประสาทวิทยาของ trauma ที่ "เก็บไว้ในร่างกาย" <span class="src a">A</span> วลีเหล่านี้ควรอ่านเป็น<strong>คำเปรียบ</strong>มากกว่าข้อเท็จจริงทางการแพทย์ <span class="src b">B</span> มีงานวิจัยที่สนับสนุนว่าความเครียดเรื้อรังและ trauma ส่งผลต่อระบบประสาทและร่างกายจริง แต่แนวคิดว่าความทรงจำถูก "เก็บ" ไว้ในเซลล์ หรือถูก "ปล่อย" ได้ด้วยเทคนิคเฉพาะ ยังไม่มีหลักฐานทางวิทยาศาสตร์รองรับอย่างชัดเจน และยังเป็นประเด็นถกเถียงในวงการวิชาการ</p></div>
+
+<h3>แยกคำที่มักถูกใช้ปนกัน</h3>
+<table class="contrast">
+  <tr><th>มักเข้าใจว่า</th><th>แท้จริงคือ</th></tr>
+  <tr><td><strong>ปล่อยวาง</strong> = ลืม</td><td><strong>จดจำได้ โดยไม่ต้องกลับไปใช้ชีวิตอยู่ในนั้นซ้ำ</strong> เรื่องเดิมยังอยู่ในความทรงจำ แต่ไม่ขับการตัดสินใจของเราแล้ว</td></tr>
+  <tr><td><strong>ยอมรับ</strong> = เห็นด้วย</td><td><strong>ยอมรับว่ามันเกิดขึ้นจริง</strong> โดยไม่จำเป็นต้องเห็นว่ามันถูก หรือให้อภัยใครถ้ายังไม่พร้อม</td></tr>
+  <tr><td><strong>เยียวยา</strong> = ไม่เจ็บอีกแล้ว</td><td><strong>ความเจ็บไม่ได้ควบคุมชีวิตเราอีกแล้ว</strong> บางวันอาจยังเจ็บอยู่ก็ได้</td></tr>
+  <tr><td><strong>รับผิดชอบ</strong> = เป็นความผิดเรา</td><td><strong>สิ่งที่เกิดขึ้นอาจไม่ใช่ความผิดเรา</strong> แต่การจัดการกับผลของมันตอนนี้เป็นสิ่งที่เราทำได้</td></tr>
+</table>
+<p>คู่สุดท้ายสำคัญเป็นพิเศษ คนที่เคยถูกทำร้ายไม่ได้ผิดที่ถูกทำร้าย แต่ถ้ารอให้คนทำผิดมาแก้ไขความเสียหายให้ เราอาจต้องรอไปตลอดชีวิต <strong>ความรับผิดชอบในความหมายนี้คือการเอาพลังกลับมาอยู่ในมือเรา ไม่ใช่การโยนความผิดกลับมาที่ตัวเอง</strong> <span class="src c">C</span></p>
+<p>Wiest ยังให้กำลังใจในประเด็นหนึ่งที่ช่วยคลายแรงกดดันได้มาก คือเราไม่จำเป็นต้อง "ผ่านมันไปได้แล้ว" ภายในเวลาที่กำหนด <span class="src a">A</span> การเศร้ากับสิ่งที่สูญเสียไป ไม่ว่าจะเป็นคน โอกาส หรือชีวิตแบบที่เคยคิดว่าจะได้มี ไม่ใช่ความอ่อนแอ แต่เป็นส่วนหนึ่งของการปล่อยวางที่แท้จริง</p>
+
+<h3>ตัวตนที่ทำให้เราติดอยู่ที่เดิม</h3>
+<p>ประเด็นที่ลึกที่สุดของบทนี้คือ สิ่งที่ยากที่สุดที่ต้องปล่อย อาจไม่ใช่เหตุการณ์ในอดีต แต่คือ<strong>ตัวตนเวอร์ชันเก่าของเราเอง</strong> <span class="src a">A</span> เรื่องเล่าที่เราใช้อธิบายตัวเอง เช่น "ฉันเป็นคนเก็บตัว" "ฉันไม่เก่งเรื่องเงิน" หรือ "ฉันต้องเตรียมทุกอย่างให้พร้อม" ทำหน้าที่เหมือนแผนที่ มันช่วยให้โลกคาดเดาได้ แต่ถ้าแผนที่ไม่ตรงกับพื้นที่จริงอีกแล้ว เราก็จะหลงทางไปเรื่อย ๆ</p>
+<p>งานด้านจิตวิทยาเรื่องตัวตน (self-concept) อธิบายว่าคนเรามีแรงจูงใจให้รักษาภาพตัวเองให้คงที่ เพราะความคงที่ทำให้รู้สึกว่าโลกเข้าใจได้ <span class="src b">B</span> การเปลี่ยนพฤติกรรมจึงไม่ได้ต้องการแค่แรงจูงใจ แต่ต้องการการยอมให้เรื่องเล่าเกี่ยวกับตัวเองเปลี่ยนไปด้วย และนั่นอาจน่ากลัวกว่าที่คิด</p>
+<div class="story"><div class="h">กรณีศึกษาสมมติ <span class="src c">C</span></div><ol>
+<li><span>ตัวตนเดิม</span>"ฉันคือคนที่วางแผนทุกอย่างก่อนลงมือ" ตัวตนนี้ทำให้ได้รับคำชมมาตลอดชีวิต</li>
+<li><span>สถานการณ์</span>ได้รับโอกาสเป็นหัวหน้าโปรเจกต์ใหม่ที่ข้อมูลยังไม่ครบ และต้องตัดสินใจเร็ว</li>
+<li><span>อารมณ์</span>ไม่มั่นคง รู้สึกเหมือน "ไม่ใช่ตัวเอง" ถ้าต้องตัดสินใจทั้งที่ข้อมูลไม่ครบ</li>
+<li><span>พฤติกรรม</span>ขอเวลาเก็บข้อมูลเพิ่ม จนทีมเริ่มรอและโอกาสค่อย ๆ หลุดมือ</li>
+<li><span>สิ่งที่ปกป้อง</span>ภาพตัวเองที่คุ้นเคยและให้ความรู้สึกปลอดภัย</li>
+<li><span>ทางเลือกใหม่</span>ขยายเรื่องเล่าแทนการทิ้งมัน จาก "ฉันวางแผนทุกอย่างก่อน" เป็น "ฉันวางแผนเท่าที่สถานการณ์ต้องการ แล้วปรับเมื่อเรียนรู้เพิ่ม"</li>
+</ol></div>
+<p>สังเกตว่าทางเลือกใหม่ไม่ได้ทิ้งตัวตนเดิม ความรอบคอบยังเป็นจุดแข็งอยู่ แต่ถูก<strong>ขยายให้กว้างพอสำหรับสถานการณ์ใหม่</strong> การปล่อยตัวตนเก่าจึงไม่จำเป็นต้องหมายถึงการปฏิเสธว่าเราเคยเป็นใคร มันอาจหมายถึงการขอบคุณตัวตนนั้นที่พาเรามาถึงตรงนี้ แล้วยอมให้มันเติบโต</p>
+
+<h3>กลัวไม่ได้เป็นส่วนหนึ่งของกลุ่มอีกต่อไป</h3>
+<p>อีกเหตุผลที่การเปลี่ยนตัวตนยาก คือมันอาจทำให้เราห่างจากคนที่รู้จักเราในเวอร์ชันเดิม เพื่อนที่เคยบ่นเรื่องงานด้วยกันทุกเย็น อาจไม่รู้จะคุยอะไรกับเราเมื่อเราเริ่มลงมือเปลี่ยนชีวิต ความต้องการการเป็นส่วนหนึ่งของกลุ่ม (belonging) เป็นความต้องการพื้นฐานของมนุษย์ <span class="src b">B</span> การที่ส่วนหนึ่งในตัวเราต่อต้านการเปลี่ยนแปลงเพื่อรักษาความสัมพันธ์ไว้ จึงไม่ใช่เรื่องแปลก</p>
+<p>สิ่งที่ช่วยได้คือการยอมรับว่าความกลัวนี้มีเหตุผล แล้ว<strong>หาที่ยืนใหม่</strong>ไปพร้อมกัน เช่น หากลุ่มคนที่กำลังเดินทางคล้ายกัน หรือบอกคนใกล้ชิดตรง ๆ ว่ากำลังพยายามเปลี่ยนอะไร แทนการหวังให้เขาเข้าใจเอง <span class="src c">C</span></p>
+
+<div class="limit"><span class="k">สำคัญ: เรื่องของ Trauma</span>
+<p>บาดแผลทางใจที่รุนแรงมีความซับซ้อนกว่าการเปลี่ยนวิธีคิดหรือการเขียนบันทึกสะท้อนตัวเองมาก การขุดความทรงจำที่เจ็บปวดโดยลำพัง บางครั้งอาจทำให้รู้สึกแย่ลงแทนที่จะดีขึ้น ถ้ามีประสบการณ์ที่ยังรู้สึกท่วมท้นเมื่อนึกถึง การทำงานกับนักจิตวิทยาหรือนักบำบัดที่เชี่ยวชาญเรื่อง trauma คือทางที่ปลอดภัยกว่า <strong>คำถามและการทดลองในบทนี้ไม่ได้ออกแบบมาเพื่อขุดคุ้ยบาดแผล</strong> ถ้าคำถามไหนรู้สึกหนักเกินไป ข้ามไปได้เลย</p></div>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>การปล่อยวางอดีตที่แท้จริงไม่ใช่การลบตัวตนเก่า แต่คือการขอบคุณมันที่ปกป้องเรามา แล้วบอกมันว่า "ตอนนี้ฉันดูแลตัวเองได้ด้วยวิธีใหม่แล้ว"</p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>มีความเชื่ออะไรเกี่ยวกับตัวเองที่เคยมีประโยชน์ในอดีต แต่วันนี้อาจไม่จริงอีกแล้ว?</li>
+<li>ประโยค "ฉันเป็นคน..." ประโยคไหนที่ผมพูดบ่อย และมันกำลังจำกัดทางเลือกของผมอยู่หรือไม่?</li>
+<li>ถ้าผมเปลี่ยนแปลงจริง มีความสัมพันธ์หรือบทบาทอะไรที่ผมกลัวจะเสียไป?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>จดหมายขอบคุณตัวตนเก่า</div>
+  <dl>
+    <dt>Objective</dt><dd>เปลี่ยนความสัมพันธ์กับรูปแบบเดิม จากการต่อสู้เป็นการยอมรับ เพื่อให้ปล่อยได้ง่ายขึ้น</dd>
+    <dt>Action</dt><dd>เลือกรูปแบบหนึ่งที่อยากเปลี่ยน แล้วเขียนถึงมันสั้น ๆ 3 ส่วน (1) มันเคยปกป้องเราจากอะไร (2) ทำไมวันนี้เราไม่ต้องการการปกป้องแบบนั้นอีกแล้ว (3) เราจะดูแลความต้องการเดิมด้วยวิธีไหนแทน เลือกรูปแบบที่ไม่ได้เกี่ยวกับความทรงจำที่เจ็บปวดรุนแรง</dd>
+    <dt>Observation</dt><dd>สังเกตว่าการเขียนแบบขอบคุณ ให้ความรู้สึกต่างจากการตำหนิตัวเองอย่างไร</dd>
+    <dt>Reflection</dt><dd>ถ้าข้อ 3 เขียนยาก อาจแปลว่าความต้องการเดิมยังไม่มีทางตอบสนองอื่น ซึ่งเป็นสิ่งที่ต้องสร้างก่อนจะปล่อยรูปแบบเก่าได้</dd>
+    <dt>Limitation</dt><dd>การเขียนครั้งเดียวไม่ได้เปลี่ยนรูปแบบที่สร้างมาหลายปี มันเป็นเพียงจุดเริ่มของการมองต่างไปจากเดิม ถ้าการเขียนกระตุ้นความทรงจำที่หนักเกินไป ให้หยุดทันที</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH7 ===================== -->
+<div class="ch-open" id="ch7">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="298" cy="19" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 07</div>
+  <h2 class="ch-title">สร้างอนาคตใหม่</h2>
+  <div class="ch-en">Building a New Future</div>
+  <p class="ch-essence">การเปลี่ยนแปลงที่ยั่งยืนไม่ได้มาจากช่วงเวลาตาสว่างครั้งใหญ่ แต่มาจากก้าวเล็ก ๆ ที่ทำซ้ำจนกลายเป็นตัวเรา</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 6 · Theme 9</span>
+</div>
+<section class="chapter">
+<h3>พบกับตัวตนในอนาคต</h3>
+<p>หลังจากเข้าใจและปล่อยวางแล้ว Wiest พาเรามาสู่การสร้าง เธอเสนอให้เรา<strong>จินตนาการถึงตัวตนในอนาคตที่ดีที่สุดของตัวเอง</strong> แล้วเรียนรู้ที่จะใช้ชีวิตแบบที่ตัวตนนั้นจะใช้ <span class="src a">A</span> คำอธิบายหนังสือระบุชัดว่าการเรียนรู้ที่จะลงมือในฐานะตัวตนที่ดีที่สุดในอนาคต เป็นหนึ่งในเสาหลักของการก้าวพ้นการขัดขวางตัวเอง <span class="src a">A</span></p>
+<p>แนวคิดนี้มีงานวิจัยที่น่าสนใจรองรับบางส่วน Hal Hershfield ศึกษาว่าคนที่รู้สึกเชื่อมโยงกับตัวเองในอนาคตมากกว่า มีแนวโน้มตัดสินใจเพื่อระยะยาวได้ดีกว่า เช่น ออมเงินมากขึ้น <span class="src b">B</span> สมองของเรามักมองตัวเองในอนาคตเหมือน "คนแปลกหน้า" การทำให้ตัวตนนั้นชัดขึ้น จึงทำให้เราใส่ใจผลระยะยาวมากขึ้น</p>
+
+<h3>จินตนาการ vs. ลงมือในฐานะตัวตนนั้น</h3>
+<p>อย่างไรก็ตาม การจินตนาการเพียงอย่างเดียวอาจให้ผลตรงข้ามกับที่คิด งานวิจัยของ Gabriele Oettingen พบว่าการจินตนาการถึงอนาคตที่ดีอย่างเดียว บางครั้ง<strong>ลด</strong>แรงจูงใจในการลงมือ เพราะสมองรู้สึกเหมือนได้รับรางวัลไปแล้วบางส่วน <span class="src b">B</span> เธอเสนอวิธี <strong>WOOP</strong> (Wish · Outcome · Obstacle · Plan) คือจินตนาการถึงสิ่งที่อยากได้ แล้วจินตนาการถึงอุปสรรคภายในที่จะขวางทาง จากนั้นวางแผนรับมือแบบ "ถ้า...แล้ว..."</p>
+<table class="contrast">
+  <tr><th>Visualizing · แค่จินตนาการ</th><th>Acting in Alignment · ลงมือแบบตัวตนนั้น</th></tr>
+  <tr><td>"ในอนาคตฉันเป็นคนที่แข็งแรง"</td><td>"คนที่แข็งแรงจะทำอะไรหลังเลิกงานวันนี้?" แล้วทำสิ่งนั้น 10 นาที</td></tr>
+  <tr><td>"ฉันจะเป็นคนเขียนหนังสือ"</td><td>"คนเขียนหนังสือ เขียนทุกวัน แม้ประโยคจะห่วย" แล้วเขียน 150 คำ</td></tr>
+  <tr><td>รู้สึกดีทันที แต่พรุ่งนี้ทุกอย่างเหมือนเดิม</td><td>รู้สึกเฉย ๆ แต่สะสมหลักฐานว่าเราเป็นคนแบบนั้นได้</td></tr>
+</table>
+<p>คอลัมน์ขวาคือหัวใจของบทนี้ ทุกครั้งที่เราทำสิ่งที่ตัวตนในอนาคตจะทำ เรากำลัง<strong>สะสมหลักฐาน</strong>ให้เรื่องเล่าใหม่เกี่ยวกับตัวเอง ตัวตนไม่ได้เปลี่ยนเพราะเราประกาศว่ามันเปลี่ยน แต่เปลี่ยนเพราะมีหลักฐานมากพอจนเรื่องเล่าเก่าไม่น่าเชื่ออีกต่อไป <span class="src c">C</span></p>
+
+<h3>Microshifts: พลังของการเปลี่ยนทีละน้อย</h3>
+<p>Wiest เน้นว่าชีวิตส่วนใหญ่ไม่ได้เปลี่ยนจากช่วงเวลาตาสว่างครั้งเดียว แต่เปลี่ยนจาก <strong>microshifts</strong> คือการปรับเปลี่ยนเล็กจนแทบมองไม่เห็นในแต่ละวัน ซึ่งเมื่อสะสมไปนาน ๆ ก็ทำให้ทิศทางชีวิตทั้งหมดเปลี่ยนไป <span class="src a">A</span> เธอเปรียบว่าการเปลี่ยนแปลงครั้งใหญ่ที่เราเห็นในชีวิตคนอื่น มักเป็นผลรวมของการเลือกเล็ก ๆ หลายพันครั้งที่ไม่มีใครเห็น</p>
+<p>ทำไม microshifts ถึงได้ผลกว่าการเปลี่ยนครั้งใหญ่? ถ้านำกลไกจากบทที่ 2 มาอธิบาย การเปลี่ยนครั้งใหญ่<strong>กระตุ้นส่วนที่ปกป้องเราอย่างรุนแรง</strong> เพราะดูเป็นภัยต่อความคุ้นเคยมาก ส่วนการเปลี่ยนเล็ก ๆ ผ่านใต้เรดาร์ของระบบปกป้องได้ ก้าวเล็กพอที่จะไม่กระตุ้นความกลัว แต่มากพอที่จะสะสมเป็นตัวตนใหม่ <span class="src c">C</span></p>
+<p>งานวิจัยเรื่องการสร้างนิสัยของ Phillippa Lally และคณะพบว่า เวลาที่ใช้ในการทำให้พฤติกรรมกลายเป็นอัตโนมัติแตกต่างกันมากในแต่ละคน มีค่ากลางราว 66 วัน และมีช่วงตั้งแต่ประมาณ 18 วันไปจนถึงกว่า 250 วัน ข้อค้นพบสำคัญคือ<strong>การพลาดหนึ่งวันไม่ได้ทำลายกระบวนการอย่างมีนัยสำคัญ</strong> <span class="src b">B</span> นี่คือข่าวดีสำหรับคนที่ชอบความสมบูรณ์แบบ เราไม่จำเป็นต้องทำได้ทุกวัน แค่ต้องกลับมาให้ได้</p>
+
+<h3>ทำให้ก้าวเล็กเกิดขึ้นจริง: Implementation Intentions</h3>
+<p>อีกเครื่องมือที่มีหลักฐานรองรับดีคือ <strong>implementation intentions</strong> ของ Peter Gollwitzer คือการเขียนแผนในรูป "<em>ถ้า [สถานการณ์] แล้วฉันจะ [การกระทำ]</em>" งานวิเคราะห์อภิมาน (meta-analysis คือการรวมผลจากงานวิจัยหลายชิ้น) พบว่าวิธีนี้ช่วยเพิ่มโอกาสที่จะลงมือทำตามเป้าหมายได้ในระดับปานกลางถึงสูง <span class="src b">B</span> เหตุผลคือมันย้ายการตัดสินใจจากช่วงเวลาที่อารมณ์กำลังพุ่ง มาไว้ในช่วงที่เราใจเย็นและวางแผนได้</p>
+<div class="ladder">
+  <div class="w"><b>เป้าหมายแบบเดิม</b>"จะเริ่มเขียนบทความเผยแพร่"</div>
+  <div class="arr">↓</div>
+  <div class="t"><b>เพิ่มเงื่อนไข</b>"ถ้าเป็นเช้าวันเสาร์หลังกาแฟแก้วแรก ฉันจะเขียน 20 นาที"</div>
+  <div class="arr">↓</div>
+  <div class="d"><b>เพิ่มแผนรับอุปสรรคภายใน</b>"ถ้าฉันเริ่มคิดว่ามันยังไม่ดีพอ ฉันจะเขียนต่อ แล้วค่อยแก้ทีหลัง"</div>
+</div>
+
+<h3>สิ่งที่คนมักเข้าใจผิด</h3>
+<p>Microshifts ไม่ได้แปลว่า<strong>ทำน้อยเกินจนไม่เปลี่ยนอะไรเลย</strong> ก้าวเล็กต้องชี้ไปในทิศทางที่ชัด และค่อย ๆ ขยายขึ้น ถ้าเราทำสิ่งเล็ก ๆ เหมือนเดิมไปสามปีโดยไม่เคยเพิ่มอะไร ก้าวเล็กนั้นก็อาจกลายเป็นพื้นที่ปลอดภัยแห่งใหม่ที่ไม่ได้พาเราไปไหน <span class="src c">C</span></p>
+<p>อีกเรื่องคือ ตัวตนในอนาคตที่เราจินตนาการควรมาจาก<strong>คุณค่าของเราเอง</strong> ไม่ใช่ภาพที่สังคมบอกว่าควรเป็น ถ้าเราสร้างตัวตนในอนาคตจากความรู้สึกว่าตัวเองตอนนี้ยังไม่ดีพอ เราอาจแค่ย้ายการขัดขวางตัวเองไปอยู่ในรูปใหม่</p>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>Self-Trust ไม่ได้สร้างจากการตั้งเป้าหมายใหญ่ แต่สร้างจากการรักษาสัญญาเล็ก ๆ ที่ให้ไว้กับตัวเองซ้ำแล้วซ้ำเล่า จนเราเริ่มเชื่อคำพูดของตัวเอง</p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>ตัวตนในอนาคตที่ผมอยากเป็น ใช้ชีวิตในวันธรรมดาอย่างไร ไม่ใช่ในวันที่ประสบความสำเร็จ?</li>
+<li>ผมเข้าใจปัญหาของตัวเองลึกขึ้นมากแล้ว แต่มีอะไรที่เปลี่ยนในพฤติกรรมจริงบ้างหรือยัง?</li>
+<li>สัญญาเล็กที่สุดที่ผมให้กับตัวเองได้ และมั่นใจเกิน 90% ว่าจะรักษาได้ในสัปดาห์นี้คืออะไร?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>Microshift 14 วัน</div>
+  <dl>
+    <dt>Objective</dt><dd>ทดสอบว่าการกระทำเล็ก ๆ ที่ทำซ้ำ เปลี่ยนความรู้สึกที่มีต่อตัวเองได้หรือไม่</dd>
+    <dt>Action</dt><dd>เขียนประโยค "ถ้า... แล้วฉันจะ..." หนึ่งประโยค สำหรับพฤติกรรมที่ใช้เวลาไม่เกิน 10 นาที และตรงกับตัวตนที่อยากเป็น ทำต่อเนื่อง 14 วัน แล้วทำเครื่องหมายในปฏิทินทุกวันที่ทำได้</dd>
+    <dt>Observation</dt><dd>ทุกเย็นวันอาทิตย์ ให้คะแนนความรู้สึก "ฉันเป็นคนแบบนี้ได้" จาก 1–10 แล้วดูว่าค่าเปลี่ยนไปไหม</dd>
+    <dt>Reflection</dt><dd>วันที่พลาดสอนอะไรเรา และวันที่ทำได้มีอะไรที่ช่วย ใช้ข้อมูลนี้ปรับเงื่อนไข "ถ้า" ให้เหมาะขึ้น</dd>
+    <dt>Limitation</dt><dd>14 วันสั้นกว่าเวลาที่ใช้สร้างนิสัยตามงานวิจัย ผลที่ได้จึงบอกได้แค่ว่าเราเริ่มได้ ยังไม่ได้บอกว่าจะทำต่อเนื่องได้ และความรู้สึกที่ดีขึ้นอาจมาจากความตื่นเต้นของการเริ่มสิ่งใหม่</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH8 ===================== -->
+<div class="ch-open" id="ch8">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.4"/><circle cx="300" cy="18" r="4" fill="var(--gold)"/></svg>
+  <div class="ch-label">Chapter 08</div>
+  <h2 class="ch-title">จาก Sabotage สู่ Mastery</h2>
+  <div class="ch-en">From Self-Sabotage to Self-Mastery</div>
+  <p class="ch-essence">Mastery ไม่ใช่การยืนอยู่บนยอดเขาตลอดไป แต่คือการรู้ทางกลับเมื่อพลัดหลง</p>
+  <span class="map-tag">ครอบคลุม: ต้นฉบับบทที่ 7 · Theme 10</span>
+</div>
+<section class="chapter">
+<h3>Mastery ไม่ใช่ความสมบูรณ์แบบ</h3>
+<p>บทสุดท้ายของหนังสือรวบรวมทุกอย่างเข้าด้วยกัน Wiest อธิบายว่า Self-Mastery ไม่ใช่สถานะที่เราไปถึงแล้วไม่ต้องทำอะไรต่อ แต่เป็น<strong>วิธีการใช้ชีวิต</strong>ที่ให้ความสำคัญกับความสงบภายใน การรู้จักตัวเอง และการเลือกตอบสนองอย่างมีสติ <span class="src a">A</span> คนที่มี Self-Mastery ยังรู้สึกกลัว ยังทำพลาด และบางวันก็ยังกลับไปใช้รูปแบบเดิม ความต่างคือเขา<strong>สังเกตได้เร็วขึ้น ตัดสินตัวเองน้อยลง และกลับมาสู่ทางเดิมได้ไวขึ้น</strong></p>
+<p>มุมนี้สำคัญมากสำหรับคนที่ชอบความสมบูรณ์แบบ เพราะถ้าเรานิยาม Self-Mastery ว่า "ไม่เคยขัดขวางตัวเองอีกเลย" นิยามนี้ก็จะกลายเป็นมาตรฐานใหม่ที่ทำไม่ได้ และกลายเป็นอีกหนึ่งเหตุผลให้ตำหนิตัวเอง ซึ่งก็คือรูปแบบเดิมที่แต่งตัวใหม่</p>
+
+<h3>Self-Trust Loop</h3>
+<p>ถ้ามีกลไกเดียวที่เชื่อมทุกบทเข้าด้วยกัน มันคือการสร้าง<strong>ความไว้ใจในตัวเอง</strong> เราจะกล้าลงมือในสิ่งที่ไม่แน่นอนได้ ก็ต่อเมื่อเชื่อว่าตัวเองจะรับมือกับผลที่ตามมาได้ไม่ว่ามันจะออกมาแบบไหน ความเชื่อนั้นไม่ได้มาจากการคิดบวก แต่มาจากหลักฐานที่สะสมไว้ <span class="src c">C</span></p>
+<div class="diagram">
+<svg viewBox="0 0 640 230" role="img" aria-label="วงจรความไว้ใจในตัวเอง">
+  <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="var(--gold)"/></marker></defs>
+  <g font-family="Sarabun,Tahoma,sans-serif" text-anchor="middle" font-size="14">
+    <rect x="230" y="8" width="180" height="50" rx="25" fill="var(--bg-3)" stroke="var(--gold)"/><text x="320" y="38" fill="var(--ink)" font-weight="600">สัญญาเล็ก ๆ กับตัวเอง</text>
+    <rect x="450" y="90" width="180" height="50" rx="25" fill="var(--bg-3)" stroke="var(--line)"/><text x="540" y="120" fill="var(--ink)" font-weight="600">ลงมือ แม้ไม่พร้อม</text>
+    <rect x="230" y="172" width="180" height="50" rx="25" fill="var(--bg-3)" stroke="var(--line)"/><text x="320" y="202" fill="var(--ink)" font-weight="600">รอดมาได้ / เรียนรู้</text>
+    <rect x="10" y="90" width="180" height="50" rx="25" fill="var(--bg-3)" stroke="var(--ok)"/><text x="100" y="120" fill="var(--ink)" font-weight="600">หลักฐาน: "เราทำได้"</text>
+  </g>
+  <g stroke="var(--gold)" stroke-width="1.5" fill="none" marker-end="url(#ar3)">
+    <path d="M412 34 Q520 40 536 86"/><path d="M536 142 Q520 192 414 198"/><path d="M228 198 Q120 192 104 144"/><path d="M104 88 Q120 40 226 34"/>
+  </g>
+</svg>
+<div class="cap">Self-Trust Loop · กรอบสังเคราะห์ <span class="src c">C</span> ทุกรอบที่ผ่านไป สัญญาครั้งต่อไปสามารถใหญ่ขึ้นได้อีกนิด</div>
+</div>
+<p>สังเกตว่าขั้นที่สามไม่ได้เขียนว่า "สำเร็จ" แต่เขียนว่า "รอดมาได้ / เรียนรู้" เพราะหลักฐานที่มีค่าที่สุดสำหรับความไว้ใจในตัวเอง <strong>ไม่ใช่ว่าเราจะสำเร็จเสมอ แต่คือเราจะรับมือได้แม้ไม่สำเร็จ</strong> ทุกครั้งที่เราล้มแล้วพบว่ายังลุกได้ ความกลัวความล้มเหลวในครั้งต่อไปก็จะลดลง</p>
+
+<h3>Self-Compassion: ไม่ใช่การปล่อยตัว</h3>
+<p>หลายคนกลัวว่าถ้าใจดีกับตัวเองมากเกินไป จะขี้เกียจหรือไม่พัฒนา งานวิจัยของ Kristin Neff และ Juliana Breines & Serena Chen ชี้ไปในทิศตรงข้าม การมี<strong>ความเมตตาต่อตัวเอง</strong> (self-compassion) หลังทำพลาด สัมพันธ์กับแรงจูงใจที่จะแก้ไขและปรับปรุงมากกว่า ไม่ใช่น้อยกว่า <span class="src b">B</span> เหตุผลคือเมื่อความผิดพลาดไม่ได้แปลว่า "เราไม่มีค่า" เราก็กล้ามองมันตรง ๆ และเรียนรู้จากมันได้ แทนที่จะต้องหลบหน้าจากมัน</p>
+<table class="contrast">
+  <tr><th>Self-Criticism · การวิจารณ์ตัวเองแรง ๆ</th><th>Self-Compassion · ความเมตตาต่อตัวเอง</th></tr>
+  <tr><td>"ทำไมโง่แบบนี้อีกแล้ว"</td><td>"พลาดอีกแล้ว เกิดอะไรขึ้น และครั้งหน้าจะทำอะไรต่างไปได้บ้าง"</td></tr>
+  <tr><td>ความละอาย → หลีกเลี่ยงไม่มองความผิดพลาด</td><td>ความรู้สึกปลอดภัย → กล้ามองความผิดพลาด</td></tr>
+  <tr><td>ใช้ความกลัวเป็นแรงผลักดัน</td><td>ใช้ความใส่ใจเป็นแรงผลักดัน</td></tr>
+</table>
+<p>Self-Compassion ไม่ได้แปลว่ายกเลิกความรับผิดชอบ มันคือการถือความรับผิดชอบไว้ด้วยมือที่มั่นคงพอจะไม่ทำร้ายตัวเอง</p>
+
+<h3>ภูเขาลูกต่อไป</h3>
+<p>ประเด็นสุดท้ายที่ Wiest ทิ้งไว้คือ ชีวิตจะมีภูเขาลูกใหม่เสมอ <span class="src a">A</span> ความสำเร็จของการปีนลูกนี้ไม่ใช่การได้ชีวิตที่ไม่มีภูเขาอีกแล้ว แต่คือการที่เราเป็นคนที่<strong>พร้อมกว่าเดิมสำหรับลูกต่อไป</strong> ภูเขาที่เคยดูใหญ่จะดูเล็กลง ไม่ใช่เพราะมันหดลง แต่เพราะเราเติบโตขึ้น</p>
+<p>บางคนที่อ่านหนังสือเล่มนี้รายงานว่า เมื่อพวกเขาเริ่มเผชิญภูเขาภายในอย่างตรงไปตรงมามากขึ้น โลกภายนอกก็เริ่มดูเหมือนสนามเด็กเล่นมากกว่าสนามรบ <span class="src c">C</span> ประสบการณ์แบบนี้ไม่ได้เกิดกับทุกคน และไม่ได้เกิดในทันที แต่มันชี้ให้เห็นว่าการเปลี่ยนแปลงภายในอาจเปลี่ยนวิธีที่เรามองทุกอย่างได้</p>
+
+<div class="limit"><span class="k">ข้อจำกัด</span>
+<p>Self-Mastery ไม่ได้รับประกันผลลัพธ์ภายนอก คนที่จัดการตัวเองได้ดีมากก็ยังอาจตกงานในช่วงเศรษฐกิจถดถอย ยังป่วย และยังเจอความไม่เป็นธรรมได้ สิ่งที่เปลี่ยนคือวิธีที่เรารับมือกับเหตุการณ์เหล่านั้น ไม่ใช่ตัวเหตุการณ์เอง การคาดหวังว่าการพัฒนาภายในจะควบคุมทุกอย่างได้ ก็อาจกลายเป็นอีกหนึ่งความเชื่อที่ทำร้ายเรา <span class="src c">C</span></p></div>
+
+<div class="insight"><span class="k">Key Insight</span>
+<p>คนที่มี Self-Mastery ไม่ใช่คนที่ไม่เคยหลงทาง แต่เป็นคนที่รู้ว่าตัวเองมักหลงทางตรงไหน และรู้ทางกลับมาเสมอ</p></div>
+
+<div class="reflect"><div class="k">สิ่งที่ควรถามตัวเอง</div><ol>
+<li>ผมกำลังพัฒนาตัวเองจากความใส่ใจ หรือจากความรู้สึกว่าตัวเองยังดีไม่พอ?</li>
+<li>เมื่อผมทำพลาดครั้งล่าสุด เสียงในหัวพูดกับผมแบบไหน และผมจะพูดกับเพื่อนสนิทแบบนั้นไหม?</li>
+<li>มีหลักฐานอะไรในชีวิตบ้างที่บอกว่าผมรับมือกับสิ่งยาก ๆ ได้มาแล้ว แม้ตอนนั้นจะคิดว่าทำไม่ได้?</li>
+</ol></div>
+<div class="exp">
+  <div class="h"><small>REAL-LIFE EXPERIMENT</small>บัญชีหลักฐาน</div>
+  <dl>
+    <dt>Objective</dt><dd>สร้างความไว้ใจในตัวเองจากหลักฐานจริง แทนการพยายามคิดบวก</dd>
+    <dt>Action</dt><dd>เขียนรายการ 5 ครั้งในชีวิตที่เราผ่านเรื่องยากมาได้ ทั้งที่ตอนนั้นไม่มั่นใจ จากนั้นทุกครั้งที่รักษาสัญญาเล็ก ๆ กับตัวเองได้ในเดือนนี้ ให้เพิ่มลงไปหนึ่งบรรทัด</dd>
+    <dt>Observation</dt><dd>เมื่อเจอความกลัวครั้งใหม่ เปิดรายการนี้อ่านก่อนตัดสินใจ แล้วสังเกตว่าความกลัวเปลี่ยนไปไหม</dd>
+    <dt>Reflection</dt><dd>รายการนี้คือหลักฐานที่ "ส่วนที่ปกป้องเรา" ใช้ประเมินความเสี่ยงได้ เมื่อหลักฐานมากขึ้น ระบบปกป้องก็มีแนวโน้มจะผ่อนคลายลง</dd>
+    <dt>Limitation</dt><dd>หลักฐานในอดีตไม่ได้รับประกันอนาคต และรายการนี้ไม่ควรถูกใช้เพื่อกดความกังวลที่มีเหตุผลจริง ความกังวลบางอย่างคือข้อมูลที่ต้องฟัง</dd>
+  </dl>
+</div>
+</section>
+
+<!-- ===================== CH9 ===================== -->
+<div class="ch-open" id="ch9">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L140 50 L200 40 L260 22 L320 40 L380 50 L520 58" fill="none" stroke="var(--stone)" stroke-width="1.4" stroke-dasharray="4 4"/></svg>
+  <div class="ch-label">Chapter 09 · Critical Reading</div>
+  <h2 class="ch-title">อ่านอย่างวิพากษ์</h2>
+  <div class="ch-en">What holds, what needs qualifying, where it fails</div>
+  <p class="ch-essence">การเคารพหนังสือเล่มหนึ่ง ไม่ได้หมายถึงการเห็นด้วยกับมันทุกบรรทัด</p>
+  <span class="map-tag">Critical Thinking & Scientific Boundaries</span>
+</div>
+<section class="chapter">
+<h3>A. สิ่งที่หนังสือทำได้ดี</h3>
+<p><strong>1. การเปลี่ยนกรอบจากความผิดเป็นการปกป้อง</strong> การมองพฤติกรรมว่าเป็นความพยายามปกป้องตัวเอง ช่วยลดความละอาย ซึ่งเป็นหนึ่งในตัวขัดขวางการเปลี่ยนแปลงที่ทรงพลังที่สุด แนวคิดนี้สอดคล้องกับหลายแนวทางทางจิตวิทยา เช่น การวิเคราะห์หน้าที่ของพฤติกรรม (functional analysis) ในพฤติกรรมศาสตร์ และแนวคิดของ ACT ว่าพฤติกรรมหลีกเลี่ยงทำหน้าที่ลดความไม่สบายใจในระยะสั้น <span class="src b">B</span></p>
+<p><strong>2. การมองอารมณ์เป็นข้อมูล</strong> สอดคล้องกับงานวิจัยด้านการกำกับอารมณ์ ที่พบว่าการกดอารมณ์มักให้ผลแย่กว่าการรับรู้และตีความใหม่ <span class="src b">B</span></p>
+<p><strong>3. การเน้นการเปลี่ยนทีละน้อย</strong> แนวคิด microshifts สอดคล้องกับงานวิจัยด้านการสร้างนิสัยและ implementation intentions ซึ่งเป็นแนวทางที่มีหลักฐานรองรับค่อนข้างดี <span class="src b">B</span></p>
+<p><strong>4. การเข้าถึงง่าย</strong> หนังสือแปลงแนวคิดทางจิตวิทยาที่ซับซ้อนให้เป็นภาษาที่คนทั่วไปเข้าใจได้ และทำให้หลายคนเริ่มสำรวจตัวเองเป็นครั้งแรก ซึ่งมีคุณค่าในตัวเอง</p>
+
+<h3>B. สิ่งที่ต้องอธิบายเพิ่มเติม</h3>
+<p><strong>"จิตใต้สำนึกชนะเสมอ"</strong> คำอธิบายหนังสือบางฉบับเขียนทำนองว่า เมื่อความต้องการที่รู้ตัวกับไม่รู้ตัวขัดกัน ฝั่งที่ไม่รู้ตัวจะชนะทุกครั้ง <span class="src a">A</span> นี่เป็นภาษาเชิงวาทศิลป์มากกว่าข้อเท็จจริง ในทางจิตวิทยาสมัยใหม่ กระบวนการที่ไม่รู้ตัวมีอิทธิพลสูงจริง แต่ไม่ใช่ "ชนะทุกครั้ง" และไม่ได้แยกเป็นสองฝ่ายชัดเจนแบบที่คำเปรียบทำให้ดู <span class="src b">B</span></p>
+<p><strong>Trauma และร่างกาย</strong> คำว่า "เก็บไว้ในร่างกาย" หรือ "ปล่อยในระดับเซลล์" เป็นคำเปรียบที่ช่วยให้รู้สึกเชื่อมโยง แต่ไม่ควรอ่านเป็นคำอธิบายทางชีววิทยาที่ได้รับการยืนยัน <span class="src b">B</span></p>
+<p><strong>"ความเชื่อที่จำกัดตัวเรา"</strong> การเปลี่ยนความเชื่อมีพลังจริง แต่บางความเชื่อที่ดูจำกัด อาจเป็นการประเมินความเป็นจริงที่ถูกต้อง เช่น "ฉันยังไม่มีทักษะพอสำหรับงานนี้" อาจเป็นข้อมูลที่ควรใช้ในการวางแผนพัฒนาตัวเอง ไม่ใช่ความเชื่อที่ต้องลบทิ้ง <span class="src c">C</span></p>
+<p><strong>ความซ้ำ</strong> หนังสือวนกลับมาที่แก่นเดิมบ่อย ซึ่งช่วยย้ำความเข้าใจ แต่ก็ทำให้บางคนรู้สึกว่าเนื้อหาไม่ได้ลึกขึ้นตามจำนวนหน้า</p>
+
+<h3>C. สถานการณ์ที่กรอบคิดนี้อาจใช้ไม่ได้</h3>
+<table class="contrast">
+  <tr><th>สถานการณ์</th><th>ทำไมกรอบ Self-Sabotage ไม่พอ</th><th>สิ่งที่ควรทำแทน หรือทำควบคู่</th></tr>
+  <tr><td>ภาวะซึมเศร้า โรควิตกกังวล ADHD</td><td>การไม่ลงมืออาจมาจากอาการทางสุขภาพ ไม่ใช่ความต้องการซ่อนเร้น</td><td>ขอคำปรึกษาจากผู้เชี่ยวชาญ</td></tr>
+  <tr><td>ความเหนื่อยล้าเรื้อรัง</td><td>ร่างกายไม่มีพลังพอ ไม่ใช่ใจที่ต่อต้าน</td><td>แก้เรื่องการนอน ภาระงาน และสุขภาพก่อน</td></tr>
+  <tr><td>สิ่งแวดล้อมที่เป็นพิษหรืออันตราย</td><td>ปัญหาอยู่ข้างนอกจริง</td><td>สร้างความปลอดภัยและเปลี่ยนสภาพแวดล้อม</td></tr>
+  <tr><td>ความไม่เท่าเทียมเชิงโครงสร้าง</td><td>อุปสรรคไม่ได้เกิดจากความคิดของเรา</td><td>หาเครือข่ายสนับสนุน และเคลื่อนไหวในระดับระบบ</td></tr>
+  <tr><td>เป้าหมายที่ไม่ใช่ของเราจริง ๆ</td><td>"การต่อต้าน" อาจเป็นสัญญาณที่ถูกต้องว่าเป้าหมายนั้นผิดทาง</td><td>ทบทวนเป้าหมายใหม่ ไม่ใช่บังคับตัวเองให้ทำ</td></tr>
+</table>
+<p>ข้อสุดท้ายในตารางสำคัญมาก ไม่ใช่ทุกการต่อต้านคือ Self-Sabotage บางครั้งส่วนที่ "รั้งเราไว้" กำลังพูดถูก <strong>ความสำเร็จและการเปลี่ยนแปลงไม่ได้ดีสำหรับทุกคนในทุกสถานการณ์</strong> และความสามารถในการแยกว่าเมื่อไหร่ควรผลักตัวเอง กับเมื่อไหร่ควรฟังการต่อต้าน คือส่วนหนึ่งของ Self-Mastery เอง <span class="src c">C</span></p>
+
+<h3>ความสมดุลที่หนังสือมักไม่ได้พูดตรง ๆ</h3>
+<p><strong>การยอมรับตัวเองกับการพัฒนาตัวเองไปด้วยกันได้</strong> เราไม่จำเป็นต้องรอให้รักตัวเองครบร้อยก่อนจะพัฒนา และไม่จำเป็นต้องพัฒนาจนสมบูรณ์ก่อนจะยอมรับตัวเอง จิตวิทยาแนว ACT เรียกท่าทีนี้ว่า "การยอมรับและการลงมือ" ซึ่งเกิดขึ้นพร้อมกันได้ <span class="src b">B</span></p>
+<p><strong>Self-Mastery ไม่ควรกลายเป็นแรงกดดันใหม่</strong> ถ้าเราอ่านหนังสือแนวนี้แล้วเริ่มตรวจตัวเองตลอดเวลาว่า "นี่ฉันกำลังขัดขวางตัวเองอยู่หรือเปล่า" จนเหนื่อย เราอาจกำลังสร้างภูเขาลูกใหม่ขึ้นมาจากการพยายามปีนลูกเดิม <span class="src c">C</span></p>
+</section>
+
+<!-- ===================== CH10 ===================== -->
+<div class="ch-open" id="ch10">
+  <svg class="ridge" viewBox="0 0 520 60" aria-hidden="true"><path d="M0 58 L120 52 L180 44 L230 30 L260 36 L300 18 L340 34 L400 48 L520 58" fill="none" stroke="var(--gold)" stroke-width="1.6"/><circle cx="300" cy="18" r="5" fill="none" stroke="var(--gold)"/><circle cx="300" cy="18" r="2" fill="var(--gold)"/></svg>
+  <div class="ch-label">Synthesis · บทสังเคราะห์</div>
+  <h2 class="ch-title">ภูเขาที่ผมต้องก้าวข้าม<br>อาจเป็นสิ่งที่ผมยังไม่เข้าใจเกี่ยวกับตัวเอง</h2>
+  <div class="ch-en">The Mountain Is What We Haven't Yet Understood</div>
+</div>
+<section class="chapter">
+<p>หลังจากเดินมาครบทุกบท เราสามารถรวบรวมหลักคิดของทั้งเล่มได้เป็น 9 ข้อ แต่ละข้อไม่ใช่การสรุปหัวข้อซ้ำ แต่เป็นการเชื่อมสิ่งที่เรียนมาเข้าด้วยกัน <span class="src c">C</span></p>
+
+<div class="principle"><div class="n">1</div><div><h4>เราขัดขวางสิ่งที่ต้องการ เพราะเราต้องการมากกว่าหนึ่งอย่างพร้อมกัน</h4><p>ความต้องการก้าวหน้ากับความต้องการปลอดภัยอยู่ในตัวเราพร้อมกัน เมื่อเราฟังแค่ฝั่งเดียว อีกฝั่งก็จะทำงานอยู่เบื้องหลัง พฤติกรรมที่ดูขัดแย้งจึงมักเป็นการประนีประนอมระหว่างสองฝั่งที่เราไม่ได้ตั้งใจเลือก</p></div></div>
+<div class="principle"><div class="n">2</div><div><h4>ความต้องการที่ซ่อนอยู่ จะปรากฏผ่านคำถามว่า "พฤติกรรมนี้ให้อะไรเรา"</h4><p>แทนการถามว่าทำไมเราห่วย ให้ถามว่าทันทีหลังจากทำแบบเดิม เรารู้สึกดีขึ้นอย่างไร และถ้าไม่ทำ เราจะต้องเจออะไร คำตอบของข้อหลังมักชี้ไปยังความต้องการที่ยังไม่ได้รับการดูแล</p></div></div>
+<div class="principle"><div class="n">3</div><div><h4>ความกลัวและการต่อต้านคือผู้ส่งสาร ไม่ใช่ผู้ตัดสิน</h4><p>มันบอกว่าเรากำลังเข้าใกล้สิ่งที่สำคัญหรือไม่คุ้นเคย แต่ไม่ได้บอกว่าสิ่งนั้นอันตรายจริง หน้าที่ของเราคือฟังสาร แล้วตรวจสอบหลักฐานก่อนจะเชื่อ</p></div></div>
+<div class="principle"><div class="n">4</div><div><h4>ฟังอารมณ์เสมอ แต่ไม่ต้องให้อารมณ์ตัดสินใจแทนเสมอ</h4><p>อารมณ์บอกเราว่าอะไรสำคัญ การตัดสินใจบอกว่าเราจะทำอะไรกับความสำคัญนั้น ช่องว่างเล็ก ๆ ระหว่างสองอย่างนี้คือที่ที่ Self-Mastery เกิดขึ้น</p></div></div>
+<div class="principle"><div class="n">5</div><div><h4>ดูแลความต้องการความปลอดภัย ด้วยวิธีที่ไม่ต้องหยุดเติบโต</h4><p>เราไม่ต้องเลือกระหว่างปลอดภัยกับก้าวหน้า เราสามารถลดขนาดความเสี่ยงลง ทดลองในวงเล็ก ตั้งเกณฑ์ "พอ" ไว้ล่วงหน้า และสร้างตาข่ายรองรับ ส่วนที่ปกป้องเราจะยอมให้เราเดินต่อ เมื่อมันเห็นว่าเราดูแลมันอยู่</p></div></div>
+<div class="principle"><div class="n">6</div><div><h4>ปล่อยรูปแบบเดิมด้วยการขอบคุณ ไม่ใช่ด้วยการปฏิเสธ</h4><p>ตัวตนเก่าเคยพาเรารอดมาได้ การปล่อยวางที่ยั่งยืนคือการยอมรับบทบาทนั้น แล้วขยายเรื่องเล่าของตัวเองให้กว้างพอสำหรับชีวิตตอนนี้ ไม่ใช่การลบอดีตทิ้ง</p></div></div>
+<div class="principle"><div class="n">7</div><div><h4>ความไว้ใจในตัวเองสร้างจากสัญญาเล็ก ๆ ที่รักษาได้</h4><p>ไม่ใช่จากการตั้งเป้าหมายใหญ่ หรือการพูดกับตัวเองว่า "ฉันทำได้" แต่มาจากหลักฐานที่สะสม ทั้งการทำในสิ่งที่พูด และการพบว่าเรารับมือได้แม้ผลไม่เป็นไปตามหวัง</p></div></div>
+<div class="principle"><div class="n">8</div><div><h4>ตัวตนใหม่ถูกสร้างด้วยการกระทำ ก่อนที่จะรู้สึกว่าเป็นตัวเรา</h4><p>เราไม่ต้องรอให้รู้สึกเหมือนเป็นคนแบบนั้นก่อนจะทำแบบนั้น ความรู้สึกมักตามหลังการกระทำ Microshifts ที่ทำซ้ำคือวิธีที่ตัวตนในอนาคตค่อย ๆ กลายเป็นตัวตนในปัจจุบัน</p></div></div>
+<div class="principle"><div class="n">9</div><div><h4>Self-Mastery ที่ยั่งยืน คือการกลับมาได้ ไม่ใช่การไม่เคยหลง</h4><p>เราจะเจอภูเขาลูกใหม่เสมอ และจะกลับไปใช้รูปแบบเดิมบ้างเสมอ ความก้าวหน้าวัดจากระยะเวลาที่เราใช้ในการสังเกตตัวเอง ความอ่อนโยนที่ใช้กับความผิดพลาด และความเร็วในการเลือกทางใหม่</p></div></div>
+
+<div class="quote">
+  <div class="q">"Self-sabotage isn't a flaw to fix. It's a need to understand."</div>
+  <div class="th">"การขัดขวางตัวเองไม่ใช่ข้อบกพร่องที่ต้องซ่อม แต่เป็นความต้องการที่ต้องทำความเข้าใจ"</div>
+  <div class="who">One-liner สังเคราะห์ของเล่มนี้ · ไม่ใช่คำพูดของผู้เขียน</div>
+</div>
+
+<h2 id="framework" style="text-align:center;margin-top:3em">The Mountain Mapping Framework</h2>
+<p style="text-align:center" class="muted">A Practical Framework for Understanding and Changing Self-Defeating Patterns<br>กรอบสังเคราะห์จากการศึกษา <span class="src c">C</span> ไม่ใช่เครื่องมือวินิจฉัยทางจิตวิทยา</p>
+<p>กรอบนี้ออกแบบไว้ให้กลับมาใช้ได้ทุกครั้งที่รู้สึกว่าตัวเองติดอยู่ ใช้ได้ทั้งกับงาน ความสัมพันธ์ การเรียนรู้ การลงทุน และเป้าหมายชีวิต แต่ละขั้นมีคำถามหลักเพียงข้อเดียว เพื่อให้จำได้ง่าย และแยก<strong>สิ่งที่สังเกตได้</strong>ออกจาก<strong>สมมติฐาน</strong>อย่างชัดเจน</p>
+
+<div class="step"><div class="s">Step 1 · Notice</div><h4>สังเกต</h4><p>ตอนนี้เกิดพฤติกรรมอะไรขึ้นจริง ๆ อธิบายเหมือนกล้องวิดีโอ ไม่ใช่นักวิจารณ์</p><p class="q">❌ "ฉันขี้เกียจอีกแล้ว" → ✅ "ฉันเปิดไฟล์นี้สามครั้งในสัปดาห์นี้ แล้วปิดภายใน 5 นาที"</p></div>
+<div class="step"><div class="s">Step 2 · Identify the Conflict</div><h4>หาความขัดแย้ง</h4><p>สิ่งที่ฉันต้องการอย่างชัดเจนคืออะไร และมีความต้องการอื่นที่อาจขัดกับมันอยู่หรือไม่</p><p class="q">ในขั้นนี้เราตั้ง<strong>สมมติฐาน</strong> ไม่ใช่คำตอบสุดท้าย</p></div>
+<div class="step"><div class="s">Step 3 · Understand the Protection</div><h4>เข้าใจสิ่งที่กำลังถูกปกป้อง</h4><p>ถ้าพฤติกรรมนี้มีหน้าที่ปกป้องอะไรบางอย่าง มันอาจกำลังปกป้องอะไร เช่น ภาพลักษณ์ ความสัมพันธ์ ความรู้สึกว่าควบคุมได้ หรือการได้พัก</p></div>
+<div class="step"><div class="s">Step 4 · Reality Check</div><h4>ตรวจสอบกับความจริง</h4><p>ความเสี่ยงที่รู้สึกเป็นความเสี่ยงจริงหรือความเชื่อเดิม มีปัจจัยภายนอกอะไรที่ต้องแก้ เช่น การนอน ภาระงาน ทรัพยากร สุขภาพ หรือสิ่งแวดล้อม</p><p class="q">ขั้นนี้กันไม่ให้เราโทษตัวเองกับสิ่งที่ไม่ใช่ความผิดของเรา</p></div>
+<div class="step"><div class="s">Step 5 · Find a Healthier Response</div><h4>หาทางตอบสนองที่ดีกว่า</h4><p>มีวิธีตอบสนองความต้องการในขั้นที่ 3 ที่สร้างต้นทุนระยะยาวน้อยกว่าไหม เป้าหมายไม่ใช่การกำจัดความต้องการนั้น แต่คือการดูแลมันด้วยวิธีใหม่</p></div>
+<div class="step"><div class="s">Step 6 · Make a Microshift</div><h4>ก้าวเล็กหนึ่งก้าว</h4><p>ทำอะไรเล็ก ๆ ได้บ้างในตอนนี้ โดยไม่ต้องรอให้พร้อม เขียนเป็นประโยค "ถ้า... แล้วฉันจะ..." ถ้าก้าวนั้นยังน่ากลัวเกินไป ให้ลดขนาดลงอีก</p></div>
+<div class="step"><div class="s">Step 7 · Learn and Repeat</div><h4>เรียนรู้และทำซ้ำ</h4><p>ผลที่ได้สอนอะไร สมมติฐานในขั้นที่ 2–3 ถูกแค่ไหน ครั้งต่อไปควรปรับอะไร แล้วบันทึกลงบัญชีหลักฐานจากบทที่ 8</p></div>
+
+<h3>ตัวอย่างการใช้งานจริง</h3>
+<div class="story"><div class="h">กรณีศึกษาสมมติ: บทความที่ไม่เคยถูกเผยแพร่ <span class="src c">C</span></div><ol>
+<li><span>1 · Notice</span>เขียนร่างบทความเรื่องการลงทุนไว้ 4 ชิ้น แต่ไม่เคยเผยแพร่เลยในรอบ 5 เดือน และเริ่มเขียนชิ้นที่ 5 ทั้งที่ชิ้นแรกยังไม่เสร็จ</li>
+<li><span>2 · Conflict</span>อยากแบ่งปันความรู้และสร้างตัวตนในฐานะคนที่มีความคิดน่าสนใจ <strong>ขัดกับ</strong> สมมติฐานว่าอาจต้องการรักษาภาพ "คนที่รู้เรื่องนี้ดี" ไว้</li>
+<li><span>3 · Protection</span>การไม่เผยแพร่ช่วยปกป้องจากความเสี่ยงที่คนที่รู้มากกว่าจะชี้จุดผิด</li>
+<li><span>4 · Reality</span>ตรวจแล้วพบว่า ความเสี่ยงจริงคือมีคนแย้งในคอมเมนต์ ซึ่งไม่ทำให้เสียงานหรือเสียเงิน ปัจจัยภายนอกคือเวลาว่างมีน้อยจริง แต่ไม่ใช่สาเหตุหลัก เพราะยังมีเวลาเขียนชิ้นใหม่ได้</li>
+<li><span>5 · Healthier</span>ดูแลความต้องการ "ไม่อยากผิดต่อหน้าคนอื่น" ด้วยการเขียนกำกับว่าเป็นบันทึกการเรียนรู้ และเชิญให้คนช่วยชี้จุดที่ควรแก้</li>
+<li><span>6 · Microshift</span>"ถ้าเป็นคืนวันพฤหัส ฉันจะแก้ชิ้นแรก 30 นาที แล้วกดเผยแพร่ ไม่ว่าจะรู้สึกพร้อมหรือไม่"</li>
+<li><span>7 · Learn</span>หลังเผยแพร่ มีคนแย้ง 1 ประเด็น ซึ่งช่วยให้เข้าใจเรื่องนั้นลึกขึ้นจริง ความกลัวทำนายความรุนแรงเกินจริงไปมาก บันทึกลงบัญชีหลักฐาน แล้วตั้งรอบถัดไปเป็นทุกสองสัปดาห์</li>
+</ol></div>
+<p>ตัวอย่างนี้ไม่ได้บอกว่าผลจะออกมาดีเสมอ ถ้าคำวิจารณ์รุนแรงกว่าที่คาด ขั้นที่ 7 ก็ยังทำงานได้ เพราะเราได้ข้อมูลจริงมาแทนการคาดเดา และได้หลักฐานว่าเรารับมือกับมันได้</p>
+
+<div class="limit"><span class="k">วิธีใช้กรอบนี้อย่างปลอดภัย</span>
+<p>อย่าใช้ทั้ง 7 ขั้นกับทุกเรื่องเล็ก ๆ ในชีวิต ใช้กับรูปแบบที่<strong>เกิดซ้ำและมีต้นทุนจริง</strong> และถ้าขั้นที่ 4 ชี้ว่าปัญหาหลักอยู่ข้างนอก ให้หยุดที่ขั้นนั้น แล้วแก้สิ่งแวดล้อมก่อน กรอบนี้ไม่ได้ออกแบบมาเพื่อหาว่าใครผิด แต่เพื่อหาว่าตรงไหนที่เราเปลี่ยนได้</p></div>
+
+<h3>หนังสือและแหล่งต่อยอด</h3>
+<table class="contrast">
+  <tr><th>อ่านต่อ</th><th>ทำไมถึงเกี่ยวข้อง</th></tr>
+  <tr><td><em>The Big Leap</em> · Gay Hendricks</td><td>ต้นทางของแนวคิด Upper Limit Problem ควรอ่านแบบเปิดใจ แต่มีวิจารณญาณ</td></tr>
+  <tr><td><em>The Happiness Trap</em> · Russ Harris</td><td>แนะนำ ACT ฉบับเข้าใจง่าย เรื่องการอยู่กับความรู้สึกยาก ๆ แล้วยังลงมือตามคุณค่าได้</td></tr>
+  <tr><td><em>Self-Compassion</em> · Kristin Neff</td><td>หลักฐานว่าความเมตตาต่อตัวเองช่วยให้พัฒนา ไม่ใช่ทำให้ขี้เกียจ</td></tr>
+  <tr><td><em>Rethinking Positive Thinking</em> · Gabriele Oettingen</td><td>วิธี WOOP สำหรับเชื่อมการจินตนาการถึงอนาคตเข้ากับการลงมือจริง</td></tr>
+  <tr><td><em>Immunity to Change</em> · Robert Kegan & Lisa Lahey</td><td>กรอบเชิงวิชาการเรื่อง "ข้อผูกมัดที่ซ่อนอยู่" ซึ่งใกล้กับแนวคิด conflicting needs มาก และมีแบบฝึกหัดที่เป็นระบบ</td></tr>
+</table>
+</section>
+
+<section class="chapter">
+<h3>แหล่งอ้างอิง (Source Notes)</h3>
+<ol class="refs">
+<li>Wiest, B. (2020). <em>The Mountain Is You: Transforming Self-Sabotage Into Self-Mastery</em>. Thought Catalog Books. คำอธิบายหนังสือจากสำนักพิมพ์ (Apple Books, หน้ารายการหนังสือของร้านค้าออนไลน์) — ใช้สำหรับคำพูดตรงสองประโยคในเล่มนี้ <span class="src a">A</span></li>
+<li>บทวิจารณ์และบทสรุปจาก The Citizen (Tanzania), Future Startup และ booxworm — ใช้สำหรับยืนยันโครงสร้างและแนวคิดหลัก <span class="src a">A</span></li>
+<li>Sirois, F., & Pychyl, T. (2013). Procrastination and the priority of short-term mood regulation. <em>Social and Personality Psychology Compass</em>. <span class="src b">B</span></li>
+<li>Gross, J. J., & John, O. P. (2003). Individual differences in two emotion regulation processes. <em>Journal of Personality and Social Psychology</em>. <span class="src b">B</span></li>
+<li>Hayes, S. C., et al. (2006). Acceptance and Commitment Therapy: Model, processes and outcomes. <em>Behaviour Research and Therapy</em>. <span class="src b">B</span></li>
+<li>Lieberman, M. D., et al. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity. <em>Psychological Science</em>. <span class="src b">B</span></li>
+<li>Stoeber, J., & Otto, K. (2006). Positive conceptions of perfectionism. <em>Personality and Social Psychology Review</em>; Curran, T., & Hill, A. P. (2019). Perfectionism is increasing over time. <em>Psychological Bulletin</em>. <span class="src b">B</span></li>
+<li>Swann, W. B. (1983, และงานต่อเนื่อง). Self-verification theory. <span class="src b">B</span></li>
+<li>Hershfield, H. E. (2011). Future self-continuity. <em>Annals of the New York Academy of Sciences</em>. <span class="src b">B</span></li>
+<li>Oettingen, G. (2014). <em>Rethinking Positive Thinking</em>. Current. <span class="src b">B</span></li>
+<li>Lally, P., et al. (2010). How are habits formed. <em>European Journal of Social Psychology</em>. <span class="src b">B</span></li>
+<li>Gollwitzer, P. M., & Sheeran, P. (2006). Implementation intentions and goal achievement: A meta-analysis. <em>Advances in Experimental Social Psychology</em>. <span class="src b">B</span></li>
+<li>Neff, K. D. (2003). Self-compassion; Breines, J. G., & Chen, S. (2012). Self-compassion increases self-improvement motivation. <em>Personality and Social Psychology Bulletin</em>. <span class="src b">B</span></li>
+<li>Kahneman, D., & Klein, G. (2009). Conditions for intuitive expertise. <em>American Psychologist</em>. <span class="src b">B</span></li>
+<li>Hendricks, G. (2009). <em>The Big Leap</em>. HarperOne — แหล่งที่มาของแนวคิด Upper Limit Problem <span class="src a">A</span></li>
+</ol>
+<p class="muted" style="font-size:14px">หมายเหตุ: ข้อมูลอ้างอิงงานวิจัยสรุปตามความรู้ทั่วไปในสาขา ควรตรวจสอบรายละเอียดจากต้นฉบับอีกครั้งก่อนนำไปอ้างอิงต่อในงานวิชาการ</p>
+</section>
+</main>
+
+<div class="final">
+  <svg viewBox="0 0 300 70" style="width:220px" aria-hidden="true"><path d="M8 66 L70 52 L104 34 L122 40 L150 4 L170 26 L186 22 L214 44 L246 50 L292 66" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/><circle cx="150" cy="4" r="3" fill="var(--gold)"/></svg>
+  <div class="ch-label" style="margin-top:24px">The Final Question</div>
+  <p class="q">"ถ้าผมเลิกมองพฤติกรรมที่ขัดขวางตัวเองเป็นศัตรู แล้วเริ่มมองมันเป็นสิ่งที่ผมต้องทำความเข้าใจ ผมจะค้นพบอะไรเกี่ยวกับตัวเอง และผมพร้อมจะเปลี่ยนแปลงอะไรเป็นสิ่งแรก?"</p>
+  <p class="muted" style="max-width:520px;margin:0 auto;font-size:15px">คำถามนี้ไม่ต้องตอบให้สมบูรณ์ในวันนี้ แค่เลือก Microshift แรกหนึ่งอย่าง แล้วให้ภูเขาค่อย ๆ สอนส่วนที่เหลือ</p>
+</div>
+<footer>
+  The Mountain Is You · Premium Digital Companion · ฉบับภาษาไทยเพื่อการศึกษาส่วนตัว<br>
+  เนื้อหาเป็นการถอดความและวิเคราะห์ ไม่ใช่การทำซ้ำต้นฉบับ · ไม่ใช่คำแนะนำทางการแพทย์หรือจิตวิทยา
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement, KEY='mty-theme', POS='mty-pos';
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var t=get(KEY); if(t==='paper') root.setAttribute('data-theme','paper');
+  var tb=document.getElementById('themeBtn');
+  function label(){tb.textContent=root.getAttribute('data-theme')==='paper'?'◑ โหมดกลางคืน':'◐ โหมดกระดาษ'}
+  label();
+  tb.onclick=function(){if(root.getAttribute('data-theme')==='paper'){root.removeAttribute('data-theme');set(KEY,'dark')}else{root.setAttribute('data-theme','paper');set(KEY,'paper')}label()};
+
+  // drawer
+  var drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim');
+  var chapters=[].slice.call(document.querySelectorAll('.ch-open[id]'));
+  var html='<div class="ch-label" style="margin-bottom:12px">สารบัญ</div><a href="#top"><span class="dn">◇</span>ปก</a><a href="#toc"><span class="dn">◇</span>เส้นทางของเล่มนี้</a>';
+  chapters.forEach(function(c,i){var title=c.querySelector('.ch-title').textContent;html+='<a href="#'+c.id+'" data-id="'+c.id+'"><span class="dn">'+String(i).padStart(2,'0')+'</span>'+title+'</a>'});
+  html+='<a href="#framework"><span class="dn">◆</span>Mountain Mapping Framework</a>';
+  drawer.innerHTML=html;
+  function toggle(open){drawer.classList.toggle('open',open);scrim.classList.toggle('on',open)}
+  document.getElementById('tocBtn').onclick=function(){toggle(!drawer.classList.contains('open'))};
+  scrim.onclick=function(){toggle(false)};
+  drawer.addEventListener('click',function(e){if(e.target.closest('a'))toggle(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')toggle(false)});
+
+  // progress + climber
+  var bar=document.getElementById('progress'),path=document.getElementById('climbPath'),done=document.getElementById('climbDone'),dot=document.getElementById('climber');
+  var L=path.getTotalLength(); done.style.strokeDasharray=L; done.style.strokeDashoffset=L;
+  var links=[].slice.call(drawer.querySelectorAll('a[data-id]'));
+  var saveT;
+  function onScroll(){
+    var h=document.documentElement.scrollHeight-innerHeight, p=h>0?Math.min(1,Math.max(0,scrollY/h)):0;
+    bar.style.width=(p*100)+'%';
+    var pt=path.getPointAtLength(p*L); dot.setAttribute('cx',pt.x); dot.setAttribute('cy',pt.y);
+    done.style.strokeDashoffset=L*(1-p);
+    var cur=null; chapters.forEach(function(c){if(c.getBoundingClientRect().top<innerHeight*.4)cur=c.id});
+    links.forEach(function(a){a.classList.toggle('active',a.dataset.id===cur)});
+    clearTimeout(saveT); saveT=setTimeout(function(){set(POS,String(scrollY))},400);
+  }
+  addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll);
+  var saved=parseInt(get(POS),10);
+  if(!location.hash && saved>innerHeight){
+    var n=document.createElement('button');n.className='btn';n.textContent='↳ อ่านต่อจากที่ค้างไว้';
+    n.style.cssText='position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:60';
+    n.onclick=function(){scrollTo({top:saved,behavior:'smooth'});n.remove()};
+    document.body.appendChild(n); setTimeout(function(){n.remove()},9000);
+  }
+  onScroll();
+})();
+</script>
+</body>
+</html>
